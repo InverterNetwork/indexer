@@ -1,0 +1,4 @@
+type Orchestrator {
+  id: ID!
+  address: String
+}
