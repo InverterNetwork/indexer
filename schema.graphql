@@ -1,4 +1,23 @@
-type Orchestrator {
+type Workflow {
+  id: ID! # orchestratorAddress
+  orchestratorId: BigInt!
+  fundingManager: WorkflowModule!
+  authorizer: WorkflowModule!
+  paymentProcessor: WorkflowModule!
+  optionalModules: [String!]
+}
+
+type WorkflowModuleType {
   id: ID!
-  address: String
+  majorVersion: BigInt!
+  minorVersion: BigInt!
+  url: String!
+  name: String!
+  beacon: String!
+}
+
+type WorkflowModule {
+  id: ID! # address of module
+  orchestrator: String!
+  moduleType: WorkflowModuleType!
 }
