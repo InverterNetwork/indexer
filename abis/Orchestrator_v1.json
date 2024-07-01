@@ -1,0 +1,750 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "_trustedForwarder",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "MODULE_UPDATE_TIMELOCK",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "uint256", "internalType": "uint256" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "authorizer",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract IAuthorizer_v1"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "cancelAuthorizerUpdate",
+    "inputs": [
+      {
+        "name": "authorizer_",
+        "type": "address",
+        "internalType": "contract IAuthorizer_v1"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "cancelFundingManagerUpdate",
+    "inputs": [
+      {
+        "name": "fundingManager_",
+        "type": "address",
+        "internalType": "contract IFundingManager_v1"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "cancelModuleUpdate",
+    "inputs": [
+      {
+        "name": "module_",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "cancelPaymentProcessorUpdate",
+    "inputs": [
+      {
+        "name": "paymentProcessor_",
+        "type": "address",
+        "internalType": "contract IPaymentProcessor_v1"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "executeAddModule",
+    "inputs": [
+      {
+        "name": "module_",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "executeRemoveModule",
+    "inputs": [
+      {
+        "name": "module_",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "executeSetAuthorizer",
+    "inputs": [
+      {
+        "name": "authorizer_",
+        "type": "address",
+        "internalType": "contract IAuthorizer_v1"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "executeSetFundingManager",
+    "inputs": [
+      {
+        "name": "fundingManager_",
+        "type": "address",
+        "internalType": "contract IFundingManager_v1"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "executeSetPaymentProcessor",
+    "inputs": [
+      {
+        "name": "paymentProcessor_",
+        "type": "address",
+        "internalType": "contract IPaymentProcessor_v1"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "executeTx",
+    "inputs": [
+      {
+        "name": "target",
+        "type": "address",
+        "internalType": "address"
+      },
+      { "name": "data", "type": "bytes", "internalType": "bytes" }
+    ],
+    "outputs": [
+      { "name": "", "type": "bytes", "internalType": "bytes" }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "executeTxFromModule",
+    "inputs": [
+      { "name": "to", "type": "address", "internalType": "address" },
+      { "name": "data", "type": "bytes", "internalType": "bytes" }
+    ],
+    "outputs": [
+      { "name": "", "type": "bool", "internalType": "bool" },
+      { "name": "", "type": "bytes", "internalType": "bytes" }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "findModuleAddressInOrchestrator",
+    "inputs": [
+      {
+        "name": "moduleName",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [
+      { "name": "", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "fundingManager",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract IFundingManager_v1"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "governor",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract IGovernor_v1"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "init",
+    "inputs": [
+      {
+        "name": "orchestratorId_",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "moduleFactory_",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "modules",
+        "type": "address[]",
+        "internalType": "address[]"
+      },
+      {
+        "name": "fundingManager_",
+        "type": "address",
+        "internalType": "contract IFundingManager_v1"
+      },
+      {
+        "name": "authorizer_",
+        "type": "address",
+        "internalType": "contract IAuthorizer_v1"
+      },
+      {
+        "name": "paymentProcessor_",
+        "type": "address",
+        "internalType": "contract IPaymentProcessor_v1"
+      },
+      {
+        "name": "governor_",
+        "type": "address",
+        "internalType": "contract IGovernor_v1"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "initiateAddModuleWithTimelock",
+    "inputs": [
+      {
+        "name": "module_",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "initiateRemoveModuleWithTimelock",
+    "inputs": [
+      {
+        "name": "module_",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "initiateSetAuthorizerWithTimelock",
+    "inputs": [
+      {
+        "name": "authorizer_",
+        "type": "address",
+        "internalType": "contract IAuthorizer_v1"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "initiateSetFundingManagerWithTimelock",
+    "inputs": [
+      {
+        "name": "fundingManager_",
+        "type": "address",
+        "internalType": "contract IFundingManager_v1"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "initiateSetPaymentProcessorWithTimelock",
+    "inputs": [
+      {
+        "name": "paymentProcessor_",
+        "type": "address",
+        "internalType": "contract IPaymentProcessor_v1"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "isModule",
+    "inputs": [
+      {
+        "name": "module",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      { "name": "", "type": "bool", "internalType": "bool" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "isTrustedForwarder",
+    "inputs": [
+      {
+        "name": "forwarder",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      { "name": "", "type": "bool", "internalType": "bool" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "listModules",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "address[]", "internalType": "address[]" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "moduleAddressToTimelock",
+    "inputs": [
+      {
+        "name": "module",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "timelockActive",
+        "type": "bool",
+        "internalType": "bool"
+      },
+      {
+        "name": "timelockUntil",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "moduleFactory",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "modulesSize",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "uint8", "internalType": "uint8" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "orchestratorId",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "uint256", "internalType": "uint256" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "paymentProcessor",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract IPaymentProcessor_v1"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "supportsInterface",
+    "inputs": [
+      {
+        "name": "interfaceId",
+        "type": "bytes4",
+        "internalType": "bytes4"
+      }
+    ],
+    "outputs": [
+      { "name": "", "type": "bool", "internalType": "bool" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "trustedForwarder",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "version",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "string", "internalType": "string" }
+    ],
+    "stateMutability": "pure"
+  },
+  {
+    "type": "event",
+    "name": "AuthorizerUpdated",
+    "inputs": [
+      {
+        "name": "_address",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "FundingManagerUpdated",
+    "inputs": [
+      {
+        "name": "_address",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "Initialized",
+    "inputs": [
+      {
+        "name": "version",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "ModuleAdded",
+    "inputs": [
+      {
+        "name": "module",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "ModuleRemoved",
+    "inputs": [
+      {
+        "name": "module",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "ModuleTimelockStarted",
+    "inputs": [
+      {
+        "name": "module",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "timelockUntil",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "ModuleUpdateCanceled",
+    "inputs": [
+      {
+        "name": "module",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "OrchestratorInitialized",
+    "inputs": [
+      {
+        "name": "orchestratorId_",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "fundingManager",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "authorizer",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "paymentProcessor",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "modules",
+        "type": "address[]",
+        "indexed": false,
+        "internalType": "address[]"
+      },
+      {
+        "name": "governor",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "PaymentProcessorUpdated",
+    "inputs": [
+      {
+        "name": "_address",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  { "type": "error", "name": "InvalidInitialization", "inputs": [] },
+  {
+    "type": "error",
+    "name": "ModuleManagerBase__CallerNotAuthorized",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ModuleManagerBase__InvalidModuleAddress",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ModuleManagerBase__IsModule",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ModuleManagerBase__IsNotModule",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ModuleManagerBase__ModuleAmountOverLimits",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ModuleManagerBase__ModuleFactoryInvalid",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ModuleManagerBase__ModuleNotRegistered",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ModuleManagerBase__ModuleUpdateAlreadyStarted",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ModuleManagerBase__ModuleUpdateTimelockStillActive",
+    "inputs": [
+      {
+        "name": "_module",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "_timelockUntil",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "ModuleManagerBase__OnlyCallableByModule",
+    "inputs": []
+  },
+  { "type": "error", "name": "NotInitializing", "inputs": [] },
+  {
+    "type": "error",
+    "name": "Orchestrator__CallerNotAuthorized",
+    "inputs": [
+      {
+        "name": "role",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "caller",
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "Orchestrator__DependencyInjection__ModuleNotUsedInOrchestrator",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Orchestrator__ExecuteTxFailed",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Orchestrator__InvalidModuleType",
+    "inputs": [
+      {
+        "name": "module",
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "Orchestrator__InvalidRemovalOfAuthorizer",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Orchestrator__InvalidRemovalOfFundingManager",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Orchestrator__InvalidRemovalOfPaymentProcessor",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Orchestrator__MismatchedTokenForFundingManager",
+    "inputs": [
+      {
+        "name": "currentToken",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "newToken",
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
+  }
+]

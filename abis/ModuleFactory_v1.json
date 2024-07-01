@@ -1,0 +1,478 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "_trustedForwarder",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "acceptOwnership",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "createModule",
+    "inputs": [
+      {
+        "name": "metadata",
+        "type": "tuple",
+        "internalType": "struct IModule_v1.Metadata",
+        "components": [
+          {
+            "name": "majorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "minorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "url",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "internalType": "string"
+          }
+        ]
+      },
+      {
+        "name": "orchestrator",
+        "type": "address",
+        "internalType": "contract IOrchestrator_v1"
+      },
+      {
+        "name": "configData",
+        "type": "bytes",
+        "internalType": "bytes"
+      },
+      {
+        "name": "workflowConfig",
+        "type": "tuple",
+        "internalType": "struct IOrchestratorFactory_v1.WorkflowConfig",
+        "components": [
+          {
+            "name": "independentUpdates",
+            "type": "bool",
+            "internalType": "bool"
+          },
+          {
+            "name": "independentUpdateAdmin",
+            "type": "address",
+            "internalType": "address"
+          }
+        ]
+      }
+    ],
+    "outputs": [
+      { "name": "", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getBeaconAndId",
+    "inputs": [
+      {
+        "name": "metadata",
+        "type": "tuple",
+        "internalType": "struct IModule_v1.Metadata",
+        "components": [
+          {
+            "name": "majorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "minorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "url",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "internalType": "string"
+          }
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract IInverterBeacon_v1"
+      },
+      { "name": "", "type": "bytes32", "internalType": "bytes32" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getOrchestratorOfProxy",
+    "inputs": [
+      {
+        "name": "proxy",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      { "name": "", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "governor",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "init",
+    "inputs": [
+      {
+        "name": "_governor",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "initialMetadataRegistration",
+        "type": "tuple[]",
+        "internalType": "struct IModule_v1.Metadata[]",
+        "components": [
+          {
+            "name": "majorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "minorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "url",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "internalType": "string"
+          }
+        ]
+      },
+      {
+        "name": "initialBeaconRegistration",
+        "type": "address[]",
+        "internalType": "contract IInverterBeacon_v1[]"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "isTrustedForwarder",
+    "inputs": [
+      {
+        "name": "forwarder",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      { "name": "", "type": "bool", "internalType": "bool" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "owner",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "pendingOwner",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "registerMetadata",
+    "inputs": [
+      {
+        "name": "metadata",
+        "type": "tuple",
+        "internalType": "struct IModule_v1.Metadata",
+        "components": [
+          {
+            "name": "majorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "minorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "url",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "internalType": "string"
+          }
+        ]
+      },
+      {
+        "name": "beacon",
+        "type": "address",
+        "internalType": "contract IInverterBeacon_v1"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "renounceOwnership",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "supportsInterface",
+    "inputs": [
+      {
+        "name": "interfaceId",
+        "type": "bytes4",
+        "internalType": "bytes4"
+      }
+    ],
+    "outputs": [
+      { "name": "", "type": "bool", "internalType": "bool" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "transferOwnership",
+    "inputs": [
+      {
+        "name": "newOwner",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "trustedForwarder",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "event",
+    "name": "Initialized",
+    "inputs": [
+      {
+        "name": "version",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "MetadataRegistered",
+    "inputs": [
+      {
+        "name": "metadata",
+        "type": "tuple",
+        "indexed": false,
+        "internalType": "struct IModule_v1.Metadata",
+        "components": [
+          {
+            "name": "majorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "minorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "url",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "internalType": "string"
+          }
+        ]
+      },
+      {
+        "name": "beacon",
+        "type": "address",
+        "indexed": true,
+        "internalType": "contract IInverterBeacon_v1"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "ModuleCreated",
+    "inputs": [
+      {
+        "name": "orchestrator",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "m",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "identifier",
+        "type": "bytes32",
+        "indexed": false,
+        "internalType": "bytes32"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "OwnershipTransferStarted",
+    "inputs": [
+      {
+        "name": "previousOwner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "newOwner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "OwnershipTransferred",
+    "inputs": [
+      {
+        "name": "previousOwner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "newOwner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  { "type": "error", "name": "InvalidInitialization", "inputs": [] },
+  {
+    "type": "error",
+    "name": "ModuleFactory__InvalidInitialRegistrationData",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ModuleFactory__InvalidInverterBeacon",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ModuleFactory__InvalidMetadata",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ModuleFactory__MetadataAlreadyRegistered",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ModuleFactory__UnregisteredMetadata",
+    "inputs": []
+  },
+  { "type": "error", "name": "NotInitializing", "inputs": [] },
+  {
+    "type": "error",
+    "name": "OwnableInvalidOwner",
+    "inputs": [
+      {
+        "name": "owner",
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "OwnableUnauthorizedAccount",
+    "inputs": [
+      {
+        "name": "account",
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
+  }
+]
