@@ -11,7 +11,7 @@
     "mocha": "10.2.0"
   },
   "dependencies": {
-    "envio": "1.2.0",
+    "envio": "2.0.0-rc.1",
     "viem": "1.16.6"
   },
   "optionalDependencies": {
