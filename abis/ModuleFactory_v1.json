@@ -380,10 +380,32 @@
         "internalType": "address"
       },
       {
-        "name": "identifier",
-        "type": "bytes32",
+        "name": "metadata",
+        "type": "tuple",
         "indexed": false,
-        "internalType": "bytes32"
+        "internalType": "struct IModule_v1.Metadata",
+        "components": [
+          {
+            "name": "majorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "minorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "url",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "internalType": "string"
+          }
+        ]
       }
     ],
     "anonymous": false
@@ -426,7 +448,11 @@
     ],
     "anonymous": false
   },
-  { "type": "error", "name": "InvalidInitialization", "inputs": [] },
+  {
+    "type": "error",
+    "name": "InvalidInitialization",
+    "inputs": []
+  },
   {
     "type": "error",
     "name": "ModuleFactory__InvalidInitialRegistrationData",

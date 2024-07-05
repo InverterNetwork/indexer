@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       envio:
-        specifier: 1.2.0
-        version: 1.2.0
+        specifier: 2.0.0-rc.1
+        version: 2.0.0-rc.1
       viem:
         specifier: 1.16.6
         version: 1.16.6
@@ -89,8 +89,8 @@ importers:
         specifier: 11.1.0
         version: 11.1.0
       rescript-envsafe:
-        specifier: 3.1.0
-        version: 3.1.0(rescript-schema@6.4.0(rescript@11.1.0))(rescript@11.1.0)
+        specifier: 4.0.0
+        version: 4.0.0(rescript-schema@6.4.0(rescript@11.1.0))(rescript@11.1.0)
       rescript-express:
         specifier: 0.4.1
         version: 0.4.1(express@4.19.2)
@@ -448,28 +448,28 @@ packages:
   end-of-stream@1.4.4:
     resolution: {integrity: sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==}
 
-  envio-darwin-arm64@1.2.0:
-    resolution: {integrity: sha512-abVWCuCEwRtQWyspAK3kDVIFJiOpOWrWqaygves8IY2JTkIG4RpQXB6zHWKi1+03b5hjvS8QzZ9vkYbCjOVd+g==}
+  envio-darwin-arm64@2.0.0-rc.1:
+    resolution: {integrity: sha512-3VF6BY0hN84r2SJDli02a7uhfmrDL/aWiHcdT7JpbCFumMNk9+vuYAQl20pKNBeiBg6RpKfp+/f2url+lQA6zQ==}
     cpu: [arm64]
     os: [darwin]
 
-  envio-darwin-x64@1.2.0:
-    resolution: {integrity: sha512-XbrpwX5CEc4f/HUtp1u2S6FTI/j8wxJlb0zVx5SpUBNigetYQqkfv+bZUzRw66/6P0aB5Q0b2qJ7xu+wAWd08A==}
+  envio-darwin-x64@2.0.0-rc.1:
+    resolution: {integrity: sha512-Z79xDkXGOrqMACtLQhzvVbU/5sPSdo4ZJFvwi5PDAtxpwRUSMmm+6j1wf5yMPYFEBDxuek0iai4nICi7Z6O+DA==}
     cpu: [x64]
     os: [darwin]
 
-  envio-linux-arm64@1.2.0:
-    resolution: {integrity: sha512-7r++jVILTd4zycMzb/XBMgN2GUoQRu/SVf5QDZzzcNorgUwu25os3vjFGKQq+Fk6d94B1kHA5ErEXBovaRN9kA==}
+  envio-linux-arm64@2.0.0-rc.1:
+    resolution: {integrity: sha512-hv/gYFInKD0m7Rm3U0mcobmCupK4bDc0/rcACkFB+MA2lEr/4MZ3wB69rLb1r9M2LGaWE8rqQqbjga7jpz/SkA==}
     cpu: [arm64]
     os: [linux]
 
-  envio-linux-x64@1.2.0:
-    resolution: {integrity: sha512-aLGb/fdL3T4tJ2DRH5aoIAr0skQBqHd0B9kQPm/PqdSCtRWvJO9jGrRXUZzh7qotgAihoegiDvSdn5Yy6SvyZQ==}
+  envio-linux-x64@2.0.0-rc.1:
+    resolution: {integrity: sha512-DfwHeWWqyYE1o/ZqrvuGIFqFW5psci7w6C7DUPDpwfdBjJan9vC81XfBM2/ats/iYbDt7JSaaoZWmtzFmlGY4A==}
     cpu: [x64]
     os: [linux]
 
-  envio@1.2.0:
-    resolution: {integrity: sha512-d6pRWVxd1B+PMh+0NlmSy1YyccDtTN+TJRVV1GKyA6+hFYjxdaDg2IEmXCMWA9BuJndSYXv06Si92y8ZZEq9sA==}
+  envio@2.0.0-rc.1:
+    resolution: {integrity: sha512-dZ4ZVtzrJpiNCTHpCRRu9o5XQ6/Yvw7pWnYMkkMVVswquv6p+06mWj4VF4ZiNccXWUZyMEsHWvqNGIDwQIxe5A==}
     hasBin: true
 
   es-define-property@1.0.0:
@@ -995,8 +995,8 @@ packages:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
     engines: {node: '>=0.10.0'}
 
-  rescript-envsafe@3.1.0:
-    resolution: {integrity: sha512-XphCDfDloSvUwX/dhghRIK81AMKez0rmXUXvLyVW7s3cjzWjHKMc0GTYwIJDB6J7RRmXuA8ZPTsphwEj9yVJeQ==}
+  rescript-envsafe@4.0.0:
+    resolution: {integrity: sha512-wekPTb1z2HpMfMiNP7MOCxFJCB9QTr3RMtUoaHNm9uV9d4S5nS7LDVmiak/d3cqFCT8nLjcdOS30CA/aU+E+Gg==}
     peerDependencies:
       rescript: 11.x
       rescript-schema: 6.x
@@ -1571,24 +1571,24 @@ snapshots:
     dependencies:
       once: 1.4.0
 
-  envio-darwin-arm64@1.2.0:
+  envio-darwin-arm64@2.0.0-rc.1:
     optional: true
 
-  envio-darwin-x64@1.2.0:
+  envio-darwin-x64@2.0.0-rc.1:
     optional: true
 
-  envio-linux-arm64@1.2.0:
+  envio-linux-arm64@2.0.0-rc.1:
     optional: true
 
-  envio-linux-x64@1.2.0:
+  envio-linux-x64@2.0.0-rc.1:
     optional: true
 
-  envio@1.2.0:
+  envio@2.0.0-rc.1:
     optionalDependencies:
-      envio-darwin-arm64: 1.2.0
-      envio-darwin-x64: 1.2.0
-      envio-linux-arm64: 1.2.0
-      envio-linux-x64: 1.2.0
+      envio-darwin-arm64: 2.0.0-rc.1
+      envio-darwin-x64: 2.0.0-rc.1
+      envio-linux-arm64: 2.0.0-rc.1
+      envio-linux-x64: 2.0.0-rc.1
 
   es-define-property@1.0.0:
     dependencies:
@@ -2154,7 +2154,7 @@ snapshots:
 
   require-directory@2.1.1: {}
 
-  rescript-envsafe@3.1.0(rescript-schema@6.4.0(rescript@11.1.0))(rescript@11.1.0):
+  rescript-envsafe@4.0.0(rescript-schema@6.4.0(rescript@11.1.0))(rescript@11.1.0):
     dependencies:
       rescript: 11.1.0
       rescript-schema: 6.4.0(rescript@11.1.0)
