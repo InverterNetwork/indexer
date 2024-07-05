@@ -1,7 +1,7 @@
-const { keccak256, encodeAbiParameters } = require('viem');
+import { keccak256, encodeAbiParameters } from 'viem';
+import { Metadata } from './types';
 
-const getMetadataId = (metadata) => {
-  console.log(metadata);
+export const getMetadataId = (metadata: Metadata) => {
   const [majorVersion, , url, name] = metadata;
   return keccak256(
     encodeAbiParameters(
@@ -14,5 +14,3 @@ const getMetadataId = (metadata) => {
     )
   );
 };
-
-module.exports = { getMetadataId };

@@ -1,11 +1,6 @@
-const { keccak256, encodeAbiParameters } = require('viem');
-const {
-  OrchestratorFactory_v1,
-  Orchestrator_v1,
-  ModuleFactory_v1,
-} = require('generated');
-const { getMetadataId } = require('./utils');
-const { workflowModules } = require('./constants');
+import { OrchestratorFactory_v1, ModuleFactory_v1 } from 'generated';
+import { getMetadataId } from './utils';
+import { workflowModules } from './constants';
 
 OrchestratorFactory_v1.OrchestratorCreated.contractRegister(
   ({ event, context }) => {

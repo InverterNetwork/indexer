@@ -7,19 +7,19 @@ networks:
       - name: ModuleFactory_v1
         abi_file_path: abis/ModuleFactory_v1.json
         address: 0x6680B9eC15a07ca7deCF3cA1351d10c16bf0AfbD
-        handler: src/EventHandlers.js
+        handler: src/EventHandlers.ts
         events:
           - event: ModuleCreated
           - event: MetadataRegistered
       - name: OrchestratorFactory_v1
         abi_file_path: abis/OrchestratorFactory_v1.json
         address: 0xd2adDd0187988Fa3c2B102fef626cdC5b6444F24
-        handler: src/EventHandlers.js
+        handler: src/EventHandlers.ts
         events:
           - event: OrchestratorCreated
       - name: Orchestrator_v1
         abi_file_path: abis/Orchestrator_v1.json
         address:
-        handler: src/EventHandlers.js
+        handler: src/EventHandlers.ts
         events:
           - event: OrchestratorInitialized
