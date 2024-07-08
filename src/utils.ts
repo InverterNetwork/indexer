@@ -1,16 +1,9 @@
-import { keccak256, encodeAbiParameters } from 'viem';
-import { Metadata } from './types';
+import { keccak256 } from 'viem';
+import { moduleTitles } from './constants';
 
-export const getMetadataId = (metadata: Metadata) => {
-  const [majorVersion, , url, name] = metadata;
-  return keccak256(
-    encodeAbiParameters(
-      [
-        { name: 'majorVersion', type: 'uint256' },
-        { name: 'url', type: 'string' },
-        { name: 'title', type: 'string' },
-      ],
-      [majorVersion, url, name]
-    )
-  );
+export const getModuleTitleFromId = (hash: `0x${string}`) => {
+  return moduleTitles.find((title) => {
+    // @ts-ignore
+    return keccak256(title) === hash;
+  });
 };

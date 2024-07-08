@@ -1,8 +1,15 @@
-export const workflowModules = {
+export const moduleGroups = {
   fundingManager: {
-    bondingCurve: [
-      'FM_BC_Bancor_Redeeming_VirtualSupply_v1',
-      'FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1',
-    ],
+    bondingCurves: {
+      members: [
+        'FM_BC_Bancor_Redeeming_VirtualSupply_v1',
+        'FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1',
+      ],
+      entity: 'BondingCurve',
+    },
   },
 };
+
+export const moduleTitles = [
+  ...moduleGroups.fundingManager.bondingCurves.members,
+];
