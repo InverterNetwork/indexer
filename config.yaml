@@ -7,19 +7,30 @@ networks:
       - name: ModuleFactory_v1
         abi_file_path: abis/ModuleFactory_v1.json
         address: 0x6680B9eC15a07ca7deCF3cA1351d10c16bf0AfbD
-        handler: src/EventHandlers.ts
+        handler: src/factories/mapping.ts
         events:
           - event: ModuleCreated
           - event: MetadataRegistered
       - name: OrchestratorFactory_v1
         abi_file_path: abis/OrchestratorFactory_v1.json
         address: 0xd2adDd0187988Fa3c2B102fef626cdC5b6444F24
-        handler: src/EventHandlers.ts
+        handler: src/factories/mapping.ts
         events:
           - event: OrchestratorCreated
       - name: Orchestrator_v1
         abi_file_path: abis/Orchestrator_v1.json
         address:
-        handler: src/EventHandlers.ts
+        handler: src/factories/mapping.ts
         events:
           - event: OrchestratorInitialized
+      - name: FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1
+        abi_file_path: abis/FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.json
+        address:
+        handler: src/fundingManager/mapping.ts
+        events:
+          - event: ModuleInitialized
+          - event: BuyFeeUpdated
+          - event: SellFeeUpdated
+          - event: BuyReserveRatioSet
+          - event: SellReserveRatioSet
+          - event: IssuanceTokenUpdated

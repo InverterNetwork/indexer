@@ -8,16 +8,29 @@ type Workflow {
 }
 
 type WorkflowModuleType {
-  id: ID!
+  id: ID! # identifier is keccak256 hash of parts of metadata
   majorVersion: BigInt!
   minorVersion: BigInt!
   url: String!
-  name: String!
   beacon: String!
+  name: String!
 }
 
 type WorkflowModule {
   id: ID! # address of module
   orchestrator: String!
   moduleType: WorkflowModuleType!
+}
+
+type BondingCurve {
+  id: ID! # address of module
+  bcType: String! # restricted or not restricted
+  orchestrator: String! # address of associated orchestrator
+  buyFee: BigInt
+  sellFee: BigInt
+  virtualCollateral: BigInt
+  virtualIssuance: BigInt
+  buyReserveRatio: BigInt
+  sellReserveRatio: BigInt
+  issuanceToken: String
 }
