@@ -1,8 +1,6 @@
 import { OrchestratorFactory_v1, ModuleFactory_v1 } from 'generated';
 
-import { getMetadataId, registerModule, storeModule } from './utils';
-import { moduleGroups } from '../constants';
-import { initBondingCurve } from '../fundingManager/initializers';
+import { getMetadataId, registerModule } from './utils';
 
 // contract register
 
