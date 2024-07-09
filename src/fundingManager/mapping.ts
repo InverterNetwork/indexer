@@ -110,6 +110,7 @@ FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.TokensBought.handler(
     const mandatoryParams = {
       id: event.transactionIndex + '-' + event.transactionHash,
       swapType: 'BUY',
+      bondingCurve_id: event.srcAddress,
     };
     const newBuy = {
       ...swap,
