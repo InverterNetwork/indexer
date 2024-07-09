@@ -34,3 +34,4 @@ networks:
           - event: BuyReserveRatioSet
           - event: SellReserveRatioSet
           - event: IssuanceTokenUpdated
+          - event: CollateralTokenSet

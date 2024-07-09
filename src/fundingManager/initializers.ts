@@ -22,5 +22,6 @@ export const initBondingCurve = (
     buyReserveRatio: undefined,
     sellReserveRatio: undefined,
     issuanceToken: undefined,
+    collateralToken: undefined,
   };
 };

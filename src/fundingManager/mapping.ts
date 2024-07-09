@@ -81,3 +81,17 @@ FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.IssuanceTokenUpdated.handler(
     });
   }
 );
+
+// Issuance Token
+
+FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.CollateralTokenSet.handler(
+  async ({ event, context }) => {
+    const currentEntity = await context.BondingCurve.get(
+      event.srcAddress
+    );
+    context.BondingCurve.set({
+      ...currentEntity!,
+      collateralToken: event.params.token,
+    });
+  }
+);

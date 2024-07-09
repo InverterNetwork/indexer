@@ -26,6 +26,7 @@ type BondingCurve {
   id: ID! # address of module
   bcType: String! # restricted or not restricted
   orchestrator: String! # address of associated orchestrator
+  collateralToken: String
   buyFee: BigInt
   sellFee: BigInt
   virtualCollateral: BigInt
