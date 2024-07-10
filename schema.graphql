@@ -46,4 +46,6 @@ type Swap {
   id: ID!
   bondingCurve: BondingCurve!
   swapType: SwapType!
+  issuanceAmount: BigInt!
+  collateralAmount: BigInt!
 }

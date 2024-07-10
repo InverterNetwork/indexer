@@ -1,6 +1,5 @@
 import { FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1 } from 'generated';
 import { bondingCurve, swap } from './schema';
-import { SwapType_t } from 'generated/src/db/Enums.gen';
 import { Swap_t } from 'generated/src/db/Entities.gen';
 
 FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.ModuleInitialized.handler(
@@ -111,6 +110,10 @@ FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.TokensBought.handler(
       id: event.transactionIndex + '-' + event.transactionHash,
       swapType: 'BUY',
       bondingCurve_id: event.srcAddress,
+      issuanceAmount: event.params.receivedAmount,
+      collateralAmount: event.params.depositAmount,
+      buyer: event.params.buyer,
+      recipient: event.params.receiver,
     };
     const newBuy = {
       ...swap,

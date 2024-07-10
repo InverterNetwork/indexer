@@ -10,6 +10,9 @@ export const bondingCurve = {
   sellReserveRatio: undefined,
   issuanceToken: undefined,
   collateralToken: undefined,
+  recipient: undefined,
+  buyer: undefined,
+  bondingCurve_id: undefined,
 };
 
 export const swap = {

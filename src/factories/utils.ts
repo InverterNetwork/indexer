@@ -44,10 +44,3 @@ export const registerModule = (
     );
   }
 };
-
-export const storeModule = (
-  context: handlerContext,
-  eventArgs: any
-) => {
-  console.log(eventArgs);
-};
