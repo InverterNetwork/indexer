@@ -34,4 +34,18 @@ type BondingCurve {
   buyReserveRatio: BigInt
   sellReserveRatio: BigInt
   issuanceToken: String
+  swaps: [Swap!]! @derivedFrom(field: "bondingCurve")
+}
+
+enum SwapType {
+  BUY
+  SELL
+}
+
+type Swap {
+  id: ID!
+  bondingCurve: BondingCurve!
+  swapType: SwapType!
+  issuanceAmount: BigInt!
+  collateralAmount: BigInt!
 }
