@@ -1,10 +1,6 @@
 import { keccak256, encodeAbiParameters } from 'viem';
 import { Metadata } from './types';
-import {
-  contractRegistrations,
-  eventLog,
-  handlerContext,
-} from 'generated';
+import { contractRegistrations, eventLog } from 'generated';
 import { moduleGroups } from '../constants';
 
 export const getMetadataId = (metadata: Metadata) => {
