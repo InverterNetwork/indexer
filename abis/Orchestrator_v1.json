@@ -169,7 +169,11 @@
     "type": "function",
     "name": "executeTxFromModule",
     "inputs": [
-      { "name": "to", "type": "address", "internalType": "address" },
+      {
+        "name": "to",
+        "type": "address",
+        "internalType": "address"
+      },
       { "name": "data", "type": "bytes", "internalType": "bytes" }
     ],
     "outputs": [
@@ -362,7 +366,11 @@
     "name": "listModules",
     "inputs": [],
     "outputs": [
-      { "name": "", "type": "address[]", "internalType": "address[]" }
+      {
+        "name": "",
+        "type": "address[]",
+        "internalType": "address[]"
+      }
     ],
     "stateMutability": "view"
   },
@@ -616,7 +624,11 @@
     ],
     "anonymous": false
   },
-  { "type": "error", "name": "InvalidInitialization", "inputs": [] },
+  {
+    "type": "error",
+    "name": "InvalidInitialization",
+    "inputs": []
+  },
   {
     "type": "error",
     "name": "ModuleManagerBase__CallerNotAuthorized",

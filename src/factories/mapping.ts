@@ -1,6 +1,11 @@
-import { OrchestratorFactory_v1, ModuleFactory_v1 } from 'generated';
+import {
+  OrchestratorFactory_v1,
+  ModuleFactory_v1,
+  Orchestrator_v1,
+} from 'generated';
 
 import { getMetadataId, registerModule } from './utils';
+import { workflow } from './schema';
 
 // contract register
 
@@ -17,7 +22,7 @@ ModuleFactory_v1.ModuleCreated.contractRegister(
   }
 );
 
-// event handlers
+// Register nwhen new modules are registered
 
 ModuleFactory_v1.MetadataRegistered.handler(
   async ({ event, context }) => {
@@ -32,5 +37,30 @@ ModuleFactory_v1.MetadataRegistered.handler(
       beacon: event.params.beacon,
     };
     context.WorkflowModuleType.set(newModuleType);
+  }
+);
+
+ModuleFactory_v1.ModuleCreated.handler(async ({ event, context }) => {
+  const newModule = {
+    ...module,
+    id: event.params.m.toString(),
+    orchestrator: event.params.orchestrator,
+    moduleType_id: getMetadataId(event.params.metadata),
+  };
+  context.WorkflowModule.set(newModule);
+});
+
+Orchestrator_v1.OrchestratorInitialized.handler(
+  async ({ event, context }) => {
+    const newWorkflow = {
+      ...workflow,
+      id: event.srcAddress.toString(),
+      orchestratorId: event.params.orchestratorId_,
+      fundingManager_id: event.params.fundingManager,
+      authorizer_id: event.params.authorizer,
+      paymentProcessor_id: event.params.paymentProcessor,
+      optionalModules: event.params.modules,
+    };
+    context.Workflow.set(newWorkflow);
   }
 );
