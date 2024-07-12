@@ -27,6 +27,7 @@ type BondingCurve {
   bcType: String! # restricted or not restricted
   orchestrator: String! # address of associated orchestrator
   collateralToken: String
+  collateralTokenDecimals: BigInt
   buyFee: BigInt
   sellFee: BigInt
   virtualCollateral: BigInt
@@ -34,6 +35,7 @@ type BondingCurve {
   buyReserveRatio: BigInt
   sellReserveRatio: BigInt
   issuanceToken: String
+  issuanceTokenDecimals: BigInt
   swaps: [Swap!]! @derivedFrom(field: "bondingCurve")
 }
 
@@ -47,5 +49,10 @@ type Swap {
   bondingCurve: BondingCurve!
   swapType: SwapType!
   issuanceAmount: BigInt!
+  issuanceToken: String!
   collateralAmount: BigInt!
+  collateralToken: String!
+  priceInCol: Float!
+  buyer: String!
+  recipient: String!
 }
