@@ -129,8 +129,8 @@ FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.TokensBought.handler(
       bondingCurve_id: event.srcAddress,
       collateralToken: bondingCurve!.collateralToken,
       issuanceToken: bondingCurve!.collateralToken,
-      collateralAmount: parseInt(collateralAmount).toFixed(4),
-      issuanceAmount: parseInt(issuanceAmount).toFixed(4),
+      collateralAmount: parseFloat(collateralAmount).toFixed(4),
+      issuanceAmount: parseFloat(issuanceAmount).toFixed(4),
       buyer: event.params.buyer,
       recipient: event.params.receiver,
       priceInCol: (
