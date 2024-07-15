@@ -36,3 +36,4 @@ networks:
           - event: IssuanceTokenUpdated
           - event: CollateralTokenSet
           - event: TokensBought
+          - event: TokensSold
