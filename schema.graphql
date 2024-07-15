@@ -55,4 +55,5 @@ type Swap {
   priceInCol: Float!
   initiator: String!
   recipient: String!
+  blockTimestamp: Int!
 }

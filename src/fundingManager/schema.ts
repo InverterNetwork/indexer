@@ -28,4 +28,5 @@ export const swap = {
   initiator: undefined,
   recipient: undefined,
   priceInCol: undefined,
+  blockTimestamp: undefined,
 };

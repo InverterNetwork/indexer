@@ -132,6 +132,7 @@ FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.TokensBought.handler(
       initiator: event.params.buyer,
       recipient: event.params.receiver,
       priceInCol,
+      blockTimestamp: event.blockTimestamp,
     };
 
     const newBuy = {
@@ -169,6 +170,7 @@ FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.TokensSold.handler(
       initiator: event.params.seller,
       recipient: event.params.receiver,
       priceInCol,
+      blockTimestamp: event.blockTimestamp,
     };
 
     const newSale = {
