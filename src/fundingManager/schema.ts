@@ -25,7 +25,7 @@ export const swap = {
   issuanceToken: undefined,
   collateralAmount: undefined,
   collateralToken: undefined,
-  buyer: undefined,
+  initiator: undefined,
   recipient: undefined,
   priceInCol: undefined,
 };

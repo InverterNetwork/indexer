@@ -53,6 +53,6 @@ type Swap {
   collateralAmount: BigInt!
   collateralToken: String!
   priceInCol: Float!
-  buyer: String!
+  initiator: String!
   recipient: String!
 }
