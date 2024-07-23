@@ -18,7 +18,7 @@ export const getQtyAndPrice = async (
   );
 
   const priceInCol = (
-    parseFloat(issuanceAmount) / parseFloat(collateralAmount)
+    parseFloat(collateralAmount) / parseFloat(issuanceAmount)
   ).toFixed(4);
 
   return { issuanceAmount, collateralAmount, priceInCol };
