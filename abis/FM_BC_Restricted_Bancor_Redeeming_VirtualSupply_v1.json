@@ -265,6 +265,11 @@
             "internalType": "uint256"
           },
           {
+            "name": "patchVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
             "name": "url",
             "type": "string",
             "internalType": "string"
@@ -298,16 +303,6 @@
     "outputs": [
       { "name": "", "type": "bool", "internalType": "bool" }
     ],
-    "stateMutability": "view"
-  },
-  {
-    "type": "function",
-    "name": "mintIssuanceTokenTo",
-    "inputs": [
-      { "name": "", "type": "address", "internalType": "address" },
-      { "name": "", "type": "uint256", "internalType": "uint256" }
-    ],
-    "outputs": [],
     "stateMutability": "view"
   },
   {
@@ -411,7 +406,16 @@
   },
   {
     "type": "function",
-    "name": "sellFor",
+    "name": "sellIsOpen",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "bool", "internalType": "bool" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "sellTo",
     "inputs": [
       {
         "name": "_receiver",
@@ -431,15 +435,6 @@
     ],
     "outputs": [],
     "stateMutability": "nonpayable"
-  },
-  {
-    "type": "function",
-    "name": "sellIsOpen",
-    "inputs": [],
-    "outputs": [
-      { "name": "", "type": "bool", "internalType": "bool" }
-    ],
-    "stateMutability": "view"
   },
   {
     "type": "function",
@@ -560,11 +555,19 @@
     "type": "function",
     "name": "transferOrchestratorToken",
     "inputs": [
-      { "name": "", "type": "address", "internalType": "address" },
-      { "name": "", "type": "uint256", "internalType": "uint256" }
+      {
+        "name": "to",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
     ],
     "outputs": [],
-    "stateMutability": "view"
+    "stateMutability": "nonpayable"
   },
   {
     "type": "function",
@@ -589,6 +592,7 @@
     "name": "version",
     "inputs": [],
     "outputs": [
+      { "name": "", "type": "uint256", "internalType": "uint256" },
       { "name": "", "type": "uint256", "internalType": "uint256" },
       { "name": "", "type": "uint256", "internalType": "uint256" }
     ],
@@ -664,10 +668,23 @@
   },
   {
     "type": "event",
-    "name": "CollateralTokenSet",
+    "name": "Initialized",
     "inputs": [
       {
-        "name": "token",
+        "name": "version",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "IssuanceTokenSet",
+    "inputs": [
+      {
+        "name": "issuanceToken",
         "type": "address",
         "indexed": true,
         "internalType": "address"
@@ -683,63 +700,6 @@
   },
   {
     "type": "event",
-    "name": "Deposit",
-    "inputs": [
-      {
-        "name": "_from",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "_for",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "_amount",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
-      }
-    ],
-    "anonymous": false
-  },
-  {
-    "type": "event",
-    "name": "Initialized",
-    "inputs": [
-      {
-        "name": "version",
-        "type": "uint64",
-        "indexed": false,
-        "internalType": "uint64"
-      }
-    ],
-    "anonymous": false
-  },
-  {
-    "type": "event",
-    "name": "IssuanceTokenUpdated",
-    "inputs": [
-      {
-        "name": "oldToken",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "issuanceToken",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      }
-    ],
-    "anonymous": false
-  },
-  {
-    "type": "event",
     "name": "ModuleInitialized",
     "inputs": [
       {
@@ -749,10 +709,56 @@
         "internalType": "address"
       },
       {
-        "name": "moduleTitle",
-        "type": "string",
+        "name": "metadata",
+        "type": "tuple",
         "indexed": false,
-        "internalType": "string"
+        "internalType": "struct IModule_v1.Metadata",
+        "components": [
+          {
+            "name": "majorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "minorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "patchVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "url",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "internalType": "string"
+          }
+        ]
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "OrchestratorTokenSet",
+    "inputs": [
+      {
+        "name": "token",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "decimals",
+        "type": "uint8",
+        "indexed": false,
+        "internalType": "uint8"
       }
     ],
     "anonymous": false
@@ -1091,31 +1097,6 @@
     "anonymous": false
   },
   {
-    "type": "event",
-    "name": "Withdrawal",
-    "inputs": [
-      {
-        "name": "_from",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "_for",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "_amount",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
-      }
-    ],
-    "anonymous": false
-  },
-  {
     "type": "error",
     "name": "AddressEmptyCode",
     "inputs": [
@@ -1181,12 +1162,22 @@
   },
   {
     "type": "error",
+    "name": "Module__BondingCurveBase__InvalidMinAmountOut",
+    "inputs": []
+  },
+  {
+    "type": "error",
     "name": "Module__BondingCurveBase__InvalidRecipient",
     "inputs": []
   },
   {
     "type": "error",
     "name": "Module__BondingCurveBase__InvalidWithdrawAmount",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__BondingCurveBase__TradeAmountTooLow",
     "inputs": []
   },
   {
@@ -1207,7 +1198,17 @@
   },
   {
     "type": "error",
-    "name": "Module__FM_BC_Bancor_Redeeming_VirtualSupply__InvalidDepositAmount",
+    "name": "Module__FM_BC_Bancor_Redeeming_VirtualSupply__CurveInteractionsMustBeClosed",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__FM_BC_Bancor_Redeeming_VirtualSupply__InvalidBancorFormula",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__FM_BC_Bancor_Redeeming_VirtualSupply__InvalidOrchestratorTokenWithdrawAmount",
     "inputs": []
   },
   {
@@ -1227,17 +1228,7 @@
   },
   {
     "type": "error",
-    "name": "Module__FundingManager__CannotSelfDeposit",
-    "inputs": []
-  },
-  {
-    "type": "error",
-    "name": "Module__FundingManager__DepositCapReached",
-    "inputs": []
-  },
-  {
-    "type": "error",
-    "name": "Module__FundingManager__InvalidAddress",
+    "name": "Module__InvalidAddress",
     "inputs": []
   },
   {
@@ -1253,6 +1244,11 @@
   {
     "type": "error",
     "name": "Module__OnlyCallableByOrchestrator",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__OnlyCallableByPaymentClient",
     "inputs": []
   },
   {
