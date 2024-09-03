@@ -3,11 +3,7 @@ import { formatUnits } from 'viem';
 import { BondingCurve_t } from 'generated/src/db/Entities.gen';
 import { OptionalBondingCurveProperties } from './types';
 import { optionalParams } from './schema';
-import {
-  eventLog,
-  FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1_VirtualIssuanceSupplySet_eventArgs,
-  handlerContext,
-} from 'generated';
+import { handlerContext } from 'generated';
 
 export const getQtyAndPrice = async (
   iss: bigint,
@@ -66,4 +62,8 @@ export const createBondingCurve = async (
     ...properties,
     id: srcAddress,
   });
+};
+
+export const uintToFloat = (amount: bigint, decimals: number) => {
+  return parseFloat(formatUnits(amount, decimals));
 };

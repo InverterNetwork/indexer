@@ -23,7 +23,7 @@ networks:
         handler: src/factories/mapping.ts
         events:
           - event: OrchestratorInitialized
-      - name: FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1
+      - name: BondingCurve
         abi_file_path: abis/FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.json
         address:
         handler: src/fundingManager/mapping.ts
@@ -38,4 +38,8 @@ networks:
           - event: TokensBought
           - event: TokensSold
           - event: VirtualIssuanceSupplySet
+          - event: VirtualIssuanceAmountAdded
+          - event: VirtualIssuanceAmountSubtracted
           - event: VirtualCollateralSupplySet
+          - event: VirtualCollateralAmountAdded
+          - event: VirtualCollateralAmountSubtracted
