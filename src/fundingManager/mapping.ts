@@ -1,5 +1,4 @@
 import { BondingCurve } from 'generated';
-import { Swap_t } from 'generated/src/db/Entities.gen';
 
 import {
   updateBondingCurve,
@@ -20,7 +19,7 @@ BondingCurve.ModuleInitialized.handler(async ({ event, context }) => {
   });
 });
 
-// // Fees
+// Fees
 
 BondingCurve.BuyFeeUpdated.handler(async ({ event, context }) => {
   await updateBondingCurve(context, event.srcAddress, {
@@ -52,7 +51,7 @@ BondingCurve.SellReserveRatioSet.handler(
   }
 );
 
-// // Issuance Token
+// Issuance Token
 
 BondingCurve.IssuanceTokenSet.handler(async ({ event, context }) => {
   await updateBondingCurve(context, event.srcAddress, {
@@ -162,24 +161,9 @@ BondingCurve.VirtualCollateralAmountSubtracted.handler(
   }
 );
 
-// FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.VirtualCollateralAmountSubtracted.handler(
-//   async ({ event, context }) => {
-//     const bc = await context.BondingCurve.get(event.srcAddress);
-//     const { collateralTokenDecimals } = bc!;
-//     const virtualCollateral = bigintToFloat(
-//       event.params.newSupply,
-//       collateralTokenDecimals
-//     );
-
-//     updateBondingCurve(context, event.srcAddress, {
-//       virtualCollateral,
-//     });
-//   }
-// );
-
-// /*
-//   SWAPS
-// */
+/*
+  SWAPS
+*/
 
 // buy
 BondingCurve.TokensBought.handler(async ({ event, context }) => {
