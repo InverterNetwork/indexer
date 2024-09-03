@@ -33,7 +33,7 @@ type WorkflowModule {
 type BondingCurve {
   id: ID! # address of module
   chainId: Int!
-  orchestrator: String # address of associated orchestrator
+  workflow: Workflow! # address of associated orchestrator
   collateralToken: String
   collateralTokenDecimals: Int
   buyFee: BigInt

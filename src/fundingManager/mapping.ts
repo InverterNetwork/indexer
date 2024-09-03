@@ -9,14 +9,19 @@ import {
 import { uintToFloat } from '../utils';
 
 BondingCurve.ModuleInitialized.handler(async ({ event, context }) => {
-  await createBondingCurve(context, event.srcAddress, event.chainId, {
-    bcType:
-      event.params.metadata[3] ===
-      'FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1'
-        ? 'RESTRICTED'
-        : 'OPEN',
-    orchestrator: event.params.parentOrchestrator,
-  });
+  await createBondingCurve(
+    context,
+    event.srcAddress,
+    event.chainId,
+    event.params.parentOrchestrator,
+    {
+      bcType:
+        event.params.metadata[3] ===
+        'FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1'
+          ? 'RESTRICTED'
+          : 'OPEN',
+    }
+  );
 });
 
 // Fees
@@ -148,7 +153,6 @@ BondingCurve.VirtualCollateralAmountAdded.handler(
 
 BondingCurve.VirtualCollateralAmountSubtracted.handler(
   async ({ event, context }) => {
-    console.log(9);
     const bc = await context.BondingCurve.get(event.srcAddress);
     const { collateralTokenDecimals } = bc!;
     const virtualCollateral = uintToFloat(
