@@ -1,5 +1,3 @@
-import { formatUnits } from 'viem';
-
 import {
   BondingCurve_t,
   Swap_t,

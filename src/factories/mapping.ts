@@ -5,7 +5,6 @@ import {
 } from 'generated';
 
 import { getMetadataId, registerModule } from './utils';
-import { workflow } from './schema';
 
 // contract register
 
@@ -44,7 +43,6 @@ ModuleFactory_v1.MetadataRegistered.handler(
 ModuleFactory_v1.ModuleCreated.handler(async ({ event, context }) => {
   const [majorVersion, , , url, name] = event.params.metadata;
   const newModule = {
-    ...module,
     id: event.params.m.toString(),
     orchestrator: event.params.orchestrator,
     moduleType_id: getMetadataId(majorVersion, url, name),
@@ -55,7 +53,6 @@ ModuleFactory_v1.ModuleCreated.handler(async ({ event, context }) => {
 Orchestrator_v1.OrchestratorInitialized.handler(
   async ({ event, context }) => {
     const newWorkflow = {
-      ...workflow,
       id: event.srcAddress.toString(),
       orchestratorId: event.params.orchestratorId_,
       fundingManager_id: event.params.fundingManager,
