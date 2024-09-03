@@ -9,7 +9,7 @@ import {
 import { uintToFloat } from '../utils';
 
 BondingCurve.ModuleInitialized.handler(async ({ event, context }) => {
-  await createBondingCurve(context, event.srcAddress, {
+  await createBondingCurve(context, event.srcAddress, event.chainId, {
     bcType:
       event.params.metadata[3] ===
       'FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1'
@@ -180,6 +180,7 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
   await createSwap(
     context,
     event.transactionIndex + '-' + event.transactionHash,
+    event.chainId,
     {
       swapType: 'BUY',
       bondingCurve_id: event.srcAddress,
@@ -211,6 +212,7 @@ BondingCurve.TokensSold.handler(async ({ event, context }) => {
   await createSwap(
     context,
     event.transactionIndex + '-' + event.transactionHash,
+    event.chainId,
     {
       swapType: 'SELL',
       bondingCurve_id: event.srcAddress,

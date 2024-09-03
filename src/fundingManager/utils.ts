@@ -29,19 +29,6 @@ export const getQtyAndPrice = async (
   return { issuanceAmount, collateralAmount, priceInCol };
 };
 
-export const updateOrSetBondingCurve = async (
-  context: handlerContext,
-  srcAddress: string,
-  properties: OptionalBondingCurveProperties
-) => {
-  const currentEntity = await context.BondingCurve.get(srcAddress);
-  if (currentEntity) {
-    await updateBondingCurve(context, srcAddress, properties);
-  } else {
-    await createBondingCurve(context, srcAddress, properties);
-  }
-};
-
 export const updateBondingCurve = async (
   context: handlerContext,
   id: string,
@@ -57,10 +44,12 @@ export const updateBondingCurve = async (
 export const createBondingCurve = async (
   context: handlerContext,
   id: string,
+  chainId: number,
   properties: OptionalBondingCurveProperties
 ) => {
   context.BondingCurve.set({
     id,
+    chainId,
     ...optionalBondingCurveProperties,
     ...properties,
   });
@@ -69,10 +58,12 @@ export const createBondingCurve = async (
 export const createSwap = async (
   context: handlerContext,
   id: string,
-  properties: Omit<Swap_t, 'id'>
+  chainId: number,
+  properties: Omit<Swap_t, 'id' | 'chainId'>
 ) => {
   context.Swap.set({
     id,
+    chainId,
     ...properties,
   });
 };

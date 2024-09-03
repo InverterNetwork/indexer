@@ -32,6 +32,7 @@ type WorkflowModule {
 
 type BondingCurve {
   id: ID! # address of module
+  chainId: Int!
   orchestrator: String # address of associated orchestrator
   collateralToken: String
   collateralTokenDecimals: Int
@@ -65,6 +66,7 @@ type Swap {
   initiator: String!
   recipient: String!
   blockTimestamp: Int!
+  chainId: Int!
 }
 
 ## VESTING RELATED

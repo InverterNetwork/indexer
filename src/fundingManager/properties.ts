@@ -1,7 +1,4 @@
-import {
-  BondingCurve_t,
-  Swap_t,
-} from 'generated/src/db/Entities.gen';
+import { BondingCurve_t } from 'generated/src/db/Entities.gen';
 
 export const optionalBondingCurveProperties: Omit<
   BondingCurve_t,
