@@ -25,6 +25,7 @@ export const registerModule = (
   name: string,
   event: eventLog<any>
 ) => {
+  // index both restricted and open bc as restircted bc
   if (
     moduleGroups.fundingManager.bondingCurves.members.includes(name)
   ) {

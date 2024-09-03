@@ -70,3 +70,27 @@ type Swap {
 }
 
 ## VESTING RELATED
+type StreamingPaymentProcessor {
+  id: ID! # address
+  workflow: Workflow!
+  vestings: [LinearVesting!]!
+    @derivedFrom(field: "streamingPaymentProcessor")
+}
+
+enum VestingStatus {
+  ACTIVE
+  INACTIVE
+}
+
+type LinearVesting {
+  id: ID! # uint streamId
+  streamingPaymentProcessor: StreamingPaymentProcessor!
+  token: String!
+  amount: BigInt!
+  recipient: String!
+  start: BigInt!
+  cliff: BigInt!
+  end: BigInt!
+  status: VestingStatus!
+  blockTimestamp: Int!
+}
