@@ -2,7 +2,7 @@ import { BondingCurve_t } from 'generated/src/db/Entities.gen';
 
 export const optionalBondingCurveProperties: Omit<
   BondingCurve_t,
-  'id'
+  'id' | 'chainId'
 > = {
   bcType: undefined,
   orchestrator: undefined,
