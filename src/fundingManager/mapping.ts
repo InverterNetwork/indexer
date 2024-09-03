@@ -1,15 +1,13 @@
 import { BondingCurve } from 'generated';
-
-import { parseUnits, formatUnits } from 'viem';
-
-import { swap } from './schema';
 import { Swap_t } from 'generated/src/db/Entities.gen';
+
 import {
   updateOrSetBondingCurve,
   updateBondingCurve,
   getQtyAndPrice,
-  uintToFloat,
+  createSwap,
 } from './utils';
+import { uintToFloat } from '../utils';
 
 BondingCurve.ModuleInitialized.handler(async ({ event, context }) => {
   await updateOrSetBondingCurve(context, event.srcAddress, {
@@ -194,26 +192,22 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
       bondingCurve!
     );
 
-  const mandatoryParams = {
-    id: event.transactionIndex + '-' + event.transactionHash,
-    swapType: 'BUY',
-    bondingCurve_id: event.srcAddress,
-    collateralToken: bondingCurve!.collateralToken,
-    issuanceToken: bondingCurve!.issuanceToken,
-    collateralAmount,
-    issuanceAmount,
-    initiator: event.params.buyer,
-    recipient: event.params.receiver,
-    priceInCol,
-    blockTimestamp: event.blockTimestamp,
-  };
-
-  const newBuy = {
-    ...swap,
-    ...mandatoryParams,
-  } as unknown as Swap_t;
-
-  context.Swap.set(newBuy);
+  await createSwap(
+    context,
+    event.transactionIndex + '-' + event.transactionHash,
+    {
+      swapType: 'BUY',
+      bondingCurve_id: event.srcAddress,
+      collateralToken: bondingCurve!.collateralToken!,
+      issuanceToken: bondingCurve!.issuanceToken!,
+      collateralAmount,
+      issuanceAmount,
+      initiator: event.params.buyer,
+      recipient: event.params.receiver,
+      priceInCol,
+      blockTimestamp: event.blockTimestamp,
+    }
+  );
 });
 
 // sell
@@ -229,24 +223,20 @@ BondingCurve.TokensSold.handler(async ({ event, context }) => {
       bondingCurve!
     );
 
-  const mandatoryParams = {
-    id: event.transactionIndex + '-' + event.transactionHash,
-    swapType: 'SELL',
-    bondingCurve_id: event.srcAddress,
-    collateralToken: bondingCurve!.collateralToken,
-    issuanceToken: bondingCurve!.issuanceToken,
-    collateralAmount,
-    issuanceAmount,
-    initiator: event.params.seller,
-    recipient: event.params.receiver,
-    priceInCol,
-    blockTimestamp: event.blockTimestamp,
-  };
-
-  const newSale = {
-    ...swap,
-    ...mandatoryParams,
-  } as unknown as Swap_t;
-
-  context.Swap.set(newSale);
+  await createSwap(
+    context,
+    event.transactionIndex + '-' + event.transactionHash,
+    {
+      swapType: 'SELL',
+      bondingCurve_id: event.srcAddress,
+      collateralToken: bondingCurve!.collateralToken!,
+      issuanceToken: bondingCurve!.issuanceToken!,
+      collateralAmount,
+      issuanceAmount,
+      initiator: event.params.seller,
+      recipient: event.params.receiver,
+      priceInCol,
+      blockTimestamp: event.blockTimestamp,
+    }
+  );
 });

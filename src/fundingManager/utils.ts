@@ -1,28 +1,32 @@
 import { formatUnits } from 'viem';
 
-import { BondingCurve_t } from 'generated/src/db/Entities.gen';
+import {
+  BondingCurve_t,
+  Swap_t,
+} from 'generated/src/db/Entities.gen';
 import { OptionalBondingCurveProperties } from './types';
-import { optionalParams } from './schema';
+import { optionalBondingCurveProperties } from './properties';
 import { handlerContext } from 'generated';
+import { uintToFloat } from '../utils';
 
 export const getQtyAndPrice = async (
   iss: bigint,
   coll: bigint,
   bc: BondingCurve_t
 ) => {
-  const issuanceAmount = formatUnits(
+  const issuanceAmount = uintToFloat(
     iss,
     parseInt(bc!.issuanceTokenDecimals!.toString())
   );
 
-  const collateralAmount = formatUnits(
+  const collateralAmount = uintToFloat(
     coll,
     parseInt(bc!.collateralTokenDecimals!.toString())
   );
 
-  const priceInCol = (
-    parseFloat(collateralAmount) / parseFloat(issuanceAmount)
-  ).toFixed(4);
+  const priceInCol = parseFloat(
+    (collateralAmount / issuanceAmount).toFixed(4)
+  );
 
   return { issuanceAmount, collateralAmount, priceInCol };
 };
@@ -42,10 +46,10 @@ export const updateOrSetBondingCurve = async (
 
 export const updateBondingCurve = async (
   context: handlerContext,
-  srcAddress: string,
+  id: string,
   properties: OptionalBondingCurveProperties
 ) => {
-  const currentEntity = await context.BondingCurve.get(srcAddress);
+  const currentEntity = await context.BondingCurve.get(id);
   context.BondingCurve.set({
     ...currentEntity!,
     ...properties,
@@ -54,16 +58,23 @@ export const updateBondingCurve = async (
 
 export const createBondingCurve = async (
   context: handlerContext,
-  srcAddress: string,
+  id: string,
   properties: OptionalBondingCurveProperties
 ) => {
   context.BondingCurve.set({
-    ...optionalParams,
+    id,
+    ...optionalBondingCurveProperties,
     ...properties,
-    id: srcAddress,
   });
 };
 
-export const uintToFloat = (amount: bigint, decimals: number) => {
-  return parseFloat(formatUnits(amount, decimals));
+export const createSwap = async (
+  context: handlerContext,
+  id: string,
+  properties: Omit<Swap_t, 'id'>
+) => {
+  context.Swap.set({
+    id,
+    ...properties,
+  });
 };

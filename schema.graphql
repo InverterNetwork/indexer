@@ -54,9 +54,9 @@ type Swap {
   id: ID!
   bondingCurve: BondingCurve!
   swapType: SwapType!
-  issuanceAmount: BigInt!
+  issuanceAmount: Float!
   issuanceToken: String!
-  collateralAmount: BigInt!
+  collateralAmount: Float!
   collateralToken: String!
   priceInCol: Float!
   initiator: String!
