@@ -3,8 +3,11 @@ import { Metadata } from './types';
 import { contractRegistrations, eventLog } from 'generated';
 import { moduleGroups } from '../constants';
 
-export const getMetadataId = (metadata: Metadata) => {
-  const [majorVersion, , url, name] = metadata;
+export const getMetadataId = (
+  majorVersion: bigint,
+  url: string,
+  name: string
+) => {
   return keccak256(
     encodeAbiParameters(
       [

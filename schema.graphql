@@ -1,3 +1,5 @@
+## GENERAL ENTITIES
+
 type Workflow {
   id: ID! # orchestratorAddress
   orchestratorId: BigInt!
@@ -11,6 +13,7 @@ type WorkflowModuleType {
   id: ID! # identifier is keccak256 hash of parts of metadata
   majorVersion: BigInt!
   minorVersion: BigInt!
+  patchVersion: BigInt!
   url: String!
   beacon: String!
   name: String!
@@ -22,20 +25,23 @@ type WorkflowModule {
   moduleType: WorkflowModuleType!
 }
 
+## BONDING CURVE RELATED
+
 type BondingCurve {
   id: ID! # address of module
-  bcType: String! # restricted or not restricted
-  orchestrator: String! # address of associated orchestrator
+  orchestrator: String # address of associated orchestrator
   collateralToken: String
-  collateralTokenDecimals: BigInt
+  collateralTokenDecimals: Int
   buyFee: BigInt
+  bcType: String # restricted or not restricted
   sellFee: BigInt
-  virtualCollateral: BigInt
-  virtualIssuance: BigInt
+  virtualCollateral: Float
+  virtualCollateralRaw: BigInt
+  virtualIssuance: Float
   buyReserveRatio: BigInt
   sellReserveRatio: BigInt
   issuanceToken: String
-  issuanceTokenDecimals: BigInt
+  issuanceTokenDecimals: Int
   swaps: [Swap!]! @derivedFrom(field: "bondingCurve")
 }
 
@@ -57,3 +63,5 @@ type Swap {
   recipient: String!
   blockTimestamp: Int!
 }
+
+## VESTING RELATED

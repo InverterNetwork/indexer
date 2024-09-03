@@ -6,14 +6,14 @@ networks:
     contracts:
       - name: ModuleFactory_v1
         abi_file_path: abis/ModuleFactory_v1.json
-        address: 0xAEa18210Bb38E27E7483410D183F8DAef7E93d04
+        address: 0xcEB82D3FA367cE3563e07763765bB1ae7B5Ba3d5
         handler: src/factories/mapping.ts
         events:
           - event: ModuleCreated
           - event: MetadataRegistered
       - name: OrchestratorFactory_v1
         abi_file_path: abis/OrchestratorFactory_v1.json
-        address: 0x37BeDeBbA1E0278f4126249735f04ED80c066CbE
+        address: 0x535BdbC1D369d43fed8546024D273eE5274fFF65
         handler: src/factories/mapping.ts
         events:
           - event: OrchestratorCreated
@@ -33,7 +33,9 @@ networks:
           - event: SellFeeUpdated
           - event: BuyReserveRatioSet
           - event: SellReserveRatioSet
-          - event: IssuanceTokenUpdated
-          - event: CollateralTokenSet
+          - event: OrchestratorTokenSet
+          - event: IssuanceTokenSet
           - event: TokensBought
           - event: TokensSold
+          - event: VirtualIssuanceSupplySet
+          - event: VirtualCollateralSupplySet

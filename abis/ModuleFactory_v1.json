@@ -3,6 +3,11 @@
     "type": "constructor",
     "inputs": [
       {
+        "name": "_reverter",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
         "name": "_trustedForwarder",
         "type": "address",
         "internalType": "address"
@@ -19,7 +24,7 @@
   },
   {
     "type": "function",
-    "name": "createModule",
+    "name": "createAndInitModule",
     "inputs": [
       {
         "name": "metadata",
@@ -33,6 +38,11 @@
           },
           {
             "name": "minorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "patchVersion",
             "type": "uint256",
             "internalType": "uint256"
           },
@@ -83,6 +93,70 @@
   },
   {
     "type": "function",
+    "name": "createModuleProxy",
+    "inputs": [
+      {
+        "name": "metadata",
+        "type": "tuple",
+        "internalType": "struct IModule_v1.Metadata",
+        "components": [
+          {
+            "name": "majorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "minorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "patchVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "url",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "internalType": "string"
+          }
+        ]
+      },
+      {
+        "name": "orchestrator",
+        "type": "address",
+        "internalType": "contract IOrchestrator_v1"
+      },
+      {
+        "name": "workflowConfig",
+        "type": "tuple",
+        "internalType": "struct IOrchestratorFactory_v1.WorkflowConfig",
+        "components": [
+          {
+            "name": "independentUpdates",
+            "type": "bool",
+            "internalType": "bool"
+          },
+          {
+            "name": "independentUpdateAdmin",
+            "type": "address",
+            "internalType": "address"
+          }
+        ]
+      }
+    ],
+    "outputs": [
+      { "name": "", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
     "name": "getBeaconAndId",
     "inputs": [
       {
@@ -97,6 +171,11 @@
           },
           {
             "name": "minorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "patchVersion",
             "type": "uint256",
             "internalType": "uint256"
           },
@@ -168,6 +247,11 @@
           },
           {
             "name": "minorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "patchVersion",
             "type": "uint256",
             "internalType": "uint256"
           },
@@ -245,6 +329,11 @@
             "internalType": "uint256"
           },
           {
+            "name": "patchVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
             "name": "url",
             "type": "string",
             "internalType": "string"
@@ -271,6 +360,15 @@
     "inputs": [],
     "outputs": [],
     "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "reverter",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "view"
   },
   {
     "type": "function",
@@ -311,6 +409,19 @@
   },
   {
     "type": "event",
+    "name": "GovernorSet",
+    "inputs": [
+      {
+        "name": "governor",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
     "name": "Initialized",
     "inputs": [
       {
@@ -339,6 +450,11 @@
           },
           {
             "name": "minorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "patchVersion",
             "type": "uint256",
             "internalType": "uint256"
           },
@@ -392,6 +508,11 @@
           },
           {
             "name": "minorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "patchVersion",
             "type": "uint256",
             "internalType": "uint256"
           },
@@ -471,6 +592,11 @@
   {
     "type": "error",
     "name": "ModuleFactory__MetadataAlreadyRegistered",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ModuleFactory__ModuleIsSunset",
     "inputs": []
   },
   {

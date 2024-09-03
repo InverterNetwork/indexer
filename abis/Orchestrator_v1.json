@@ -115,7 +115,7 @@
     "name": "executeSetAuthorizer",
     "inputs": [
       {
-        "name": "authorizer_",
+        "name": "newAuthorizer",
         "type": "address",
         "internalType": "contract IAuthorizer_v1"
       }
@@ -128,7 +128,7 @@
     "name": "executeSetFundingManager",
     "inputs": [
       {
-        "name": "fundingManager_",
+        "name": "newFundingManager",
         "type": "address",
         "internalType": "contract IFundingManager_v1"
       }
@@ -141,61 +141,13 @@
     "name": "executeSetPaymentProcessor",
     "inputs": [
       {
-        "name": "paymentProcessor_",
+        "name": "newPaymentProcessor",
         "type": "address",
         "internalType": "contract IPaymentProcessor_v1"
       }
     ],
     "outputs": [],
     "stateMutability": "nonpayable"
-  },
-  {
-    "type": "function",
-    "name": "executeTx",
-    "inputs": [
-      {
-        "name": "target",
-        "type": "address",
-        "internalType": "address"
-      },
-      { "name": "data", "type": "bytes", "internalType": "bytes" }
-    ],
-    "outputs": [
-      { "name": "", "type": "bytes", "internalType": "bytes" }
-    ],
-    "stateMutability": "nonpayable"
-  },
-  {
-    "type": "function",
-    "name": "executeTxFromModule",
-    "inputs": [
-      {
-        "name": "to",
-        "type": "address",
-        "internalType": "address"
-      },
-      { "name": "data", "type": "bytes", "internalType": "bytes" }
-    ],
-    "outputs": [
-      { "name": "", "type": "bool", "internalType": "bool" },
-      { "name": "", "type": "bytes", "internalType": "bytes" }
-    ],
-    "stateMutability": "nonpayable"
-  },
-  {
-    "type": "function",
-    "name": "findModuleAddressInOrchestrator",
-    "inputs": [
-      {
-        "name": "moduleName",
-        "type": "string",
-        "internalType": "string"
-      }
-    ],
-    "outputs": [
-      { "name": "", "type": "address", "internalType": "address" }
-    ],
-    "stateMutability": "view"
   },
   {
     "type": "function",
@@ -297,7 +249,7 @@
     "name": "initiateSetAuthorizerWithTimelock",
     "inputs": [
       {
-        "name": "authorizer_",
+        "name": "newAuthorizer",
         "type": "address",
         "internalType": "contract IAuthorizer_v1"
       }
@@ -310,7 +262,7 @@
     "name": "initiateSetFundingManagerWithTimelock",
     "inputs": [
       {
-        "name": "fundingManager_",
+        "name": "newFundingManager",
         "type": "address",
         "internalType": "contract IFundingManager_v1"
       }
@@ -323,7 +275,7 @@
     "name": "initiateSetPaymentProcessorWithTimelock",
     "inputs": [
       {
-        "name": "paymentProcessor_",
+        "name": "newPaymentProcessor",
         "type": "address",
         "internalType": "contract IPaymentProcessor_v1"
       }
@@ -461,15 +413,6 @@
       { "name": "", "type": "address", "internalType": "address" }
     ],
     "stateMutability": "view"
-  },
-  {
-    "type": "function",
-    "name": "version",
-    "inputs": [],
-    "outputs": [
-      { "name": "", "type": "string", "internalType": "string" }
-    ],
-    "stateMutability": "pure"
   },
   {
     "type": "event",
@@ -710,11 +653,6 @@
   {
     "type": "error",
     "name": "Orchestrator__DependencyInjection__ModuleNotUsedInOrchestrator",
-    "inputs": []
-  },
-  {
-    "type": "error",
-    "name": "Orchestrator__ExecuteTxFailed",
     "inputs": []
   },
   {

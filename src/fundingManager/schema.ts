@@ -1,10 +1,12 @@
-export const bondingCurve = {
-  id: undefined,
+import { BondingCurve_t } from 'generated/src/db/Entities.gen';
+
+export const optionalParams: Omit<BondingCurve_t, 'id'> = {
   bcType: undefined,
   orchestrator: undefined,
   buyFee: undefined,
   sellFee: undefined,
   virtualCollateral: undefined,
+  virtualCollateralRaw: undefined,
   virtualIssuance: undefined,
   buyReserveRatio: undefined,
   sellReserveRatio: undefined,
@@ -12,9 +14,6 @@ export const bondingCurve = {
   issuanceTokenDecimals: undefined,
   collateralToken: undefined,
   collateralTokenDecimals: undefined,
-  recipient: undefined,
-  buyer: undefined,
-  bondingCurve_id: undefined,
 };
 
 export const swap = {

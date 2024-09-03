@@ -17,21 +17,22 @@ OrchestratorFactory_v1.OrchestratorCreated.contractRegister(
 
 ModuleFactory_v1.ModuleCreated.contractRegister(
   ({ event, context }) => {
-    const [, , , name] = event.params.metadata;
+    const [, , , , name] = event.params.metadata;
     registerModule(context, name, event);
   }
 );
 
-// Register nwhen new modules are registered
+// Register when new modules are registered
 
 ModuleFactory_v1.MetadataRegistered.handler(
   async ({ event, context }) => {
-    const [majorVersion, minorVersion, url, name] =
+    const [majorVersion, minorVersion, patchVersion, url, name] =
       event.params.metadata;
     const newModuleType = {
-      id: getMetadataId(event.params.metadata),
+      id: getMetadataId(majorVersion, url, name),
       majorVersion,
       minorVersion,
+      patchVersion,
       url,
       name,
       beacon: event.params.beacon,
@@ -41,11 +42,12 @@ ModuleFactory_v1.MetadataRegistered.handler(
 );
 
 ModuleFactory_v1.ModuleCreated.handler(async ({ event, context }) => {
+  const [majorVersion, , , url, name] = event.params.metadata;
   const newModule = {
     ...module,
     id: event.params.m.toString(),
     orchestrator: event.params.orchestrator,
-    moduleType_id: getMetadataId(event.params.metadata),
+    moduleType_id: getMetadataId(majorVersion, url, name),
   };
   context.WorkflowModule.set(newModule);
 });

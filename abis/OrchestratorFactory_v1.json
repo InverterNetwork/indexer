@@ -1,507 +1,506 @@
 [
-    {
-        "type": "constructor",
-        "inputs": [
-            {
-                "name": "_trustedForwarder",
-                "type": "address",
-                "internalType": "address"
-            }
-        ],
-        "stateMutability": "nonpayable"
-    },
-    {
-        "type": "function",
-        "name": "acceptOwnership",
-        "inputs": [],
-        "outputs": [],
-        "stateMutability": "nonpayable"
-    },
-    {
-        "type": "function",
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "_trustedForwarder",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "acceptOwnership",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "beacon",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract IInverterBeacon_v1"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "createOrchestrator",
+    "inputs": [
+      {
+        "name": "workflowConfig",
+        "type": "tuple",
+        "internalType": "struct IOrchestratorFactory_v1.WorkflowConfig",
+        "components": [
+          {
+            "name": "independentUpdates",
+            "type": "bool",
+            "internalType": "bool"
+          },
+          {
+            "name": "independentUpdateAdmin",
+            "type": "address",
+            "internalType": "address"
+          }
+        ]
+      },
+      {
+        "name": "fundingManagerConfig",
+        "type": "tuple",
+        "internalType": "struct IOrchestratorFactory_v1.ModuleConfig",
+        "components": [
+          {
+            "name": "metadata",
+            "type": "tuple",
+            "internalType": "struct IModule_v1.Metadata",
+            "components": [
+              {
+                "name": "majorVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "minorVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "patchVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "url",
+                "type": "string",
+                "internalType": "string"
+              },
+              {
+                "name": "title",
+                "type": "string",
+                "internalType": "string"
+              }
+            ]
+          },
+          {
+            "name": "configData",
+            "type": "bytes",
+            "internalType": "bytes"
+          }
+        ]
+      },
+      {
+        "name": "authorizerConfig",
+        "type": "tuple",
+        "internalType": "struct IOrchestratorFactory_v1.ModuleConfig",
+        "components": [
+          {
+            "name": "metadata",
+            "type": "tuple",
+            "internalType": "struct IModule_v1.Metadata",
+            "components": [
+              {
+                "name": "majorVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "minorVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "patchVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "url",
+                "type": "string",
+                "internalType": "string"
+              },
+              {
+                "name": "title",
+                "type": "string",
+                "internalType": "string"
+              }
+            ]
+          },
+          {
+            "name": "configData",
+            "type": "bytes",
+            "internalType": "bytes"
+          }
+        ]
+      },
+      {
+        "name": "paymentProcessorConfig",
+        "type": "tuple",
+        "internalType": "struct IOrchestratorFactory_v1.ModuleConfig",
+        "components": [
+          {
+            "name": "metadata",
+            "type": "tuple",
+            "internalType": "struct IModule_v1.Metadata",
+            "components": [
+              {
+                "name": "majorVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "minorVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "patchVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "url",
+                "type": "string",
+                "internalType": "string"
+              },
+              {
+                "name": "title",
+                "type": "string",
+                "internalType": "string"
+              }
+            ]
+          },
+          {
+            "name": "configData",
+            "type": "bytes",
+            "internalType": "bytes"
+          }
+        ]
+      },
+      {
+        "name": "moduleConfigs",
+        "type": "tuple[]",
+        "internalType": "struct IOrchestratorFactory_v1.ModuleConfig[]",
+        "components": [
+          {
+            "name": "metadata",
+            "type": "tuple",
+            "internalType": "struct IModule_v1.Metadata",
+            "components": [
+              {
+                "name": "majorVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "minorVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "patchVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "url",
+                "type": "string",
+                "internalType": "string"
+              },
+              {
+                "name": "title",
+                "type": "string",
+                "internalType": "string"
+              }
+            ]
+          },
+          {
+            "name": "configData",
+            "type": "bytes",
+            "internalType": "bytes"
+          }
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract IOrchestrator_v1"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getOrchestratorByID",
+    "inputs": [
+      { "name": "id", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [
+      { "name": "", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getOrchestratorIDCounter",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "uint256", "internalType": "uint256" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "init",
+    "inputs": [
+      {
+        "name": "governor_",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "beacon_",
+        "type": "address",
+        "internalType": "contract IInverterBeacon_v1"
+      },
+      {
+        "name": "moduleFactory_",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "isTrustedForwarder",
+    "inputs": [
+      {
+        "name": "forwarder",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      { "name": "", "type": "bool", "internalType": "bool" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "moduleFactory",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "owner",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "pendingOwner",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "renounceOwnership",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "supportsInterface",
+    "inputs": [
+      {
+        "name": "interfaceId",
+        "type": "bytes4",
+        "internalType": "bytes4"
+      }
+    ],
+    "outputs": [
+      { "name": "", "type": "bool", "internalType": "bool" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "transferOwnership",
+    "inputs": [
+      {
+        "name": "newOwner",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "trustedForwarder",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "address", "internalType": "address" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "event",
+    "name": "Initialized",
+    "inputs": [
+      {
+        "name": "version",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "OrchestratorCreated",
+    "inputs": [
+      {
+        "name": "orchestratorId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "orchestratorAddress",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "OrchestratorFactoryInitialized",
+    "inputs": [
+      {
         "name": "beacon",
-        "inputs": [],
-        "outputs": [
-            {
-                "name": "",
-                "type": "address",
-                "internalType": "contract IInverterBeacon_v1"
-            }
-        ],
-        "stateMutability": "view"
-    },
-    {
-        "type": "function",
-        "name": "createOrchestrator",
-        "inputs": [
-            {
-                "name": "workflowConfig",
-                "type": "tuple",
-                "internalType": "struct IOrchestratorFactory_v1.WorkflowConfig",
-                "components": [
-                    {
-                        "name": "independentUpdates",
-                        "type": "bool",
-                        "internalType": "bool"
-                    },
-                    {
-                        "name": "independentUpdateAdmin",
-                        "type": "address",
-                        "internalType": "address"
-                    }
-                ]
-            },
-            {
-                "name": "fundingManagerConfig",
-                "type": "tuple",
-                "internalType": "struct IOrchestratorFactory_v1.ModuleConfig",
-                "components": [
-                    {
-                        "name": "metadata",
-                        "type": "tuple",
-                        "internalType": "struct IModule_v1.Metadata",
-                        "components": [
-                            {
-                                "name": "majorVersion",
-                                "type": "uint256",
-                                "internalType": "uint256"
-                            },
-                            {
-                                "name": "minorVersion",
-                                "type": "uint256",
-                                "internalType": "uint256"
-                            },
-                            {
-                                "name": "url",
-                                "type": "string",
-                                "internalType": "string"
-                            },
-                            {
-                                "name": "title",
-                                "type": "string",
-                                "internalType": "string"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "configData",
-                        "type": "bytes",
-                        "internalType": "bytes"
-                    }
-                ]
-            },
-            {
-                "name": "authorizerConfig",
-                "type": "tuple",
-                "internalType": "struct IOrchestratorFactory_v1.ModuleConfig",
-                "components": [
-                    {
-                        "name": "metadata",
-                        "type": "tuple",
-                        "internalType": "struct IModule_v1.Metadata",
-                        "components": [
-                            {
-                                "name": "majorVersion",
-                                "type": "uint256",
-                                "internalType": "uint256"
-                            },
-                            {
-                                "name": "minorVersion",
-                                "type": "uint256",
-                                "internalType": "uint256"
-                            },
-                            {
-                                "name": "url",
-                                "type": "string",
-                                "internalType": "string"
-                            },
-                            {
-                                "name": "title",
-                                "type": "string",
-                                "internalType": "string"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "configData",
-                        "type": "bytes",
-                        "internalType": "bytes"
-                    }
-                ]
-            },
-            {
-                "name": "paymentProcessorConfig",
-                "type": "tuple",
-                "internalType": "struct IOrchestratorFactory_v1.ModuleConfig",
-                "components": [
-                    {
-                        "name": "metadata",
-                        "type": "tuple",
-                        "internalType": "struct IModule_v1.Metadata",
-                        "components": [
-                            {
-                                "name": "majorVersion",
-                                "type": "uint256",
-                                "internalType": "uint256"
-                            },
-                            {
-                                "name": "minorVersion",
-                                "type": "uint256",
-                                "internalType": "uint256"
-                            },
-                            {
-                                "name": "url",
-                                "type": "string",
-                                "internalType": "string"
-                            },
-                            {
-                                "name": "title",
-                                "type": "string",
-                                "internalType": "string"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "configData",
-                        "type": "bytes",
-                        "internalType": "bytes"
-                    }
-                ]
-            },
-            {
-                "name": "moduleConfigs",
-                "type": "tuple[]",
-                "internalType": "struct IOrchestratorFactory_v1.ModuleConfig[]",
-                "components": [
-                    {
-                        "name": "metadata",
-                        "type": "tuple",
-                        "internalType": "struct IModule_v1.Metadata",
-                        "components": [
-                            {
-                                "name": "majorVersion",
-                                "type": "uint256",
-                                "internalType": "uint256"
-                            },
-                            {
-                                "name": "minorVersion",
-                                "type": "uint256",
-                                "internalType": "uint256"
-                            },
-                            {
-                                "name": "url",
-                                "type": "string",
-                                "internalType": "string"
-                            },
-                            {
-                                "name": "title",
-                                "type": "string",
-                                "internalType": "string"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "configData",
-                        "type": "bytes",
-                        "internalType": "bytes"
-                    }
-                ]
-            }
-        ],
-        "outputs": [
-            {
-                "name": "",
-                "type": "address",
-                "internalType": "contract IOrchestrator_v1"
-            }
-        ],
-        "stateMutability": "nonpayable"
-    },
-    {
-        "type": "function",
-        "name": "getOrchestratorByID",
-        "inputs": [
-            {
-                "name": "id",
-                "type": "uint256",
-                "internalType": "uint256"
-            }
-        ],
-        "outputs": [
-            {
-                "name": "",
-                "type": "address",
-                "internalType": "address"
-            }
-        ],
-        "stateMutability": "view"
-    },
-    {
-        "type": "function",
-        "name": "getOrchestratorIDCounter",
-        "inputs": [],
-        "outputs": [
-            {
-                "name": "",
-                "type": "uint256",
-                "internalType": "uint256"
-            }
-        ],
-        "stateMutability": "view"
-    },
-    {
-        "type": "function",
-        "name": "init",
-        "inputs": [
-            {
-                "name": "governor_",
-                "type": "address",
-                "internalType": "address"
-            },
-            {
-                "name": "beacon_",
-                "type": "address",
-                "internalType": "contract IInverterBeacon_v1"
-            },
-            {
-                "name": "moduleFactory_",
-                "type": "address",
-                "internalType": "address"
-            }
-        ],
-        "outputs": [],
-        "stateMutability": "nonpayable"
-    },
-    {
-        "type": "function",
-        "name": "isTrustedForwarder",
-        "inputs": [
-            {
-                "name": "forwarder",
-                "type": "address",
-                "internalType": "address"
-            }
-        ],
-        "outputs": [
-            {
-                "name": "",
-                "type": "bool",
-                "internalType": "bool"
-            }
-        ],
-        "stateMutability": "view"
-    },
-    {
-        "type": "function",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
         "name": "moduleFactory",
-        "inputs": [],
-        "outputs": [
-            {
-                "name": "",
-                "type": "address",
-                "internalType": "address"
-            }
-        ],
-        "stateMutability": "view"
-    },
-    {
-        "type": "function",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "OwnershipTransferStarted",
+    "inputs": [
+      {
+        "name": "previousOwner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "newOwner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "OwnershipTransferred",
+    "inputs": [
+      {
+        "name": "previousOwner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "newOwner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "error",
+    "name": "InvalidInitialization",
+    "inputs": []
+  },
+  { "type": "error", "name": "NotInitializing", "inputs": [] },
+  {
+    "type": "error",
+    "name": "OrchestratorFactory__InvalidBeacon",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "OrchestratorFactory__InvalidId",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "OrchestratorFactory__ModuleDataLengthMismatch",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "OrchestratorFactory__OrchestratorAdminIsInvalid",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "OwnableInvalidOwner",
+    "inputs": [
+      {
         "name": "owner",
-        "inputs": [],
-        "outputs": [
-            {
-                "name": "",
-                "type": "address",
-                "internalType": "address"
-            }
-        ],
-        "stateMutability": "view"
-    },
-    {
-        "type": "function",
-        "name": "pendingOwner",
-        "inputs": [],
-        "outputs": [
-            {
-                "name": "",
-                "type": "address",
-                "internalType": "address"
-            }
-        ],
-        "stateMutability": "view"
-    },
-    {
-        "type": "function",
-        "name": "renounceOwnership",
-        "inputs": [],
-        "outputs": [],
-        "stateMutability": "nonpayable"
-    },
-    {
-        "type": "function",
-        "name": "supportsInterface",
-        "inputs": [
-            {
-                "name": "interfaceId",
-                "type": "bytes4",
-                "internalType": "bytes4"
-            }
-        ],
-        "outputs": [
-            {
-                "name": "",
-                "type": "bool",
-                "internalType": "bool"
-            }
-        ],
-        "stateMutability": "view"
-    },
-    {
-        "type": "function",
-        "name": "transferOwnership",
-        "inputs": [
-            {
-                "name": "newOwner",
-                "type": "address",
-                "internalType": "address"
-            }
-        ],
-        "outputs": [],
-        "stateMutability": "nonpayable"
-    },
-    {
-        "type": "function",
-        "name": "trustedForwarder",
-        "inputs": [],
-        "outputs": [
-            {
-                "name": "",
-                "type": "address",
-                "internalType": "address"
-            }
-        ],
-        "stateMutability": "view"
-    },
-    {
-        "type": "event",
-        "name": "Initialized",
-        "inputs": [
-            {
-                "name": "version",
-                "type": "uint64",
-                "indexed": false,
-                "internalType": "uint64"
-            }
-        ],
-        "anonymous": false
-    },
-    {
-        "type": "event",
-        "name": "OrchestratorCreated",
-        "inputs": [
-            {
-                "name": "orchestratorId",
-                "type": "uint256",
-                "indexed": true,
-                "internalType": "uint256"
-            },
-            {
-                "name": "orchestratorAddress",
-                "type": "address",
-                "indexed": true,
-                "internalType": "address"
-            }
-        ],
-        "anonymous": false
-    },
-    {
-        "type": "event",
-        "name": "OwnershipTransferStarted",
-        "inputs": [
-            {
-                "name": "previousOwner",
-                "type": "address",
-                "indexed": true,
-                "internalType": "address"
-            },
-            {
-                "name": "newOwner",
-                "type": "address",
-                "indexed": true,
-                "internalType": "address"
-            }
-        ],
-        "anonymous": false
-    },
-    {
-        "type": "event",
-        "name": "OwnershipTransferred",
-        "inputs": [
-            {
-                "name": "previousOwner",
-                "type": "address",
-                "indexed": true,
-                "internalType": "address"
-            },
-            {
-                "name": "newOwner",
-                "type": "address",
-                "indexed": true,
-                "internalType": "address"
-            }
-        ],
-        "anonymous": false
-    },
-    {
-        "type": "error",
-        "name": "InvalidInitialization",
-        "inputs": []
-    },
-    {
-        "type": "error",
-        "name": "NotInitializing",
-        "inputs": []
-    },
-    {
-        "type": "error",
-        "name": "OrchestratorFactory__InvalidBeacon",
-        "inputs": []
-    },
-    {
-        "type": "error",
-        "name": "OrchestratorFactory__InvalidId",
-        "inputs": []
-    },
-    {
-        "type": "error",
-        "name": "OrchestratorFactory__ModuleDataLengthMismatch",
-        "inputs": []
-    },
-    {
-        "type": "error",
-        "name": "OrchestratorFactory__OrchestratorAdminIsInvalid",
-        "inputs": []
-    },
-    {
-        "type": "error",
-        "name": "OwnableInvalidOwner",
-        "inputs": [
-            {
-                "name": "owner",
-                "type": "address",
-                "internalType": "address"
-            }
-        ]
-    },
-    {
-        "type": "error",
-        "name": "OwnableUnauthorizedAccount",
-        "inputs": [
-            {
-                "name": "account",
-                "type": "address",
-                "internalType": "address"
-            }
-        ]
-    }
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "OwnableUnauthorizedAccount",
+    "inputs": [
+      {
+        "name": "account",
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
+  }
 ]
