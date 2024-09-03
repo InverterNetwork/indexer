@@ -7,6 +7,7 @@ type Workflow {
   authorizer: WorkflowModule!
   paymentProcessor: WorkflowModule!
   optionalModules: [String!]
+  chainId: Int!
 }
 
 type WorkflowModuleType {
@@ -17,12 +18,14 @@ type WorkflowModuleType {
   url: String!
   beacon: String!
   name: String!
+  chainId: Int!
 }
 
 type WorkflowModule {
   id: ID! # address of module
   orchestrator: String!
   moduleType: WorkflowModuleType!
+  chainId: Int!
 }
 
 ## BONDING CURVE RELATED

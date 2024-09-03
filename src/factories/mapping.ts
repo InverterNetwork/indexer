@@ -27,7 +27,7 @@ ModuleFactory_v1.MetadataRegistered.handler(
   async ({ event, context }) => {
     const [majorVersion, minorVersion, patchVersion, url, name] =
       event.params.metadata;
-    const newModuleType = {
+    context.WorkflowModuleType.set({
       id: getMetadataId(majorVersion, url, name),
       majorVersion,
       minorVersion,
@@ -35,31 +35,31 @@ ModuleFactory_v1.MetadataRegistered.handler(
       url,
       name,
       beacon: event.params.beacon,
-    };
-    context.WorkflowModuleType.set(newModuleType);
+      chainId: event.chainId,
+    });
   }
 );
 
 ModuleFactory_v1.ModuleCreated.handler(async ({ event, context }) => {
   const [majorVersion, , , url, name] = event.params.metadata;
-  const newModule = {
+  context.WorkflowModule.set({
     id: event.params.m.toString(),
     orchestrator: event.params.orchestrator,
     moduleType_id: getMetadataId(majorVersion, url, name),
-  };
-  context.WorkflowModule.set(newModule);
+    chainId: event.chainId,
+  });
 });
 
 Orchestrator_v1.OrchestratorInitialized.handler(
   async ({ event, context }) => {
-    const newWorkflow = {
+    context.Workflow.set({
       id: event.srcAddress.toString(),
       orchestratorId: event.params.orchestratorId_,
       fundingManager_id: event.params.fundingManager,
       authorizer_id: event.params.authorizer,
       paymentProcessor_id: event.params.paymentProcessor,
       optionalModules: event.params.modules,
-    };
-    context.Workflow.set(newWorkflow);
+      chainId: event.chainId,
+    });
   }
 );
