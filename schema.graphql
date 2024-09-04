@@ -70,6 +70,7 @@ type Swap {
 }
 
 ## VESTING RELATED
+
 type StreamingPaymentProcessor {
   id: ID! # address
   chainId: Int!
