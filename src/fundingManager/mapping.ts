@@ -1,73 +1,56 @@
-import { FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1 } from 'generated';
+import { BondingCurve } from 'generated';
 
-import { bondingCurve, swap } from './schema';
-import { Swap_t } from 'generated/src/db/Entities.gen';
-import { getQtyAndPrice } from './utils';
+import {
+  updateBondingCurve,
+  getQtyAndPrice,
+  createSwap,
+  createBondingCurve,
+} from './utils';
+import { uintToFloat } from '../utils';
 
-FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.ModuleInitialized.handler(
-  async ({ event, context }) => {
-    const mandatoryParams = {
+BondingCurve.ModuleInitialized.handler(async ({ event, context }) => {
+  await createBondingCurve(
+    context,
+    event.srcAddress,
+    event.chainId,
+    event.params.parentOrchestrator,
+    {
       bcType:
-        event.params.moduleTitle ===
+        event.params.metadata[3] ===
         'FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1'
           ? 'RESTRICTED'
           : 'OPEN',
-      orchestrator: event.params.parentOrchestrator,
-      id: event.srcAddress,
-    };
-    const newBc = { ...bondingCurve, ...mandatoryParams };
-
-    context.BondingCurve.set(newBc);
-  }
-);
+    }
+  );
+});
 
 // Fees
 
-FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.BuyFeeUpdated.handler(
-  async ({ event, context }) => {
-    const currentEntity = await context.BondingCurve.get(
-      event.srcAddress
-    );
-    context.BondingCurve.set({
-      ...currentEntity!,
-      buyFee: event.params.newBuyFee,
-    });
-  }
-);
+BondingCurve.BuyFeeUpdated.handler(async ({ event, context }) => {
+  await updateBondingCurve(context, event.srcAddress, {
+    buyFee: event.params.newBuyFee,
+  });
+});
 
-FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.SellFeeUpdated.handler(
-  async ({ event, context }) => {
-    const currentEntity = await context.BondingCurve.get(
-      event.srcAddress
-    );
-    context.BondingCurve.set({
-      ...currentEntity!,
-      sellFee: event.params.newSellFee,
-    });
-  }
-);
+BondingCurve.SellFeeUpdated.handler(async ({ event, context }) => {
+  await updateBondingCurve(context, event.srcAddress, {
+    sellFee: event.params.newSellFee,
+  });
+});
 
 // Reserve Ratios
 
-FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.BuyReserveRatioSet.handler(
+BondingCurve.BuyReserveRatioSet.handler(
   async ({ event, context }) => {
-    const currentEntity = await context.BondingCurve.get(
-      event.srcAddress
-    );
-    context.BondingCurve.set({
-      ...currentEntity!,
+    await updateBondingCurve(context, event.srcAddress, {
       buyReserveRatio: event.params.newBuyReserveRatio,
     });
   }
 );
 
-FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.SellReserveRatioSet.handler(
+BondingCurve.SellReserveRatioSet.handler(
   async ({ event, context }) => {
-    const currentEntity = await context.BondingCurve.get(
-      event.srcAddress
-    );
-    context.BondingCurve.set({
-      ...currentEntity!,
+    await updateBondingCurve(context, event.srcAddress, {
       sellReserveRatio: event.params.newSellReserveRatio,
     });
   }
@@ -75,30 +58,109 @@ FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.SellReserveRatioSet.handler(
 
 // Issuance Token
 
-FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.IssuanceTokenUpdated.handler(
+BondingCurve.IssuanceTokenSet.handler(async ({ event, context }) => {
+  await updateBondingCurve(context, event.srcAddress, {
+    issuanceToken: event.params.issuanceToken,
+    issuanceTokenDecimals: Number(event.params.decimals),
+  });
+});
+
+// Collateral Token
+
+BondingCurve.OrchestratorTokenSet.handler(
   async ({ event, context }) => {
-    const currentEntity = await context.BondingCurve.get(
-      event.srcAddress
+    const bc = await context.BondingCurve.get(event.srcAddress);
+    const { virtualCollateralRaw } = bc!;
+    const virtualCollateral = uintToFloat(
+      virtualCollateralRaw!,
+      Number(event.params.decimals)
     );
-    context.BondingCurve.set({
-      ...currentEntity!,
-      issuanceToken: event.params.issuanceToken,
-      issuanceTokenDecimals: 18n, // TODO: get from event
+    await updateBondingCurve(context, event.srcAddress, {
+      collateralToken: event.params.token,
+      collateralTokenDecimals: Number(event.params.decimals),
+      virtualCollateral,
     });
   }
 );
 
-// Collateral Token
+// Virtual Issuance Supply
 
-FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.CollateralTokenSet.handler(
+BondingCurve.VirtualIssuanceSupplySet.handler(
   async ({ event, context }) => {
-    const currentEntity = await context.BondingCurve.get(
-      event.srcAddress
+    const bc = await context.BondingCurve.get(event.srcAddress);
+    const { issuanceTokenDecimals } = bc!;
+    const virtualIssuance = uintToFloat(
+      event.params.newSupply,
+      Number(issuanceTokenDecimals)
     );
-    context.BondingCurve.set({
-      ...currentEntity!,
-      collateralToken: event.params.token,
-      collateralTokenDecimals: event.params.decimals,
+    updateBondingCurve(context, event.srcAddress, {
+      virtualIssuance,
+    });
+  }
+);
+
+BondingCurve.VirtualIssuanceAmountAdded.handler(
+  async ({ event, context }) => {
+    const bc = await context.BondingCurve.get(event.srcAddress);
+    const { issuanceTokenDecimals } = bc!;
+    const virtualIssuance = uintToFloat(
+      event.params.newSupply,
+      Number(issuanceTokenDecimals)
+    );
+    updateBondingCurve(context, event.srcAddress, {
+      virtualIssuance,
+    });
+  }
+);
+
+BondingCurve.VirtualIssuanceAmountSubtracted.handler(
+  async ({ event, context }) => {
+    const bc = await context.BondingCurve.get(event.srcAddress);
+    const { issuanceTokenDecimals } = bc!;
+    const virtualIssuance = uintToFloat(
+      event.params.newSupply,
+      Number(issuanceTokenDecimals)
+    );
+    updateBondingCurve(context, event.srcAddress, {
+      virtualIssuance,
+    });
+  }
+);
+
+// Virtual Collateral Supply
+
+BondingCurve.VirtualCollateralSupplySet.handler(
+  async ({ event, context }) => {
+    updateBondingCurve(context, event.srcAddress, {
+      virtualCollateralRaw: event.params.newSupply,
+    });
+  }
+);
+
+BondingCurve.VirtualCollateralAmountAdded.handler(
+  async ({ event, context }) => {
+    const bc = await context.BondingCurve.get(event.srcAddress);
+    const { collateralTokenDecimals } = bc!;
+    const virtualCollateral = uintToFloat(
+      event.params.newSupply,
+      Number(collateralTokenDecimals)
+    );
+    updateBondingCurve(context, event.srcAddress, {
+      virtualCollateral,
+    });
+  }
+);
+
+BondingCurve.VirtualCollateralAmountSubtracted.handler(
+  async ({ event, context }) => {
+    const bc = await context.BondingCurve.get(event.srcAddress);
+    const { collateralTokenDecimals } = bc!;
+    const virtualCollateral = uintToFloat(
+      event.params.newSupply,
+      Number(collateralTokenDecimals)
+    );
+    updateBondingCurve(context, event.srcAddress, {
+      virtualCollateral,
     });
   }
 );
@@ -108,76 +170,64 @@ FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.CollateralTokenSet.handler(
 */
 
 // buy
-FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.TokensBought.handler(
-  async ({ event, context }) => {
-    const bondingCurve = await context.BondingCurve.get(
-      event.srcAddress
+BondingCurve.TokensBought.handler(async ({ event, context }) => {
+  const bondingCurve = await context.BondingCurve.get(
+    event.srcAddress
+  );
+  const { issuanceAmount, collateralAmount, priceInCol } =
+    await getQtyAndPrice(
+      event.params.receivedAmount,
+      event.params.depositAmount,
+      bondingCurve!
     );
 
-    const { issuanceAmount, collateralAmount, priceInCol } =
-      await getQtyAndPrice(
-        event.params.receivedAmount,
-        event.params.depositAmount,
-        bondingCurve!
-      );
-
-    const mandatoryParams = {
-      id: event.transactionIndex + '-' + event.transactionHash,
+  await createSwap(
+    context,
+    event.transactionIndex + '-' + event.transactionHash,
+    event.chainId,
+    {
       swapType: 'BUY',
       bondingCurve_id: event.srcAddress,
-      collateralToken: bondingCurve!.collateralToken,
-      issuanceToken: bondingCurve!.collateralToken,
+      collateralToken: bondingCurve!.collateralToken!,
+      issuanceToken: bondingCurve!.issuanceToken!,
       collateralAmount,
       issuanceAmount,
       initiator: event.params.buyer,
       recipient: event.params.receiver,
       priceInCol,
       blockTimestamp: event.blockTimestamp,
-    };
-
-    const newBuy = {
-      ...swap,
-      ...mandatoryParams,
-    } as unknown as Swap_t;
-
-    context.Swap.set(newBuy);
-  }
-);
+    }
+  );
+});
 
 // sell
-// buy
-FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.TokensSold.handler(
-  async ({ event, context }) => {
-    const bondingCurve = await context.BondingCurve.get(
-      event.srcAddress
+BondingCurve.TokensSold.handler(async ({ event, context }) => {
+  const bondingCurve = await context.BondingCurve.get(
+    event.srcAddress
+  );
+
+  const { issuanceAmount, collateralAmount, priceInCol } =
+    await getQtyAndPrice(
+      event.params.depositAmount,
+      event.params.receivedAmount,
+      bondingCurve!
     );
 
-    const { issuanceAmount, collateralAmount, priceInCol } =
-      await getQtyAndPrice(
-        event.params.depositAmount,
-        event.params.receivedAmount,
-        bondingCurve!
-      );
-
-    const mandatoryParams = {
-      id: event.transactionIndex + '-' + event.transactionHash,
+  await createSwap(
+    context,
+    event.transactionIndex + '-' + event.transactionHash,
+    event.chainId,
+    {
       swapType: 'SELL',
       bondingCurve_id: event.srcAddress,
-      collateralToken: bondingCurve!.collateralToken,
-      issuanceToken: bondingCurve!.collateralToken,
+      collateralToken: bondingCurve!.collateralToken!,
+      issuanceToken: bondingCurve!.issuanceToken!,
       collateralAmount,
       issuanceAmount,
       initiator: event.params.seller,
       recipient: event.params.receiver,
       priceInCol,
       blockTimestamp: event.blockTimestamp,
-    };
-
-    const newSale = {
-      ...swap,
-      ...mandatoryParams,
-    } as unknown as Swap_t;
-
-    context.Swap.set(newSale);
-  }
-);
+    }
+  );
+});

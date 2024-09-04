@@ -3,8 +3,11 @@ import { Metadata } from './types';
 import { contractRegistrations, eventLog } from 'generated';
 import { moduleGroups } from '../constants';
 
-export const getMetadataId = (metadata: Metadata) => {
-  const [majorVersion, , url, name] = metadata;
+export const getMetadataId = (
+  majorVersion: bigint,
+  url: string,
+  name: string
+) => {
   return keccak256(
     encodeAbiParameters(
       [
@@ -22,12 +25,11 @@ export const registerModule = (
   name: string,
   event: eventLog<any>
 ) => {
+  // index both restricted and open bc as restircted bc
   if (
     moduleGroups.fundingManager.bondingCurves.members.includes(name)
   ) {
-    return context.addFM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1(
-      event.params.m
-    );
+    return context.addBondingCurve(event.params.m);
   }
 
   // default: try to register module based on its distinct ABI

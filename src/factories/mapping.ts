@@ -5,7 +5,6 @@ import {
 } from 'generated';
 
 import { getMetadataId, registerModule } from './utils';
-import { workflow } from './schema';
 
 // contract register
 
@@ -17,50 +16,50 @@ OrchestratorFactory_v1.OrchestratorCreated.contractRegister(
 
 ModuleFactory_v1.ModuleCreated.contractRegister(
   ({ event, context }) => {
-    const [, , , name] = event.params.metadata;
+    const [, , , , name] = event.params.metadata;
     registerModule(context, name, event);
   }
 );
 
-// Register nwhen new modules are registered
+// Register when new modules are registered
 
 ModuleFactory_v1.MetadataRegistered.handler(
   async ({ event, context }) => {
-    const [majorVersion, minorVersion, url, name] =
+    const [majorVersion, minorVersion, patchVersion, url, name] =
       event.params.metadata;
-    const newModuleType = {
-      id: getMetadataId(event.params.metadata),
+    context.WorkflowModuleType.set({
+      id: getMetadataId(majorVersion, url, name),
       majorVersion,
       minorVersion,
+      patchVersion,
       url,
       name,
       beacon: event.params.beacon,
-    };
-    context.WorkflowModuleType.set(newModuleType);
+      chainId: event.chainId,
+    });
   }
 );
 
 ModuleFactory_v1.ModuleCreated.handler(async ({ event, context }) => {
-  const newModule = {
-    ...module,
+  const [majorVersion, , , url, name] = event.params.metadata;
+  context.WorkflowModule.set({
     id: event.params.m.toString(),
     orchestrator: event.params.orchestrator,
-    moduleType_id: getMetadataId(event.params.metadata),
-  };
-  context.WorkflowModule.set(newModule);
+    moduleType_id: getMetadataId(majorVersion, url, name),
+    chainId: event.chainId,
+  });
 });
 
 Orchestrator_v1.OrchestratorInitialized.handler(
   async ({ event, context }) => {
-    const newWorkflow = {
-      ...workflow,
+    context.Workflow.set({
       id: event.srcAddress.toString(),
       orchestratorId: event.params.orchestratorId_,
       fundingManager_id: event.params.fundingManager,
       authorizer_id: event.params.authorizer,
       paymentProcessor_id: event.params.paymentProcessor,
       optionalModules: event.params.modules,
-    };
-    context.Workflow.set(newWorkflow);
+      chainId: event.chainId,
+    });
   }
 );

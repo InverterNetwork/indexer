@@ -1,3 +1,5 @@
+## GENERAL ENTITIES
+
 type Workflow {
   id: ID! # orchestratorAddress
   orchestratorId: BigInt!
@@ -5,37 +7,45 @@ type Workflow {
   authorizer: WorkflowModule!
   paymentProcessor: WorkflowModule!
   optionalModules: [String!]
+  chainId: Int!
 }
 
 type WorkflowModuleType {
   id: ID! # identifier is keccak256 hash of parts of metadata
   majorVersion: BigInt!
   minorVersion: BigInt!
+  patchVersion: BigInt!
   url: String!
   beacon: String!
   name: String!
+  chainId: Int!
 }
 
 type WorkflowModule {
   id: ID! # address of module
   orchestrator: String!
   moduleType: WorkflowModuleType!
+  chainId: Int!
 }
+
+## BONDING CURVE RELATED
 
 type BondingCurve {
   id: ID! # address of module
-  bcType: String! # restricted or not restricted
-  orchestrator: String! # address of associated orchestrator
+  chainId: Int!
+  workflow: Workflow! # address of associated orchestrator
   collateralToken: String
-  collateralTokenDecimals: BigInt
+  collateralTokenDecimals: Int
   buyFee: BigInt
+  bcType: String # restricted or not restricted
   sellFee: BigInt
-  virtualCollateral: BigInt
-  virtualIssuance: BigInt
+  virtualCollateral: Float
+  virtualCollateralRaw: BigInt
+  virtualIssuance: Float
   buyReserveRatio: BigInt
   sellReserveRatio: BigInt
   issuanceToken: String
-  issuanceTokenDecimals: BigInt
+  issuanceTokenDecimals: Int
   swaps: [Swap!]! @derivedFrom(field: "bondingCurve")
 }
 
@@ -48,12 +58,42 @@ type Swap {
   id: ID!
   bondingCurve: BondingCurve!
   swapType: SwapType!
-  issuanceAmount: BigInt!
+  issuanceAmount: Float!
   issuanceToken: String!
-  collateralAmount: BigInt!
+  collateralAmount: Float!
   collateralToken: String!
   priceInCol: Float!
   initiator: String!
   recipient: String!
+  blockTimestamp: Int!
+  chainId: Int!
+}
+
+## VESTING RELATED
+
+type StreamingPaymentProcessor {
+  id: ID! # address
+  chainId: Int!
+  workflow: Workflow!
+  vestings: [LinearVesting!]!
+    @derivedFrom(field: "streamingPaymentProcessor")
+}
+
+enum VestingStatus {
+  ACTIVE
+  CANCELLED
+}
+
+type LinearVesting {
+  id: ID! # uint streamId
+  chainId: Int!
+  streamingPaymentProcessor: StreamingPaymentProcessor!
+  token: String!
+  amountRaw: BigInt!
+  recipient: String!
+  start: BigInt!
+  cliff: BigInt!
+  end: BigInt!
+  status: VestingStatus!
   blockTimestamp: Int!
 }
