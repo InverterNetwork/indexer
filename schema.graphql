@@ -72,6 +72,7 @@ type Swap {
 ## VESTING RELATED
 type StreamingPaymentProcessor {
   id: ID! # address
+  chainId: Int!
   workflow: Workflow!
   vestings: [LinearVesting!]!
     @derivedFrom(field: "streamingPaymentProcessor")
@@ -79,14 +80,15 @@ type StreamingPaymentProcessor {
 
 enum VestingStatus {
   ACTIVE
-  INACTIVE
+  CANCELLED
 }
 
 type LinearVesting {
   id: ID! # uint streamId
+  chainId: Int!
   streamingPaymentProcessor: StreamingPaymentProcessor!
   token: String!
-  amount: BigInt!
+  amountRaw: BigInt!
   recipient: String!
   start: BigInt!
   cliff: BigInt!
