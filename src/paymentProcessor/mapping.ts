@@ -14,7 +14,10 @@ PP_Streaming_v1.ModuleInitialized.handler(
 PP_Streaming_v1.StreamingPaymentAdded.handler(
   async ({ event, context }) => {
     context.LinearVesting.set({
-      id: event.params.streamId.toString(),
+      id:
+        event.params.recipient +
+        '-' +
+        event.params.streamId.toString(),
       streamingPaymentProcessor_id: event.srcAddress,
       token: event.params.paymentToken,
       amountRaw: event.params.amount,

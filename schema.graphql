@@ -85,7 +85,7 @@ enum VestingStatus {
 }
 
 type LinearVesting {
-  id: ID! # uint streamId
+  id: ID! # concat(recipient,'-',streamId)
   chainId: Int!
   streamingPaymentProcessor: StreamingPaymentProcessor!
   token: String!
