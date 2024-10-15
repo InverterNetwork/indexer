@@ -1,6 +1,7 @@
 import {
   BondingCurve_t,
   Swap_t,
+  FeeClaim_t,
 } from 'generated/src/db/Entities.gen';
 import { OptionalBondingCurveProperties } from './types';
 import { optionalBondingCurveProperties } from './properties';
@@ -64,6 +65,19 @@ export const createSwap = async (
   properties: Omit<Swap_t, 'id' | 'chainId'>
 ) => {
   context.Swap.set({
+    id,
+    chainId,
+    ...properties,
+  });
+};
+
+export const createFeeClaim = async (
+  context: handlerContext,
+  id: string,
+  chainId: number,
+  properties: Omit<FeeClaim_t, 'id' | 'chainId'>
+) => {
+  context.FeeClaim.set({
     id,
     chainId,
     ...properties,

@@ -5,6 +5,7 @@ import {
   getQtyAndPrice,
   createSwap,
   createBondingCurve,
+  createFeeClaim,
 } from './utils';
 import { uintToFloat } from '../utils';
 
@@ -231,3 +232,32 @@ BondingCurve.TokensSold.handler(async ({ event, context }) => {
     }
   );
 });
+
+/*
+  FEES
+*/
+
+// claim
+BondingCurve.ProjectCollateralFeeWithdrawn.handler(
+  async ({ event, context }) => {
+    console.log('FEE CLAIM');
+    const bondingCurve = await context.BondingCurve.get(
+      event.srcAddress
+    );
+
+    await createFeeClaim(
+      context,
+      event.transactionIndex + '-' + event.transactionHash,
+      event.chainId,
+      {
+        bondingCurve_id: event.srcAddress,
+        amount: uintToFloat(
+          event.params.amount,
+          bondingCurve!.collateralTokenDecimals!
+        ),
+        blockTimestamp: event.blockTimestamp,
+        recipient: event.params.receiver,
+      }
+    );
+  }
+);

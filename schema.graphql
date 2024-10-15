@@ -47,6 +47,7 @@ type BondingCurve {
   issuanceToken: String
   issuanceTokenDecimals: Int
   swaps: [Swap!]! @derivedFrom(field: "bondingCurve")
+  feeClaim: [FeeClaim!]! @derivedFrom(field: "bondingCurve")
 }
 
 enum SwapType {
@@ -67,6 +68,15 @@ type Swap {
   recipient: String!
   blockTimestamp: Int!
   chainId: Int!
+}
+
+type FeeClaim {
+  id: ID!
+  bondingCurve: BondingCurve!
+  amount: Float!
+  blockTimestamp: Int!
+  chainId: Int!
+  recipient: String!
 }
 
 ## VESTING RELATED

@@ -36,6 +36,7 @@ contracts:
       - event: VirtualCollateralSupplySet
       - event: VirtualCollateralAmountAdded
       - event: VirtualCollateralAmountSubtracted
+      - event: ProjectCollateralFeeWithdrawn
   - name: PP_Streaming_v1
     abi_file_path: abis/PP_Streaming_v1.json
     handler: src/paymentProcessor/mapping.ts
