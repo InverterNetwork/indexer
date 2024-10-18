@@ -79,3 +79,18 @@ networks:
         address:
       - name: LM_PC_PaymentRouter_v1
         address:
+  - id: 1101
+    start_block: 0
+    contracts:
+      - name: ModuleFactory_v1
+        address: 0x5Da8231feE106f4A43e07f2EEE95564467A1Ee58
+      - name: OrchestratorFactory_v1
+        address: 0x6ecA5f791d9635e4a1874cCD95564F914fBCF73d
+      - name: Orchestrator_v1
+        address:
+      - name: BondingCurve # renamed to solve postgres conflict due to length of name
+        address:
+      - name: PP_Streaming_v1
+        address:
+      - name: LM_PC_PaymentRouter_v1
+        address:
