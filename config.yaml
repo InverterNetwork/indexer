@@ -1,5 +1,6 @@
 name: Inverter Protocol Indexer
 description: Indexes events from the Inverter Protocol
+unordered_multichain_mode: true
 contracts:
   - name: ModuleFactory_v1
     abi_file_path: abis/ModuleFactory_v1.json
