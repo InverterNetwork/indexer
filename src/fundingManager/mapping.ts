@@ -184,7 +184,7 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
 
   await createSwap(
     context,
-    event.transactionIndex + '-' + event.transactionHash,
+    event.block.hash + '-' + event.logIndex,
     event.chainId,
     {
       swapType: 'BUY',
@@ -196,7 +196,7 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
       initiator: event.params.buyer,
       recipient: event.params.receiver,
       priceInCol,
-      blockTimestamp: event.blockTimestamp,
+      blockTimestamp: event.block.timestamp,
     }
   );
 });
@@ -216,7 +216,7 @@ BondingCurve.TokensSold.handler(async ({ event, context }) => {
 
   await createSwap(
     context,
-    event.transactionIndex + '-' + event.transactionHash,
+    event.block.hash + '-' + event.logIndex,
     event.chainId,
     {
       swapType: 'SELL',
@@ -228,7 +228,7 @@ BondingCurve.TokensSold.handler(async ({ event, context }) => {
       initiator: event.params.seller,
       recipient: event.params.receiver,
       priceInCol,
-      blockTimestamp: event.blockTimestamp,
+      blockTimestamp: event.block.timestamp,
     }
   );
 });
@@ -247,7 +247,7 @@ BondingCurve.ProjectCollateralFeeWithdrawn.handler(
 
     await createFeeClaim(
       context,
-      event.transactionIndex + '-' + event.transactionHash,
+      event.block.hash + '-' + event.logIndex,
       event.chainId,
       {
         bondingCurve_id: event.srcAddress,
@@ -255,7 +255,7 @@ BondingCurve.ProjectCollateralFeeWithdrawn.handler(
           event.params.amount,
           bondingCurve!.collateralTokenDecimals!
         ),
-        blockTimestamp: event.blockTimestamp,
+        blockTimestamp: event.block.timestamp,
         recipient: event.params.receiver,
       }
     );

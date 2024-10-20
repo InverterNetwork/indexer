@@ -26,7 +26,7 @@ PP_Streaming_v1.StreamingPaymentAdded.handler(
       cliff: event.params.cliff,
       end: event.params.end,
       status: 'ACTIVE',
-      blockTimestamp: event.blockTimestamp,
+      blockTimestamp: event.block.timestamp,
       chainId: event.chainId,
     });
   }
