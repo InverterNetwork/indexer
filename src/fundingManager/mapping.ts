@@ -240,7 +240,6 @@ BondingCurve.TokensSold.handler(async ({ event, context }) => {
 // claim
 BondingCurve.ProjectCollateralFeeWithdrawn.handler(
   async ({ event, context }) => {
-    console.log('FEE CLAIM');
     const bondingCurve = await context.BondingCurve.get(
       event.srcAddress
     );
@@ -261,3 +260,17 @@ BondingCurve.ProjectCollateralFeeWithdrawn.handler(
     );
   }
 );
+
+// protocol fee generation
+BondingCurve.ProtocolFeeMinted.handler(async ({ event, context }) => {
+  const bc = await context.BondingCurve.get(event.srcAddress);
+  const { issuanceTokenDecimals } = bc!;
+  const mintedProtocolFee = uintToFloat(
+    event.params.feeAmount,
+    Number(issuanceTokenDecimals)
+  );
+
+  await updateBondingCurve(context, event.srcAddress, {
+    virtualIssuance: bc!.virtualIssuance! + mintedProtocolFee,
+  });
+});

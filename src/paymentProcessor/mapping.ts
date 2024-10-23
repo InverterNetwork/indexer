@@ -2,7 +2,6 @@ import { PP_Streaming_v1 } from 'generated';
 
 PP_Streaming_v1.ModuleInitialized.handler(
   async ({ event, context }) => {
-    console.log('EVENT: PP_Streaming_v1.ModuleInitialized');
     context.StreamingPaymentProcessor.set({
       id: event.srcAddress,
       chainId: event.chainId,
