@@ -85,3 +85,16 @@ networks:
         address:
       - name: PP_Streaming_v1
         address:
+  - id: 11155111
+    start_block: 0
+    contracts:
+      - name: ModuleFactory_v1
+        address: 0xcEB82D3FA367cE3563e07763765bB1ae7B5Ba3d5
+      - name: OrchestratorFactory_v1
+        address: 0x535BdbC1D369d43fed8546024D273eE5274fFF65
+      - name: Orchestrator_v1
+        address:
+      - name: BondingCurve # renamed to solve postgres conflict due to length of name
+        address:
+      - name: PP_Streaming_v1
+        address:
