@@ -1,4 +1,4 @@
-import { BondingCurve } from 'generated';
+import { BondingCurve, IssuanceToken_v1 } from 'generated';
 
 import {
   updateBondingCurve,
@@ -6,8 +6,10 @@ import {
   createSwap,
   createBondingCurve,
   createFeeClaim,
+  createIssuanceTokenHolder,
 } from './utils';
 import { uintToFloat } from '../utils';
+import { addressZero } from '../constants';
 
 BondingCurve.ModuleInitialized.handler(async ({ event, context }) => {
   await createBondingCurve(
@@ -59,11 +61,53 @@ BondingCurve.SellReserveRatioSet.handler(
 
 // Issuance Token
 
+BondingCurve.IssuanceTokenSet.contractRegister(
+  ({ event, context }) => {
+    context.addIssuanceToken_v1(event.params.issuanceToken);
+  }
+);
+
 BondingCurve.IssuanceTokenSet.handler(async ({ event, context }) => {
   await updateBondingCurve(context, event.srcAddress, {
     issuanceToken: event.params.issuanceToken,
     issuanceTokenDecimals: Number(event.params.decimals),
   });
+});
+
+IssuanceToken_v1.Transfer.handler(async ({ event, context }) => {
+  if (event.params.to !== addressZero) {
+    const id = event.srcAddress + '-' + event.params.to;
+    const to = await context.IssuanceTokenHolder.get(id);
+    if (to) {
+      context.IssuanceTokenHolder.set({
+        ...to!,
+        balance: to.balance + event.params.value,
+      });
+    } else {
+      await createIssuanceTokenHolder(context, id, event.chainId, {
+        balance: event.params.value,
+        token: event.srcAddress,
+        address: event.params.to,
+      });
+    }
+  }
+
+  if (event.params.from !== addressZero) {
+    const id = event.srcAddress + '-' + event.params.from;
+    const from = await context.IssuanceTokenHolder.get(id);
+    if (from) {
+      context.IssuanceTokenHolder.set({
+        ...from!,
+        balance: from.balance + event.params.value,
+      });
+    } else {
+      await createIssuanceTokenHolder(context, id, event.chainId, {
+        balance: event.params.value,
+        token: event.srcAddress,
+        address: event.params.from,
+      });
+    }
+  }
 });
 
 // Collateral Token

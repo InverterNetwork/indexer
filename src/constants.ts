@@ -13,3 +13,6 @@ export const moduleGroups = {
 export const moduleTitles = [
   ...moduleGroups.fundingManager.bondingCurves.members,
 ];
+
+export const addressZero =
+  '0x0000000000000000000000000000000000000000';

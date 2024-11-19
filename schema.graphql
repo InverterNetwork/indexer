@@ -79,6 +79,15 @@ type FeeClaim {
   recipient: String!
 }
 
+# TODO add bc relationship
+type IssuanceTokenHolder {
+  id: ID!
+  token: String!
+  address: String!
+  balance: BigInt!
+  chainId: Int!
+}
+
 ## VESTING RELATED
 
 type StreamingPaymentProcessor {

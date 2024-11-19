@@ -2,6 +2,7 @@ import {
   BondingCurve_t,
   Swap_t,
   FeeClaim_t,
+  IssuanceTokenHolder_t,
 } from 'generated/src/db/Entities.gen';
 import { OptionalBondingCurveProperties } from './types';
 import { optionalBondingCurveProperties } from './properties';
@@ -78,6 +79,19 @@ export const createFeeClaim = async (
   properties: Omit<FeeClaim_t, 'id' | 'chainId'>
 ) => {
   context.FeeClaim.set({
+    id,
+    chainId,
+    ...properties,
+  });
+};
+
+export const createIssuanceTokenHolder = async (
+  context: handlerContext,
+  id: string,
+  chainId: number,
+  properties: Omit<IssuanceTokenHolder_t, 'id' | 'chainId'>
+) => {
+  context.IssuanceTokenHolder.set({
     id,
     chainId,
     ...properties,
