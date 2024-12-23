@@ -46,6 +46,18 @@ contracts:
     events:
       - event: ModuleInitialized
       - event: StreamingPaymentAdded
+  - name: LM_PC_Bounties_v1
+    abi_file_path: abis/LM_PC_Bounties_v1.json
+    handler: src/logicModules/mapping.ts
+    events:
+      - event: ModuleInitialized
+      - event: BountyAdded
+      - event: BountyUpdated
+      - event: BountyLocked
+      - event: ClaimAdded
+      - event: ClaimContributorsUpdated
+      - event: ClaimDetailsUpdated
+      - event: ClaimVerified
 networks:
   - id: 11155420
     start_block: 0
@@ -60,6 +72,8 @@ networks:
         address:
       - name: PP_Streaming_v1
         address:
+      - name: LM_PC_Bounties_v1
+        address: 
   - id: 84532
     start_block: 0
     contracts:
@@ -73,6 +87,8 @@ networks:
         address:
       - name: PP_Streaming_v1
         address:
+      - name: LM_PC_Bounties_v1
+        address: 
   - id: 1101
     start_block: 0
     contracts:
@@ -86,6 +102,8 @@ networks:
         address:
       - name: PP_Streaming_v1
         address:
+      - name: LM_PC_Bounties_v1
+        address: 
   - id: 11155111
     start_block: 0
     contracts:
@@ -99,3 +117,5 @@ networks:
         address:
       - name: PP_Streaming_v1
         address:
+      - name: LM_PC_Bounties_v1
+        address: 

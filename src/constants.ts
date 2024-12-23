@@ -8,8 +8,15 @@ export const moduleGroups = {
       entity: 'BondingCurve',
     },
   },
+  logicModules: {
+    bounties: {
+      members: ['LM_PC_Bounties_v1'],
+      entity: 'LM_PC_Bounties_v1',
+    },
+  },
 };
 
 export const moduleTitles = [
   ...moduleGroups.fundingManager.bondingCurves.members,
+  ...moduleGroups.logicModules.bounties.members,
 ];

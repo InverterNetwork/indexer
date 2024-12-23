@@ -107,3 +107,31 @@ type LinearVesting {
   status: VestingStatus!
   blockTimestamp: Int!
 }
+
+type Bounty {
+  id: ID!
+  chainId: Int!
+  minimumPayoutAmount: BigInt!
+  maximumPayoutAmount: BigInt!
+  details: String!
+  locked: Boolean
+  claims: [BountyClaim!]!
+    @derivedFrom(field: "bounty")
+}
+
+type BountyClaim {
+  id: ID!
+  bounty: Bounty!
+  details: String!
+  claimed: Boolean
+  contributors: [BountyContributor!]!
+    @derivedFrom(field: "bountyClaim")
+
+}
+
+type BountyContributor {
+  id: ID!
+  bountyClaim: BountyClaim!
+  address: String!
+  claimAmount: BigInt!
+}

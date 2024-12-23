@@ -26,10 +26,19 @@ export const registerModule = (
   event: eventLog<any>
 ) => {
   // index both restricted and open bc as restircted bc
+  
   if (
     moduleGroups.fundingManager.bondingCurves.members.includes(name)
   ) {
     return context.addBondingCurve(event.params.m);
+  }
+
+  if(
+    moduleGroups.logicModules.bounties.members.includes(name)
+  ) {
+    console.log(name)
+    console.log(event.params.m)
+    return context.addLM_PC_Bounties_v1(event.params.m);
   }
 
   // default: try to register module based on its distinct ABI
