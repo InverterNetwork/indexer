@@ -7,6 +7,10 @@ export const moduleGroups = {
       ],
       entity: 'BondingCurve',
     },
+    depositVaults: {
+      members: ['FM_DepositVault_v1'],
+      entity: 'FM_DepositVault_v1',
+    },
   },
   logicModules: {
     bounties: {
@@ -18,5 +22,6 @@ export const moduleGroups = {
 
 export const moduleTitles = [
   ...moduleGroups.fundingManager.bondingCurves.members,
+  ...moduleGroups.fundingManager.depositVaults.members,
   ...moduleGroups.logicModules.bounties.members,
 ];

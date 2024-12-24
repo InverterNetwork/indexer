@@ -58,6 +58,13 @@ contracts:
       - event: ClaimContributorsUpdated
       - event: ClaimDetailsUpdated
       - event: ClaimVerified
+  - name: FM_DepositVault_v1
+    abi_file_path: abis/FM_DepositVault_v1.json
+    handler: src/fundingManager/depositvault.mapping.ts
+    events:
+      - event: ModuleInitialized
+      - event: Deposit
+      - event: TransferOrchestratorToken
 networks:
   - id: 11155420
     start_block: 0
@@ -74,6 +81,8 @@ networks:
         address:
       - name: LM_PC_Bounties_v1
         address: 
+      - name: FM_DepositVault_v1
+        address:
   - id: 84532
     start_block: 0
     contracts:
@@ -88,6 +97,8 @@ networks:
       - name: PP_Streaming_v1
         address:
       - name: LM_PC_Bounties_v1
+        address:
+      - name: FM_DepositVault_v1
         address: 
   - id: 1101
     start_block: 0
@@ -104,6 +115,8 @@ networks:
         address:
       - name: LM_PC_Bounties_v1
         address: 
+      - name: FM_DepositVault_v1
+        address:
   - id: 11155111
     start_block: 0
     contracts:
@@ -119,3 +132,5 @@ networks:
         address:
       - name: LM_PC_Bounties_v1
         address: 
+      - name: FM_DepositVault_v1
+        address:

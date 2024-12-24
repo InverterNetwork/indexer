@@ -34,10 +34,15 @@ export const registerModule = (
   }
 
   if(
+    moduleGroups.fundingManager.depositVaults.members.includes(name)
+  ) {
+    return context.addFM_DepositVault_v1(event.params.m);
+
+  }
+
+  if(
     moduleGroups.logicModules.bounties.members.includes(name)
   ) {
-    console.log(name)
-    console.log(event.params.m)
     return context.addLM_PC_Bounties_v1(event.params.m);
   }
 

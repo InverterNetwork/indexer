@@ -59,8 +59,6 @@ LM_PC_Bounties_v1.ClaimAdded.handler(
 
         event.params.contributors.forEach((element, index) => {
             let contributorId = `${bountyId}-${event.params.claimId.toString()}-${index}`;
-            context.log.info("claimadded");
-            context.log.error(contributorId);
 
             context.BountyContributor.set({
                 id: contributorId,
@@ -90,8 +88,6 @@ LM_PC_Bounties_v1.ClaimContributorsUpdated.handler(
         let index = 0;
         while (loop) {
             let contributorId = `${bountyId}-${event.params.claimId.toString()}-${index}`;
-            context.log.info("claimcontributorsupdated");
-            context.log.error(contributorId);
 
             let contributor = await context.BountyContributor.get(contributorId);
             if(contributor) {

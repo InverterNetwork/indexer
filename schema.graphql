@@ -135,3 +135,30 @@ type BountyContributor {
   address: String!
   claimAmount: BigInt!
 }
+
+type DepositVault {
+  id: ID!
+  chainId: Int!
+  workflow: Workflow!
+  balance: BigInt
+  deposits: [Deposit!]!
+    @derivedFrom(field: "depositVault")
+  transfers: [Transfer!]!
+    @derivedFrom(field: "depositVault")
+}
+
+type Deposit {
+  id: ID!
+  depositVault: DepositVault!
+  depositor: String!
+  amount: BigInt!
+  blockTimestamp: Int!
+}
+
+type Transfer {
+  id: ID!
+  depositVault: DepositVault!
+  recipient: String!
+  amount: BigInt!
+  blockTimestamp: Int!
+}
