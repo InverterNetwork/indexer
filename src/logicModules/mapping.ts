@@ -2,20 +2,34 @@ import { id } from "ethers";
 import { LM_PC_Bounties_v1 } from "generated";
 import { hexToString } from 'viem'
 
+LM_PC_Bounties_v1.ModuleInitialized.handler(
+    async ({ event, context }) => {
+        context.BountyModule.set({
+            id: event.srcAddress,
+            chainId: event.chainId,
+            workflow_id: event.params.parentOrchestrator
+        });
+    }
+);
+
 LM_PC_Bounties_v1.BountyAdded.handler(
     async ({ event, context }) => {
         const bountyId = `${event.srcAddress}-${event.params.bountyId.toString()}`;
         const detail = event.params.details as `0x${string}`;
 
+        const bountyModule = await context.BountyModule.get(event.srcAddress);
+        if (!bountyModule) {
+            context.log.error(`Could not find bounty module ${event.srcAddress}`);
+            return;
+        }
 
         context.Bounty.set({
             id: bountyId,
-            chainId: event.chainId,
+            bountyModule_id: bountyModule!.id,
             minimumPayoutAmount: event.params.minimumPayoutAmount,
             maximumPayoutAmount: event.params.maximumPayoutAmount,
             details: hexToString(detail),
-            locked: false,
-            
+            locked: false
         });
     }
 );

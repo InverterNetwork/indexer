@@ -108,9 +108,17 @@ type LinearVesting {
   blockTimestamp: Int!
 }
 
-type Bounty {
+type BountyModule {
   id: ID!
   chainId: Int!
+  workflow: Workflow!
+  bounties: [Bounty!]!
+    @derivedFrom(field: "bountyModule")
+}
+
+type Bounty {
+  id: ID!
+  bountyModule: BountyModule!
   minimumPayoutAmount: BigInt!
   maximumPayoutAmount: BigInt!
   details: String!
