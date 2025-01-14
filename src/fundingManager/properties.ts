@@ -1,9 +1,6 @@
-import { BondingCurve_t } from 'generated/src/db/Entities.gen';
+import { OptionalBondingCurveProperties } from "./types";
 
-export const optionalBondingCurveProperties: Omit<
-  BondingCurve_t,
-  'id' | 'chainId' | 'workflow_id'
-> = {
+export const optionalBondingCurveProperties = {
   bcType: undefined,
   buyFee: undefined,
   sellFee: undefined,
@@ -16,4 +13,4 @@ export const optionalBondingCurveProperties: Omit<
   issuanceTokenDecimals: undefined,
   collateralToken: undefined,
   collateralTokenDecimals: undefined,
-};
+} satisfies OptionalBondingCurveProperties;

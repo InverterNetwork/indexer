@@ -1,7 +1,7 @@
-import { keccak256, encodeAbiParameters } from 'viem';
-import { Metadata } from './types';
-import { contractRegistrations, eventLog } from 'generated';
-import { moduleGroups } from '../constants';
+import { keccak256, encodeAbiParameters } from "viem";
+import { Metadata } from "./types";
+import { contractRegistrations, eventLog } from "generated";
+import { moduleGroups } from "../utils/constants";
 
 export const getMetadataId = (
   majorVersion: bigint,
@@ -11,9 +11,9 @@ export const getMetadataId = (
   return keccak256(
     encodeAbiParameters(
       [
-        { name: 'majorVersion', type: 'uint256' },
-        { name: 'url', type: 'string' },
-        { name: 'title', type: 'string' },
+        { name: "majorVersion", type: "uint256" },
+        { name: "url", type: "string" },
+        { name: "title", type: "string" },
       ],
       [majorVersion, url, name]
     )
@@ -26,9 +26,7 @@ export const registerModule = (
   event: eventLog<any>
 ) => {
   // index both restricted and open bc as restircted bc
-  if (
-    moduleGroups.fundingManager.bondingCurves.members.includes(name)
-  ) {
+  if (moduleGroups.fundingManager.bondingCurves.members.includes(name)) {
     return context.addBondingCurve(event.params.m);
   }
 

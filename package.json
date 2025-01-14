@@ -1,10 +1,10 @@
 {
-  "name": "hello_greeter",
+  "name": "indexer",
   "version": "0.1.0",
   "scripts": {
     "clean": "tsc --clean",
     "build": "tsc --build",
-    "watch": "tsc --watch",
+    "watch": "tsc --watch --noEmit -p tsconfig.json",
     "mocha": "ts-mocha test/**/*.ts",
     "codegen": "envio codegen",
     "dev": "envio dev",
@@ -23,8 +23,7 @@
   },
   "dependencies": {
     "chai": "4.3.10",
-    "envio": "^2.8.2",
-    "ethers": "6.8.0"
+    "envio": "^2.8.2"
   },
   "optionalDependencies": {
     "generated": "./generated"

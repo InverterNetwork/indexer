@@ -1,7 +1,9 @@
 ## GENERAL ENTITIES
+## ------------------------------------------------------------
 
 type Workflow {
-  id: ID! # orchestratorAddress
+  # orchestratorAddress
+  id: ID!
   orchestratorId: BigInt!
   fundingManager: WorkflowModule!
   authorizer: WorkflowModule!
@@ -11,7 +13,8 @@ type Workflow {
 }
 
 type WorkflowModuleType {
-  id: ID! # identifier is keccak256 hash of parts of metadata
+  # identifier is keccak256 hash of parts of metadata
+  id: ID!
   majorVersion: BigInt!
   minorVersion: BigInt!
   patchVersion: BigInt!
@@ -22,22 +25,27 @@ type WorkflowModuleType {
 }
 
 type WorkflowModule {
-  id: ID! # address of module
+  # address of module
+  id: ID!
   orchestrator: String!
   moduleType: WorkflowModuleType!
   chainId: Int!
 }
 
 ## BONDING CURVE RELATED
+## ------------------------------------------------------------
 
 type BondingCurve {
-  id: ID! # address of module
+  # address of module
+  id: ID!
   chainId: Int!
-  workflow: Workflow! # address of associated orchestrator
+  # Workflow struct
+  workflow: Workflow!
   collateralToken: String
   collateralTokenDecimals: Int
   buyFee: BigInt
-  bcType: String # restricted or not restricted
+  # restricted or not restricted
+  bcType: String
   sellFee: BigInt
   virtualCollateral: Float
   virtualCollateralRaw: BigInt
@@ -80,13 +88,14 @@ type FeeClaim {
 }
 
 ## VESTING RELATED
+## ------------------------------------------------------------
 
 type StreamingPaymentProcessor {
-  id: ID! # address
+  # StreamingPaymentProcessor address
+  id: ID!
   chainId: Int!
   workflow: Workflow!
-  vestings: [LinearVesting!]!
-    @derivedFrom(field: "streamingPaymentProcessor")
+  vestings: [LinearVesting!]! @derivedFrom(field: "streamingPaymentProcessor")
 }
 
 enum VestingStatus {
@@ -95,15 +104,93 @@ enum VestingStatus {
 }
 
 type LinearVesting {
-  id: ID! # concat(recipient,'-',streamId)
+  # concat(recipient,'-',streamId)
+  id: ID!
+  # chainId
   chainId: Int!
+  # streamingPaymentProcessor struct
   streamingPaymentProcessor: StreamingPaymentProcessor!
+  # token address
   token: String!
+  # amountRaw (not formatted)
   amountRaw: BigInt!
+  # recipient address
   recipient: String!
+  # start timestamp
   start: BigInt!
+  # cliff timestamp
   cliff: BigInt!
+  # end timestamp
   end: BigInt!
+  # status of vesting
   status: VestingStatus!
+  # blockTimestamp of vesting
   blockTimestamp: Int!
+}
+
+type Token @entity {
+  # token address
+  id: ID!
+  # token symbol
+  symbol: String!
+  # token name
+  name: String!
+  # token decimals
+  decimals: BigInt!
+  # token total supply
+  totalSupply: BigInt!
+}
+
+type IssuanceTokenDayData @entity {
+  # token address concatendated with date
+  id: ID!
+  # timestamp rounded to current day by dividing by 86400
+  date: Int!
+  # pointer to token
+  token: Token!
+  # volume in token units
+  volumeInCol: BigInt!
+
+  # project fee in Collateral
+  projectFeeInCol: BigInt!
+  # protocol fee in Collateral
+  protocolFeeInCol: BigInt!
+  # project fee in Issuance
+  projectFeeInIssuance: BigInt!
+
+  # opening price Collateral
+  openInCol: BigInt!
+  # high price Collateral
+  highInCol: BigInt!
+  # low price Collateral
+  lowInCol: BigInt!
+  # close price Collateral
+  closeInCol: BigInt!
+}
+
+type IssuanceTokenHourData @entity {
+  # token address concatendated with date
+  id: ID!
+  # unix timestamp for start of hour
+  periodStartUnix: Int!
+  # pointer to token
+  token: Token!
+  # volume in token units
+  volumeInCol: BigInt!
+
+  # project fee in Collateral
+  projectFeeInCol: BigInt!
+  # protocol fee in Collateral
+  protocolFeeInCol: BigInt!
+  # project fee in Issuance
+  projectFeeInIssuance: BigInt!
+
+  # opening price Collateral
+  openInCol: BigInt!
+  # high price Collateral
+  highInCol: BigInt!
+  # low price Collateral
+  lowInCol: BigInt!
+  # close price Collateral
+  closeInCol: BigInt!
 }
