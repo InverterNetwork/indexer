@@ -10,6 +10,8 @@ import {
   createFeeClaim,
 } from "./utils";
 
+import { updateToken } from "../utils";
+
 BondingCurve.ModuleInitialized.handler(async ({ event, context }) => {
   await createBondingCurve(
     context,
@@ -61,6 +63,11 @@ BondingCurve.IssuanceTokenSet.handler(async ({ event, context }) => {
     issuanceToken: event.params.issuanceToken,
     issuanceTokenDecimals: Number(event.params.decimals),
   });
+
+  await updateToken(event, context, {
+    address: event.params.issuanceToken,
+    decimals: Number(event.params.decimals),
+  });
 });
 
 // Collateral Token
@@ -72,10 +79,16 @@ BondingCurve.OrchestratorTokenSet.handler(async ({ event, context }) => {
     virtualCollateralRaw!,
     Number(event.params.decimals)
   );
+
   await updateBondingCurve(context, event.srcAddress, {
     collateralToken: event.params.token,
     collateralTokenDecimals: Number(event.params.decimals),
     virtualCollateral,
+  });
+
+  await updateToken(event, context, {
+    address: event.params.token,
+    decimals: Number(event.params.decimals),
   });
 });
 

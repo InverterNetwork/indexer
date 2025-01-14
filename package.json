@@ -23,7 +23,8 @@
   },
   "dependencies": {
     "chai": "4.3.10",
-    "envio": "^2.8.2"
+    "envio": "^2.8.2",
+    "type-fest": "^4.32.0"
   },
   "optionalDependencies": {
     "generated": "./generated"

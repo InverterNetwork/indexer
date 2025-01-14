@@ -129,16 +129,14 @@ type LinearVesting {
 }
 
 type Token @entity {
-  # token address
+  # token address + chainId (chainId-address)
   id: ID!
-  # token symbol
-  symbol: String!
-  # token name
-  name: String!
+  # address of token
+  address: String!
+  # chainId
+  chainId: Int!
   # token decimals
-  decimals: BigInt!
-  # token total supply
-  totalSupply: BigInt!
+  decimals: Int!
 }
 
 type IssuanceTokenDayData @entity {
