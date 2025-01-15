@@ -1,5 +1,7 @@
 export * from "./token";
 export * from "./interval-updates";
+export * from "./funding-manager";
+export * from "./constants";
 
 import { keccak256, formatUnits } from "viem";
 import { moduleTitles } from "./constants";

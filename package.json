@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "clean": "tsc --clean",
-    "build": "tsc --build",
+    "build": "tsc --build && tsc-alias ./build",
     "watch": "tsc --watch --noEmit -p tsconfig.json",
     "mocha": "ts-mocha test/**/*.ts",
     "codegen": "envio codegen",
@@ -24,6 +24,8 @@
   "dependencies": {
     "chai": "4.3.10",
     "envio": "^2.8.2",
+    "prettier": "^3.4.2",
+    "tsc-alias": "^1.8.10",
     "type-fest": "^4.32.0"
   },
   "optionalDependencies": {

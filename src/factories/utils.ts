@@ -1,5 +1,4 @@
 import { keccak256, encodeAbiParameters } from "viem";
-import { Metadata } from "./types";
 import { contractRegistrations, eventLog } from "generated";
 import { moduleGroups } from "../utils/constants";
 

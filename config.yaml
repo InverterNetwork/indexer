@@ -21,7 +21,7 @@ contracts:
       - event: OrchestratorInitialized
   - name: BondingCurve # renamed to solve postgres conflict due to length of name
     abi_file_path: abis/FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.json
-    handler: src/fundingManager/mapping.ts
+    handler: src/mappings/funding-manager/bonding-curve.ts
     events:
       - event: ModuleInitialized
       - event: BuyFeeUpdated
@@ -60,7 +60,7 @@ contracts:
       - event: ClaimVerified
   - name: FM_DepositVault_v1
     abi_file_path: abis/FM_DepositVault_v1.json
-    handler: src/fundingManager/depositvault.mapping.ts
+    handler: src/mappings/funding-manager/deposit-vault.ts
     events:
       - event: ModuleInitialized
       - event: Deposit
@@ -80,7 +80,7 @@ networks:
       - name: PP_Streaming_v1
         address:
       - name: LM_PC_Bounties_v1
-        address: 
+        address:
       - name: FM_DepositVault_v1
         address:
   - id: 84532
@@ -99,7 +99,7 @@ networks:
       - name: LM_PC_Bounties_v1
         address:
       - name: FM_DepositVault_v1
-        address: 
+        address:
   - id: 1101
     start_block: 0
     contracts:
@@ -114,7 +114,7 @@ networks:
       - name: PP_Streaming_v1
         address:
       - name: LM_PC_Bounties_v1
-        address: 
+        address:
       - name: FM_DepositVault_v1
         address:
   - id: 11155111
@@ -131,6 +131,6 @@ networks:
       - name: PP_Streaming_v1
         address:
       - name: LM_PC_Bounties_v1
-        address: 
+        address:
       - name: FM_DepositVault_v1
         address:
