@@ -18,15 +18,15 @@ export async function updateIssuanceTokenDayData(
   const dayID = timestamp / 86400
   const dayStartTimestamp = dayID * 86400
 
-  const token = (await context.Token.get(address))!
-
-  const tokenDayID = `${token.address}-${dayID}`
+  const token_id = `${event.chainId}-${address}`
+  const tokenDayID = `${dayID}-${address}`
 
   const tokenDayData = (structuredClone(
     await context.IssuanceTokenDayData.get(tokenDayID)
   ) as Writable<IssuanceTokenDayData>) || {
+    id: tokenDayID,
     date: dayStartTimestamp,
-    token_id: `${event.chainId}-${address}`,
+    token_id,
     volumeInCol: ZERO_BD,
     volumeInUSD: ZERO_BD,
     feesInCol: ZERO_BD,
@@ -61,13 +61,16 @@ export async function updateTokenHourData(
   const timestamp = event.block.timestamp
   const hourIndex = timestamp / 3600 // get unique hour within unix history
   const hourStartUnix = hourIndex * 3600 // want the rounded effect
-  const tokenHourID = `${address}-${hourIndex}`
+
+  const token_id = `${event.chainId}-${address}`
+  const tokenHourID = `${hourIndex}-${address}`
 
   const tokenHourData = (structuredClone(
     await context.IssuanceTokenHourData.get(tokenHourID)
   ) as Writable<IssuanceTokenHourData>) || {
+    id: tokenHourID,
     periodStartUnix: hourStartUnix,
-    token_id: `${event.chainId}-${address}`,
+    token_id,
     volumeInCol: ZERO_BD,
     volumeInUSD: ZERO_BD,
     untrackedVolumeInUSD: ZERO_BD,

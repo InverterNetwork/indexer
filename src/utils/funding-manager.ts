@@ -2,27 +2,20 @@ import {
   BondingCurve_t,
   Swap_t,
   FeeClaim_t,
+  Token_t,
 } from 'generated/src/db/Entities.gen'
 import { eventLog, handlerContext } from 'generated'
 import { uintToFloat } from '../utils'
 
-export const getQtyAndPrice = async (
+export const getQtyAndPrice = (
   iss: bigint,
   coll: bigint,
-  bc: BondingCurve_t
+  issuanceToken?: Token_t,
+  collateralToken?: Token_t
 ) => {
-  const issuanceAmount = uintToFloat(
-    iss,
-    parseInt(bc!.issuanceTokenDecimals!.toString())
-  )
-
-  const collateralAmount = uintToFloat(
-    coll,
-    parseInt(bc!.collateralTokenDecimals!.toString())
-  )
-
+  const issuanceAmount = uintToFloat(iss, issuanceToken?.decimals ?? 18)
+  const collateralAmount = uintToFloat(coll, collateralToken?.decimals ?? 18)
   const priceInCol = parseFloat((collateralAmount / issuanceAmount).toFixed(4))
-
   return { issuanceAmount, collateralAmount, priceInCol }
 }
 
@@ -38,10 +31,8 @@ export const updateBondingCurve = async ({
     virtualIssuance: undefined,
     buyReserveRatio: undefined,
     sellReserveRatio: undefined,
-    issuanceToken: undefined,
-    issuanceTokenDecimals: undefined,
-    collateralToken: undefined,
-    collateralTokenDecimals: undefined,
+    issuanceToken_id: undefined,
+    collateralToken_id: undefined,
   },
   workflow_id,
 }: {

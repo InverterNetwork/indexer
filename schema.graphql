@@ -1,9 +1,8 @@
-## GENERAL ENTITIES
+## WORKFLOW CORE ENTITIES
 ## ------------------------------------------------------------
 
 type Workflow {
-  # orchestratorAddress
-  id: ID!
+  id: ID! # orchestratorAddress
   orchestratorId: BigInt!
   fundingManager: WorkflowModule!
   authorizer: WorkflowModule!
@@ -13,8 +12,7 @@ type Workflow {
 }
 
 type WorkflowModuleType {
-  # identifier is keccak256 hash of parts of metadata
-  id: ID!
+  id: ID! # identifier is keccak256 hash of parts of metadata
   majorVersion: BigInt!
   minorVersion: BigInt!
   patchVersion: BigInt!
@@ -25,37 +23,49 @@ type WorkflowModuleType {
 }
 
 type WorkflowModule {
-  # address of module
-  id: ID!
+  id: ID! # address of module
   orchestrator: String!
   moduleType: WorkflowModuleType!
   chainId: Int!
 }
 
-## BONDING CURVE RELATED
+type Token @entity {
+  id: ID! # `${chainId}-${address}`
+  address: String!
+  chainId: Int!
+  decimals: Int!
+}
+
+## ------------------------------------------------------------
+## ISSUANCE TOKEN MARKET DATA
 ## ------------------------------------------------------------
 
-type BondingCurve {
-  # address of module
-  id: ID!
-  chainId: Int!
-  # Workflow struct
-  workflow: Workflow!
-  collateralToken: String
-  collateralTokenDecimals: Int
-  buyFee: BigInt
-  # restricted or not restricted
-  bcType: String
-  sellFee: BigInt
-  virtualCollateral: Float
-  virtualCollateralRaw: BigInt
-  virtualIssuance: Float
-  buyReserveRatio: BigInt
-  sellReserveRatio: BigInt
-  issuanceToken: String
-  issuanceTokenDecimals: Int
-  swaps: [Swap!]! @derivedFrom(field: "bondingCurve")
-  feeClaim: [FeeClaim!]! @derivedFrom(field: "bondingCurve")
+type IssuanceTokenDayData @entity {
+  id: ID! # `${dayID}-${token.address}`
+  date: Int! # timestamp rounded to current day by dividing by 86400
+  token: Token!
+  volumeInCol: BigInt!
+  projectFeeInCol: BigInt!
+  protocolFeeInCol: BigInt!
+  projectFeeInIssuance: BigInt!
+  openInCol: BigInt!
+  highInCol: BigInt!
+  lowInCol: BigInt!
+  closeInCol: BigInt!
+}
+
+type IssuanceTokenHourData @entity {
+  id: ID! # `${hourIndex}-${token.address}`
+  periodStartUnix: Int! # unix timestamp for start of hour
+  token: Token!
+  volumeInCol: BigInt!
+  projectFeeInCol: BigInt!
+  protocolFeeInCol: BigInt!
+  projectFeeInIssuance: BigInt!
+  openInCol: BigInt!
+  highInCol: BigInt!
+  lowInCol: BigInt!
+  closeInCol: BigInt!
 }
 
 enum SwapType {
@@ -65,17 +75,42 @@ enum SwapType {
 
 type Swap {
   id: ID!
+  chainId: Int!
+  blockTimestamp: Int!
   bondingCurve: BondingCurve!
   swapType: SwapType!
-  issuanceAmount: Float!
-  issuanceToken: String!
-  collateralAmount: Float!
-  collateralToken: String!
-  priceInCol: Float!
   initiator: String!
   recipient: String!
-  blockTimestamp: Int!
+  issuanceToken: Token!
+  collateralToken: Token!
+  issuanceAmount: Float!
+  collateralAmount: Float!
+  priceInCol: Float!
+}
+
+## ------------------------------------------------------------
+## FUNDING MANAGERS
+## ------------------------------------------------------------
+
+## BONDING CURVE ENTITIES
+## ------------------------------------------------------------
+
+type BondingCurve {
+  id: ID! # address of module
   chainId: Int!
+  workflow: Workflow!
+  collateralToken: Token!
+  buyFee: BigInt
+  bcType: String # restricted or not restricted
+  sellFee: BigInt
+  virtualCollateral: Float
+  virtualCollateralRaw: BigInt
+  virtualIssuance: Float
+  buyReserveRatio: BigInt
+  sellReserveRatio: BigInt
+  issuanceToken: Token!
+  swaps: [Swap!]! @derivedFrom(field: "bondingCurve")
+  feeClaim: [FeeClaim!]! @derivedFrom(field: "bondingCurve")
 }
 
 type FeeClaim {
@@ -87,111 +122,40 @@ type FeeClaim {
   recipient: String!
 }
 
-## VESTING RELATED
+## DEPOSIT VAULT ENTITIES
 ## ------------------------------------------------------------
 
-type StreamingPaymentProcessor {
-  # StreamingPaymentProcessor address
+type DepositVault {
   id: ID!
   chainId: Int!
   workflow: Workflow!
-  vestings: [LinearVesting!]! @derivedFrom(field: "streamingPaymentProcessor")
+  balance: BigInt
+  deposits: [Deposit!]! @derivedFrom(field: "depositVault")
+  transfers: [Transfer!]! @derivedFrom(field: "depositVault")
 }
 
-enum VestingStatus {
-  ACTIVE
-  CANCELLED
-}
-
-type LinearVesting {
-  # concat(recipient,'-',streamId)
+type Deposit {
   id: ID!
-  # chainId
-  chainId: Int!
-  # streamingPaymentProcessor struct
-  streamingPaymentProcessor: StreamingPaymentProcessor!
-  # token address
-  token: String!
-  # amountRaw (not formatted)
-  amountRaw: BigInt!
-  # recipient address
-  recipient: String!
-  # start timestamp
-  start: BigInt!
-  # cliff timestamp
-  cliff: BigInt!
-  # end timestamp
-  end: BigInt!
-  # status of vesting
-  status: VestingStatus!
-  # blockTimestamp of vesting
+  depositVault: DepositVault!
+  depositor: String!
+  amount: BigInt!
   blockTimestamp: Int!
 }
 
-type Token @entity {
-  # token address + chainId (chainId-address)
+type Transfer {
   id: ID!
-  # address of token
-  address: String!
-  # chainId
-  chainId: Int!
-  # token decimals
-  decimals: Int!
+  depositVault: DepositVault!
+  recipient: String!
+  amount: BigInt!
+  blockTimestamp: Int!
 }
 
-type IssuanceTokenDayData @entity {
-  # token address concatendated with date
-  id: ID!
-  # timestamp rounded to current day by dividing by 86400
-  date: Int!
-  # pointer to token
-  token: Token!
-  # volume in token units
-  volumeInCol: BigInt!
+## ------------------------------------------------------------
+## LOGIC MODULES
+## ------------------------------------------------------------
 
-  # project fee in Collateral
-  projectFeeInCol: BigInt!
-  # protocol fee in Collateral
-  protocolFeeInCol: BigInt!
-  # project fee in Issuance
-  projectFeeInIssuance: BigInt!
-
-  # opening price Collateral
-  openInCol: BigInt!
-  # high price Collateral
-  highInCol: BigInt!
-  # low price Collateral
-  lowInCol: BigInt!
-  # close price Collateral
-  closeInCol: BigInt!
-}
-
-type IssuanceTokenHourData @entity {
-  # token address concatendated with date
-  id: ID!
-  # unix timestamp for start of hour
-  periodStartUnix: Int!
-  # pointer to token
-  token: Token!
-  # volume in token units
-  volumeInCol: BigInt!
-
-  # project fee in Collateral
-  projectFeeInCol: BigInt!
-  # protocol fee in Collateral
-  protocolFeeInCol: BigInt!
-  # project fee in Issuance
-  projectFeeInIssuance: BigInt!
-
-  # opening price Collateral
-  openInCol: BigInt!
-  # high price Collateral
-  highInCol: BigInt!
-  # low price Collateral
-  lowInCol: BigInt!
-  # close price Collateral
-  closeInCol: BigInt!
-}
+## BOUNTY ENTITIES
+## ------------------------------------------------------------
 
 type BountyModule {
   id: ID!
@@ -225,27 +189,31 @@ type BountyContributor {
   claimAmount: BigInt!
 }
 
-type DepositVault {
-  id: ID!
+## STREAMING PAYMENT PROCESSOR ENTITIES
+## ------------------------------------------------------------
+
+type StreamingPaymentProcessor {
+  id: ID! # StreamingPaymentProcessor address
   chainId: Int!
   workflow: Workflow!
-  balance: BigInt
-  deposits: [Deposit!]! @derivedFrom(field: "depositVault")
-  transfers: [Transfer!]! @derivedFrom(field: "depositVault")
+  vestings: [LinearVesting!]! @derivedFrom(field: "streamingPaymentProcessor")
 }
 
-type Deposit {
-  id: ID!
-  depositVault: DepositVault!
-  depositor: String!
-  amount: BigInt!
-  blockTimestamp: Int!
+enum VestingStatus {
+  ACTIVE
+  CANCELLED
 }
 
-type Transfer {
-  id: ID!
-  depositVault: DepositVault!
+type LinearVesting {
+  id: ID! # concat(recipient,'-',streamId)
+  chainId: Int!
+  streamingPaymentProcessor: StreamingPaymentProcessor!
+  token: String!
+  amountRaw: BigInt! # not formatted
   recipient: String!
-  amount: BigInt!
+  start: BigInt!
+  cliff: BigInt!
+  end: BigInt!
+  status: VestingStatus!
   blockTimestamp: Int!
 }
