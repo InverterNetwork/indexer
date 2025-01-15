@@ -192,3 +192,60 @@ type IssuanceTokenHourData @entity {
   # close price Collateral
   closeInCol: BigInt!
 }
+
+type BountyModule {
+  id: ID!
+  chainId: Int!
+  workflow: Workflow!
+  bounties: [Bounty!]! @derivedFrom(field: "bountyModule")
+}
+
+type Bounty {
+  id: ID!
+  bountyModule: BountyModule!
+  minimumPayoutAmount: BigInt!
+  maximumPayoutAmount: BigInt!
+  details: String!
+  locked: Boolean
+  claims: [BountyClaim!]! @derivedFrom(field: "bounty")
+}
+
+type BountyClaim {
+  id: ID!
+  bounty: Bounty!
+  details: String!
+  claimed: Boolean
+  contributors: [BountyContributor!]! @derivedFrom(field: "bountyClaim")
+}
+
+type BountyContributor {
+  id: ID!
+  bountyClaim: BountyClaim!
+  address: String!
+  claimAmount: BigInt!
+}
+
+type DepositVault {
+  id: ID!
+  chainId: Int!
+  workflow: Workflow!
+  balance: BigInt
+  deposits: [Deposit!]! @derivedFrom(field: "depositVault")
+  transfers: [Transfer!]! @derivedFrom(field: "depositVault")
+}
+
+type Deposit {
+  id: ID!
+  depositVault: DepositVault!
+  depositor: String!
+  amount: BigInt!
+  blockTimestamp: Int!
+}
+
+type Transfer {
+  id: ID!
+  depositVault: DepositVault!
+  recipient: String!
+  amount: BigInt!
+  blockTimestamp: Int!
+}
