@@ -1,6 +1,6 @@
 import { keccak256, encodeAbiParameters } from 'viem'
 import { contractRegistrations, eventLog } from 'generated'
-import { moduleGroups } from '../utils/constants'
+import { moduleGroups } from './constants'
 
 export const getMetadataId = (
   majorVersion: bigint,

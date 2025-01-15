@@ -1,18 +1,8 @@
-import {
-  OrchestratorFactory_v1,
-  ModuleFactory_v1,
-  Orchestrator_v1,
-} from 'generated'
+import { ModuleFactory_v1 } from 'generated'
 
-import { getMetadataId, registerModule } from './utils'
+import { getMetadataId, registerModule } from '../../utils'
 
 // contract register
-
-OrchestratorFactory_v1.OrchestratorCreated.contractRegister(
-  ({ event, context }) => {
-    context.addOrchestrator_v1(event.params.orchestratorAddress)
-  }
-)
 
 ModuleFactory_v1.ModuleCreated.contractRegister(({ event, context }) => {
   const [, , , , name] = event.params.metadata
@@ -42,18 +32,6 @@ ModuleFactory_v1.ModuleCreated.handler(async ({ event, context }) => {
     id: event.params.m.toString(),
     orchestrator: event.params.orchestrator,
     moduleType_id: getMetadataId(majorVersion, url, name),
-    chainId: event.chainId,
-  })
-})
-
-Orchestrator_v1.OrchestratorInitialized.handler(async ({ event, context }) => {
-  context.Workflow.set({
-    id: event.srcAddress.toString(),
-    orchestratorId: event.params.orchestratorId_,
-    fundingManager_id: event.params.fundingManager,
-    authorizer_id: event.params.authorizer,
-    paymentProcessor_id: event.params.paymentProcessor,
-    optionalModules: event.params.modules,
     chainId: event.chainId,
   })
 })

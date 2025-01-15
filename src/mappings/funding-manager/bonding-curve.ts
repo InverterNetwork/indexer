@@ -7,7 +7,7 @@ import {
   createSwap,
   createFeeClaim,
   updateToken,
-} from '@/utils'
+} from '../../utils'
 
 // ============================================================================
 // Module Initialization

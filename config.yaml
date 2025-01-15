@@ -5,18 +5,18 @@ rollback_on_reorg: false
 contracts:
   - name: ModuleFactory_v1
     abi_file_path: abis/ModuleFactory_v1.json
-    handler: src/factories/mapping.ts
+    handler: src/mappings/factory/module.ts
     events:
       - event: ModuleCreated
       - event: MetadataRegistered
   - name: OrchestratorFactory_v1
     abi_file_path: abis/OrchestratorFactory_v1.json
-    handler: src/factories/mapping.ts
+    handler: src/mappings/factory/orchestrator.ts
     events:
       - event: OrchestratorCreated
   - name: Orchestrator_v1
     abi_file_path: abis/Orchestrator_v1.json
-    handler: src/factories/mapping.ts
+    handler: src/mappings/factory/orchestrator.ts
     events:
       - event: OrchestratorInitialized
   - name: BondingCurve # renamed to solve postgres conflict due to length of name
@@ -42,13 +42,13 @@ contracts:
       - event: ProtocolFeeMinted
   - name: PP_Streaming_v1
     abi_file_path: abis/PP_Streaming_v1.json
-    handler: src/paymentProcessor/mapping.ts
+    handler: src/mappings/payment-processor/streaming.ts
     events:
       - event: ModuleInitialized
       - event: StreamingPaymentAdded
   - name: LM_PC_Bounties_v1
     abi_file_path: abis/LM_PC_Bounties_v1.json
-    handler: src/logicModules/mapping.ts
+    handler: src/mappings/logic-module/bounties.ts
     events:
       - event: ModuleInitialized
       - event: BountyAdded

@@ -2,6 +2,7 @@ export * from './token'
 export * from './interval-updates'
 export * from './funding-manager'
 export * from './constants'
+export * from './factory'
 
 import { keccak256, formatUnits } from 'viem'
 import { moduleTitles } from './constants'
