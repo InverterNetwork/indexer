@@ -7,6 +7,8 @@ import {
   createSwap,
   createFeeClaim,
   updateToken,
+  updateIssuanceTokenHourData,
+  updateIssuanceTokenDayData,
 } from '../../utils'
 
 // ============================================================================
@@ -25,6 +27,100 @@ BondingCurve.ModuleInitialized.handler(async ({ event, context }) => {
           : 'OPEN',
     },
     workflow_id: event.params.parentOrchestrator,
+  })
+})
+
+// ============================================================================
+// Swap Operation Handlers
+// ============================================================================
+
+// Buy Operations
+BondingCurve.TokensBought.handler(async ({ event, context }) => {
+  const bc = await context.BondingCurve.get(event.srcAddress)
+
+  const issuanceToken = await context.Token.get(bc!.issuanceToken_id!)
+  const collateralToken = await context.Token.get(bc!.collateralToken_id!)
+
+  const { issuanceAmount, collateralAmount, priceInCol } = getQtyAndPrice(
+    event.params.receivedAmount,
+    event.params.depositAmount,
+
+    issuanceToken,
+    collateralToken
+  )
+
+  await createSwap(
+    context,
+    event.block.hash + '-' + event.logIndex,
+    event.chainId,
+    {
+      swapType: 'BUY',
+      bondingCurve_id: event.srcAddress,
+      issuanceToken_id: bc!.issuanceToken_id!,
+      collateralToken_id: bc!.collateralToken_id!,
+      collateralAmount,
+      issuanceAmount,
+      initiator: event.params.buyer,
+      recipient: event.params.receiver,
+      priceInCol,
+      blockTimestamp: event.block.timestamp,
+    }
+  )
+
+  await updateIssuanceTokenHourData({
+    context,
+    event,
+    properties: {
+      address: issuanceToken!.address,
+      collateralAmount,
+      issuanceAmount,
+      priceInCol,
+    },
+  })
+})
+
+// Sell Operations
+BondingCurve.TokensSold.handler(async ({ event, context }) => {
+  const bc = await context.BondingCurve.get(event.srcAddress)
+
+  const issuanceToken = await context.Token.get(bc!.issuanceToken_id!)
+  const collateralToken = await context.Token.get(bc!.collateralToken_id!)
+
+  const { issuanceAmount, collateralAmount, priceInCol } = getQtyAndPrice(
+    event.params.depositAmount,
+    event.params.receivedAmount,
+
+    issuanceToken,
+    collateralToken
+  )
+
+  await createSwap(
+    context,
+    event.block.hash + '-' + event.logIndex,
+    event.chainId,
+    {
+      swapType: 'SELL',
+      bondingCurve_id: event.srcAddress,
+      collateralToken_id: bc!.collateralToken_id!,
+      issuanceToken_id: bc!.issuanceToken_id!,
+      collateralAmount,
+      issuanceAmount,
+      initiator: event.params.seller,
+      recipient: event.params.receiver,
+      priceInCol,
+      blockTimestamp: event.block.timestamp,
+    }
+  )
+
+  await updateIssuanceTokenHourData({
+    context,
+    event,
+    properties: {
+      address: issuanceToken!.address,
+      collateralAmount,
+      issuanceAmount,
+      priceInCol,
+    },
   })
 })
 
@@ -237,78 +333,6 @@ BondingCurve.VirtualCollateralAmountSubtracted.handler(
     })
   }
 )
-
-// ============================================================================
-// Swap Operation Handlers
-// ============================================================================
-
-// Buy Operations
-BondingCurve.TokensBought.handler(async ({ event, context }) => {
-  const bc = await context.BondingCurve.get(event.srcAddress)
-
-  const issuanceToken = await context.Token.get(bc!.issuanceToken_id!)
-  const collateralToken = await context.Token.get(bc!.collateralToken_id!)
-
-  const { issuanceAmount, collateralAmount, priceInCol } = getQtyAndPrice(
-    event.params.receivedAmount,
-    event.params.depositAmount,
-
-    issuanceToken,
-    collateralToken
-  )
-
-  await createSwap(
-    context,
-    event.block.hash + '-' + event.logIndex,
-    event.chainId,
-    {
-      swapType: 'BUY',
-      bondingCurve_id: event.srcAddress,
-      issuanceToken_id: bc!.issuanceToken_id!,
-      collateralToken_id: bc!.collateralToken_id!,
-      collateralAmount,
-      issuanceAmount,
-      initiator: event.params.buyer,
-      recipient: event.params.receiver,
-      priceInCol,
-      blockTimestamp: event.block.timestamp,
-    }
-  )
-})
-
-// Sell Operations
-BondingCurve.TokensSold.handler(async ({ event, context }) => {
-  const bc = await context.BondingCurve.get(event.srcAddress)
-
-  const issuanceToken = await context.Token.get(bc!.issuanceToken_id!)
-  const collateralToken = await context.Token.get(bc!.collateralToken_id!)
-
-  const { issuanceAmount, collateralAmount, priceInCol } = getQtyAndPrice(
-    event.params.depositAmount,
-    event.params.receivedAmount,
-
-    issuanceToken,
-    collateralToken
-  )
-
-  await createSwap(
-    context,
-    event.block.hash + '-' + event.logIndex,
-    event.chainId,
-    {
-      swapType: 'SELL',
-      bondingCurve_id: event.srcAddress,
-      collateralToken_id: bc!.collateralToken_id!,
-      issuanceToken_id: bc!.issuanceToken_id!,
-      collateralAmount,
-      issuanceAmount,
-      initiator: event.params.seller,
-      recipient: event.params.receiver,
-      priceInCol,
-      blockTimestamp: event.block.timestamp,
-    }
-  )
-})
 
 // ============================================================================
 // Fee Management Handlers

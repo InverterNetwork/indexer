@@ -30,7 +30,7 @@ type WorkflowModule {
 }
 
 type Token @entity {
-  id: ID! # `${chainId}-${address}`
+  id: ID! # `${address}-${chainId}`
   address: String!
   chainId: Int!
   decimals: Int!
@@ -41,31 +41,35 @@ type Token @entity {
 ## ------------------------------------------------------------
 
 type IssuanceTokenDayData @entity {
-  id: ID! # `${dayID}-${token.address}`
+  id: ID! # `${token.address}-${chainId}-${dayID}`
+  chainId: Int!
   date: Int! # timestamp rounded to current day by dividing by 86400
   token: Token!
-  volumeInCol: BigInt!
-  projectFeeInCol: BigInt!
-  protocolFeeInCol: BigInt!
-  projectFeeInIssuance: BigInt!
-  openInCol: BigInt!
-  highInCol: BigInt!
-  lowInCol: BigInt!
-  closeInCol: BigInt!
+  volumeInCol: Float!
+  volumeInIssuance: Float!
+  projectFeeInCol: Float!
+  protocolFeeInCol: Float!
+  projectFeeInIssuance: Float!
+  openInCol: Float!
+  highInCol: Float!
+  lowInCol: Float!
+  closeInCol: Float!
 }
 
 type IssuanceTokenHourData @entity {
-  id: ID! # `${hourIndex}-${token.address}`
+  id: ID! # `${token.address}-${chainId}-${hourIndex}`
+  chainId: Int!
   periodStartUnix: Int! # unix timestamp for start of hour
   token: Token!
-  volumeInCol: BigInt!
-  projectFeeInCol: BigInt!
-  protocolFeeInCol: BigInt!
-  projectFeeInIssuance: BigInt!
-  openInCol: BigInt!
-  highInCol: BigInt!
-  lowInCol: BigInt!
-  closeInCol: BigInt!
+  volumeInCol: Float!
+  volumeInIssuance: Float!
+  projectFeeInCol: Float!
+  protocolFeeInCol: Float!
+  projectFeeInIssuance: Float!
+  openInCol: Float!
+  highInCol: Float!
+  lowInCol: Float!
+  closeInCol: Float!
 }
 
 enum SwapType {

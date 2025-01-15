@@ -13,7 +13,7 @@ export async function updateToken({
   }
 }) {
   const chainId = event.chainId
-  const id = `${chainId}-${properties.address}`
+  const id = `${properties.address}-${chainId}`
   const currentEntity = await context.Token.get(id)
 
   context.Token.set({
