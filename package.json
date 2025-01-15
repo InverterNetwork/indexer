@@ -9,7 +9,8 @@
     "codegen": "envio codegen",
     "dev": "envio dev",
     "test": "pnpm mocha",
-    "start": "ts-node generated/src/Index.bs.js"
+    "start": "ts-node generated/src/Index.bs.js",
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@types/chai": "^4.3.11",

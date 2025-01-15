@@ -1,1 +1,921 @@
-[{"type":"function","name":"BOUNTY_ISSUER_ROLE","inputs":[],"outputs":[{"name":"","type":"bytes32","internalType":"bytes32"}],"stateMutability":"view"},{"type":"function","name":"CLAIMANT_ROLE","inputs":[],"outputs":[{"name":"","type":"bytes32","internalType":"bytes32"}],"stateMutability":"view"},{"type":"function","name":"VERIFIER_ROLE","inputs":[],"outputs":[{"name":"","type":"bytes32","internalType":"bytes32"}],"stateMutability":"view"},{"type":"function","name":"addBounty","inputs":[{"name":"minimumPayoutAmount","type":"uint256","internalType":"uint256"},{"name":"maximumPayoutAmount","type":"uint256","internalType":"uint256"},{"name":"details","type":"bytes","internalType":"bytes"}],"outputs":[{"name":"id","type":"uint256","internalType":"uint256"}],"stateMutability":"nonpayable"},{"type":"function","name":"addBountyBatch","inputs":[{"name":"minimumPayoutAmounts","type":"uint256[]","internalType":"uint256[]"},{"name":"maximumPayoutAmounts","type":"uint256[]","internalType":"uint256[]"},{"name":"detailArray","type":"bytes[]","internalType":"bytes[]"}],"outputs":[{"name":"ids","type":"uint256[]","internalType":"uint256[]"}],"stateMutability":"nonpayable"},{"type":"function","name":"addClaim","inputs":[{"name":"bountyId","type":"uint256","internalType":"uint256"},{"name":"contributors","type":"tuple[]","internalType":"struct ILM_PC_Bounties_v1.Contributor[]","components":[{"name":"addr","type":"address","internalType":"address"},{"name":"claimAmount","type":"uint256","internalType":"uint256"}]},{"name":"details","type":"bytes","internalType":"bytes"}],"outputs":[{"name":"id","type":"uint256","internalType":"uint256"}],"stateMutability":"nonpayable"},{"type":"function","name":"amountPaid","inputs":[{"name":"token","type":"address","internalType":"address"},{"name":"amount","type":"uint256","internalType":"uint256"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"collectPaymentOrders","inputs":[],"outputs":[{"name":"","type":"tuple[]","internalType":"struct IERC20PaymentClientBase_v1.PaymentOrder[]","components":[{"name":"recipient","type":"address","internalType":"address"},{"name":"paymentToken","type":"address","internalType":"address"},{"name":"amount","type":"uint256","internalType":"uint256"},{"name":"start","type":"uint256","internalType":"uint256"},{"name":"cliff","type":"uint256","internalType":"uint256"},{"name":"end","type":"uint256","internalType":"uint256"}]},{"name":"","type":"address[]","internalType":"address[]"},{"name":"","type":"uint256[]","internalType":"uint256[]"}],"stateMutability":"nonpayable"},{"type":"function","name":"getBountyInformation","inputs":[{"name":"bountyId","type":"uint256","internalType":"uint256"}],"outputs":[{"name":"","type":"tuple","internalType":"struct ILM_PC_Bounties_v1.Bounty","components":[{"name":"minimumPayoutAmount","type":"uint256","internalType":"uint256"},{"name":"maximumPayoutAmount","type":"uint256","internalType":"uint256"},{"name":"details","type":"bytes","internalType":"bytes"},{"name":"locked","type":"bool","internalType":"bool"}]}],"stateMutability":"view"},{"type":"function","name":"getClaimInformation","inputs":[{"name":"claimId","type":"uint256","internalType":"uint256"}],"outputs":[{"name":"","type":"tuple","internalType":"struct ILM_PC_Bounties_v1.Claim","components":[{"name":"bountyId","type":"uint256","internalType":"uint256"},{"name":"contributors","type":"tuple[]","internalType":"struct ILM_PC_Bounties_v1.Contributor[]","components":[{"name":"addr","type":"address","internalType":"address"},{"name":"claimAmount","type":"uint256","internalType":"uint256"}]},{"name":"details","type":"bytes","internalType":"bytes"},{"name":"claimed","type":"bool","internalType":"bool"}]}],"stateMutability":"view"},{"type":"function","name":"grantModuleRole","inputs":[{"name":"role","type":"bytes32","internalType":"bytes32"},{"name":"target","type":"address","internalType":"address"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"grantModuleRoleBatched","inputs":[{"name":"role","type":"bytes32","internalType":"bytes32"},{"name":"targets","type":"address[]","internalType":"address[]"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"identifier","inputs":[],"outputs":[{"name":"","type":"bytes32","internalType":"bytes32"}],"stateMutability":"view"},{"type":"function","name":"init","inputs":[{"name":"orchestrator_","type":"address","internalType":"contract IOrchestrator_v1"},{"name":"metadata","type":"tuple","internalType":"struct IModule_v1.Metadata","components":[{"name":"majorVersion","type":"uint256","internalType":"uint256"},{"name":"minorVersion","type":"uint256","internalType":"uint256"},{"name":"patchVersion","type":"uint256","internalType":"uint256"},{"name":"url","type":"string","internalType":"string"},{"name":"title","type":"string","internalType":"string"}]},{"name":"","type":"bytes","internalType":"bytes"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"isExistingBountyId","inputs":[{"name":"bountyId","type":"uint256","internalType":"uint256"}],"outputs":[{"name":"","type":"bool","internalType":"bool"}],"stateMutability":"view"},{"type":"function","name":"isExistingClaimId","inputs":[{"name":"claimId","type":"uint256","internalType":"uint256"}],"outputs":[{"name":"","type":"bool","internalType":"bool"}],"stateMutability":"view"},{"type":"function","name":"isTrustedForwarder","inputs":[{"name":"forwarder","type":"address","internalType":"address"}],"outputs":[{"name":"","type":"bool","internalType":"bool"}],"stateMutability":"view"},{"type":"function","name":"listBountyIds","inputs":[],"outputs":[{"name":"","type":"uint256[]","internalType":"uint256[]"}],"stateMutability":"view"},{"type":"function","name":"listClaimIds","inputs":[],"outputs":[{"name":"","type":"uint256[]","internalType":"uint256[]"}],"stateMutability":"view"},{"type":"function","name":"listClaimIdsForContributorAddress","inputs":[{"name":"contributorAddrs","type":"address","internalType":"address"}],"outputs":[{"name":"","type":"uint256[]","internalType":"uint256[]"}],"stateMutability":"view"},{"type":"function","name":"lockBounty","inputs":[{"name":"bountyId","type":"uint256","internalType":"uint256"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"orchestrator","inputs":[],"outputs":[{"name":"","type":"address","internalType":"contract IOrchestrator_v1"}],"stateMutability":"view"},{"type":"function","name":"outstandingTokenAmount","inputs":[{"name":"_token","type":"address","internalType":"address"}],"outputs":[{"name":"","type":"uint256","internalType":"uint256"}],"stateMutability":"view"},{"type":"function","name":"paymentOrders","inputs":[],"outputs":[{"name":"","type":"tuple[]","internalType":"struct IERC20PaymentClientBase_v1.PaymentOrder[]","components":[{"name":"recipient","type":"address","internalType":"address"},{"name":"paymentToken","type":"address","internalType":"address"},{"name":"amount","type":"uint256","internalType":"uint256"},{"name":"start","type":"uint256","internalType":"uint256"},{"name":"cliff","type":"uint256","internalType":"uint256"},{"name":"end","type":"uint256","internalType":"uint256"}]}],"stateMutability":"view"},{"type":"function","name":"revokeModuleRole","inputs":[{"name":"role","type":"bytes32","internalType":"bytes32"},{"name":"target","type":"address","internalType":"address"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"revokeModuleRoleBatched","inputs":[{"name":"role","type":"bytes32","internalType":"bytes32"},{"name":"targets","type":"address[]","internalType":"address[]"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"supportsInterface","inputs":[{"name":"interfaceId","type":"bytes4","internalType":"bytes4"}],"outputs":[{"name":"","type":"bool","internalType":"bool"}],"stateMutability":"view"},{"type":"function","name":"title","inputs":[],"outputs":[{"name":"","type":"string","internalType":"string"}],"stateMutability":"view"},{"type":"function","name":"trustedForwarder","inputs":[],"outputs":[{"name":"","type":"address","internalType":"address"}],"stateMutability":"view"},{"type":"function","name":"updateBounty","inputs":[{"name":"bountyId","type":"uint256","internalType":"uint256"},{"name":"details","type":"bytes","internalType":"bytes"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"updateClaimContributors","inputs":[{"name":"claimId","type":"uint256","internalType":"uint256"},{"name":"contributors","type":"tuple[]","internalType":"struct ILM_PC_Bounties_v1.Contributor[]","components":[{"name":"addr","type":"address","internalType":"address"},{"name":"claimAmount","type":"uint256","internalType":"uint256"}]}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"updateClaimDetails","inputs":[{"name":"claimId","type":"uint256","internalType":"uint256"},{"name":"details","type":"bytes","internalType":"bytes"}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"url","inputs":[],"outputs":[{"name":"","type":"string","internalType":"string"}],"stateMutability":"view"},{"type":"function","name":"verifyClaim","inputs":[{"name":"claimId","type":"uint256","internalType":"uint256"},{"name":"contributors","type":"tuple[]","internalType":"struct ILM_PC_Bounties_v1.Contributor[]","components":[{"name":"addr","type":"address","internalType":"address"},{"name":"claimAmount","type":"uint256","internalType":"uint256"}]}],"outputs":[],"stateMutability":"nonpayable"},{"type":"function","name":"version","inputs":[],"outputs":[{"name":"","type":"uint256","internalType":"uint256"},{"name":"","type":"uint256","internalType":"uint256"},{"name":"","type":"uint256","internalType":"uint256"}],"stateMutability":"view"},{"type":"event","name":"BountyAdded","inputs":[{"name":"bountyId","type":"uint256","indexed":true,"internalType":"uint256"},{"name":"minimumPayoutAmount","type":"uint256","indexed":false,"internalType":"uint256"},{"name":"maximumPayoutAmount","type":"uint256","indexed":false,"internalType":"uint256"},{"name":"details","type":"bytes","indexed":false,"internalType":"bytes"}],"anonymous":false},{"type":"event","name":"BountyLocked","inputs":[{"name":"bountyId","type":"uint256","indexed":true,"internalType":"uint256"}],"anonymous":false},{"type":"event","name":"BountyUpdated","inputs":[{"name":"bountyId","type":"uint256","indexed":true,"internalType":"uint256"},{"name":"details","type":"bytes","indexed":false,"internalType":"bytes"}],"anonymous":false},{"type":"event","name":"ClaimAdded","inputs":[{"name":"claimId","type":"uint256","indexed":true,"internalType":"uint256"},{"name":"bountyId","type":"uint256","indexed":true,"internalType":"uint256"},{"name":"contributors","type":"tuple[]","indexed":false,"internalType":"struct ILM_PC_Bounties_v1.Contributor[]","components":[{"name":"addr","type":"address","internalType":"address"},{"name":"claimAmount","type":"uint256","internalType":"uint256"}]},{"name":"details","type":"bytes","indexed":false,"internalType":"bytes"}],"anonymous":false},{"type":"event","name":"ClaimContributorsUpdated","inputs":[{"name":"claimId","type":"uint256","indexed":true,"internalType":"uint256"},{"name":"contributors","type":"tuple[]","indexed":false,"internalType":"struct ILM_PC_Bounties_v1.Contributor[]","components":[{"name":"addr","type":"address","internalType":"address"},{"name":"claimAmount","type":"uint256","internalType":"uint256"}]}],"anonymous":false},{"type":"event","name":"ClaimDetailsUpdated","inputs":[{"name":"claimId","type":"uint256","indexed":true,"internalType":"uint256"},{"name":"details","type":"bytes","indexed":false,"internalType":"bytes"}],"anonymous":false},{"type":"event","name":"ClaimVerified","inputs":[{"name":"claimId","type":"uint256","indexed":true,"internalType":"uint256"}],"anonymous":false},{"type":"event","name":"Initialized","inputs":[{"name":"version","type":"uint64","indexed":false,"internalType":"uint64"}],"anonymous":false},{"type":"event","name":"ModuleInitialized","inputs":[{"name":"parentOrchestrator","type":"address","indexed":true,"internalType":"address"},{"name":"metadata","type":"tuple","indexed":false,"internalType":"struct IModule_v1.Metadata","components":[{"name":"majorVersion","type":"uint256","internalType":"uint256"},{"name":"minorVersion","type":"uint256","internalType":"uint256"},{"name":"patchVersion","type":"uint256","internalType":"uint256"},{"name":"url","type":"string","internalType":"string"},{"name":"title","type":"string","internalType":"string"}]}],"anonymous":false},{"type":"event","name":"PaymentOrderAdded","inputs":[{"name":"recipient","type":"address","indexed":true,"internalType":"address"},{"name":"token","type":"address","indexed":true,"internalType":"address"},{"name":"amount","type":"uint256","indexed":false,"internalType":"uint256"}],"anonymous":false},{"type":"event","name":"ProtocolFeeTransferred","inputs":[{"name":"token","type":"address","indexed":true,"internalType":"address"},{"name":"treasury","type":"address","indexed":true,"internalType":"address"},{"name":"feeAmount","type":"uint256","indexed":false,"internalType":"uint256"}],"anonymous":false},{"type":"error","name":"AddressEmptyCode","inputs":[{"name":"target","type":"address","internalType":"address"}]},{"type":"error","name":"AddressInsufficientBalance","inputs":[{"name":"account","type":"address","internalType":"address"}]},{"type":"error","name":"FailedInnerCall","inputs":[]},{"type":"error","name":"InvalidInitialization","inputs":[]},{"type":"error","name":"Library__LinkedIdList__InvalidNewId","inputs":[]},{"type":"error","name":"Module_OrchestratorCallbackFailed","inputs":[{"name":"funcSig","type":"string","internalType":"string"}]},{"type":"error","name":"Module__CallerNotAuthorized","inputs":[{"name":"role","type":"bytes32","internalType":"bytes32"},{"name":"caller","type":"address","internalType":"address"}]},{"type":"error","name":"Module__ERC20PaymentClientBase__ArrayLengthMismatch","inputs":[]},{"type":"error","name":"Module__ERC20PaymentClientBase__CallerNotAuthorized","inputs":[]},{"type":"error","name":"Module__ERC20PaymentClientBase__InsufficientFunds","inputs":[{"name":"token","type":"address","internalType":"address"}]},{"type":"error","name":"Module__ERC20PaymentClientBase__InvalidAmount","inputs":[]},{"type":"error","name":"Module__ERC20PaymentClientBase__InvalidPaymentOrder","inputs":[]},{"type":"error","name":"Module__ERC20PaymentClientBase__InvalidRecipient","inputs":[]},{"type":"error","name":"Module__ERC20PaymentClientBase__InvalidToken","inputs":[]},{"type":"error","name":"Module__ERC20PaymentClientBase__Invalidend","inputs":[]},{"type":"error","name":"Module__ERC20PaymentClientBase__TokenTransferFailed","inputs":[]},{"type":"error","name":"Module__InvalidAddress","inputs":[]},{"type":"error","name":"Module__InvalidMetadata","inputs":[]},{"type":"error","name":"Module__InvalidOrchestratorAddress","inputs":[]},{"type":"error","name":"Module__LM_PC_Bounty__AlreadyClaimed","inputs":[]},{"type":"error","name":"Module__LM_PC_Bounty__BountyLocked","inputs":[]},{"type":"error","name":"Module__LM_PC_Bounty__ClaimExceedsGivenPayoutAmounts","inputs":[]},{"type":"error","name":"Module__LM_PC_Bounty__ContributorsChanged","inputs":[]},{"type":"error","name":"Module__LM_PC_Bounty__InvalidArrayLengths","inputs":[]},{"type":"error","name":"Module__LM_PC_Bounty__InvalidBountyId","inputs":[]},{"type":"error","name":"Module__LM_PC_Bounty__InvalidClaimId","inputs":[]},{"type":"error","name":"Module__LM_PC_Bounty__InvalidContributorAddress","inputs":[]},{"type":"error","name":"Module__LM_PC_Bounty__InvalidContributorAmount","inputs":[]},{"type":"error","name":"Module__LM_PC_Bounty__InvalidContributorsLength","inputs":[]},{"type":"error","name":"Module__LM_PC_Bounty__InvalidPayoutAmounts","inputs":[]},{"type":"error","name":"Module__LM_PC_Bounty__OnlyClaimContributor","inputs":[]},{"type":"error","name":"Module__OnlyCallableByOrchestrator","inputs":[]},{"type":"error","name":"Module__OnlyCallableByPaymentClient","inputs":[]},{"type":"error","name":"NotInitializing","inputs":[]},{"type":"error","name":"SafeERC20FailedOperation","inputs":[{"name":"token","type":"address","internalType":"address"}]}]
+[
+  {
+    "type": "function",
+    "name": "BOUNTY_ISSUER_ROLE",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "bytes32", "internalType": "bytes32" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "CLAIMANT_ROLE",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "bytes32", "internalType": "bytes32" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "VERIFIER_ROLE",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "bytes32", "internalType": "bytes32" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "addBounty",
+    "inputs": [
+      {
+        "name": "minimumPayoutAmount",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "maximumPayoutAmount",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      { "name": "details", "type": "bytes", "internalType": "bytes" }
+    ],
+    "outputs": [{ "name": "id", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "addBountyBatch",
+    "inputs": [
+      {
+        "name": "minimumPayoutAmounts",
+        "type": "uint256[]",
+        "internalType": "uint256[]"
+      },
+      {
+        "name": "maximumPayoutAmounts",
+        "type": "uint256[]",
+        "internalType": "uint256[]"
+      },
+      { "name": "detailArray", "type": "bytes[]", "internalType": "bytes[]" }
+    ],
+    "outputs": [
+      { "name": "ids", "type": "uint256[]", "internalType": "uint256[]" }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "addClaim",
+    "inputs": [
+      { "name": "bountyId", "type": "uint256", "internalType": "uint256" },
+      {
+        "name": "contributors",
+        "type": "tuple[]",
+        "internalType": "struct ILM_PC_Bounties_v1.Contributor[]",
+        "components": [
+          { "name": "addr", "type": "address", "internalType": "address" },
+          {
+            "name": "claimAmount",
+            "type": "uint256",
+            "internalType": "uint256"
+          }
+        ]
+      },
+      { "name": "details", "type": "bytes", "internalType": "bytes" }
+    ],
+    "outputs": [{ "name": "id", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "amountPaid",
+    "inputs": [
+      { "name": "token", "type": "address", "internalType": "address" },
+      { "name": "amount", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "collectPaymentOrders",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple[]",
+        "internalType": "struct IERC20PaymentClientBase_v1.PaymentOrder[]",
+        "components": [
+          { "name": "recipient", "type": "address", "internalType": "address" },
+          {
+            "name": "paymentToken",
+            "type": "address",
+            "internalType": "address"
+          },
+          { "name": "amount", "type": "uint256", "internalType": "uint256" },
+          { "name": "start", "type": "uint256", "internalType": "uint256" },
+          { "name": "cliff", "type": "uint256", "internalType": "uint256" },
+          { "name": "end", "type": "uint256", "internalType": "uint256" }
+        ]
+      },
+      { "name": "", "type": "address[]", "internalType": "address[]" },
+      { "name": "", "type": "uint256[]", "internalType": "uint256[]" }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getBountyInformation",
+    "inputs": [
+      { "name": "bountyId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple",
+        "internalType": "struct ILM_PC_Bounties_v1.Bounty",
+        "components": [
+          {
+            "name": "minimumPayoutAmount",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "maximumPayoutAmount",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          { "name": "details", "type": "bytes", "internalType": "bytes" },
+          { "name": "locked", "type": "bool", "internalType": "bool" }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getClaimInformation",
+    "inputs": [
+      { "name": "claimId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple",
+        "internalType": "struct ILM_PC_Bounties_v1.Claim",
+        "components": [
+          { "name": "bountyId", "type": "uint256", "internalType": "uint256" },
+          {
+            "name": "contributors",
+            "type": "tuple[]",
+            "internalType": "struct ILM_PC_Bounties_v1.Contributor[]",
+            "components": [
+              { "name": "addr", "type": "address", "internalType": "address" },
+              {
+                "name": "claimAmount",
+                "type": "uint256",
+                "internalType": "uint256"
+              }
+            ]
+          },
+          { "name": "details", "type": "bytes", "internalType": "bytes" },
+          { "name": "claimed", "type": "bool", "internalType": "bool" }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "grantModuleRole",
+    "inputs": [
+      { "name": "role", "type": "bytes32", "internalType": "bytes32" },
+      { "name": "target", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "grantModuleRoleBatched",
+    "inputs": [
+      { "name": "role", "type": "bytes32", "internalType": "bytes32" },
+      { "name": "targets", "type": "address[]", "internalType": "address[]" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "identifier",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "bytes32", "internalType": "bytes32" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "init",
+    "inputs": [
+      {
+        "name": "orchestrator_",
+        "type": "address",
+        "internalType": "contract IOrchestrator_v1"
+      },
+      {
+        "name": "metadata",
+        "type": "tuple",
+        "internalType": "struct IModule_v1.Metadata",
+        "components": [
+          {
+            "name": "majorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "minorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "patchVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          { "name": "url", "type": "string", "internalType": "string" },
+          { "name": "title", "type": "string", "internalType": "string" }
+        ]
+      },
+      { "name": "", "type": "bytes", "internalType": "bytes" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "isExistingBountyId",
+    "inputs": [
+      { "name": "bountyId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "isExistingClaimId",
+    "inputs": [
+      { "name": "claimId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "isTrustedForwarder",
+    "inputs": [
+      { "name": "forwarder", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "listBountyIds",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "uint256[]", "internalType": "uint256[]" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "listClaimIds",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "uint256[]", "internalType": "uint256[]" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "listClaimIdsForContributorAddress",
+    "inputs": [
+      {
+        "name": "contributorAddrs",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      { "name": "", "type": "uint256[]", "internalType": "uint256[]" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "lockBounty",
+    "inputs": [
+      { "name": "bountyId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "orchestrator",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract IOrchestrator_v1"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "outstandingTokenAmount",
+    "inputs": [
+      { "name": "_token", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "paymentOrders",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple[]",
+        "internalType": "struct IERC20PaymentClientBase_v1.PaymentOrder[]",
+        "components": [
+          { "name": "recipient", "type": "address", "internalType": "address" },
+          {
+            "name": "paymentToken",
+            "type": "address",
+            "internalType": "address"
+          },
+          { "name": "amount", "type": "uint256", "internalType": "uint256" },
+          { "name": "start", "type": "uint256", "internalType": "uint256" },
+          { "name": "cliff", "type": "uint256", "internalType": "uint256" },
+          { "name": "end", "type": "uint256", "internalType": "uint256" }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "revokeModuleRole",
+    "inputs": [
+      { "name": "role", "type": "bytes32", "internalType": "bytes32" },
+      { "name": "target", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "revokeModuleRoleBatched",
+    "inputs": [
+      { "name": "role", "type": "bytes32", "internalType": "bytes32" },
+      { "name": "targets", "type": "address[]", "internalType": "address[]" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "supportsInterface",
+    "inputs": [
+      { "name": "interfaceId", "type": "bytes4", "internalType": "bytes4" }
+    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "title",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "string", "internalType": "string" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "trustedForwarder",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "updateBounty",
+    "inputs": [
+      { "name": "bountyId", "type": "uint256", "internalType": "uint256" },
+      { "name": "details", "type": "bytes", "internalType": "bytes" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateClaimContributors",
+    "inputs": [
+      { "name": "claimId", "type": "uint256", "internalType": "uint256" },
+      {
+        "name": "contributors",
+        "type": "tuple[]",
+        "internalType": "struct ILM_PC_Bounties_v1.Contributor[]",
+        "components": [
+          { "name": "addr", "type": "address", "internalType": "address" },
+          {
+            "name": "claimAmount",
+            "type": "uint256",
+            "internalType": "uint256"
+          }
+        ]
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateClaimDetails",
+    "inputs": [
+      { "name": "claimId", "type": "uint256", "internalType": "uint256" },
+      { "name": "details", "type": "bytes", "internalType": "bytes" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "url",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "string", "internalType": "string" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "verifyClaim",
+    "inputs": [
+      { "name": "claimId", "type": "uint256", "internalType": "uint256" },
+      {
+        "name": "contributors",
+        "type": "tuple[]",
+        "internalType": "struct ILM_PC_Bounties_v1.Contributor[]",
+        "components": [
+          { "name": "addr", "type": "address", "internalType": "address" },
+          {
+            "name": "claimAmount",
+            "type": "uint256",
+            "internalType": "uint256"
+          }
+        ]
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "version",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "uint256", "internalType": "uint256" },
+      { "name": "", "type": "uint256", "internalType": "uint256" },
+      { "name": "", "type": "uint256", "internalType": "uint256" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "event",
+    "name": "BountyAdded",
+    "inputs": [
+      {
+        "name": "bountyId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "minimumPayoutAmount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "maximumPayoutAmount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "details",
+        "type": "bytes",
+        "indexed": false,
+        "internalType": "bytes"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "BountyLocked",
+    "inputs": [
+      {
+        "name": "bountyId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "BountyUpdated",
+    "inputs": [
+      {
+        "name": "bountyId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "details",
+        "type": "bytes",
+        "indexed": false,
+        "internalType": "bytes"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "ClaimAdded",
+    "inputs": [
+      {
+        "name": "claimId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "bountyId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "contributors",
+        "type": "tuple[]",
+        "indexed": false,
+        "internalType": "struct ILM_PC_Bounties_v1.Contributor[]",
+        "components": [
+          { "name": "addr", "type": "address", "internalType": "address" },
+          {
+            "name": "claimAmount",
+            "type": "uint256",
+            "internalType": "uint256"
+          }
+        ]
+      },
+      {
+        "name": "details",
+        "type": "bytes",
+        "indexed": false,
+        "internalType": "bytes"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "ClaimContributorsUpdated",
+    "inputs": [
+      {
+        "name": "claimId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "contributors",
+        "type": "tuple[]",
+        "indexed": false,
+        "internalType": "struct ILM_PC_Bounties_v1.Contributor[]",
+        "components": [
+          { "name": "addr", "type": "address", "internalType": "address" },
+          {
+            "name": "claimAmount",
+            "type": "uint256",
+            "internalType": "uint256"
+          }
+        ]
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "ClaimDetailsUpdated",
+    "inputs": [
+      {
+        "name": "claimId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "details",
+        "type": "bytes",
+        "indexed": false,
+        "internalType": "bytes"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "ClaimVerified",
+    "inputs": [
+      {
+        "name": "claimId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "Initialized",
+    "inputs": [
+      {
+        "name": "version",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "ModuleInitialized",
+    "inputs": [
+      {
+        "name": "parentOrchestrator",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "metadata",
+        "type": "tuple",
+        "indexed": false,
+        "internalType": "struct IModule_v1.Metadata",
+        "components": [
+          {
+            "name": "majorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "minorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "patchVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          { "name": "url", "type": "string", "internalType": "string" },
+          { "name": "title", "type": "string", "internalType": "string" }
+        ]
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "PaymentOrderAdded",
+    "inputs": [
+      {
+        "name": "recipient",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "token",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "ProtocolFeeTransferred",
+    "inputs": [
+      {
+        "name": "token",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "treasury",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "feeAmount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "error",
+    "name": "AddressEmptyCode",
+    "inputs": [
+      { "name": "target", "type": "address", "internalType": "address" }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "AddressInsufficientBalance",
+    "inputs": [
+      { "name": "account", "type": "address", "internalType": "address" }
+    ]
+  },
+  { "type": "error", "name": "FailedInnerCall", "inputs": [] },
+  { "type": "error", "name": "InvalidInitialization", "inputs": [] },
+  {
+    "type": "error",
+    "name": "Library__LinkedIdList__InvalidNewId",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module_OrchestratorCallbackFailed",
+    "inputs": [
+      { "name": "funcSig", "type": "string", "internalType": "string" }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "Module__CallerNotAuthorized",
+    "inputs": [
+      { "name": "role", "type": "bytes32", "internalType": "bytes32" },
+      { "name": "caller", "type": "address", "internalType": "address" }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "Module__ERC20PaymentClientBase__ArrayLengthMismatch",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__ERC20PaymentClientBase__CallerNotAuthorized",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__ERC20PaymentClientBase__InsufficientFunds",
+    "inputs": [
+      { "name": "token", "type": "address", "internalType": "address" }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "Module__ERC20PaymentClientBase__InvalidAmount",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__ERC20PaymentClientBase__InvalidPaymentOrder",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__ERC20PaymentClientBase__InvalidRecipient",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__ERC20PaymentClientBase__InvalidToken",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__ERC20PaymentClientBase__Invalidend",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__ERC20PaymentClientBase__TokenTransferFailed",
+    "inputs": []
+  },
+  { "type": "error", "name": "Module__InvalidAddress", "inputs": [] },
+  { "type": "error", "name": "Module__InvalidMetadata", "inputs": [] },
+  {
+    "type": "error",
+    "name": "Module__InvalidOrchestratorAddress",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__LM_PC_Bounty__AlreadyClaimed",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__LM_PC_Bounty__BountyLocked",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__LM_PC_Bounty__ClaimExceedsGivenPayoutAmounts",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__LM_PC_Bounty__ContributorsChanged",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__LM_PC_Bounty__InvalidArrayLengths",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__LM_PC_Bounty__InvalidBountyId",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__LM_PC_Bounty__InvalidClaimId",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__LM_PC_Bounty__InvalidContributorAddress",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__LM_PC_Bounty__InvalidContributorAmount",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__LM_PC_Bounty__InvalidContributorsLength",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__LM_PC_Bounty__InvalidPayoutAmounts",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__LM_PC_Bounty__OnlyClaimContributor",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__OnlyCallableByOrchestrator",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Module__OnlyCallableByPaymentClient",
+    "inputs": []
+  },
+  { "type": "error", "name": "NotInitializing", "inputs": [] },
+  {
+    "type": "error",
+    "name": "SafeERC20FailedOperation",
+    "inputs": [
+      { "name": "token", "type": "address", "internalType": "address" }
+    ]
+  }
+]

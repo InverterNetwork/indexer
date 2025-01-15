@@ -1,4 +1,4 @@
-import { IssuanceTokenDayData, IssuanceTokenHourData } from "generated";
+import { IssuanceTokenDayData, IssuanceTokenHourData } from 'generated'
 
 export const initialIssuanceTokenHourData = {
   id: undefined,
@@ -12,9 +12,9 @@ export const initialIssuanceTokenHourData = {
   projectFeeInCol: undefined,
   projectFeeInIssuance: undefined,
   protocolFeeInCol: undefined,
-} satisfies Partial<IssuanceTokenHourData>;
+} satisfies Partial<IssuanceTokenHourData>
 
 export const initialIssuanceTokenDayData = {
   ...initialIssuanceTokenHourData,
   date: undefined,
-} satisfies Partial<IssuanceTokenDayData>;
+} satisfies Partial<IssuanceTokenDayData>

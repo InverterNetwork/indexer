@@ -86,9 +86,7 @@
         "internalType": "uint256"
       }
     ],
-    "outputs": [
-      { "name": "", "type": "uint256", "internalType": "uint256" }
-    ],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
     "stateMutability": "view"
   },
   {
@@ -111,9 +109,7 @@
         "internalType": "uint256"
       }
     ],
-    "outputs": [
-      { "name": "", "type": "uint256", "internalType": "uint256" }
-    ],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
     "stateMutability": "view"
   },
   {
@@ -156,9 +152,7 @@
     "type": "function",
     "name": "identifier",
     "inputs": [],
-    "outputs": [
-      { "name": "", "type": "bytes32", "internalType": "bytes32" }
-    ],
+    "outputs": [{ "name": "", "type": "bytes32", "internalType": "bytes32" }],
     "stateMutability": "view"
   },
   {
@@ -222,9 +216,7 @@
         "internalType": "address"
       }
     ],
-    "outputs": [
-      { "name": "", "type": "bool", "internalType": "bool" }
-    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
     "stateMutability": "view"
   },
   {
@@ -237,9 +229,7 @@
         "internalType": "address"
       }
     ],
-    "outputs": [
-      { "name": "", "type": "bool", "internalType": "bool" }
-    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
     "stateMutability": "view"
   },
   {
@@ -249,9 +239,7 @@
       { "name": "", "type": "address", "internalType": "address" },
       { "name": "", "type": "address", "internalType": "address" }
     ],
-    "outputs": [
-      { "name": "", "type": "uint256", "internalType": "uint256" }
-    ],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
     "stateMutability": "view"
   },
   {
@@ -300,9 +288,7 @@
         "internalType": "uint256"
       }
     ],
-    "outputs": [
-      { "name": "", "type": "uint256", "internalType": "uint256" }
-    ],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
     "stateMutability": "view"
   },
   {
@@ -325,9 +311,7 @@
         "internalType": "uint256"
       }
     ],
-    "outputs": [
-      { "name": "", "type": "uint256", "internalType": "uint256" }
-    ],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
     "stateMutability": "view"
   },
   {
@@ -427,9 +411,7 @@
         "internalType": "uint256"
       }
     ],
-    "outputs": [
-      { "name": "", "type": "uint256", "internalType": "uint256" }
-    ],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
     "stateMutability": "view"
   },
   {
@@ -457,9 +439,7 @@
         "internalType": "uint256"
       }
     ],
-    "outputs": [
-      { "name": "", "type": "uint256", "internalType": "uint256" }
-    ],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
     "stateMutability": "view"
   },
   {
@@ -472,27 +452,21 @@
         "internalType": "bytes4"
       }
     ],
-    "outputs": [
-      { "name": "", "type": "bool", "internalType": "bool" }
-    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
     "stateMutability": "view"
   },
   {
     "type": "function",
     "name": "title",
     "inputs": [],
-    "outputs": [
-      { "name": "", "type": "string", "internalType": "string" }
-    ],
+    "outputs": [{ "name": "", "type": "string", "internalType": "string" }],
     "stateMutability": "view"
   },
   {
     "type": "function",
     "name": "trustedForwarder",
     "inputs": [],
-    "outputs": [
-      { "name": "", "type": "address", "internalType": "address" }
-    ],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
     "stateMutability": "view"
   },
   {
@@ -528,9 +502,7 @@
     "type": "function",
     "name": "url",
     "inputs": [],
-    "outputs": [
-      { "name": "", "type": "string", "internalType": "string" }
-    ],
+    "outputs": [{ "name": "", "type": "string", "internalType": "string" }],
     "stateMutability": "view"
   },
   {
@@ -575,9 +547,7 @@
         ]
       }
     ],
-    "outputs": [
-      { "name": "", "type": "bool", "internalType": "bool" }
-    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
     "stateMutability": "nonpayable"
   },
   {
