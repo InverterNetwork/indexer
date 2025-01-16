@@ -171,10 +171,10 @@ type ProjectFee {
 type DepositVault {
   id: ID!
   chainId: Int!
+
   workflow: Workflow!
 
   balance: BigDecimal
-
   deposits: [Deposit!]! @derivedFrom(field: "depositVault")
   transfers: [Transfer!]! @derivedFrom(field: "depositVault")
 }
