@@ -67,7 +67,7 @@ contracts:
       - event: TransferOrchestratorToken
 networks:
   - id: 11155420
-    start_block: 0
+    start_block: 16141643
     contracts:
       - name: ModuleFactory_v1
         address: 0xcEB82D3FA367cE3563e07763765bB1ae7B5Ba3d5
@@ -84,7 +84,7 @@ networks:
       - name: FM_DepositVault_v1
         address:
   - id: 84532
-    start_block: 0
+    start_block: 14158776
     contracts:
       - name: ModuleFactory_v1
         address: 0xcEB82D3FA367cE3563e07763765bB1ae7B5Ba3d5
@@ -101,7 +101,7 @@ networks:
       - name: FM_DepositVault_v1
         address:
   - id: 1101
-    start_block: 0
+    start_block: 16657460
     contracts:
       - name: ModuleFactory_v1
         address: 0x5Da8231feE106f4A43e07f2EEE95564467A1Ee58
@@ -118,7 +118,7 @@ networks:
       - name: FM_DepositVault_v1
         address:
   - id: 11155111
-    start_block: 0
+    start_block: 6531547
     contracts:
       - name: ModuleFactory_v1
         address: 0xcEB82D3FA367cE3563e07763765bB1ae7B5Ba3d5
