@@ -33,7 +33,7 @@ FM_DepositVault_v1.Deposit.handler(async ({ event, context }) => {
 
   // Create deposit record
   context.Deposit.set({
-    id: depositVault.id + '-' + event.logIndex,
+    id: `${depositVault.id}-${event.logIndex}`,
     depositVault_id: event.srcAddress,
     amount: event.params._amount,
     depositor: event.params._from,
@@ -62,7 +62,7 @@ FM_DepositVault_v1.TransferOrchestratorToken.handler(
 
     // Create transfer record
     context.Transfer.set({
-      id: depositVault.id + '-' + event.logIndex,
+      id: `${depositVault.id}-${event.logIndex}`,
       depositVault_id: event.srcAddress,
       amount: event.params._amount,
       recipient: event.params._to,

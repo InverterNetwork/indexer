@@ -45,15 +45,20 @@ type IssuanceTokenDayData @entity {
   chainId: Int!
   date: Int! # timestamp rounded to current day by dividing by 86400
   token: Token!
-  volumeInCol: Float!
-  volumeInIssuance: Float!
-  projectFeeInCol: Float!
-  protocolFeeInCol: Float!
-  projectFeeInIssuance: Float!
-  openInCol: Float!
-  highInCol: Float!
-  lowInCol: Float!
-  closeInCol: Float!
+  volumeInCol: BigDecimal!
+  volumeInIssuance: BigDecimal!
+
+  projectFeeInCol: BigDecimal!
+
+  protocolFeeInCol: BigDecimal!
+  protocolFeeInIssuance: BigDecimal!
+
+  priceInCol: BigDecimal!
+
+  openInCol: BigDecimal!
+  highInCol: BigDecimal!
+  lowInCol: BigDecimal!
+  closeInCol: BigDecimal!
 }
 
 type IssuanceTokenHourData @entity {
@@ -61,15 +66,20 @@ type IssuanceTokenHourData @entity {
   chainId: Int!
   periodStartUnix: Int! # unix timestamp for start of hour
   token: Token!
-  volumeInCol: Float!
-  volumeInIssuance: Float!
-  projectFeeInCol: Float!
-  protocolFeeInCol: Float!
-  projectFeeInIssuance: Float!
-  openInCol: Float!
-  highInCol: Float!
-  lowInCol: Float!
-  closeInCol: Float!
+  volumeInCol: BigDecimal!
+  volumeInIssuance: BigDecimal!
+
+  projectFeeInCol: BigDecimal!
+
+  protocolFeeInCol: BigDecimal!
+  protocolFeeInIssuance: BigDecimal!
+
+  priceInCol: BigDecimal!
+
+  openInCol: BigDecimal!
+  highInCol: BigDecimal!
+  lowInCol: BigDecimal!
+  closeInCol: BigDecimal!
 }
 
 enum SwapType {
@@ -78,18 +88,22 @@ enum SwapType {
 }
 
 type Swap {
-  id: ID!
+  id: ID! # `${event.block.hash}-${event.logIndex}`
   chainId: Int!
   blockTimestamp: Int!
   bondingCurve: BondingCurve!
+
   swapType: SwapType!
+
   initiator: String!
   recipient: String!
+
   issuanceToken: Token!
   collateralToken: Token!
-  issuanceAmount: Float!
-  collateralAmount: Float!
-  priceInCol: Float!
+
+  issuanceAmount: BigDecimal!
+  collateralAmount: BigDecimal!
+  priceInCol: BigDecimal!
 }
 
 ## ------------------------------------------------------------
@@ -103,27 +117,52 @@ type BondingCurve {
   id: ID! # address of module
   chainId: Int!
   workflow: Workflow!
+
   collateralToken: Token!
+  issuanceToken: Token!
+
   buyFee: BigInt
-  bcType: String # restricted or not restricted
   sellFee: BigInt
-  virtualCollateral: Float
+
+  bcType: String # restricted or not restricted
+  virtualCollateral: BigDecimal
+  virtualIssuance: BigDecimal
+
   virtualCollateralRaw: BigInt
-  virtualIssuance: Float
   buyReserveRatio: BigInt
   sellReserveRatio: BigInt
-  issuanceToken: Token!
+
   swaps: [Swap!]! @derivedFrom(field: "bondingCurve")
-  feeClaim: [FeeClaim!]! @derivedFrom(field: "bondingCurve")
+  projectFees: [ProjectFee!]! @derivedFrom(field: "bondingCurve")
+  protocolFees: [ProtocolFee!]! @derivedFrom(field: "bondingCurve")
 }
 
-type FeeClaim {
-  id: ID!
-  bondingCurve: BondingCurve!
-  amount: Float!
-  blockTimestamp: Int!
+enum FeeSource {
+  ISSUANCE
+  COLLATERAL
+}
+
+type ProtocolFee {
+  id: ID! # `${event.block.hash}-${event.logIndex}`
   chainId: Int!
+  source: FeeSource!
+
+  token: Token!
+  bondingCurve: BondingCurve!
+
+  treasury: String!
+  amount: BigDecimal!
+}
+
+type ProjectFee {
+  id: ID! # `${event.block.hash}-${event.logIndex}`
+  chainId: Int!
+  blockTimestamp: Int!
+
+  bondingCurve: BondingCurve!
+
   recipient: String!
+  amount: BigDecimal!
 }
 
 ## DEPOSIT VAULT ENTITIES
@@ -133,22 +172,26 @@ type DepositVault {
   id: ID!
   chainId: Int!
   workflow: Workflow!
+
   balance: BigInt
+
   deposits: [Deposit!]! @derivedFrom(field: "depositVault")
   transfers: [Transfer!]! @derivedFrom(field: "depositVault")
 }
 
 type Deposit {
-  id: ID!
+  id: ID! # `${depositVault.id}-${event.logIndex}`
+  blockTimestamp: Int!
+
   depositVault: DepositVault!
   depositor: String!
   amount: BigInt!
-  blockTimestamp: Int!
 }
 
 type Transfer {
-  id: ID!
+  id: ID! # `${depositVault.id}-${event.logIndex}`
   depositVault: DepositVault!
+
   recipient: String!
   amount: BigInt!
   blockTimestamp: Int!

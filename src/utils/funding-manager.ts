@@ -1,21 +1,28 @@
 import {
   BondingCurve_t,
   Swap_t,
-  FeeClaim_t,
+  ProjectFee_t,
   Token_t,
+  ProtocolFee_t,
 } from 'generated/src/db/Entities.gen'
-import { eventLog, handlerContext } from 'generated'
-import { uintToFloat } from '../utils'
+import { BigDecimal, eventLog, handlerContext } from 'generated'
+import { formatUnits } from 'viem'
 
 export const getQtyAndPrice = (
   iss: bigint,
   coll: bigint,
+
   issuanceToken?: Token_t,
   collateralToken?: Token_t
 ) => {
-  const issuanceAmount = uintToFloat(iss, issuanceToken?.decimals ?? 18)
-  const collateralAmount = uintToFloat(coll, collateralToken?.decimals ?? 18)
-  const priceInCol = parseFloat((collateralAmount / issuanceAmount).toFixed(4))
+  const cDecimals = collateralToken?.decimals ?? 18
+  const iDecimals = issuanceToken?.decimals ?? 18
+
+  const collateralAmount = BigDecimal(formatUnits(coll, cDecimals))
+  const issuanceAmount = BigDecimal(formatUnits(iss, iDecimals))
+
+  const priceInCol = collateralAmount.div(issuanceAmount)
+
   return { issuanceAmount, collateralAmount, priceInCol }
 }
 
@@ -66,12 +73,18 @@ export const updateBondingCurve = async ({
   }
 }
 
-export const createSwap = async (
-  context: handlerContext,
-  id: string,
-  chainId: number,
+export const createSwap = async ({
+  event,
+  context,
+  properties,
+}: {
+  event: eventLog<any>
+  context: handlerContext
   properties: Omit<Swap_t, 'id' | 'chainId'>
-) => {
+}) => {
+  const chainId = event.chainId
+  const id = `${event.block.hash}-${event.logIndex}`
+
   context.Swap.set({
     id,
     chainId,
@@ -79,15 +92,36 @@ export const createSwap = async (
   })
 }
 
-export const createFeeClaim = async (
-  context: handlerContext,
-  id: string,
-  chainId: number,
-  properties: Omit<FeeClaim_t, 'id' | 'chainId'>
-) => {
-  context.FeeClaim.set({
+export const createProjectFee = async ({
+  event,
+  context,
+  properties,
+}: {
+  event: eventLog<any>
+  context: handlerContext
+  properties: Omit<ProjectFee_t, 'id' | 'chainId'>
+}) => {
+  const chainId = event.chainId
+  const id = `${event.block.hash}-${event.logIndex}`
+
+  context.ProjectFee.set({
     id,
     chainId,
     ...properties,
   })
+}
+
+export const createProtocolFee = async ({
+  event,
+  context,
+  properties,
+}: {
+  event: eventLog<any>
+  context: handlerContext
+  properties: Omit<ProtocolFee_t, 'id' | 'chainId'>
+}) => {
+  const chainId = event.chainId
+  const id = `${event.block.hash}-${event.logIndex}`
+
+  context.ProtocolFee.set({ id, chainId, ...properties })
 }

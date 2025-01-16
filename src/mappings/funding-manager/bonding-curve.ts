@@ -1,15 +1,18 @@
-import { BondingCurve } from 'generated'
+import { BigDecimal, BondingCurve } from 'generated'
 
 import {
   uintToFloat,
   updateBondingCurve,
   getQtyAndPrice,
   createSwap,
-  createFeeClaim,
+  createProjectFee,
   updateToken,
   updateIssuanceTokenHourData,
   updateIssuanceTokenDayData,
+  createProtocolFee,
 } from '../../utils'
+
+import { formatUnits } from 'viem'
 
 // ============================================================================
 // Module Initialization
@@ -49,11 +52,10 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
     collateralToken
   )
 
-  await createSwap(
+  await createSwap({
     context,
-    event.block.hash + '-' + event.logIndex,
-    event.chainId,
-    {
+    event,
+    properties: {
       swapType: 'BUY',
       bondingCurve_id: event.srcAddress,
       issuanceToken_id: bc!.issuanceToken_id!,
@@ -64,10 +66,10 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
       recipient: event.params.receiver,
       priceInCol,
       blockTimestamp: event.block.timestamp,
-    }
-  )
+    },
+  })
 
-  await updateIssuanceTokenHourData({
+  const updateTimeDataParams = {
     context,
     event,
     properties: {
@@ -76,7 +78,10 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
       issuanceAmount,
       priceInCol,
     },
-  })
+  }
+
+  await updateIssuanceTokenHourData(updateTimeDataParams)
+  // await updateIssuanceTokenDayData(updateTimeDataParams)
 })
 
 // Sell Operations
@@ -94,11 +99,10 @@ BondingCurve.TokensSold.handler(async ({ event, context }) => {
     collateralToken
   )
 
-  await createSwap(
+  await createSwap({
     context,
-    event.block.hash + '-' + event.logIndex,
-    event.chainId,
-    {
+    event,
+    properties: {
       swapType: 'SELL',
       bondingCurve_id: event.srcAddress,
       collateralToken_id: bc!.collateralToken_id!,
@@ -109,10 +113,10 @@ BondingCurve.TokensSold.handler(async ({ event, context }) => {
       recipient: event.params.receiver,
       priceInCol,
       blockTimestamp: event.block.timestamp,
-    }
-  )
+    },
+  })
 
-  await updateIssuanceTokenHourData({
+  const updateTimeDataParams = {
     context,
     event,
     properties: {
@@ -121,7 +125,10 @@ BondingCurve.TokensSold.handler(async ({ event, context }) => {
       issuanceAmount,
       priceInCol,
     },
-  })
+  }
+
+  await updateIssuanceTokenHourData(updateTimeDataParams)
+  await updateIssuanceTokenDayData(updateTimeDataParams)
 })
 
 // ============================================================================
@@ -201,9 +208,8 @@ BondingCurve.OrchestratorTokenSet.handler(async ({ event, context }) => {
   const bc = await context.BondingCurve.get(event.srcAddress)
   const { virtualCollateralRaw } = bc!
 
-  const virtualCollateral = uintToFloat(
-    virtualCollateralRaw!,
-    Number(event.params.decimals)
+  const virtualCollateral = BigDecimal(
+    formatUnits(virtualCollateralRaw!, Number(event.params.decimals))
   )
 
   const collateralToken_id = await updateToken({
@@ -234,9 +240,8 @@ BondingCurve.VirtualIssuanceSupplySet.handler(async ({ event, context }) => {
   const bc = await context.BondingCurve.get(event.srcAddress)
   const issuanceToken = await context.Token.get(bc!.issuanceToken_id!)
 
-  const virtualIssuance = uintToFloat(
-    event.params.newSupply,
-    Number(issuanceToken!.decimals)
+  const virtualIssuance = BigDecimal(
+    formatUnits(event.params.newSupply, issuanceToken!.decimals)
   )
 
   await updateBondingCurve({
@@ -252,9 +257,8 @@ BondingCurve.VirtualIssuanceAmountAdded.handler(async ({ event, context }) => {
   const bc = await context.BondingCurve.get(event.srcAddress)
   const issuanceToken = await context.Token.get(bc!.issuanceToken_id!)
 
-  const virtualIssuance = uintToFloat(
-    event.params.newSupply,
-    Number(issuanceToken!.decimals)
+  const virtualIssuance = BigDecimal(
+    formatUnits(event.params.newSupply, issuanceToken!.decimals)
   )
 
   await updateBondingCurve({
@@ -271,9 +275,8 @@ BondingCurve.VirtualIssuanceAmountSubtracted.handler(
     const bc = await context.BondingCurve.get(event.srcAddress)
     const issuanceToken = await context.Token.get(bc!.issuanceToken_id!)
 
-    const virtualIssuance = uintToFloat(
-      event.params.newSupply,
-      Number(issuanceToken!.decimals)
+    const virtualIssuance = BigDecimal(
+      formatUnits(event.params.newSupply, issuanceToken!.decimals)
     )
     await updateBondingCurve({
       context,
@@ -301,9 +304,8 @@ BondingCurve.VirtualCollateralAmountAdded.handler(
     const bc = await context.BondingCurve.get(event.srcAddress)
     const collateralToken = await context.Token.get(bc!.collateralToken_id!)
 
-    const virtualCollateral = uintToFloat(
-      event.params.newSupply,
-      Number(collateralToken!.decimals)
+    const virtualCollateral = BigDecimal(
+      formatUnits(event.params.newSupply, collateralToken!.decimals)
     )
     await updateBondingCurve({
       context,
@@ -320,9 +322,8 @@ BondingCurve.VirtualCollateralAmountSubtracted.handler(
     const bc = await context.BondingCurve.get(event.srcAddress)
     const collateralToken = await context.Token.get(bc!.collateralToken_id!)
 
-    const virtualCollateral = uintToFloat(
-      event.params.newSupply,
-      Number(collateralToken!.decimals)
+    const virtualCollateral = BigDecimal(
+      formatUnits(event.params.newSupply, collateralToken!.decimals)
     )
     await updateBondingCurve({
       context,
@@ -342,22 +343,36 @@ BondingCurve.VirtualCollateralAmountSubtracted.handler(
 BondingCurve.ProjectCollateralFeeWithdrawn.handler(
   async ({ event, context }) => {
     const bc = await context.BondingCurve.get(event.srcAddress)
-    const collateralToken = await context.Token.get(bc!.collateralToken_id!)
 
-    await createFeeClaim(
+    const collateralToken = await context.Token.get(bc!.collateralToken_id!)
+    const issuanceTokenAddress = bc!.issuanceToken_id!.split('-')[0]
+
+    const amount = BigDecimal(
+      formatUnits(event.params.amount, collateralToken!.decimals)
+    )
+
+    await createProjectFee({
+      event,
       context,
-      event.block.hash + '-' + event.logIndex,
-      event.chainId,
-      {
+      properties: {
         bondingCurve_id: event.srcAddress,
-        amount: uintToFloat(
-          event.params.amount,
-          collateralToken!.decimals ?? 18
-        ),
+        amount,
         blockTimestamp: event.block.timestamp,
         recipient: event.params.receiver,
-      }
-    )
+      },
+    })
+
+    const updateTimeDataParams = {
+      context,
+      event,
+      properties: {
+        address: issuanceTokenAddress,
+        projectFeeInCol: amount,
+      },
+    }
+
+    await updateIssuanceTokenHourData(updateTimeDataParams)
+    await updateIssuanceTokenDayData(updateTimeDataParams)
   }
 )
 
@@ -375,7 +390,69 @@ BondingCurve.ProtocolFeeMinted.handler(async ({ event, context }) => {
     context,
     event,
     properties: {
-      virtualIssuance: bc!.virtualIssuance! + mintedProtocolFee,
+      virtualIssuance: bc!.virtualIssuance!.plus(mintedProtocolFee),
     },
   })
+
+  const protocolFee = BigDecimal(
+    formatUnits(event.params.feeAmount, Number(issuanceToken!.decimals))
+  )
+
+  await createProtocolFee({
+    context,
+    event,
+    properties: {
+      source: 'ISSUANCE',
+      bondingCurve_id: event.srcAddress,
+      token_id: issuanceToken!.id,
+      amount: protocolFee,
+      treasury: event.params.treasury,
+    },
+  })
+
+  const updateTimeDataParams = {
+    context,
+    event,
+    properties: {
+      address: issuanceToken!.address,
+      protocolFeeInIssuance: protocolFee,
+    },
+  }
+
+  await updateIssuanceTokenHourData(updateTimeDataParams)
+  await updateIssuanceTokenDayData(updateTimeDataParams)
+})
+
+BondingCurve.ProtocolFeeTransferred.handler(async ({ event, context }) => {
+  const bc = await context.BondingCurve.get(event.srcAddress)
+
+  const collateralToken = await context.Token.get(bc!.collateralToken_id!)
+
+  const protocolFee = BigDecimal(
+    formatUnits(event.params.feeAmount, Number(collateralToken!.decimals))
+  )
+
+  await createProtocolFee({
+    context,
+    event,
+    properties: {
+      source: 'COLLATERAL',
+      bondingCurve_id: event.srcAddress,
+      token_id: collateralToken!.id,
+      amount: protocolFee,
+      treasury: event.params.treasury,
+    },
+  })
+
+  const updateTimeDataParams = {
+    context,
+    event,
+    properties: {
+      address: collateralToken!.address,
+      protocolFeeInCol: protocolFee,
+    },
+  }
+
+  await updateIssuanceTokenHourData(updateTimeDataParams)
+  await updateIssuanceTokenDayData(updateTimeDataParams)
 })

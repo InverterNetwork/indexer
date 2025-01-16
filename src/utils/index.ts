@@ -20,3 +20,11 @@ export const NULL_ETH_HEX_STRING =
 export function isNullEthValue(value: string): boolean {
   return value == NULL_ETH_HEX_STRING
 }
+
+export const getDayID = (timestamp: number) => Math.floor(timestamp / 86400) // rounded
+
+export const getDayStartTimestamp = (dayID: number) => dayID * 86400
+
+export const getHourIndex = (timestamp: number) => Math.floor(timestamp / 3600) // get unique hour within unix history
+
+export const getHourStartUnix = (hourIndex: number) => hourIndex * 3600 // want the rounded effect
