@@ -173,7 +173,7 @@ type DepositVault {
   chainId: Int!
   workflow: Workflow!
 
-  balance: BigInt
+  balance: BigDecimal
 
   deposits: [Deposit!]! @derivedFrom(field: "depositVault")
   transfers: [Transfer!]! @derivedFrom(field: "depositVault")
@@ -185,7 +185,7 @@ type Deposit {
 
   depositVault: DepositVault!
   depositor: String!
-  amount: BigInt!
+  amount: BigDecimal!
 }
 
 type Transfer {
@@ -193,7 +193,7 @@ type Transfer {
   depositVault: DepositVault!
 
   recipient: String!
-  amount: BigInt!
+  amount: BigDecimal!
   blockTimestamp: Int!
 }
 
@@ -214,8 +214,8 @@ type BountyModule {
 type Bounty {
   id: ID!
   bountyModule: BountyModule!
-  minimumPayoutAmount: BigInt!
-  maximumPayoutAmount: BigInt!
+  minimumPayoutAmount: BigDecimal!
+  maximumPayoutAmount: BigDecimal!
   details: String!
   locked: Boolean
   claims: [BountyClaim!]! @derivedFrom(field: "bounty")
@@ -233,7 +233,7 @@ type BountyContributor {
   id: ID!
   bountyClaim: BountyClaim!
   address: String!
-  claimAmount: BigInt!
+  claimAmount: BigDecimal!
 }
 
 ## STREAMING PAYMENT PROCESSOR ENTITIES

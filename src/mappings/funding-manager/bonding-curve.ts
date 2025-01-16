@@ -1,7 +1,6 @@
 import { BigDecimal, BondingCurve } from 'generated'
 
 import {
-  uintToFloat,
   updateBondingCurve,
   getQtyAndPrice,
   createSwap,
@@ -381,9 +380,8 @@ BondingCurve.ProtocolFeeMinted.handler(async ({ event, context }) => {
   const bc = await context.BondingCurve.get(event.srcAddress)
   const issuanceToken = await context.Token.get(bc!.issuanceToken_id!)
 
-  const mintedProtocolFee = uintToFloat(
-    event.params.feeAmount,
-    Number(issuanceToken?.decimals ?? 18)
+  const mintedProtocolFee = BigDecimal(
+    formatUnits(event.params.feeAmount, issuanceToken?.decimals ?? 18)
   )
 
   await updateBondingCurve({

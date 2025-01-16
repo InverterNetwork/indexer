@@ -1,5 +1,5 @@
-import { LM_PC_Bounties_v1 } from 'generated'
-import { hexToString } from 'viem'
+import { BigDecimal, LM_PC_Bounties_v1 } from 'generated'
+import { hexToString, formatUnits } from 'viem'
 
 // Module initialization handler
 LM_PC_Bounties_v1.ModuleInitialized.handler(async ({ event, context }) => {
@@ -18,16 +18,25 @@ LM_PC_Bounties_v1.BountyAdded.handler(async ({ event, context }) => {
   const detail = event.params.details as `0x${string}`
 
   const bountyModule = await context.BountyModule.get(event.srcAddress)
+
   if (!bountyModule) {
     context.log.error(`Could not find bounty module ${event.srcAddress}`)
     return
   }
 
+  // TODO: Fetch the token decimals
+  const minimumPayoutAmount = BigDecimal(
+    formatUnits(event.params.minimumPayoutAmount, 18)
+  )
+  const maximumPayoutAmount = BigDecimal(
+    formatUnits(event.params.maximumPayoutAmount, 18)
+  )
+
   context.Bounty.set({
     id: bountyId,
     bountyModule_id: bountyModule!.id,
-    minimumPayoutAmount: event.params.minimumPayoutAmount,
-    maximumPayoutAmount: event.params.maximumPayoutAmount,
+    minimumPayoutAmount,
+    maximumPayoutAmount,
     details: hexToString(detail),
     locked: false,
   })
@@ -75,11 +84,14 @@ LM_PC_Bounties_v1.ClaimAdded.handler(async ({ event, context }) => {
   event.params.contributors.forEach((element, index) => {
     let contributorId = `${bountyId}-${event.params.claimId.toString()}-${index}`
 
+    // TODO: Fetch the token decimals
+    const claimAmount = BigDecimal(formatUnits(element[1], 18))
+
     context.BountyContributor.set({
       id: contributorId,
       bountyClaim_id: claimId,
       address: element[0],
-      claimAmount: element[1],
+      claimAmount,
     })
   })
 })
@@ -117,11 +129,15 @@ LM_PC_Bounties_v1.ClaimContributorsUpdated.handler(
     // Add the updated list of contributors
     event.params.contributors.forEach((element, index) => {
       let contributorId = `${bountyId}-${event.params.claimId.toString()}-${index}`
+
+      // TODO: Fetch the token decimals
+      const claimAmount = BigDecimal(formatUnits(element[1], 18))
+
       context.BountyContributor.set({
         id: contributorId,
         bountyClaim_id: claimId,
         address: element[0],
-        claimAmount: element[1],
+        claimAmount,
       })
     })
   }

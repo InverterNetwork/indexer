@@ -1,4 +1,6 @@
-import { FM_DepositVault_v1 } from 'generated'
+import { BigDecimal, FM_DepositVault_v1 } from 'generated'
+import { formatUnits } from 'viem'
+import { ZERO_BD } from '../../utils'
 
 // ============================================================================
 // Module Initialization
@@ -9,7 +11,7 @@ FM_DepositVault_v1.ModuleInitialized.handler(async ({ event, context }) => {
     id: event.srcAddress,
     chainId: event.chainId,
     workflow_id: event.params.parentOrchestrator,
-    balance: 0n,
+    balance: ZERO_BD,
   })
 })
 
@@ -23,19 +25,22 @@ FM_DepositVault_v1.Deposit.handler(async ({ event, context }) => {
 
   // Initialize balance if undefined
   let currentBalance = depositVault.balance
-  if (currentBalance === undefined) currentBalance = 0n
+  if (currentBalance === undefined) currentBalance = ZERO_BD
+
+  // TODO: Fetch the token decimals
+  const amount = BigDecimal(formatUnits(event.params._amount, 18))
 
   // Update vault balance
   context.DepositVault.set({
     ...depositVault,
-    balance: currentBalance + event.params._amount,
+    balance: currentBalance.plus(amount),
   })
 
   // Create deposit record
   context.Deposit.set({
     id: `${depositVault.id}-${event.logIndex}`,
     depositVault_id: event.srcAddress,
-    amount: event.params._amount,
+    amount,
     depositor: event.params._from,
     blockTimestamp: event.block.timestamp,
   })
@@ -52,19 +57,22 @@ FM_DepositVault_v1.TransferOrchestratorToken.handler(
 
     // Initialize balance if undefined
     let currentBalance = depositVault.balance
-    if (currentBalance === undefined) currentBalance = 0n
+    if (currentBalance === undefined) currentBalance = ZERO_BD
+
+    // TODO: Fetch the token decimals
+    const amount = BigDecimal(formatUnits(event.params._amount, 18))
 
     // Update vault balance
     context.DepositVault.set({
       ...depositVault,
-      balance: currentBalance - event.params._amount,
+      balance: currentBalance.minus(amount),
     })
 
     // Create transfer record
     context.Transfer.set({
       id: `${depositVault.id}-${event.logIndex}`,
       depositVault_id: event.srcAddress,
-      amount: event.params._amount,
+      amount,
       recipient: event.params._to,
       blockTimestamp: event.block.timestamp,
     })
