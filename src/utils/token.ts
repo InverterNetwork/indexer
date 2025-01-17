@@ -73,6 +73,43 @@ export async function updateToken({
   return id
 }
 
+export async function deriveTokenAddress({
+  address,
+  chainId,
+  client = getPublicClient(chainId)!,
+}: {
+  address: string
+  chainId: number
+  client?: NonNullable<ReturnType<typeof getPublicClient>>
+}): Promise<`0x${string}`> {
+  const issuanceTokenAbi = [
+    parseAbiItem('function issuanceToken() view returns (address)'),
+  ]
+  const tokenAbi = [parseAbiItem('function token() view returns (address)')]
+
+  try {
+    let tokenAddress: `0x${string}`
+
+    try {
+      tokenAddress = await client.readContract({
+        address: address as `0x${string}`,
+        abi: tokenAbi,
+        functionName: 'token',
+      })
+    } catch {
+      tokenAddress = await client.readContract({
+        address: address as `0x${string}`,
+        abi: issuanceTokenAbi,
+        functionName: 'issuanceToken',
+      })
+    }
+
+    return tokenAddress
+  } catch (error) {
+    return address as `0x${string}`
+  }
+}
+
 const shortTermTotalSupplyCache = new CacheContainer(new MemoryStorage())
 
 /**
@@ -118,19 +155,15 @@ export async function getTotalSupply({
       functionName: 'totalSupply',
     })
   } catch (firstError) {
-    const issuanceTokenAbi = [
-      parseAbiItem('function issuanceToken() view returns (address)'),
-    ]
+    const tokenAddress = await deriveTokenAddress({
+      address,
+      chainId,
+      client,
+    })
 
     try {
-      const issuanceTokenAddress = await client.readContract({
-        address: address as `0x${string}`,
-        abi: issuanceTokenAbi,
-        functionName: 'issuanceToken',
-      })
-
       totalSupply = await client.readContract({
-        ...getERC20Contract(issuanceTokenAddress),
+        ...getERC20Contract(tokenAddress),
         functionName: 'totalSupply',
       })
     } catch (secondError) {
@@ -172,12 +205,10 @@ export async function getTokenDetails({
   address,
   chainId,
   client = getPublicClient(chainId),
-  erc20 = getERC20Contract(address as `0x${string}`),
 }: {
   address: string
   chainId: number
   client?: ReturnType<typeof getPublicClient>
-  erc20?: ReturnType<typeof getERC20Contract>
   triggerTotalSupply?: boolean
 }): Promise<{
   readonly name: string
@@ -205,12 +236,9 @@ export async function getTokenDetails({
     }
   }
 
-  const erc20Bytes = getERC20BytesContract(address as `0x${string}`)
-
-  let results: [number, string, string]
-  try {
-    // First attempt: Standard ERC20 calls
-    results = await client.multicall({
+  const firstAttempt = (add: `0x${string}`) => {
+    const erc20 = getERC20Contract(add)
+    return client.multicall({
       allowFailure: false,
       contracts: [
         {
@@ -227,27 +255,61 @@ export async function getTokenDetails({
         },
       ],
     })
+  }
+
+  const secondAttempt = (add: `0x${string}`) => {
+    const erc20Bytes = getERC20BytesContract(add)
+    return client.multicall({
+      allowFailure: false,
+      contracts: [
+        {
+          ...erc20Bytes,
+          functionName: 'decimals',
+        },
+        {
+          ...erc20Bytes,
+          functionName: 'name',
+        },
+        {
+          ...erc20Bytes,
+          functionName: 'symbol',
+        },
+      ],
+    })
+  }
+
+  let results: [number, string, string]
+  try {
+    // First attempt: Standard ERC20 calls
+    results = await (async () => {
+      try {
+        return await firstAttempt(address as `0x${string}`)
+      } catch {
+        const tokenAddress = await deriveTokenAddress({
+          address,
+          chainId,
+          client,
+        })
+        return await firstAttempt(tokenAddress as `0x${string}`)
+      }
+    })()
   } catch (error) {
     console.log('First multicall failed, trying alternate method')
     try {
       // Second attempt: Try bytes32 format
-      const alternateResults = await client.multicall({
-        allowFailure: false,
-        contracts: [
-          {
-            ...erc20Bytes,
-            functionName: 'decimals',
-          },
-          {
-            ...erc20Bytes,
-            functionName: 'name',
-          },
-          {
-            ...erc20Bytes,
-            functionName: 'symbol',
-          },
-        ],
-      })
+      const alternateResults = await (async () => {
+        try {
+          return await secondAttempt(address as `0x${string}`)
+        } catch {
+          const tokenAddress = await deriveTokenAddress({
+            address,
+            chainId,
+            client,
+          })
+
+          return await secondAttempt(tokenAddress)
+        }
+      })()
       // Convert bytes32 results to strings and clean up null characters
       results = [
         alternateResults[0],

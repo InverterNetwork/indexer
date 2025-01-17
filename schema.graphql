@@ -176,6 +176,7 @@ type DepositVault {
   id: ID!
   chainId: Int!
 
+  token: Token!
   workflow: Workflow!
 
   balance: BigDecimal

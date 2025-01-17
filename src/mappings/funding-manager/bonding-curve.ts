@@ -18,6 +18,14 @@ import { formatUnits } from 'viem'
 // ============================================================================
 
 BondingCurve.ModuleInitialized.handler(async ({ event, context }) => {
+  const token_id = await updateToken({
+    event,
+    context,
+    properties: {
+      address: event.srcAddress,
+    },
+  })
+
   await updateBondingCurve({
     context,
     event,
@@ -27,6 +35,7 @@ BondingCurve.ModuleInitialized.handler(async ({ event, context }) => {
         'FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1'
           ? 'RESTRICTED'
           : 'OPEN',
+      collateralToken_id: token_id,
     },
     workflow_id: event.params.parentOrchestrator,
   })
@@ -80,7 +89,16 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
   }
 
   await updateIssuanceTokenHourData(updateTimeDataParams)
-  // await updateIssuanceTokenDayData(updateTimeDataParams)
+  await updateIssuanceTokenDayData(updateTimeDataParams)
+
+  await updateToken({
+    event,
+    context,
+    properties: {
+      address: issuanceToken!.address,
+    },
+    triggerTotalSupply: true,
+  })
 })
 
 // Sell Operations
@@ -128,6 +146,15 @@ BondingCurve.TokensSold.handler(async ({ event, context }) => {
 
   await updateIssuanceTokenHourData(updateTimeDataParams)
   await updateIssuanceTokenDayData(updateTimeDataParams)
+
+  await updateToken({
+    event,
+    context,
+    properties: {
+      address: issuanceToken!.address,
+    },
+    triggerTotalSupply: true,
+  })
 })
 
 // ============================================================================
@@ -210,19 +237,10 @@ BondingCurve.OrchestratorTokenSet.handler(async ({ event, context }) => {
     formatUnits(virtualCollateralRaw!, Number(event.params.decimals))
   )
 
-  const collateralToken_id = await updateToken({
-    event,
-    context,
-    properties: {
-      address: event.params.token,
-    },
-  })
-
   await updateBondingCurve({
     context,
     event,
     properties: {
-      collateralToken_id,
       virtualCollateral,
     },
   })

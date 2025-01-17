@@ -1,17 +1,26 @@
 import { BigDecimal, FM_DepositVault_v1 } from 'generated'
 import { formatUnits } from 'viem'
-import { ZERO_BD } from '../../utils'
+import { updateToken, ZERO_BD } from '../../utils'
 
 // ============================================================================
 // Module Initialization
 // ============================================================================
 
 FM_DepositVault_v1.ModuleInitialized.handler(async ({ event, context }) => {
+  const token_id = await updateToken({
+    event,
+    context,
+    properties: {
+      address: event.srcAddress,
+    },
+  })
+
   context.DepositVault.set({
     id: event.srcAddress,
     chainId: event.chainId,
     workflow_id: event.params.parentOrchestrator,
     balance: ZERO_BD,
+    token_id,
   })
 })
 
