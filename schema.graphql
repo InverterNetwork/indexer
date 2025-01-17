@@ -31,9 +31,13 @@ type WorkflowModule {
 
 type Token @entity {
   id: ID! # `${address}-${chainId}`
-  address: String!
   chainId: Int!
+
+  address: String!
   decimals: Int!
+  totalSupply: BigDecimal!
+  name: String!
+  symbol: String!
 }
 
 ## ------------------------------------------------------------

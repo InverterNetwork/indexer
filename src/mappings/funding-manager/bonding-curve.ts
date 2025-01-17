@@ -189,7 +189,6 @@ BondingCurve.IssuanceTokenSet.handler(async ({ event, context }) => {
     context,
     properties: {
       address: event.params.issuanceToken,
-      decimals: Number(event.params.decimals),
     },
   })
 
@@ -216,7 +215,6 @@ BondingCurve.OrchestratorTokenSet.handler(async ({ event, context }) => {
     context,
     properties: {
       address: event.params.token,
-      decimals: Number(event.params.decimals),
     },
   })
 

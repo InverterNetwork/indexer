@@ -1,9 +1,9 @@
 {
-  "include": ["src/**/*"],
+  "include": ["src", "test"],
   "compilerOptions": {
     "target": "es2020", //required for use with BigInt types
     "module": "commonjs",
-    "lib": ["es6"],
+    "lib": ["es2020"],
     "allowJs": true,
     "checkJs": false,
     "outDir": "build",
