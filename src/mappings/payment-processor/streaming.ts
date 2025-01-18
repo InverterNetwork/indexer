@@ -3,8 +3,10 @@ import { PP_Streaming_v1 } from 'generated'
 // Initialize the Streaming Payment Processor module
 // Maps the processor address to its workflow for system tracking
 PP_Streaming_v1.ModuleInitialized.handler(async ({ event, context }) => {
+  const id = `${event.srcAddress}-${event.chainId}`
+
   context.StreamingPaymentProcessor.set({
-    id: event.srcAddress,
+    id,
     chainId: event.chainId,
     workflow_id: event.params.parentOrchestrator,
   })
@@ -13,10 +15,12 @@ PP_Streaming_v1.ModuleInitialized.handler(async ({ event, context }) => {
 // Handle creation of new streaming payments (linear vesting)
 // Creates a unique record for each streaming payment with recipient and schedule details
 PP_Streaming_v1.StreamingPaymentAdded.handler(async ({ event, context }) => {
+  const streamingPaymentProcessor_id = `${event.srcAddress}-${event.chainId}`
+  const id = `${streamingPaymentProcessor_id}-${event.params.streamId}`
+
   context.LinearVesting.set({
-    // Create unique ID by combining recipient address and stream ID
-    id: event.params.recipient + '-' + event.params.streamId.toString(),
-    streamingPaymentProcessor_id: event.srcAddress,
+    id,
+    streamingPaymentProcessor_id,
     token: event.params.paymentToken,
     amountRaw: event.params.amount,
     recipient: event.params.recipient,

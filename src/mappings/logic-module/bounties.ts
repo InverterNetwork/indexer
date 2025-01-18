@@ -3,8 +3,10 @@ import { hexToString, formatUnits } from 'viem'
 
 // Module initialization handler
 LM_PC_Bounties_v1.ModuleInitialized.handler(async ({ event, context }) => {
+  const id = `${event.srcAddress}-${event.chainId}`
+
   context.BountyModule.set({
-    id: event.srcAddress,
+    id,
     chainId: event.chainId,
     workflow_id: event.params.parentOrchestrator,
   })
@@ -14,10 +16,12 @@ LM_PC_Bounties_v1.ModuleInitialized.handler(async ({ event, context }) => {
 
 // Creates a new bounty record
 LM_PC_Bounties_v1.BountyAdded.handler(async ({ event, context }) => {
-  const bountyId = `${event.srcAddress}-${event.params.bountyId.toString()}`
+  const id = `${event.srcAddress}-${event.chainId}`
+
+  const bountyId = `${id}-${event.params.bountyId}`
   const detail = event.params.details as `0x${string}`
 
-  const bountyModule = await context.BountyModule.get(event.srcAddress)
+  const bountyModule = await context.BountyModule.get(id)
 
   if (!bountyModule) {
     context.log.error(`Could not find bounty module ${event.srcAddress}`)
@@ -44,7 +48,9 @@ LM_PC_Bounties_v1.BountyAdded.handler(async ({ event, context }) => {
 
 // Updates bounty details
 LM_PC_Bounties_v1.BountyUpdated.handler(async ({ event, context }) => {
-  const bountyId = `${event.srcAddress}-${event.params.bountyId.toString()}`
+  const id = `${event.srcAddress}-${event.chainId}`
+
+  const bountyId = `${id}-${event.params.bountyId}`
   const entity = await context.Bounty.get(bountyId)
 
   context.Bounty.set({
@@ -55,7 +61,9 @@ LM_PC_Bounties_v1.BountyUpdated.handler(async ({ event, context }) => {
 
 // Marks a bounty as locked
 LM_PC_Bounties_v1.BountyLocked.handler(async ({ event, context }) => {
-  const bountyId = `${event.srcAddress}-${event.params.bountyId.toString()}`
+  const id = `${event.srcAddress}-${event.chainId}`
+
+  const bountyId = `${id}-${event.params.bountyId}`
   const entity = await context.Bounty.get(bountyId)
 
   context.Bounty.set({
@@ -68,8 +76,10 @@ LM_PC_Bounties_v1.BountyLocked.handler(async ({ event, context }) => {
 
 // Creates a new claim and its associated contributors
 LM_PC_Bounties_v1.ClaimAdded.handler(async ({ event, context }) => {
-  const bountyId = `${event.srcAddress}-${event.params.bountyId.toString()}`
-  const claimId = `${event.srcAddress}-${event.params.claimId.toString()}`
+  const id = `${event.srcAddress}-${event.chainId}`
+
+  const bountyId = `${id}-${event.params.bountyId}`
+  const claimId = `${id}-${event.params.claimId}`
   const detail = event.params.details as `0x${string}`
 
   // Create the claim record
@@ -82,7 +92,7 @@ LM_PC_Bounties_v1.ClaimAdded.handler(async ({ event, context }) => {
 
   // Create contributor records for this claim
   event.params.contributors.forEach((element, index) => {
-    let contributorId = `${bountyId}-${event.params.claimId.toString()}-${index}`
+    let contributorId = `${bountyId}-${event.params.claimId}-${index}`
 
     // TODO: Fetch the token decimals
     const claimAmount = BigDecimal(formatUnits(element[1], 18))
@@ -99,13 +109,13 @@ LM_PC_Bounties_v1.ClaimAdded.handler(async ({ event, context }) => {
 // Updates the contributors for an existing claim
 LM_PC_Bounties_v1.ClaimContributorsUpdated.handler(
   async ({ event, context }) => {
-    const claimId = `${event.srcAddress}-${event.params.claimId.toString()}`
+    const id = `${event.srcAddress}-${event.chainId}`
+
+    const claimId = `${id}-${event.params.claimId}`
     const claim = await context.BountyClaim.get(claimId)
 
     if (!claim) {
-      context.log.error(
-        `Could not find claim ${event.params.claimId.toString()}`
-      )
+      context.log.error(`Could not find claim ${event.params.claimId}`)
       return
     }
 
@@ -145,7 +155,9 @@ LM_PC_Bounties_v1.ClaimContributorsUpdated.handler(
 
 // Updates claim details
 LM_PC_Bounties_v1.ClaimDetailsUpdated.handler(async ({ event, context }) => {
-  const claimId = `${event.srcAddress}-${event.params.claimId.toString()}`
+  const id = `${event.srcAddress}-${event.chainId}`
+
+  const claimId = `${id}-${event.params.claimId}`
   const entity = await context.BountyClaim.get(claimId)
   const detail = event.params.details as `0x${string}`
 
@@ -157,7 +169,9 @@ LM_PC_Bounties_v1.ClaimDetailsUpdated.handler(async ({ event, context }) => {
 
 // Marks a claim as verified/claimed
 LM_PC_Bounties_v1.ClaimVerified.handler(async ({ event, context }) => {
-  const claimId = `${event.srcAddress}-${event.params.claimId.toString()}`
+  const id = `${event.srcAddress}-${event.chainId}`
+
+  const claimId = `${id}-${event.params.claimId}`
   const entity = await context.BountyClaim.get(claimId)
 
   context.BountyClaim.set({

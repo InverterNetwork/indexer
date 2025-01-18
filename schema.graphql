@@ -2,31 +2,36 @@
 ## ------------------------------------------------------------
 
 type Workflow {
-  id: ID! # orchestratorAddress
-  orchestratorId: BigInt!
+  id: ID! # ${orchestrator}-${chainId}
+  chainId: Int!
+
+  orchestrator: String!
   fundingManager: WorkflowModule!
   authorizer: WorkflowModule!
   paymentProcessor: WorkflowModule!
   optionalModules: [String!]
-  chainId: Int!
 }
 
 type WorkflowModuleType {
   id: ID! # identifier is keccak256 hash of parts of metadata
-  majorVersion: BigInt!
-  minorVersion: BigInt!
-  patchVersion: BigInt!
+  chainId: Int!
+
   url: String!
   beacon: String!
   name: String!
-  chainId: Int!
+
+  majorVersion: BigInt!
+  minorVersion: BigInt!
+  patchVersion: BigInt!
 }
 
 type WorkflowModule {
-  id: ID! # address of module
+  id: ID! # ${address}-${chainId}
+  chainId: Int!
+  address: String!
+
   orchestrator: String!
   moduleType: WorkflowModuleType!
-  chainId: Int!
 }
 
 type Token @entity {
@@ -35,9 +40,10 @@ type Token @entity {
 
   address: String!
   decimals: Int!
-  totalSupply: BigDecimal!
   name: String!
   symbol: String!
+
+  totalSupply: BigDecimal!
 }
 
 ## ------------------------------------------------------------
@@ -70,6 +76,7 @@ type IssuanceTokenHourData @entity {
   chainId: Int!
   periodStartUnix: Int! # unix timestamp for start of hour
   token: Token!
+
   volumeInCol: BigDecimal!
   volumeInIssuance: BigDecimal!
 
@@ -95,6 +102,7 @@ type Swap {
   id: ID! # `${event.block.hash}-${event.logIndex}`
   chainId: Int!
   blockTimestamp: Int!
+
   bondingCurve: BondingCurve!
 
   swapType: SwapType!
@@ -118,8 +126,10 @@ type Swap {
 ## ------------------------------------------------------------
 
 type BondingCurve {
-  id: ID! # address of module
+  id: ID! # `${address}-${chainId}`
   chainId: Int!
+  address: String!
+
   workflow: Workflow!
 
   collateralToken: Token!
@@ -173,11 +183,14 @@ type ProjectFee {
 ## ------------------------------------------------------------
 
 type DepositVault {
-  id: ID!
+  id: ID! # `${address}-${chainId}`
   chainId: Int!
 
-  token: Token!
+  address: String!
+
   workflow: Workflow!
+
+  token: Token!
 
   balance: BigDecimal
   deposits: [Deposit!]! @derivedFrom(field: "depositVault")
@@ -195,11 +208,11 @@ type Deposit {
 
 type Transfer {
   id: ID! # `${depositVault.id}-${event.logIndex}`
+  blockTimestamp: Int!
   depositVault: DepositVault!
 
   recipient: String!
   amount: BigDecimal!
-  blockTimestamp: Int!
 }
 
 ## ------------------------------------------------------------
@@ -210,14 +223,14 @@ type Transfer {
 ## ------------------------------------------------------------
 
 type BountyModule {
-  id: ID!
+  id: ID! # `${address}-${chainId}`
   chainId: Int!
   workflow: Workflow!
   bounties: [Bounty!]! @derivedFrom(field: "bountyModule")
 }
 
 type Bounty {
-  id: ID!
+  id: ID! # `${bountyModule.id}-${bountyId}`
   bountyModule: BountyModule!
   minimumPayoutAmount: BigDecimal!
   maximumPayoutAmount: BigDecimal!
@@ -227,7 +240,7 @@ type Bounty {
 }
 
 type BountyClaim {
-  id: ID!
+  id: ID! # `${bountyModule.id}-${claimId}`
   bounty: Bounty!
   details: String!
   claimed: Boolean
@@ -235,7 +248,7 @@ type BountyClaim {
 }
 
 type BountyContributor {
-  id: ID!
+  id: ID! # `${bountyId}-${event.params.claimId}-${index}`
   bountyClaim: BountyClaim!
   address: String!
   claimAmount: BigDecimal!

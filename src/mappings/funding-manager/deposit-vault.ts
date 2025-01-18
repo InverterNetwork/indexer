@@ -7,17 +7,23 @@ import { updateToken, ZERO_BD } from '../../utils'
 // ============================================================================
 
 FM_DepositVault_v1.ModuleInitialized.handler(async ({ event, context }) => {
+  const address = event.srcAddress
+  const id = `${address}-${event.chainId}`
+
   const token_id = await updateToken({
     event,
     context,
+    singleType: 'token',
     properties: {
       address: event.srcAddress,
     },
   })
 
   context.DepositVault.set({
-    id: event.srcAddress,
+    id,
     chainId: event.chainId,
+
+    address,
     workflow_id: event.params.parentOrchestrator,
     balance: ZERO_BD,
     token_id,
@@ -29,7 +35,8 @@ FM_DepositVault_v1.ModuleInitialized.handler(async ({ event, context }) => {
 // ============================================================================
 
 FM_DepositVault_v1.Deposit.handler(async ({ event, context }) => {
-  const depositVault = await context.DepositVault.get(event.srcAddress)
+  const id = `${event.srcAddress}-${event.chainId}`
+  const depositVault = await context.DepositVault.get(id)
   if (!depositVault) return
 
   // Initialize balance if undefined
@@ -47,8 +54,8 @@ FM_DepositVault_v1.Deposit.handler(async ({ event, context }) => {
 
   // Create deposit record
   context.Deposit.set({
-    id: `${depositVault.id}-${event.logIndex}`,
-    depositVault_id: event.srcAddress,
+    id: `${id}-${event.logIndex}`,
+    depositVault_id: id,
     amount,
     depositor: event.params._from,
     blockTimestamp: event.block.timestamp,
@@ -61,7 +68,8 @@ FM_DepositVault_v1.Deposit.handler(async ({ event, context }) => {
 
 FM_DepositVault_v1.TransferOrchestratorToken.handler(
   async ({ event, context }) => {
-    const depositVault = await context.DepositVault.get(event.srcAddress)
+    const id = `${event.srcAddress}-${event.chainId}`
+    const depositVault = await context.DepositVault.get(id)
     if (!depositVault) return
 
     // Initialize balance if undefined
@@ -79,8 +87,8 @@ FM_DepositVault_v1.TransferOrchestratorToken.handler(
 
     // Create transfer record
     context.Transfer.set({
-      id: `${depositVault.id}-${event.logIndex}`,
-      depositVault_id: event.srcAddress,
+      id: `${id}-${event.logIndex}`,
+      depositVault_id: id,
       amount,
       recipient: event.params._to,
       blockTimestamp: event.block.timestamp,

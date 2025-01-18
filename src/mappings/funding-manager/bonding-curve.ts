@@ -18,12 +18,24 @@ import { formatUnits } from 'viem'
 // ============================================================================
 
 BondingCurve.ModuleInitialized.handler(async ({ event, context }) => {
-  const token_id = await updateToken({
+  const address = event.srcAddress
+
+  const collateralToken_id = await updateToken({
     event,
     context,
     properties: {
-      address: event.srcAddress,
+      address,
     },
+    singleType: 'token',
+  })
+
+  const issuanceToken_id = await updateToken({
+    event,
+    context,
+    properties: {
+      address,
+    },
+    singleType: 'issuance',
   })
 
   await updateBondingCurve({
@@ -35,7 +47,8 @@ BondingCurve.ModuleInitialized.handler(async ({ event, context }) => {
         'FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1'
           ? 'RESTRICTED'
           : 'OPEN',
-      collateralToken_id: token_id,
+      collateralToken_id,
+      issuanceToken_id,
     },
     workflow_id: event.params.parentOrchestrator,
   })
@@ -47,7 +60,8 @@ BondingCurve.ModuleInitialized.handler(async ({ event, context }) => {
 
 // Buy Operations
 BondingCurve.TokensBought.handler(async ({ event, context }) => {
-  const bc = await context.BondingCurve.get(event.srcAddress)
+  const id = `${event.srcAddress}-${event.chainId}`
+  const bc = await context.BondingCurve.get(id)
 
   const issuanceToken = await context.Token.get(bc!.issuanceToken_id!)
   const collateralToken = await context.Token.get(bc!.collateralToken_id!)
@@ -94,6 +108,7 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
   await updateToken({
     event,
     context,
+    singleType: 'issuance',
     properties: {
       address: issuanceToken!.address,
     },
@@ -103,7 +118,8 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
 
 // Sell Operations
 BondingCurve.TokensSold.handler(async ({ event, context }) => {
-  const bc = await context.BondingCurve.get(event.srcAddress)
+  const id = `${event.srcAddress}-${event.chainId}`
+  const bc = await context.BondingCurve.get(id)
 
   const issuanceToken = await context.Token.get(bc!.issuanceToken_id!)
   const collateralToken = await context.Token.get(bc!.collateralToken_id!)
@@ -150,6 +166,7 @@ BondingCurve.TokensSold.handler(async ({ event, context }) => {
   await updateToken({
     event,
     context,
+    singleType: 'issuance',
     properties: {
       address: issuanceToken!.address,
     },
@@ -209,28 +226,13 @@ BondingCurve.SellReserveRatioSet.handler(async ({ event, context }) => {
 // Token Configuration Handlers
 // ============================================================================
 
-// Issuance Token Setup
-BondingCurve.IssuanceTokenSet.handler(async ({ event, context }) => {
-  const issuanceToken_id = await updateToken({
-    event,
-    context,
-    properties: {
-      address: event.params.issuanceToken,
-    },
-  })
-
-  await updateBondingCurve({
-    context,
-    event,
-    properties: {
-      issuanceToken_id,
-    },
-  })
-})
+// Issuance Token Setup // Nothing to do here for now
+// BondingCurve.IssuanceTokenSet.handler(async ({ event, context }) => {})
 
 // Collateral Token Setup
 BondingCurve.OrchestratorTokenSet.handler(async ({ event, context }) => {
-  const bc = await context.BondingCurve.get(event.srcAddress)
+  const id = `${event.srcAddress}-${event.chainId}`
+  const bc = await context.BondingCurve.get(id)
   const { virtualCollateralRaw } = bc!
 
   const virtualCollateral = BigDecimal(
@@ -252,7 +254,8 @@ BondingCurve.OrchestratorTokenSet.handler(async ({ event, context }) => {
 
 // Virtual Issuance Supply
 BondingCurve.VirtualIssuanceSupplySet.handler(async ({ event, context }) => {
-  const bc = await context.BondingCurve.get(event.srcAddress)
+  const id = `${event.srcAddress}-${event.chainId}`
+  const bc = await context.BondingCurve.get(id)
   const issuanceToken = await context.Token.get(bc!.issuanceToken_id!)
 
   const virtualIssuance = BigDecimal(
@@ -269,7 +272,8 @@ BondingCurve.VirtualIssuanceSupplySet.handler(async ({ event, context }) => {
 })
 
 BondingCurve.VirtualIssuanceAmountAdded.handler(async ({ event, context }) => {
-  const bc = await context.BondingCurve.get(event.srcAddress)
+  const id = `${event.srcAddress}-${event.chainId}`
+  const bc = await context.BondingCurve.get(id)
   const issuanceToken = await context.Token.get(bc!.issuanceToken_id!)
 
   const virtualIssuance = BigDecimal(
@@ -287,7 +291,8 @@ BondingCurve.VirtualIssuanceAmountAdded.handler(async ({ event, context }) => {
 
 BondingCurve.VirtualIssuanceAmountSubtracted.handler(
   async ({ event, context }) => {
-    const bc = await context.BondingCurve.get(event.srcAddress)
+    const id = `${event.srcAddress}-${event.chainId}`
+    const bc = await context.BondingCurve.get(id)
     const issuanceToken = await context.Token.get(bc!.issuanceToken_id!)
 
     const virtualIssuance = BigDecimal(
@@ -316,7 +321,8 @@ BondingCurve.VirtualCollateralSupplySet.handler(async ({ event, context }) => {
 
 BondingCurve.VirtualCollateralAmountAdded.handler(
   async ({ event, context }) => {
-    const bc = await context.BondingCurve.get(event.srcAddress)
+    const id = `${event.srcAddress}-${event.chainId}`
+    const bc = await context.BondingCurve.get(id)
     const collateralToken = await context.Token.get(bc!.collateralToken_id!)
 
     const virtualCollateral = BigDecimal(
@@ -334,7 +340,8 @@ BondingCurve.VirtualCollateralAmountAdded.handler(
 
 BondingCurve.VirtualCollateralAmountSubtracted.handler(
   async ({ event, context }) => {
-    const bc = await context.BondingCurve.get(event.srcAddress)
+    const id = `${event.srcAddress}-${event.chainId}`
+    const bc = await context.BondingCurve.get(id)
     const collateralToken = await context.Token.get(bc!.collateralToken_id!)
 
     const virtualCollateral = BigDecimal(
@@ -357,7 +364,8 @@ BondingCurve.VirtualCollateralAmountSubtracted.handler(
 // Fee Claims
 BondingCurve.ProjectCollateralFeeWithdrawn.handler(
   async ({ event, context }) => {
-    const bc = await context.BondingCurve.get(event.srcAddress)
+    const id = `${event.srcAddress}-${event.chainId}`
+    const bc = await context.BondingCurve.get(id)
 
     const collateralToken = await context.Token.get(bc!.collateralToken_id!)
     const issuanceTokenAddress = bc!.issuanceToken_id!.split('-')[0]
@@ -393,7 +401,8 @@ BondingCurve.ProjectCollateralFeeWithdrawn.handler(
 
 // Protocol Fee Generation
 BondingCurve.ProtocolFeeMinted.handler(async ({ event, context }) => {
-  const bc = await context.BondingCurve.get(event.srcAddress)
+  const id = `${event.srcAddress}-${event.chainId}`
+  const bc = await context.BondingCurve.get(id)
   const issuanceToken = await context.Token.get(bc!.issuanceToken_id!)
 
   const mintedProtocolFee = BigDecimal(
@@ -438,7 +447,8 @@ BondingCurve.ProtocolFeeMinted.handler(async ({ event, context }) => {
 })
 
 BondingCurve.ProtocolFeeTransferred.handler(async ({ event, context }) => {
-  const bc = await context.BondingCurve.get(event.srcAddress)
+  const id = `${event.srcAddress}-${event.chainId}`
+  const bc = await context.BondingCurve.get(id)
 
   const collateralToken = await context.Token.get(bc!.collateralToken_id!)
 

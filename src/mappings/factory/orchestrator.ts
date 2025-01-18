@@ -9,13 +9,17 @@ OrchestratorFactory_v1.OrchestratorCreated.contractRegister(
 )
 
 Orchestrator_v1.OrchestratorInitialized.handler(async ({ event, context }) => {
+  const orchestrator = event.params.orchestratorId_.toString()
+  const id = `${orchestrator}-${event.chainId}`
+
   context.Workflow.set({
-    id: event.srcAddress.toString(),
-    orchestratorId: event.params.orchestratorId_,
+    id,
+    chainId: event.chainId,
+
+    orchestrator,
     fundingManager_id: event.params.fundingManager,
     authorizer_id: event.params.authorizer,
     paymentProcessor_id: event.params.paymentProcessor,
     optionalModules: event.params.modules,
-    chainId: event.chainId,
   })
 })

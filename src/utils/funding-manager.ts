@@ -38,6 +38,7 @@ export const updateBondingCurve = async ({
     virtualIssuance: undefined,
     buyReserveRatio: undefined,
     sellReserveRatio: undefined,
+
     issuanceToken_id: undefined,
     collateralToken_id: undefined,
   },
@@ -45,15 +46,19 @@ export const updateBondingCurve = async ({
 }: {
   event: eventLog<any>
   context: handlerContext
-  properties: Partial<Omit<BondingCurve_t, 'id' | 'chainId' | 'workflow_id'>>
+  properties: Partial<
+    Omit<BondingCurve_t, 'id' | 'chainId' | 'workflow_id' | 'address'>
+  >
   workflow_id?: string
 }) => {
-  const { chainId, srcAddress: id } = event
+  const { chainId, srcAddress: address } = event
+
+  const id = `${address}-${chainId}`
 
   let currentEntity: BondingCurve_t | null = null
 
   if (!workflow_id) {
-    currentEntity = (await context.BondingCurve.get(event.srcAddress)) ?? null
+    currentEntity = (await context.BondingCurve.get(id)) ?? null
   }
 
   if (currentEntity) {
@@ -68,6 +73,7 @@ export const updateBondingCurve = async ({
       id,
       chainId,
       workflow_id,
+      address,
       ...(properties as Required<typeof properties>),
     })
   }

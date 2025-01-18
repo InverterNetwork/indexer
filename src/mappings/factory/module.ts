@@ -27,11 +27,19 @@ ModuleFactory_v1.MetadataRegistered.handler(async ({ event, context }) => {
 })
 
 ModuleFactory_v1.ModuleCreated.handler(async ({ event, context }) => {
+  const chainId = event.chainId
+  const address = event.params.m.toString()
+  const id = `${address}-${chainId}`
+
   const [majorVersion, , , url, name] = event.params.metadata
+  const moduleType_id = getMetadataId(majorVersion, url, name)
+
   context.WorkflowModule.set({
-    id: event.params.m.toString(),
-    orchestrator: event.params.orchestrator,
-    moduleType_id: getMetadataId(majorVersion, url, name),
+    id,
     chainId: event.chainId,
+    address,
+
+    orchestrator: event.params.orchestrator,
+    moduleType_id,
   })
 })
