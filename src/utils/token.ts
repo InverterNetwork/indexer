@@ -9,8 +9,8 @@ import {
   getPublicClient,
   ZERO_BD,
 } from '.'
-import fs from 'fs'
-import path from 'path'
+
+import { createDirIfNotExists } from './base'
 
 /**
  * Updates or creates a token entity with the latest information
@@ -46,6 +46,7 @@ export async function updateToken({
     tokenDetails = await getTokenDetails({
       address: properties.address,
       chainId,
+      useCache: false,
     })
   }
 
@@ -124,13 +125,11 @@ export async function getTotalSupply({
   chainId,
   decimals,
   client = getPublicClient(chainId),
-  erc20 = getERC20Contract(address as `0x${string}`),
 }: {
   address: string
   chainId: number
   decimals: number
   client?: ReturnType<typeof getPublicClient>
-  erc20?: ReturnType<typeof getERC20Contract>
 }): Promise<BigDecimal> {
   // Return zero if no client is available
   if (!client) {
@@ -151,7 +150,7 @@ export async function getTotalSupply({
   try {
     // Attempt to read total supply from contract
     totalSupply = await client.readContract({
-      ...erc20,
+      ...getERC20Contract(address as `0x${string}`),
       functionName: 'totalSupply',
     })
   } catch (firstError) {
@@ -187,12 +186,10 @@ export async function getTotalSupply({
 }
 
 // If dir .cache/token-details does not exist, create it
-if (!fs.existsSync(path.join(__dirname, '..', '..', '.cache'))) {
-  fs.mkdirSync(path.join(__dirname, '..', '..', '.cache'))
-}
+const longTermTokenDetailsCacheDir = createDirIfNotExists('.cache')
 
 const longTermTokenDetailsCache = new CacheContainer(
-  new NodeFsStorage(path.join(__dirname, '..', '..', '.cache', 'token-details'))
+  new NodeFsStorage(`${longTermTokenDetailsCacheDir}/token-details.json`)
 )
 
 /**
@@ -205,11 +202,12 @@ export async function getTokenDetails({
   address,
   chainId,
   client = getPublicClient(chainId),
+  useCache = true,
 }: {
   address: string
   chainId: number
   client?: ReturnType<typeof getPublicClient>
-  triggerTotalSupply?: boolean
+  useCache?: boolean
 }): Promise<{
   readonly name: string
   readonly symbol: string
@@ -217,13 +215,15 @@ export async function getTokenDetails({
 }> {
   const cacheKey = `${address}-${chainId}`
 
-  const cachedTokenDetails = await longTermTokenDetailsCache.getItem<{
-    name: string
-    symbol: string
-    decimals: number
-  }>(cacheKey)
+  const cachedTokenDetails = useCache
+    ? await longTermTokenDetailsCache.getItem<{
+        name: string
+        symbol: string
+        decimals: number
+      }>(cacheKey)
+    : undefined
 
-  if (cachedTokenDetails) {
+  if (cachedTokenDetails && useCache) {
     return cachedTokenDetails
   }
 
