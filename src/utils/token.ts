@@ -60,16 +60,23 @@ export async function updateToken({
   singleType?: 'issuance' | 'token'
   properties: {
     address: string
+    /* Can be passed down in the case of issuance tokens
+     * since they rely on the price of the underlying token
+     */
+    priceInUsd?: BigDecimal
   }
 }) {
-  const { address, ...rest } = properties
+  let { address, priceInUsd: _priceInUsd } = properties
   // Generate unique identifier for the token
   const chainId = event.chainId
 
-  const derivedAddress = await deriveTokenAddress({
+  const client = getPublicClient(chainId)
+
+  const { derivedAddress, derivedType } = await deriveTokenAddress({
     address,
     chainId,
     singleType,
+    client,
   })
 
   const id = `${derivedAddress}-${chainId}`
@@ -82,6 +89,7 @@ export async function updateToken({
     tokenDetails = await getTokenDetails({
       address: derivedAddress,
       chainId,
+      client,
     })
   }
 
@@ -92,6 +100,16 @@ export async function updateToken({
       address: derivedAddress,
       chainId,
       decimals: tokenDetails.decimals,
+      client,
+    })
+  }
+
+  let priceInUsd = _priceInUsd ?? ZERO_BD
+  if (derivedType === 'token') {
+    priceInUsd = await getUsdPrice({
+      address: derivedAddress,
+      chainId,
+      client,
     })
   }
 
@@ -104,6 +122,7 @@ export async function updateToken({
     chainId,
     id,
     totalSupply,
+    priceInUsd,
   }
 
   context.Token.set(token)
@@ -213,17 +232,17 @@ export async function getUsdPrice({
       throw result.error
     }
 
-    const singleToken = result.data.data?.[0].attributes?.token_prices?.[
+    const singleToken = result.data.data?.[0]?.attributes?.token_prices?.[
       address
     ] as string | undefined
 
     if (singleToken) {
       usdPrice = BigDecimal(singleToken)
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error(
       `Failed to get USD price for ${address} at ${chainLabel}:`,
-      error
+      error?.message ?? error?.cause ?? error
     )
   }
 
@@ -375,7 +394,12 @@ export async function deriveTokenAddress({
   chainId: number
   client?: NonNullable<ReturnType<typeof getPublicClient>>
   singleType?: 'issuance' | 'token'
-}): Promise<string> {
+}): Promise<{
+  derivedAddress: string
+  derivedType: 'issuance' | 'token' | null
+}> {
+  let derivedType = singleType
+
   const issuanceTokenAbi = [
     parseAbiItem('function issuanceToken() view returns (address)'),
   ]
@@ -469,13 +493,21 @@ export async function deriveTokenAddress({
     } else {
       try {
         tokenAddress = await handleToken()
+        derivedType = 'token'
       } catch {
         tokenAddress = await handleIssuance()
+        derivedType = 'issuance'
       }
     }
 
-    return tokenAddress
+    return {
+      derivedAddress: tokenAddress,
+      derivedType: derivedType ?? null,
+    }
   } catch (error) {
-    return address
+    return {
+      derivedAddress: address,
+      derivedType: null,
+    }
   }
 }

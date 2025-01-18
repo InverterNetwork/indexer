@@ -44,6 +44,8 @@ type Token @entity {
   symbol: String!
 
   totalSupply: BigDecimal!
+
+  priceInUsd: BigDecimal!
 }
 
 ## ------------------------------------------------------------
