@@ -14,6 +14,9 @@ importers:
       envio:
         specifier: ^2.8.2
         version: 2.11.10(typescript@5.2.2)
+      geckoterm:
+        specifier: ^0.2.3
+        version: 0.2.3(typescript@5.2.2)
       node-ts-cache:
         specifier: ^4.4.0
         version: 4.4.0
@@ -207,6 +210,9 @@ packages:
 
   '@glennsl/rescript-fetch@0.2.0':
     resolution: {integrity: sha512-0tsEqJ/6/WBm02prM4RYG+qpnNTaB8QKKIeQHXdDaE4C5YfA/nzjxMNW3CjsGIaEgyrAmmIXFS0kx24UjvOI6A==}
+
+  '@hey-api/client-fetch@0.7.0':
+    resolution: {integrity: sha512-jtoAJ74fmt8+bkWmQOsynB1TomUYA2hf95RyUzzB3ksegn9we3ohkKbiMnJhe4Ae2O2KHuNjkW5fgmUoIsnyoQ==}
 
   '@jest/expect-utils@29.7.0':
     resolution: {integrity: sha512-GlsNBWiFQFCVi9QVSx7f5AgMeLxe9YCCs5PuP2O2LdjDAA8Jh9eX7lA1Jq/xdXw3Wb3hyvlFNfZIfcRetSzYcA==}
@@ -768,6 +774,11 @@ packages:
 
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
+
+  geckoterm@0.2.3:
+    resolution: {integrity: sha512-ctAoBYeydlldgRYRClCRAzz6hcjcslZbyImyTDh9ZnFRMJj2K5JGLEBQai2ih3E0WP3DI5iRAT4vBhDsPn33ww==}
+    peerDependencies:
+      typescript: ^5.6.2
 
   get-caller-file@2.0.5:
     resolution: {integrity: sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==}
@@ -1693,6 +1704,8 @@ snapshots:
 
   '@glennsl/rescript-fetch@0.2.0': {}
 
+  '@hey-api/client-fetch@0.7.0': {}
+
   '@jest/expect-utils@29.7.0':
     dependencies:
       jest-get-type: 29.6.3
@@ -2235,6 +2248,11 @@ snapshots:
     optional: true
 
   function-bind@1.1.2: {}
+
+  geckoterm@0.2.3(typescript@5.2.2):
+    dependencies:
+      '@hey-api/client-fetch': 0.7.0
+      typescript: 5.2.2
 
   get-caller-file@2.0.5: {}
 

@@ -9,10 +9,24 @@ import {
   getPublicClient,
   ZERO_BD,
 } from '.'
+import {
+  coinGeckoChainIds,
+  setGeckotermAPIConfig,
+  getSimpleNetworksByNetworkTokenPriceByAddresses,
+} from 'geckoterm'
 
 import { createDirIfNotExists } from './base'
 
+setGeckotermAPIConfig({
+  baseUrl: 'https://api.geckoterminal.com/api/v2',
+  // Replace with your API key / if you have one
+  headers: {
+    Authorization: `Bearer ${process.env.GECKOTERM_API_KEY}`,
+  },
+})
+
 const shortTermTotalSupplyCache = new CacheContainer(new MemoryStorage())
+const shortTermUsdPriceCache = new CacheContainer(new MemoryStorage())
 
 // If dir .cache/token-details does not exist, create it
 const longTermCacheDir = createDirIfNotExists('.cache')
@@ -162,6 +176,62 @@ export async function getTotalSupply({
   // Format the total supply with correct decimals
   const formattedTotalSupply = BigDecimal(formatUnits(totalSupply, decimals))
   return formattedTotalSupply
+}
+
+export async function getUsdPrice({
+  address,
+  chainId,
+  client = getPublicClient(chainId),
+}: {
+  address: string
+  chainId: number
+  client?: ReturnType<typeof getPublicClient>
+}): Promise<BigDecimal> {
+  const cacheKey = `${address}-${chainId}`
+  const chainLabel = coinGeckoChainIds?.[chainId]
+  let usdPrice = ZERO_BD
+
+  if (!client || !chainLabel || client.chain.testnet === true) {
+    return usdPrice
+  }
+
+  const cachedUsdPrice = await shortTermUsdPriceCache.getItem<string>(cacheKey)
+
+  if (cachedUsdPrice) {
+    return BigDecimal(cachedUsdPrice)
+  }
+
+  try {
+    const result = await getSimpleNetworksByNetworkTokenPriceByAddresses({
+      path: {
+        addresses: address,
+        network: chainLabel,
+      },
+    })
+
+    if (result.error) {
+      throw result.error
+    }
+
+    const singleToken = result.data.data?.[0].attributes?.token_prices?.[
+      address
+    ] as string | undefined
+
+    if (singleToken) {
+      usdPrice = BigDecimal(singleToken)
+    }
+  } catch (error) {
+    console.error(
+      `Failed to get USD price for ${address} at ${chainLabel}:`,
+      error
+    )
+  }
+
+  await shortTermUsdPriceCache.setItem(cacheKey, usdPrice.toString(), {
+    ttl: 1 * 60 * 1000, // 1 minute
+  })
+
+  return usdPrice
 }
 
 /**

@@ -18,6 +18,7 @@
   "dependencies": {
     "chai": "4.3.10",
     "envio": "^2.8.2",
+    "geckoterm": "^0.2.3",
     "node-ts-cache": "^4.4.0",
     "node-ts-cache-storage-memory": "^4.4.0",
     "node-ts-cache-storage-node-fs": "^4.4.0",
