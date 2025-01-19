@@ -45,7 +45,7 @@ type Token @entity {
 
   totalSupply: BigDecimal!
 
-  priceInUsd: BigDecimal!
+  # priceInUsd: BigDecimal!
 }
 
 ## ------------------------------------------------------------

@@ -104,14 +104,14 @@ export async function updateToken({
     })
   }
 
-  let priceInUsd = _priceInUsd ?? ZERO_BD
-  if (derivedType === 'token') {
-    priceInUsd = await getUsdPrice({
-      address: derivedAddress,
-      chainId,
-      client,
-    })
-  }
+  // let priceInUsd = _priceInUsd ?? ZERO_BD
+  // if (derivedType === 'token') {
+  //   priceInUsd = await getUsdPrice({
+  //     address: derivedAddress,
+  //     chainId,
+  //     client,
+  //   })
+  // }
 
   // Merge all token data
   const token = {
@@ -122,7 +122,7 @@ export async function updateToken({
     chainId,
     id,
     totalSupply,
-    priceInUsd,
+    // priceInUsd,
   }
 
   context.Token.set(token)
@@ -171,21 +171,12 @@ export async function getTotalSupply({
       ...erc20Contract,
       functionName: 'totalSupply',
     })
-  } catch (firstError) {
-    try {
-      totalSupply = await client.readContract({
-        ...erc20Contract,
-        functionName: 'totalSupply',
-      })
-    } catch (secondError) {
-      console.error(
-        `Failed to get total supply for ${address} at ${
-          firstError ? 'primary' : 'secondary'
-        } method:`,
-        firstError || secondError
-      )
-      return ZERO_BD
-    }
+  } catch (error: any) {
+    console.error(
+      `Failed to get total supply for ${address} at ${chainId}:`,
+      error?.message ?? error?.cause ?? error
+    )
+    return ZERO_BD
   }
 
   await shortTermTotalSupplyCache.setItem(cacheKey, totalSupply, {
@@ -247,7 +238,7 @@ export async function getUsdPrice({
   }
 
   await shortTermUsdPriceCache.setItem(cacheKey, usdPrice.toString(), {
-    ttl: 1 * 60 * 1000, // 1 minute
+    ttl: 2 * 60 * 1000, // 2 minute
   })
 
   return usdPrice
