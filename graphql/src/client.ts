@@ -10,6 +10,7 @@ import { SubscriptionClient } from 'subscriptions-transport-ws'
 export class Client {
   private static instance: UrqlClient | null = null
   private static currentUrl: string = DEFAULT_GRAPHQL_URL
+  private static prevUrl: string = DEFAULT_GRAPHQL_URL
 
   private constructor() {}
 
@@ -30,17 +31,16 @@ export class Client {
     })
   }
 
-  public static get(url?: string): UrqlClient {
-    // Only update URL if explicitly provided through updateUrl
-    if (!this.instance || url === this.currentUrl) {
+  public static get(): UrqlClient {
+    if (!this.instance || this.currentUrl !== this.prevUrl) {
       this.instance = this.createClient(this.currentUrl)
+      this.prevUrl = this.currentUrl
     }
     return this.instance
   }
 
   public static updateUrl(newUrl: string): UrqlClient {
     this.currentUrl = newUrl
-    this.instance = this.createClient(newUrl)
-    return this.instance
+    return this.get()
   }
 }
