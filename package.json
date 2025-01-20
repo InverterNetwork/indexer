@@ -2,40 +2,63 @@
   "name": "indexer",
   "version": "0.1.0",
   "scripts": {
-    "clean": "tsc --clean",
-    "build": "tsc --build && tsc-alias ./build",
+    "postinstall": "husky || true",
     "watch": "tsc --watch --noEmit -p tsconfig.json",
+    "type-check": "tsc-files --pretty --project ./tsconfig.json --noEmit --module ESNext --declaration",
+    "clean": "tsc --clean",
+    "build": "tsc --build",
     "mocha": "ts-mocha test/**/*.ts",
     "codegen": "envio codegen",
     "dev": "envio dev",
     "test": "pnpm mocha",
     "start": "ts-node generated/src/Index.bs.js",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "compile": "ts-node scripts/process-schema.ts && genql --schema ./processed-schema.graphql --prefix GQL --output graphql/src/build && prettier --write graphql/src/build/**/*.ts && rm processed-schema.graphql",
+    "release": "standard-version -a",
+    "release:pub": "git push --follow-tags origin $(git rev-parse --abbrev-ref HEAD)"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "pnpm type-check"
+    ],
+    "*.{ts,tsx,js,jsx,mjs,cjs,json,md,css}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "resolutions": {
+    "eslint": "^9.17.0",
+    "typescript": "^5.7.2"
   },
   "peerDependencies": {
     "viem": "^2.21.0"
   },
   "dependencies": {
-    "chai": "4.3.10",
     "envio": "^2.8.2",
     "geckoterm": "^0.2.4",
     "node-ts-cache": "^4.4.0",
     "node-ts-cache-storage-memory": "^4.4.0",
-    "node-ts-cache-storage-node-fs": "^4.4.0",
-    "prettier": "^3.4.2",
-    "type-fest": "^4.32.0"
-  },
-  "devDependencies": {
-    "@types/chai": "^4.3.11",
-    "@types/expect": "^24.3.0",
-    "@types/mocha": "10.0.6",
-    "@types/node": "20.8.8",
-    "mocha": "10.2.0",
-    "ts-mocha": "^10.0.0",
-    "ts-node": "10.9.1",
-    "typescript": "5.2.2"
+    "node-ts-cache-storage-node-fs": "^4.4.0"
   },
   "optionalDependencies": {
     "generated": "./generated"
+  },
+  "devDependencies": {
+    "@genql/cli": "^6.3.3",
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@types/chai": "^4.3.11",
+    "@types/node": "20.8.8",
+    "chai": "4.3.10",
+    "eslint-plugin-import-x": "^4.6.1",
+    "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.3.0",
+    "prettier": "^3.4.2",
+    "standard-version": "^9.5.0",
+    "ts-node": "10.9.1",
+    "tsc-files": "^1.1.4",
+    "type-fest": "^4.32.0",
+    "typescript-eslint": "^8.19.0"
   }
 }

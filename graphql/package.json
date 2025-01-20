@@ -1,0 +1,67 @@
+{
+  "name": "@inverter-network/graphql",
+  "description": "INVERTER typescript NPM package template",
+  "version": "0.0.0",
+  "license": "LGPL-3.0",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "default": "./dist/cjs/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "typings": "./dist/types/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "directories": {
+    "tool": "tools",
+    "test": "tests"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "watch": "tsc -w",
+    "type-check": "tsc-files --pretty --project ./tsconfig.build.json --noEmit --module ESNext --declaration",
+    "build": "pnpm clean && pnpm build:cjs && pnpm build:esm && pnpm build:types",
+    "build:cjs": "tsc --project ./tsconfig.build.json --module commonjs --moduleResolution node --removeComments --outDir ./dist/cjs --verbatimModuleSyntax false && printf '{\"type\":\"commonjs\"}' > ./dist/cjs/package.json && tsc-alias --outDir ./dist/cjs && ts-add-js-extension --dir=dist/cjs --showchanges=false",
+    "build:esm": "tsc --project ./tsconfig.build.json --module ESNext --removeComments --outDir ./dist/esm && printf '{\"type\": \"module\",\"sideEffects\":false}' > ./dist/esm/package.json && tsc-alias --outDir ./dist/esm && ts-add-js-extension --dir=dist/esm --showchanges=false",
+    "build:types": "tsc --project ./tsconfig.build.json --module ESNext --declarationDir ./dist/types --emitDeclarationOnly --declaration --declarationMap && tsc-alias --outDir ./dist/types",
+    "clean": "tsc --clean",
+    "prepack": "pinst --disable",
+    "package": "pnpm run build && npm pack",
+    "postpack": "pinst --enable"
+  },
+  "dependencies": {
+    "@urql/core": "^5.1.0",
+    "subscriptions-transport-ws": "^0.11.0"
+  },
+  "devDependencies": {
+    "pinst": "^3.0.0",
+    "ts-add-js-extension": "^1.6.5",
+    "tsc-alias": "^1.8.10",
+    "typescript": "^5.7.2"
+  },
+  "homepage": "https://github.com/InverterNetwork/@inverter-network/graphql",
+  "authors": [
+    "InverterNetwork"
+  ],
+  "repository": "InverterNetwork/@inverter-network/graphql",
+  "bugs": {
+    "url": "https://github.com/InverterNetwork/@inverter-network/graphql/issues"
+  },
+  "keywords": [
+    "npm",
+    "contracts",
+    "web3",
+    "ethereum",
+    "solidity",
+    "evm"
+  ]
+}
