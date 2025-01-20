@@ -31,18 +31,16 @@ export class Client {
   }
 
   public static get(url?: string): UrqlClient {
-    // Only use provided URL if no custom URL was previously set
-    const targetUrl =
-      url && this.currentUrl === DEFAULT_GRAPHQL_URL ? url : this.currentUrl
-
-    if (!this.instance || targetUrl !== this.currentUrl) {
-      this.currentUrl = targetUrl
+    // Only update URL if explicitly provided through updateUrl
+    if (!this.instance || url === this.currentUrl) {
       this.instance = this.createClient(this.currentUrl)
     }
     return this.instance
   }
 
   public static updateUrl(newUrl: string): UrqlClient {
-    return this.get(newUrl)
+    this.currentUrl = newUrl
+    this.instance = this.createClient(newUrl)
+    return this.instance
   }
 }
