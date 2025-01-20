@@ -47,13 +47,13 @@
     "tsc-alias": "^1.8.10",
     "typescript": "^5.7.2"
   },
-  "homepage": "https://github.com/InverterNetwork/@inverter-network/graphql",
+  "homepage": "https://github.com/InverterNetwork/indexer/tree/main/graphql",
   "authors": [
     "InverterNetwork"
   ],
-  "repository": "InverterNetwork/@inverter-network/graphql",
+  "repository": "InverterNetwork/indexer/tree/main/graphql",
   "bugs": {
-    "url": "https://github.com/InverterNetwork/@inverter-network/graphql/issues"
+    "url": "https://github.com/InverterNetwork/indexer/issues"
   },
   "keywords": [
     "npm",
@@ -61,6 +61,10 @@
     "web3",
     "ethereum",
     "solidity",
-    "evm"
+    "evm",
+    "graphql",
+    "inverter",
+    "inverternetwork",
+    "indexer"
   ]
 }
