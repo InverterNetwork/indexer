@@ -1,10 +1,11 @@
 import { pipe, subscribe } from 'wonka'
-import client from '../client'
-import { generateSubscriptionOp } from '../build'
+import crypto from 'crypto'
+import { Client } from '../client'
+import { generateSubscriptionOp } from '../gen'
 import type {
   subscription_rootGenqlSelection,
   SubscriptionResult,
-} from '../build'
+} from '../gen'
 
 type CallbackId = string
 
@@ -93,7 +94,7 @@ class SubscriptionManager<
     const { query, variables } = generateSubscriptionOp(this.fields)
 
     const { unsubscribe } = pipe(
-      client.subscription(query, variables),
+      Client.get().subscription(query, variables),
       subscribe((result) => {
         if (result.data) {
           this.triggerCallbacks(result.data as SubscriptionResult<T>)

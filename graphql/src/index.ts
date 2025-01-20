@@ -1,10 +1,10 @@
-import { generateQueryOp } from './build'
+import { generateQueryOp } from './gen'
 import type {
   query_rootGenqlSelection,
   QueryResult,
   subscription_rootGenqlSelection,
-} from './build'
-import client from './client'
+} from './gen'
+import { Client } from './client'
 import { SubscriptionManager } from './utils'
 
 export type GraphQLQueryArgs = query_rootGenqlSelection & { __name?: string }
@@ -14,6 +14,8 @@ export const query = async <T extends GraphQLQueryArgs>(
   fields: T
 ): Promise<GraphQLQueryResult<T>> => {
   const { query, variables } = generateQueryOp(fields)
+
+  const client = Client.get()
 
   const data = await client.query(query, variables)
 
@@ -35,3 +37,4 @@ export const subscription = async <T extends GraphQLSubscriptionArgs>(
 }
 
 export * from './constants'
+export { Client }
