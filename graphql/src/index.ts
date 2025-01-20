@@ -5,7 +5,7 @@ import type {
   subscription_rootGenqlSelection,
 } from './gen'
 import { Client } from './client'
-import { SubscriptionManager } from './utils'
+import { SubscriptionManager } from './subscription-manager'
 
 export type GraphQLQueryArgs = query_rootGenqlSelection & { __name?: string }
 export type GraphQLQueryResult<T extends GraphQLQueryArgs> = QueryResult<T>
@@ -28,13 +28,14 @@ export type GraphQLSubscriptionArgs = subscription_rootGenqlSelection & {
 export type GraphQLSubscriptionResult<T extends GraphQLSubscriptionArgs> =
   SubscriptionManager<T>
 
-export const subscription = async <T extends GraphQLSubscriptionArgs>(
+export const subscription = <T extends GraphQLSubscriptionArgs>(
   fields: T
-): Promise<GraphQLSubscriptionResult<T>> => {
+): GraphQLSubscriptionResult<T> => {
   const subscriptionManager = SubscriptionManager.getInstance(fields)
 
   return subscriptionManager
 }
 
+export * from './gen/schema'
 export * from './constants'
 export { Client }

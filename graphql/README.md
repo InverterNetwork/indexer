@@ -24,6 +24,46 @@ Check out the Changelog ([local](./CHANGELOG.md) or [root](../CHANGELOG.md)) to 
 pnpm add @inverter-network/graphql
 ```
 
+## Usage
+
+```ts
+import { Client, query, subscription } from '@inverter-network/graphql'
+
+// By default, the client will use the hardcoded url -> InverterNetwork Production
+Client.updateUrl('<OPTIONAL_GRAPHQL_URL>')
+
+const fields = {
+  Token: {
+    __args: {
+      where: {
+        address: {
+          _eq: '0x961bB3932A7efAa9aDcc7409e1fea090479E8312',
+        },
+        chainId: {
+          _eq: 1101,
+        },
+      },
+    },
+    chainId: 1,
+    address: 1,
+    name: 1,
+    decimals: 1,
+    symbol: 1,
+    totalSupply: 1,
+  },
+} as const
+
+// Query
+const tokens = await query(fields)
+
+// Subscription
+const sub = subscription(fields)
+
+sub.addCallback((data) => {
+  console.log(data)
+})
+```
+
 ## License
 
 This package is licensed - see the [LICENSE](./LICENSE) file for details.

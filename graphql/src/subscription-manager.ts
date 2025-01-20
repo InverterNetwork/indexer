@@ -1,16 +1,13 @@
 import { pipe, subscribe } from 'wonka'
+import { Client } from './client'
 import crypto from 'crypto'
-import { Client } from '../client'
-import { generateSubscriptionOp } from '../gen'
-import type {
-  subscription_rootGenqlSelection,
-  SubscriptionResult,
-} from '../gen'
+import { generateSubscriptionOp } from './gen'
+import type { subscription_rootGenqlSelection, SubscriptionResult } from './gen'
 
 type CallbackId = string
 
 // Updated SubscriptionCallback type
-type SubscriptionCallback<
+export type SubscriptionCallback<
   T extends subscription_rootGenqlSelection & { __name?: string },
 > = (data: SubscriptionResult<T>) => void
 
@@ -20,7 +17,7 @@ type SubscriptionCallback<
  *
  * @template T - The shape of the data returned by the subscription.
  */
-class SubscriptionManager<
+export class SubscriptionManager<
   T extends subscription_rootGenqlSelection & { __name?: string },
 > {
   public callbacks: Map<CallbackId, SubscriptionCallback<T>> = new Map()
@@ -133,5 +130,3 @@ class SubscriptionManager<
     return crypto?.randomUUID?.() ?? Math.random().toString(36).substring(2)
   }
 }
-
-export default SubscriptionManager
