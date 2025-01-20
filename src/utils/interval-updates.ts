@@ -15,6 +15,10 @@ import {
   getHourStartUnix,
 } from '.'
 
+// -----------------------------------------
+// TYPES
+// -----------------------------------------
+
 type Properties = Partial<{
   address: string
   priceInCol: BigDecimal
@@ -31,105 +35,62 @@ type Params = {
   properties: Properties
 }
 
-export async function updateIssuanceTokenDayData({
-  event,
+export function updateIssuanceTokenDayData({
   context,
-  properties: {
-    address,
-    priceInCol,
-    collateralAmount,
-    issuanceAmount,
-    projectFeeInCol,
-    protocolFeeInCol,
-    protocolFeeInIssuance,
-  },
+  ...params
 }: Params): Promise<IssuanceTokenDayData> {
-  // Step 1: Calculate time-based IDs
-  const timestamp = event.block.timestamp
-  const dayID = getDayID(timestamp)
-  const dayStartTimestamp = getDayStartTimestamp(dayID)
-
-  // Step 2: Generate unique identifiers
-  const token_id = `${address}-${event.chainId}`
-  const tokenDayID = `${token_id}-${dayID}`
-
-  const nonNullPriceInCol = priceInCol || ZERO_BD
-
-  // Step 3: Fetch existing data or create new entry
-  const tokenDayData = ((await context.IssuanceTokenDayData.get(
-    tokenDayID
-  )) as Writable<IssuanceTokenDayData>) || {
-    id: tokenDayID,
-    chainId: event.chainId,
-
-    date: dayStartTimestamp,
-    token_id,
-
-    volumeInCol: ZERO_BD,
-    volumeInIssuance: ZERO_BD,
-
-    projectFeeInCol: ZERO_BD,
-    protocolFeeInCol: ZERO_BD,
-    protocolFeeInIssuance: ZERO_BD,
-
-    priceInCol: nonNullPriceInCol,
-
-    openInCol: nonNullPriceInCol,
-    highInCol: nonNullPriceInCol,
-    lowInCol: nonNullPriceInCol,
-    closeInCol: nonNullPriceInCol,
-  }
-
-  // Step 4: Update price-related data
-  if (priceInCol) {
-    // If price is greater than the high, update the high
-    if (priceInCol.gt(tokenDayData.highInCol)) {
-      tokenDayData.highInCol = priceInCol
-    }
-
-    // If price is less than the low, update the low
-    if (priceInCol.lt(tokenDayData.lowInCol)) {
-      tokenDayData.lowInCol = priceInCol
-    }
-
-    // Update the close and price
-    tokenDayData.closeInCol = priceInCol
-    tokenDayData.priceInCol = priceInCol
-  }
-
-  // Step 5: Update volume
-  if (collateralAmount)
-    tokenDayData.volumeInCol = tokenDayData.volumeInCol.plus(collateralAmount)
-
-  if (issuanceAmount)
-    tokenDayData.volumeInIssuance =
-      tokenDayData.volumeInIssuance.plus(issuanceAmount)
-
-  // Step 6: Update fee data
-  if (projectFeeInCol) {
-    tokenDayData.projectFeeInCol =
-      tokenDayData.projectFeeInCol.plus(projectFeeInCol)
-  }
-
-  if (protocolFeeInCol) {
-    tokenDayData.protocolFeeInCol =
-      tokenDayData.protocolFeeInCol.plus(protocolFeeInCol)
-  }
-
-  if (protocolFeeInIssuance) {
-    tokenDayData.protocolFeeInIssuance =
-      tokenDayData.protocolFeeInIssuance.plus(protocolFeeInIssuance)
-  }
-
-  // Step 7: Save and return updated data
-  context.IssuanceTokenDayData.set(tokenDayData)
-  return tokenDayData
+  return handleIntervalData<IssuanceTokenDayData>({
+    ...params,
+    intervalType: 'day',
+    store: context.IssuanceTokenDayData,
+  })
 }
 
-export async function updateIssuanceTokenHourData({
-  event,
+export function updateIssuanceTokenHourData({
   context,
-  properties: {
+  ...params
+}: Params): Promise<IssuanceTokenHourData> {
+  return handleIntervalData<IssuanceTokenHourData>({
+    ...params,
+    intervalType: 'hour',
+    store: context.IssuanceTokenHourData,
+  })
+}
+
+export function updateIssuanceTokenTotalData({
+  context,
+  ...params
+}: Params): Promise<IssuanceTokenDayData> {
+  return handleIntervalData<IssuanceTokenDayData>({
+    ...params,
+    intervalType: 'total',
+    store: context.IssuanceTokenDayData,
+  })
+}
+
+// -----------------------------------------
+// UTILITY FUNCTIONS
+// -----------------------------------------
+
+type IntervalData = IssuanceTokenDayData | IssuanceTokenHourData
+type IntervalType = 'hour' | 'day' | 'total'
+
+interface IntervalParams<T> extends Omit<Params, 'context'> {
+  intervalType: IntervalType
+  store: {
+    get: (id: string) => Promise<T | undefined>
+    set: (data: T) => void
+  }
+}
+
+async function handleIntervalData<T extends IntervalData>({
+  event,
+  properties,
+  intervalType,
+  store,
+}: IntervalParams<T>): Promise<Writable<T>> {
+  const timestamp = event.block.timestamp
+  const {
     address,
     priceInCol,
     collateralAmount,
@@ -137,88 +98,83 @@ export async function updateIssuanceTokenHourData({
     projectFeeInCol,
     protocolFeeInCol,
     protocolFeeInIssuance,
-  },
-}: Params): Promise<IssuanceTokenHourData> {
-  // Step 1: Calculate time-based IDs
-  const timestamp = event.block.timestamp
-  const hourIndex = getHourIndex(timestamp)
-  const hourStartUnix = getHourStartUnix(hourIndex)
+  } = properties
 
-  // Step 2: Generate unique identifiers
+  // Calculate interval-specific values
+  let intervalData: { id: string | number; startTime: number }
+
+  switch (intervalType) {
+    case 'total':
+      intervalData = {
+        id: 'total',
+        startTime: 0,
+      }
+      break
+    case 'day':
+      intervalData = {
+        id: getDayID(timestamp),
+        startTime: getDayStartTimestamp(getDayID(timestamp)),
+      }
+      break
+    case 'hour':
+      intervalData = {
+        id: getHourIndex(timestamp),
+        startTime: getHourStartUnix(getHourIndex(timestamp)),
+      }
+      break
+    default:
+      throw new Error(`Invalid interval type: ${intervalType}`)
+  }
+
   const token_id = `${address}-${event.chainId}`
-  const tokenHourID = `${token_id}-${hourIndex}`
-
+  const intervalID =
+    intervalType === 'total' ? token_id : `${token_id}-${intervalData.id}`
   const nonNullPriceInCol = priceInCol || ZERO_BD
 
-  // Step 3: Fetch existing data or create new entry
-  const tokenHourData = ((await context.IssuanceTokenHourData.get(
-    tokenHourID
-  )) as Writable<IssuanceTokenHourData>) || {
-    id: tokenHourID,
+  // Fetch or create new entry
+  const data = ((await store.get(intervalID)) as Writable<T>) || {
+    id: intervalID,
     chainId: event.chainId,
-
-    periodStartUnix: hourStartUnix,
+    [intervalType === 'day' ? 'date' : 'periodStartUnix']:
+      intervalData.startTime,
     token_id,
-
     volumeInCol: ZERO_BD,
     volumeInIssuance: ZERO_BD,
-
     projectFeeInCol: ZERO_BD,
     protocolFeeInCol: ZERO_BD,
     protocolFeeInIssuance: ZERO_BD,
-
     priceInCol: nonNullPriceInCol,
-
     openInCol: nonNullPriceInCol,
     highInCol: nonNullPriceInCol,
     lowInCol: nonNullPriceInCol,
     closeInCol: nonNullPriceInCol,
   }
 
-  // Step 4: Update price-related data
+  // Update price data
   if (priceInCol) {
-    // If price is greater than the high, update the high
-    if (priceInCol.gt(tokenHourData.highInCol)) {
-      tokenHourData.highInCol = priceInCol
-    }
-
-    // If price is less than the low, update the low
-    if (priceInCol.lt(tokenHourData.lowInCol)) {
-      tokenHourData.lowInCol = priceInCol
-    }
-
-    // Update the close and price
-    tokenHourData.closeInCol = priceInCol
-    tokenHourData.priceInCol = priceInCol
+    if (priceInCol.gt(data.highInCol)) data.highInCol = priceInCol
+    if (priceInCol.lt(data.lowInCol)) data.lowInCol = priceInCol
+    data.closeInCol = priceInCol
+    data.priceInCol = priceInCol
   }
 
-  // Step 5: Update volume
-  if (collateralAmount) {
-    tokenHourData.volumeInCol = tokenHourData.volumeInCol.plus(collateralAmount)
-  }
-
+  // Update volumes
+  if (collateralAmount)
+    data.volumeInCol = data.volumeInCol.plus(collateralAmount)
   if (issuanceAmount)
-    tokenHourData.volumeInIssuance =
-      tokenHourData.volumeInIssuance.plus(issuanceAmount)
+    data.volumeInIssuance = data.volumeInIssuance.plus(issuanceAmount)
 
-  // Step 6: Update fee data
-  if (projectFeeInCol) {
-    tokenHourData.projectFeeInCol =
-      tokenHourData.projectFeeInCol.plus(projectFeeInCol)
-  }
+  // Update fees
+  if (projectFeeInCol)
+    data.projectFeeInCol = data.projectFeeInCol.plus(projectFeeInCol)
+  if (protocolFeeInCol)
+    data.protocolFeeInCol = data.protocolFeeInCol.plus(protocolFeeInCol)
+  if (protocolFeeInIssuance)
+    data.protocolFeeInIssuance = data.protocolFeeInIssuance.plus(
+      protocolFeeInIssuance
+    )
 
-  if (protocolFeeInCol) {
-    tokenHourData.protocolFeeInCol =
-      tokenHourData.protocolFeeInCol.plus(protocolFeeInCol)
-  }
-
-  if (protocolFeeInIssuance) {
-    tokenHourData.protocolFeeInIssuance =
-      tokenHourData.protocolFeeInIssuance.plus(protocolFeeInIssuance)
-  }
-
-  // Step 7: Save and return updated data
-  context.IssuanceTokenHourData.set(tokenHourData)
-
-  return tokenHourData
+  // Save and return
+  store.set(data as T)
+  return data
 }
