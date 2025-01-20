@@ -10,7 +10,7 @@
 
 ## Inverter / GraphQL Typesafe / Query / Subscription
 
-Bun + Npm + Typescript + Standard Version + Flat Config Linting + Husky + Commit / Release Pipeline
+GraphQL Typesafe / Query / Subscription for [InverterNetwork](https://github.com/InverterNetwork).
 
 ## Summary
 
@@ -68,11 +68,11 @@ sub.addCallback((data) => {
 
 This package is licensed - see the [LICENSE](./LICENSE) file for details.
 
-[ci-image]: https://badgen.net/github/checks/InverterNetwork/@inverter-network/graphql/main?label=ci
-[ci-url]: https://github.com/InverterNetwork/@inverter-network/graphql/actions/workflows/ci.yaml
+[ci-image]: https://badgen.net/github/checks/InverterNetwork/indexer/main?label=ci
+[ci-url]: https://github.com/InverterNetwork/indexer/actions/workflows/ci.yaml
 [npm-url]: https://npmjs.org/package/@inverter-network/graphql
-[twitter-url]: https://twitter.com/<x_username>
-[twitter-image]: https://img.shields.io/twitter/follow/<x_username>.svg?label=follow+InverterNetwork
+[twitter-url]: https://twitter.com/inverternetwork
+[twitter-image]: https://img.shields.io/twitter/follow/inverternetwork.svg?label=follow+InverterNetwork
 [license-image]: https://img.shields.io/badge/License-LGPL%20v3-blue
 [license-url]: ./LICENSE
 [npm-latest-image]: https://img.shields.io/npm/v/@inverter-network/graphql/latest.svg
