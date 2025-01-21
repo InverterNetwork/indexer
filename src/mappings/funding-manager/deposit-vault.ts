@@ -1,6 +1,6 @@
 import { BigDecimal, FM_DepositVault_v1 } from 'generated'
 import { formatUnits } from 'viem'
-import { updateToken, ZERO_BD } from '../../utils'
+import { deriveTokenAddress, updateToken, ZERO_BD } from '../../utils'
 
 // ============================================================================
 // Module Initialization
@@ -10,12 +10,18 @@ FM_DepositVault_v1.ModuleInitialized.handler(async ({ event, context }) => {
   const address = event.srcAddress
   const id = `${address}-${event.chainId}`
 
+  const { derivedAddress } = await deriveTokenAddress({
+    address,
+    chainId: event.chainId,
+    derivesTo: 'token',
+  })
+
   const { id: token_id } = await updateToken({
     event,
     context,
-    singleType: 'token',
+    derivedType: 'token',
     properties: {
-      address: event.srcAddress,
+      address: derivedAddress,
     },
   })
 

@@ -14,6 +14,7 @@ import {
   setGeckotermAPIConfig,
   getSimpleNetworksByNetworkTokenPriceByAddresses,
 } from 'geckoterm'
+import type { simple_token_price } from 'geckoterm'
 
 import { createDirIfNotExists } from './base'
 
@@ -55,12 +56,12 @@ export async function updateToken({
   context,
   properties,
   triggerTotalSupply = false,
-  singleType,
+  derivedType,
 }: {
   event: eventLog<any>
   context: handlerContext
   triggerTotalSupply?: boolean
-  singleType?: 'issuance' | 'token'
+  derivedType?: 'issuance' | 'token'
   properties: {
     address: string
     /* Can be passed down in the case of issuance tokens
@@ -69,20 +70,14 @@ export async function updateToken({
     priceUSD?: BigDecimal
   }
 }) {
-  let { address, priceUSD: _priceUSD } = properties
+  const { address, priceUSD: _priceUSD } = properties
+
   // Generate unique identifier for the token
   const chainId = event.chainId
 
   const client = getPublicClient(chainId)
 
-  const { derivedAddress, derivedType } = await deriveTokenAddress({
-    address,
-    chainId,
-    singleType,
-    client,
-  })
-
-  const id = `${derivedAddress}-${chainId}`
+  const id = `${address}-${chainId}`
   const currentEntity = await context.Token.get(id)
 
   let tokenDetails = {} as Awaited<ReturnType<typeof getTokenDetails>>
@@ -90,7 +85,7 @@ export async function updateToken({
   const tokenDetailsKeys = ['name', 'symbol', 'decimals', 'address']
   if (!tokenDetailsKeys.every((key) => key in (currentEntity || {}))) {
     tokenDetails = await getTokenDetails({
-      address: derivedAddress,
+      address,
       chainId,
       client,
     })
@@ -100,7 +95,7 @@ export async function updateToken({
   let totalSupply: BigDecimal = currentEntity?.totalSupply || ZERO_BD
   if (triggerTotalSupply || !currentEntity?.totalSupply) {
     totalSupply = await getTotalSupply({
-      address: derivedAddress,
+      address,
       chainId,
       decimals: tokenDetails.decimals,
       client,
@@ -110,7 +105,7 @@ export async function updateToken({
   let priceUSD = _priceUSD ?? ZERO_BD
   if (derivedType === 'token') {
     priceUSD = await getUsdPrice({
-      address: derivedAddress,
+      address,
       chainId,
       client,
     })
@@ -121,7 +116,7 @@ export async function updateToken({
     ...currentEntity,
     ...properties,
     ...tokenDetails,
-    address: derivedAddress,
+    address,
     chainId,
     id,
     totalSupply,
@@ -158,7 +153,7 @@ export async function getTotalSupply({
 
   let totalSupply: bigint
 
-  const cacheKey = `${address}-${chainId}`
+  const cacheKey = `${address.toLowerCase()}-${chainId}`
 
   const cachedTotalSupply =
     await shortTermTotalSupplyCache.getItem<bigint>(cacheKey)
@@ -201,7 +196,7 @@ export async function getUsdPrice({
   chainId: number
   client?: ReturnType<typeof getPublicClient>
 }): Promise<BigDecimal> {
-  const cacheKey = `${address}-${chainId}`
+  const cacheKey = `${address.toLowerCase()}-${chainId}`
   const chainLabel = coinGeckoChainIds?.[chainId]
   let usdPrice = ZERO_BD
 
@@ -227,9 +222,9 @@ export async function getUsdPrice({
       throw result.error
     }
 
-    const singleToken = result.data.data?.[0]?.attributes?.token_prices?.[
-      address
-    ] as string | undefined
+    const singleToken = (
+      result.data.data as unknown as simple_token_price | undefined
+    )?.attributes?.token_prices?.[address.toLowerCase()] as string | undefined
 
     if (singleToken) {
       usdPrice = BigDecimal(singleToken)
@@ -291,7 +286,7 @@ export async function getTokenDetails({
   readonly decimals: number
   readonly address: string
 }> {
-  const cacheKey = `${address}-${chainId}`
+  const cacheKey = `${address.toLowerCase()}-${chainId}`
 
   const cachedTokenDetails = useCache
     ? await longTermTokenDetailsCache.getItem<{
@@ -404,17 +399,18 @@ export async function deriveTokenAddress({
   address,
   chainId,
   client = getPublicClient(chainId)!,
-  singleType,
+  derivesTo,
 }: {
   address: string
   chainId: number
   client?: NonNullable<ReturnType<typeof getPublicClient>>
-  singleType?: 'issuance' | 'token'
+  derivesTo?: 'issuance' | 'token'
 }): Promise<{
   derivedAddress: string
   derivedType: 'issuance' | 'token' | null
 }> {
-  let derivedType = singleType
+  let tokenAddress = address as `0x${string}`
+  let derivedType = derivesTo
 
   const issuanceTokenAbi = [
     parseAbiItem('function issuanceToken() view returns (address)'),
@@ -424,81 +420,84 @@ export async function deriveTokenAddress({
   ]
   const tokenAbi = [parseAbiItem('function token() view returns (address)')]
 
-  try {
-    let tokenAddress: `0x${string}`
+  const handleToken = async () => {
+    const cacheKey = `${address.toLowerCase()}-${chainId}-token`
 
-    const handleToken = async () => {
-      const cacheKey = `${address}-${chainId}-token`
+    const cached =
+      await longTermDerivedTokenAddressesCache.getItem<`0x${string}`>(cacheKey)
 
-      const cached =
-        await longTermDerivedTokenAddressesCache.getItem<`0x${string}`>(
-          cacheKey
-        )
-
-      if (cached) {
-        return cached
-      }
-
-      const result = await client.readContract({
-        address: address as `0x${string}`,
-        abi: tokenAbi,
-        functionName: 'token',
-      })
-
-      await longTermDerivedTokenAddressesCache.setItem(cacheKey, result, {
-        isCachedForever: true,
-      })
-
-      return result
+    if (cached) {
+      return cached
     }
 
-    const handleIssuance = async () => {
-      const cacheKey = `${address}-${chainId}-issuance`
+    const result = await client.readContract({
+      address: address as `0x${string}`,
+      abi: tokenAbi,
+      functionName: 'token',
+    })
 
-      const cached =
-        await longTermDerivedTokenAddressesCache.getItem<`0x${string}`>(
-          cacheKey
-        )
+    await longTermDerivedTokenAddressesCache.setItem(cacheKey, result, {
+      isCachedForever: true,
+    })
 
-      if (cached) {
-        return cached
-      }
+    return result
+  }
 
-      const result = await (async () => {
+  const handleIssuance = async () => {
+    const cacheKey = `${address.toLowerCase()}-${chainId}-issuance`
+
+    const cached =
+      await longTermDerivedTokenAddressesCache.getItem<`0x${string}`>(cacheKey)
+
+    if (cached) {
+      return cached
+    }
+
+    const result = await (async () => {
+      try {
+        // 1. Try to get issuance token from wrapped token, if it exists return it else throw and continue
+        return await client.readContract({
+          address: address as `0x${string}`,
+          abi: issuanceTokenAbi,
+          functionName: 'issuanceToken',
+        })
+      } catch {
+        let fmIssuanceToken: `0x${string}` | null = null
+
         try {
-          return await client.readContract({
-            address: address as `0x${string}`,
-            abi: issuanceTokenAbi,
-            functionName: 'issuanceToken',
-          })
-        } catch {
-          const wrapped = await client.readContract({
+          // 2. Try to get issuance token from the funding manager, set it if it exists else throw and continue
+          fmIssuanceToken = await client.readContract({
             address: address as `0x${string}`,
             abi: getIssuanceTokenAbi,
             functionName: 'getIssuanceToken',
           })
+        } catch {}
 
-          try {
-            return await client.readContract({
-              address: wrapped,
+        try {
+          // 3. If fmIssuanceToken exists, try to unwrap it
+          if (fmIssuanceToken)
+            fmIssuanceToken = await client.readContract({
+              address: fmIssuanceToken,
               abi: issuanceTokenAbi,
               functionName: 'issuanceToken',
             })
-          } catch {
-            return wrapped
-          }
-        }
-      })()
+        } catch {}
 
-      await longTermDerivedTokenAddressesCache.setItem(cacheKey, result, {
-        isCachedForever: true,
-      })
+        // 4. Return the fmIssuanceToken if it exists, else return the address
+        return (fmIssuanceToken ?? address) as `0x${string}`
+      }
+    })()
 
-      return result
-    }
+    await longTermDerivedTokenAddressesCache.setItem(cacheKey, result, {
+      isCachedForever: true,
+    })
 
-    if (!!singleType) {
-      switch (singleType) {
+    return result
+  }
+
+  if (!!derivesTo) {
+    try {
+      switch (derivesTo) {
         case 'issuance':
           tokenAddress = await handleIssuance()
           break
@@ -506,24 +505,21 @@ export async function deriveTokenAddress({
           tokenAddress = await handleToken()
           break
       }
-    } else {
+    } catch {}
+  } else {
+    try {
+      tokenAddress = await handleToken()
+      derivedType = 'token'
+    } catch {
       try {
-        tokenAddress = await handleToken()
-        derivedType = 'token'
-      } catch {
         tokenAddress = await handleIssuance()
         derivedType = 'issuance'
-      }
+      } catch {}
     }
+  }
 
-    return {
-      derivedAddress: tokenAddress,
-      derivedType: derivedType ?? null,
-    }
-  } catch (error) {
-    return {
-      derivedAddress: address,
-      derivedType: null,
-    }
+  return {
+    derivedAddress: tokenAddress,
+    derivedType: derivedType ?? null,
   }
 }

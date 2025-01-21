@@ -64,9 +64,10 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
   await updateToken({
     event,
     context,
-    singleType: 'issuance',
+    derivedType: 'issuance',
     properties: {
       address: issuanceToken!.address,
+      priceUSD,
     },
     triggerTotalSupply: true,
   })
@@ -166,7 +167,7 @@ BondingCurve.TokensSold.handler(async ({ event, context }) => {
   await updateToken({
     event,
     context,
-    singleType: 'issuance',
+    derivedType: 'issuance',
     properties: {
       address: issuanceToken!.address,
       priceUSD,

@@ -1,5 +1,5 @@
 {
-  "include": ["src", "test", "scripts", "graphql"],
+  "include": ["src", "tests", "scripts", "graphql"],
   "compilerOptions": {
     "target": "es2020", //required for use with BigInt types
     "module": "commonjs",
@@ -7,7 +7,7 @@
     "allowJs": true,
     "checkJs": false,
     "outDir": "build",
-    "rootDirs": ["src", "generated", "test"],
+    "rootDirs": ["src", "generated", "tests"],
     "strict": true,
     "noImplicitAny": true,
     "esModuleInterop": true,

@@ -233,14 +233,14 @@ type BondingCurve {
   issuanceToken: Token!
   collateralToken: Token!
 
-  buyFee: BigInt
-  sellFee: BigInt
+  buyFee: BigInt!
+  sellFee: BigInt!
 
-  virtualCOL: BigDecimal
-  virtualISS: BigDecimal
+  virtualCOL: BigDecimal!
+  virtualISS: BigDecimal!
 
-  buyReserveRatio: BigInt
-  sellReserveRatio: BigInt
+  buyReserveRatio: BigInt!
+  sellReserveRatio: BigInt!
 
   swaps: [Swap!]! @derivedFrom(field: "bondingCurve")
   projectFees: [ProjectFee!]! @derivedFrom(field: "bondingCurve")

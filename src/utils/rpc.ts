@@ -1,11 +1,5 @@
-import {
-  Address,
-  erc20Abi,
-  erc20Abi_bytes32,
-  createPublicClient,
-  http,
-  Chain,
-} from 'viem'
+import { erc20Abi, erc20Abi_bytes32, createPublicClient, http } from 'viem'
+import type { Chain, Address } from 'viem'
 
 import {
   optimismSepolia,
@@ -39,6 +33,7 @@ export const publicClients = chains.map((chain) =>
     chain: chain as Chain,
     transport: http(`https://inverter.web3no.de/main/evm/${chain.id}`),
     batch: { multicall: true },
+    cacheTime: 60 * 1000, // 1 minute
   })
 )
 

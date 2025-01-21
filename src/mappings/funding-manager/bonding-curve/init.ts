@@ -1,6 +1,10 @@
 import { BondingCurve } from 'generated'
 
-import { updateBondingCurve, updateToken } from '../../../utils'
+import {
+  deriveTokenAddress,
+  updateBondingCurve,
+  updateToken,
+} from '../../../utils'
 
 // ============================================================================
 // Module Initialization
@@ -10,22 +14,34 @@ BondingCurve.ModuleInitialized.handler(async ({ event, context }) => {
   const address = event.srcAddress
   const workflow_id = `${event.params.parentOrchestrator}-${event.chainId}`
 
+  const { derivedAddress: collateralTokenAddress } = await deriveTokenAddress({
+    address,
+    chainId: event.chainId,
+    derivesTo: 'token',
+  })
+
   const { id: collateralToken_id } = await updateToken({
     event,
     context,
+    derivedType: 'token',
     properties: {
-      address,
+      address: collateralTokenAddress,
     },
-    singleType: 'token',
+  })
+
+  const { derivedAddress: issuanceTokenAddress } = await deriveTokenAddress({
+    address,
+    chainId: event.chainId,
+    derivesTo: 'issuance',
   })
 
   const { id: issuanceToken_id } = await updateToken({
     event,
     context,
+    derivedType: 'issuance',
     properties: {
-      address,
+      address: issuanceTokenAddress,
     },
-    singleType: 'issuance',
   })
 
   const bcType =

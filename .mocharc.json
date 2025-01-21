@@ -1,6 +1,5 @@
 {
-  "extension": ["ts"],
-  "spec": "graphql/tests/**/*.ts",
+  "extension": ["test.ts"],
   "require": "ts-node/esm",
   "node-option": ["experimental-specifier-resolution=node", "no-warnings"],
   "exit": true

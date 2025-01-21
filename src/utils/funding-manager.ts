@@ -8,6 +8,7 @@ import {
 import { BigDecimal, eventLog, handlerContext } from 'generated'
 import { formatUnits } from 'viem'
 import { Writable } from 'type-fest'
+import { ZERO_BD } from './constants'
 
 export const getQtyAndPrice = (
   iss: bigint,
@@ -53,20 +54,20 @@ export const updateBondingCurve = async ({
       collateralToken_id: properties?.collateralToken_id!,
 
       bcType: undefined,
-      buyFee: undefined,
-      sellFee: undefined,
+      buyFee: 0n,
+      sellFee: 0n,
 
-      virtualCOL: undefined,
-      virtualISS: undefined,
+      virtualCOL: ZERO_BD,
+      virtualISS: ZERO_BD,
 
-      buyReserveRatio: undefined,
-      sellReserveRatio: undefined,
+      buyReserveRatio: 0n,
+      sellReserveRatio: 0n,
 
       ...properties,
     } satisfies BondingCurve_t)
 
   if (data.workflow_id && data.collateralToken_id && data.issuanceToken_id) {
-    context.BondingCurve.set(data)
+    context.BondingCurve.set({ ...data, ...properties })
   }
 }
 
