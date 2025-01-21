@@ -26,10 +26,13 @@ setGeckotermAPIConfig({
 })
 
 const shortTermTotalSupplyCache = new CacheContainer(new MemoryStorage())
-const shortTermUsdPriceCache = new CacheContainer(new MemoryStorage())
 
 // If dir .cache/token-details does not exist, create it
 const longTermCacheDir = createDirIfNotExists('.cache')
+
+const midTermUsdPriceCache = new CacheContainer(
+  new NodeFsStorage(`${longTermCacheDir}/usd-price.json`)
+)
 
 const longTermTokenDetailsCache = new CacheContainer(
   new NodeFsStorage(`${longTermCacheDir}/token-details.json`)
@@ -63,10 +66,10 @@ export async function updateToken({
     /* Can be passed down in the case of issuance tokens
      * since they rely on the price of the underlying token
      */
-    priceInUsd?: BigDecimal
+    priceUSD?: BigDecimal
   }
 }) {
-  let { address, priceInUsd: _priceInUsd } = properties
+  let { address, priceUSD: _priceUSD } = properties
   // Generate unique identifier for the token
   const chainId = event.chainId
 
@@ -104,14 +107,14 @@ export async function updateToken({
     })
   }
 
-  // let priceInUsd = _priceInUsd ?? ZERO_BD
-  // if (derivedType === 'token') {
-  //   priceInUsd = await getUsdPrice({
-  //     address: derivedAddress,
-  //     chainId,
-  //     client,
-  //   })
-  // }
+  let priceUSD = _priceUSD ?? ZERO_BD
+  if (derivedType === 'token') {
+    priceUSD = await getUsdPrice({
+      address: derivedAddress,
+      chainId,
+      client,
+    })
+  }
 
   // Merge all token data
   const token = {
@@ -122,11 +125,12 @@ export async function updateToken({
     chainId,
     id,
     totalSupply,
-    // priceInUsd,
+    priceUSD,
   }
 
+  // Save and return
   context.Token.set(token)
-  return id
+  return token
 }
 
 /**
@@ -205,7 +209,7 @@ export async function getUsdPrice({
     return usdPrice
   }
 
-  const cachedUsdPrice = await shortTermUsdPriceCache.getItem<string>(cacheKey)
+  const cachedUsdPrice = await midTermUsdPriceCache.getItem<string>(cacheKey)
 
   if (cachedUsdPrice) {
     return BigDecimal(cachedUsdPrice)
@@ -237,11 +241,32 @@ export async function getUsdPrice({
     )
   }
 
-  await shortTermUsdPriceCache.setItem(cacheKey, usdPrice.toString(), {
-    ttl: 2 * 60 * 1000, // 2 minute
+  await midTermUsdPriceCache.setItem(cacheKey, usdPrice.toString(), {
+    ttl: 10 * 60 * 1000, // 10 minutes
   })
 
   return usdPrice
+}
+
+/**
+ * Retrieves the price of an issuance token in USD from the price of the underlying collateral token
+ * @param priceCOL - The price of the underlying collateral token in USD
+ * @param colPriceUSD - The price of the underlying collateral token in USD
+ * @returns The price of the issuance token in USD
+ */
+export const getIssPriceFromCol = (
+  priceCOL?: BigDecimal | number,
+  colPriceUSD?: BigDecimal | number
+) => {
+  if (typeof priceCOL === 'number') {
+    priceCOL = BigDecimal(priceCOL)
+  }
+
+  if (typeof colPriceUSD === 'number') {
+    colPriceUSD = BigDecimal(colPriceUSD)
+  }
+
+  return (priceCOL ?? ZERO_BD).times(colPriceUSD ?? ZERO_BD)
 }
 
 /**

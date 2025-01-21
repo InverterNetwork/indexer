@@ -10,7 +10,7 @@ FM_DepositVault_v1.ModuleInitialized.handler(async ({ event, context }) => {
   const address = event.srcAddress
   const id = `${address}-${event.chainId}`
 
-  const token_id = await updateToken({
+  const { id: token_id } = await updateToken({
     event,
     context,
     singleType: 'token',

@@ -7,6 +7,7 @@ import {
 } from 'generated/src/db/Entities.gen'
 import { BigDecimal, eventLog, handlerContext } from 'generated'
 import { formatUnits } from 'viem'
+import { Writable } from 'type-fest'
 
 export const getQtyAndPrice = (
   iss: bigint,
@@ -18,64 +19,54 @@ export const getQtyAndPrice = (
   const cDecimals = collateralToken?.decimals ?? 18
   const iDecimals = issuanceToken?.decimals ?? 18
 
-  const collateralAmount = BigDecimal(formatUnits(coll, cDecimals))
-  const issuanceAmount = BigDecimal(formatUnits(iss, iDecimals))
+  const amountCOL = BigDecimal(formatUnits(coll, cDecimals))
+  const amountISS = BigDecimal(formatUnits(iss, iDecimals))
 
-  const priceInCol = collateralAmount.div(issuanceAmount)
+  const priceCOL = amountCOL.div(amountISS)
 
-  return { issuanceAmount, collateralAmount, priceInCol }
+  return { amountISS, amountCOL, priceCOL }
 }
 
 export const updateBondingCurve = async ({
   event,
   context,
-  properties = {
-    bcType: undefined,
-    buyFee: undefined,
-    sellFee: undefined,
-    virtualCollateral: undefined,
-    virtualCollateralRaw: undefined,
-    virtualIssuance: undefined,
-    buyReserveRatio: undefined,
-    sellReserveRatio: undefined,
-
-    issuanceToken_id: undefined,
-    collateralToken_id: undefined,
-  },
-  workflow_id,
+  properties,
 }: {
   event: eventLog<any>
   context: handlerContext
-  properties: Partial<
-    Omit<BondingCurve_t, 'id' | 'chainId' | 'workflow_id' | 'address'>
-  >
-  workflow_id?: string
+  properties: Partial<Omit<BondingCurve_t, 'id'>>
 }) => {
   const { chainId, srcAddress: address } = event
 
   const id = `${address}-${chainId}`
 
-  let currentEntity: BondingCurve_t | null = null
-
-  if (!workflow_id) {
-    currentEntity = (await context.BondingCurve.get(id)) ?? null
-  }
-
-  if (currentEntity) {
-    // Update scenario
-    context.BondingCurve.set({
-      ...currentEntity,
-      ...properties,
-    })
-  } else if (typeof workflow_id === 'string' && properties.bcType) {
-    // Create scenario
-    context.BondingCurve.set({
+  const data =
+    ((await context.BondingCurve.get(id)) as Writable<BondingCurve_t>) ||
+    ({
       id,
       chainId,
-      workflow_id,
       address,
-      ...(properties as Required<typeof properties>),
-    })
+
+      workflow_id: properties?.workflow_id!,
+
+      issuanceToken_id: properties?.issuanceToken_id!,
+      collateralToken_id: properties?.collateralToken_id!,
+
+      bcType: undefined,
+      buyFee: undefined,
+      sellFee: undefined,
+
+      virtualCOL: undefined,
+      virtualISS: undefined,
+
+      buyReserveRatio: undefined,
+      sellReserveRatio: undefined,
+
+      ...properties,
+    } satisfies BondingCurve_t)
+
+  if (data.workflow_id && data.collateralToken_id && data.issuanceToken_id) {
+    context.BondingCurve.set(data)
   }
 }
 

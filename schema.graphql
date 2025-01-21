@@ -45,7 +45,23 @@ type Token @entity {
 
   totalSupply: BigDecimal!
 
-  # priceInUsd: BigDecimal!
+  priceUSD: BigDecimal!
+}
+
+## ------------------------------------------------------------
+## INVERTER MARKET DATA
+## ------------------------------------------------------------
+
+type InverterDayData @entity {
+  # `inverter-${dayID}`
+  id: ID!
+
+  volumeUSD: BigDecimal!
+  reserveUSD: BigDecimal!
+  marketCapUSD: BigDecimal!
+
+  projectFeeUSD: BigDecimal!
+  protocolFeeUSD: BigDecimal!
 }
 
 ## ------------------------------------------------------------
@@ -54,46 +70,123 @@ type Token @entity {
 
 type IssuanceTokenDayData @entity {
   id: ID! # `${token.address}-${chainId}-${dayID}`
-  chainId: Int!
   date: Int! # timestamp rounded to current day by dividing by 86400
+  chainId: Int!
+
   token: Token!
-  volumeInCol: BigDecimal!
-  volumeInIssuance: BigDecimal!
 
-  projectFeeInCol: BigDecimal!
+  volumeUSD: BigDecimal!
+  volumeISS: BigDecimal!
 
-  protocolFeeInCol: BigDecimal!
-  protocolFeeInIssuance: BigDecimal!
+  projectFeeUSD: BigDecimal!
 
-  priceInCol: BigDecimal!
+  protocolFeeUSD: BigDecimal!
+  protocolFeeISS: BigDecimal!
 
-  openInCol: BigDecimal!
-  highInCol: BigDecimal!
-  lowInCol: BigDecimal!
-  closeInCol: BigDecimal!
+  priceUSD: BigDecimal!
+
+  openUSD: BigDecimal!
+  highUSD: BigDecimal!
+  lowUSD: BigDecimal!
+  closeUSD: BigDecimal!
 }
 
 type IssuanceTokenHourData @entity {
-  id: ID! # `${token.address}-${chainId}-${hourIndex}`
-  chainId: Int!
+  id: ID! # `${token.address}-${chainId}-${hourID}`
   periodStartUnix: Int! # unix timestamp for start of hour
+  chainId: Int!
+
   token: Token!
 
-  volumeInCol: BigDecimal!
-  volumeInIssuance: BigDecimal!
+  volumeUSD: BigDecimal!
+  volumeISS: BigDecimal!
 
-  projectFeeInCol: BigDecimal!
+  projectFeeUSD: BigDecimal!
 
-  protocolFeeInCol: BigDecimal!
-  protocolFeeInIssuance: BigDecimal!
+  protocolFeeUSD: BigDecimal!
+  protocolFeeISS: BigDecimal!
 
-  priceInCol: BigDecimal!
+  priceUSD: BigDecimal!
 
-  openInCol: BigDecimal!
-  highInCol: BigDecimal!
-  lowInCol: BigDecimal!
-  closeInCol: BigDecimal!
+  openUSD: BigDecimal!
+  highUSD: BigDecimal!
+  lowUSD: BigDecimal!
+  closeUSD: BigDecimal!
 }
+
+## ------------------------------------------------------------
+## FUNDING MANAGER MARKET DATA
+## ------------------------------------------------------------
+
+type CurveDayData @entity {
+  id: ID! # `${bc.id}-${chainId}-${dayID}`
+  date: Int! # timestamp rounded to current day by dividing by 86400
+  chainId: Int!
+
+  collateralToken: Token!
+  issuanceToken: Token!
+
+  volumeUSD: BigDecimal!
+  volumeCOL: BigDecimal!
+  volumeISS: BigDecimal!
+
+  projectFeeUSD: BigDecimal!
+  projectFeeCOL: BigDecimal!
+
+  protocolFeeUSD: BigDecimal!
+  protocolFeeCOL: BigDecimal!
+  protocolFeeISS: BigDecimal!
+
+  priceUSD: BigDecimal!
+  priceCOL: BigDecimal!
+
+  openCOL: BigDecimal!
+  highCOL: BigDecimal!
+  lowCOL: BigDecimal!
+  closeCOL: BigDecimal!
+
+  openUSD: BigDecimal!
+  highUSD: BigDecimal!
+  lowUSD: BigDecimal!
+  closeUSD: BigDecimal!
+}
+
+type CurveHourData @entity {
+  id: ID! # `${bc.id}-${chainId}-${hourID}`
+  periodStartUnix: Int! # unix timestamp for start of hour
+  chainId: Int!
+
+  collateralToken: Token!
+  issuanceToken: Token!
+
+  volumeUSD: BigDecimal!
+  volumeCOL: BigDecimal!
+  volumeISS: BigDecimal!
+
+  projectFeeUSD: BigDecimal!
+  projectFeeCOL: BigDecimal!
+
+  protocolFeeUSD: BigDecimal!
+  protocolFeeCOL: BigDecimal!
+  protocolFeeISS: BigDecimal!
+
+  priceUSD: BigDecimal!
+  priceCOL: BigDecimal!
+
+  openCOL: BigDecimal!
+  highCOL: BigDecimal!
+  lowCOL: BigDecimal!
+  closeCOL: BigDecimal!
+
+  openUSD: BigDecimal!
+  highUSD: BigDecimal!
+  lowUSD: BigDecimal!
+  closeUSD: BigDecimal!
+}
+
+## ------------------------------------------------------------
+## SWAPS
+## ------------------------------------------------------------
 
 enum SwapType {
   BUY
@@ -115,9 +208,11 @@ type Swap {
   issuanceToken: Token!
   collateralToken: Token!
 
-  issuanceAmount: BigDecimal!
-  collateralAmount: BigDecimal!
-  priceInCol: BigDecimal!
+  priceCOL: BigDecimal!
+  priceUSD: BigDecimal!
+
+  amountISS: BigDecimal!
+  amountCOL: BigDecimal!
 }
 
 ## ------------------------------------------------------------
@@ -132,19 +227,18 @@ type BondingCurve {
   chainId: Int!
   address: String!
 
+  bcType: String # restricted or not restricted
   workflow: Workflow!
 
-  collateralToken: Token!
   issuanceToken: Token!
+  collateralToken: Token!
 
   buyFee: BigInt
   sellFee: BigInt
 
-  bcType: String # restricted or not restricted
-  virtualCollateral: BigDecimal
-  virtualIssuance: BigDecimal
+  virtualCOL: BigDecimal
+  virtualISS: BigDecimal
 
-  virtualCollateralRaw: BigInt
   buyReserveRatio: BigInt
   sellReserveRatio: BigInt
 
@@ -161,13 +255,14 @@ enum FeeSource {
 type ProtocolFee {
   id: ID! # `${event.block.hash}-${event.logIndex}`
   chainId: Int!
-  source: FeeSource!
-
-  token: Token!
   bondingCurve: BondingCurve!
 
+  token: Token!
+  source: FeeSource!
   treasury: String!
+
   amount: BigDecimal!
+  amountUSD: BigDecimal!
 }
 
 type ProjectFee {
@@ -179,6 +274,7 @@ type ProjectFee {
 
   recipient: String!
   amount: BigDecimal!
+  amountUSD: BigDecimal!
 }
 
 ## DEPOSIT VAULT ENTITIES
@@ -251,8 +347,9 @@ type BountyClaim {
 
 type BountyContributor {
   id: ID! # `${bountyId}-${event.params.claimId}-${index}`
-  bountyClaim: BountyClaim!
   address: String!
+
+  bountyClaim: BountyClaim!
   claimAmount: BigDecimal!
 }
 
@@ -262,6 +359,7 @@ type BountyContributor {
 type StreamingPaymentProcessor {
   id: ID! # StreamingPaymentProcessor address
   chainId: Int!
+
   workflow: Workflow!
   vestings: [LinearVesting!]! @derivedFrom(field: "streamingPaymentProcessor")
 }
@@ -274,13 +372,18 @@ enum VestingStatus {
 type LinearVesting {
   id: ID! # concat(recipient,'-',streamId)
   chainId: Int!
+  blockTimestamp: Int!
+
   streamingPaymentProcessor: StreamingPaymentProcessor!
-  token: String!
-  amountRaw: BigInt! # not formatted
+
+  token: Token!
+
+  amount: BigDecimal!
   recipient: String!
+
   start: BigInt!
   cliff: BigInt!
   end: BigInt!
+
   status: VestingStatus!
-  blockTimestamp: Int!
 }
