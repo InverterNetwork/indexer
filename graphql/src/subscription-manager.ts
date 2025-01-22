@@ -1,6 +1,5 @@
 import { pipe, subscribe } from 'wonka'
 import { Client } from './client'
-import crypto from 'crypto'
 import { generateSubscriptionOp } from './gen'
 import type { subscription_rootGenqlSelection, SubscriptionResult } from './gen'
 
