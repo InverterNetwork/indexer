@@ -21,7 +21,7 @@
     "*.{ts,tsx}": [
       "pnpm type-check"
     ],
-    "*.{ts,tsx,js,jsx,mjs,cjs,json,md,css}": [
+    "*.{ts,tsx,js,jsx,mjs,cjs,json,css}": [
       "eslint --fix",
       "prettier --write"
     ]

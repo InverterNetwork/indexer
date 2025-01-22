@@ -35,10 +35,7 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Copy changelog
-        run: cp ../CHANGELOG.md ./
-
-      - name: Set Package.json version
+      - name: Set package.json version
         run: |
           VERSION=${GITHUB_REF_NAME#v}
           npm version $VERSION --no-git-tag-version --allow-same-version

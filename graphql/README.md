@@ -16,7 +16,7 @@ GraphQL Typesafe / Query / Subscription for [InverterNetwork](https://github.com
 
 This package contains < GraphQL Typesafe / Query / Subscription > for [InverterNetwork](https://github.com/InverterNetwork).
 
-Check out the Changelog ([local](./CHANGELOG.md) or [root](../CHANGELOG.md)) to see what changed in the last releases.
+Check out the [Changelog](./CHANGELOG.md) to see what changed in the last releases.
 
 ## Install
 
