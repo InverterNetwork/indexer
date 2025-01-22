@@ -5,10 +5,10 @@ import {
   Token_t,
   ProtocolFee_t,
 } from 'generated/src/db/Entities.gen'
-import { BigDecimal, eventLog, handlerContext } from 'generated'
-import { formatUnits } from 'viem'
+import { eventLog, handlerContext } from 'generated'
 import { Writable } from 'type-fest'
 import { ZERO_BD } from './constants'
+import { formatUnitsToBD } from './base'
 
 export const getQtyAndPrice = (
   iss: bigint,
@@ -17,11 +17,11 @@ export const getQtyAndPrice = (
   issuanceToken?: Token_t,
   collateralToken?: Token_t
 ) => {
-  const cDecimals = collateralToken?.decimals ?? 18
-  const iDecimals = issuanceToken?.decimals ?? 18
+  const cDecimals = collateralToken?.decimals
+  const iDecimals = issuanceToken?.decimals
 
-  const amountCOL = BigDecimal(formatUnits(coll, cDecimals))
-  const amountISS = BigDecimal(formatUnits(iss, iDecimals))
+  const amountCOL = formatUnitsToBD(coll, cDecimals)
+  const amountISS = formatUnitsToBD(iss, iDecimals)
 
   const priceCOL = amountCOL.div(amountISS)
 

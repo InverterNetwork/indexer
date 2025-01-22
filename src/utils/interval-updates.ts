@@ -33,7 +33,10 @@ export type CurveIntervalProperties = {
   amountUSD?: BigDecimal
 
   projectFeeCOL?: BigDecimal
+  projectFeeUSD?: BigDecimal
+
   protocolFeeCOL?: BigDecimal
+  protocolFeeUSD?: BigDecimal
   protocolFeeISS?: BigDecimal
 }
 
@@ -43,6 +46,7 @@ export type IssuanceTokenIntervalProperties = {
   priceUSD?: BigDecimal
 
   amountISS?: BigDecimal
+  amountUSD?: BigDecimal
 
   projectFeeUSD?: BigDecimal
   protocolFeeUSD?: BigDecimal
@@ -139,19 +143,12 @@ async function handleIssuanceTokenIntervalData<
     issuanceToken_id,
 
     priceUSD,
-    amountISS,
-
-    projectFeeUSD,
-
-    protocolFeeUSD,
-    protocolFeeISS,
   } = properties
 
-  const intervalData = getIntervalData(intervalType, timestamp)
+  const intervalData = getIntervalData({ intervalType, timestamp })
 
   const intervalID = `${issuanceToken_id}-${intervalData.id}`
   const nonNullPriceUSD = priceUSD || ZERO_BD
-  const amountUSD = amountISS?.times(nonNullPriceUSD)
 
   const data =
     ((await store.get(intervalID)) as Writable<T>) ||
@@ -178,28 +175,8 @@ async function handleIssuanceTokenIntervalData<
       Omit<IssuanceTokenIntervalData, 'date' | 'periodStartUnix'>
     >)
 
-  setStartTime(data, intervalType, intervalData.startTime)
-
-  // Update price data
-  if (priceUSD) {
-    if (priceUSD.gt(data.highUSD)) data.highUSD = priceUSD
-    if (priceUSD.lt(data.lowUSD)) data.lowUSD = priceUSD
-    data.closeUSD = priceUSD
-    data.priceUSD = priceUSD
-  }
-
-  // Update volumes
-  if (amountISS) data.volumeISS = data.volumeISS.plus(amountISS)
-  if (amountUSD) data.volumeUSD = data.volumeUSD.plus(amountUSD)
-
-  // Update project fees
-  if (projectFeeUSD) data.projectFeeUSD = data.projectFeeUSD.plus(projectFeeUSD)
-
-  // Update protocol fees
-  if (protocolFeeUSD)
-    data.protocolFeeUSD = data.protocolFeeUSD.plus(protocolFeeUSD)
-  if (protocolFeeISS)
-    data.protocolFeeISS = data.protocolFeeISS.plus(protocolFeeISS)
+  setStartTime({ data, intervalType, timestamp: intervalData.startTime })
+  setOHLCVData({ data, properties })
 
   // Save and return
   store.set(data as T)
@@ -228,18 +205,10 @@ async function handleCurveIntervalData<T extends CurveIntervalData>({
     // Optional
     priceCOL,
     priceUSD,
-
-    amountCOL,
-    amountISS,
-    amountUSD,
-
-    projectFeeCOL,
-    protocolFeeCOL,
-    protocolFeeISS,
   } = properties
 
   // Calculate interval-specific values
-  const intervalData = getIntervalData(intervalType, timestamp)
+  const intervalData = getIntervalData({ intervalType, timestamp })
 
   const intervalID = `${id}-${intervalData.id}`
   const nonNullPriceCOL = priceCOL || ZERO_BD
@@ -254,6 +223,8 @@ async function handleCurveIntervalData<T extends CurveIntervalData>({
 
       collateralToken_id,
       issuanceToken_id,
+
+      module_id: id,
 
       volumeCOL: ZERO_BD,
       volumeUSD: ZERO_BD,
@@ -280,27 +251,8 @@ async function handleCurveIntervalData<T extends CurveIntervalData>({
       closeUSD: nonNullPriceUSD,
     } satisfies Writable<Omit<CurveIntervalData, 'date' | 'periodStartUnix'>>)
 
-  setStartTime(data, intervalType, intervalData.startTime)
-
-  // Update price data
-  if (priceCOL) {
-    if (priceCOL.gt(data.highCOL)) data.highCOL = priceCOL
-    if (priceCOL.lt(data.lowCOL)) data.lowCOL = priceCOL
-    data.closeCOL = priceCOL
-    data.priceCOL = priceCOL
-  }
-
-  // Update volumes
-  if (amountCOL) data.volumeCOL = data.volumeCOL.plus(amountCOL)
-  if (amountISS) data.volumeISS = data.volumeISS.plus(amountISS)
-  if (amountUSD) data.volumeUSD = data.volumeUSD.plus(amountUSD)
-
-  // Update fees
-  if (projectFeeCOL) data.projectFeeCOL = data.projectFeeCOL.plus(projectFeeCOL)
-  if (protocolFeeCOL)
-    data.protocolFeeCOL = data.protocolFeeCOL.plus(protocolFeeCOL)
-  if (protocolFeeISS)
-    data.protocolFeeISS = data.protocolFeeISS.plus(protocolFeeISS)
+  setStartTime({ data, intervalType, timestamp: intervalData.startTime })
+  setOHLCVData({ data, properties })
 
   // Save and return
   store.set(data as T)
@@ -310,11 +262,82 @@ async function handleCurveIntervalData<T extends CurveIntervalData>({
 // HELPER FUNCTIONS
 // -----------------------------------------
 
-function setStartTime(
-  data: Writable<any>,
-  intervalType: IntervalType,
+function setOHLCVData({
+  data,
+  properties: {
+    priceCOL,
+    priceUSD,
+    amountCOL,
+    amountISS,
+    amountUSD,
+    projectFeeCOL,
+    projectFeeUSD,
+    protocolFeeCOL,
+    protocolFeeUSD,
+    protocolFeeISS,
+  },
+}: {
+  data:
+    | Writable<Omit<CurveIntervalData, 'date' | 'periodStartUnix'>>
+    | Writable<Omit<IssuanceTokenIntervalData, 'date' | 'periodStartUnix'>>
+  properties: Partial<{
+    priceCOL: BigDecimal
+    priceUSD: BigDecimal
+    amountCOL: BigDecimal
+    amountISS: BigDecimal
+    amountUSD: BigDecimal
+    projectFeeCOL: BigDecimal
+    projectFeeUSD: BigDecimal
+    protocolFeeCOL: BigDecimal
+    protocolFeeUSD: BigDecimal
+    protocolFeeISS: BigDecimal
+  }>
+}) {
+  // Update COL ohlc
+  if ('priceCOL' in data && priceCOL) {
+    if (priceCOL.gt(data.highCOL)) data.highCOL = priceCOL
+    if (priceCOL.lt(data.lowCOL)) data.lowCOL = priceCOL
+    data.closeCOL = priceCOL
+    data.priceCOL = priceCOL
+  }
+
+  // Update USD ohlc
+  if (priceUSD) {
+    if (priceUSD.gt(data.highUSD)) data.highUSD = priceUSD
+    if (priceUSD.lt(data.lowUSD)) data.lowUSD = priceUSD
+    data.closeUSD = priceUSD
+    data.priceUSD = priceUSD
+  }
+
+  // Update volumes
+  if ('volumeCOL' in data && amountCOL)
+    data.volumeCOL = data.volumeCOL.plus(amountCOL)
+  if (amountISS) data.volumeISS = data.volumeISS.plus(amountISS)
+  if (amountUSD) data.volumeUSD = data.volumeUSD.plus(amountUSD)
+
+  // Update Project fees
+  if ('projectFeeCOL' in data && projectFeeCOL)
+    data.projectFeeCOL = data.projectFeeCOL.plus(projectFeeCOL)
+  if (projectFeeUSD) data.projectFeeUSD = data.projectFeeUSD.plus(projectFeeUSD)
+
+  // Update Protocol fees
+  if ('protocolFeeCOL' in data && protocolFeeCOL)
+    data.protocolFeeCOL = data.protocolFeeCOL.plus(protocolFeeCOL)
+  if (protocolFeeUSD)
+    data.protocolFeeUSD = data.protocolFeeUSD.plus(protocolFeeUSD)
+  if (protocolFeeISS)
+    data.protocolFeeISS = data.protocolFeeISS.plus(protocolFeeISS)
+}
+
+function setStartTime({
+  data,
+  intervalType,
+  timestamp,
+}: {
+  data: Writable<any>
+  intervalType: IntervalType
   timestamp: number
-) {
+}) {
   data[
     {
       day: 'date',
@@ -323,7 +346,13 @@ function setStartTime(
   ] = timestamp
 }
 
-function getIntervalData(intervalType: IntervalType, timestamp: number) {
+function getIntervalData({
+  intervalType,
+  timestamp,
+}: {
+  intervalType: IntervalType
+  timestamp: number
+}) {
   switch (intervalType) {
     case 'day':
       return {

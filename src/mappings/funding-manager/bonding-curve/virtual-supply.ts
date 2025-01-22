@@ -9,9 +9,8 @@ import {
   BondingCurve_VirtualCollateralAmountAdded_event,
   BondingCurve_VirtualCollateralAmountSubtracted_event,
 } from 'generated'
-import { formatUnits } from 'viem'
 
-import { updateBondingCurve } from '../../../utils'
+import { formatUnitsToBD, updateBondingCurve } from '../../../utils'
 
 // ============================================================================
 // Virtual Supply Management Handlers
@@ -42,8 +41,9 @@ const handleVirtualIssuanceSupply = async ({
   const issuanceToken_id = bc!.issuanceToken_id
   const issuanceToken = await context.Token.get(issuanceToken_id)
 
-  const virtualISS = BigDecimal(
-    formatUnits(event.params.newSupply, issuanceToken!.decimals)
+  const virtualISS = formatUnitsToBD(
+    event.params.newSupply,
+    issuanceToken?.decimals
   )
 
   await updateBondingCurve({
@@ -88,8 +88,9 @@ const handleVirtualCollateralSupply = async ({
   const collateralToken_id = bc!.collateralToken_id
   const collateralToken = await context.Token.get(collateralToken_id)
 
-  const virtualCOL = BigDecimal(
-    formatUnits(event.params.newSupply, collateralToken!.decimals)
+  const virtualCOL = formatUnitsToBD(
+    event.params.newSupply,
+    collateralToken?.decimals
   )
 
   await updateBondingCurve({

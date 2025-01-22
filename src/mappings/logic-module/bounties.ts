@@ -1,14 +1,16 @@
 import { BigDecimal, LM_PC_Bounties_v1 } from 'generated'
-import { hexToString, formatUnits } from 'viem'
+import { hexToString } from 'viem'
+import { formatUnitsToBD } from '../../utils'
 
 // Module initialization handler
 LM_PC_Bounties_v1.ModuleInitialized.handler(async ({ event, context }) => {
   const id = `${event.srcAddress}-${event.chainId}`
+  const workflow_id = `${event.params.parentOrchestrator}-${event.chainId}`
 
   context.BountyModule.set({
     id,
     chainId: event.chainId,
-    workflow_id: event.params.parentOrchestrator,
+    workflow_id,
   })
 })
 
@@ -29,11 +31,13 @@ LM_PC_Bounties_v1.BountyAdded.handler(async ({ event, context }) => {
   }
 
   // TODO: Fetch the token decimals
-  const minimumPayoutAmount = BigDecimal(
-    formatUnits(event.params.minimumPayoutAmount, 18)
+  const minimumPayoutAmount = formatUnitsToBD(
+    event.params.minimumPayoutAmount,
+    18
   )
-  const maximumPayoutAmount = BigDecimal(
-    formatUnits(event.params.maximumPayoutAmount, 18)
+  const maximumPayoutAmount = formatUnitsToBD(
+    event.params.maximumPayoutAmount,
+    18
   )
 
   context.Bounty.set({
@@ -95,7 +99,7 @@ LM_PC_Bounties_v1.ClaimAdded.handler(async ({ event, context }) => {
     let contributorId = `${bountyId}-${event.params.claimId}-${index}`
 
     // TODO: Fetch the token decimals
-    const claimAmount = BigDecimal(formatUnits(element[1], 18))
+    const claimAmount = formatUnitsToBD(element[1], 18)
 
     context.BountyContributor.set({
       id: contributorId,
@@ -141,7 +145,7 @@ LM_PC_Bounties_v1.ClaimContributorsUpdated.handler(
       let contributorId = `${bountyId}-${event.params.claimId.toString()}-${index}`
 
       // TODO: Fetch the token decimals
-      const claimAmount = BigDecimal(formatUnits(element[1], 18))
+      const claimAmount = formatUnitsToBD(element[1], 18)
 
       context.BountyContributor.set({
         id: contributorId,
