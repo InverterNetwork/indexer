@@ -9,8 +9,10 @@ OrchestratorFactory_v1.OrchestratorCreated.contractRegister(
 )
 
 Orchestrator_v1.OrchestratorInitialized.handler(async ({ event, context }) => {
+  const address = event.srcAddress
+  const id = `${address}-${event.chainId}`
+
   const orchestrator = event.params.orchestratorId_.toString()
-  const id = `${orchestrator}-${event.chainId}`
 
   context.Workflow.set({
     id,

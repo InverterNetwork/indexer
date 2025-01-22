@@ -1,5 +1,4 @@
 import { BigDecimal, BondingCurve } from 'generated'
-import { formatUnits } from 'viem'
 
 import {
   updateBondingCurve,
@@ -11,6 +10,7 @@ import {
   CurveIntervalProperties,
   updateCurveDayData,
   updateCurveHourData,
+  formatUnitsToBD,
 } from '../../../utils'
 
 // ============================================================================
@@ -55,9 +55,11 @@ BondingCurve.ProjectCollateralFeeWithdrawn.handler(
 
     const collateralToken = await context.Token.get(collateralToken_id)
 
-    const projectFeeCOL = BigDecimal(
-      formatUnits(event.params.amount, collateralToken!.decimals)
+    const projectFeeCOL = formatUnitsToBD(
+      event.params.amount,
+      collateralToken?.decimals
     )
+
     const projectFeeUSD = projectFeeCOL.times(collateralToken!.priceUSD)
 
     await createProjectFee({
@@ -91,6 +93,9 @@ BondingCurve.ProjectCollateralFeeWithdrawn.handler(
 
     await updateIssuanceTokenHourData(updateTimeDataParams)
     await updateIssuanceTokenDayData(updateTimeDataParams)
+
+    await updateCurveDayData(updateTimeDataParams)
+    await updateCurveHourData(updateTimeDataParams)
   }
 )
 
@@ -108,16 +113,14 @@ BondingCurve.ProtocolFeeMinted.handler(async ({ event, context }) => {
 
   const issuanceToken = await context.Token.get(issuanceToken_id)
 
-  const mintedFeeISS = BigDecimal(
-    formatUnits(event.params.feeAmount, issuanceToken?.decimals ?? 18)
+  const protocolFeeISS = formatUnitsToBD(
+    event.params.feeAmount,
+    issuanceToken?.decimals
   )
 
   // Update virtual issuance, since this is a mint
-  const virtualISS = bc!.virtualISS!.plus(mintedFeeISS)
+  const virtualISS = bc!.virtualISS!.plus(protocolFeeISS)
 
-  const protocolFeeISS = BigDecimal(
-    formatUnits(event.params.feeAmount, Number(issuanceToken!.decimals))
-  )
   const protocolFeeUSD = protocolFeeISS.times(issuanceToken!.priceUSD)
 
   await createProtocolFee({
@@ -178,8 +181,9 @@ BondingCurve.ProtocolFeeTransferred.handler(async ({ event, context }) => {
 
   const collateralToken = await context.Token.get(collateralToken_id)
 
-  const protocolFeeCOL = BigDecimal(
-    formatUnits(event.params.feeAmount, Number(collateralToken!.decimals))
+  const protocolFeeCOL = formatUnitsToBD(
+    event.params.feeAmount,
+    collateralToken?.decimals
   )
   const protocolFeeUSD = protocolFeeCOL.times(collateralToken!.priceUSD)
 

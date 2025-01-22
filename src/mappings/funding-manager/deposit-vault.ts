@@ -1,6 +1,10 @@
-import { BigDecimal, FM_DepositVault_v1 } from 'generated'
-import { formatUnits } from 'viem'
-import { deriveTokenAddress, updateToken, ZERO_BD } from '../../utils'
+import { FM_DepositVault_v1 } from 'generated'
+import {
+  deriveTokenAddress,
+  formatUnitsToBD,
+  updateToken,
+  ZERO_BD,
+} from '../../utils'
 
 // ============================================================================
 // Module Initialization
@@ -9,6 +13,7 @@ import { deriveTokenAddress, updateToken, ZERO_BD } from '../../utils'
 FM_DepositVault_v1.ModuleInitialized.handler(async ({ event, context }) => {
   const address = event.srcAddress
   const id = `${address}-${event.chainId}`
+  const workflow_id = `${event.params.parentOrchestrator}-${event.chainId}`
 
   const { derivedAddress } = await deriveTokenAddress({
     address,
@@ -30,7 +35,7 @@ FM_DepositVault_v1.ModuleInitialized.handler(async ({ event, context }) => {
     chainId: event.chainId,
 
     address,
-    workflow_id: event.params.parentOrchestrator,
+    workflow_id,
     balance: ZERO_BD,
     token_id,
   })
@@ -45,12 +50,14 @@ FM_DepositVault_v1.Deposit.handler(async ({ event, context }) => {
   const depositVault = await context.DepositVault.get(id)
   if (!depositVault) return
 
+  const collateralToken = await context.Token.get(depositVault.token_id)
+
   // Initialize balance if undefined
-  let currentBalance = depositVault.balance
-  if (currentBalance === undefined) currentBalance = ZERO_BD
+  const currentBalance = depositVault.balance ?? ZERO_BD
+  const decimals = collateralToken?.decimals
 
   // TODO: Fetch the token decimals
-  const amount = BigDecimal(formatUnits(event.params._amount, 18))
+  const amount = formatUnitsToBD(event.params._amount, decimals)
 
   // Update vault balance
   context.DepositVault.set({
@@ -78,12 +85,13 @@ FM_DepositVault_v1.TransferOrchestratorToken.handler(
     const depositVault = await context.DepositVault.get(id)
     if (!depositVault) return
 
+    const collateralToken = await context.Token.get(depositVault.token_id)
+    const decimals = collateralToken?.decimals
     // Initialize balance if undefined
-    let currentBalance = depositVault.balance
-    if (currentBalance === undefined) currentBalance = ZERO_BD
+    const currentBalance = depositVault.balance ?? ZERO_BD
 
     // TODO: Fetch the token decimals
-    const amount = BigDecimal(formatUnits(event.params._amount, 18))
+    const amount = formatUnitsToBD(event.params._amount, decimals)
 
     // Update vault balance
     context.DepositVault.set({

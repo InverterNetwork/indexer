@@ -1,5 +1,5 @@
 import { eventLog, handlerContext, BigDecimal } from 'generated'
-import { formatUnits, hexToString, parseAbiItem } from 'viem'
+import { hexToString, parseAbiItem } from 'viem'
 import { CacheContainer } from 'node-ts-cache'
 import { MemoryStorage } from 'node-ts-cache-storage-memory'
 import { NodeFsStorage } from 'node-ts-cache-storage-node-fs'
@@ -16,7 +16,7 @@ import {
 } from 'geckoterm'
 import type { simple_token_price } from 'geckoterm'
 
-import { createDirIfNotExists } from './base'
+import { createDirIfNotExists, formatUnitsToBD } from './base'
 
 setGeckotermAPIConfig({
   baseUrl: 'https://api.geckoterminal.com/api/v2',
@@ -159,7 +159,7 @@ export async function getTotalSupply({
     await shortTermTotalSupplyCache.getItem<bigint>(cacheKey)
 
   if (cachedTotalSupply) {
-    return BigDecimal(formatUnits(cachedTotalSupply, decimals))
+    return formatUnitsToBD(cachedTotalSupply, decimals)
   }
 
   const erc20Contract = getERC20Contract(address as `0x${string}`)
@@ -183,7 +183,7 @@ export async function getTotalSupply({
   })
 
   // Format the total supply with correct decimals
-  const formattedTotalSupply = BigDecimal(formatUnits(totalSupply, decimals))
+  const formattedTotalSupply = formatUnitsToBD(totalSupply, decimals)
   return formattedTotalSupply
 }
 

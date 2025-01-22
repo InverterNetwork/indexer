@@ -49,22 +49,6 @@ type Token @entity {
 }
 
 ## ------------------------------------------------------------
-## INVERTER MARKET DATA
-## ------------------------------------------------------------
-
-type InverterDayData @entity {
-  # `inverter-${dayID}`
-  id: ID!
-
-  volumeUSD: BigDecimal!
-  reserveUSD: BigDecimal!
-  marketCapUSD: BigDecimal!
-
-  projectFeeUSD: BigDecimal!
-  protocolFeeUSD: BigDecimal!
-}
-
-## ------------------------------------------------------------
 ## ISSUANCE TOKEN MARKET DATA
 ## ------------------------------------------------------------
 
@@ -73,7 +57,7 @@ type IssuanceTokenDayData @entity {
   date: Int! # timestamp rounded to current day by dividing by 86400
   chainId: Int!
 
-  token: Token!
+  token_id: ID! @index
 
   volumeUSD: BigDecimal!
   volumeISS: BigDecimal!
@@ -96,7 +80,7 @@ type IssuanceTokenHourData @entity {
   periodStartUnix: Int! # unix timestamp for start of hour
   chainId: Int!
 
-  token: Token!
+  token_id: ID! @index
 
   volumeUSD: BigDecimal!
   volumeISS: BigDecimal!
@@ -120,6 +104,7 @@ type IssuanceTokenHourData @entity {
 
 type CurveDayData @entity {
   id: ID! # `${bc.id}-${chainId}-${dayID}`
+  module_id: ID! @index
   date: Int! # timestamp rounded to current day by dividing by 86400
   chainId: Int!
 
@@ -153,6 +138,7 @@ type CurveDayData @entity {
 
 type CurveHourData @entity {
   id: ID! # `${bc.id}-${chainId}-${hourID}`
+  module_id: ID! @index
   periodStartUnix: Int! # unix timestamp for start of hour
   chainId: Int!
 
@@ -245,6 +231,13 @@ type BondingCurve {
   swaps: [Swap!]! @derivedFrom(field: "module_id")
   projectFees: [ProjectFee!]! @derivedFrom(field: "module_id")
   protocolFees: [ProtocolFee!]! @derivedFrom(field: "module_id")
+
+  curveDayData: [CurveDayData!]! @derivedFrom(field: "module_id")
+  curveHourData: [CurveHourData!]! @derivedFrom(field: "module_id")
+
+  issuanceTokenDayData: [IssuanceTokenDayData!]! @derivedFrom(field: "token_id")
+  issuanceTokenHourData: [IssuanceTokenHourData!]!
+    @derivedFrom(field: "token_id")
 }
 
 enum FeeSource {

@@ -1,5 +1,5 @@
 import { BigDecimal, PP_Streaming_v1 } from 'generated'
-import { formatUnits } from 'viem'
+import { formatUnitsToBD } from '../../utils'
 
 // ============================================================================
 // Module Initialization Handler
@@ -7,11 +7,12 @@ import { formatUnits } from 'viem'
 
 PP_Streaming_v1.ModuleInitialized.handler(async ({ event, context }) => {
   const id = `${event.srcAddress}-${event.chainId}`
+  const workflow_id = `${event.params.parentOrchestrator}-${event.chainId}`
 
   context.StreamingPaymentProcessor.set({
     id,
     chainId: event.chainId,
-    workflow_id: event.params.parentOrchestrator,
+    workflow_id,
   })
 })
 
@@ -27,7 +28,7 @@ PP_Streaming_v1.StreamingPaymentAdded.handler(async ({ event, context }) => {
   const token_id = `${event.params.paymentToken}-${event.chainId}`
   const token = await context.Token.get(token_id)
 
-  const amount = BigDecimal(formatUnits(event.params.amount, token!.decimals))
+  const amount = formatUnitsToBD(event.params.amount, token?.decimals)
 
   context.LinearVesting.set({
     id,
