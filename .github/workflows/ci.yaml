@@ -1,4 +1,4 @@
-name: Release & Publish
+name: Publish & Release
 
 on:
   push:
@@ -33,7 +33,7 @@ jobs:
         run: pnpm install --ignore-workspace
 
       - name: Build
-        run: pnpm build --ignore-workspace
+        run: pnpm build
 
       - name: Copy changelog
         run: cp ../CHANGELOG.md ./

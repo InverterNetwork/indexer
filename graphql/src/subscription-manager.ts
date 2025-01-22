@@ -126,6 +126,8 @@ export class SubscriptionManager<
    * @returns CallbackId - The generated unique callback ID.
    */
   private generateCallbackId(): CallbackId {
-    return crypto?.randomUUID?.() ?? Math.random().toString(36).substring(2)
+    return (
+      (crypto as any)?.randomUUID?.() ?? Math.random().toString(36).substring(2)
+    )
   }
 }
