@@ -66,6 +66,20 @@ contracts:
       - event: ModuleInitialized
       - event: Deposit
       - event: TransferOrchestratorToken
+  - name: FM_PC_ExternalPrice_Redeeming_v1
+    abi_file_path: abis/FM_PC_ExternalPrice_Redeeming_v1.json
+    handler: src/mappings/funding-manager/external-price-redeeming/index.ts
+    events:
+      - event: ModuleInitialized
+      - event: BuyFeeUpdated
+      - event: SellFeeUpdated
+      - event: OrchestratorTokenSet
+      - event: IssuanceTokenSet
+      - event: TokensBought
+      - event: TokensSold
+      - event: ProjectCollateralFeeWithdrawn
+      - event: ProtocolFeeMinted
+      - event: ProtocolFeeTransferred
 networks:
   - id: 11155420
     start_block: 16141643
@@ -84,6 +98,8 @@ networks:
         address:
       - name: FM_DepositVault_v1
         address:
+      - name: FM_PC_ExternalPrice_Redeeming_v1
+        address:
   - id: 84532
     start_block: 14158776
     contracts:
@@ -100,6 +116,8 @@ networks:
       - name: LM_PC_Bounties_v1
         address:
       - name: FM_DepositVault_v1
+        address:
+      - name: FM_PC_ExternalPrice_Redeeming_v1
         address:
   - id: 1101
     start_block: 16657460
@@ -118,6 +136,8 @@ networks:
         address:
       - name: FM_DepositVault_v1
         address:
+      - name: FM_PC_ExternalPrice_Redeeming_v1
+        address:
   - id: 11155111
     start_block: 6531547
     contracts:
@@ -134,4 +154,6 @@ networks:
       - name: LM_PC_Bounties_v1
         address:
       - name: FM_DepositVault_v1
+        address:
+      - name: FM_PC_ExternalPrice_Redeeming_v1
         address:

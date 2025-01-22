@@ -38,6 +38,12 @@ export const registerModule = (
     return context.addLM_PC_Bounties_v1(event.params.m)
   }
 
+  if (
+    moduleGroups.fundingManager.externalPriceRedeeming.members.includes(name)
+  ) {
+    return context.addFM_PC_ExternalPrice_Redeeming_v1(event.params.m)
+  }
+
   // default: try to register module based on its distinct ABI
   try {
     // @ts-ignore indexing will be rolled out gradually for various modules

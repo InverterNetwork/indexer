@@ -393,3 +393,24 @@ type LinearVesting {
 
   status: VestingStatus!
 }
+
+## EXTERNAL PRICE FUNDING MANAGER ENTITIES
+## ------------------------------------------------------------
+
+type ExternalPriceFundingManager {
+  id: ID! # `${address}-${chainId}`
+  chainId: Int!
+  address: String!
+
+  workflow: Workflow!
+
+  issuanceToken: Token!
+  collateralToken: Token!
+
+  buyFee: BigInt!
+  sellFee: BigInt!
+
+  swaps: [Swap!]! @derivedFrom(field: "module_id")
+  projectFees: [ProjectFee!]! @derivedFrom(field: "module_id")
+  protocolFees: [ProtocolFee!]! @derivedFrom(field: "module_id")
+}

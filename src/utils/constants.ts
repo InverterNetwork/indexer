@@ -13,6 +13,10 @@ export const moduleGroups = {
       members: ['FM_DepositVault_v1'],
       entity: 'FM_DepositVault_v1',
     },
+    externalPriceRedeeming: {
+      members: ['FM_PC_ExternalPrice_Redeeming_v1'],
+      entity: 'ExternalPriceFundingManager',
+    },
   },
   logicModules: {
     bounties: {
