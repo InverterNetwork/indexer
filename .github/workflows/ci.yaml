@@ -47,13 +47,18 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --ignore-workspace
 
       - name: Build
-        run: pnpm build
+        run: pnpm build --ignore-workspace
 
       - name: Copy changelog
         run: cp ../CHANGELOG.md ./
+
+      - name: Set Package.json version
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+          npm version $VERSION --no-git-tag-version --allow-same-version
 
       - name: Publish to npm
         uses: JS-DevTools/npm-publish@v3
