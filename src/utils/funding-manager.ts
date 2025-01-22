@@ -32,17 +32,24 @@ export const updateBondingCurve = async ({
   event,
   context,
   properties,
+  prevData,
 }: {
   event: eventLog<any>
   context: handlerContext
   properties: Partial<Omit<BondingCurve_t, 'id'>>
+  prevData?: BondingCurve_t
 }) => {
   const { chainId, srcAddress: address } = event
 
   const id = `${address}-${chainId}`
 
   const data =
+    // PREVIOUS DATA
+    // --------------------------------------------------------------------------
+    prevData ||
     ((await context.BondingCurve.get(id)) as Writable<BondingCurve_t>) ||
+    // DEFAULT STATE
+    // --------------------------------------------------------------------------
     ({
       id,
       chainId,
@@ -66,8 +73,12 @@ export const updateBondingCurve = async ({
       ...properties,
     } satisfies BondingCurve_t)
 
+  // If required fields are present, update the bonding curve
   if (data.workflow_id && data.collateralToken_id && data.issuanceToken_id) {
-    context.BondingCurve.set({ ...data, ...properties })
+    context.BondingCurve.set({
+      ...data,
+      ...properties,
+    })
   }
 }
 
@@ -83,11 +94,11 @@ export const createSwap = async ({
   const chainId = event.chainId
   const id = `${event.block.hash}-${event.logIndex}`
 
-  context.Swap.set({
-    id,
-    chainId,
-    ...properties,
-  })
+  const swap = { id, chainId, ...properties }
+
+  context.Swap.set(swap)
+
+  return swap
 }
 
 export const createProjectFee = async ({
@@ -102,11 +113,11 @@ export const createProjectFee = async ({
   const chainId = event.chainId
   const id = `${event.block.hash}-${event.logIndex}`
 
-  context.ProjectFee.set({
-    id,
-    chainId,
-    ...properties,
-  })
+  const projectFee = { id, chainId, ...properties }
+
+  context.ProjectFee.set(projectFee)
+
+  return projectFee
 }
 
 export const createProtocolFee = async ({
@@ -121,5 +132,9 @@ export const createProtocolFee = async ({
   const chainId = event.chainId
   const id = `${event.block.hash}-${event.logIndex}`
 
-  context.ProtocolFee.set({ id, chainId, ...properties })
+  const protocolFee = { id, chainId, ...properties }
+
+  context.ProtocolFee.set(protocolFee)
+
+  return protocolFee
 }

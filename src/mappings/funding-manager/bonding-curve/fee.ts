@@ -47,10 +47,11 @@ BondingCurve.SellFeeUpdated.handler(async ({ event, context }) => {
 BondingCurve.ProjectCollateralFeeWithdrawn.handler(
   async ({ event, context }) => {
     const id = `${event.srcAddress}-${event.chainId}`
-    const bc = await context.BondingCurve.get(id)
+    const bc = (await context.BondingCurve.get(id))!
 
-    const collateralToken_id = bc!.collateralToken_id!
-    const issuanceToken_id = bc!.issuanceToken_id!
+    const module_id = bc.id
+    const collateralToken_id = bc.collateralToken_id
+    const issuanceToken_id = bc.issuanceToken_id
 
     const collateralToken = await context.Token.get(collateralToken_id)
 
@@ -63,7 +64,8 @@ BondingCurve.ProjectCollateralFeeWithdrawn.handler(
       event,
       context,
       properties: {
-        bondingCurve_id: event.srcAddress,
+        module_id,
+        token_id: collateralToken_id,
         blockTimestamp: event.block.timestamp,
 
         amount: projectFeeCOL,
@@ -98,10 +100,11 @@ BondingCurve.ProjectCollateralFeeWithdrawn.handler(
 // ISSUANCE FEE
 BondingCurve.ProtocolFeeMinted.handler(async ({ event, context }) => {
   const id = `${event.srcAddress}-${event.chainId}`
-  const bc = await context.BondingCurve.get(id)
+  const bc = (await context.BondingCurve.get(id))!
 
-  const collateralToken_id = bc!.collateralToken_id!
-  const issuanceToken_id = bc!.issuanceToken_id!
+  const module_id = bc.id
+  const collateralToken_id = bc.collateralToken_id
+  const issuanceToken_id = bc.issuanceToken_id
 
   const issuanceToken = await context.Token.get(issuanceToken_id)
 
@@ -111,13 +114,6 @@ BondingCurve.ProtocolFeeMinted.handler(async ({ event, context }) => {
 
   // Update virtual issuance, since this is a mint
   const virtualISS = bc!.virtualISS!.plus(mintedFeeISS)
-  await updateBondingCurve({
-    context,
-    event,
-    properties: {
-      virtualISS,
-    },
-  })
 
   const protocolFeeISS = BigDecimal(
     formatUnits(event.params.feeAmount, Number(issuanceToken!.decimals))
@@ -129,13 +125,24 @@ BondingCurve.ProtocolFeeMinted.handler(async ({ event, context }) => {
     event,
     properties: {
       source: 'ISSUANCE',
-      bondingCurve_id: id,
-      treasury: event.params.treasury,
+      module_id,
+      blockTimestamp: event.block.timestamp,
 
       token_id: issuanceToken_id,
 
+      treasury: event.params.treasury,
+
       amount: protocolFeeISS,
       amountUSD: protocolFeeUSD,
+    },
+  })
+
+  await updateBondingCurve({
+    context,
+    event,
+    prevData: bc,
+    properties: {
+      virtualISS,
     },
   })
 
@@ -163,10 +170,11 @@ BondingCurve.ProtocolFeeMinted.handler(async ({ event, context }) => {
 // COLLATERAL FEE
 BondingCurve.ProtocolFeeTransferred.handler(async ({ event, context }) => {
   const id = `${event.srcAddress}-${event.chainId}`
-  const bc = await context.BondingCurve.get(id)
+  const bc = (await context.BondingCurve.get(id))!
 
-  const collateralToken_id = bc!.collateralToken_id!
-  const issuanceToken_id = bc!.issuanceToken_id!
+  const module_id = bc.id
+  const collateralToken_id = bc.collateralToken_id
+  const issuanceToken_id = bc.issuanceToken_id
 
   const collateralToken = await context.Token.get(collateralToken_id)
 
@@ -180,8 +188,11 @@ BondingCurve.ProtocolFeeTransferred.handler(async ({ event, context }) => {
     event,
     properties: {
       source: 'COLLATERAL',
-      bondingCurve_id: id,
+      module_id,
+      blockTimestamp: event.block.timestamp,
+
       token_id: collateralToken_id,
+
       treasury: event.params.treasury,
 
       amount: protocolFeeCOL,

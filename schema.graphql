@@ -196,9 +196,9 @@ enum SwapType {
 type Swap {
   id: ID! # `${event.block.hash}-${event.logIndex}`
   chainId: Int!
-  blockTimestamp: Int!
+  module_id: ID! @index
 
-  bondingCurve: BondingCurve!
+  blockTimestamp: Int!
 
   swapType: SwapType!
 
@@ -242,9 +242,9 @@ type BondingCurve {
   buyReserveRatio: BigInt!
   sellReserveRatio: BigInt!
 
-  swaps: [Swap!]! @derivedFrom(field: "bondingCurve")
-  projectFees: [ProjectFee!]! @derivedFrom(field: "bondingCurve")
-  protocolFees: [ProtocolFee!]! @derivedFrom(field: "bondingCurve")
+  swaps: [Swap!]! @derivedFrom(field: "module_id")
+  projectFees: [ProjectFee!]! @derivedFrom(field: "module_id")
+  protocolFees: [ProtocolFee!]! @derivedFrom(field: "module_id")
 }
 
 enum FeeSource {
@@ -255,10 +255,13 @@ enum FeeSource {
 type ProtocolFee {
   id: ID! # `${event.block.hash}-${event.logIndex}`
   chainId: Int!
-  bondingCurve: BondingCurve!
+  module_id: ID! @index
+
+  source: FeeSource!
+  blockTimestamp: Int!
 
   token: Token!
-  source: FeeSource!
+
   treasury: String!
 
   amount: BigDecimal!
@@ -268,11 +271,14 @@ type ProtocolFee {
 type ProjectFee {
   id: ID! # `${event.block.hash}-${event.logIndex}`
   chainId: Int!
+  module_id: ID! @index
+
   blockTimestamp: Int!
 
-  bondingCurve: BondingCurve!
+  token: Token!
 
   recipient: String!
+
   amount: BigDecimal!
   amountUSD: BigDecimal!
 }
@@ -285,12 +291,12 @@ type DepositVault {
   chainId: Int!
 
   address: String!
+  token: Token!
 
   workflow: Workflow!
 
-  token: Token!
-
   balance: BigDecimal
+
   deposits: [Deposit!]! @derivedFrom(field: "depositVault")
   transfers: [Transfer!]! @derivedFrom(field: "depositVault")
 }
