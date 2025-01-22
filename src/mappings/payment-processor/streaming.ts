@@ -7,11 +7,12 @@ import { formatUnitsToBD } from '../../utils'
 
 PP_Streaming_v1.ModuleInitialized.handler(async ({ event, context }) => {
   const id = `${event.srcAddress}-${event.chainId}`
+  const workflow_id = `${event.params.parentOrchestrator}-${event.chainId}`
 
   context.StreamingPaymentProcessor.set({
     id,
     chainId: event.chainId,
-    workflow_id: event.params.parentOrchestrator,
+    workflow_id,
   })
 })
 

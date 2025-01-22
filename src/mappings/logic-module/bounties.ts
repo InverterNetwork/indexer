@@ -5,11 +5,12 @@ import { formatUnitsToBD } from '../../utils'
 // Module initialization handler
 LM_PC_Bounties_v1.ModuleInitialized.handler(async ({ event, context }) => {
   const id = `${event.srcAddress}-${event.chainId}`
+  const workflow_id = `${event.params.parentOrchestrator}-${event.chainId}`
 
   context.BountyModule.set({
     id,
     chainId: event.chainId,
-    workflow_id: event.params.parentOrchestrator,
+    workflow_id,
   })
 })
 

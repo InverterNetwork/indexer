@@ -13,6 +13,7 @@ import {
 FM_DepositVault_v1.ModuleInitialized.handler(async ({ event, context }) => {
   const address = event.srcAddress
   const id = `${address}-${event.chainId}`
+  const workflow_id = `${event.params.parentOrchestrator}-${event.chainId}`
 
   const { derivedAddress } = await deriveTokenAddress({
     address,
@@ -34,7 +35,7 @@ FM_DepositVault_v1.ModuleInitialized.handler(async ({ event, context }) => {
     chainId: event.chainId,
 
     address,
-    workflow_id: event.params.parentOrchestrator,
+    workflow_id,
     balance: ZERO_BD,
     token_id,
   })
