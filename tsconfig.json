@@ -1,5 +1,5 @@
 {
-  "include": ["src", "tests", "scripts", "graphql"],
+  "include": ["src", "tests", "scripts"],
   "compilerOptions": {
     "target": "es2020", //required for use with BigInt types
     "module": "commonjs",

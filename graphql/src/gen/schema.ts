@@ -1,7 +1,6 @@
 // @ts-nocheck
 /* istanbul ignore file */
 /* tslint:disable */
-/* eslint-disable */
 
 export type Scalars = {
   Boolean: boolean
@@ -22,16 +21,32 @@ export type Scalars = {
 export interface BondingCurve {
   address: Scalars['String']
   bcType: Scalars['String'] | null
-  buyFee: Scalars['numeric'] | null
-  buyReserveRatio: Scalars['numeric'] | null
+  buyFee: Scalars['numeric']
+  buyReserveRatio: Scalars['numeric']
   chainId: Scalars['Int']
   /** An object relationship */
   collateralToken: Token | null
   collateralToken_id: Scalars['String']
+  /** An array relationship */
+  curveDayData: CurveDayData[]
+  /** An aggregate relationship */
+  curveDayData_aggregate: CurveDayData_aggregate
+  /** An array relationship */
+  curveHourData: CurveHourData[]
+  /** An aggregate relationship */
+  curveHourData_aggregate: CurveHourData_aggregate
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String']
   /** An object relationship */
   issuanceToken: Token | null
+  /** An array relationship */
+  issuanceTokenDayData: IssuanceTokenDayData[]
+  /** An aggregate relationship */
+  issuanceTokenDayData_aggregate: IssuanceTokenDayData_aggregate
+  /** An array relationship */
+  issuanceTokenHourData: IssuanceTokenHourData[]
+  /** An aggregate relationship */
+  issuanceTokenHourData_aggregate: IssuanceTokenHourData_aggregate
   issuanceToken_id: Scalars['String']
   /** An array relationship */
   projectFees: ProjectFee[]
@@ -41,15 +56,14 @@ export interface BondingCurve {
   protocolFees: ProtocolFee[]
   /** An aggregate relationship */
   protocolFees_aggregate: ProtocolFee_aggregate
-  sellFee: Scalars['numeric'] | null
-  sellReserveRatio: Scalars['numeric'] | null
+  sellFee: Scalars['numeric']
+  sellReserveRatio: Scalars['numeric']
   /** An array relationship */
   swaps: Swap[]
   /** An aggregate relationship */
   swaps_aggregate: Swap_aggregate
-  virtualCollateral: Scalars['numeric'] | null
-  virtualCollateralRaw: Scalars['numeric'] | null
-  virtualIssuance: Scalars['numeric'] | null
+  virtualCOL: Scalars['numeric']
+  virtualISS: Scalars['numeric']
   /** An object relationship */
   workflow: Workflow | null
   workflow_id: Scalars['String']
@@ -86,9 +100,8 @@ export interface BondingCurve_avg_fields {
   chainId: Scalars['Float'] | null
   sellFee: Scalars['Float'] | null
   sellReserveRatio: Scalars['Float'] | null
-  virtualCollateral: Scalars['Float'] | null
-  virtualCollateralRaw: Scalars['Float'] | null
-  virtualIssuance: Scalars['Float'] | null
+  virtualCOL: Scalars['Float'] | null
+  virtualISS: Scalars['Float'] | null
   __typename: 'BondingCurve_avg_fields'
 }
 
@@ -108,9 +121,8 @@ export interface BondingCurve_max_fields {
   issuanceToken_id: Scalars['String'] | null
   sellFee: Scalars['numeric'] | null
   sellReserveRatio: Scalars['numeric'] | null
-  virtualCollateral: Scalars['numeric'] | null
-  virtualCollateralRaw: Scalars['numeric'] | null
-  virtualIssuance: Scalars['numeric'] | null
+  virtualCOL: Scalars['numeric'] | null
+  virtualISS: Scalars['numeric'] | null
   workflow_id: Scalars['String'] | null
   __typename: 'BondingCurve_max_fields'
 }
@@ -128,9 +140,8 @@ export interface BondingCurve_min_fields {
   issuanceToken_id: Scalars['String'] | null
   sellFee: Scalars['numeric'] | null
   sellReserveRatio: Scalars['numeric'] | null
-  virtualCollateral: Scalars['numeric'] | null
-  virtualCollateralRaw: Scalars['numeric'] | null
-  virtualIssuance: Scalars['numeric'] | null
+  virtualCOL: Scalars['numeric'] | null
+  virtualISS: Scalars['numeric'] | null
   workflow_id: Scalars['String'] | null
   __typename: 'BondingCurve_min_fields'
 }
@@ -157,9 +168,8 @@ export type BondingCurve_select_column =
   | 'issuanceToken_id'
   | 'sellFee'
   | 'sellReserveRatio'
-  | 'virtualCollateral'
-  | 'virtualCollateralRaw'
-  | 'virtualIssuance'
+  | 'virtualCOL'
+  | 'virtualISS'
   | 'workflow_id'
 
 /** aggregate stddev on columns */
@@ -169,9 +179,8 @@ export interface BondingCurve_stddev_fields {
   chainId: Scalars['Float'] | null
   sellFee: Scalars['Float'] | null
   sellReserveRatio: Scalars['Float'] | null
-  virtualCollateral: Scalars['Float'] | null
-  virtualCollateralRaw: Scalars['Float'] | null
-  virtualIssuance: Scalars['Float'] | null
+  virtualCOL: Scalars['Float'] | null
+  virtualISS: Scalars['Float'] | null
   __typename: 'BondingCurve_stddev_fields'
 }
 
@@ -182,9 +191,8 @@ export interface BondingCurve_stddev_pop_fields {
   chainId: Scalars['Float'] | null
   sellFee: Scalars['Float'] | null
   sellReserveRatio: Scalars['Float'] | null
-  virtualCollateral: Scalars['Float'] | null
-  virtualCollateralRaw: Scalars['Float'] | null
-  virtualIssuance: Scalars['Float'] | null
+  virtualCOL: Scalars['Float'] | null
+  virtualISS: Scalars['Float'] | null
   __typename: 'BondingCurve_stddev_pop_fields'
 }
 
@@ -195,9 +203,8 @@ export interface BondingCurve_stddev_samp_fields {
   chainId: Scalars['Float'] | null
   sellFee: Scalars['Float'] | null
   sellReserveRatio: Scalars['Float'] | null
-  virtualCollateral: Scalars['Float'] | null
-  virtualCollateralRaw: Scalars['Float'] | null
-  virtualIssuance: Scalars['Float'] | null
+  virtualCOL: Scalars['Float'] | null
+  virtualISS: Scalars['Float'] | null
   __typename: 'BondingCurve_stddev_samp_fields'
 }
 
@@ -208,9 +215,8 @@ export interface BondingCurve_sum_fields {
   chainId: Scalars['Int'] | null
   sellFee: Scalars['numeric'] | null
   sellReserveRatio: Scalars['numeric'] | null
-  virtualCollateral: Scalars['numeric'] | null
-  virtualCollateralRaw: Scalars['numeric'] | null
-  virtualIssuance: Scalars['numeric'] | null
+  virtualCOL: Scalars['numeric'] | null
+  virtualISS: Scalars['numeric'] | null
   __typename: 'BondingCurve_sum_fields'
 }
 
@@ -227,9 +233,8 @@ export type BondingCurve_update_column =
   | 'issuanceToken_id'
   | 'sellFee'
   | 'sellReserveRatio'
-  | 'virtualCollateral'
-  | 'virtualCollateralRaw'
-  | 'virtualIssuance'
+  | 'virtualCOL'
+  | 'virtualISS'
   | 'workflow_id'
 
 /** aggregate var_pop on columns */
@@ -239,9 +244,8 @@ export interface BondingCurve_var_pop_fields {
   chainId: Scalars['Float'] | null
   sellFee: Scalars['Float'] | null
   sellReserveRatio: Scalars['Float'] | null
-  virtualCollateral: Scalars['Float'] | null
-  virtualCollateralRaw: Scalars['Float'] | null
-  virtualIssuance: Scalars['Float'] | null
+  virtualCOL: Scalars['Float'] | null
+  virtualISS: Scalars['Float'] | null
   __typename: 'BondingCurve_var_pop_fields'
 }
 
@@ -252,9 +256,8 @@ export interface BondingCurve_var_samp_fields {
   chainId: Scalars['Float'] | null
   sellFee: Scalars['Float'] | null
   sellReserveRatio: Scalars['Float'] | null
-  virtualCollateral: Scalars['Float'] | null
-  virtualCollateralRaw: Scalars['Float'] | null
-  virtualIssuance: Scalars['Float'] | null
+  virtualCOL: Scalars['Float'] | null
+  virtualISS: Scalars['Float'] | null
   __typename: 'BondingCurve_var_samp_fields'
 }
 
@@ -265,9 +268,8 @@ export interface BondingCurve_variance_fields {
   chainId: Scalars['Float'] | null
   sellFee: Scalars['Float'] | null
   sellReserveRatio: Scalars['Float'] | null
-  virtualCollateral: Scalars['Float'] | null
-  virtualCollateralRaw: Scalars['Float'] | null
-  virtualIssuance: Scalars['Float'] | null
+  virtualCOL: Scalars['Float'] | null
+  virtualISS: Scalars['Float'] | null
   __typename: 'BondingCurve_variance_fields'
 }
 
@@ -776,6 +778,776 @@ export interface Bounty_variance_fields {
   __typename: 'Bounty_variance_fields'
 }
 
+/** columns and relationships of "CurveDayData" */
+export interface CurveDayData {
+  chainId: Scalars['Int']
+  closeCOL: Scalars['numeric']
+  closeUSD: Scalars['numeric']
+  /** An object relationship */
+  collateralToken: Token | null
+  collateralToken_id: Scalars['String']
+  date: Scalars['Int']
+  db_write_timestamp: Scalars['timestamp'] | null
+  highCOL: Scalars['numeric']
+  highUSD: Scalars['numeric']
+  id: Scalars['String']
+  /** An object relationship */
+  issuanceToken: Token | null
+  issuanceToken_id: Scalars['String']
+  lowCOL: Scalars['numeric']
+  lowUSD: Scalars['numeric']
+  module_id: Scalars['String']
+  openCOL: Scalars['numeric']
+  openUSD: Scalars['numeric']
+  priceCOL: Scalars['numeric']
+  priceUSD: Scalars['numeric']
+  projectFeeCOL: Scalars['numeric']
+  projectFeeUSD: Scalars['numeric']
+  protocolFeeCOL: Scalars['numeric']
+  protocolFeeISS: Scalars['numeric']
+  protocolFeeUSD: Scalars['numeric']
+  volumeCOL: Scalars['numeric']
+  volumeISS: Scalars['numeric']
+  volumeUSD: Scalars['numeric']
+  __typename: 'CurveDayData'
+}
+
+/** aggregated selection of "CurveDayData" */
+export interface CurveDayData_aggregate {
+  aggregate: CurveDayData_aggregate_fields | null
+  nodes: CurveDayData[]
+  __typename: 'CurveDayData_aggregate'
+}
+
+/** aggregate fields of "CurveDayData" */
+export interface CurveDayData_aggregate_fields {
+  avg: CurveDayData_avg_fields | null
+  count: Scalars['Int']
+  max: CurveDayData_max_fields | null
+  min: CurveDayData_min_fields | null
+  stddev: CurveDayData_stddev_fields | null
+  stddev_pop: CurveDayData_stddev_pop_fields | null
+  stddev_samp: CurveDayData_stddev_samp_fields | null
+  sum: CurveDayData_sum_fields | null
+  var_pop: CurveDayData_var_pop_fields | null
+  var_samp: CurveDayData_var_samp_fields | null
+  variance: CurveDayData_variance_fields | null
+  __typename: 'CurveDayData_aggregate_fields'
+}
+
+/** aggregate avg on columns */
+export interface CurveDayData_avg_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveDayData_avg_fields'
+}
+
+/** unique or primary key constraints on table "CurveDayData" */
+export type CurveDayData_constraint = 'CurveDayData_pkey'
+
+/** aggregate max on columns */
+export interface CurveDayData_max_fields {
+  chainId: Scalars['Int'] | null
+  closeCOL: Scalars['numeric'] | null
+  closeUSD: Scalars['numeric'] | null
+  collateralToken_id: Scalars['String'] | null
+  date: Scalars['Int'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  highCOL: Scalars['numeric'] | null
+  highUSD: Scalars['numeric'] | null
+  id: Scalars['String'] | null
+  issuanceToken_id: Scalars['String'] | null
+  lowCOL: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  module_id: Scalars['String'] | null
+  openCOL: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  priceCOL: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeCOL: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeCOL: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  volumeCOL: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
+  __typename: 'CurveDayData_max_fields'
+}
+
+/** aggregate min on columns */
+export interface CurveDayData_min_fields {
+  chainId: Scalars['Int'] | null
+  closeCOL: Scalars['numeric'] | null
+  closeUSD: Scalars['numeric'] | null
+  collateralToken_id: Scalars['String'] | null
+  date: Scalars['Int'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  highCOL: Scalars['numeric'] | null
+  highUSD: Scalars['numeric'] | null
+  id: Scalars['String'] | null
+  issuanceToken_id: Scalars['String'] | null
+  lowCOL: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  module_id: Scalars['String'] | null
+  openCOL: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  priceCOL: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeCOL: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeCOL: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  volumeCOL: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
+  __typename: 'CurveDayData_min_fields'
+}
+
+/** response of any mutation on the table "CurveDayData" */
+export interface CurveDayData_mutation_response {
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']
+  /** data from the rows affected by the mutation */
+  returning: CurveDayData[]
+  __typename: 'CurveDayData_mutation_response'
+}
+
+/** select columns of table "CurveDayData" */
+export type CurveDayData_select_column =
+  | 'chainId'
+  | 'closeCOL'
+  | 'closeUSD'
+  | 'collateralToken_id'
+  | 'date'
+  | 'db_write_timestamp'
+  | 'highCOL'
+  | 'highUSD'
+  | 'id'
+  | 'issuanceToken_id'
+  | 'lowCOL'
+  | 'lowUSD'
+  | 'module_id'
+  | 'openCOL'
+  | 'openUSD'
+  | 'priceCOL'
+  | 'priceUSD'
+  | 'projectFeeCOL'
+  | 'projectFeeUSD'
+  | 'protocolFeeCOL'
+  | 'protocolFeeISS'
+  | 'protocolFeeUSD'
+  | 'volumeCOL'
+  | 'volumeISS'
+  | 'volumeUSD'
+
+/** aggregate stddev on columns */
+export interface CurveDayData_stddev_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveDayData_stddev_fields'
+}
+
+/** aggregate stddev_pop on columns */
+export interface CurveDayData_stddev_pop_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveDayData_stddev_pop_fields'
+}
+
+/** aggregate stddev_samp on columns */
+export interface CurveDayData_stddev_samp_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveDayData_stddev_samp_fields'
+}
+
+/** aggregate sum on columns */
+export interface CurveDayData_sum_fields {
+  chainId: Scalars['Int'] | null
+  closeCOL: Scalars['numeric'] | null
+  closeUSD: Scalars['numeric'] | null
+  date: Scalars['Int'] | null
+  highCOL: Scalars['numeric'] | null
+  highUSD: Scalars['numeric'] | null
+  lowCOL: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  openCOL: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  priceCOL: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeCOL: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeCOL: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  volumeCOL: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
+  __typename: 'CurveDayData_sum_fields'
+}
+
+/** update columns of table "CurveDayData" */
+export type CurveDayData_update_column =
+  | 'chainId'
+  | 'closeCOL'
+  | 'closeUSD'
+  | 'collateralToken_id'
+  | 'date'
+  | 'db_write_timestamp'
+  | 'highCOL'
+  | 'highUSD'
+  | 'id'
+  | 'issuanceToken_id'
+  | 'lowCOL'
+  | 'lowUSD'
+  | 'module_id'
+  | 'openCOL'
+  | 'openUSD'
+  | 'priceCOL'
+  | 'priceUSD'
+  | 'projectFeeCOL'
+  | 'projectFeeUSD'
+  | 'protocolFeeCOL'
+  | 'protocolFeeISS'
+  | 'protocolFeeUSD'
+  | 'volumeCOL'
+  | 'volumeISS'
+  | 'volumeUSD'
+
+/** aggregate var_pop on columns */
+export interface CurveDayData_var_pop_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveDayData_var_pop_fields'
+}
+
+/** aggregate var_samp on columns */
+export interface CurveDayData_var_samp_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveDayData_var_samp_fields'
+}
+
+/** aggregate variance on columns */
+export interface CurveDayData_variance_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveDayData_variance_fields'
+}
+
+/** columns and relationships of "CurveHourData" */
+export interface CurveHourData {
+  chainId: Scalars['Int']
+  closeCOL: Scalars['numeric']
+  closeUSD: Scalars['numeric']
+  /** An object relationship */
+  collateralToken: Token | null
+  collateralToken_id: Scalars['String']
+  db_write_timestamp: Scalars['timestamp'] | null
+  highCOL: Scalars['numeric']
+  highUSD: Scalars['numeric']
+  id: Scalars['String']
+  /** An object relationship */
+  issuanceToken: Token | null
+  issuanceToken_id: Scalars['String']
+  lowCOL: Scalars['numeric']
+  lowUSD: Scalars['numeric']
+  module_id: Scalars['String']
+  openCOL: Scalars['numeric']
+  openUSD: Scalars['numeric']
+  periodStartUnix: Scalars['Int']
+  priceCOL: Scalars['numeric']
+  priceUSD: Scalars['numeric']
+  projectFeeCOL: Scalars['numeric']
+  projectFeeUSD: Scalars['numeric']
+  protocolFeeCOL: Scalars['numeric']
+  protocolFeeISS: Scalars['numeric']
+  protocolFeeUSD: Scalars['numeric']
+  volumeCOL: Scalars['numeric']
+  volumeISS: Scalars['numeric']
+  volumeUSD: Scalars['numeric']
+  __typename: 'CurveHourData'
+}
+
+/** aggregated selection of "CurveHourData" */
+export interface CurveHourData_aggregate {
+  aggregate: CurveHourData_aggregate_fields | null
+  nodes: CurveHourData[]
+  __typename: 'CurveHourData_aggregate'
+}
+
+/** aggregate fields of "CurveHourData" */
+export interface CurveHourData_aggregate_fields {
+  avg: CurveHourData_avg_fields | null
+  count: Scalars['Int']
+  max: CurveHourData_max_fields | null
+  min: CurveHourData_min_fields | null
+  stddev: CurveHourData_stddev_fields | null
+  stddev_pop: CurveHourData_stddev_pop_fields | null
+  stddev_samp: CurveHourData_stddev_samp_fields | null
+  sum: CurveHourData_sum_fields | null
+  var_pop: CurveHourData_var_pop_fields | null
+  var_samp: CurveHourData_var_samp_fields | null
+  variance: CurveHourData_variance_fields | null
+  __typename: 'CurveHourData_aggregate_fields'
+}
+
+/** aggregate avg on columns */
+export interface CurveHourData_avg_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveHourData_avg_fields'
+}
+
+/** unique or primary key constraints on table "CurveHourData" */
+export type CurveHourData_constraint = 'CurveHourData_pkey'
+
+/** aggregate max on columns */
+export interface CurveHourData_max_fields {
+  chainId: Scalars['Int'] | null
+  closeCOL: Scalars['numeric'] | null
+  closeUSD: Scalars['numeric'] | null
+  collateralToken_id: Scalars['String'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  highCOL: Scalars['numeric'] | null
+  highUSD: Scalars['numeric'] | null
+  id: Scalars['String'] | null
+  issuanceToken_id: Scalars['String'] | null
+  lowCOL: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  module_id: Scalars['String'] | null
+  openCOL: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  periodStartUnix: Scalars['Int'] | null
+  priceCOL: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeCOL: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeCOL: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  volumeCOL: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
+  __typename: 'CurveHourData_max_fields'
+}
+
+/** aggregate min on columns */
+export interface CurveHourData_min_fields {
+  chainId: Scalars['Int'] | null
+  closeCOL: Scalars['numeric'] | null
+  closeUSD: Scalars['numeric'] | null
+  collateralToken_id: Scalars['String'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  highCOL: Scalars['numeric'] | null
+  highUSD: Scalars['numeric'] | null
+  id: Scalars['String'] | null
+  issuanceToken_id: Scalars['String'] | null
+  lowCOL: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  module_id: Scalars['String'] | null
+  openCOL: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  periodStartUnix: Scalars['Int'] | null
+  priceCOL: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeCOL: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeCOL: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  volumeCOL: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
+  __typename: 'CurveHourData_min_fields'
+}
+
+/** response of any mutation on the table "CurveHourData" */
+export interface CurveHourData_mutation_response {
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']
+  /** data from the rows affected by the mutation */
+  returning: CurveHourData[]
+  __typename: 'CurveHourData_mutation_response'
+}
+
+/** select columns of table "CurveHourData" */
+export type CurveHourData_select_column =
+  | 'chainId'
+  | 'closeCOL'
+  | 'closeUSD'
+  | 'collateralToken_id'
+  | 'db_write_timestamp'
+  | 'highCOL'
+  | 'highUSD'
+  | 'id'
+  | 'issuanceToken_id'
+  | 'lowCOL'
+  | 'lowUSD'
+  | 'module_id'
+  | 'openCOL'
+  | 'openUSD'
+  | 'periodStartUnix'
+  | 'priceCOL'
+  | 'priceUSD'
+  | 'projectFeeCOL'
+  | 'projectFeeUSD'
+  | 'protocolFeeCOL'
+  | 'protocolFeeISS'
+  | 'protocolFeeUSD'
+  | 'volumeCOL'
+  | 'volumeISS'
+  | 'volumeUSD'
+
+/** aggregate stddev on columns */
+export interface CurveHourData_stddev_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveHourData_stddev_fields'
+}
+
+/** aggregate stddev_pop on columns */
+export interface CurveHourData_stddev_pop_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveHourData_stddev_pop_fields'
+}
+
+/** aggregate stddev_samp on columns */
+export interface CurveHourData_stddev_samp_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveHourData_stddev_samp_fields'
+}
+
+/** aggregate sum on columns */
+export interface CurveHourData_sum_fields {
+  chainId: Scalars['Int'] | null
+  closeCOL: Scalars['numeric'] | null
+  closeUSD: Scalars['numeric'] | null
+  highCOL: Scalars['numeric'] | null
+  highUSD: Scalars['numeric'] | null
+  lowCOL: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  openCOL: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  periodStartUnix: Scalars['Int'] | null
+  priceCOL: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeCOL: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeCOL: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  volumeCOL: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
+  __typename: 'CurveHourData_sum_fields'
+}
+
+/** update columns of table "CurveHourData" */
+export type CurveHourData_update_column =
+  | 'chainId'
+  | 'closeCOL'
+  | 'closeUSD'
+  | 'collateralToken_id'
+  | 'db_write_timestamp'
+  | 'highCOL'
+  | 'highUSD'
+  | 'id'
+  | 'issuanceToken_id'
+  | 'lowCOL'
+  | 'lowUSD'
+  | 'module_id'
+  | 'openCOL'
+  | 'openUSD'
+  | 'periodStartUnix'
+  | 'priceCOL'
+  | 'priceUSD'
+  | 'projectFeeCOL'
+  | 'projectFeeUSD'
+  | 'protocolFeeCOL'
+  | 'protocolFeeISS'
+  | 'protocolFeeUSD'
+  | 'volumeCOL'
+  | 'volumeISS'
+  | 'volumeUSD'
+
+/** aggregate var_pop on columns */
+export interface CurveHourData_var_pop_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveHourData_var_pop_fields'
+}
+
+/** aggregate var_samp on columns */
+export interface CurveHourData_var_samp_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveHourData_var_samp_fields'
+}
+
+/** aggregate variance on columns */
+export interface CurveHourData_variance_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveHourData_variance_fields'
+}
+
 /** columns and relationships of "Deposit" */
 export interface Deposit {
   amount: Scalars['numeric']
@@ -1082,22 +1854,20 @@ export interface Deposit_variance_fields {
 /** columns and relationships of "IssuanceTokenDayData" */
 export interface IssuanceTokenDayData {
   chainId: Scalars['Int']
-  closeInCol: Scalars['numeric']
+  closeUSD: Scalars['numeric']
   date: Scalars['Int']
   db_write_timestamp: Scalars['timestamp'] | null
-  highInCol: Scalars['numeric']
+  highUSD: Scalars['numeric']
   id: Scalars['String']
-  lowInCol: Scalars['numeric']
-  openInCol: Scalars['numeric']
-  priceInCol: Scalars['numeric']
-  projectFeeInCol: Scalars['numeric']
-  protocolFeeInCol: Scalars['numeric']
-  protocolFeeInIssuance: Scalars['numeric']
-  /** An object relationship */
-  token: Token | null
+  lowUSD: Scalars['numeric']
+  openUSD: Scalars['numeric']
+  priceUSD: Scalars['numeric']
+  projectFeeUSD: Scalars['numeric']
+  protocolFeeISS: Scalars['numeric']
+  protocolFeeUSD: Scalars['numeric']
   token_id: Scalars['String']
-  volumeInCol: Scalars['numeric']
-  volumeInIssuance: Scalars['numeric']
+  volumeISS: Scalars['numeric']
+  volumeUSD: Scalars['numeric']
   __typename: 'IssuanceTokenDayData'
 }
 
@@ -1127,17 +1897,17 @@ export interface IssuanceTokenDayData_aggregate_fields {
 /** aggregate avg on columns */
 export interface IssuanceTokenDayData_avg_fields {
   chainId: Scalars['Float'] | null
-  closeInCol: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
   date: Scalars['Float'] | null
-  highInCol: Scalars['Float'] | null
-  lowInCol: Scalars['Float'] | null
-  openInCol: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
-  projectFeeInCol: Scalars['Float'] | null
-  protocolFeeInCol: Scalars['Float'] | null
-  protocolFeeInIssuance: Scalars['Float'] | null
-  volumeInCol: Scalars['Float'] | null
-  volumeInIssuance: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
   __typename: 'IssuanceTokenDayData_avg_fields'
 }
 
@@ -1147,40 +1917,40 @@ export type IssuanceTokenDayData_constraint = 'IssuanceTokenDayData_pkey'
 /** aggregate max on columns */
 export interface IssuanceTokenDayData_max_fields {
   chainId: Scalars['Int'] | null
-  closeInCol: Scalars['numeric'] | null
+  closeUSD: Scalars['numeric'] | null
   date: Scalars['Int'] | null
   db_write_timestamp: Scalars['timestamp'] | null
-  highInCol: Scalars['numeric'] | null
+  highUSD: Scalars['numeric'] | null
   id: Scalars['String'] | null
-  lowInCol: Scalars['numeric'] | null
-  openInCol: Scalars['numeric'] | null
-  priceInCol: Scalars['numeric'] | null
-  projectFeeInCol: Scalars['numeric'] | null
-  protocolFeeInCol: Scalars['numeric'] | null
-  protocolFeeInIssuance: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
   token_id: Scalars['String'] | null
-  volumeInCol: Scalars['numeric'] | null
-  volumeInIssuance: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
   __typename: 'IssuanceTokenDayData_max_fields'
 }
 
 /** aggregate min on columns */
 export interface IssuanceTokenDayData_min_fields {
   chainId: Scalars['Int'] | null
-  closeInCol: Scalars['numeric'] | null
+  closeUSD: Scalars['numeric'] | null
   date: Scalars['Int'] | null
   db_write_timestamp: Scalars['timestamp'] | null
-  highInCol: Scalars['numeric'] | null
+  highUSD: Scalars['numeric'] | null
   id: Scalars['String'] | null
-  lowInCol: Scalars['numeric'] | null
-  openInCol: Scalars['numeric'] | null
-  priceInCol: Scalars['numeric'] | null
-  projectFeeInCol: Scalars['numeric'] | null
-  protocolFeeInCol: Scalars['numeric'] | null
-  protocolFeeInIssuance: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
   token_id: Scalars['String'] | null
-  volumeInCol: Scalars['numeric'] | null
-  volumeInIssuance: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
   __typename: 'IssuanceTokenDayData_min_fields'
 }
 
@@ -1196,177 +1966,175 @@ export interface IssuanceTokenDayData_mutation_response {
 /** select columns of table "IssuanceTokenDayData" */
 export type IssuanceTokenDayData_select_column =
   | 'chainId'
-  | 'closeInCol'
+  | 'closeUSD'
   | 'date'
   | 'db_write_timestamp'
-  | 'highInCol'
+  | 'highUSD'
   | 'id'
-  | 'lowInCol'
-  | 'openInCol'
-  | 'priceInCol'
-  | 'projectFeeInCol'
-  | 'protocolFeeInCol'
-  | 'protocolFeeInIssuance'
+  | 'lowUSD'
+  | 'openUSD'
+  | 'priceUSD'
+  | 'projectFeeUSD'
+  | 'protocolFeeISS'
+  | 'protocolFeeUSD'
   | 'token_id'
-  | 'volumeInCol'
-  | 'volumeInIssuance'
+  | 'volumeISS'
+  | 'volumeUSD'
 
 /** aggregate stddev on columns */
 export interface IssuanceTokenDayData_stddev_fields {
   chainId: Scalars['Float'] | null
-  closeInCol: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
   date: Scalars['Float'] | null
-  highInCol: Scalars['Float'] | null
-  lowInCol: Scalars['Float'] | null
-  openInCol: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
-  projectFeeInCol: Scalars['Float'] | null
-  protocolFeeInCol: Scalars['Float'] | null
-  protocolFeeInIssuance: Scalars['Float'] | null
-  volumeInCol: Scalars['Float'] | null
-  volumeInIssuance: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
   __typename: 'IssuanceTokenDayData_stddev_fields'
 }
 
 /** aggregate stddev_pop on columns */
 export interface IssuanceTokenDayData_stddev_pop_fields {
   chainId: Scalars['Float'] | null
-  closeInCol: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
   date: Scalars['Float'] | null
-  highInCol: Scalars['Float'] | null
-  lowInCol: Scalars['Float'] | null
-  openInCol: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
-  projectFeeInCol: Scalars['Float'] | null
-  protocolFeeInCol: Scalars['Float'] | null
-  protocolFeeInIssuance: Scalars['Float'] | null
-  volumeInCol: Scalars['Float'] | null
-  volumeInIssuance: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
   __typename: 'IssuanceTokenDayData_stddev_pop_fields'
 }
 
 /** aggregate stddev_samp on columns */
 export interface IssuanceTokenDayData_stddev_samp_fields {
   chainId: Scalars['Float'] | null
-  closeInCol: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
   date: Scalars['Float'] | null
-  highInCol: Scalars['Float'] | null
-  lowInCol: Scalars['Float'] | null
-  openInCol: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
-  projectFeeInCol: Scalars['Float'] | null
-  protocolFeeInCol: Scalars['Float'] | null
-  protocolFeeInIssuance: Scalars['Float'] | null
-  volumeInCol: Scalars['Float'] | null
-  volumeInIssuance: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
   __typename: 'IssuanceTokenDayData_stddev_samp_fields'
 }
 
 /** aggregate sum on columns */
 export interface IssuanceTokenDayData_sum_fields {
   chainId: Scalars['Int'] | null
-  closeInCol: Scalars['numeric'] | null
+  closeUSD: Scalars['numeric'] | null
   date: Scalars['Int'] | null
-  highInCol: Scalars['numeric'] | null
-  lowInCol: Scalars['numeric'] | null
-  openInCol: Scalars['numeric'] | null
-  priceInCol: Scalars['numeric'] | null
-  projectFeeInCol: Scalars['numeric'] | null
-  protocolFeeInCol: Scalars['numeric'] | null
-  protocolFeeInIssuance: Scalars['numeric'] | null
-  volumeInCol: Scalars['numeric'] | null
-  volumeInIssuance: Scalars['numeric'] | null
+  highUSD: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
   __typename: 'IssuanceTokenDayData_sum_fields'
 }
 
 /** update columns of table "IssuanceTokenDayData" */
 export type IssuanceTokenDayData_update_column =
   | 'chainId'
-  | 'closeInCol'
+  | 'closeUSD'
   | 'date'
   | 'db_write_timestamp'
-  | 'highInCol'
+  | 'highUSD'
   | 'id'
-  | 'lowInCol'
-  | 'openInCol'
-  | 'priceInCol'
-  | 'projectFeeInCol'
-  | 'protocolFeeInCol'
-  | 'protocolFeeInIssuance'
+  | 'lowUSD'
+  | 'openUSD'
+  | 'priceUSD'
+  | 'projectFeeUSD'
+  | 'protocolFeeISS'
+  | 'protocolFeeUSD'
   | 'token_id'
-  | 'volumeInCol'
-  | 'volumeInIssuance'
+  | 'volumeISS'
+  | 'volumeUSD'
 
 /** aggregate var_pop on columns */
 export interface IssuanceTokenDayData_var_pop_fields {
   chainId: Scalars['Float'] | null
-  closeInCol: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
   date: Scalars['Float'] | null
-  highInCol: Scalars['Float'] | null
-  lowInCol: Scalars['Float'] | null
-  openInCol: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
-  projectFeeInCol: Scalars['Float'] | null
-  protocolFeeInCol: Scalars['Float'] | null
-  protocolFeeInIssuance: Scalars['Float'] | null
-  volumeInCol: Scalars['Float'] | null
-  volumeInIssuance: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
   __typename: 'IssuanceTokenDayData_var_pop_fields'
 }
 
 /** aggregate var_samp on columns */
 export interface IssuanceTokenDayData_var_samp_fields {
   chainId: Scalars['Float'] | null
-  closeInCol: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
   date: Scalars['Float'] | null
-  highInCol: Scalars['Float'] | null
-  lowInCol: Scalars['Float'] | null
-  openInCol: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
-  projectFeeInCol: Scalars['Float'] | null
-  protocolFeeInCol: Scalars['Float'] | null
-  protocolFeeInIssuance: Scalars['Float'] | null
-  volumeInCol: Scalars['Float'] | null
-  volumeInIssuance: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
   __typename: 'IssuanceTokenDayData_var_samp_fields'
 }
 
 /** aggregate variance on columns */
 export interface IssuanceTokenDayData_variance_fields {
   chainId: Scalars['Float'] | null
-  closeInCol: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
   date: Scalars['Float'] | null
-  highInCol: Scalars['Float'] | null
-  lowInCol: Scalars['Float'] | null
-  openInCol: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
-  projectFeeInCol: Scalars['Float'] | null
-  protocolFeeInCol: Scalars['Float'] | null
-  protocolFeeInIssuance: Scalars['Float'] | null
-  volumeInCol: Scalars['Float'] | null
-  volumeInIssuance: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
   __typename: 'IssuanceTokenDayData_variance_fields'
 }
 
 /** columns and relationships of "IssuanceTokenHourData" */
 export interface IssuanceTokenHourData {
   chainId: Scalars['Int']
-  closeInCol: Scalars['numeric']
+  closeUSD: Scalars['numeric']
   db_write_timestamp: Scalars['timestamp'] | null
-  highInCol: Scalars['numeric']
+  highUSD: Scalars['numeric']
   id: Scalars['String']
-  lowInCol: Scalars['numeric']
-  openInCol: Scalars['numeric']
+  lowUSD: Scalars['numeric']
+  openUSD: Scalars['numeric']
   periodStartUnix: Scalars['Int']
-  priceInCol: Scalars['numeric']
-  projectFeeInCol: Scalars['numeric']
-  protocolFeeInCol: Scalars['numeric']
-  protocolFeeInIssuance: Scalars['numeric']
-  /** An object relationship */
-  token: Token | null
+  priceUSD: Scalars['numeric']
+  projectFeeUSD: Scalars['numeric']
+  protocolFeeISS: Scalars['numeric']
+  protocolFeeUSD: Scalars['numeric']
   token_id: Scalars['String']
-  volumeInCol: Scalars['numeric']
-  volumeInIssuance: Scalars['numeric']
+  volumeISS: Scalars['numeric']
+  volumeUSD: Scalars['numeric']
   __typename: 'IssuanceTokenHourData'
 }
 
@@ -1396,17 +2164,17 @@ export interface IssuanceTokenHourData_aggregate_fields {
 /** aggregate avg on columns */
 export interface IssuanceTokenHourData_avg_fields {
   chainId: Scalars['Float'] | null
-  closeInCol: Scalars['Float'] | null
-  highInCol: Scalars['Float'] | null
-  lowInCol: Scalars['Float'] | null
-  openInCol: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
-  projectFeeInCol: Scalars['Float'] | null
-  protocolFeeInCol: Scalars['Float'] | null
-  protocolFeeInIssuance: Scalars['Float'] | null
-  volumeInCol: Scalars['Float'] | null
-  volumeInIssuance: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
   __typename: 'IssuanceTokenHourData_avg_fields'
 }
 
@@ -1416,40 +2184,40 @@ export type IssuanceTokenHourData_constraint = 'IssuanceTokenHourData_pkey'
 /** aggregate max on columns */
 export interface IssuanceTokenHourData_max_fields {
   chainId: Scalars['Int'] | null
-  closeInCol: Scalars['numeric'] | null
+  closeUSD: Scalars['numeric'] | null
   db_write_timestamp: Scalars['timestamp'] | null
-  highInCol: Scalars['numeric'] | null
+  highUSD: Scalars['numeric'] | null
   id: Scalars['String'] | null
-  lowInCol: Scalars['numeric'] | null
-  openInCol: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
   periodStartUnix: Scalars['Int'] | null
-  priceInCol: Scalars['numeric'] | null
-  projectFeeInCol: Scalars['numeric'] | null
-  protocolFeeInCol: Scalars['numeric'] | null
-  protocolFeeInIssuance: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
   token_id: Scalars['String'] | null
-  volumeInCol: Scalars['numeric'] | null
-  volumeInIssuance: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
   __typename: 'IssuanceTokenHourData_max_fields'
 }
 
 /** aggregate min on columns */
 export interface IssuanceTokenHourData_min_fields {
   chainId: Scalars['Int'] | null
-  closeInCol: Scalars['numeric'] | null
+  closeUSD: Scalars['numeric'] | null
   db_write_timestamp: Scalars['timestamp'] | null
-  highInCol: Scalars['numeric'] | null
+  highUSD: Scalars['numeric'] | null
   id: Scalars['String'] | null
-  lowInCol: Scalars['numeric'] | null
-  openInCol: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
   periodStartUnix: Scalars['Int'] | null
-  priceInCol: Scalars['numeric'] | null
-  projectFeeInCol: Scalars['numeric'] | null
-  protocolFeeInCol: Scalars['numeric'] | null
-  protocolFeeInIssuance: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
   token_id: Scalars['String'] | null
-  volumeInCol: Scalars['numeric'] | null
-  volumeInIssuance: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
   __typename: 'IssuanceTokenHourData_min_fields'
 }
 
@@ -1465,161 +2233,161 @@ export interface IssuanceTokenHourData_mutation_response {
 /** select columns of table "IssuanceTokenHourData" */
 export type IssuanceTokenHourData_select_column =
   | 'chainId'
-  | 'closeInCol'
+  | 'closeUSD'
   | 'db_write_timestamp'
-  | 'highInCol'
+  | 'highUSD'
   | 'id'
-  | 'lowInCol'
-  | 'openInCol'
+  | 'lowUSD'
+  | 'openUSD'
   | 'periodStartUnix'
-  | 'priceInCol'
-  | 'projectFeeInCol'
-  | 'protocolFeeInCol'
-  | 'protocolFeeInIssuance'
+  | 'priceUSD'
+  | 'projectFeeUSD'
+  | 'protocolFeeISS'
+  | 'protocolFeeUSD'
   | 'token_id'
-  | 'volumeInCol'
-  | 'volumeInIssuance'
+  | 'volumeISS'
+  | 'volumeUSD'
 
 /** aggregate stddev on columns */
 export interface IssuanceTokenHourData_stddev_fields {
   chainId: Scalars['Float'] | null
-  closeInCol: Scalars['Float'] | null
-  highInCol: Scalars['Float'] | null
-  lowInCol: Scalars['Float'] | null
-  openInCol: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
-  projectFeeInCol: Scalars['Float'] | null
-  protocolFeeInCol: Scalars['Float'] | null
-  protocolFeeInIssuance: Scalars['Float'] | null
-  volumeInCol: Scalars['Float'] | null
-  volumeInIssuance: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
   __typename: 'IssuanceTokenHourData_stddev_fields'
 }
 
 /** aggregate stddev_pop on columns */
 export interface IssuanceTokenHourData_stddev_pop_fields {
   chainId: Scalars['Float'] | null
-  closeInCol: Scalars['Float'] | null
-  highInCol: Scalars['Float'] | null
-  lowInCol: Scalars['Float'] | null
-  openInCol: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
-  projectFeeInCol: Scalars['Float'] | null
-  protocolFeeInCol: Scalars['Float'] | null
-  protocolFeeInIssuance: Scalars['Float'] | null
-  volumeInCol: Scalars['Float'] | null
-  volumeInIssuance: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
   __typename: 'IssuanceTokenHourData_stddev_pop_fields'
 }
 
 /** aggregate stddev_samp on columns */
 export interface IssuanceTokenHourData_stddev_samp_fields {
   chainId: Scalars['Float'] | null
-  closeInCol: Scalars['Float'] | null
-  highInCol: Scalars['Float'] | null
-  lowInCol: Scalars['Float'] | null
-  openInCol: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
-  projectFeeInCol: Scalars['Float'] | null
-  protocolFeeInCol: Scalars['Float'] | null
-  protocolFeeInIssuance: Scalars['Float'] | null
-  volumeInCol: Scalars['Float'] | null
-  volumeInIssuance: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
   __typename: 'IssuanceTokenHourData_stddev_samp_fields'
 }
 
 /** aggregate sum on columns */
 export interface IssuanceTokenHourData_sum_fields {
   chainId: Scalars['Int'] | null
-  closeInCol: Scalars['numeric'] | null
-  highInCol: Scalars['numeric'] | null
-  lowInCol: Scalars['numeric'] | null
-  openInCol: Scalars['numeric'] | null
+  closeUSD: Scalars['numeric'] | null
+  highUSD: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
   periodStartUnix: Scalars['Int'] | null
-  priceInCol: Scalars['numeric'] | null
-  projectFeeInCol: Scalars['numeric'] | null
-  protocolFeeInCol: Scalars['numeric'] | null
-  protocolFeeInIssuance: Scalars['numeric'] | null
-  volumeInCol: Scalars['numeric'] | null
-  volumeInIssuance: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
   __typename: 'IssuanceTokenHourData_sum_fields'
 }
 
 /** update columns of table "IssuanceTokenHourData" */
 export type IssuanceTokenHourData_update_column =
   | 'chainId'
-  | 'closeInCol'
+  | 'closeUSD'
   | 'db_write_timestamp'
-  | 'highInCol'
+  | 'highUSD'
   | 'id'
-  | 'lowInCol'
-  | 'openInCol'
+  | 'lowUSD'
+  | 'openUSD'
   | 'periodStartUnix'
-  | 'priceInCol'
-  | 'projectFeeInCol'
-  | 'protocolFeeInCol'
-  | 'protocolFeeInIssuance'
+  | 'priceUSD'
+  | 'projectFeeUSD'
+  | 'protocolFeeISS'
+  | 'protocolFeeUSD'
   | 'token_id'
-  | 'volumeInCol'
-  | 'volumeInIssuance'
+  | 'volumeISS'
+  | 'volumeUSD'
 
 /** aggregate var_pop on columns */
 export interface IssuanceTokenHourData_var_pop_fields {
   chainId: Scalars['Float'] | null
-  closeInCol: Scalars['Float'] | null
-  highInCol: Scalars['Float'] | null
-  lowInCol: Scalars['Float'] | null
-  openInCol: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
-  projectFeeInCol: Scalars['Float'] | null
-  protocolFeeInCol: Scalars['Float'] | null
-  protocolFeeInIssuance: Scalars['Float'] | null
-  volumeInCol: Scalars['Float'] | null
-  volumeInIssuance: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
   __typename: 'IssuanceTokenHourData_var_pop_fields'
 }
 
 /** aggregate var_samp on columns */
 export interface IssuanceTokenHourData_var_samp_fields {
   chainId: Scalars['Float'] | null
-  closeInCol: Scalars['Float'] | null
-  highInCol: Scalars['Float'] | null
-  lowInCol: Scalars['Float'] | null
-  openInCol: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
-  projectFeeInCol: Scalars['Float'] | null
-  protocolFeeInCol: Scalars['Float'] | null
-  protocolFeeInIssuance: Scalars['Float'] | null
-  volumeInCol: Scalars['Float'] | null
-  volumeInIssuance: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
   __typename: 'IssuanceTokenHourData_var_samp_fields'
 }
 
 /** aggregate variance on columns */
 export interface IssuanceTokenHourData_variance_fields {
   chainId: Scalars['Float'] | null
-  closeInCol: Scalars['Float'] | null
-  highInCol: Scalars['Float'] | null
-  lowInCol: Scalars['Float'] | null
-  openInCol: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
-  projectFeeInCol: Scalars['Float'] | null
-  protocolFeeInCol: Scalars['Float'] | null
-  protocolFeeInIssuance: Scalars['Float'] | null
-  volumeInCol: Scalars['Float'] | null
-  volumeInIssuance: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
   __typename: 'IssuanceTokenHourData_variance_fields'
 }
 
 /** columns and relationships of "LinearVesting" */
 export interface LinearVesting {
-  amountRaw: Scalars['numeric']
+  amount: Scalars['numeric']
   blockTimestamp: Scalars['Int']
   chainId: Scalars['Int']
   cliff: Scalars['numeric']
@@ -1632,7 +2400,9 @@ export interface LinearVesting {
   /** An object relationship */
   streamingPaymentProcessor: StreamingPaymentProcessor | null
   streamingPaymentProcessor_id: Scalars['String']
-  token: Scalars['String']
+  /** An object relationship */
+  token: Token | null
+  token_id: Scalars['String']
   __typename: 'LinearVesting'
 }
 
@@ -1661,7 +2431,7 @@ export interface LinearVesting_aggregate_fields {
 
 /** aggregate avg on columns */
 export interface LinearVesting_avg_fields {
-  amountRaw: Scalars['Float'] | null
+  amount: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   cliff: Scalars['Float'] | null
@@ -1675,7 +2445,7 @@ export type LinearVesting_constraint = 'LinearVesting_pkey'
 
 /** aggregate max on columns */
 export interface LinearVesting_max_fields {
-  amountRaw: Scalars['numeric'] | null
+  amount: Scalars['numeric'] | null
   blockTimestamp: Scalars['Int'] | null
   chainId: Scalars['Int'] | null
   cliff: Scalars['numeric'] | null
@@ -1686,13 +2456,13 @@ export interface LinearVesting_max_fields {
   start: Scalars['numeric'] | null
   status: Scalars['vestingstatus'] | null
   streamingPaymentProcessor_id: Scalars['String'] | null
-  token: Scalars['String'] | null
+  token_id: Scalars['String'] | null
   __typename: 'LinearVesting_max_fields'
 }
 
 /** aggregate min on columns */
 export interface LinearVesting_min_fields {
-  amountRaw: Scalars['numeric'] | null
+  amount: Scalars['numeric'] | null
   blockTimestamp: Scalars['Int'] | null
   chainId: Scalars['Int'] | null
   cliff: Scalars['numeric'] | null
@@ -1703,7 +2473,7 @@ export interface LinearVesting_min_fields {
   start: Scalars['numeric'] | null
   status: Scalars['vestingstatus'] | null
   streamingPaymentProcessor_id: Scalars['String'] | null
-  token: Scalars['String'] | null
+  token_id: Scalars['String'] | null
   __typename: 'LinearVesting_min_fields'
 }
 
@@ -1718,7 +2488,7 @@ export interface LinearVesting_mutation_response {
 
 /** select columns of table "LinearVesting" */
 export type LinearVesting_select_column =
-  | 'amountRaw'
+  | 'amount'
   | 'blockTimestamp'
   | 'chainId'
   | 'cliff'
@@ -1729,11 +2499,11 @@ export type LinearVesting_select_column =
   | 'start'
   | 'status'
   | 'streamingPaymentProcessor_id'
-  | 'token'
+  | 'token_id'
 
 /** aggregate stddev on columns */
 export interface LinearVesting_stddev_fields {
-  amountRaw: Scalars['Float'] | null
+  amount: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   cliff: Scalars['Float'] | null
@@ -1744,7 +2514,7 @@ export interface LinearVesting_stddev_fields {
 
 /** aggregate stddev_pop on columns */
 export interface LinearVesting_stddev_pop_fields {
-  amountRaw: Scalars['Float'] | null
+  amount: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   cliff: Scalars['Float'] | null
@@ -1755,7 +2525,7 @@ export interface LinearVesting_stddev_pop_fields {
 
 /** aggregate stddev_samp on columns */
 export interface LinearVesting_stddev_samp_fields {
-  amountRaw: Scalars['Float'] | null
+  amount: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   cliff: Scalars['Float'] | null
@@ -1766,7 +2536,7 @@ export interface LinearVesting_stddev_samp_fields {
 
 /** aggregate sum on columns */
 export interface LinearVesting_sum_fields {
-  amountRaw: Scalars['numeric'] | null
+  amount: Scalars['numeric'] | null
   blockTimestamp: Scalars['Int'] | null
   chainId: Scalars['Int'] | null
   cliff: Scalars['numeric'] | null
@@ -1777,7 +2547,7 @@ export interface LinearVesting_sum_fields {
 
 /** update columns of table "LinearVesting" */
 export type LinearVesting_update_column =
-  | 'amountRaw'
+  | 'amount'
   | 'blockTimestamp'
   | 'chainId'
   | 'cliff'
@@ -1788,11 +2558,11 @@ export type LinearVesting_update_column =
   | 'start'
   | 'status'
   | 'streamingPaymentProcessor_id'
-  | 'token'
+  | 'token_id'
 
 /** aggregate var_pop on columns */
 export interface LinearVesting_var_pop_fields {
-  amountRaw: Scalars['Float'] | null
+  amount: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   cliff: Scalars['Float'] | null
@@ -1803,7 +2573,7 @@ export interface LinearVesting_var_pop_fields {
 
 /** aggregate var_samp on columns */
 export interface LinearVesting_var_samp_fields {
-  amountRaw: Scalars['Float'] | null
+  amount: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   cliff: Scalars['Float'] | null
@@ -1814,7 +2584,7 @@ export interface LinearVesting_var_samp_fields {
 
 /** aggregate variance on columns */
 export interface LinearVesting_variance_fields {
-  amountRaw: Scalars['Float'] | null
+  amount: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   cliff: Scalars['Float'] | null
@@ -1826,14 +2596,16 @@ export interface LinearVesting_variance_fields {
 /** columns and relationships of "ProjectFee" */
 export interface ProjectFee {
   amount: Scalars['numeric']
+  amountUSD: Scalars['numeric']
   blockTimestamp: Scalars['Int']
-  /** An object relationship */
-  bondingCurve: BondingCurve | null
-  bondingCurve_id: Scalars['String']
   chainId: Scalars['Int']
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String']
+  module_id: Scalars['String']
   recipient: Scalars['String']
+  /** An object relationship */
+  token: Token | null
+  token_id: Scalars['String']
   __typename: 'ProjectFee'
 }
 
@@ -1863,6 +2635,7 @@ export interface ProjectFee_aggregate_fields {
 /** aggregate avg on columns */
 export interface ProjectFee_avg_fields {
   amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   __typename: 'ProjectFee_avg_fields'
@@ -1874,24 +2647,28 @@ export type ProjectFee_constraint = 'ProjectFee_pkey'
 /** aggregate max on columns */
 export interface ProjectFee_max_fields {
   amount: Scalars['numeric'] | null
+  amountUSD: Scalars['numeric'] | null
   blockTimestamp: Scalars['Int'] | null
-  bondingCurve_id: Scalars['String'] | null
   chainId: Scalars['Int'] | null
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String'] | null
+  module_id: Scalars['String'] | null
   recipient: Scalars['String'] | null
+  token_id: Scalars['String'] | null
   __typename: 'ProjectFee_max_fields'
 }
 
 /** aggregate min on columns */
 export interface ProjectFee_min_fields {
   amount: Scalars['numeric'] | null
+  amountUSD: Scalars['numeric'] | null
   blockTimestamp: Scalars['Int'] | null
-  bondingCurve_id: Scalars['String'] | null
   chainId: Scalars['Int'] | null
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String'] | null
+  module_id: Scalars['String'] | null
   recipient: Scalars['String'] | null
+  token_id: Scalars['String'] | null
   __typename: 'ProjectFee_min_fields'
 }
 
@@ -1907,16 +2684,19 @@ export interface ProjectFee_mutation_response {
 /** select columns of table "ProjectFee" */
 export type ProjectFee_select_column =
   | 'amount'
+  | 'amountUSD'
   | 'blockTimestamp'
-  | 'bondingCurve_id'
   | 'chainId'
   | 'db_write_timestamp'
   | 'id'
+  | 'module_id'
   | 'recipient'
+  | 'token_id'
 
 /** aggregate stddev on columns */
 export interface ProjectFee_stddev_fields {
   amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   __typename: 'ProjectFee_stddev_fields'
@@ -1925,6 +2705,7 @@ export interface ProjectFee_stddev_fields {
 /** aggregate stddev_pop on columns */
 export interface ProjectFee_stddev_pop_fields {
   amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   __typename: 'ProjectFee_stddev_pop_fields'
@@ -1933,6 +2714,7 @@ export interface ProjectFee_stddev_pop_fields {
 /** aggregate stddev_samp on columns */
 export interface ProjectFee_stddev_samp_fields {
   amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   __typename: 'ProjectFee_stddev_samp_fields'
@@ -1941,6 +2723,7 @@ export interface ProjectFee_stddev_samp_fields {
 /** aggregate sum on columns */
 export interface ProjectFee_sum_fields {
   amount: Scalars['numeric'] | null
+  amountUSD: Scalars['numeric'] | null
   blockTimestamp: Scalars['Int'] | null
   chainId: Scalars['Int'] | null
   __typename: 'ProjectFee_sum_fields'
@@ -1949,16 +2732,19 @@ export interface ProjectFee_sum_fields {
 /** update columns of table "ProjectFee" */
 export type ProjectFee_update_column =
   | 'amount'
+  | 'amountUSD'
   | 'blockTimestamp'
-  | 'bondingCurve_id'
   | 'chainId'
   | 'db_write_timestamp'
   | 'id'
+  | 'module_id'
   | 'recipient'
+  | 'token_id'
 
 /** aggregate var_pop on columns */
 export interface ProjectFee_var_pop_fields {
   amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   __typename: 'ProjectFee_var_pop_fields'
@@ -1967,6 +2753,7 @@ export interface ProjectFee_var_pop_fields {
 /** aggregate var_samp on columns */
 export interface ProjectFee_var_samp_fields {
   amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   __typename: 'ProjectFee_var_samp_fields'
@@ -1975,6 +2762,7 @@ export interface ProjectFee_var_samp_fields {
 /** aggregate variance on columns */
 export interface ProjectFee_variance_fields {
   amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   __typename: 'ProjectFee_variance_fields'
@@ -1983,12 +2771,12 @@ export interface ProjectFee_variance_fields {
 /** columns and relationships of "ProtocolFee" */
 export interface ProtocolFee {
   amount: Scalars['numeric']
-  /** An object relationship */
-  bondingCurve: BondingCurve | null
-  bondingCurve_id: Scalars['String']
+  amountUSD: Scalars['numeric']
+  blockTimestamp: Scalars['Int']
   chainId: Scalars['Int']
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String']
+  module_id: Scalars['String']
   source: Scalars['feesource']
   /** An object relationship */
   token: Token | null
@@ -2023,6 +2811,8 @@ export interface ProtocolFee_aggregate_fields {
 /** aggregate avg on columns */
 export interface ProtocolFee_avg_fields {
   amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   __typename: 'ProtocolFee_avg_fields'
 }
@@ -2033,10 +2823,12 @@ export type ProtocolFee_constraint = 'ProtocolFee_pkey'
 /** aggregate max on columns */
 export interface ProtocolFee_max_fields {
   amount: Scalars['numeric'] | null
-  bondingCurve_id: Scalars['String'] | null
+  amountUSD: Scalars['numeric'] | null
+  blockTimestamp: Scalars['Int'] | null
   chainId: Scalars['Int'] | null
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String'] | null
+  module_id: Scalars['String'] | null
   source: Scalars['feesource'] | null
   token_id: Scalars['String'] | null
   treasury: Scalars['String'] | null
@@ -2046,10 +2838,12 @@ export interface ProtocolFee_max_fields {
 /** aggregate min on columns */
 export interface ProtocolFee_min_fields {
   amount: Scalars['numeric'] | null
-  bondingCurve_id: Scalars['String'] | null
+  amountUSD: Scalars['numeric'] | null
+  blockTimestamp: Scalars['Int'] | null
   chainId: Scalars['Int'] | null
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String'] | null
+  module_id: Scalars['String'] | null
   source: Scalars['feesource'] | null
   token_id: Scalars['String'] | null
   treasury: Scalars['String'] | null
@@ -2068,10 +2862,12 @@ export interface ProtocolFee_mutation_response {
 /** select columns of table "ProtocolFee" */
 export type ProtocolFee_select_column =
   | 'amount'
-  | 'bondingCurve_id'
+  | 'amountUSD'
+  | 'blockTimestamp'
   | 'chainId'
   | 'db_write_timestamp'
   | 'id'
+  | 'module_id'
   | 'source'
   | 'token_id'
   | 'treasury'
@@ -2079,6 +2875,8 @@ export type ProtocolFee_select_column =
 /** aggregate stddev on columns */
 export interface ProtocolFee_stddev_fields {
   amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   __typename: 'ProtocolFee_stddev_fields'
 }
@@ -2086,6 +2884,8 @@ export interface ProtocolFee_stddev_fields {
 /** aggregate stddev_pop on columns */
 export interface ProtocolFee_stddev_pop_fields {
   amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   __typename: 'ProtocolFee_stddev_pop_fields'
 }
@@ -2093,6 +2893,8 @@ export interface ProtocolFee_stddev_pop_fields {
 /** aggregate stddev_samp on columns */
 export interface ProtocolFee_stddev_samp_fields {
   amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   __typename: 'ProtocolFee_stddev_samp_fields'
 }
@@ -2100,6 +2902,8 @@ export interface ProtocolFee_stddev_samp_fields {
 /** aggregate sum on columns */
 export interface ProtocolFee_sum_fields {
   amount: Scalars['numeric'] | null
+  amountUSD: Scalars['numeric'] | null
+  blockTimestamp: Scalars['Int'] | null
   chainId: Scalars['Int'] | null
   __typename: 'ProtocolFee_sum_fields'
 }
@@ -2107,10 +2911,12 @@ export interface ProtocolFee_sum_fields {
 /** update columns of table "ProtocolFee" */
 export type ProtocolFee_update_column =
   | 'amount'
-  | 'bondingCurve_id'
+  | 'amountUSD'
+  | 'blockTimestamp'
   | 'chainId'
   | 'db_write_timestamp'
   | 'id'
+  | 'module_id'
   | 'source'
   | 'token_id'
   | 'treasury'
@@ -2118,6 +2924,8 @@ export type ProtocolFee_update_column =
 /** aggregate var_pop on columns */
 export interface ProtocolFee_var_pop_fields {
   amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   __typename: 'ProtocolFee_var_pop_fields'
 }
@@ -2125,6 +2933,8 @@ export interface ProtocolFee_var_pop_fields {
 /** aggregate var_samp on columns */
 export interface ProtocolFee_var_samp_fields {
   amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   __typename: 'ProtocolFee_var_samp_fields'
 }
@@ -2132,6 +2942,8 @@ export interface ProtocolFee_var_samp_fields {
 /** aggregate variance on columns */
 export interface ProtocolFee_variance_fields {
   amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
   __typename: 'ProtocolFee_variance_fields'
 }
@@ -2269,23 +3081,22 @@ export interface StreamingPaymentProcessor_variance_fields {
 
 /** columns and relationships of "Swap" */
 export interface Swap {
+  amountCOL: Scalars['numeric']
+  amountISS: Scalars['numeric']
   blockTimestamp: Scalars['Int']
-  /** An object relationship */
-  bondingCurve: BondingCurve | null
-  bondingCurve_id: Scalars['String']
   chainId: Scalars['Int']
-  collateralAmount: Scalars['numeric']
   /** An object relationship */
   collateralToken: Token | null
   collateralToken_id: Scalars['String']
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String']
   initiator: Scalars['String']
-  issuanceAmount: Scalars['numeric']
   /** An object relationship */
   issuanceToken: Token | null
   issuanceToken_id: Scalars['String']
-  priceInCol: Scalars['numeric']
+  module_id: Scalars['String']
+  priceCOL: Scalars['numeric']
+  priceUSD: Scalars['numeric']
   recipient: Scalars['String']
   swapType: Scalars['swaptype']
   __typename: 'Swap'
@@ -2316,11 +3127,12 @@ export interface Swap_aggregate_fields {
 
 /** aggregate avg on columns */
 export interface Swap_avg_fields {
+  amountCOL: Scalars['Float'] | null
+  amountISS: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
-  collateralAmount: Scalars['Float'] | null
-  issuanceAmount: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
   __typename: 'Swap_avg_fields'
 }
 
@@ -2329,17 +3141,18 @@ export type Swap_constraint = 'Swap_pkey'
 
 /** aggregate max on columns */
 export interface Swap_max_fields {
+  amountCOL: Scalars['numeric'] | null
+  amountISS: Scalars['numeric'] | null
   blockTimestamp: Scalars['Int'] | null
-  bondingCurve_id: Scalars['String'] | null
   chainId: Scalars['Int'] | null
-  collateralAmount: Scalars['numeric'] | null
   collateralToken_id: Scalars['String'] | null
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String'] | null
   initiator: Scalars['String'] | null
-  issuanceAmount: Scalars['numeric'] | null
   issuanceToken_id: Scalars['String'] | null
-  priceInCol: Scalars['numeric'] | null
+  module_id: Scalars['String'] | null
+  priceCOL: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
   recipient: Scalars['String'] | null
   swapType: Scalars['swaptype'] | null
   __typename: 'Swap_max_fields'
@@ -2347,17 +3160,18 @@ export interface Swap_max_fields {
 
 /** aggregate min on columns */
 export interface Swap_min_fields {
+  amountCOL: Scalars['numeric'] | null
+  amountISS: Scalars['numeric'] | null
   blockTimestamp: Scalars['Int'] | null
-  bondingCurve_id: Scalars['String'] | null
   chainId: Scalars['Int'] | null
-  collateralAmount: Scalars['numeric'] | null
   collateralToken_id: Scalars['String'] | null
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String'] | null
   initiator: Scalars['String'] | null
-  issuanceAmount: Scalars['numeric'] | null
   issuanceToken_id: Scalars['String'] | null
-  priceInCol: Scalars['numeric'] | null
+  module_id: Scalars['String'] | null
+  priceCOL: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
   recipient: Scalars['String'] | null
   swapType: Scalars['swaptype'] | null
   __typename: 'Swap_min_fields'
@@ -2374,103 +3188,112 @@ export interface Swap_mutation_response {
 
 /** select columns of table "Swap" */
 export type Swap_select_column =
+  | 'amountCOL'
+  | 'amountISS'
   | 'blockTimestamp'
-  | 'bondingCurve_id'
   | 'chainId'
-  | 'collateralAmount'
   | 'collateralToken_id'
   | 'db_write_timestamp'
   | 'id'
   | 'initiator'
-  | 'issuanceAmount'
   | 'issuanceToken_id'
-  | 'priceInCol'
+  | 'module_id'
+  | 'priceCOL'
+  | 'priceUSD'
   | 'recipient'
   | 'swapType'
 
 /** aggregate stddev on columns */
 export interface Swap_stddev_fields {
+  amountCOL: Scalars['Float'] | null
+  amountISS: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
-  collateralAmount: Scalars['Float'] | null
-  issuanceAmount: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
   __typename: 'Swap_stddev_fields'
 }
 
 /** aggregate stddev_pop on columns */
 export interface Swap_stddev_pop_fields {
+  amountCOL: Scalars['Float'] | null
+  amountISS: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
-  collateralAmount: Scalars['Float'] | null
-  issuanceAmount: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
   __typename: 'Swap_stddev_pop_fields'
 }
 
 /** aggregate stddev_samp on columns */
 export interface Swap_stddev_samp_fields {
+  amountCOL: Scalars['Float'] | null
+  amountISS: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
-  collateralAmount: Scalars['Float'] | null
-  issuanceAmount: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
   __typename: 'Swap_stddev_samp_fields'
 }
 
 /** aggregate sum on columns */
 export interface Swap_sum_fields {
+  amountCOL: Scalars['numeric'] | null
+  amountISS: Scalars['numeric'] | null
   blockTimestamp: Scalars['Int'] | null
   chainId: Scalars['Int'] | null
-  collateralAmount: Scalars['numeric'] | null
-  issuanceAmount: Scalars['numeric'] | null
-  priceInCol: Scalars['numeric'] | null
+  priceCOL: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
   __typename: 'Swap_sum_fields'
 }
 
 /** update columns of table "Swap" */
 export type Swap_update_column =
+  | 'amountCOL'
+  | 'amountISS'
   | 'blockTimestamp'
-  | 'bondingCurve_id'
   | 'chainId'
-  | 'collateralAmount'
   | 'collateralToken_id'
   | 'db_write_timestamp'
   | 'id'
   | 'initiator'
-  | 'issuanceAmount'
   | 'issuanceToken_id'
-  | 'priceInCol'
+  | 'module_id'
+  | 'priceCOL'
+  | 'priceUSD'
   | 'recipient'
   | 'swapType'
 
 /** aggregate var_pop on columns */
 export interface Swap_var_pop_fields {
+  amountCOL: Scalars['Float'] | null
+  amountISS: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
-  collateralAmount: Scalars['Float'] | null
-  issuanceAmount: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
   __typename: 'Swap_var_pop_fields'
 }
 
 /** aggregate var_samp on columns */
 export interface Swap_var_samp_fields {
+  amountCOL: Scalars['Float'] | null
+  amountISS: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
-  collateralAmount: Scalars['Float'] | null
-  issuanceAmount: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
   __typename: 'Swap_var_samp_fields'
 }
 
 /** aggregate variance on columns */
 export interface Swap_variance_fields {
+  amountCOL: Scalars['Float'] | null
+  amountISS: Scalars['Float'] | null
   blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
-  collateralAmount: Scalars['Float'] | null
-  issuanceAmount: Scalars['Float'] | null
-  priceInCol: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
   __typename: 'Swap_variance_fields'
 }
 
@@ -2482,7 +3305,7 @@ export interface Token {
   decimals: Scalars['Int']
   id: Scalars['String']
   name: Scalars['String']
-  priceInUsd: Scalars['numeric']
+  priceUSD: Scalars['numeric']
   symbol: Scalars['String']
   totalSupply: Scalars['numeric']
   __typename: 'Token'
@@ -2515,7 +3338,7 @@ export interface Token_aggregate_fields {
 export interface Token_avg_fields {
   chainId: Scalars['Float'] | null
   decimals: Scalars['Float'] | null
-  priceInUsd: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
   totalSupply: Scalars['Float'] | null
   __typename: 'Token_avg_fields'
 }
@@ -2531,7 +3354,7 @@ export interface Token_max_fields {
   decimals: Scalars['Int'] | null
   id: Scalars['String'] | null
   name: Scalars['String'] | null
-  priceInUsd: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
   symbol: Scalars['String'] | null
   totalSupply: Scalars['numeric'] | null
   __typename: 'Token_max_fields'
@@ -2545,7 +3368,7 @@ export interface Token_min_fields {
   decimals: Scalars['Int'] | null
   id: Scalars['String'] | null
   name: Scalars['String'] | null
-  priceInUsd: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
   symbol: Scalars['String'] | null
   totalSupply: Scalars['numeric'] | null
   __typename: 'Token_min_fields'
@@ -2568,7 +3391,7 @@ export type Token_select_column =
   | 'decimals'
   | 'id'
   | 'name'
-  | 'priceInUsd'
+  | 'priceUSD'
   | 'symbol'
   | 'totalSupply'
 
@@ -2576,7 +3399,7 @@ export type Token_select_column =
 export interface Token_stddev_fields {
   chainId: Scalars['Float'] | null
   decimals: Scalars['Float'] | null
-  priceInUsd: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
   totalSupply: Scalars['Float'] | null
   __typename: 'Token_stddev_fields'
 }
@@ -2585,7 +3408,7 @@ export interface Token_stddev_fields {
 export interface Token_stddev_pop_fields {
   chainId: Scalars['Float'] | null
   decimals: Scalars['Float'] | null
-  priceInUsd: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
   totalSupply: Scalars['Float'] | null
   __typename: 'Token_stddev_pop_fields'
 }
@@ -2594,7 +3417,7 @@ export interface Token_stddev_pop_fields {
 export interface Token_stddev_samp_fields {
   chainId: Scalars['Float'] | null
   decimals: Scalars['Float'] | null
-  priceInUsd: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
   totalSupply: Scalars['Float'] | null
   __typename: 'Token_stddev_samp_fields'
 }
@@ -2603,7 +3426,7 @@ export interface Token_stddev_samp_fields {
 export interface Token_sum_fields {
   chainId: Scalars['Int'] | null
   decimals: Scalars['Int'] | null
-  priceInUsd: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
   totalSupply: Scalars['numeric'] | null
   __typename: 'Token_sum_fields'
 }
@@ -2616,7 +3439,7 @@ export type Token_update_column =
   | 'decimals'
   | 'id'
   | 'name'
-  | 'priceInUsd'
+  | 'priceUSD'
   | 'symbol'
   | 'totalSupply'
 
@@ -2624,7 +3447,7 @@ export type Token_update_column =
 export interface Token_var_pop_fields {
   chainId: Scalars['Float'] | null
   decimals: Scalars['Float'] | null
-  priceInUsd: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
   totalSupply: Scalars['Float'] | null
   __typename: 'Token_var_pop_fields'
 }
@@ -2633,7 +3456,7 @@ export interface Token_var_pop_fields {
 export interface Token_var_samp_fields {
   chainId: Scalars['Float'] | null
   decimals: Scalars['Float'] | null
-  priceInUsd: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
   totalSupply: Scalars['Float'] | null
   __typename: 'Token_var_samp_fields'
 }
@@ -2642,7 +3465,7 @@ export interface Token_var_samp_fields {
 export interface Token_variance_fields {
   chainId: Scalars['Float'] | null
   decimals: Scalars['Float'] | null
-  priceInUsd: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
   totalSupply: Scalars['Float'] | null
   __typename: 'Token_variance_fields'
 }
@@ -3970,6 +4793,14 @@ export interface mutation_root {
   delete_BountyModule_by_pk: BountyModule | null
   /** delete single row from the table: "Bounty" */
   delete_Bounty_by_pk: Bounty | null
+  /** delete data from the table: "CurveDayData" */
+  delete_CurveDayData: CurveDayData_mutation_response | null
+  /** delete single row from the table: "CurveDayData" */
+  delete_CurveDayData_by_pk: CurveDayData | null
+  /** delete data from the table: "CurveHourData" */
+  delete_CurveHourData: CurveHourData_mutation_response | null
+  /** delete single row from the table: "CurveHourData" */
+  delete_CurveHourData_by_pk: CurveHourData | null
   /** delete data from the table: "Deposit" */
   delete_Deposit: Deposit_mutation_response | null
   /** delete data from the table: "DepositVault" */
@@ -4070,6 +4901,14 @@ export interface mutation_root {
   insert_BountyModule_one: BountyModule | null
   /** insert a single row into the table: "Bounty" */
   insert_Bounty_one: Bounty | null
+  /** insert data into the table: "CurveDayData" */
+  insert_CurveDayData: CurveDayData_mutation_response | null
+  /** insert a single row into the table: "CurveDayData" */
+  insert_CurveDayData_one: CurveDayData | null
+  /** insert data into the table: "CurveHourData" */
+  insert_CurveHourData: CurveHourData_mutation_response | null
+  /** insert a single row into the table: "CurveHourData" */
+  insert_CurveHourData_one: CurveHourData | null
   /** insert data into the table: "Deposit" */
   insert_Deposit: Deposit_mutation_response | null
   /** insert data into the table: "DepositVault" */
@@ -4182,6 +5021,18 @@ export interface mutation_root {
   update_Bounty_by_pk: Bounty | null
   /** update multiples rows of table: "Bounty" */
   update_Bounty_many: (Bounty_mutation_response | null)[] | null
+  /** update data of the table: "CurveDayData" */
+  update_CurveDayData: CurveDayData_mutation_response | null
+  /** update single row of the table: "CurveDayData" */
+  update_CurveDayData_by_pk: CurveDayData | null
+  /** update multiples rows of table: "CurveDayData" */
+  update_CurveDayData_many: (CurveDayData_mutation_response | null)[] | null
+  /** update data of the table: "CurveHourData" */
+  update_CurveHourData: CurveHourData_mutation_response | null
+  /** update single row of the table: "CurveHourData" */
+  update_CurveHourData_by_pk: CurveHourData | null
+  /** update multiples rows of table: "CurveHourData" */
+  update_CurveHourData_many: (CurveHourData_mutation_response | null)[] | null
   /** update data of the table: "Deposit" */
   update_Deposit: Deposit_mutation_response | null
   /** update data of the table: "DepositVault" */
@@ -4495,6 +5346,18 @@ export interface query_root {
   Bounty_aggregate: Bounty_aggregate
   /** fetch data from the table: "Bounty" using primary key columns */
   Bounty_by_pk: Bounty | null
+  /** fetch data from the table: "CurveDayData" */
+  CurveDayData: CurveDayData[]
+  /** fetch aggregated fields from the table: "CurveDayData" */
+  CurveDayData_aggregate: CurveDayData_aggregate
+  /** fetch data from the table: "CurveDayData" using primary key columns */
+  CurveDayData_by_pk: CurveDayData | null
+  /** fetch data from the table: "CurveHourData" */
+  CurveHourData: CurveHourData[]
+  /** fetch aggregated fields from the table: "CurveHourData" */
+  CurveHourData_aggregate: CurveHourData_aggregate
+  /** fetch data from the table: "CurveHourData" using primary key columns */
+  CurveHourData_by_pk: CurveHourData | null
   /** fetch data from the table: "Deposit" */
   Deposit: Deposit[]
   /** fetch data from the table: "DepositVault" */
@@ -4867,6 +5730,22 @@ export interface subscription_root {
   Bounty_by_pk: Bounty | null
   /** fetch data from the table in a streaming manner: "Bounty" */
   Bounty_stream: Bounty[]
+  /** fetch data from the table: "CurveDayData" */
+  CurveDayData: CurveDayData[]
+  /** fetch aggregated fields from the table: "CurveDayData" */
+  CurveDayData_aggregate: CurveDayData_aggregate
+  /** fetch data from the table: "CurveDayData" using primary key columns */
+  CurveDayData_by_pk: CurveDayData | null
+  /** fetch data from the table in a streaming manner: "CurveDayData" */
+  CurveDayData_stream: CurveDayData[]
+  /** fetch data from the table: "CurveHourData" */
+  CurveHourData: CurveHourData[]
+  /** fetch aggregated fields from the table: "CurveHourData" */
+  CurveHourData_aggregate: CurveHourData_aggregate
+  /** fetch data from the table: "CurveHourData" using primary key columns */
+  CurveHourData_by_pk: CurveHourData | null
+  /** fetch data from the table in a streaming manner: "CurveHourData" */
+  CurveHourData_stream: CurveHourData[]
   /** fetch data from the table: "Deposit" */
   Deposit: Deposit[]
   /** fetch data from the table: "DepositVault" */
@@ -5044,10 +5923,130 @@ export interface BondingCurveGenqlSelection {
   /** An object relationship */
   collateralToken?: TokenGenqlSelection
   collateralToken_id?: boolean | number
+  /** An array relationship */
+  curveDayData?: CurveDayDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveDayData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveDayData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveDayData_bool_exp | null
+    }
+  }
+  /** An aggregate relationship */
+  curveDayData_aggregate?: CurveDayData_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveDayData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveDayData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveDayData_bool_exp | null
+    }
+  }
+  /** An array relationship */
+  curveHourData?: CurveHourDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveHourData_bool_exp | null
+    }
+  }
+  /** An aggregate relationship */
+  curveHourData_aggregate?: CurveHourData_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveHourData_bool_exp | null
+    }
+  }
   db_write_timestamp?: boolean | number
   id?: boolean | number
   /** An object relationship */
   issuanceToken?: TokenGenqlSelection
+  /** An array relationship */
+  issuanceTokenDayData?: IssuanceTokenDayDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: IssuanceTokenDayData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: IssuanceTokenDayData_order_by[] | null
+      /** filter the rows returned */
+      where?: IssuanceTokenDayData_bool_exp | null
+    }
+  }
+  /** An aggregate relationship */
+  issuanceTokenDayData_aggregate?: IssuanceTokenDayData_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: IssuanceTokenDayData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: IssuanceTokenDayData_order_by[] | null
+      /** filter the rows returned */
+      where?: IssuanceTokenDayData_bool_exp | null
+    }
+  }
+  /** An array relationship */
+  issuanceTokenHourData?: IssuanceTokenHourDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: IssuanceTokenHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: IssuanceTokenHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: IssuanceTokenHourData_bool_exp | null
+    }
+  }
+  /** An aggregate relationship */
+  issuanceTokenHourData_aggregate?: IssuanceTokenHourData_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: IssuanceTokenHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: IssuanceTokenHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: IssuanceTokenHourData_bool_exp | null
+    }
+  }
   issuanceToken_id?: boolean | number
   /** An array relationship */
   projectFees?: ProjectFeeGenqlSelection & {
@@ -5141,9 +6140,8 @@ export interface BondingCurveGenqlSelection {
       where?: Swap_bool_exp | null
     }
   }
-  virtualCollateral?: boolean | number
-  virtualCollateralRaw?: boolean | number
-  virtualIssuance?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
   /** An object relationship */
   workflow?: WorkflowGenqlSelection
   workflow_id?: boolean | number
@@ -5191,9 +6189,8 @@ export interface BondingCurve_avg_fieldsGenqlSelection {
   chainId?: boolean | number
   sellFee?: boolean | number
   sellReserveRatio?: boolean | number
-  virtualCollateral?: boolean | number
-  virtualCollateralRaw?: boolean | number
-  virtualIssuance?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -5210,9 +6207,17 @@ export interface BondingCurve_bool_exp {
   chainId?: Int_comparison_exp | null
   collateralToken?: Token_bool_exp | null
   collateralToken_id?: String_comparison_exp | null
+  curveDayData?: CurveDayData_bool_exp | null
+  curveDayData_aggregate?: CurveDayData_aggregate_bool_exp | null
+  curveHourData?: CurveHourData_bool_exp | null
+  curveHourData_aggregate?: CurveHourData_aggregate_bool_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   id?: String_comparison_exp | null
   issuanceToken?: Token_bool_exp | null
+  issuanceTokenDayData?: IssuanceTokenDayData_bool_exp | null
+  issuanceTokenDayData_aggregate?: IssuanceTokenDayData_aggregate_bool_exp | null
+  issuanceTokenHourData?: IssuanceTokenHourData_bool_exp | null
+  issuanceTokenHourData_aggregate?: IssuanceTokenHourData_aggregate_bool_exp | null
   issuanceToken_id?: String_comparison_exp | null
   projectFees?: ProjectFee_bool_exp | null
   projectFees_aggregate?: ProjectFee_aggregate_bool_exp | null
@@ -5222,9 +6227,8 @@ export interface BondingCurve_bool_exp {
   sellReserveRatio?: numeric_comparison_exp | null
   swaps?: Swap_bool_exp | null
   swaps_aggregate?: Swap_aggregate_bool_exp | null
-  virtualCollateral?: numeric_comparison_exp | null
-  virtualCollateralRaw?: numeric_comparison_exp | null
-  virtualIssuance?: numeric_comparison_exp | null
+  virtualCOL?: numeric_comparison_exp | null
+  virtualISS?: numeric_comparison_exp | null
   workflow?: Workflow_bool_exp | null
   workflow_id?: String_comparison_exp | null
 }
@@ -5236,9 +6240,8 @@ export interface BondingCurve_inc_input {
   chainId?: Scalars['Int'] | null
   sellFee?: Scalars['numeric'] | null
   sellReserveRatio?: Scalars['numeric'] | null
-  virtualCollateral?: Scalars['numeric'] | null
-  virtualCollateralRaw?: Scalars['numeric'] | null
-  virtualIssuance?: Scalars['numeric'] | null
+  virtualCOL?: Scalars['numeric'] | null
+  virtualISS?: Scalars['numeric'] | null
 }
 
 /** input type for inserting data into table "BondingCurve" */
@@ -5250,18 +6253,21 @@ export interface BondingCurve_insert_input {
   chainId?: Scalars['Int'] | null
   collateralToken?: Token_obj_rel_insert_input | null
   collateralToken_id?: Scalars['String'] | null
+  curveDayData?: CurveDayData_arr_rel_insert_input | null
+  curveHourData?: CurveHourData_arr_rel_insert_input | null
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
   issuanceToken?: Token_obj_rel_insert_input | null
+  issuanceTokenDayData?: IssuanceTokenDayData_arr_rel_insert_input | null
+  issuanceTokenHourData?: IssuanceTokenHourData_arr_rel_insert_input | null
   issuanceToken_id?: Scalars['String'] | null
   projectFees?: ProjectFee_arr_rel_insert_input | null
   protocolFees?: ProtocolFee_arr_rel_insert_input | null
   sellFee?: Scalars['numeric'] | null
   sellReserveRatio?: Scalars['numeric'] | null
   swaps?: Swap_arr_rel_insert_input | null
-  virtualCollateral?: Scalars['numeric'] | null
-  virtualCollateralRaw?: Scalars['numeric'] | null
-  virtualIssuance?: Scalars['numeric'] | null
+  virtualCOL?: Scalars['numeric'] | null
+  virtualISS?: Scalars['numeric'] | null
   workflow?: Workflow_obj_rel_insert_input | null
   workflow_id?: Scalars['String'] | null
 }
@@ -5279,9 +6285,8 @@ export interface BondingCurve_max_fieldsGenqlSelection {
   issuanceToken_id?: boolean | number
   sellFee?: boolean | number
   sellReserveRatio?: boolean | number
-  virtualCollateral?: boolean | number
-  virtualCollateralRaw?: boolean | number
-  virtualIssuance?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
   workflow_id?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -5300,9 +6305,8 @@ export interface BondingCurve_min_fieldsGenqlSelection {
   issuanceToken_id?: boolean | number
   sellFee?: boolean | number
   sellReserveRatio?: boolean | number
-  virtualCollateral?: boolean | number
-  virtualCollateralRaw?: boolean | number
-  virtualIssuance?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
   workflow_id?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -5316,13 +6320,6 @@ export interface BondingCurve_mutation_responseGenqlSelection {
   returning?: BondingCurveGenqlSelection
   __typename?: boolean | number
   __scalar?: boolean | number
-}
-
-/** input type for inserting object relation for remote table "BondingCurve" */
-export interface BondingCurve_obj_rel_insert_input {
-  data: BondingCurve_insert_input
-  /** upsert condition */
-  on_conflict?: BondingCurve_on_conflict | null
 }
 
 /** on_conflict condition type for table "BondingCurve" */
@@ -5341,18 +6338,21 @@ export interface BondingCurve_order_by {
   chainId?: order_by | null
   collateralToken?: Token_order_by | null
   collateralToken_id?: order_by | null
+  curveDayData_aggregate?: CurveDayData_aggregate_order_by | null
+  curveHourData_aggregate?: CurveHourData_aggregate_order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
   issuanceToken?: Token_order_by | null
+  issuanceTokenDayData_aggregate?: IssuanceTokenDayData_aggregate_order_by | null
+  issuanceTokenHourData_aggregate?: IssuanceTokenHourData_aggregate_order_by | null
   issuanceToken_id?: order_by | null
   projectFees_aggregate?: ProjectFee_aggregate_order_by | null
   protocolFees_aggregate?: ProtocolFee_aggregate_order_by | null
   sellFee?: order_by | null
   sellReserveRatio?: order_by | null
   swaps_aggregate?: Swap_aggregate_order_by | null
-  virtualCollateral?: order_by | null
-  virtualCollateralRaw?: order_by | null
-  virtualIssuance?: order_by | null
+  virtualCOL?: order_by | null
+  virtualISS?: order_by | null
   workflow?: Workflow_order_by | null
   workflow_id?: order_by | null
 }
@@ -5375,9 +6375,8 @@ export interface BondingCurve_set_input {
   issuanceToken_id?: Scalars['String'] | null
   sellFee?: Scalars['numeric'] | null
   sellReserveRatio?: Scalars['numeric'] | null
-  virtualCollateral?: Scalars['numeric'] | null
-  virtualCollateralRaw?: Scalars['numeric'] | null
-  virtualIssuance?: Scalars['numeric'] | null
+  virtualCOL?: Scalars['numeric'] | null
+  virtualISS?: Scalars['numeric'] | null
   workflow_id?: Scalars['String'] | null
 }
 
@@ -5388,9 +6387,8 @@ export interface BondingCurve_stddev_fieldsGenqlSelection {
   chainId?: boolean | number
   sellFee?: boolean | number
   sellReserveRatio?: boolean | number
-  virtualCollateral?: boolean | number
-  virtualCollateralRaw?: boolean | number
-  virtualIssuance?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -5402,9 +6400,8 @@ export interface BondingCurve_stddev_pop_fieldsGenqlSelection {
   chainId?: boolean | number
   sellFee?: boolean | number
   sellReserveRatio?: boolean | number
-  virtualCollateral?: boolean | number
-  virtualCollateralRaw?: boolean | number
-  virtualIssuance?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -5416,9 +6413,8 @@ export interface BondingCurve_stddev_samp_fieldsGenqlSelection {
   chainId?: boolean | number
   sellFee?: boolean | number
   sellReserveRatio?: boolean | number
-  virtualCollateral?: boolean | number
-  virtualCollateralRaw?: boolean | number
-  virtualIssuance?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -5444,9 +6440,8 @@ export interface BondingCurve_stream_cursor_value_input {
   issuanceToken_id?: Scalars['String'] | null
   sellFee?: Scalars['numeric'] | null
   sellReserveRatio?: Scalars['numeric'] | null
-  virtualCollateral?: Scalars['numeric'] | null
-  virtualCollateralRaw?: Scalars['numeric'] | null
-  virtualIssuance?: Scalars['numeric'] | null
+  virtualCOL?: Scalars['numeric'] | null
+  virtualISS?: Scalars['numeric'] | null
   workflow_id?: Scalars['String'] | null
 }
 
@@ -5457,9 +6452,8 @@ export interface BondingCurve_sum_fieldsGenqlSelection {
   chainId?: boolean | number
   sellFee?: boolean | number
   sellReserveRatio?: boolean | number
-  virtualCollateral?: boolean | number
-  virtualCollateralRaw?: boolean | number
-  virtualIssuance?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -5480,9 +6474,8 @@ export interface BondingCurve_var_pop_fieldsGenqlSelection {
   chainId?: boolean | number
   sellFee?: boolean | number
   sellReserveRatio?: boolean | number
-  virtualCollateral?: boolean | number
-  virtualCollateralRaw?: boolean | number
-  virtualIssuance?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -5494,9 +6487,8 @@ export interface BondingCurve_var_samp_fieldsGenqlSelection {
   chainId?: boolean | number
   sellFee?: boolean | number
   sellReserveRatio?: boolean | number
-  virtualCollateral?: boolean | number
-  virtualCollateralRaw?: boolean | number
-  virtualIssuance?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -5508,9 +6500,8 @@ export interface BondingCurve_variance_fieldsGenqlSelection {
   chainId?: boolean | number
   sellFee?: boolean | number
   sellReserveRatio?: boolean | number
-  virtualCollateral?: boolean | number
-  virtualCollateralRaw?: boolean | number
-  virtualIssuance?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -6734,6 +7725,1682 @@ export interface Bounty_variance_order_by {
   minimumPayoutAmount?: order_by | null
 }
 
+/** columns and relationships of "CurveDayData" */
+export interface CurveDayDataGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  /** An object relationship */
+  collateralToken?: TokenGenqlSelection
+  collateralToken_id?: boolean | number
+  date?: boolean | number
+  db_write_timestamp?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  id?: boolean | number
+  /** An object relationship */
+  issuanceToken?: TokenGenqlSelection
+  issuanceToken_id?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  module_id?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregated selection of "CurveDayData" */
+export interface CurveDayData_aggregateGenqlSelection {
+  aggregate?: CurveDayData_aggregate_fieldsGenqlSelection
+  nodes?: CurveDayDataGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+export interface CurveDayData_aggregate_bool_exp {
+  count?: CurveDayData_aggregate_bool_exp_count | null
+}
+
+export interface CurveDayData_aggregate_bool_exp_count {
+  arguments?: CurveDayData_select_column[] | null
+  distinct?: Scalars['Boolean'] | null
+  filter?: CurveDayData_bool_exp | null
+  predicate: Int_comparison_exp
+}
+
+/** aggregate fields of "CurveDayData" */
+export interface CurveDayData_aggregate_fieldsGenqlSelection {
+  avg?: CurveDayData_avg_fieldsGenqlSelection
+  count?:
+    | {
+        __args: {
+          columns?: CurveDayData_select_column[] | null
+          distinct?: Scalars['Boolean'] | null
+        }
+      }
+    | boolean
+    | number
+  max?: CurveDayData_max_fieldsGenqlSelection
+  min?: CurveDayData_min_fieldsGenqlSelection
+  stddev?: CurveDayData_stddev_fieldsGenqlSelection
+  stddev_pop?: CurveDayData_stddev_pop_fieldsGenqlSelection
+  stddev_samp?: CurveDayData_stddev_samp_fieldsGenqlSelection
+  sum?: CurveDayData_sum_fieldsGenqlSelection
+  var_pop?: CurveDayData_var_pop_fieldsGenqlSelection
+  var_samp?: CurveDayData_var_samp_fieldsGenqlSelection
+  variance?: CurveDayData_variance_fieldsGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by aggregate values of table "CurveDayData" */
+export interface CurveDayData_aggregate_order_by {
+  avg?: CurveDayData_avg_order_by | null
+  count?: order_by | null
+  max?: CurveDayData_max_order_by | null
+  min?: CurveDayData_min_order_by | null
+  stddev?: CurveDayData_stddev_order_by | null
+  stddev_pop?: CurveDayData_stddev_pop_order_by | null
+  stddev_samp?: CurveDayData_stddev_samp_order_by | null
+  sum?: CurveDayData_sum_order_by | null
+  var_pop?: CurveDayData_var_pop_order_by | null
+  var_samp?: CurveDayData_var_samp_order_by | null
+  variance?: CurveDayData_variance_order_by | null
+}
+
+/** input type for inserting array relation for remote table "CurveDayData" */
+export interface CurveDayData_arr_rel_insert_input {
+  data: CurveDayData_insert_input[]
+  /** upsert condition */
+  on_conflict?: CurveDayData_on_conflict | null
+}
+
+/** aggregate avg on columns */
+export interface CurveDayData_avg_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by avg() on columns of table "CurveDayData" */
+export interface CurveDayData_avg_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  date?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+/** Boolean expression to filter rows from the table "CurveDayData". All fields are combined with a logical 'AND'. */
+export interface CurveDayData_bool_exp {
+  _and?: CurveDayData_bool_exp[] | null
+  _not?: CurveDayData_bool_exp | null
+  _or?: CurveDayData_bool_exp[] | null
+  chainId?: Int_comparison_exp | null
+  closeCOL?: numeric_comparison_exp | null
+  closeUSD?: numeric_comparison_exp | null
+  collateralToken?: Token_bool_exp | null
+  collateralToken_id?: String_comparison_exp | null
+  date?: Int_comparison_exp | null
+  db_write_timestamp?: timestamp_comparison_exp | null
+  highCOL?: numeric_comparison_exp | null
+  highUSD?: numeric_comparison_exp | null
+  id?: String_comparison_exp | null
+  issuanceToken?: Token_bool_exp | null
+  issuanceToken_id?: String_comparison_exp | null
+  lowCOL?: numeric_comparison_exp | null
+  lowUSD?: numeric_comparison_exp | null
+  module_id?: String_comparison_exp | null
+  openCOL?: numeric_comparison_exp | null
+  openUSD?: numeric_comparison_exp | null
+  priceCOL?: numeric_comparison_exp | null
+  priceUSD?: numeric_comparison_exp | null
+  projectFeeCOL?: numeric_comparison_exp | null
+  projectFeeUSD?: numeric_comparison_exp | null
+  protocolFeeCOL?: numeric_comparison_exp | null
+  protocolFeeISS?: numeric_comparison_exp | null
+  protocolFeeUSD?: numeric_comparison_exp | null
+  volumeCOL?: numeric_comparison_exp | null
+  volumeISS?: numeric_comparison_exp | null
+  volumeUSD?: numeric_comparison_exp | null
+}
+
+/** input type for incrementing numeric columns in table "CurveDayData" */
+export interface CurveDayData_inc_input {
+  chainId?: Scalars['Int'] | null
+  closeCOL?: Scalars['numeric'] | null
+  closeUSD?: Scalars['numeric'] | null
+  date?: Scalars['Int'] | null
+  highCOL?: Scalars['numeric'] | null
+  highUSD?: Scalars['numeric'] | null
+  lowCOL?: Scalars['numeric'] | null
+  lowUSD?: Scalars['numeric'] | null
+  openCOL?: Scalars['numeric'] | null
+  openUSD?: Scalars['numeric'] | null
+  priceCOL?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
+  projectFeeCOL?: Scalars['numeric'] | null
+  projectFeeUSD?: Scalars['numeric'] | null
+  protocolFeeCOL?: Scalars['numeric'] | null
+  protocolFeeISS?: Scalars['numeric'] | null
+  protocolFeeUSD?: Scalars['numeric'] | null
+  volumeCOL?: Scalars['numeric'] | null
+  volumeISS?: Scalars['numeric'] | null
+  volumeUSD?: Scalars['numeric'] | null
+}
+
+/** input type for inserting data into table "CurveDayData" */
+export interface CurveDayData_insert_input {
+  chainId?: Scalars['Int'] | null
+  closeCOL?: Scalars['numeric'] | null
+  closeUSD?: Scalars['numeric'] | null
+  collateralToken?: Token_obj_rel_insert_input | null
+  collateralToken_id?: Scalars['String'] | null
+  date?: Scalars['Int'] | null
+  db_write_timestamp?: Scalars['timestamp'] | null
+  highCOL?: Scalars['numeric'] | null
+  highUSD?: Scalars['numeric'] | null
+  id?: Scalars['String'] | null
+  issuanceToken?: Token_obj_rel_insert_input | null
+  issuanceToken_id?: Scalars['String'] | null
+  lowCOL?: Scalars['numeric'] | null
+  lowUSD?: Scalars['numeric'] | null
+  module_id?: Scalars['String'] | null
+  openCOL?: Scalars['numeric'] | null
+  openUSD?: Scalars['numeric'] | null
+  priceCOL?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
+  projectFeeCOL?: Scalars['numeric'] | null
+  projectFeeUSD?: Scalars['numeric'] | null
+  protocolFeeCOL?: Scalars['numeric'] | null
+  protocolFeeISS?: Scalars['numeric'] | null
+  protocolFeeUSD?: Scalars['numeric'] | null
+  volumeCOL?: Scalars['numeric'] | null
+  volumeISS?: Scalars['numeric'] | null
+  volumeUSD?: Scalars['numeric'] | null
+}
+
+/** aggregate max on columns */
+export interface CurveDayData_max_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  collateralToken_id?: boolean | number
+  date?: boolean | number
+  db_write_timestamp?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  id?: boolean | number
+  issuanceToken_id?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  module_id?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by max() on columns of table "CurveDayData" */
+export interface CurveDayData_max_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  collateralToken_id?: order_by | null
+  date?: order_by | null
+  db_write_timestamp?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  id?: order_by | null
+  issuanceToken_id?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  module_id?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+/** aggregate min on columns */
+export interface CurveDayData_min_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  collateralToken_id?: boolean | number
+  date?: boolean | number
+  db_write_timestamp?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  id?: boolean | number
+  issuanceToken_id?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  module_id?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by min() on columns of table "CurveDayData" */
+export interface CurveDayData_min_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  collateralToken_id?: order_by | null
+  date?: order_by | null
+  db_write_timestamp?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  id?: order_by | null
+  issuanceToken_id?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  module_id?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+/** response of any mutation on the table "CurveDayData" */
+export interface CurveDayData_mutation_responseGenqlSelection {
+  /** number of rows affected by the mutation */
+  affected_rows?: boolean | number
+  /** data from the rows affected by the mutation */
+  returning?: CurveDayDataGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** on_conflict condition type for table "CurveDayData" */
+export interface CurveDayData_on_conflict {
+  constraint: CurveDayData_constraint
+  update_columns?: CurveDayData_update_column[]
+  where?: CurveDayData_bool_exp | null
+}
+
+/** Ordering options when selecting data from "CurveDayData". */
+export interface CurveDayData_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  collateralToken?: Token_order_by | null
+  collateralToken_id?: order_by | null
+  date?: order_by | null
+  db_write_timestamp?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  id?: order_by | null
+  issuanceToken?: Token_order_by | null
+  issuanceToken_id?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  module_id?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+/** primary key columns input for table: CurveDayData */
+export interface CurveDayData_pk_columns_input {
+  id: Scalars['String']
+}
+
+/** input type for updating data in table "CurveDayData" */
+export interface CurveDayData_set_input {
+  chainId?: Scalars['Int'] | null
+  closeCOL?: Scalars['numeric'] | null
+  closeUSD?: Scalars['numeric'] | null
+  collateralToken_id?: Scalars['String'] | null
+  date?: Scalars['Int'] | null
+  db_write_timestamp?: Scalars['timestamp'] | null
+  highCOL?: Scalars['numeric'] | null
+  highUSD?: Scalars['numeric'] | null
+  id?: Scalars['String'] | null
+  issuanceToken_id?: Scalars['String'] | null
+  lowCOL?: Scalars['numeric'] | null
+  lowUSD?: Scalars['numeric'] | null
+  module_id?: Scalars['String'] | null
+  openCOL?: Scalars['numeric'] | null
+  openUSD?: Scalars['numeric'] | null
+  priceCOL?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
+  projectFeeCOL?: Scalars['numeric'] | null
+  projectFeeUSD?: Scalars['numeric'] | null
+  protocolFeeCOL?: Scalars['numeric'] | null
+  protocolFeeISS?: Scalars['numeric'] | null
+  protocolFeeUSD?: Scalars['numeric'] | null
+  volumeCOL?: Scalars['numeric'] | null
+  volumeISS?: Scalars['numeric'] | null
+  volumeUSD?: Scalars['numeric'] | null
+}
+
+/** aggregate stddev on columns */
+export interface CurveDayData_stddev_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by stddev() on columns of table "CurveDayData" */
+export interface CurveDayData_stddev_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  date?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+/** aggregate stddev_pop on columns */
+export interface CurveDayData_stddev_pop_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by stddev_pop() on columns of table "CurveDayData" */
+export interface CurveDayData_stddev_pop_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  date?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+/** aggregate stddev_samp on columns */
+export interface CurveDayData_stddev_samp_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by stddev_samp() on columns of table "CurveDayData" */
+export interface CurveDayData_stddev_samp_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  date?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+/** Streaming cursor of the table "CurveDayData" */
+export interface CurveDayData_stream_cursor_input {
+  /** Stream column input with initial value */
+  initial_value: CurveDayData_stream_cursor_value_input
+  /** cursor ordering */
+  ordering?: cursor_ordering | null
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface CurveDayData_stream_cursor_value_input {
+  chainId?: Scalars['Int'] | null
+  closeCOL?: Scalars['numeric'] | null
+  closeUSD?: Scalars['numeric'] | null
+  collateralToken_id?: Scalars['String'] | null
+  date?: Scalars['Int'] | null
+  db_write_timestamp?: Scalars['timestamp'] | null
+  highCOL?: Scalars['numeric'] | null
+  highUSD?: Scalars['numeric'] | null
+  id?: Scalars['String'] | null
+  issuanceToken_id?: Scalars['String'] | null
+  lowCOL?: Scalars['numeric'] | null
+  lowUSD?: Scalars['numeric'] | null
+  module_id?: Scalars['String'] | null
+  openCOL?: Scalars['numeric'] | null
+  openUSD?: Scalars['numeric'] | null
+  priceCOL?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
+  projectFeeCOL?: Scalars['numeric'] | null
+  projectFeeUSD?: Scalars['numeric'] | null
+  protocolFeeCOL?: Scalars['numeric'] | null
+  protocolFeeISS?: Scalars['numeric'] | null
+  protocolFeeUSD?: Scalars['numeric'] | null
+  volumeCOL?: Scalars['numeric'] | null
+  volumeISS?: Scalars['numeric'] | null
+  volumeUSD?: Scalars['numeric'] | null
+}
+
+/** aggregate sum on columns */
+export interface CurveDayData_sum_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by sum() on columns of table "CurveDayData" */
+export interface CurveDayData_sum_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  date?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+export interface CurveDayData_updates {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: CurveDayData_inc_input | null
+  /** sets the columns of the filtered rows to the given values */
+  _set?: CurveDayData_set_input | null
+  /** filter the rows which have to be updated */
+  where: CurveDayData_bool_exp
+}
+
+/** aggregate var_pop on columns */
+export interface CurveDayData_var_pop_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by var_pop() on columns of table "CurveDayData" */
+export interface CurveDayData_var_pop_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  date?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+/** aggregate var_samp on columns */
+export interface CurveDayData_var_samp_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by var_samp() on columns of table "CurveDayData" */
+export interface CurveDayData_var_samp_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  date?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+/** aggregate variance on columns */
+export interface CurveDayData_variance_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by variance() on columns of table "CurveDayData" */
+export interface CurveDayData_variance_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  date?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+/** columns and relationships of "CurveHourData" */
+export interface CurveHourDataGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  /** An object relationship */
+  collateralToken?: TokenGenqlSelection
+  collateralToken_id?: boolean | number
+  db_write_timestamp?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  id?: boolean | number
+  /** An object relationship */
+  issuanceToken?: TokenGenqlSelection
+  issuanceToken_id?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  module_id?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregated selection of "CurveHourData" */
+export interface CurveHourData_aggregateGenqlSelection {
+  aggregate?: CurveHourData_aggregate_fieldsGenqlSelection
+  nodes?: CurveHourDataGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+export interface CurveHourData_aggregate_bool_exp {
+  count?: CurveHourData_aggregate_bool_exp_count | null
+}
+
+export interface CurveHourData_aggregate_bool_exp_count {
+  arguments?: CurveHourData_select_column[] | null
+  distinct?: Scalars['Boolean'] | null
+  filter?: CurveHourData_bool_exp | null
+  predicate: Int_comparison_exp
+}
+
+/** aggregate fields of "CurveHourData" */
+export interface CurveHourData_aggregate_fieldsGenqlSelection {
+  avg?: CurveHourData_avg_fieldsGenqlSelection
+  count?:
+    | {
+        __args: {
+          columns?: CurveHourData_select_column[] | null
+          distinct?: Scalars['Boolean'] | null
+        }
+      }
+    | boolean
+    | number
+  max?: CurveHourData_max_fieldsGenqlSelection
+  min?: CurveHourData_min_fieldsGenqlSelection
+  stddev?: CurveHourData_stddev_fieldsGenqlSelection
+  stddev_pop?: CurveHourData_stddev_pop_fieldsGenqlSelection
+  stddev_samp?: CurveHourData_stddev_samp_fieldsGenqlSelection
+  sum?: CurveHourData_sum_fieldsGenqlSelection
+  var_pop?: CurveHourData_var_pop_fieldsGenqlSelection
+  var_samp?: CurveHourData_var_samp_fieldsGenqlSelection
+  variance?: CurveHourData_variance_fieldsGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by aggregate values of table "CurveHourData" */
+export interface CurveHourData_aggregate_order_by {
+  avg?: CurveHourData_avg_order_by | null
+  count?: order_by | null
+  max?: CurveHourData_max_order_by | null
+  min?: CurveHourData_min_order_by | null
+  stddev?: CurveHourData_stddev_order_by | null
+  stddev_pop?: CurveHourData_stddev_pop_order_by | null
+  stddev_samp?: CurveHourData_stddev_samp_order_by | null
+  sum?: CurveHourData_sum_order_by | null
+  var_pop?: CurveHourData_var_pop_order_by | null
+  var_samp?: CurveHourData_var_samp_order_by | null
+  variance?: CurveHourData_variance_order_by | null
+}
+
+/** input type for inserting array relation for remote table "CurveHourData" */
+export interface CurveHourData_arr_rel_insert_input {
+  data: CurveHourData_insert_input[]
+  /** upsert condition */
+  on_conflict?: CurveHourData_on_conflict | null
+}
+
+/** aggregate avg on columns */
+export interface CurveHourData_avg_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by avg() on columns of table "CurveHourData" */
+export interface CurveHourData_avg_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+/** Boolean expression to filter rows from the table "CurveHourData". All fields are combined with a logical 'AND'. */
+export interface CurveHourData_bool_exp {
+  _and?: CurveHourData_bool_exp[] | null
+  _not?: CurveHourData_bool_exp | null
+  _or?: CurveHourData_bool_exp[] | null
+  chainId?: Int_comparison_exp | null
+  closeCOL?: numeric_comparison_exp | null
+  closeUSD?: numeric_comparison_exp | null
+  collateralToken?: Token_bool_exp | null
+  collateralToken_id?: String_comparison_exp | null
+  db_write_timestamp?: timestamp_comparison_exp | null
+  highCOL?: numeric_comparison_exp | null
+  highUSD?: numeric_comparison_exp | null
+  id?: String_comparison_exp | null
+  issuanceToken?: Token_bool_exp | null
+  issuanceToken_id?: String_comparison_exp | null
+  lowCOL?: numeric_comparison_exp | null
+  lowUSD?: numeric_comparison_exp | null
+  module_id?: String_comparison_exp | null
+  openCOL?: numeric_comparison_exp | null
+  openUSD?: numeric_comparison_exp | null
+  periodStartUnix?: Int_comparison_exp | null
+  priceCOL?: numeric_comparison_exp | null
+  priceUSD?: numeric_comparison_exp | null
+  projectFeeCOL?: numeric_comparison_exp | null
+  projectFeeUSD?: numeric_comparison_exp | null
+  protocolFeeCOL?: numeric_comparison_exp | null
+  protocolFeeISS?: numeric_comparison_exp | null
+  protocolFeeUSD?: numeric_comparison_exp | null
+  volumeCOL?: numeric_comparison_exp | null
+  volumeISS?: numeric_comparison_exp | null
+  volumeUSD?: numeric_comparison_exp | null
+}
+
+/** input type for incrementing numeric columns in table "CurveHourData" */
+export interface CurveHourData_inc_input {
+  chainId?: Scalars['Int'] | null
+  closeCOL?: Scalars['numeric'] | null
+  closeUSD?: Scalars['numeric'] | null
+  highCOL?: Scalars['numeric'] | null
+  highUSD?: Scalars['numeric'] | null
+  lowCOL?: Scalars['numeric'] | null
+  lowUSD?: Scalars['numeric'] | null
+  openCOL?: Scalars['numeric'] | null
+  openUSD?: Scalars['numeric'] | null
+  periodStartUnix?: Scalars['Int'] | null
+  priceCOL?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
+  projectFeeCOL?: Scalars['numeric'] | null
+  projectFeeUSD?: Scalars['numeric'] | null
+  protocolFeeCOL?: Scalars['numeric'] | null
+  protocolFeeISS?: Scalars['numeric'] | null
+  protocolFeeUSD?: Scalars['numeric'] | null
+  volumeCOL?: Scalars['numeric'] | null
+  volumeISS?: Scalars['numeric'] | null
+  volumeUSD?: Scalars['numeric'] | null
+}
+
+/** input type for inserting data into table "CurveHourData" */
+export interface CurveHourData_insert_input {
+  chainId?: Scalars['Int'] | null
+  closeCOL?: Scalars['numeric'] | null
+  closeUSD?: Scalars['numeric'] | null
+  collateralToken?: Token_obj_rel_insert_input | null
+  collateralToken_id?: Scalars['String'] | null
+  db_write_timestamp?: Scalars['timestamp'] | null
+  highCOL?: Scalars['numeric'] | null
+  highUSD?: Scalars['numeric'] | null
+  id?: Scalars['String'] | null
+  issuanceToken?: Token_obj_rel_insert_input | null
+  issuanceToken_id?: Scalars['String'] | null
+  lowCOL?: Scalars['numeric'] | null
+  lowUSD?: Scalars['numeric'] | null
+  module_id?: Scalars['String'] | null
+  openCOL?: Scalars['numeric'] | null
+  openUSD?: Scalars['numeric'] | null
+  periodStartUnix?: Scalars['Int'] | null
+  priceCOL?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
+  projectFeeCOL?: Scalars['numeric'] | null
+  projectFeeUSD?: Scalars['numeric'] | null
+  protocolFeeCOL?: Scalars['numeric'] | null
+  protocolFeeISS?: Scalars['numeric'] | null
+  protocolFeeUSD?: Scalars['numeric'] | null
+  volumeCOL?: Scalars['numeric'] | null
+  volumeISS?: Scalars['numeric'] | null
+  volumeUSD?: Scalars['numeric'] | null
+}
+
+/** aggregate max on columns */
+export interface CurveHourData_max_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  collateralToken_id?: boolean | number
+  db_write_timestamp?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  id?: boolean | number
+  issuanceToken_id?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  module_id?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by max() on columns of table "CurveHourData" */
+export interface CurveHourData_max_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  collateralToken_id?: order_by | null
+  db_write_timestamp?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  id?: order_by | null
+  issuanceToken_id?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  module_id?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+/** aggregate min on columns */
+export interface CurveHourData_min_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  collateralToken_id?: boolean | number
+  db_write_timestamp?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  id?: boolean | number
+  issuanceToken_id?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  module_id?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by min() on columns of table "CurveHourData" */
+export interface CurveHourData_min_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  collateralToken_id?: order_by | null
+  db_write_timestamp?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  id?: order_by | null
+  issuanceToken_id?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  module_id?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+/** response of any mutation on the table "CurveHourData" */
+export interface CurveHourData_mutation_responseGenqlSelection {
+  /** number of rows affected by the mutation */
+  affected_rows?: boolean | number
+  /** data from the rows affected by the mutation */
+  returning?: CurveHourDataGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** on_conflict condition type for table "CurveHourData" */
+export interface CurveHourData_on_conflict {
+  constraint: CurveHourData_constraint
+  update_columns?: CurveHourData_update_column[]
+  where?: CurveHourData_bool_exp | null
+}
+
+/** Ordering options when selecting data from "CurveHourData". */
+export interface CurveHourData_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  collateralToken?: Token_order_by | null
+  collateralToken_id?: order_by | null
+  db_write_timestamp?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  id?: order_by | null
+  issuanceToken?: Token_order_by | null
+  issuanceToken_id?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  module_id?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+/** primary key columns input for table: CurveHourData */
+export interface CurveHourData_pk_columns_input {
+  id: Scalars['String']
+}
+
+/** input type for updating data in table "CurveHourData" */
+export interface CurveHourData_set_input {
+  chainId?: Scalars['Int'] | null
+  closeCOL?: Scalars['numeric'] | null
+  closeUSD?: Scalars['numeric'] | null
+  collateralToken_id?: Scalars['String'] | null
+  db_write_timestamp?: Scalars['timestamp'] | null
+  highCOL?: Scalars['numeric'] | null
+  highUSD?: Scalars['numeric'] | null
+  id?: Scalars['String'] | null
+  issuanceToken_id?: Scalars['String'] | null
+  lowCOL?: Scalars['numeric'] | null
+  lowUSD?: Scalars['numeric'] | null
+  module_id?: Scalars['String'] | null
+  openCOL?: Scalars['numeric'] | null
+  openUSD?: Scalars['numeric'] | null
+  periodStartUnix?: Scalars['Int'] | null
+  priceCOL?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
+  projectFeeCOL?: Scalars['numeric'] | null
+  projectFeeUSD?: Scalars['numeric'] | null
+  protocolFeeCOL?: Scalars['numeric'] | null
+  protocolFeeISS?: Scalars['numeric'] | null
+  protocolFeeUSD?: Scalars['numeric'] | null
+  volumeCOL?: Scalars['numeric'] | null
+  volumeISS?: Scalars['numeric'] | null
+  volumeUSD?: Scalars['numeric'] | null
+}
+
+/** aggregate stddev on columns */
+export interface CurveHourData_stddev_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by stddev() on columns of table "CurveHourData" */
+export interface CurveHourData_stddev_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+/** aggregate stddev_pop on columns */
+export interface CurveHourData_stddev_pop_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by stddev_pop() on columns of table "CurveHourData" */
+export interface CurveHourData_stddev_pop_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+/** aggregate stddev_samp on columns */
+export interface CurveHourData_stddev_samp_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by stddev_samp() on columns of table "CurveHourData" */
+export interface CurveHourData_stddev_samp_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+/** Streaming cursor of the table "CurveHourData" */
+export interface CurveHourData_stream_cursor_input {
+  /** Stream column input with initial value */
+  initial_value: CurveHourData_stream_cursor_value_input
+  /** cursor ordering */
+  ordering?: cursor_ordering | null
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface CurveHourData_stream_cursor_value_input {
+  chainId?: Scalars['Int'] | null
+  closeCOL?: Scalars['numeric'] | null
+  closeUSD?: Scalars['numeric'] | null
+  collateralToken_id?: Scalars['String'] | null
+  db_write_timestamp?: Scalars['timestamp'] | null
+  highCOL?: Scalars['numeric'] | null
+  highUSD?: Scalars['numeric'] | null
+  id?: Scalars['String'] | null
+  issuanceToken_id?: Scalars['String'] | null
+  lowCOL?: Scalars['numeric'] | null
+  lowUSD?: Scalars['numeric'] | null
+  module_id?: Scalars['String'] | null
+  openCOL?: Scalars['numeric'] | null
+  openUSD?: Scalars['numeric'] | null
+  periodStartUnix?: Scalars['Int'] | null
+  priceCOL?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
+  projectFeeCOL?: Scalars['numeric'] | null
+  projectFeeUSD?: Scalars['numeric'] | null
+  protocolFeeCOL?: Scalars['numeric'] | null
+  protocolFeeISS?: Scalars['numeric'] | null
+  protocolFeeUSD?: Scalars['numeric'] | null
+  volumeCOL?: Scalars['numeric'] | null
+  volumeISS?: Scalars['numeric'] | null
+  volumeUSD?: Scalars['numeric'] | null
+}
+
+/** aggregate sum on columns */
+export interface CurveHourData_sum_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by sum() on columns of table "CurveHourData" */
+export interface CurveHourData_sum_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+export interface CurveHourData_updates {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: CurveHourData_inc_input | null
+  /** sets the columns of the filtered rows to the given values */
+  _set?: CurveHourData_set_input | null
+  /** filter the rows which have to be updated */
+  where: CurveHourData_bool_exp
+}
+
+/** aggregate var_pop on columns */
+export interface CurveHourData_var_pop_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by var_pop() on columns of table "CurveHourData" */
+export interface CurveHourData_var_pop_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+/** aggregate var_samp on columns */
+export interface CurveHourData_var_samp_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by var_samp() on columns of table "CurveHourData" */
+export interface CurveHourData_var_samp_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
+/** aggregate variance on columns */
+export interface CurveHourData_variance_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by variance() on columns of table "CurveHourData" */
+export interface CurveHourData_variance_order_by {
+  chainId?: order_by | null
+  closeCOL?: order_by | null
+  closeUSD?: order_by | null
+  highCOL?: order_by | null
+  highUSD?: order_by | null
+  lowCOL?: order_by | null
+  lowUSD?: order_by | null
+  openCOL?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeCOL?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeCOL?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeCOL?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
 /** columns and relationships of "Deposit" */
 export interface DepositGenqlSelection {
   amount?: boolean | number
@@ -7411,22 +10078,20 @@ export interface Int_comparison_exp {
 /** columns and relationships of "IssuanceTokenDayData" */
 export interface IssuanceTokenDayDataGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
+  closeUSD?: boolean | number
   date?: boolean | number
   db_write_timestamp?: boolean | number
-  highInCol?: boolean | number
+  highUSD?: boolean | number
   id?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
-  /** An object relationship */
-  token?: TokenGenqlSelection
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
   token_id?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -7437,6 +10102,17 @@ export interface IssuanceTokenDayData_aggregateGenqlSelection {
   nodes?: IssuanceTokenDayDataGenqlSelection
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+export interface IssuanceTokenDayData_aggregate_bool_exp {
+  count?: IssuanceTokenDayData_aggregate_bool_exp_count | null
+}
+
+export interface IssuanceTokenDayData_aggregate_bool_exp_count {
+  arguments?: IssuanceTokenDayData_select_column[] | null
+  distinct?: Scalars['Boolean'] | null
+  filter?: IssuanceTokenDayData_bool_exp | null
+  predicate: Int_comparison_exp
 }
 
 /** aggregate fields of "IssuanceTokenDayData" */
@@ -7464,22 +10140,60 @@ export interface IssuanceTokenDayData_aggregate_fieldsGenqlSelection {
   __scalar?: boolean | number
 }
 
+/** order by aggregate values of table "IssuanceTokenDayData" */
+export interface IssuanceTokenDayData_aggregate_order_by {
+  avg?: IssuanceTokenDayData_avg_order_by | null
+  count?: order_by | null
+  max?: IssuanceTokenDayData_max_order_by | null
+  min?: IssuanceTokenDayData_min_order_by | null
+  stddev?: IssuanceTokenDayData_stddev_order_by | null
+  stddev_pop?: IssuanceTokenDayData_stddev_pop_order_by | null
+  stddev_samp?: IssuanceTokenDayData_stddev_samp_order_by | null
+  sum?: IssuanceTokenDayData_sum_order_by | null
+  var_pop?: IssuanceTokenDayData_var_pop_order_by | null
+  var_samp?: IssuanceTokenDayData_var_samp_order_by | null
+  variance?: IssuanceTokenDayData_variance_order_by | null
+}
+
+/** input type for inserting array relation for remote table "IssuanceTokenDayData" */
+export interface IssuanceTokenDayData_arr_rel_insert_input {
+  data: IssuanceTokenDayData_insert_input[]
+  /** upsert condition */
+  on_conflict?: IssuanceTokenDayData_on_conflict | null
+}
+
 /** aggregate avg on columns */
 export interface IssuanceTokenDayData_avg_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
+  closeUSD?: boolean | number
   date?: boolean | number
-  highInCol?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** order by avg() on columns of table "IssuanceTokenDayData" */
+export interface IssuanceTokenDayData_avg_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  date?: order_by | null
+  highUSD?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 /** Boolean expression to filter rows from the table "IssuanceTokenDayData". All fields are combined with a logical 'AND'. */
@@ -7488,99 +10202,135 @@ export interface IssuanceTokenDayData_bool_exp {
   _not?: IssuanceTokenDayData_bool_exp | null
   _or?: IssuanceTokenDayData_bool_exp[] | null
   chainId?: Int_comparison_exp | null
-  closeInCol?: numeric_comparison_exp | null
+  closeUSD?: numeric_comparison_exp | null
   date?: Int_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
-  highInCol?: numeric_comparison_exp | null
+  highUSD?: numeric_comparison_exp | null
   id?: String_comparison_exp | null
-  lowInCol?: numeric_comparison_exp | null
-  openInCol?: numeric_comparison_exp | null
-  priceInCol?: numeric_comparison_exp | null
-  projectFeeInCol?: numeric_comparison_exp | null
-  protocolFeeInCol?: numeric_comparison_exp | null
-  protocolFeeInIssuance?: numeric_comparison_exp | null
-  token?: Token_bool_exp | null
+  lowUSD?: numeric_comparison_exp | null
+  openUSD?: numeric_comparison_exp | null
+  priceUSD?: numeric_comparison_exp | null
+  projectFeeUSD?: numeric_comparison_exp | null
+  protocolFeeISS?: numeric_comparison_exp | null
+  protocolFeeUSD?: numeric_comparison_exp | null
   token_id?: String_comparison_exp | null
-  volumeInCol?: numeric_comparison_exp | null
-  volumeInIssuance?: numeric_comparison_exp | null
+  volumeISS?: numeric_comparison_exp | null
+  volumeUSD?: numeric_comparison_exp | null
 }
 
 /** input type for incrementing numeric columns in table "IssuanceTokenDayData" */
 export interface IssuanceTokenDayData_inc_input {
   chainId?: Scalars['Int'] | null
-  closeInCol?: Scalars['numeric'] | null
+  closeUSD?: Scalars['numeric'] | null
   date?: Scalars['Int'] | null
-  highInCol?: Scalars['numeric'] | null
-  lowInCol?: Scalars['numeric'] | null
-  openInCol?: Scalars['numeric'] | null
-  priceInCol?: Scalars['numeric'] | null
-  projectFeeInCol?: Scalars['numeric'] | null
-  protocolFeeInCol?: Scalars['numeric'] | null
-  protocolFeeInIssuance?: Scalars['numeric'] | null
-  volumeInCol?: Scalars['numeric'] | null
-  volumeInIssuance?: Scalars['numeric'] | null
+  highUSD?: Scalars['numeric'] | null
+  lowUSD?: Scalars['numeric'] | null
+  openUSD?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
+  projectFeeUSD?: Scalars['numeric'] | null
+  protocolFeeISS?: Scalars['numeric'] | null
+  protocolFeeUSD?: Scalars['numeric'] | null
+  volumeISS?: Scalars['numeric'] | null
+  volumeUSD?: Scalars['numeric'] | null
 }
 
 /** input type for inserting data into table "IssuanceTokenDayData" */
 export interface IssuanceTokenDayData_insert_input {
   chainId?: Scalars['Int'] | null
-  closeInCol?: Scalars['numeric'] | null
+  closeUSD?: Scalars['numeric'] | null
   date?: Scalars['Int'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
-  highInCol?: Scalars['numeric'] | null
+  highUSD?: Scalars['numeric'] | null
   id?: Scalars['String'] | null
-  lowInCol?: Scalars['numeric'] | null
-  openInCol?: Scalars['numeric'] | null
-  priceInCol?: Scalars['numeric'] | null
-  projectFeeInCol?: Scalars['numeric'] | null
-  protocolFeeInCol?: Scalars['numeric'] | null
-  protocolFeeInIssuance?: Scalars['numeric'] | null
-  token?: Token_obj_rel_insert_input | null
+  lowUSD?: Scalars['numeric'] | null
+  openUSD?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
+  projectFeeUSD?: Scalars['numeric'] | null
+  protocolFeeISS?: Scalars['numeric'] | null
+  protocolFeeUSD?: Scalars['numeric'] | null
   token_id?: Scalars['String'] | null
-  volumeInCol?: Scalars['numeric'] | null
-  volumeInIssuance?: Scalars['numeric'] | null
+  volumeISS?: Scalars['numeric'] | null
+  volumeUSD?: Scalars['numeric'] | null
 }
 
 /** aggregate max on columns */
 export interface IssuanceTokenDayData_max_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
+  closeUSD?: boolean | number
   date?: boolean | number
   db_write_timestamp?: boolean | number
-  highInCol?: boolean | number
+  highUSD?: boolean | number
   id?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
   token_id?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** order by max() on columns of table "IssuanceTokenDayData" */
+export interface IssuanceTokenDayData_max_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  date?: order_by | null
+  db_write_timestamp?: order_by | null
+  highUSD?: order_by | null
+  id?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  token_id?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 /** aggregate min on columns */
 export interface IssuanceTokenDayData_min_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
+  closeUSD?: boolean | number
   date?: boolean | number
   db_write_timestamp?: boolean | number
-  highInCol?: boolean | number
+  highUSD?: boolean | number
   id?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
   token_id?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** order by min() on columns of table "IssuanceTokenDayData" */
+export interface IssuanceTokenDayData_min_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  date?: order_by | null
+  db_write_timestamp?: order_by | null
+  highUSD?: order_by | null
+  id?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  token_id?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 /** response of any mutation on the table "IssuanceTokenDayData" */
@@ -7603,21 +10353,20 @@ export interface IssuanceTokenDayData_on_conflict {
 /** Ordering options when selecting data from "IssuanceTokenDayData". */
 export interface IssuanceTokenDayData_order_by {
   chainId?: order_by | null
-  closeInCol?: order_by | null
+  closeUSD?: order_by | null
   date?: order_by | null
   db_write_timestamp?: order_by | null
-  highInCol?: order_by | null
+  highUSD?: order_by | null
   id?: order_by | null
-  lowInCol?: order_by | null
-  openInCol?: order_by | null
-  priceInCol?: order_by | null
-  projectFeeInCol?: order_by | null
-  protocolFeeInCol?: order_by | null
-  protocolFeeInIssuance?: order_by | null
-  token?: Token_order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
   token_id?: order_by | null
-  volumeInCol?: order_by | null
-  volumeInIssuance?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 /** primary key columns input for table: IssuanceTokenDayData */
@@ -7628,74 +10377,122 @@ export interface IssuanceTokenDayData_pk_columns_input {
 /** input type for updating data in table "IssuanceTokenDayData" */
 export interface IssuanceTokenDayData_set_input {
   chainId?: Scalars['Int'] | null
-  closeInCol?: Scalars['numeric'] | null
+  closeUSD?: Scalars['numeric'] | null
   date?: Scalars['Int'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
-  highInCol?: Scalars['numeric'] | null
+  highUSD?: Scalars['numeric'] | null
   id?: Scalars['String'] | null
-  lowInCol?: Scalars['numeric'] | null
-  openInCol?: Scalars['numeric'] | null
-  priceInCol?: Scalars['numeric'] | null
-  projectFeeInCol?: Scalars['numeric'] | null
-  protocolFeeInCol?: Scalars['numeric'] | null
-  protocolFeeInIssuance?: Scalars['numeric'] | null
+  lowUSD?: Scalars['numeric'] | null
+  openUSD?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
+  projectFeeUSD?: Scalars['numeric'] | null
+  protocolFeeISS?: Scalars['numeric'] | null
+  protocolFeeUSD?: Scalars['numeric'] | null
   token_id?: Scalars['String'] | null
-  volumeInCol?: Scalars['numeric'] | null
-  volumeInIssuance?: Scalars['numeric'] | null
+  volumeISS?: Scalars['numeric'] | null
+  volumeUSD?: Scalars['numeric'] | null
 }
 
 /** aggregate stddev on columns */
 export interface IssuanceTokenDayData_stddev_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
+  closeUSD?: boolean | number
   date?: boolean | number
-  highInCol?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** order by stddev() on columns of table "IssuanceTokenDayData" */
+export interface IssuanceTokenDayData_stddev_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  date?: order_by | null
+  highUSD?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 /** aggregate stddev_pop on columns */
 export interface IssuanceTokenDayData_stddev_pop_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
+  closeUSD?: boolean | number
   date?: boolean | number
-  highInCol?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** order by stddev_pop() on columns of table "IssuanceTokenDayData" */
+export interface IssuanceTokenDayData_stddev_pop_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  date?: order_by | null
+  highUSD?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 /** aggregate stddev_samp on columns */
 export interface IssuanceTokenDayData_stddev_samp_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
+  closeUSD?: boolean | number
   date?: boolean | number
-  highInCol?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** order by stddev_samp() on columns of table "IssuanceTokenDayData" */
+export interface IssuanceTokenDayData_stddev_samp_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  date?: order_by | null
+  highUSD?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 /** Streaming cursor of the table "IssuanceTokenDayData" */
@@ -7709,38 +10506,54 @@ export interface IssuanceTokenDayData_stream_cursor_input {
 /** Initial value of the column from where the streaming should start */
 export interface IssuanceTokenDayData_stream_cursor_value_input {
   chainId?: Scalars['Int'] | null
-  closeInCol?: Scalars['numeric'] | null
+  closeUSD?: Scalars['numeric'] | null
   date?: Scalars['Int'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
-  highInCol?: Scalars['numeric'] | null
+  highUSD?: Scalars['numeric'] | null
   id?: Scalars['String'] | null
-  lowInCol?: Scalars['numeric'] | null
-  openInCol?: Scalars['numeric'] | null
-  priceInCol?: Scalars['numeric'] | null
-  projectFeeInCol?: Scalars['numeric'] | null
-  protocolFeeInCol?: Scalars['numeric'] | null
-  protocolFeeInIssuance?: Scalars['numeric'] | null
+  lowUSD?: Scalars['numeric'] | null
+  openUSD?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
+  projectFeeUSD?: Scalars['numeric'] | null
+  protocolFeeISS?: Scalars['numeric'] | null
+  protocolFeeUSD?: Scalars['numeric'] | null
   token_id?: Scalars['String'] | null
-  volumeInCol?: Scalars['numeric'] | null
-  volumeInIssuance?: Scalars['numeric'] | null
+  volumeISS?: Scalars['numeric'] | null
+  volumeUSD?: Scalars['numeric'] | null
 }
 
 /** aggregate sum on columns */
 export interface IssuanceTokenDayData_sum_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
+  closeUSD?: boolean | number
   date?: boolean | number
-  highInCol?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** order by sum() on columns of table "IssuanceTokenDayData" */
+export interface IssuanceTokenDayData_sum_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  date?: order_by | null
+  highUSD?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 export interface IssuanceTokenDayData_updates {
@@ -7755,76 +10568,122 @@ export interface IssuanceTokenDayData_updates {
 /** aggregate var_pop on columns */
 export interface IssuanceTokenDayData_var_pop_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
+  closeUSD?: boolean | number
   date?: boolean | number
-  highInCol?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** order by var_pop() on columns of table "IssuanceTokenDayData" */
+export interface IssuanceTokenDayData_var_pop_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  date?: order_by | null
+  highUSD?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 /** aggregate var_samp on columns */
 export interface IssuanceTokenDayData_var_samp_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
+  closeUSD?: boolean | number
   date?: boolean | number
-  highInCol?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** order by var_samp() on columns of table "IssuanceTokenDayData" */
+export interface IssuanceTokenDayData_var_samp_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  date?: order_by | null
+  highUSD?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 /** aggregate variance on columns */
 export interface IssuanceTokenDayData_variance_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
+  closeUSD?: boolean | number
   date?: boolean | number
-  highInCol?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** order by variance() on columns of table "IssuanceTokenDayData" */
+export interface IssuanceTokenDayData_variance_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  date?: order_by | null
+  highUSD?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 /** columns and relationships of "IssuanceTokenHourData" */
 export interface IssuanceTokenHourDataGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
+  closeUSD?: boolean | number
   db_write_timestamp?: boolean | number
-  highInCol?: boolean | number
+  highUSD?: boolean | number
   id?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
   periodStartUnix?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
-  /** An object relationship */
-  token?: TokenGenqlSelection
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
   token_id?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -7835,6 +10694,17 @@ export interface IssuanceTokenHourData_aggregateGenqlSelection {
   nodes?: IssuanceTokenHourDataGenqlSelection
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+export interface IssuanceTokenHourData_aggregate_bool_exp {
+  count?: IssuanceTokenHourData_aggregate_bool_exp_count | null
+}
+
+export interface IssuanceTokenHourData_aggregate_bool_exp_count {
+  arguments?: IssuanceTokenHourData_select_column[] | null
+  distinct?: Scalars['Boolean'] | null
+  filter?: IssuanceTokenHourData_bool_exp | null
+  predicate: Int_comparison_exp
 }
 
 /** aggregate fields of "IssuanceTokenHourData" */
@@ -7862,22 +10732,60 @@ export interface IssuanceTokenHourData_aggregate_fieldsGenqlSelection {
   __scalar?: boolean | number
 }
 
+/** order by aggregate values of table "IssuanceTokenHourData" */
+export interface IssuanceTokenHourData_aggregate_order_by {
+  avg?: IssuanceTokenHourData_avg_order_by | null
+  count?: order_by | null
+  max?: IssuanceTokenHourData_max_order_by | null
+  min?: IssuanceTokenHourData_min_order_by | null
+  stddev?: IssuanceTokenHourData_stddev_order_by | null
+  stddev_pop?: IssuanceTokenHourData_stddev_pop_order_by | null
+  stddev_samp?: IssuanceTokenHourData_stddev_samp_order_by | null
+  sum?: IssuanceTokenHourData_sum_order_by | null
+  var_pop?: IssuanceTokenHourData_var_pop_order_by | null
+  var_samp?: IssuanceTokenHourData_var_samp_order_by | null
+  variance?: IssuanceTokenHourData_variance_order_by | null
+}
+
+/** input type for inserting array relation for remote table "IssuanceTokenHourData" */
+export interface IssuanceTokenHourData_arr_rel_insert_input {
+  data: IssuanceTokenHourData_insert_input[]
+  /** upsert condition */
+  on_conflict?: IssuanceTokenHourData_on_conflict | null
+}
+
 /** aggregate avg on columns */
 export interface IssuanceTokenHourData_avg_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
-  highInCol?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
+  closeUSD?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
   periodStartUnix?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** order by avg() on columns of table "IssuanceTokenHourData" */
+export interface IssuanceTokenHourData_avg_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  highUSD?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 /** Boolean expression to filter rows from the table "IssuanceTokenHourData". All fields are combined with a logical 'AND'. */
@@ -7886,99 +10794,135 @@ export interface IssuanceTokenHourData_bool_exp {
   _not?: IssuanceTokenHourData_bool_exp | null
   _or?: IssuanceTokenHourData_bool_exp[] | null
   chainId?: Int_comparison_exp | null
-  closeInCol?: numeric_comparison_exp | null
+  closeUSD?: numeric_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
-  highInCol?: numeric_comparison_exp | null
+  highUSD?: numeric_comparison_exp | null
   id?: String_comparison_exp | null
-  lowInCol?: numeric_comparison_exp | null
-  openInCol?: numeric_comparison_exp | null
+  lowUSD?: numeric_comparison_exp | null
+  openUSD?: numeric_comparison_exp | null
   periodStartUnix?: Int_comparison_exp | null
-  priceInCol?: numeric_comparison_exp | null
-  projectFeeInCol?: numeric_comparison_exp | null
-  protocolFeeInCol?: numeric_comparison_exp | null
-  protocolFeeInIssuance?: numeric_comparison_exp | null
-  token?: Token_bool_exp | null
+  priceUSD?: numeric_comparison_exp | null
+  projectFeeUSD?: numeric_comparison_exp | null
+  protocolFeeISS?: numeric_comparison_exp | null
+  protocolFeeUSD?: numeric_comparison_exp | null
   token_id?: String_comparison_exp | null
-  volumeInCol?: numeric_comparison_exp | null
-  volumeInIssuance?: numeric_comparison_exp | null
+  volumeISS?: numeric_comparison_exp | null
+  volumeUSD?: numeric_comparison_exp | null
 }
 
 /** input type for incrementing numeric columns in table "IssuanceTokenHourData" */
 export interface IssuanceTokenHourData_inc_input {
   chainId?: Scalars['Int'] | null
-  closeInCol?: Scalars['numeric'] | null
-  highInCol?: Scalars['numeric'] | null
-  lowInCol?: Scalars['numeric'] | null
-  openInCol?: Scalars['numeric'] | null
+  closeUSD?: Scalars['numeric'] | null
+  highUSD?: Scalars['numeric'] | null
+  lowUSD?: Scalars['numeric'] | null
+  openUSD?: Scalars['numeric'] | null
   periodStartUnix?: Scalars['Int'] | null
-  priceInCol?: Scalars['numeric'] | null
-  projectFeeInCol?: Scalars['numeric'] | null
-  protocolFeeInCol?: Scalars['numeric'] | null
-  protocolFeeInIssuance?: Scalars['numeric'] | null
-  volumeInCol?: Scalars['numeric'] | null
-  volumeInIssuance?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
+  projectFeeUSD?: Scalars['numeric'] | null
+  protocolFeeISS?: Scalars['numeric'] | null
+  protocolFeeUSD?: Scalars['numeric'] | null
+  volumeISS?: Scalars['numeric'] | null
+  volumeUSD?: Scalars['numeric'] | null
 }
 
 /** input type for inserting data into table "IssuanceTokenHourData" */
 export interface IssuanceTokenHourData_insert_input {
   chainId?: Scalars['Int'] | null
-  closeInCol?: Scalars['numeric'] | null
+  closeUSD?: Scalars['numeric'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
-  highInCol?: Scalars['numeric'] | null
+  highUSD?: Scalars['numeric'] | null
   id?: Scalars['String'] | null
-  lowInCol?: Scalars['numeric'] | null
-  openInCol?: Scalars['numeric'] | null
+  lowUSD?: Scalars['numeric'] | null
+  openUSD?: Scalars['numeric'] | null
   periodStartUnix?: Scalars['Int'] | null
-  priceInCol?: Scalars['numeric'] | null
-  projectFeeInCol?: Scalars['numeric'] | null
-  protocolFeeInCol?: Scalars['numeric'] | null
-  protocolFeeInIssuance?: Scalars['numeric'] | null
-  token?: Token_obj_rel_insert_input | null
+  priceUSD?: Scalars['numeric'] | null
+  projectFeeUSD?: Scalars['numeric'] | null
+  protocolFeeISS?: Scalars['numeric'] | null
+  protocolFeeUSD?: Scalars['numeric'] | null
   token_id?: Scalars['String'] | null
-  volumeInCol?: Scalars['numeric'] | null
-  volumeInIssuance?: Scalars['numeric'] | null
+  volumeISS?: Scalars['numeric'] | null
+  volumeUSD?: Scalars['numeric'] | null
 }
 
 /** aggregate max on columns */
 export interface IssuanceTokenHourData_max_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
+  closeUSD?: boolean | number
   db_write_timestamp?: boolean | number
-  highInCol?: boolean | number
+  highUSD?: boolean | number
   id?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
   periodStartUnix?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
   token_id?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** order by max() on columns of table "IssuanceTokenHourData" */
+export interface IssuanceTokenHourData_max_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  db_write_timestamp?: order_by | null
+  highUSD?: order_by | null
+  id?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  token_id?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 /** aggregate min on columns */
 export interface IssuanceTokenHourData_min_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
+  closeUSD?: boolean | number
   db_write_timestamp?: boolean | number
-  highInCol?: boolean | number
+  highUSD?: boolean | number
   id?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
   periodStartUnix?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
   token_id?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** order by min() on columns of table "IssuanceTokenHourData" */
+export interface IssuanceTokenHourData_min_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  db_write_timestamp?: order_by | null
+  highUSD?: order_by | null
+  id?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  token_id?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 /** response of any mutation on the table "IssuanceTokenHourData" */
@@ -8001,21 +10945,20 @@ export interface IssuanceTokenHourData_on_conflict {
 /** Ordering options when selecting data from "IssuanceTokenHourData". */
 export interface IssuanceTokenHourData_order_by {
   chainId?: order_by | null
-  closeInCol?: order_by | null
+  closeUSD?: order_by | null
   db_write_timestamp?: order_by | null
-  highInCol?: order_by | null
+  highUSD?: order_by | null
   id?: order_by | null
-  lowInCol?: order_by | null
-  openInCol?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
   periodStartUnix?: order_by | null
-  priceInCol?: order_by | null
-  projectFeeInCol?: order_by | null
-  protocolFeeInCol?: order_by | null
-  protocolFeeInIssuance?: order_by | null
-  token?: Token_order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
   token_id?: order_by | null
-  volumeInCol?: order_by | null
-  volumeInIssuance?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 /** primary key columns input for table: IssuanceTokenHourData */
@@ -8026,74 +10969,122 @@ export interface IssuanceTokenHourData_pk_columns_input {
 /** input type for updating data in table "IssuanceTokenHourData" */
 export interface IssuanceTokenHourData_set_input {
   chainId?: Scalars['Int'] | null
-  closeInCol?: Scalars['numeric'] | null
+  closeUSD?: Scalars['numeric'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
-  highInCol?: Scalars['numeric'] | null
+  highUSD?: Scalars['numeric'] | null
   id?: Scalars['String'] | null
-  lowInCol?: Scalars['numeric'] | null
-  openInCol?: Scalars['numeric'] | null
+  lowUSD?: Scalars['numeric'] | null
+  openUSD?: Scalars['numeric'] | null
   periodStartUnix?: Scalars['Int'] | null
-  priceInCol?: Scalars['numeric'] | null
-  projectFeeInCol?: Scalars['numeric'] | null
-  protocolFeeInCol?: Scalars['numeric'] | null
-  protocolFeeInIssuance?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
+  projectFeeUSD?: Scalars['numeric'] | null
+  protocolFeeISS?: Scalars['numeric'] | null
+  protocolFeeUSD?: Scalars['numeric'] | null
   token_id?: Scalars['String'] | null
-  volumeInCol?: Scalars['numeric'] | null
-  volumeInIssuance?: Scalars['numeric'] | null
+  volumeISS?: Scalars['numeric'] | null
+  volumeUSD?: Scalars['numeric'] | null
 }
 
 /** aggregate stddev on columns */
 export interface IssuanceTokenHourData_stddev_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
-  highInCol?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
+  closeUSD?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
   periodStartUnix?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** order by stddev() on columns of table "IssuanceTokenHourData" */
+export interface IssuanceTokenHourData_stddev_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  highUSD?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 /** aggregate stddev_pop on columns */
 export interface IssuanceTokenHourData_stddev_pop_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
-  highInCol?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
+  closeUSD?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
   periodStartUnix?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** order by stddev_pop() on columns of table "IssuanceTokenHourData" */
+export interface IssuanceTokenHourData_stddev_pop_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  highUSD?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 /** aggregate stddev_samp on columns */
 export interface IssuanceTokenHourData_stddev_samp_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
-  highInCol?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
+  closeUSD?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
   periodStartUnix?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** order by stddev_samp() on columns of table "IssuanceTokenHourData" */
+export interface IssuanceTokenHourData_stddev_samp_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  highUSD?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 /** Streaming cursor of the table "IssuanceTokenHourData" */
@@ -8107,38 +11098,54 @@ export interface IssuanceTokenHourData_stream_cursor_input {
 /** Initial value of the column from where the streaming should start */
 export interface IssuanceTokenHourData_stream_cursor_value_input {
   chainId?: Scalars['Int'] | null
-  closeInCol?: Scalars['numeric'] | null
+  closeUSD?: Scalars['numeric'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
-  highInCol?: Scalars['numeric'] | null
+  highUSD?: Scalars['numeric'] | null
   id?: Scalars['String'] | null
-  lowInCol?: Scalars['numeric'] | null
-  openInCol?: Scalars['numeric'] | null
+  lowUSD?: Scalars['numeric'] | null
+  openUSD?: Scalars['numeric'] | null
   periodStartUnix?: Scalars['Int'] | null
-  priceInCol?: Scalars['numeric'] | null
-  projectFeeInCol?: Scalars['numeric'] | null
-  protocolFeeInCol?: Scalars['numeric'] | null
-  protocolFeeInIssuance?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
+  projectFeeUSD?: Scalars['numeric'] | null
+  protocolFeeISS?: Scalars['numeric'] | null
+  protocolFeeUSD?: Scalars['numeric'] | null
   token_id?: Scalars['String'] | null
-  volumeInCol?: Scalars['numeric'] | null
-  volumeInIssuance?: Scalars['numeric'] | null
+  volumeISS?: Scalars['numeric'] | null
+  volumeUSD?: Scalars['numeric'] | null
 }
 
 /** aggregate sum on columns */
 export interface IssuanceTokenHourData_sum_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
-  highInCol?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
+  closeUSD?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
   periodStartUnix?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** order by sum() on columns of table "IssuanceTokenHourData" */
+export interface IssuanceTokenHourData_sum_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  highUSD?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 export interface IssuanceTokenHourData_updates {
@@ -8153,60 +11160,108 @@ export interface IssuanceTokenHourData_updates {
 /** aggregate var_pop on columns */
 export interface IssuanceTokenHourData_var_pop_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
-  highInCol?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
+  closeUSD?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
   periodStartUnix?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** order by var_pop() on columns of table "IssuanceTokenHourData" */
+export interface IssuanceTokenHourData_var_pop_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  highUSD?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 /** aggregate var_samp on columns */
 export interface IssuanceTokenHourData_var_samp_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
-  highInCol?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
+  closeUSD?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
   periodStartUnix?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** order by var_samp() on columns of table "IssuanceTokenHourData" */
+export interface IssuanceTokenHourData_var_samp_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  highUSD?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
 }
 
 /** aggregate variance on columns */
 export interface IssuanceTokenHourData_variance_fieldsGenqlSelection {
   chainId?: boolean | number
-  closeInCol?: boolean | number
-  highInCol?: boolean | number
-  lowInCol?: boolean | number
-  openInCol?: boolean | number
+  closeUSD?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
   periodStartUnix?: boolean | number
-  priceInCol?: boolean | number
-  projectFeeInCol?: boolean | number
-  protocolFeeInCol?: boolean | number
-  protocolFeeInIssuance?: boolean | number
-  volumeInCol?: boolean | number
-  volumeInIssuance?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
 
+/** order by variance() on columns of table "IssuanceTokenHourData" */
+export interface IssuanceTokenHourData_variance_order_by {
+  chainId?: order_by | null
+  closeUSD?: order_by | null
+  highUSD?: order_by | null
+  lowUSD?: order_by | null
+  openUSD?: order_by | null
+  periodStartUnix?: order_by | null
+  priceUSD?: order_by | null
+  projectFeeUSD?: order_by | null
+  protocolFeeISS?: order_by | null
+  protocolFeeUSD?: order_by | null
+  volumeISS?: order_by | null
+  volumeUSD?: order_by | null
+}
+
 /** columns and relationships of "LinearVesting" */
 export interface LinearVestingGenqlSelection {
-  amountRaw?: boolean | number
+  amount?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
   cliff?: boolean | number
@@ -8219,7 +11274,9 @@ export interface LinearVestingGenqlSelection {
   /** An object relationship */
   streamingPaymentProcessor?: StreamingPaymentProcessorGenqlSelection
   streamingPaymentProcessor_id?: boolean | number
-  token?: boolean | number
+  /** An object relationship */
+  token?: TokenGenqlSelection
+  token_id?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -8292,7 +11349,7 @@ export interface LinearVesting_arr_rel_insert_input {
 
 /** aggregate avg on columns */
 export interface LinearVesting_avg_fieldsGenqlSelection {
-  amountRaw?: boolean | number
+  amount?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
   cliff?: boolean | number
@@ -8304,7 +11361,7 @@ export interface LinearVesting_avg_fieldsGenqlSelection {
 
 /** order by avg() on columns of table "LinearVesting" */
 export interface LinearVesting_avg_order_by {
-  amountRaw?: order_by | null
+  amount?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
@@ -8317,7 +11374,7 @@ export interface LinearVesting_bool_exp {
   _and?: LinearVesting_bool_exp[] | null
   _not?: LinearVesting_bool_exp | null
   _or?: LinearVesting_bool_exp[] | null
-  amountRaw?: numeric_comparison_exp | null
+  amount?: numeric_comparison_exp | null
   blockTimestamp?: Int_comparison_exp | null
   chainId?: Int_comparison_exp | null
   cliff?: numeric_comparison_exp | null
@@ -8329,12 +11386,13 @@ export interface LinearVesting_bool_exp {
   status?: vestingstatus_comparison_exp | null
   streamingPaymentProcessor?: StreamingPaymentProcessor_bool_exp | null
   streamingPaymentProcessor_id?: String_comparison_exp | null
-  token?: String_comparison_exp | null
+  token?: Token_bool_exp | null
+  token_id?: String_comparison_exp | null
 }
 
 /** input type for incrementing numeric columns in table "LinearVesting" */
 export interface LinearVesting_inc_input {
-  amountRaw?: Scalars['numeric'] | null
+  amount?: Scalars['numeric'] | null
   blockTimestamp?: Scalars['Int'] | null
   chainId?: Scalars['Int'] | null
   cliff?: Scalars['numeric'] | null
@@ -8344,7 +11402,7 @@ export interface LinearVesting_inc_input {
 
 /** input type for inserting data into table "LinearVesting" */
 export interface LinearVesting_insert_input {
-  amountRaw?: Scalars['numeric'] | null
+  amount?: Scalars['numeric'] | null
   blockTimestamp?: Scalars['Int'] | null
   chainId?: Scalars['Int'] | null
   cliff?: Scalars['numeric'] | null
@@ -8356,12 +11414,13 @@ export interface LinearVesting_insert_input {
   status?: Scalars['vestingstatus'] | null
   streamingPaymentProcessor?: StreamingPaymentProcessor_obj_rel_insert_input | null
   streamingPaymentProcessor_id?: Scalars['String'] | null
-  token?: Scalars['String'] | null
+  token?: Token_obj_rel_insert_input | null
+  token_id?: Scalars['String'] | null
 }
 
 /** aggregate max on columns */
 export interface LinearVesting_max_fieldsGenqlSelection {
-  amountRaw?: boolean | number
+  amount?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
   cliff?: boolean | number
@@ -8372,14 +11431,14 @@ export interface LinearVesting_max_fieldsGenqlSelection {
   start?: boolean | number
   status?: boolean | number
   streamingPaymentProcessor_id?: boolean | number
-  token?: boolean | number
+  token_id?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
 
 /** order by max() on columns of table "LinearVesting" */
 export interface LinearVesting_max_order_by {
-  amountRaw?: order_by | null
+  amount?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
@@ -8390,12 +11449,12 @@ export interface LinearVesting_max_order_by {
   start?: order_by | null
   status?: order_by | null
   streamingPaymentProcessor_id?: order_by | null
-  token?: order_by | null
+  token_id?: order_by | null
 }
 
 /** aggregate min on columns */
 export interface LinearVesting_min_fieldsGenqlSelection {
-  amountRaw?: boolean | number
+  amount?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
   cliff?: boolean | number
@@ -8406,14 +11465,14 @@ export interface LinearVesting_min_fieldsGenqlSelection {
   start?: boolean | number
   status?: boolean | number
   streamingPaymentProcessor_id?: boolean | number
-  token?: boolean | number
+  token_id?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
 
 /** order by min() on columns of table "LinearVesting" */
 export interface LinearVesting_min_order_by {
-  amountRaw?: order_by | null
+  amount?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
@@ -8424,7 +11483,7 @@ export interface LinearVesting_min_order_by {
   start?: order_by | null
   status?: order_by | null
   streamingPaymentProcessor_id?: order_by | null
-  token?: order_by | null
+  token_id?: order_by | null
 }
 
 /** response of any mutation on the table "LinearVesting" */
@@ -8446,7 +11505,7 @@ export interface LinearVesting_on_conflict {
 
 /** Ordering options when selecting data from "LinearVesting". */
 export interface LinearVesting_order_by {
-  amountRaw?: order_by | null
+  amount?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
@@ -8458,7 +11517,8 @@ export interface LinearVesting_order_by {
   status?: order_by | null
   streamingPaymentProcessor?: StreamingPaymentProcessor_order_by | null
   streamingPaymentProcessor_id?: order_by | null
-  token?: order_by | null
+  token?: Token_order_by | null
+  token_id?: order_by | null
 }
 
 /** primary key columns input for table: LinearVesting */
@@ -8468,7 +11528,7 @@ export interface LinearVesting_pk_columns_input {
 
 /** input type for updating data in table "LinearVesting" */
 export interface LinearVesting_set_input {
-  amountRaw?: Scalars['numeric'] | null
+  amount?: Scalars['numeric'] | null
   blockTimestamp?: Scalars['Int'] | null
   chainId?: Scalars['Int'] | null
   cliff?: Scalars['numeric'] | null
@@ -8479,12 +11539,12 @@ export interface LinearVesting_set_input {
   start?: Scalars['numeric'] | null
   status?: Scalars['vestingstatus'] | null
   streamingPaymentProcessor_id?: Scalars['String'] | null
-  token?: Scalars['String'] | null
+  token_id?: Scalars['String'] | null
 }
 
 /** aggregate stddev on columns */
 export interface LinearVesting_stddev_fieldsGenqlSelection {
-  amountRaw?: boolean | number
+  amount?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
   cliff?: boolean | number
@@ -8496,7 +11556,7 @@ export interface LinearVesting_stddev_fieldsGenqlSelection {
 
 /** order by stddev() on columns of table "LinearVesting" */
 export interface LinearVesting_stddev_order_by {
-  amountRaw?: order_by | null
+  amount?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
@@ -8506,7 +11566,7 @@ export interface LinearVesting_stddev_order_by {
 
 /** aggregate stddev_pop on columns */
 export interface LinearVesting_stddev_pop_fieldsGenqlSelection {
-  amountRaw?: boolean | number
+  amount?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
   cliff?: boolean | number
@@ -8518,7 +11578,7 @@ export interface LinearVesting_stddev_pop_fieldsGenqlSelection {
 
 /** order by stddev_pop() on columns of table "LinearVesting" */
 export interface LinearVesting_stddev_pop_order_by {
-  amountRaw?: order_by | null
+  amount?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
@@ -8528,7 +11588,7 @@ export interface LinearVesting_stddev_pop_order_by {
 
 /** aggregate stddev_samp on columns */
 export interface LinearVesting_stddev_samp_fieldsGenqlSelection {
-  amountRaw?: boolean | number
+  amount?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
   cliff?: boolean | number
@@ -8540,7 +11600,7 @@ export interface LinearVesting_stddev_samp_fieldsGenqlSelection {
 
 /** order by stddev_samp() on columns of table "LinearVesting" */
 export interface LinearVesting_stddev_samp_order_by {
-  amountRaw?: order_by | null
+  amount?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
@@ -8558,7 +11618,7 @@ export interface LinearVesting_stream_cursor_input {
 
 /** Initial value of the column from where the streaming should start */
 export interface LinearVesting_stream_cursor_value_input {
-  amountRaw?: Scalars['numeric'] | null
+  amount?: Scalars['numeric'] | null
   blockTimestamp?: Scalars['Int'] | null
   chainId?: Scalars['Int'] | null
   cliff?: Scalars['numeric'] | null
@@ -8569,12 +11629,12 @@ export interface LinearVesting_stream_cursor_value_input {
   start?: Scalars['numeric'] | null
   status?: Scalars['vestingstatus'] | null
   streamingPaymentProcessor_id?: Scalars['String'] | null
-  token?: Scalars['String'] | null
+  token_id?: Scalars['String'] | null
 }
 
 /** aggregate sum on columns */
 export interface LinearVesting_sum_fieldsGenqlSelection {
-  amountRaw?: boolean | number
+  amount?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
   cliff?: boolean | number
@@ -8586,7 +11646,7 @@ export interface LinearVesting_sum_fieldsGenqlSelection {
 
 /** order by sum() on columns of table "LinearVesting" */
 export interface LinearVesting_sum_order_by {
-  amountRaw?: order_by | null
+  amount?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
@@ -8605,7 +11665,7 @@ export interface LinearVesting_updates {
 
 /** aggregate var_pop on columns */
 export interface LinearVesting_var_pop_fieldsGenqlSelection {
-  amountRaw?: boolean | number
+  amount?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
   cliff?: boolean | number
@@ -8617,7 +11677,7 @@ export interface LinearVesting_var_pop_fieldsGenqlSelection {
 
 /** order by var_pop() on columns of table "LinearVesting" */
 export interface LinearVesting_var_pop_order_by {
-  amountRaw?: order_by | null
+  amount?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
@@ -8627,7 +11687,7 @@ export interface LinearVesting_var_pop_order_by {
 
 /** aggregate var_samp on columns */
 export interface LinearVesting_var_samp_fieldsGenqlSelection {
-  amountRaw?: boolean | number
+  amount?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
   cliff?: boolean | number
@@ -8639,7 +11699,7 @@ export interface LinearVesting_var_samp_fieldsGenqlSelection {
 
 /** order by var_samp() on columns of table "LinearVesting" */
 export interface LinearVesting_var_samp_order_by {
-  amountRaw?: order_by | null
+  amount?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
@@ -8649,7 +11709,7 @@ export interface LinearVesting_var_samp_order_by {
 
 /** aggregate variance on columns */
 export interface LinearVesting_variance_fieldsGenqlSelection {
-  amountRaw?: boolean | number
+  amount?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
   cliff?: boolean | number
@@ -8661,7 +11721,7 @@ export interface LinearVesting_variance_fieldsGenqlSelection {
 
 /** order by variance() on columns of table "LinearVesting" */
 export interface LinearVesting_variance_order_by {
-  amountRaw?: order_by | null
+  amount?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
@@ -8672,14 +11732,16 @@ export interface LinearVesting_variance_order_by {
 /** columns and relationships of "ProjectFee" */
 export interface ProjectFeeGenqlSelection {
   amount?: boolean | number
+  amountUSD?: boolean | number
   blockTimestamp?: boolean | number
-  /** An object relationship */
-  bondingCurve?: BondingCurveGenqlSelection
-  bondingCurve_id?: boolean | number
   chainId?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
+  module_id?: boolean | number
   recipient?: boolean | number
+  /** An object relationship */
+  token?: TokenGenqlSelection
+  token_id?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -8753,6 +11815,7 @@ export interface ProjectFee_arr_rel_insert_input {
 /** aggregate avg on columns */
 export interface ProjectFee_avg_fieldsGenqlSelection {
   amount?: boolean | number
+  amountUSD?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
   __typename?: boolean | number
@@ -8762,6 +11825,7 @@ export interface ProjectFee_avg_fieldsGenqlSelection {
 /** order by avg() on columns of table "ProjectFee" */
 export interface ProjectFee_avg_order_by {
   amount?: order_by | null
+  amountUSD?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
 }
@@ -8772,18 +11836,21 @@ export interface ProjectFee_bool_exp {
   _not?: ProjectFee_bool_exp | null
   _or?: ProjectFee_bool_exp[] | null
   amount?: numeric_comparison_exp | null
+  amountUSD?: numeric_comparison_exp | null
   blockTimestamp?: Int_comparison_exp | null
-  bondingCurve?: BondingCurve_bool_exp | null
-  bondingCurve_id?: String_comparison_exp | null
   chainId?: Int_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   id?: String_comparison_exp | null
+  module_id?: String_comparison_exp | null
   recipient?: String_comparison_exp | null
+  token?: Token_bool_exp | null
+  token_id?: String_comparison_exp | null
 }
 
 /** input type for incrementing numeric columns in table "ProjectFee" */
 export interface ProjectFee_inc_input {
   amount?: Scalars['numeric'] | null
+  amountUSD?: Scalars['numeric'] | null
   blockTimestamp?: Scalars['Int'] | null
   chainId?: Scalars['Int'] | null
 }
@@ -8791,24 +11858,28 @@ export interface ProjectFee_inc_input {
 /** input type for inserting data into table "ProjectFee" */
 export interface ProjectFee_insert_input {
   amount?: Scalars['numeric'] | null
+  amountUSD?: Scalars['numeric'] | null
   blockTimestamp?: Scalars['Int'] | null
-  bondingCurve?: BondingCurve_obj_rel_insert_input | null
-  bondingCurve_id?: Scalars['String'] | null
   chainId?: Scalars['Int'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
+  module_id?: Scalars['String'] | null
   recipient?: Scalars['String'] | null
+  token?: Token_obj_rel_insert_input | null
+  token_id?: Scalars['String'] | null
 }
 
 /** aggregate max on columns */
 export interface ProjectFee_max_fieldsGenqlSelection {
   amount?: boolean | number
+  amountUSD?: boolean | number
   blockTimestamp?: boolean | number
-  bondingCurve_id?: boolean | number
   chainId?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
+  module_id?: boolean | number
   recipient?: boolean | number
+  token_id?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -8816,23 +11887,27 @@ export interface ProjectFee_max_fieldsGenqlSelection {
 /** order by max() on columns of table "ProjectFee" */
 export interface ProjectFee_max_order_by {
   amount?: order_by | null
+  amountUSD?: order_by | null
   blockTimestamp?: order_by | null
-  bondingCurve_id?: order_by | null
   chainId?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
+  module_id?: order_by | null
   recipient?: order_by | null
+  token_id?: order_by | null
 }
 
 /** aggregate min on columns */
 export interface ProjectFee_min_fieldsGenqlSelection {
   amount?: boolean | number
+  amountUSD?: boolean | number
   blockTimestamp?: boolean | number
-  bondingCurve_id?: boolean | number
   chainId?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
+  module_id?: boolean | number
   recipient?: boolean | number
+  token_id?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -8840,12 +11915,14 @@ export interface ProjectFee_min_fieldsGenqlSelection {
 /** order by min() on columns of table "ProjectFee" */
 export interface ProjectFee_min_order_by {
   amount?: order_by | null
+  amountUSD?: order_by | null
   blockTimestamp?: order_by | null
-  bondingCurve_id?: order_by | null
   chainId?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
+  module_id?: order_by | null
   recipient?: order_by | null
+  token_id?: order_by | null
 }
 
 /** response of any mutation on the table "ProjectFee" */
@@ -8868,13 +11945,15 @@ export interface ProjectFee_on_conflict {
 /** Ordering options when selecting data from "ProjectFee". */
 export interface ProjectFee_order_by {
   amount?: order_by | null
+  amountUSD?: order_by | null
   blockTimestamp?: order_by | null
-  bondingCurve?: BondingCurve_order_by | null
-  bondingCurve_id?: order_by | null
   chainId?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
+  module_id?: order_by | null
   recipient?: order_by | null
+  token?: Token_order_by | null
+  token_id?: order_by | null
 }
 
 /** primary key columns input for table: ProjectFee */
@@ -8885,17 +11964,20 @@ export interface ProjectFee_pk_columns_input {
 /** input type for updating data in table "ProjectFee" */
 export interface ProjectFee_set_input {
   amount?: Scalars['numeric'] | null
+  amountUSD?: Scalars['numeric'] | null
   blockTimestamp?: Scalars['Int'] | null
-  bondingCurve_id?: Scalars['String'] | null
   chainId?: Scalars['Int'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
+  module_id?: Scalars['String'] | null
   recipient?: Scalars['String'] | null
+  token_id?: Scalars['String'] | null
 }
 
 /** aggregate stddev on columns */
 export interface ProjectFee_stddev_fieldsGenqlSelection {
   amount?: boolean | number
+  amountUSD?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
   __typename?: boolean | number
@@ -8905,6 +11987,7 @@ export interface ProjectFee_stddev_fieldsGenqlSelection {
 /** order by stddev() on columns of table "ProjectFee" */
 export interface ProjectFee_stddev_order_by {
   amount?: order_by | null
+  amountUSD?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
 }
@@ -8912,6 +11995,7 @@ export interface ProjectFee_stddev_order_by {
 /** aggregate stddev_pop on columns */
 export interface ProjectFee_stddev_pop_fieldsGenqlSelection {
   amount?: boolean | number
+  amountUSD?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
   __typename?: boolean | number
@@ -8921,6 +12005,7 @@ export interface ProjectFee_stddev_pop_fieldsGenqlSelection {
 /** order by stddev_pop() on columns of table "ProjectFee" */
 export interface ProjectFee_stddev_pop_order_by {
   amount?: order_by | null
+  amountUSD?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
 }
@@ -8928,6 +12013,7 @@ export interface ProjectFee_stddev_pop_order_by {
 /** aggregate stddev_samp on columns */
 export interface ProjectFee_stddev_samp_fieldsGenqlSelection {
   amount?: boolean | number
+  amountUSD?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
   __typename?: boolean | number
@@ -8937,6 +12023,7 @@ export interface ProjectFee_stddev_samp_fieldsGenqlSelection {
 /** order by stddev_samp() on columns of table "ProjectFee" */
 export interface ProjectFee_stddev_samp_order_by {
   amount?: order_by | null
+  amountUSD?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
 }
@@ -8952,17 +12039,20 @@ export interface ProjectFee_stream_cursor_input {
 /** Initial value of the column from where the streaming should start */
 export interface ProjectFee_stream_cursor_value_input {
   amount?: Scalars['numeric'] | null
+  amountUSD?: Scalars['numeric'] | null
   blockTimestamp?: Scalars['Int'] | null
-  bondingCurve_id?: Scalars['String'] | null
   chainId?: Scalars['Int'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
+  module_id?: Scalars['String'] | null
   recipient?: Scalars['String'] | null
+  token_id?: Scalars['String'] | null
 }
 
 /** aggregate sum on columns */
 export interface ProjectFee_sum_fieldsGenqlSelection {
   amount?: boolean | number
+  amountUSD?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
   __typename?: boolean | number
@@ -8972,6 +12062,7 @@ export interface ProjectFee_sum_fieldsGenqlSelection {
 /** order by sum() on columns of table "ProjectFee" */
 export interface ProjectFee_sum_order_by {
   amount?: order_by | null
+  amountUSD?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
 }
@@ -8988,6 +12079,7 @@ export interface ProjectFee_updates {
 /** aggregate var_pop on columns */
 export interface ProjectFee_var_pop_fieldsGenqlSelection {
   amount?: boolean | number
+  amountUSD?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
   __typename?: boolean | number
@@ -8997,6 +12089,7 @@ export interface ProjectFee_var_pop_fieldsGenqlSelection {
 /** order by var_pop() on columns of table "ProjectFee" */
 export interface ProjectFee_var_pop_order_by {
   amount?: order_by | null
+  amountUSD?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
 }
@@ -9004,6 +12097,7 @@ export interface ProjectFee_var_pop_order_by {
 /** aggregate var_samp on columns */
 export interface ProjectFee_var_samp_fieldsGenqlSelection {
   amount?: boolean | number
+  amountUSD?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
   __typename?: boolean | number
@@ -9013,6 +12107,7 @@ export interface ProjectFee_var_samp_fieldsGenqlSelection {
 /** order by var_samp() on columns of table "ProjectFee" */
 export interface ProjectFee_var_samp_order_by {
   amount?: order_by | null
+  amountUSD?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
 }
@@ -9020,6 +12115,7 @@ export interface ProjectFee_var_samp_order_by {
 /** aggregate variance on columns */
 export interface ProjectFee_variance_fieldsGenqlSelection {
   amount?: boolean | number
+  amountUSD?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
   __typename?: boolean | number
@@ -9029,6 +12125,7 @@ export interface ProjectFee_variance_fieldsGenqlSelection {
 /** order by variance() on columns of table "ProjectFee" */
 export interface ProjectFee_variance_order_by {
   amount?: order_by | null
+  amountUSD?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
 }
@@ -9036,12 +12133,12 @@ export interface ProjectFee_variance_order_by {
 /** columns and relationships of "ProtocolFee" */
 export interface ProtocolFeeGenqlSelection {
   amount?: boolean | number
-  /** An object relationship */
-  bondingCurve?: BondingCurveGenqlSelection
-  bondingCurve_id?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
   chainId?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
+  module_id?: boolean | number
   source?: boolean | number
   /** An object relationship */
   token?: TokenGenqlSelection
@@ -9120,6 +12217,8 @@ export interface ProtocolFee_arr_rel_insert_input {
 /** aggregate avg on columns */
 export interface ProtocolFee_avg_fieldsGenqlSelection {
   amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
   chainId?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -9128,6 +12227,8 @@ export interface ProtocolFee_avg_fieldsGenqlSelection {
 /** order by avg() on columns of table "ProtocolFee" */
 export interface ProtocolFee_avg_order_by {
   amount?: order_by | null
+  amountUSD?: order_by | null
+  blockTimestamp?: order_by | null
   chainId?: order_by | null
 }
 
@@ -9137,11 +12238,12 @@ export interface ProtocolFee_bool_exp {
   _not?: ProtocolFee_bool_exp | null
   _or?: ProtocolFee_bool_exp[] | null
   amount?: numeric_comparison_exp | null
-  bondingCurve?: BondingCurve_bool_exp | null
-  bondingCurve_id?: String_comparison_exp | null
+  amountUSD?: numeric_comparison_exp | null
+  blockTimestamp?: Int_comparison_exp | null
   chainId?: Int_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   id?: String_comparison_exp | null
+  module_id?: String_comparison_exp | null
   source?: feesource_comparison_exp | null
   token?: Token_bool_exp | null
   token_id?: String_comparison_exp | null
@@ -9151,17 +12253,20 @@ export interface ProtocolFee_bool_exp {
 /** input type for incrementing numeric columns in table "ProtocolFee" */
 export interface ProtocolFee_inc_input {
   amount?: Scalars['numeric'] | null
+  amountUSD?: Scalars['numeric'] | null
+  blockTimestamp?: Scalars['Int'] | null
   chainId?: Scalars['Int'] | null
 }
 
 /** input type for inserting data into table "ProtocolFee" */
 export interface ProtocolFee_insert_input {
   amount?: Scalars['numeric'] | null
-  bondingCurve?: BondingCurve_obj_rel_insert_input | null
-  bondingCurve_id?: Scalars['String'] | null
+  amountUSD?: Scalars['numeric'] | null
+  blockTimestamp?: Scalars['Int'] | null
   chainId?: Scalars['Int'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
+  module_id?: Scalars['String'] | null
   source?: Scalars['feesource'] | null
   token?: Token_obj_rel_insert_input | null
   token_id?: Scalars['String'] | null
@@ -9171,10 +12276,12 @@ export interface ProtocolFee_insert_input {
 /** aggregate max on columns */
 export interface ProtocolFee_max_fieldsGenqlSelection {
   amount?: boolean | number
-  bondingCurve_id?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
   chainId?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
+  module_id?: boolean | number
   source?: boolean | number
   token_id?: boolean | number
   treasury?: boolean | number
@@ -9185,10 +12292,12 @@ export interface ProtocolFee_max_fieldsGenqlSelection {
 /** order by max() on columns of table "ProtocolFee" */
 export interface ProtocolFee_max_order_by {
   amount?: order_by | null
-  bondingCurve_id?: order_by | null
+  amountUSD?: order_by | null
+  blockTimestamp?: order_by | null
   chainId?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
+  module_id?: order_by | null
   source?: order_by | null
   token_id?: order_by | null
   treasury?: order_by | null
@@ -9197,10 +12306,12 @@ export interface ProtocolFee_max_order_by {
 /** aggregate min on columns */
 export interface ProtocolFee_min_fieldsGenqlSelection {
   amount?: boolean | number
-  bondingCurve_id?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
   chainId?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
+  module_id?: boolean | number
   source?: boolean | number
   token_id?: boolean | number
   treasury?: boolean | number
@@ -9211,10 +12322,12 @@ export interface ProtocolFee_min_fieldsGenqlSelection {
 /** order by min() on columns of table "ProtocolFee" */
 export interface ProtocolFee_min_order_by {
   amount?: order_by | null
-  bondingCurve_id?: order_by | null
+  amountUSD?: order_by | null
+  blockTimestamp?: order_by | null
   chainId?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
+  module_id?: order_by | null
   source?: order_by | null
   token_id?: order_by | null
   treasury?: order_by | null
@@ -9240,11 +12353,12 @@ export interface ProtocolFee_on_conflict {
 /** Ordering options when selecting data from "ProtocolFee". */
 export interface ProtocolFee_order_by {
   amount?: order_by | null
-  bondingCurve?: BondingCurve_order_by | null
-  bondingCurve_id?: order_by | null
+  amountUSD?: order_by | null
+  blockTimestamp?: order_by | null
   chainId?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
+  module_id?: order_by | null
   source?: order_by | null
   token?: Token_order_by | null
   token_id?: order_by | null
@@ -9259,10 +12373,12 @@ export interface ProtocolFee_pk_columns_input {
 /** input type for updating data in table "ProtocolFee" */
 export interface ProtocolFee_set_input {
   amount?: Scalars['numeric'] | null
-  bondingCurve_id?: Scalars['String'] | null
+  amountUSD?: Scalars['numeric'] | null
+  blockTimestamp?: Scalars['Int'] | null
   chainId?: Scalars['Int'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
+  module_id?: Scalars['String'] | null
   source?: Scalars['feesource'] | null
   token_id?: Scalars['String'] | null
   treasury?: Scalars['String'] | null
@@ -9271,6 +12387,8 @@ export interface ProtocolFee_set_input {
 /** aggregate stddev on columns */
 export interface ProtocolFee_stddev_fieldsGenqlSelection {
   amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
   chainId?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -9279,12 +12397,16 @@ export interface ProtocolFee_stddev_fieldsGenqlSelection {
 /** order by stddev() on columns of table "ProtocolFee" */
 export interface ProtocolFee_stddev_order_by {
   amount?: order_by | null
+  amountUSD?: order_by | null
+  blockTimestamp?: order_by | null
   chainId?: order_by | null
 }
 
 /** aggregate stddev_pop on columns */
 export interface ProtocolFee_stddev_pop_fieldsGenqlSelection {
   amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
   chainId?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -9293,12 +12415,16 @@ export interface ProtocolFee_stddev_pop_fieldsGenqlSelection {
 /** order by stddev_pop() on columns of table "ProtocolFee" */
 export interface ProtocolFee_stddev_pop_order_by {
   amount?: order_by | null
+  amountUSD?: order_by | null
+  blockTimestamp?: order_by | null
   chainId?: order_by | null
 }
 
 /** aggregate stddev_samp on columns */
 export interface ProtocolFee_stddev_samp_fieldsGenqlSelection {
   amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
   chainId?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -9307,6 +12433,8 @@ export interface ProtocolFee_stddev_samp_fieldsGenqlSelection {
 /** order by stddev_samp() on columns of table "ProtocolFee" */
 export interface ProtocolFee_stddev_samp_order_by {
   amount?: order_by | null
+  amountUSD?: order_by | null
+  blockTimestamp?: order_by | null
   chainId?: order_by | null
 }
 
@@ -9321,10 +12449,12 @@ export interface ProtocolFee_stream_cursor_input {
 /** Initial value of the column from where the streaming should start */
 export interface ProtocolFee_stream_cursor_value_input {
   amount?: Scalars['numeric'] | null
-  bondingCurve_id?: Scalars['String'] | null
+  amountUSD?: Scalars['numeric'] | null
+  blockTimestamp?: Scalars['Int'] | null
   chainId?: Scalars['Int'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
+  module_id?: Scalars['String'] | null
   source?: Scalars['feesource'] | null
   token_id?: Scalars['String'] | null
   treasury?: Scalars['String'] | null
@@ -9333,6 +12463,8 @@ export interface ProtocolFee_stream_cursor_value_input {
 /** aggregate sum on columns */
 export interface ProtocolFee_sum_fieldsGenqlSelection {
   amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
   chainId?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -9341,6 +12473,8 @@ export interface ProtocolFee_sum_fieldsGenqlSelection {
 /** order by sum() on columns of table "ProtocolFee" */
 export interface ProtocolFee_sum_order_by {
   amount?: order_by | null
+  amountUSD?: order_by | null
+  blockTimestamp?: order_by | null
   chainId?: order_by | null
 }
 
@@ -9356,6 +12490,8 @@ export interface ProtocolFee_updates {
 /** aggregate var_pop on columns */
 export interface ProtocolFee_var_pop_fieldsGenqlSelection {
   amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
   chainId?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -9364,12 +12500,16 @@ export interface ProtocolFee_var_pop_fieldsGenqlSelection {
 /** order by var_pop() on columns of table "ProtocolFee" */
 export interface ProtocolFee_var_pop_order_by {
   amount?: order_by | null
+  amountUSD?: order_by | null
+  blockTimestamp?: order_by | null
   chainId?: order_by | null
 }
 
 /** aggregate var_samp on columns */
 export interface ProtocolFee_var_samp_fieldsGenqlSelection {
   amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
   chainId?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -9378,12 +12518,16 @@ export interface ProtocolFee_var_samp_fieldsGenqlSelection {
 /** order by var_samp() on columns of table "ProtocolFee" */
 export interface ProtocolFee_var_samp_order_by {
   amount?: order_by | null
+  amountUSD?: order_by | null
+  blockTimestamp?: order_by | null
   chainId?: order_by | null
 }
 
 /** aggregate variance on columns */
 export interface ProtocolFee_variance_fieldsGenqlSelection {
   amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
   chainId?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -9392,6 +12536,8 @@ export interface ProtocolFee_variance_fieldsGenqlSelection {
 /** order by variance() on columns of table "ProtocolFee" */
 export interface ProtocolFee_variance_order_by {
   amount?: order_by | null
+  amountUSD?: order_by | null
+  blockTimestamp?: order_by | null
   chainId?: order_by | null
 }
 
@@ -9699,23 +12845,22 @@ export interface String_comparison_exp {
 
 /** columns and relationships of "Swap" */
 export interface SwapGenqlSelection {
+  amountCOL?: boolean | number
+  amountISS?: boolean | number
   blockTimestamp?: boolean | number
-  /** An object relationship */
-  bondingCurve?: BondingCurveGenqlSelection
-  bondingCurve_id?: boolean | number
   chainId?: boolean | number
-  collateralAmount?: boolean | number
   /** An object relationship */
   collateralToken?: TokenGenqlSelection
   collateralToken_id?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
   initiator?: boolean | number
-  issuanceAmount?: boolean | number
   /** An object relationship */
   issuanceToken?: TokenGenqlSelection
   issuanceToken_id?: boolean | number
-  priceInCol?: boolean | number
+  module_id?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
   recipient?: boolean | number
   swapType?: boolean | number
   __typename?: boolean | number
@@ -9790,22 +12935,24 @@ export interface Swap_arr_rel_insert_input {
 
 /** aggregate avg on columns */
 export interface Swap_avg_fieldsGenqlSelection {
+  amountCOL?: boolean | number
+  amountISS?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
-  collateralAmount?: boolean | number
-  issuanceAmount?: boolean | number
-  priceInCol?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
 
 /** order by avg() on columns of table "Swap" */
 export interface Swap_avg_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
-  collateralAmount?: order_by | null
-  issuanceAmount?: order_by | null
-  priceInCol?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
 }
 
 /** Boolean expression to filter rows from the table "Swap". All fields are combined with a logical 'AND'. */
@@ -9813,66 +12960,68 @@ export interface Swap_bool_exp {
   _and?: Swap_bool_exp[] | null
   _not?: Swap_bool_exp | null
   _or?: Swap_bool_exp[] | null
+  amountCOL?: numeric_comparison_exp | null
+  amountISS?: numeric_comparison_exp | null
   blockTimestamp?: Int_comparison_exp | null
-  bondingCurve?: BondingCurve_bool_exp | null
-  bondingCurve_id?: String_comparison_exp | null
   chainId?: Int_comparison_exp | null
-  collateralAmount?: numeric_comparison_exp | null
   collateralToken?: Token_bool_exp | null
   collateralToken_id?: String_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   id?: String_comparison_exp | null
   initiator?: String_comparison_exp | null
-  issuanceAmount?: numeric_comparison_exp | null
   issuanceToken?: Token_bool_exp | null
   issuanceToken_id?: String_comparison_exp | null
-  priceInCol?: numeric_comparison_exp | null
+  module_id?: String_comparison_exp | null
+  priceCOL?: numeric_comparison_exp | null
+  priceUSD?: numeric_comparison_exp | null
   recipient?: String_comparison_exp | null
   swapType?: swaptype_comparison_exp | null
 }
 
 /** input type for incrementing numeric columns in table "Swap" */
 export interface Swap_inc_input {
+  amountCOL?: Scalars['numeric'] | null
+  amountISS?: Scalars['numeric'] | null
   blockTimestamp?: Scalars['Int'] | null
   chainId?: Scalars['Int'] | null
-  collateralAmount?: Scalars['numeric'] | null
-  issuanceAmount?: Scalars['numeric'] | null
-  priceInCol?: Scalars['numeric'] | null
+  priceCOL?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
 }
 
 /** input type for inserting data into table "Swap" */
 export interface Swap_insert_input {
+  amountCOL?: Scalars['numeric'] | null
+  amountISS?: Scalars['numeric'] | null
   blockTimestamp?: Scalars['Int'] | null
-  bondingCurve?: BondingCurve_obj_rel_insert_input | null
-  bondingCurve_id?: Scalars['String'] | null
   chainId?: Scalars['Int'] | null
-  collateralAmount?: Scalars['numeric'] | null
   collateralToken?: Token_obj_rel_insert_input | null
   collateralToken_id?: Scalars['String'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
   initiator?: Scalars['String'] | null
-  issuanceAmount?: Scalars['numeric'] | null
   issuanceToken?: Token_obj_rel_insert_input | null
   issuanceToken_id?: Scalars['String'] | null
-  priceInCol?: Scalars['numeric'] | null
+  module_id?: Scalars['String'] | null
+  priceCOL?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
   recipient?: Scalars['String'] | null
   swapType?: Scalars['swaptype'] | null
 }
 
 /** aggregate max on columns */
 export interface Swap_max_fieldsGenqlSelection {
+  amountCOL?: boolean | number
+  amountISS?: boolean | number
   blockTimestamp?: boolean | number
-  bondingCurve_id?: boolean | number
   chainId?: boolean | number
-  collateralAmount?: boolean | number
   collateralToken_id?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
   initiator?: boolean | number
-  issuanceAmount?: boolean | number
   issuanceToken_id?: boolean | number
-  priceInCol?: boolean | number
+  module_id?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
   recipient?: boolean | number
   swapType?: boolean | number
   __typename?: boolean | number
@@ -9881,34 +13030,36 @@ export interface Swap_max_fieldsGenqlSelection {
 
 /** order by max() on columns of table "Swap" */
 export interface Swap_max_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
   blockTimestamp?: order_by | null
-  bondingCurve_id?: order_by | null
   chainId?: order_by | null
-  collateralAmount?: order_by | null
   collateralToken_id?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
   initiator?: order_by | null
-  issuanceAmount?: order_by | null
   issuanceToken_id?: order_by | null
-  priceInCol?: order_by | null
+  module_id?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
   recipient?: order_by | null
   swapType?: order_by | null
 }
 
 /** aggregate min on columns */
 export interface Swap_min_fieldsGenqlSelection {
+  amountCOL?: boolean | number
+  amountISS?: boolean | number
   blockTimestamp?: boolean | number
-  bondingCurve_id?: boolean | number
   chainId?: boolean | number
-  collateralAmount?: boolean | number
   collateralToken_id?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
   initiator?: boolean | number
-  issuanceAmount?: boolean | number
   issuanceToken_id?: boolean | number
-  priceInCol?: boolean | number
+  module_id?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
   recipient?: boolean | number
   swapType?: boolean | number
   __typename?: boolean | number
@@ -9917,17 +13068,18 @@ export interface Swap_min_fieldsGenqlSelection {
 
 /** order by min() on columns of table "Swap" */
 export interface Swap_min_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
   blockTimestamp?: order_by | null
-  bondingCurve_id?: order_by | null
   chainId?: order_by | null
-  collateralAmount?: order_by | null
   collateralToken_id?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
   initiator?: order_by | null
-  issuanceAmount?: order_by | null
   issuanceToken_id?: order_by | null
-  priceInCol?: order_by | null
+  module_id?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
   recipient?: order_by | null
   swapType?: order_by | null
 }
@@ -9951,20 +13103,20 @@ export interface Swap_on_conflict {
 
 /** Ordering options when selecting data from "Swap". */
 export interface Swap_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
   blockTimestamp?: order_by | null
-  bondingCurve?: BondingCurve_order_by | null
-  bondingCurve_id?: order_by | null
   chainId?: order_by | null
-  collateralAmount?: order_by | null
   collateralToken?: Token_order_by | null
   collateralToken_id?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
   initiator?: order_by | null
-  issuanceAmount?: order_by | null
   issuanceToken?: Token_order_by | null
   issuanceToken_id?: order_by | null
-  priceInCol?: order_by | null
+  module_id?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
   recipient?: order_by | null
   swapType?: order_by | null
 }
@@ -9976,79 +13128,86 @@ export interface Swap_pk_columns_input {
 
 /** input type for updating data in table "Swap" */
 export interface Swap_set_input {
+  amountCOL?: Scalars['numeric'] | null
+  amountISS?: Scalars['numeric'] | null
   blockTimestamp?: Scalars['Int'] | null
-  bondingCurve_id?: Scalars['String'] | null
   chainId?: Scalars['Int'] | null
-  collateralAmount?: Scalars['numeric'] | null
   collateralToken_id?: Scalars['String'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
   initiator?: Scalars['String'] | null
-  issuanceAmount?: Scalars['numeric'] | null
   issuanceToken_id?: Scalars['String'] | null
-  priceInCol?: Scalars['numeric'] | null
+  module_id?: Scalars['String'] | null
+  priceCOL?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
   recipient?: Scalars['String'] | null
   swapType?: Scalars['swaptype'] | null
 }
 
 /** aggregate stddev on columns */
 export interface Swap_stddev_fieldsGenqlSelection {
+  amountCOL?: boolean | number
+  amountISS?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
-  collateralAmount?: boolean | number
-  issuanceAmount?: boolean | number
-  priceInCol?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
 
 /** order by stddev() on columns of table "Swap" */
 export interface Swap_stddev_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
-  collateralAmount?: order_by | null
-  issuanceAmount?: order_by | null
-  priceInCol?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
 }
 
 /** aggregate stddev_pop on columns */
 export interface Swap_stddev_pop_fieldsGenqlSelection {
+  amountCOL?: boolean | number
+  amountISS?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
-  collateralAmount?: boolean | number
-  issuanceAmount?: boolean | number
-  priceInCol?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
 
 /** order by stddev_pop() on columns of table "Swap" */
 export interface Swap_stddev_pop_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
-  collateralAmount?: order_by | null
-  issuanceAmount?: order_by | null
-  priceInCol?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
 }
 
 /** aggregate stddev_samp on columns */
 export interface Swap_stddev_samp_fieldsGenqlSelection {
+  amountCOL?: boolean | number
+  amountISS?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
-  collateralAmount?: boolean | number
-  issuanceAmount?: boolean | number
-  priceInCol?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
 
 /** order by stddev_samp() on columns of table "Swap" */
 export interface Swap_stddev_samp_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
-  collateralAmount?: order_by | null
-  issuanceAmount?: order_by | null
-  priceInCol?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
 }
 
 /** Streaming cursor of the table "Swap" */
@@ -10061,39 +13220,42 @@ export interface Swap_stream_cursor_input {
 
 /** Initial value of the column from where the streaming should start */
 export interface Swap_stream_cursor_value_input {
+  amountCOL?: Scalars['numeric'] | null
+  amountISS?: Scalars['numeric'] | null
   blockTimestamp?: Scalars['Int'] | null
-  bondingCurve_id?: Scalars['String'] | null
   chainId?: Scalars['Int'] | null
-  collateralAmount?: Scalars['numeric'] | null
   collateralToken_id?: Scalars['String'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
   initiator?: Scalars['String'] | null
-  issuanceAmount?: Scalars['numeric'] | null
   issuanceToken_id?: Scalars['String'] | null
-  priceInCol?: Scalars['numeric'] | null
+  module_id?: Scalars['String'] | null
+  priceCOL?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
   recipient?: Scalars['String'] | null
   swapType?: Scalars['swaptype'] | null
 }
 
 /** aggregate sum on columns */
 export interface Swap_sum_fieldsGenqlSelection {
+  amountCOL?: boolean | number
+  amountISS?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
-  collateralAmount?: boolean | number
-  issuanceAmount?: boolean | number
-  priceInCol?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
 
 /** order by sum() on columns of table "Swap" */
 export interface Swap_sum_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
-  collateralAmount?: order_by | null
-  issuanceAmount?: order_by | null
-  priceInCol?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
 }
 
 export interface Swap_updates {
@@ -10107,62 +13269,68 @@ export interface Swap_updates {
 
 /** aggregate var_pop on columns */
 export interface Swap_var_pop_fieldsGenqlSelection {
+  amountCOL?: boolean | number
+  amountISS?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
-  collateralAmount?: boolean | number
-  issuanceAmount?: boolean | number
-  priceInCol?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
 
 /** order by var_pop() on columns of table "Swap" */
 export interface Swap_var_pop_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
-  collateralAmount?: order_by | null
-  issuanceAmount?: order_by | null
-  priceInCol?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
 }
 
 /** aggregate var_samp on columns */
 export interface Swap_var_samp_fieldsGenqlSelection {
+  amountCOL?: boolean | number
+  amountISS?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
-  collateralAmount?: boolean | number
-  issuanceAmount?: boolean | number
-  priceInCol?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
 
 /** order by var_samp() on columns of table "Swap" */
 export interface Swap_var_samp_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
-  collateralAmount?: order_by | null
-  issuanceAmount?: order_by | null
-  priceInCol?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
 }
 
 /** aggregate variance on columns */
 export interface Swap_variance_fieldsGenqlSelection {
+  amountCOL?: boolean | number
+  amountISS?: boolean | number
   blockTimestamp?: boolean | number
   chainId?: boolean | number
-  collateralAmount?: boolean | number
-  issuanceAmount?: boolean | number
-  priceInCol?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
 
 /** order by variance() on columns of table "Swap" */
 export interface Swap_variance_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
-  collateralAmount?: order_by | null
-  issuanceAmount?: order_by | null
-  priceInCol?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
 }
 
 /** columns and relationships of "Token" */
@@ -10173,7 +13341,7 @@ export interface TokenGenqlSelection {
   decimals?: boolean | number
   id?: boolean | number
   name?: boolean | number
-  priceInUsd?: boolean | number
+  priceUSD?: boolean | number
   symbol?: boolean | number
   totalSupply?: boolean | number
   __typename?: boolean | number
@@ -10217,7 +13385,7 @@ export interface Token_aggregate_fieldsGenqlSelection {
 export interface Token_avg_fieldsGenqlSelection {
   chainId?: boolean | number
   decimals?: boolean | number
-  priceInUsd?: boolean | number
+  priceUSD?: boolean | number
   totalSupply?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -10234,7 +13402,7 @@ export interface Token_bool_exp {
   decimals?: Int_comparison_exp | null
   id?: String_comparison_exp | null
   name?: String_comparison_exp | null
-  priceInUsd?: numeric_comparison_exp | null
+  priceUSD?: numeric_comparison_exp | null
   symbol?: String_comparison_exp | null
   totalSupply?: numeric_comparison_exp | null
 }
@@ -10243,7 +13411,7 @@ export interface Token_bool_exp {
 export interface Token_inc_input {
   chainId?: Scalars['Int'] | null
   decimals?: Scalars['Int'] | null
-  priceInUsd?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
   totalSupply?: Scalars['numeric'] | null
 }
 
@@ -10255,7 +13423,7 @@ export interface Token_insert_input {
   decimals?: Scalars['Int'] | null
   id?: Scalars['String'] | null
   name?: Scalars['String'] | null
-  priceInUsd?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
   symbol?: Scalars['String'] | null
   totalSupply?: Scalars['numeric'] | null
 }
@@ -10268,7 +13436,7 @@ export interface Token_max_fieldsGenqlSelection {
   decimals?: boolean | number
   id?: boolean | number
   name?: boolean | number
-  priceInUsd?: boolean | number
+  priceUSD?: boolean | number
   symbol?: boolean | number
   totalSupply?: boolean | number
   __typename?: boolean | number
@@ -10283,7 +13451,7 @@ export interface Token_min_fieldsGenqlSelection {
   decimals?: boolean | number
   id?: boolean | number
   name?: boolean | number
-  priceInUsd?: boolean | number
+  priceUSD?: boolean | number
   symbol?: boolean | number
   totalSupply?: boolean | number
   __typename?: boolean | number
@@ -10322,7 +13490,7 @@ export interface Token_order_by {
   decimals?: order_by | null
   id?: order_by | null
   name?: order_by | null
-  priceInUsd?: order_by | null
+  priceUSD?: order_by | null
   symbol?: order_by | null
   totalSupply?: order_by | null
 }
@@ -10340,7 +13508,7 @@ export interface Token_set_input {
   decimals?: Scalars['Int'] | null
   id?: Scalars['String'] | null
   name?: Scalars['String'] | null
-  priceInUsd?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
   symbol?: Scalars['String'] | null
   totalSupply?: Scalars['numeric'] | null
 }
@@ -10349,7 +13517,7 @@ export interface Token_set_input {
 export interface Token_stddev_fieldsGenqlSelection {
   chainId?: boolean | number
   decimals?: boolean | number
-  priceInUsd?: boolean | number
+  priceUSD?: boolean | number
   totalSupply?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -10359,7 +13527,7 @@ export interface Token_stddev_fieldsGenqlSelection {
 export interface Token_stddev_pop_fieldsGenqlSelection {
   chainId?: boolean | number
   decimals?: boolean | number
-  priceInUsd?: boolean | number
+  priceUSD?: boolean | number
   totalSupply?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -10369,7 +13537,7 @@ export interface Token_stddev_pop_fieldsGenqlSelection {
 export interface Token_stddev_samp_fieldsGenqlSelection {
   chainId?: boolean | number
   decimals?: boolean | number
-  priceInUsd?: boolean | number
+  priceUSD?: boolean | number
   totalSupply?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -10391,7 +13559,7 @@ export interface Token_stream_cursor_value_input {
   decimals?: Scalars['Int'] | null
   id?: Scalars['String'] | null
   name?: Scalars['String'] | null
-  priceInUsd?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
   symbol?: Scalars['String'] | null
   totalSupply?: Scalars['numeric'] | null
 }
@@ -10400,7 +13568,7 @@ export interface Token_stream_cursor_value_input {
 export interface Token_sum_fieldsGenqlSelection {
   chainId?: boolean | number
   decimals?: boolean | number
-  priceInUsd?: boolean | number
+  priceUSD?: boolean | number
   totalSupply?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -10419,7 +13587,7 @@ export interface Token_updates {
 export interface Token_var_pop_fieldsGenqlSelection {
   chainId?: boolean | number
   decimals?: boolean | number
-  priceInUsd?: boolean | number
+  priceUSD?: boolean | number
   totalSupply?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -10429,7 +13597,7 @@ export interface Token_var_pop_fieldsGenqlSelection {
 export interface Token_var_samp_fieldsGenqlSelection {
   chainId?: boolean | number
   decimals?: boolean | number
-  priceInUsd?: boolean | number
+  priceUSD?: boolean | number
   totalSupply?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -10439,7 +13607,7 @@ export interface Token_var_samp_fieldsGenqlSelection {
 export interface Token_variance_fieldsGenqlSelection {
   chainId?: boolean | number
   decimals?: boolean | number
-  priceInUsd?: boolean | number
+  priceUSD?: boolean | number
   totalSupply?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -12750,6 +15918,28 @@ export interface mutation_rootGenqlSelection {
   delete_Bounty_by_pk?: BountyGenqlSelection & {
     __args: { id: Scalars['String'] }
   }
+  /** delete data from the table: "CurveDayData" */
+  delete_CurveDayData?: CurveDayData_mutation_responseGenqlSelection & {
+    __args: {
+      /** filter the rows which have to be deleted */
+      where: CurveDayData_bool_exp
+    }
+  }
+  /** delete single row from the table: "CurveDayData" */
+  delete_CurveDayData_by_pk?: CurveDayDataGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** delete data from the table: "CurveHourData" */
+  delete_CurveHourData?: CurveHourData_mutation_responseGenqlSelection & {
+    __args: {
+      /** filter the rows which have to be deleted */
+      where: CurveHourData_bool_exp
+    }
+  }
+  /** delete single row from the table: "CurveHourData" */
+  delete_CurveHourData_by_pk?: CurveHourDataGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
   /** delete data from the table: "Deposit" */
   delete_Deposit?: Deposit_mutation_responseGenqlSelection & {
     __args: {
@@ -13056,6 +16246,42 @@ export interface mutation_rootGenqlSelection {
       object: Bounty_insert_input
       /** upsert condition */
       on_conflict?: Bounty_on_conflict | null
+    }
+  }
+  /** insert data into the table: "CurveDayData" */
+  insert_CurveDayData?: CurveDayData_mutation_responseGenqlSelection & {
+    __args: {
+      /** the rows to be inserted */
+      objects: CurveDayData_insert_input[]
+      /** upsert condition */
+      on_conflict?: CurveDayData_on_conflict | null
+    }
+  }
+  /** insert a single row into the table: "CurveDayData" */
+  insert_CurveDayData_one?: CurveDayDataGenqlSelection & {
+    __args: {
+      /** the row to be inserted */
+      object: CurveDayData_insert_input
+      /** upsert condition */
+      on_conflict?: CurveDayData_on_conflict | null
+    }
+  }
+  /** insert data into the table: "CurveHourData" */
+  insert_CurveHourData?: CurveHourData_mutation_responseGenqlSelection & {
+    __args: {
+      /** the rows to be inserted */
+      objects: CurveHourData_insert_input[]
+      /** upsert condition */
+      on_conflict?: CurveHourData_on_conflict | null
+    }
+  }
+  /** insert a single row into the table: "CurveHourData" */
+  insert_CurveHourData_one?: CurveHourDataGenqlSelection & {
+    __args: {
+      /** the row to be inserted */
+      object: CurveHourData_insert_input
+      /** upsert condition */
+      on_conflict?: CurveHourData_on_conflict | null
     }
   }
   /** insert data into the table: "Deposit" */
@@ -13552,6 +16778,62 @@ export interface mutation_rootGenqlSelection {
     __args: {
       /** updates to execute, in order */
       updates: Bounty_updates[]
+    }
+  }
+  /** update data of the table: "CurveDayData" */
+  update_CurveDayData?: CurveDayData_mutation_responseGenqlSelection & {
+    __args: {
+      /** increments the numeric columns with given value of the filtered values */
+      _inc?: CurveDayData_inc_input | null
+      /** sets the columns of the filtered rows to the given values */
+      _set?: CurveDayData_set_input | null
+      /** filter the rows which have to be updated */
+      where: CurveDayData_bool_exp
+    }
+  }
+  /** update single row of the table: "CurveDayData" */
+  update_CurveDayData_by_pk?: CurveDayDataGenqlSelection & {
+    __args: {
+      /** increments the numeric columns with given value of the filtered values */
+      _inc?: CurveDayData_inc_input | null
+      /** sets the columns of the filtered rows to the given values */
+      _set?: CurveDayData_set_input | null
+      pk_columns: CurveDayData_pk_columns_input
+    }
+  }
+  /** update multiples rows of table: "CurveDayData" */
+  update_CurveDayData_many?: CurveDayData_mutation_responseGenqlSelection & {
+    __args: {
+      /** updates to execute, in order */
+      updates: CurveDayData_updates[]
+    }
+  }
+  /** update data of the table: "CurveHourData" */
+  update_CurveHourData?: CurveHourData_mutation_responseGenqlSelection & {
+    __args: {
+      /** increments the numeric columns with given value of the filtered values */
+      _inc?: CurveHourData_inc_input | null
+      /** sets the columns of the filtered rows to the given values */
+      _set?: CurveHourData_set_input | null
+      /** filter the rows which have to be updated */
+      where: CurveHourData_bool_exp
+    }
+  }
+  /** update single row of the table: "CurveHourData" */
+  update_CurveHourData_by_pk?: CurveHourDataGenqlSelection & {
+    __args: {
+      /** increments the numeric columns with given value of the filtered values */
+      _inc?: CurveHourData_inc_input | null
+      /** sets the columns of the filtered rows to the given values */
+      _set?: CurveHourData_set_input | null
+      pk_columns: CurveHourData_pk_columns_input
+    }
+  }
+  /** update multiples rows of table: "CurveHourData" */
+  update_CurveHourData_many?: CurveHourData_mutation_responseGenqlSelection & {
+    __args: {
+      /** updates to execute, in order */
+      updates: CurveHourData_updates[]
     }
   }
   /** update data of the table: "Deposit" */
@@ -14542,6 +17824,74 @@ export interface query_rootGenqlSelection {
   }
   /** fetch data from the table: "Bounty" using primary key columns */
   Bounty_by_pk?: BountyGenqlSelection & { __args: { id: Scalars['String'] } }
+  /** fetch data from the table: "CurveDayData" */
+  CurveDayData?: CurveDayDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveDayData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveDayData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveDayData_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "CurveDayData" */
+  CurveDayData_aggregate?: CurveDayData_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveDayData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveDayData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveDayData_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "CurveDayData" using primary key columns */
+  CurveDayData_by_pk?: CurveDayDataGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table: "CurveHourData" */
+  CurveHourData?: CurveHourDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveHourData_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "CurveHourData" */
+  CurveHourData_aggregate?: CurveHourData_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveHourData_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "CurveHourData" using primary key columns */
+  CurveHourData_by_pk?: CurveHourDataGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
   /** fetch data from the table: "Deposit" */
   Deposit?: DepositGenqlSelection & {
     __args?: {
@@ -15836,6 +19186,96 @@ export interface subscription_rootGenqlSelection {
       cursor: (Bounty_stream_cursor_input | null)[]
       /** filter the rows returned */
       where?: Bounty_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "CurveDayData" */
+  CurveDayData?: CurveDayDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveDayData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveDayData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveDayData_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "CurveDayData" */
+  CurveDayData_aggregate?: CurveDayData_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveDayData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveDayData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveDayData_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "CurveDayData" using primary key columns */
+  CurveDayData_by_pk?: CurveDayDataGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table in a streaming manner: "CurveDayData" */
+  CurveDayData_stream?: CurveDayDataGenqlSelection & {
+    __args: {
+      /** maximum number of rows returned in a single batch */
+      batch_size: Scalars['Int']
+      /** cursor to stream the results returned by the query */
+      cursor: (CurveDayData_stream_cursor_input | null)[]
+      /** filter the rows returned */
+      where?: CurveDayData_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "CurveHourData" */
+  CurveHourData?: CurveHourDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveHourData_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "CurveHourData" */
+  CurveHourData_aggregate?: CurveHourData_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveHourData_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "CurveHourData" using primary key columns */
+  CurveHourData_by_pk?: CurveHourDataGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table in a streaming manner: "CurveHourData" */
+  CurveHourData_stream?: CurveHourDataGenqlSelection & {
+    __args: {
+      /** maximum number of rows returned in a single batch */
+      batch_size: Scalars['Int']
+      /** cursor to stream the results returned by the query */
+      cursor: (CurveHourData_stream_cursor_input | null)[]
+      /** filter the rows returned */
+      where?: CurveHourData_bool_exp | null
     }
   }
   /** fetch data from the table: "Deposit" */
@@ -17489,6 +20929,330 @@ export const isBounty_variance_fields = (
   if (!obj?.__typename)
     throw new Error('__typename is missing in "isBounty_variance_fields"')
   return Bounty_variance_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_possibleTypes: string[] = ['CurveDayData']
+export const isCurveDayData = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveDayData"')
+  return CurveDayData_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_aggregate_possibleTypes: string[] = [
+  'CurveDayData_aggregate',
+]
+export const isCurveDayData_aggregate = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_aggregate => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveDayData_aggregate"')
+  return CurveDayData_aggregate_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_aggregate_fields_possibleTypes: string[] = [
+  'CurveDayData_aggregate_fields',
+]
+export const isCurveDayData_aggregate_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_aggregate_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isCurveDayData_aggregate_fields"'
+    )
+  return CurveDayData_aggregate_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_avg_fields_possibleTypes: string[] = [
+  'CurveDayData_avg_fields',
+]
+export const isCurveDayData_avg_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_avg_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveDayData_avg_fields"')
+  return CurveDayData_avg_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_max_fields_possibleTypes: string[] = [
+  'CurveDayData_max_fields',
+]
+export const isCurveDayData_max_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_max_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveDayData_max_fields"')
+  return CurveDayData_max_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_min_fields_possibleTypes: string[] = [
+  'CurveDayData_min_fields',
+]
+export const isCurveDayData_min_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_min_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveDayData_min_fields"')
+  return CurveDayData_min_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_mutation_response_possibleTypes: string[] = [
+  'CurveDayData_mutation_response',
+]
+export const isCurveDayData_mutation_response = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_mutation_response => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isCurveDayData_mutation_response"'
+    )
+  return CurveDayData_mutation_response_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_stddev_fields_possibleTypes: string[] = [
+  'CurveDayData_stddev_fields',
+]
+export const isCurveDayData_stddev_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_stddev_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveDayData_stddev_fields"')
+  return CurveDayData_stddev_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_stddev_pop_fields_possibleTypes: string[] = [
+  'CurveDayData_stddev_pop_fields',
+]
+export const isCurveDayData_stddev_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_stddev_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isCurveDayData_stddev_pop_fields"'
+    )
+  return CurveDayData_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_stddev_samp_fields_possibleTypes: string[] = [
+  'CurveDayData_stddev_samp_fields',
+]
+export const isCurveDayData_stddev_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_stddev_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isCurveDayData_stddev_samp_fields"'
+    )
+  return CurveDayData_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_sum_fields_possibleTypes: string[] = [
+  'CurveDayData_sum_fields',
+]
+export const isCurveDayData_sum_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_sum_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveDayData_sum_fields"')
+  return CurveDayData_sum_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_var_pop_fields_possibleTypes: string[] = [
+  'CurveDayData_var_pop_fields',
+]
+export const isCurveDayData_var_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_var_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveDayData_var_pop_fields"')
+  return CurveDayData_var_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_var_samp_fields_possibleTypes: string[] = [
+  'CurveDayData_var_samp_fields',
+]
+export const isCurveDayData_var_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_var_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveDayData_var_samp_fields"')
+  return CurveDayData_var_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_variance_fields_possibleTypes: string[] = [
+  'CurveDayData_variance_fields',
+]
+export const isCurveDayData_variance_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_variance_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveDayData_variance_fields"')
+  return CurveDayData_variance_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_possibleTypes: string[] = ['CurveHourData']
+export const isCurveHourData = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveHourData"')
+  return CurveHourData_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_aggregate_possibleTypes: string[] = [
+  'CurveHourData_aggregate',
+]
+export const isCurveHourData_aggregate = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_aggregate => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveHourData_aggregate"')
+  return CurveHourData_aggregate_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_aggregate_fields_possibleTypes: string[] = [
+  'CurveHourData_aggregate_fields',
+]
+export const isCurveHourData_aggregate_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_aggregate_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isCurveHourData_aggregate_fields"'
+    )
+  return CurveHourData_aggregate_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_avg_fields_possibleTypes: string[] = [
+  'CurveHourData_avg_fields',
+]
+export const isCurveHourData_avg_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_avg_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveHourData_avg_fields"')
+  return CurveHourData_avg_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_max_fields_possibleTypes: string[] = [
+  'CurveHourData_max_fields',
+]
+export const isCurveHourData_max_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_max_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveHourData_max_fields"')
+  return CurveHourData_max_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_min_fields_possibleTypes: string[] = [
+  'CurveHourData_min_fields',
+]
+export const isCurveHourData_min_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_min_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveHourData_min_fields"')
+  return CurveHourData_min_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_mutation_response_possibleTypes: string[] = [
+  'CurveHourData_mutation_response',
+]
+export const isCurveHourData_mutation_response = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_mutation_response => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isCurveHourData_mutation_response"'
+    )
+  return CurveHourData_mutation_response_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_stddev_fields_possibleTypes: string[] = [
+  'CurveHourData_stddev_fields',
+]
+export const isCurveHourData_stddev_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_stddev_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveHourData_stddev_fields"')
+  return CurveHourData_stddev_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_stddev_pop_fields_possibleTypes: string[] = [
+  'CurveHourData_stddev_pop_fields',
+]
+export const isCurveHourData_stddev_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_stddev_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isCurveHourData_stddev_pop_fields"'
+    )
+  return CurveHourData_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_stddev_samp_fields_possibleTypes: string[] = [
+  'CurveHourData_stddev_samp_fields',
+]
+export const isCurveHourData_stddev_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_stddev_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isCurveHourData_stddev_samp_fields"'
+    )
+  return CurveHourData_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_sum_fields_possibleTypes: string[] = [
+  'CurveHourData_sum_fields',
+]
+export const isCurveHourData_sum_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_sum_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveHourData_sum_fields"')
+  return CurveHourData_sum_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_var_pop_fields_possibleTypes: string[] = [
+  'CurveHourData_var_pop_fields',
+]
+export const isCurveHourData_var_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_var_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveHourData_var_pop_fields"')
+  return CurveHourData_var_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_var_samp_fields_possibleTypes: string[] = [
+  'CurveHourData_var_samp_fields',
+]
+export const isCurveHourData_var_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_var_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isCurveHourData_var_samp_fields"'
+    )
+  return CurveHourData_var_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_variance_fields_possibleTypes: string[] = [
+  'CurveHourData_variance_fields',
+]
+export const isCurveHourData_variance_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_variance_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isCurveHourData_variance_fields"'
+    )
+  return CurveHourData_variance_fields_possibleTypes.includes(obj.__typename)
 }
 
 const Deposit_possibleTypes: string[] = ['Deposit']
@@ -20861,9 +24625,8 @@ export const enumBondingCurveSelectColumn = {
   issuanceToken_id: 'issuanceToken_id' as const,
   sellFee: 'sellFee' as const,
   sellReserveRatio: 'sellReserveRatio' as const,
-  virtualCollateral: 'virtualCollateral' as const,
-  virtualCollateralRaw: 'virtualCollateralRaw' as const,
-  virtualIssuance: 'virtualIssuance' as const,
+  virtualCOL: 'virtualCOL' as const,
+  virtualISS: 'virtualISS' as const,
   workflow_id: 'workflow_id' as const,
 }
 
@@ -20879,9 +24642,8 @@ export const enumBondingCurveUpdateColumn = {
   issuanceToken_id: 'issuanceToken_id' as const,
   sellFee: 'sellFee' as const,
   sellReserveRatio: 'sellReserveRatio' as const,
-  virtualCollateral: 'virtualCollateral' as const,
-  virtualCollateralRaw: 'virtualCollateralRaw' as const,
-  virtualIssuance: 'virtualIssuance' as const,
+  virtualCOL: 'virtualCOL' as const,
+  virtualISS: 'virtualISS' as const,
   workflow_id: 'workflow_id' as const,
 }
 
@@ -20987,6 +24749,126 @@ export const enumBountyUpdateColumn = {
   minimumPayoutAmount: 'minimumPayoutAmount' as const,
 }
 
+export const enumCurveDayDataConstraint = {
+  CurveDayData_pkey: 'CurveDayData_pkey' as const,
+}
+
+export const enumCurveDayDataSelectColumn = {
+  chainId: 'chainId' as const,
+  closeCOL: 'closeCOL' as const,
+  closeUSD: 'closeUSD' as const,
+  collateralToken_id: 'collateralToken_id' as const,
+  date: 'date' as const,
+  db_write_timestamp: 'db_write_timestamp' as const,
+  highCOL: 'highCOL' as const,
+  highUSD: 'highUSD' as const,
+  id: 'id' as const,
+  issuanceToken_id: 'issuanceToken_id' as const,
+  lowCOL: 'lowCOL' as const,
+  lowUSD: 'lowUSD' as const,
+  module_id: 'module_id' as const,
+  openCOL: 'openCOL' as const,
+  openUSD: 'openUSD' as const,
+  priceCOL: 'priceCOL' as const,
+  priceUSD: 'priceUSD' as const,
+  projectFeeCOL: 'projectFeeCOL' as const,
+  projectFeeUSD: 'projectFeeUSD' as const,
+  protocolFeeCOL: 'protocolFeeCOL' as const,
+  protocolFeeISS: 'protocolFeeISS' as const,
+  protocolFeeUSD: 'protocolFeeUSD' as const,
+  volumeCOL: 'volumeCOL' as const,
+  volumeISS: 'volumeISS' as const,
+  volumeUSD: 'volumeUSD' as const,
+}
+
+export const enumCurveDayDataUpdateColumn = {
+  chainId: 'chainId' as const,
+  closeCOL: 'closeCOL' as const,
+  closeUSD: 'closeUSD' as const,
+  collateralToken_id: 'collateralToken_id' as const,
+  date: 'date' as const,
+  db_write_timestamp: 'db_write_timestamp' as const,
+  highCOL: 'highCOL' as const,
+  highUSD: 'highUSD' as const,
+  id: 'id' as const,
+  issuanceToken_id: 'issuanceToken_id' as const,
+  lowCOL: 'lowCOL' as const,
+  lowUSD: 'lowUSD' as const,
+  module_id: 'module_id' as const,
+  openCOL: 'openCOL' as const,
+  openUSD: 'openUSD' as const,
+  priceCOL: 'priceCOL' as const,
+  priceUSD: 'priceUSD' as const,
+  projectFeeCOL: 'projectFeeCOL' as const,
+  projectFeeUSD: 'projectFeeUSD' as const,
+  protocolFeeCOL: 'protocolFeeCOL' as const,
+  protocolFeeISS: 'protocolFeeISS' as const,
+  protocolFeeUSD: 'protocolFeeUSD' as const,
+  volumeCOL: 'volumeCOL' as const,
+  volumeISS: 'volumeISS' as const,
+  volumeUSD: 'volumeUSD' as const,
+}
+
+export const enumCurveHourDataConstraint = {
+  CurveHourData_pkey: 'CurveHourData_pkey' as const,
+}
+
+export const enumCurveHourDataSelectColumn = {
+  chainId: 'chainId' as const,
+  closeCOL: 'closeCOL' as const,
+  closeUSD: 'closeUSD' as const,
+  collateralToken_id: 'collateralToken_id' as const,
+  db_write_timestamp: 'db_write_timestamp' as const,
+  highCOL: 'highCOL' as const,
+  highUSD: 'highUSD' as const,
+  id: 'id' as const,
+  issuanceToken_id: 'issuanceToken_id' as const,
+  lowCOL: 'lowCOL' as const,
+  lowUSD: 'lowUSD' as const,
+  module_id: 'module_id' as const,
+  openCOL: 'openCOL' as const,
+  openUSD: 'openUSD' as const,
+  periodStartUnix: 'periodStartUnix' as const,
+  priceCOL: 'priceCOL' as const,
+  priceUSD: 'priceUSD' as const,
+  projectFeeCOL: 'projectFeeCOL' as const,
+  projectFeeUSD: 'projectFeeUSD' as const,
+  protocolFeeCOL: 'protocolFeeCOL' as const,
+  protocolFeeISS: 'protocolFeeISS' as const,
+  protocolFeeUSD: 'protocolFeeUSD' as const,
+  volumeCOL: 'volumeCOL' as const,
+  volumeISS: 'volumeISS' as const,
+  volumeUSD: 'volumeUSD' as const,
+}
+
+export const enumCurveHourDataUpdateColumn = {
+  chainId: 'chainId' as const,
+  closeCOL: 'closeCOL' as const,
+  closeUSD: 'closeUSD' as const,
+  collateralToken_id: 'collateralToken_id' as const,
+  db_write_timestamp: 'db_write_timestamp' as const,
+  highCOL: 'highCOL' as const,
+  highUSD: 'highUSD' as const,
+  id: 'id' as const,
+  issuanceToken_id: 'issuanceToken_id' as const,
+  lowCOL: 'lowCOL' as const,
+  lowUSD: 'lowUSD' as const,
+  module_id: 'module_id' as const,
+  openCOL: 'openCOL' as const,
+  openUSD: 'openUSD' as const,
+  periodStartUnix: 'periodStartUnix' as const,
+  priceCOL: 'priceCOL' as const,
+  priceUSD: 'priceUSD' as const,
+  projectFeeCOL: 'projectFeeCOL' as const,
+  projectFeeUSD: 'projectFeeUSD' as const,
+  protocolFeeCOL: 'protocolFeeCOL' as const,
+  protocolFeeISS: 'protocolFeeISS' as const,
+  protocolFeeUSD: 'protocolFeeUSD' as const,
+  volumeCOL: 'volumeCOL' as const,
+  volumeISS: 'volumeISS' as const,
+  volumeUSD: 'volumeUSD' as const,
+}
+
 export const enumDepositVaultConstraint = {
   DepositVault_pkey: 'DepositVault_pkey' as const,
 }
@@ -21039,38 +24921,38 @@ export const enumIssuanceTokenDayDataConstraint = {
 
 export const enumIssuanceTokenDayDataSelectColumn = {
   chainId: 'chainId' as const,
-  closeInCol: 'closeInCol' as const,
+  closeUSD: 'closeUSD' as const,
   date: 'date' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
-  highInCol: 'highInCol' as const,
+  highUSD: 'highUSD' as const,
   id: 'id' as const,
-  lowInCol: 'lowInCol' as const,
-  openInCol: 'openInCol' as const,
-  priceInCol: 'priceInCol' as const,
-  projectFeeInCol: 'projectFeeInCol' as const,
-  protocolFeeInCol: 'protocolFeeInCol' as const,
-  protocolFeeInIssuance: 'protocolFeeInIssuance' as const,
+  lowUSD: 'lowUSD' as const,
+  openUSD: 'openUSD' as const,
+  priceUSD: 'priceUSD' as const,
+  projectFeeUSD: 'projectFeeUSD' as const,
+  protocolFeeISS: 'protocolFeeISS' as const,
+  protocolFeeUSD: 'protocolFeeUSD' as const,
   token_id: 'token_id' as const,
-  volumeInCol: 'volumeInCol' as const,
-  volumeInIssuance: 'volumeInIssuance' as const,
+  volumeISS: 'volumeISS' as const,
+  volumeUSD: 'volumeUSD' as const,
 }
 
 export const enumIssuanceTokenDayDataUpdateColumn = {
   chainId: 'chainId' as const,
-  closeInCol: 'closeInCol' as const,
+  closeUSD: 'closeUSD' as const,
   date: 'date' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
-  highInCol: 'highInCol' as const,
+  highUSD: 'highUSD' as const,
   id: 'id' as const,
-  lowInCol: 'lowInCol' as const,
-  openInCol: 'openInCol' as const,
-  priceInCol: 'priceInCol' as const,
-  projectFeeInCol: 'projectFeeInCol' as const,
-  protocolFeeInCol: 'protocolFeeInCol' as const,
-  protocolFeeInIssuance: 'protocolFeeInIssuance' as const,
+  lowUSD: 'lowUSD' as const,
+  openUSD: 'openUSD' as const,
+  priceUSD: 'priceUSD' as const,
+  projectFeeUSD: 'projectFeeUSD' as const,
+  protocolFeeISS: 'protocolFeeISS' as const,
+  protocolFeeUSD: 'protocolFeeUSD' as const,
   token_id: 'token_id' as const,
-  volumeInCol: 'volumeInCol' as const,
-  volumeInIssuance: 'volumeInIssuance' as const,
+  volumeISS: 'volumeISS' as const,
+  volumeUSD: 'volumeUSD' as const,
 }
 
 export const enumIssuanceTokenHourDataConstraint = {
@@ -21079,38 +24961,38 @@ export const enumIssuanceTokenHourDataConstraint = {
 
 export const enumIssuanceTokenHourDataSelectColumn = {
   chainId: 'chainId' as const,
-  closeInCol: 'closeInCol' as const,
+  closeUSD: 'closeUSD' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
-  highInCol: 'highInCol' as const,
+  highUSD: 'highUSD' as const,
   id: 'id' as const,
-  lowInCol: 'lowInCol' as const,
-  openInCol: 'openInCol' as const,
+  lowUSD: 'lowUSD' as const,
+  openUSD: 'openUSD' as const,
   periodStartUnix: 'periodStartUnix' as const,
-  priceInCol: 'priceInCol' as const,
-  projectFeeInCol: 'projectFeeInCol' as const,
-  protocolFeeInCol: 'protocolFeeInCol' as const,
-  protocolFeeInIssuance: 'protocolFeeInIssuance' as const,
+  priceUSD: 'priceUSD' as const,
+  projectFeeUSD: 'projectFeeUSD' as const,
+  protocolFeeISS: 'protocolFeeISS' as const,
+  protocolFeeUSD: 'protocolFeeUSD' as const,
   token_id: 'token_id' as const,
-  volumeInCol: 'volumeInCol' as const,
-  volumeInIssuance: 'volumeInIssuance' as const,
+  volumeISS: 'volumeISS' as const,
+  volumeUSD: 'volumeUSD' as const,
 }
 
 export const enumIssuanceTokenHourDataUpdateColumn = {
   chainId: 'chainId' as const,
-  closeInCol: 'closeInCol' as const,
+  closeUSD: 'closeUSD' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
-  highInCol: 'highInCol' as const,
+  highUSD: 'highUSD' as const,
   id: 'id' as const,
-  lowInCol: 'lowInCol' as const,
-  openInCol: 'openInCol' as const,
+  lowUSD: 'lowUSD' as const,
+  openUSD: 'openUSD' as const,
   periodStartUnix: 'periodStartUnix' as const,
-  priceInCol: 'priceInCol' as const,
-  projectFeeInCol: 'projectFeeInCol' as const,
-  protocolFeeInCol: 'protocolFeeInCol' as const,
-  protocolFeeInIssuance: 'protocolFeeInIssuance' as const,
+  priceUSD: 'priceUSD' as const,
+  projectFeeUSD: 'projectFeeUSD' as const,
+  protocolFeeISS: 'protocolFeeISS' as const,
+  protocolFeeUSD: 'protocolFeeUSD' as const,
   token_id: 'token_id' as const,
-  volumeInCol: 'volumeInCol' as const,
-  volumeInIssuance: 'volumeInIssuance' as const,
+  volumeISS: 'volumeISS' as const,
+  volumeUSD: 'volumeUSD' as const,
 }
 
 export const enumLinearVestingConstraint = {
@@ -21118,7 +25000,7 @@ export const enumLinearVestingConstraint = {
 }
 
 export const enumLinearVestingSelectColumn = {
-  amountRaw: 'amountRaw' as const,
+  amount: 'amount' as const,
   blockTimestamp: 'blockTimestamp' as const,
   chainId: 'chainId' as const,
   cliff: 'cliff' as const,
@@ -21129,11 +25011,11 @@ export const enumLinearVestingSelectColumn = {
   start: 'start' as const,
   status: 'status' as const,
   streamingPaymentProcessor_id: 'streamingPaymentProcessor_id' as const,
-  token: 'token' as const,
+  token_id: 'token_id' as const,
 }
 
 export const enumLinearVestingUpdateColumn = {
-  amountRaw: 'amountRaw' as const,
+  amount: 'amount' as const,
   blockTimestamp: 'blockTimestamp' as const,
   chainId: 'chainId' as const,
   cliff: 'cliff' as const,
@@ -21144,7 +25026,7 @@ export const enumLinearVestingUpdateColumn = {
   start: 'start' as const,
   status: 'status' as const,
   streamingPaymentProcessor_id: 'streamingPaymentProcessor_id' as const,
-  token: 'token' as const,
+  token_id: 'token_id' as const,
 }
 
 export const enumProjectFeeConstraint = {
@@ -21153,22 +25035,26 @@ export const enumProjectFeeConstraint = {
 
 export const enumProjectFeeSelectColumn = {
   amount: 'amount' as const,
+  amountUSD: 'amountUSD' as const,
   blockTimestamp: 'blockTimestamp' as const,
-  bondingCurve_id: 'bondingCurve_id' as const,
   chainId: 'chainId' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
   id: 'id' as const,
+  module_id: 'module_id' as const,
   recipient: 'recipient' as const,
+  token_id: 'token_id' as const,
 }
 
 export const enumProjectFeeUpdateColumn = {
   amount: 'amount' as const,
+  amountUSD: 'amountUSD' as const,
   blockTimestamp: 'blockTimestamp' as const,
-  bondingCurve_id: 'bondingCurve_id' as const,
   chainId: 'chainId' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
   id: 'id' as const,
+  module_id: 'module_id' as const,
   recipient: 'recipient' as const,
+  token_id: 'token_id' as const,
 }
 
 export const enumProtocolFeeConstraint = {
@@ -21177,10 +25063,12 @@ export const enumProtocolFeeConstraint = {
 
 export const enumProtocolFeeSelectColumn = {
   amount: 'amount' as const,
-  bondingCurve_id: 'bondingCurve_id' as const,
+  amountUSD: 'amountUSD' as const,
+  blockTimestamp: 'blockTimestamp' as const,
   chainId: 'chainId' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
   id: 'id' as const,
+  module_id: 'module_id' as const,
   source: 'source' as const,
   token_id: 'token_id' as const,
   treasury: 'treasury' as const,
@@ -21188,10 +25076,12 @@ export const enumProtocolFeeSelectColumn = {
 
 export const enumProtocolFeeUpdateColumn = {
   amount: 'amount' as const,
-  bondingCurve_id: 'bondingCurve_id' as const,
+  amountUSD: 'amountUSD' as const,
+  blockTimestamp: 'blockTimestamp' as const,
   chainId: 'chainId' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
   id: 'id' as const,
+  module_id: 'module_id' as const,
   source: 'source' as const,
   token_id: 'token_id' as const,
   treasury: 'treasury' as const,
@@ -21220,33 +25110,35 @@ export const enumSwapConstraint = {
 }
 
 export const enumSwapSelectColumn = {
+  amountCOL: 'amountCOL' as const,
+  amountISS: 'amountISS' as const,
   blockTimestamp: 'blockTimestamp' as const,
-  bondingCurve_id: 'bondingCurve_id' as const,
   chainId: 'chainId' as const,
-  collateralAmount: 'collateralAmount' as const,
   collateralToken_id: 'collateralToken_id' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
   id: 'id' as const,
   initiator: 'initiator' as const,
-  issuanceAmount: 'issuanceAmount' as const,
   issuanceToken_id: 'issuanceToken_id' as const,
-  priceInCol: 'priceInCol' as const,
+  module_id: 'module_id' as const,
+  priceCOL: 'priceCOL' as const,
+  priceUSD: 'priceUSD' as const,
   recipient: 'recipient' as const,
   swapType: 'swapType' as const,
 }
 
 export const enumSwapUpdateColumn = {
+  amountCOL: 'amountCOL' as const,
+  amountISS: 'amountISS' as const,
   blockTimestamp: 'blockTimestamp' as const,
-  bondingCurve_id: 'bondingCurve_id' as const,
   chainId: 'chainId' as const,
-  collateralAmount: 'collateralAmount' as const,
   collateralToken_id: 'collateralToken_id' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
   id: 'id' as const,
   initiator: 'initiator' as const,
-  issuanceAmount: 'issuanceAmount' as const,
   issuanceToken_id: 'issuanceToken_id' as const,
-  priceInCol: 'priceInCol' as const,
+  module_id: 'module_id' as const,
+  priceCOL: 'priceCOL' as const,
+  priceUSD: 'priceUSD' as const,
   recipient: 'recipient' as const,
   swapType: 'swapType' as const,
 }
@@ -21262,7 +25154,7 @@ export const enumTokenSelectColumn = {
   decimals: 'decimals' as const,
   id: 'id' as const,
   name: 'name' as const,
-  priceInUsd: 'priceInUsd' as const,
+  priceUSD: 'priceUSD' as const,
   symbol: 'symbol' as const,
   totalSupply: 'totalSupply' as const,
 }
@@ -21274,7 +25166,7 @@ export const enumTokenUpdateColumn = {
   decimals: 'decimals' as const,
   id: 'id' as const,
   name: 'name' as const,
-  priceInUsd: 'priceInUsd' as const,
+  priceUSD: 'priceUSD' as const,
   symbol: 'symbol' as const,
   totalSupply: 'totalSupply' as const,
 }

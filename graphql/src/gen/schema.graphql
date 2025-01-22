@@ -19,18 +19,162 @@ columns and relationships of "BondingCurve"
 type BondingCurve {
   address: String!
   bcType: String
-  buyFee: numeric
-  buyReserveRatio: numeric
+  buyFee: numeric!
+  buyReserveRatio: numeric!
   chainId: Int!
 
   """An object relationship"""
   collateralToken: Token
   collateralToken_id: String!
+
+  """An array relationship"""
+  curveDayData(
+    """distinct select on columns"""
+    distinct_on: [CurveDayData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveDayData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveDayData_bool_exp
+  ): [CurveDayData!]!
+
+  """An aggregate relationship"""
+  curveDayData_aggregate(
+    """distinct select on columns"""
+    distinct_on: [CurveDayData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveDayData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveDayData_bool_exp
+  ): CurveDayData_aggregate!
+
+  """An array relationship"""
+  curveHourData(
+    """distinct select on columns"""
+    distinct_on: [CurveHourData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveHourData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveHourData_bool_exp
+  ): [CurveHourData!]!
+
+  """An aggregate relationship"""
+  curveHourData_aggregate(
+    """distinct select on columns"""
+    distinct_on: [CurveHourData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveHourData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveHourData_bool_exp
+  ): CurveHourData_aggregate!
   db_write_timestamp: timestamp
   id: String!
 
   """An object relationship"""
   issuanceToken: Token
+
+  """An array relationship"""
+  issuanceTokenDayData(
+    """distinct select on columns"""
+    distinct_on: [IssuanceTokenDayData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [IssuanceTokenDayData_order_by!]
+
+    """filter the rows returned"""
+    where: IssuanceTokenDayData_bool_exp
+  ): [IssuanceTokenDayData!]!
+
+  """An aggregate relationship"""
+  issuanceTokenDayData_aggregate(
+    """distinct select on columns"""
+    distinct_on: [IssuanceTokenDayData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [IssuanceTokenDayData_order_by!]
+
+    """filter the rows returned"""
+    where: IssuanceTokenDayData_bool_exp
+  ): IssuanceTokenDayData_aggregate!
+
+  """An array relationship"""
+  issuanceTokenHourData(
+    """distinct select on columns"""
+    distinct_on: [IssuanceTokenHourData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [IssuanceTokenHourData_order_by!]
+
+    """filter the rows returned"""
+    where: IssuanceTokenHourData_bool_exp
+  ): [IssuanceTokenHourData!]!
+
+  """An aggregate relationship"""
+  issuanceTokenHourData_aggregate(
+    """distinct select on columns"""
+    distinct_on: [IssuanceTokenHourData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [IssuanceTokenHourData_order_by!]
+
+    """filter the rows returned"""
+    where: IssuanceTokenHourData_bool_exp
+  ): IssuanceTokenHourData_aggregate!
   issuanceToken_id: String!
 
   """An array relationship"""
@@ -104,8 +248,8 @@ type BondingCurve {
     """filter the rows returned"""
     where: ProtocolFee_bool_exp
   ): ProtocolFee_aggregate!
-  sellFee: numeric
-  sellReserveRatio: numeric
+  sellFee: numeric!
+  sellReserveRatio: numeric!
 
   """An array relationship"""
   swaps(
@@ -142,9 +286,8 @@ type BondingCurve {
     """filter the rows returned"""
     where: Swap_bool_exp
   ): Swap_aggregate!
-  virtualCollateral: numeric
-  virtualCollateralRaw: numeric
-  virtualIssuance: numeric
+  virtualCOL: numeric!
+  virtualISS: numeric!
 
   """An object relationship"""
   workflow: Workflow
@@ -183,9 +326,8 @@ type BondingCurve_avg_fields {
   chainId: Float
   sellFee: Float
   sellReserveRatio: Float
-  virtualCollateral: Float
-  virtualCollateralRaw: Float
-  virtualIssuance: Float
+  virtualCOL: Float
+  virtualISS: Float
 }
 
 """
@@ -202,9 +344,17 @@ input BondingCurve_bool_exp {
   chainId: Int_comparison_exp
   collateralToken: Token_bool_exp
   collateralToken_id: String_comparison_exp
+  curveDayData: CurveDayData_bool_exp
+  curveDayData_aggregate: CurveDayData_aggregate_bool_exp
+  curveHourData: CurveHourData_bool_exp
+  curveHourData_aggregate: CurveHourData_aggregate_bool_exp
   db_write_timestamp: timestamp_comparison_exp
   id: String_comparison_exp
   issuanceToken: Token_bool_exp
+  issuanceTokenDayData: IssuanceTokenDayData_bool_exp
+  issuanceTokenDayData_aggregate: IssuanceTokenDayData_aggregate_bool_exp
+  issuanceTokenHourData: IssuanceTokenHourData_bool_exp
+  issuanceTokenHourData_aggregate: IssuanceTokenHourData_aggregate_bool_exp
   issuanceToken_id: String_comparison_exp
   projectFees: ProjectFee_bool_exp
   projectFees_aggregate: ProjectFee_aggregate_bool_exp
@@ -214,9 +364,8 @@ input BondingCurve_bool_exp {
   sellReserveRatio: numeric_comparison_exp
   swaps: Swap_bool_exp
   swaps_aggregate: Swap_aggregate_bool_exp
-  virtualCollateral: numeric_comparison_exp
-  virtualCollateralRaw: numeric_comparison_exp
-  virtualIssuance: numeric_comparison_exp
+  virtualCOL: numeric_comparison_exp
+  virtualISS: numeric_comparison_exp
   workflow: Workflow_bool_exp
   workflow_id: String_comparison_exp
 }
@@ -240,9 +389,8 @@ input BondingCurve_inc_input {
   chainId: Int
   sellFee: numeric
   sellReserveRatio: numeric
-  virtualCollateral: numeric
-  virtualCollateralRaw: numeric
-  virtualIssuance: numeric
+  virtualCOL: numeric
+  virtualISS: numeric
 }
 
 """
@@ -256,18 +404,21 @@ input BondingCurve_insert_input {
   chainId: Int
   collateralToken: Token_obj_rel_insert_input
   collateralToken_id: String
+  curveDayData: CurveDayData_arr_rel_insert_input
+  curveHourData: CurveHourData_arr_rel_insert_input
   db_write_timestamp: timestamp
   id: String
   issuanceToken: Token_obj_rel_insert_input
+  issuanceTokenDayData: IssuanceTokenDayData_arr_rel_insert_input
+  issuanceTokenHourData: IssuanceTokenHourData_arr_rel_insert_input
   issuanceToken_id: String
   projectFees: ProjectFee_arr_rel_insert_input
   protocolFees: ProtocolFee_arr_rel_insert_input
   sellFee: numeric
   sellReserveRatio: numeric
   swaps: Swap_arr_rel_insert_input
-  virtualCollateral: numeric
-  virtualCollateralRaw: numeric
-  virtualIssuance: numeric
+  virtualCOL: numeric
+  virtualISS: numeric
   workflow: Workflow_obj_rel_insert_input
   workflow_id: String
 }
@@ -285,9 +436,8 @@ type BondingCurve_max_fields {
   issuanceToken_id: String
   sellFee: numeric
   sellReserveRatio: numeric
-  virtualCollateral: numeric
-  virtualCollateralRaw: numeric
-  virtualIssuance: numeric
+  virtualCOL: numeric
+  virtualISS: numeric
   workflow_id: String
 }
 
@@ -304,9 +454,8 @@ type BondingCurve_min_fields {
   issuanceToken_id: String
   sellFee: numeric
   sellReserveRatio: numeric
-  virtualCollateral: numeric
-  virtualCollateralRaw: numeric
-  virtualIssuance: numeric
+  virtualCOL: numeric
+  virtualISS: numeric
   workflow_id: String
 }
 
@@ -319,16 +468,6 @@ type BondingCurve_mutation_response {
 
   """data from the rows affected by the mutation"""
   returning: [BondingCurve!]!
-}
-
-"""
-input type for inserting object relation for remote table "BondingCurve"
-"""
-input BondingCurve_obj_rel_insert_input {
-  data: BondingCurve_insert_input!
-
-  """upsert condition"""
-  on_conflict: BondingCurve_on_conflict
 }
 
 """
@@ -349,18 +488,21 @@ input BondingCurve_order_by {
   chainId: order_by
   collateralToken: Token_order_by
   collateralToken_id: order_by
+  curveDayData_aggregate: CurveDayData_aggregate_order_by
+  curveHourData_aggregate: CurveHourData_aggregate_order_by
   db_write_timestamp: order_by
   id: order_by
   issuanceToken: Token_order_by
+  issuanceTokenDayData_aggregate: IssuanceTokenDayData_aggregate_order_by
+  issuanceTokenHourData_aggregate: IssuanceTokenHourData_aggregate_order_by
   issuanceToken_id: order_by
   projectFees_aggregate: ProjectFee_aggregate_order_by
   protocolFees_aggregate: ProtocolFee_aggregate_order_by
   sellFee: order_by
   sellReserveRatio: order_by
   swaps_aggregate: Swap_aggregate_order_by
-  virtualCollateral: order_by
-  virtualCollateralRaw: order_by
-  virtualIssuance: order_by
+  virtualCOL: order_by
+  virtualISS: order_by
   workflow: Workflow_order_by
   workflow_id: order_by
 }
@@ -408,13 +550,10 @@ enum BondingCurve_select_column {
   sellReserveRatio
 
   """column name"""
-  virtualCollateral
+  virtualCOL
 
   """column name"""
-  virtualCollateralRaw
-
-  """column name"""
-  virtualIssuance
+  virtualISS
 
   """column name"""
   workflow_id
@@ -435,9 +574,8 @@ input BondingCurve_set_input {
   issuanceToken_id: String
   sellFee: numeric
   sellReserveRatio: numeric
-  virtualCollateral: numeric
-  virtualCollateralRaw: numeric
-  virtualIssuance: numeric
+  virtualCOL: numeric
+  virtualISS: numeric
   workflow_id: String
 }
 
@@ -448,9 +586,8 @@ type BondingCurve_stddev_fields {
   chainId: Float
   sellFee: Float
   sellReserveRatio: Float
-  virtualCollateral: Float
-  virtualCollateralRaw: Float
-  virtualIssuance: Float
+  virtualCOL: Float
+  virtualISS: Float
 }
 
 """aggregate stddev_pop on columns"""
@@ -460,9 +597,8 @@ type BondingCurve_stddev_pop_fields {
   chainId: Float
   sellFee: Float
   sellReserveRatio: Float
-  virtualCollateral: Float
-  virtualCollateralRaw: Float
-  virtualIssuance: Float
+  virtualCOL: Float
+  virtualISS: Float
 }
 
 """aggregate stddev_samp on columns"""
@@ -472,9 +608,8 @@ type BondingCurve_stddev_samp_fields {
   chainId: Float
   sellFee: Float
   sellReserveRatio: Float
-  virtualCollateral: Float
-  virtualCollateralRaw: Float
-  virtualIssuance: Float
+  virtualCOL: Float
+  virtualISS: Float
 }
 
 """
@@ -501,9 +636,8 @@ input BondingCurve_stream_cursor_value_input {
   issuanceToken_id: String
   sellFee: numeric
   sellReserveRatio: numeric
-  virtualCollateral: numeric
-  virtualCollateralRaw: numeric
-  virtualIssuance: numeric
+  virtualCOL: numeric
+  virtualISS: numeric
   workflow_id: String
 }
 
@@ -514,9 +648,8 @@ type BondingCurve_sum_fields {
   chainId: Int
   sellFee: numeric
   sellReserveRatio: numeric
-  virtualCollateral: numeric
-  virtualCollateralRaw: numeric
-  virtualIssuance: numeric
+  virtualCOL: numeric
+  virtualISS: numeric
 }
 
 """
@@ -557,13 +690,10 @@ enum BondingCurve_update_column {
   sellReserveRatio
 
   """column name"""
-  virtualCollateral
+  virtualCOL
 
   """column name"""
-  virtualCollateralRaw
-
-  """column name"""
-  virtualIssuance
+  virtualISS
 
   """column name"""
   workflow_id
@@ -587,9 +717,8 @@ type BondingCurve_var_pop_fields {
   chainId: Float
   sellFee: Float
   sellReserveRatio: Float
-  virtualCollateral: Float
-  virtualCollateralRaw: Float
-  virtualIssuance: Float
+  virtualCOL: Float
+  virtualISS: Float
 }
 
 """aggregate var_samp on columns"""
@@ -599,9 +728,8 @@ type BondingCurve_var_samp_fields {
   chainId: Float
   sellFee: Float
   sellReserveRatio: Float
-  virtualCollateral: Float
-  virtualCollateralRaw: Float
-  virtualIssuance: Float
+  virtualCOL: Float
+  virtualISS: Float
 }
 
 """aggregate variance on columns"""
@@ -611,9 +739,8 @@ type BondingCurve_variance_fields {
   chainId: Float
   sellFee: Float
   sellReserveRatio: Float
-  virtualCollateral: Float
-  virtualCollateralRaw: Float
-  virtualIssuance: Float
+  virtualCOL: Float
+  virtualISS: Float
 }
 
 """
@@ -2128,6 +2255,2052 @@ input Bounty_variance_order_by {
 }
 
 """
+columns and relationships of "CurveDayData"
+"""
+type CurveDayData {
+  chainId: Int!
+  closeCOL: numeric!
+  closeUSD: numeric!
+
+  """An object relationship"""
+  collateralToken: Token
+  collateralToken_id: String!
+  date: Int!
+  db_write_timestamp: timestamp
+  highCOL: numeric!
+  highUSD: numeric!
+  id: String!
+
+  """An object relationship"""
+  issuanceToken: Token
+  issuanceToken_id: String!
+  lowCOL: numeric!
+  lowUSD: numeric!
+  module_id: String!
+  openCOL: numeric!
+  openUSD: numeric!
+  priceCOL: numeric!
+  priceUSD: numeric!
+  projectFeeCOL: numeric!
+  projectFeeUSD: numeric!
+  protocolFeeCOL: numeric!
+  protocolFeeISS: numeric!
+  protocolFeeUSD: numeric!
+  volumeCOL: numeric!
+  volumeISS: numeric!
+  volumeUSD: numeric!
+}
+
+"""
+aggregated selection of "CurveDayData"
+"""
+type CurveDayData_aggregate {
+  aggregate: CurveDayData_aggregate_fields
+  nodes: [CurveDayData!]!
+}
+
+input CurveDayData_aggregate_bool_exp {
+  count: CurveDayData_aggregate_bool_exp_count
+}
+
+input CurveDayData_aggregate_bool_exp_count {
+  arguments: [CurveDayData_select_column!]
+  distinct: Boolean
+  filter: CurveDayData_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "CurveDayData"
+"""
+type CurveDayData_aggregate_fields {
+  avg: CurveDayData_avg_fields
+  count(columns: [CurveDayData_select_column!], distinct: Boolean): Int!
+  max: CurveDayData_max_fields
+  min: CurveDayData_min_fields
+  stddev: CurveDayData_stddev_fields
+  stddev_pop: CurveDayData_stddev_pop_fields
+  stddev_samp: CurveDayData_stddev_samp_fields
+  sum: CurveDayData_sum_fields
+  var_pop: CurveDayData_var_pop_fields
+  var_samp: CurveDayData_var_samp_fields
+  variance: CurveDayData_variance_fields
+}
+
+"""
+order by aggregate values of table "CurveDayData"
+"""
+input CurveDayData_aggregate_order_by {
+  avg: CurveDayData_avg_order_by
+  count: order_by
+  max: CurveDayData_max_order_by
+  min: CurveDayData_min_order_by
+  stddev: CurveDayData_stddev_order_by
+  stddev_pop: CurveDayData_stddev_pop_order_by
+  stddev_samp: CurveDayData_stddev_samp_order_by
+  sum: CurveDayData_sum_order_by
+  var_pop: CurveDayData_var_pop_order_by
+  var_samp: CurveDayData_var_samp_order_by
+  variance: CurveDayData_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "CurveDayData"
+"""
+input CurveDayData_arr_rel_insert_input {
+  data: [CurveDayData_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: CurveDayData_on_conflict
+}
+
+"""aggregate avg on columns"""
+type CurveDayData_avg_fields {
+  chainId: Float
+  closeCOL: Float
+  closeUSD: Float
+  date: Float
+  highCOL: Float
+  highUSD: Float
+  lowCOL: Float
+  lowUSD: Float
+  openCOL: Float
+  openUSD: Float
+  priceCOL: Float
+  priceUSD: Float
+  projectFeeCOL: Float
+  projectFeeUSD: Float
+  protocolFeeCOL: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeCOL: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by avg() on columns of table "CurveDayData"
+"""
+input CurveDayData_avg_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  date: order_by
+  highCOL: order_by
+  highUSD: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  openCOL: order_by
+  openUSD: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "CurveDayData". All fields are combined with a logical 'AND'.
+"""
+input CurveDayData_bool_exp {
+  _and: [CurveDayData_bool_exp!]
+  _not: CurveDayData_bool_exp
+  _or: [CurveDayData_bool_exp!]
+  chainId: Int_comparison_exp
+  closeCOL: numeric_comparison_exp
+  closeUSD: numeric_comparison_exp
+  collateralToken: Token_bool_exp
+  collateralToken_id: String_comparison_exp
+  date: Int_comparison_exp
+  db_write_timestamp: timestamp_comparison_exp
+  highCOL: numeric_comparison_exp
+  highUSD: numeric_comparison_exp
+  id: String_comparison_exp
+  issuanceToken: Token_bool_exp
+  issuanceToken_id: String_comparison_exp
+  lowCOL: numeric_comparison_exp
+  lowUSD: numeric_comparison_exp
+  module_id: String_comparison_exp
+  openCOL: numeric_comparison_exp
+  openUSD: numeric_comparison_exp
+  priceCOL: numeric_comparison_exp
+  priceUSD: numeric_comparison_exp
+  projectFeeCOL: numeric_comparison_exp
+  projectFeeUSD: numeric_comparison_exp
+  protocolFeeCOL: numeric_comparison_exp
+  protocolFeeISS: numeric_comparison_exp
+  protocolFeeUSD: numeric_comparison_exp
+  volumeCOL: numeric_comparison_exp
+  volumeISS: numeric_comparison_exp
+  volumeUSD: numeric_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "CurveDayData"
+"""
+enum CurveDayData_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  CurveDayData_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "CurveDayData"
+"""
+input CurveDayData_inc_input {
+  chainId: Int
+  closeCOL: numeric
+  closeUSD: numeric
+  date: Int
+  highCOL: numeric
+  highUSD: numeric
+  lowCOL: numeric
+  lowUSD: numeric
+  openCOL: numeric
+  openUSD: numeric
+  priceCOL: numeric
+  priceUSD: numeric
+  projectFeeCOL: numeric
+  projectFeeUSD: numeric
+  protocolFeeCOL: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
+  volumeCOL: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""
+input type for inserting data into table "CurveDayData"
+"""
+input CurveDayData_insert_input {
+  chainId: Int
+  closeCOL: numeric
+  closeUSD: numeric
+  collateralToken: Token_obj_rel_insert_input
+  collateralToken_id: String
+  date: Int
+  db_write_timestamp: timestamp
+  highCOL: numeric
+  highUSD: numeric
+  id: String
+  issuanceToken: Token_obj_rel_insert_input
+  issuanceToken_id: String
+  lowCOL: numeric
+  lowUSD: numeric
+  module_id: String
+  openCOL: numeric
+  openUSD: numeric
+  priceCOL: numeric
+  priceUSD: numeric
+  projectFeeCOL: numeric
+  projectFeeUSD: numeric
+  protocolFeeCOL: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
+  volumeCOL: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""aggregate max on columns"""
+type CurveDayData_max_fields {
+  chainId: Int
+  closeCOL: numeric
+  closeUSD: numeric
+  collateralToken_id: String
+  date: Int
+  db_write_timestamp: timestamp
+  highCOL: numeric
+  highUSD: numeric
+  id: String
+  issuanceToken_id: String
+  lowCOL: numeric
+  lowUSD: numeric
+  module_id: String
+  openCOL: numeric
+  openUSD: numeric
+  priceCOL: numeric
+  priceUSD: numeric
+  projectFeeCOL: numeric
+  projectFeeUSD: numeric
+  protocolFeeCOL: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
+  volumeCOL: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""
+order by max() on columns of table "CurveDayData"
+"""
+input CurveDayData_max_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  collateralToken_id: order_by
+  date: order_by
+  db_write_timestamp: order_by
+  highCOL: order_by
+  highUSD: order_by
+  id: order_by
+  issuanceToken_id: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  module_id: order_by
+  openCOL: order_by
+  openUSD: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""aggregate min on columns"""
+type CurveDayData_min_fields {
+  chainId: Int
+  closeCOL: numeric
+  closeUSD: numeric
+  collateralToken_id: String
+  date: Int
+  db_write_timestamp: timestamp
+  highCOL: numeric
+  highUSD: numeric
+  id: String
+  issuanceToken_id: String
+  lowCOL: numeric
+  lowUSD: numeric
+  module_id: String
+  openCOL: numeric
+  openUSD: numeric
+  priceCOL: numeric
+  priceUSD: numeric
+  projectFeeCOL: numeric
+  projectFeeUSD: numeric
+  protocolFeeCOL: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
+  volumeCOL: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""
+order by min() on columns of table "CurveDayData"
+"""
+input CurveDayData_min_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  collateralToken_id: order_by
+  date: order_by
+  db_write_timestamp: order_by
+  highCOL: order_by
+  highUSD: order_by
+  id: order_by
+  issuanceToken_id: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  module_id: order_by
+  openCOL: order_by
+  openUSD: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""
+response of any mutation on the table "CurveDayData"
+"""
+type CurveDayData_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [CurveDayData!]!
+}
+
+"""
+on_conflict condition type for table "CurveDayData"
+"""
+input CurveDayData_on_conflict {
+  constraint: CurveDayData_constraint!
+  update_columns: [CurveDayData_update_column!]! = []
+  where: CurveDayData_bool_exp
+}
+
+"""Ordering options when selecting data from "CurveDayData"."""
+input CurveDayData_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  collateralToken: Token_order_by
+  collateralToken_id: order_by
+  date: order_by
+  db_write_timestamp: order_by
+  highCOL: order_by
+  highUSD: order_by
+  id: order_by
+  issuanceToken: Token_order_by
+  issuanceToken_id: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  module_id: order_by
+  openCOL: order_by
+  openUSD: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""primary key columns input for table: CurveDayData"""
+input CurveDayData_pk_columns_input {
+  id: String!
+}
+
+"""
+select columns of table "CurveDayData"
+"""
+enum CurveDayData_select_column {
+  """column name"""
+  chainId
+
+  """column name"""
+  closeCOL
+
+  """column name"""
+  closeUSD
+
+  """column name"""
+  collateralToken_id
+
+  """column name"""
+  date
+
+  """column name"""
+  db_write_timestamp
+
+  """column name"""
+  highCOL
+
+  """column name"""
+  highUSD
+
+  """column name"""
+  id
+
+  """column name"""
+  issuanceToken_id
+
+  """column name"""
+  lowCOL
+
+  """column name"""
+  lowUSD
+
+  """column name"""
+  module_id
+
+  """column name"""
+  openCOL
+
+  """column name"""
+  openUSD
+
+  """column name"""
+  priceCOL
+
+  """column name"""
+  priceUSD
+
+  """column name"""
+  projectFeeCOL
+
+  """column name"""
+  projectFeeUSD
+
+  """column name"""
+  protocolFeeCOL
+
+  """column name"""
+  protocolFeeISS
+
+  """column name"""
+  protocolFeeUSD
+
+  """column name"""
+  volumeCOL
+
+  """column name"""
+  volumeISS
+
+  """column name"""
+  volumeUSD
+}
+
+"""
+input type for updating data in table "CurveDayData"
+"""
+input CurveDayData_set_input {
+  chainId: Int
+  closeCOL: numeric
+  closeUSD: numeric
+  collateralToken_id: String
+  date: Int
+  db_write_timestamp: timestamp
+  highCOL: numeric
+  highUSD: numeric
+  id: String
+  issuanceToken_id: String
+  lowCOL: numeric
+  lowUSD: numeric
+  module_id: String
+  openCOL: numeric
+  openUSD: numeric
+  priceCOL: numeric
+  priceUSD: numeric
+  projectFeeCOL: numeric
+  projectFeeUSD: numeric
+  protocolFeeCOL: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
+  volumeCOL: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""aggregate stddev on columns"""
+type CurveDayData_stddev_fields {
+  chainId: Float
+  closeCOL: Float
+  closeUSD: Float
+  date: Float
+  highCOL: Float
+  highUSD: Float
+  lowCOL: Float
+  lowUSD: Float
+  openCOL: Float
+  openUSD: Float
+  priceCOL: Float
+  priceUSD: Float
+  projectFeeCOL: Float
+  projectFeeUSD: Float
+  protocolFeeCOL: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeCOL: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by stddev() on columns of table "CurveDayData"
+"""
+input CurveDayData_stddev_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  date: order_by
+  highCOL: order_by
+  highUSD: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  openCOL: order_by
+  openUSD: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type CurveDayData_stddev_pop_fields {
+  chainId: Float
+  closeCOL: Float
+  closeUSD: Float
+  date: Float
+  highCOL: Float
+  highUSD: Float
+  lowCOL: Float
+  lowUSD: Float
+  openCOL: Float
+  openUSD: Float
+  priceCOL: Float
+  priceUSD: Float
+  projectFeeCOL: Float
+  projectFeeUSD: Float
+  protocolFeeCOL: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeCOL: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by stddev_pop() on columns of table "CurveDayData"
+"""
+input CurveDayData_stddev_pop_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  date: order_by
+  highCOL: order_by
+  highUSD: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  openCOL: order_by
+  openUSD: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type CurveDayData_stddev_samp_fields {
+  chainId: Float
+  closeCOL: Float
+  closeUSD: Float
+  date: Float
+  highCOL: Float
+  highUSD: Float
+  lowCOL: Float
+  lowUSD: Float
+  openCOL: Float
+  openUSD: Float
+  priceCOL: Float
+  priceUSD: Float
+  projectFeeCOL: Float
+  projectFeeUSD: Float
+  protocolFeeCOL: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeCOL: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by stddev_samp() on columns of table "CurveDayData"
+"""
+input CurveDayData_stddev_samp_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  date: order_by
+  highCOL: order_by
+  highUSD: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  openCOL: order_by
+  openUSD: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""
+Streaming cursor of the table "CurveDayData"
+"""
+input CurveDayData_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: CurveDayData_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input CurveDayData_stream_cursor_value_input {
+  chainId: Int
+  closeCOL: numeric
+  closeUSD: numeric
+  collateralToken_id: String
+  date: Int
+  db_write_timestamp: timestamp
+  highCOL: numeric
+  highUSD: numeric
+  id: String
+  issuanceToken_id: String
+  lowCOL: numeric
+  lowUSD: numeric
+  module_id: String
+  openCOL: numeric
+  openUSD: numeric
+  priceCOL: numeric
+  priceUSD: numeric
+  projectFeeCOL: numeric
+  projectFeeUSD: numeric
+  protocolFeeCOL: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
+  volumeCOL: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""aggregate sum on columns"""
+type CurveDayData_sum_fields {
+  chainId: Int
+  closeCOL: numeric
+  closeUSD: numeric
+  date: Int
+  highCOL: numeric
+  highUSD: numeric
+  lowCOL: numeric
+  lowUSD: numeric
+  openCOL: numeric
+  openUSD: numeric
+  priceCOL: numeric
+  priceUSD: numeric
+  projectFeeCOL: numeric
+  projectFeeUSD: numeric
+  protocolFeeCOL: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
+  volumeCOL: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""
+order by sum() on columns of table "CurveDayData"
+"""
+input CurveDayData_sum_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  date: order_by
+  highCOL: order_by
+  highUSD: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  openCOL: order_by
+  openUSD: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""
+update columns of table "CurveDayData"
+"""
+enum CurveDayData_update_column {
+  """column name"""
+  chainId
+
+  """column name"""
+  closeCOL
+
+  """column name"""
+  closeUSD
+
+  """column name"""
+  collateralToken_id
+
+  """column name"""
+  date
+
+  """column name"""
+  db_write_timestamp
+
+  """column name"""
+  highCOL
+
+  """column name"""
+  highUSD
+
+  """column name"""
+  id
+
+  """column name"""
+  issuanceToken_id
+
+  """column name"""
+  lowCOL
+
+  """column name"""
+  lowUSD
+
+  """column name"""
+  module_id
+
+  """column name"""
+  openCOL
+
+  """column name"""
+  openUSD
+
+  """column name"""
+  priceCOL
+
+  """column name"""
+  priceUSD
+
+  """column name"""
+  projectFeeCOL
+
+  """column name"""
+  projectFeeUSD
+
+  """column name"""
+  protocolFeeCOL
+
+  """column name"""
+  protocolFeeISS
+
+  """column name"""
+  protocolFeeUSD
+
+  """column name"""
+  volumeCOL
+
+  """column name"""
+  volumeISS
+
+  """column name"""
+  volumeUSD
+}
+
+input CurveDayData_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: CurveDayData_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: CurveDayData_set_input
+
+  """filter the rows which have to be updated"""
+  where: CurveDayData_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type CurveDayData_var_pop_fields {
+  chainId: Float
+  closeCOL: Float
+  closeUSD: Float
+  date: Float
+  highCOL: Float
+  highUSD: Float
+  lowCOL: Float
+  lowUSD: Float
+  openCOL: Float
+  openUSD: Float
+  priceCOL: Float
+  priceUSD: Float
+  projectFeeCOL: Float
+  projectFeeUSD: Float
+  protocolFeeCOL: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeCOL: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by var_pop() on columns of table "CurveDayData"
+"""
+input CurveDayData_var_pop_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  date: order_by
+  highCOL: order_by
+  highUSD: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  openCOL: order_by
+  openUSD: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""aggregate var_samp on columns"""
+type CurveDayData_var_samp_fields {
+  chainId: Float
+  closeCOL: Float
+  closeUSD: Float
+  date: Float
+  highCOL: Float
+  highUSD: Float
+  lowCOL: Float
+  lowUSD: Float
+  openCOL: Float
+  openUSD: Float
+  priceCOL: Float
+  priceUSD: Float
+  projectFeeCOL: Float
+  projectFeeUSD: Float
+  protocolFeeCOL: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeCOL: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by var_samp() on columns of table "CurveDayData"
+"""
+input CurveDayData_var_samp_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  date: order_by
+  highCOL: order_by
+  highUSD: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  openCOL: order_by
+  openUSD: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""aggregate variance on columns"""
+type CurveDayData_variance_fields {
+  chainId: Float
+  closeCOL: Float
+  closeUSD: Float
+  date: Float
+  highCOL: Float
+  highUSD: Float
+  lowCOL: Float
+  lowUSD: Float
+  openCOL: Float
+  openUSD: Float
+  priceCOL: Float
+  priceUSD: Float
+  projectFeeCOL: Float
+  projectFeeUSD: Float
+  protocolFeeCOL: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeCOL: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by variance() on columns of table "CurveDayData"
+"""
+input CurveDayData_variance_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  date: order_by
+  highCOL: order_by
+  highUSD: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  openCOL: order_by
+  openUSD: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""
+columns and relationships of "CurveHourData"
+"""
+type CurveHourData {
+  chainId: Int!
+  closeCOL: numeric!
+  closeUSD: numeric!
+
+  """An object relationship"""
+  collateralToken: Token
+  collateralToken_id: String!
+  db_write_timestamp: timestamp
+  highCOL: numeric!
+  highUSD: numeric!
+  id: String!
+
+  """An object relationship"""
+  issuanceToken: Token
+  issuanceToken_id: String!
+  lowCOL: numeric!
+  lowUSD: numeric!
+  module_id: String!
+  openCOL: numeric!
+  openUSD: numeric!
+  periodStartUnix: Int!
+  priceCOL: numeric!
+  priceUSD: numeric!
+  projectFeeCOL: numeric!
+  projectFeeUSD: numeric!
+  protocolFeeCOL: numeric!
+  protocolFeeISS: numeric!
+  protocolFeeUSD: numeric!
+  volumeCOL: numeric!
+  volumeISS: numeric!
+  volumeUSD: numeric!
+}
+
+"""
+aggregated selection of "CurveHourData"
+"""
+type CurveHourData_aggregate {
+  aggregate: CurveHourData_aggregate_fields
+  nodes: [CurveHourData!]!
+}
+
+input CurveHourData_aggregate_bool_exp {
+  count: CurveHourData_aggregate_bool_exp_count
+}
+
+input CurveHourData_aggregate_bool_exp_count {
+  arguments: [CurveHourData_select_column!]
+  distinct: Boolean
+  filter: CurveHourData_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "CurveHourData"
+"""
+type CurveHourData_aggregate_fields {
+  avg: CurveHourData_avg_fields
+  count(columns: [CurveHourData_select_column!], distinct: Boolean): Int!
+  max: CurveHourData_max_fields
+  min: CurveHourData_min_fields
+  stddev: CurveHourData_stddev_fields
+  stddev_pop: CurveHourData_stddev_pop_fields
+  stddev_samp: CurveHourData_stddev_samp_fields
+  sum: CurveHourData_sum_fields
+  var_pop: CurveHourData_var_pop_fields
+  var_samp: CurveHourData_var_samp_fields
+  variance: CurveHourData_variance_fields
+}
+
+"""
+order by aggregate values of table "CurveHourData"
+"""
+input CurveHourData_aggregate_order_by {
+  avg: CurveHourData_avg_order_by
+  count: order_by
+  max: CurveHourData_max_order_by
+  min: CurveHourData_min_order_by
+  stddev: CurveHourData_stddev_order_by
+  stddev_pop: CurveHourData_stddev_pop_order_by
+  stddev_samp: CurveHourData_stddev_samp_order_by
+  sum: CurveHourData_sum_order_by
+  var_pop: CurveHourData_var_pop_order_by
+  var_samp: CurveHourData_var_samp_order_by
+  variance: CurveHourData_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "CurveHourData"
+"""
+input CurveHourData_arr_rel_insert_input {
+  data: [CurveHourData_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: CurveHourData_on_conflict
+}
+
+"""aggregate avg on columns"""
+type CurveHourData_avg_fields {
+  chainId: Float
+  closeCOL: Float
+  closeUSD: Float
+  highCOL: Float
+  highUSD: Float
+  lowCOL: Float
+  lowUSD: Float
+  openCOL: Float
+  openUSD: Float
+  periodStartUnix: Float
+  priceCOL: Float
+  priceUSD: Float
+  projectFeeCOL: Float
+  projectFeeUSD: Float
+  protocolFeeCOL: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeCOL: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by avg() on columns of table "CurveHourData"
+"""
+input CurveHourData_avg_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  highCOL: order_by
+  highUSD: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  openCOL: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "CurveHourData". All fields are combined with a logical 'AND'.
+"""
+input CurveHourData_bool_exp {
+  _and: [CurveHourData_bool_exp!]
+  _not: CurveHourData_bool_exp
+  _or: [CurveHourData_bool_exp!]
+  chainId: Int_comparison_exp
+  closeCOL: numeric_comparison_exp
+  closeUSD: numeric_comparison_exp
+  collateralToken: Token_bool_exp
+  collateralToken_id: String_comparison_exp
+  db_write_timestamp: timestamp_comparison_exp
+  highCOL: numeric_comparison_exp
+  highUSD: numeric_comparison_exp
+  id: String_comparison_exp
+  issuanceToken: Token_bool_exp
+  issuanceToken_id: String_comparison_exp
+  lowCOL: numeric_comparison_exp
+  lowUSD: numeric_comparison_exp
+  module_id: String_comparison_exp
+  openCOL: numeric_comparison_exp
+  openUSD: numeric_comparison_exp
+  periodStartUnix: Int_comparison_exp
+  priceCOL: numeric_comparison_exp
+  priceUSD: numeric_comparison_exp
+  projectFeeCOL: numeric_comparison_exp
+  projectFeeUSD: numeric_comparison_exp
+  protocolFeeCOL: numeric_comparison_exp
+  protocolFeeISS: numeric_comparison_exp
+  protocolFeeUSD: numeric_comparison_exp
+  volumeCOL: numeric_comparison_exp
+  volumeISS: numeric_comparison_exp
+  volumeUSD: numeric_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "CurveHourData"
+"""
+enum CurveHourData_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  CurveHourData_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "CurveHourData"
+"""
+input CurveHourData_inc_input {
+  chainId: Int
+  closeCOL: numeric
+  closeUSD: numeric
+  highCOL: numeric
+  highUSD: numeric
+  lowCOL: numeric
+  lowUSD: numeric
+  openCOL: numeric
+  openUSD: numeric
+  periodStartUnix: Int
+  priceCOL: numeric
+  priceUSD: numeric
+  projectFeeCOL: numeric
+  projectFeeUSD: numeric
+  protocolFeeCOL: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
+  volumeCOL: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""
+input type for inserting data into table "CurveHourData"
+"""
+input CurveHourData_insert_input {
+  chainId: Int
+  closeCOL: numeric
+  closeUSD: numeric
+  collateralToken: Token_obj_rel_insert_input
+  collateralToken_id: String
+  db_write_timestamp: timestamp
+  highCOL: numeric
+  highUSD: numeric
+  id: String
+  issuanceToken: Token_obj_rel_insert_input
+  issuanceToken_id: String
+  lowCOL: numeric
+  lowUSD: numeric
+  module_id: String
+  openCOL: numeric
+  openUSD: numeric
+  periodStartUnix: Int
+  priceCOL: numeric
+  priceUSD: numeric
+  projectFeeCOL: numeric
+  projectFeeUSD: numeric
+  protocolFeeCOL: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
+  volumeCOL: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""aggregate max on columns"""
+type CurveHourData_max_fields {
+  chainId: Int
+  closeCOL: numeric
+  closeUSD: numeric
+  collateralToken_id: String
+  db_write_timestamp: timestamp
+  highCOL: numeric
+  highUSD: numeric
+  id: String
+  issuanceToken_id: String
+  lowCOL: numeric
+  lowUSD: numeric
+  module_id: String
+  openCOL: numeric
+  openUSD: numeric
+  periodStartUnix: Int
+  priceCOL: numeric
+  priceUSD: numeric
+  projectFeeCOL: numeric
+  projectFeeUSD: numeric
+  protocolFeeCOL: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
+  volumeCOL: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""
+order by max() on columns of table "CurveHourData"
+"""
+input CurveHourData_max_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  collateralToken_id: order_by
+  db_write_timestamp: order_by
+  highCOL: order_by
+  highUSD: order_by
+  id: order_by
+  issuanceToken_id: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  module_id: order_by
+  openCOL: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""aggregate min on columns"""
+type CurveHourData_min_fields {
+  chainId: Int
+  closeCOL: numeric
+  closeUSD: numeric
+  collateralToken_id: String
+  db_write_timestamp: timestamp
+  highCOL: numeric
+  highUSD: numeric
+  id: String
+  issuanceToken_id: String
+  lowCOL: numeric
+  lowUSD: numeric
+  module_id: String
+  openCOL: numeric
+  openUSD: numeric
+  periodStartUnix: Int
+  priceCOL: numeric
+  priceUSD: numeric
+  projectFeeCOL: numeric
+  projectFeeUSD: numeric
+  protocolFeeCOL: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
+  volumeCOL: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""
+order by min() on columns of table "CurveHourData"
+"""
+input CurveHourData_min_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  collateralToken_id: order_by
+  db_write_timestamp: order_by
+  highCOL: order_by
+  highUSD: order_by
+  id: order_by
+  issuanceToken_id: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  module_id: order_by
+  openCOL: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""
+response of any mutation on the table "CurveHourData"
+"""
+type CurveHourData_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [CurveHourData!]!
+}
+
+"""
+on_conflict condition type for table "CurveHourData"
+"""
+input CurveHourData_on_conflict {
+  constraint: CurveHourData_constraint!
+  update_columns: [CurveHourData_update_column!]! = []
+  where: CurveHourData_bool_exp
+}
+
+"""Ordering options when selecting data from "CurveHourData"."""
+input CurveHourData_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  collateralToken: Token_order_by
+  collateralToken_id: order_by
+  db_write_timestamp: order_by
+  highCOL: order_by
+  highUSD: order_by
+  id: order_by
+  issuanceToken: Token_order_by
+  issuanceToken_id: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  module_id: order_by
+  openCOL: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""primary key columns input for table: CurveHourData"""
+input CurveHourData_pk_columns_input {
+  id: String!
+}
+
+"""
+select columns of table "CurveHourData"
+"""
+enum CurveHourData_select_column {
+  """column name"""
+  chainId
+
+  """column name"""
+  closeCOL
+
+  """column name"""
+  closeUSD
+
+  """column name"""
+  collateralToken_id
+
+  """column name"""
+  db_write_timestamp
+
+  """column name"""
+  highCOL
+
+  """column name"""
+  highUSD
+
+  """column name"""
+  id
+
+  """column name"""
+  issuanceToken_id
+
+  """column name"""
+  lowCOL
+
+  """column name"""
+  lowUSD
+
+  """column name"""
+  module_id
+
+  """column name"""
+  openCOL
+
+  """column name"""
+  openUSD
+
+  """column name"""
+  periodStartUnix
+
+  """column name"""
+  priceCOL
+
+  """column name"""
+  priceUSD
+
+  """column name"""
+  projectFeeCOL
+
+  """column name"""
+  projectFeeUSD
+
+  """column name"""
+  protocolFeeCOL
+
+  """column name"""
+  protocolFeeISS
+
+  """column name"""
+  protocolFeeUSD
+
+  """column name"""
+  volumeCOL
+
+  """column name"""
+  volumeISS
+
+  """column name"""
+  volumeUSD
+}
+
+"""
+input type for updating data in table "CurveHourData"
+"""
+input CurveHourData_set_input {
+  chainId: Int
+  closeCOL: numeric
+  closeUSD: numeric
+  collateralToken_id: String
+  db_write_timestamp: timestamp
+  highCOL: numeric
+  highUSD: numeric
+  id: String
+  issuanceToken_id: String
+  lowCOL: numeric
+  lowUSD: numeric
+  module_id: String
+  openCOL: numeric
+  openUSD: numeric
+  periodStartUnix: Int
+  priceCOL: numeric
+  priceUSD: numeric
+  projectFeeCOL: numeric
+  projectFeeUSD: numeric
+  protocolFeeCOL: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
+  volumeCOL: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""aggregate stddev on columns"""
+type CurveHourData_stddev_fields {
+  chainId: Float
+  closeCOL: Float
+  closeUSD: Float
+  highCOL: Float
+  highUSD: Float
+  lowCOL: Float
+  lowUSD: Float
+  openCOL: Float
+  openUSD: Float
+  periodStartUnix: Float
+  priceCOL: Float
+  priceUSD: Float
+  projectFeeCOL: Float
+  projectFeeUSD: Float
+  protocolFeeCOL: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeCOL: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by stddev() on columns of table "CurveHourData"
+"""
+input CurveHourData_stddev_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  highCOL: order_by
+  highUSD: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  openCOL: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type CurveHourData_stddev_pop_fields {
+  chainId: Float
+  closeCOL: Float
+  closeUSD: Float
+  highCOL: Float
+  highUSD: Float
+  lowCOL: Float
+  lowUSD: Float
+  openCOL: Float
+  openUSD: Float
+  periodStartUnix: Float
+  priceCOL: Float
+  priceUSD: Float
+  projectFeeCOL: Float
+  projectFeeUSD: Float
+  protocolFeeCOL: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeCOL: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by stddev_pop() on columns of table "CurveHourData"
+"""
+input CurveHourData_stddev_pop_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  highCOL: order_by
+  highUSD: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  openCOL: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type CurveHourData_stddev_samp_fields {
+  chainId: Float
+  closeCOL: Float
+  closeUSD: Float
+  highCOL: Float
+  highUSD: Float
+  lowCOL: Float
+  lowUSD: Float
+  openCOL: Float
+  openUSD: Float
+  periodStartUnix: Float
+  priceCOL: Float
+  priceUSD: Float
+  projectFeeCOL: Float
+  projectFeeUSD: Float
+  protocolFeeCOL: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeCOL: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by stddev_samp() on columns of table "CurveHourData"
+"""
+input CurveHourData_stddev_samp_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  highCOL: order_by
+  highUSD: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  openCOL: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""
+Streaming cursor of the table "CurveHourData"
+"""
+input CurveHourData_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: CurveHourData_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input CurveHourData_stream_cursor_value_input {
+  chainId: Int
+  closeCOL: numeric
+  closeUSD: numeric
+  collateralToken_id: String
+  db_write_timestamp: timestamp
+  highCOL: numeric
+  highUSD: numeric
+  id: String
+  issuanceToken_id: String
+  lowCOL: numeric
+  lowUSD: numeric
+  module_id: String
+  openCOL: numeric
+  openUSD: numeric
+  periodStartUnix: Int
+  priceCOL: numeric
+  priceUSD: numeric
+  projectFeeCOL: numeric
+  projectFeeUSD: numeric
+  protocolFeeCOL: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
+  volumeCOL: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""aggregate sum on columns"""
+type CurveHourData_sum_fields {
+  chainId: Int
+  closeCOL: numeric
+  closeUSD: numeric
+  highCOL: numeric
+  highUSD: numeric
+  lowCOL: numeric
+  lowUSD: numeric
+  openCOL: numeric
+  openUSD: numeric
+  periodStartUnix: Int
+  priceCOL: numeric
+  priceUSD: numeric
+  projectFeeCOL: numeric
+  projectFeeUSD: numeric
+  protocolFeeCOL: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
+  volumeCOL: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""
+order by sum() on columns of table "CurveHourData"
+"""
+input CurveHourData_sum_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  highCOL: order_by
+  highUSD: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  openCOL: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""
+update columns of table "CurveHourData"
+"""
+enum CurveHourData_update_column {
+  """column name"""
+  chainId
+
+  """column name"""
+  closeCOL
+
+  """column name"""
+  closeUSD
+
+  """column name"""
+  collateralToken_id
+
+  """column name"""
+  db_write_timestamp
+
+  """column name"""
+  highCOL
+
+  """column name"""
+  highUSD
+
+  """column name"""
+  id
+
+  """column name"""
+  issuanceToken_id
+
+  """column name"""
+  lowCOL
+
+  """column name"""
+  lowUSD
+
+  """column name"""
+  module_id
+
+  """column name"""
+  openCOL
+
+  """column name"""
+  openUSD
+
+  """column name"""
+  periodStartUnix
+
+  """column name"""
+  priceCOL
+
+  """column name"""
+  priceUSD
+
+  """column name"""
+  projectFeeCOL
+
+  """column name"""
+  projectFeeUSD
+
+  """column name"""
+  protocolFeeCOL
+
+  """column name"""
+  protocolFeeISS
+
+  """column name"""
+  protocolFeeUSD
+
+  """column name"""
+  volumeCOL
+
+  """column name"""
+  volumeISS
+
+  """column name"""
+  volumeUSD
+}
+
+input CurveHourData_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: CurveHourData_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: CurveHourData_set_input
+
+  """filter the rows which have to be updated"""
+  where: CurveHourData_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type CurveHourData_var_pop_fields {
+  chainId: Float
+  closeCOL: Float
+  closeUSD: Float
+  highCOL: Float
+  highUSD: Float
+  lowCOL: Float
+  lowUSD: Float
+  openCOL: Float
+  openUSD: Float
+  periodStartUnix: Float
+  priceCOL: Float
+  priceUSD: Float
+  projectFeeCOL: Float
+  projectFeeUSD: Float
+  protocolFeeCOL: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeCOL: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by var_pop() on columns of table "CurveHourData"
+"""
+input CurveHourData_var_pop_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  highCOL: order_by
+  highUSD: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  openCOL: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""aggregate var_samp on columns"""
+type CurveHourData_var_samp_fields {
+  chainId: Float
+  closeCOL: Float
+  closeUSD: Float
+  highCOL: Float
+  highUSD: Float
+  lowCOL: Float
+  lowUSD: Float
+  openCOL: Float
+  openUSD: Float
+  periodStartUnix: Float
+  priceCOL: Float
+  priceUSD: Float
+  projectFeeCOL: Float
+  projectFeeUSD: Float
+  protocolFeeCOL: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeCOL: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by var_samp() on columns of table "CurveHourData"
+"""
+input CurveHourData_var_samp_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  highCOL: order_by
+  highUSD: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  openCOL: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""aggregate variance on columns"""
+type CurveHourData_variance_fields {
+  chainId: Float
+  closeCOL: Float
+  closeUSD: Float
+  highCOL: Float
+  highUSD: Float
+  lowCOL: Float
+  lowUSD: Float
+  openCOL: Float
+  openUSD: Float
+  periodStartUnix: Float
+  priceCOL: Float
+  priceUSD: Float
+  projectFeeCOL: Float
+  projectFeeUSD: Float
+  protocolFeeCOL: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeCOL: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by variance() on columns of table "CurveHourData"
+"""
+input CurveHourData_variance_order_by {
+  chainId: order_by
+  closeCOL: order_by
+  closeUSD: order_by
+  highCOL: order_by
+  highUSD: order_by
+  lowCOL: order_by
+  lowUSD: order_by
+  openCOL: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFeeCOL: order_by
+  projectFeeUSD: order_by
+  protocolFeeCOL: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeCOL: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
+}
+
+"""
 columns and relationships of "Deposit"
 """
 type Deposit {
@@ -2945,23 +5118,20 @@ columns and relationships of "IssuanceTokenDayData"
 """
 type IssuanceTokenDayData {
   chainId: Int!
-  closeInCol: numeric!
+  closeUSD: numeric!
   date: Int!
   db_write_timestamp: timestamp
-  highInCol: numeric!
+  highUSD: numeric!
   id: String!
-  lowInCol: numeric!
-  openInCol: numeric!
-  priceInCol: numeric!
-  projectFeeInCol: numeric!
-  protocolFeeInCol: numeric!
-  protocolFeeInIssuance: numeric!
-
-  """An object relationship"""
-  token: Token
+  lowUSD: numeric!
+  openUSD: numeric!
+  priceUSD: numeric!
+  projectFeeUSD: numeric!
+  protocolFeeISS: numeric!
+  protocolFeeUSD: numeric!
   token_id: String!
-  volumeInCol: numeric!
-  volumeInIssuance: numeric!
+  volumeISS: numeric!
+  volumeUSD: numeric!
 }
 
 """
@@ -2970,6 +5140,17 @@ aggregated selection of "IssuanceTokenDayData"
 type IssuanceTokenDayData_aggregate {
   aggregate: IssuanceTokenDayData_aggregate_fields
   nodes: [IssuanceTokenDayData!]!
+}
+
+input IssuanceTokenDayData_aggregate_bool_exp {
+  count: IssuanceTokenDayData_aggregate_bool_exp_count
+}
+
+input IssuanceTokenDayData_aggregate_bool_exp_count {
+  arguments: [IssuanceTokenDayData_select_column!]
+  distinct: Boolean
+  filter: IssuanceTokenDayData_bool_exp
+  predicate: Int_comparison_exp!
 }
 
 """
@@ -2989,20 +5170,65 @@ type IssuanceTokenDayData_aggregate_fields {
   variance: IssuanceTokenDayData_variance_fields
 }
 
+"""
+order by aggregate values of table "IssuanceTokenDayData"
+"""
+input IssuanceTokenDayData_aggregate_order_by {
+  avg: IssuanceTokenDayData_avg_order_by
+  count: order_by
+  max: IssuanceTokenDayData_max_order_by
+  min: IssuanceTokenDayData_min_order_by
+  stddev: IssuanceTokenDayData_stddev_order_by
+  stddev_pop: IssuanceTokenDayData_stddev_pop_order_by
+  stddev_samp: IssuanceTokenDayData_stddev_samp_order_by
+  sum: IssuanceTokenDayData_sum_order_by
+  var_pop: IssuanceTokenDayData_var_pop_order_by
+  var_samp: IssuanceTokenDayData_var_samp_order_by
+  variance: IssuanceTokenDayData_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "IssuanceTokenDayData"
+"""
+input IssuanceTokenDayData_arr_rel_insert_input {
+  data: [IssuanceTokenDayData_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: IssuanceTokenDayData_on_conflict
+}
+
 """aggregate avg on columns"""
 type IssuanceTokenDayData_avg_fields {
   chainId: Float
-  closeInCol: Float
+  closeUSD: Float
   date: Float
-  highInCol: Float
-  lowInCol: Float
-  openInCol: Float
-  priceInCol: Float
-  projectFeeInCol: Float
-  protocolFeeInCol: Float
-  protocolFeeInIssuance: Float
-  volumeInCol: Float
-  volumeInIssuance: Float
+  highUSD: Float
+  lowUSD: Float
+  openUSD: Float
+  priceUSD: Float
+  projectFeeUSD: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by avg() on columns of table "IssuanceTokenDayData"
+"""
+input IssuanceTokenDayData_avg_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  date: order_by
+  highUSD: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """
@@ -3013,21 +5239,20 @@ input IssuanceTokenDayData_bool_exp {
   _not: IssuanceTokenDayData_bool_exp
   _or: [IssuanceTokenDayData_bool_exp!]
   chainId: Int_comparison_exp
-  closeInCol: numeric_comparison_exp
+  closeUSD: numeric_comparison_exp
   date: Int_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
-  highInCol: numeric_comparison_exp
+  highUSD: numeric_comparison_exp
   id: String_comparison_exp
-  lowInCol: numeric_comparison_exp
-  openInCol: numeric_comparison_exp
-  priceInCol: numeric_comparison_exp
-  projectFeeInCol: numeric_comparison_exp
-  protocolFeeInCol: numeric_comparison_exp
-  protocolFeeInIssuance: numeric_comparison_exp
-  token: Token_bool_exp
+  lowUSD: numeric_comparison_exp
+  openUSD: numeric_comparison_exp
+  priceUSD: numeric_comparison_exp
+  projectFeeUSD: numeric_comparison_exp
+  protocolFeeISS: numeric_comparison_exp
+  protocolFeeUSD: numeric_comparison_exp
   token_id: String_comparison_exp
-  volumeInCol: numeric_comparison_exp
-  volumeInIssuance: numeric_comparison_exp
+  volumeISS: numeric_comparison_exp
+  volumeUSD: numeric_comparison_exp
 }
 
 """
@@ -3045,17 +5270,17 @@ input type for incrementing numeric columns in table "IssuanceTokenDayData"
 """
 input IssuanceTokenDayData_inc_input {
   chainId: Int
-  closeInCol: numeric
+  closeUSD: numeric
   date: Int
-  highInCol: numeric
-  lowInCol: numeric
-  openInCol: numeric
-  priceInCol: numeric
-  projectFeeInCol: numeric
-  protocolFeeInCol: numeric
-  protocolFeeInIssuance: numeric
-  volumeInCol: numeric
-  volumeInIssuance: numeric
+  highUSD: numeric
+  lowUSD: numeric
+  openUSD: numeric
+  priceUSD: numeric
+  projectFeeUSD: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
 }
 
 """
@@ -3063,59 +5288,100 @@ input type for inserting data into table "IssuanceTokenDayData"
 """
 input IssuanceTokenDayData_insert_input {
   chainId: Int
-  closeInCol: numeric
+  closeUSD: numeric
   date: Int
   db_write_timestamp: timestamp
-  highInCol: numeric
+  highUSD: numeric
   id: String
-  lowInCol: numeric
-  openInCol: numeric
-  priceInCol: numeric
-  projectFeeInCol: numeric
-  protocolFeeInCol: numeric
-  protocolFeeInIssuance: numeric
-  token: Token_obj_rel_insert_input
+  lowUSD: numeric
+  openUSD: numeric
+  priceUSD: numeric
+  projectFeeUSD: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
   token_id: String
-  volumeInCol: numeric
-  volumeInIssuance: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
 }
 
 """aggregate max on columns"""
 type IssuanceTokenDayData_max_fields {
   chainId: Int
-  closeInCol: numeric
+  closeUSD: numeric
   date: Int
   db_write_timestamp: timestamp
-  highInCol: numeric
+  highUSD: numeric
   id: String
-  lowInCol: numeric
-  openInCol: numeric
-  priceInCol: numeric
-  projectFeeInCol: numeric
-  protocolFeeInCol: numeric
-  protocolFeeInIssuance: numeric
+  lowUSD: numeric
+  openUSD: numeric
+  priceUSD: numeric
+  projectFeeUSD: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
   token_id: String
-  volumeInCol: numeric
-  volumeInIssuance: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""
+order by max() on columns of table "IssuanceTokenDayData"
+"""
+input IssuanceTokenDayData_max_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  date: order_by
+  db_write_timestamp: order_by
+  highUSD: order_by
+  id: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  token_id: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """aggregate min on columns"""
 type IssuanceTokenDayData_min_fields {
   chainId: Int
-  closeInCol: numeric
+  closeUSD: numeric
   date: Int
   db_write_timestamp: timestamp
-  highInCol: numeric
+  highUSD: numeric
   id: String
-  lowInCol: numeric
-  openInCol: numeric
-  priceInCol: numeric
-  projectFeeInCol: numeric
-  protocolFeeInCol: numeric
-  protocolFeeInIssuance: numeric
+  lowUSD: numeric
+  openUSD: numeric
+  priceUSD: numeric
+  projectFeeUSD: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
   token_id: String
-  volumeInCol: numeric
-  volumeInIssuance: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""
+order by min() on columns of table "IssuanceTokenDayData"
+"""
+input IssuanceTokenDayData_min_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  date: order_by
+  db_write_timestamp: order_by
+  highUSD: order_by
+  id: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  token_id: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """
@@ -3141,21 +5407,20 @@ input IssuanceTokenDayData_on_conflict {
 """Ordering options when selecting data from "IssuanceTokenDayData"."""
 input IssuanceTokenDayData_order_by {
   chainId: order_by
-  closeInCol: order_by
+  closeUSD: order_by
   date: order_by
   db_write_timestamp: order_by
-  highInCol: order_by
+  highUSD: order_by
   id: order_by
-  lowInCol: order_by
-  openInCol: order_by
-  priceInCol: order_by
-  projectFeeInCol: order_by
-  protocolFeeInCol: order_by
-  protocolFeeInIssuance: order_by
-  token: Token_order_by
+  lowUSD: order_by
+  openUSD: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
   token_id: order_by
-  volumeInCol: order_by
-  volumeInIssuance: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """primary key columns input for table: IssuanceTokenDayData"""
@@ -3171,7 +5436,7 @@ enum IssuanceTokenDayData_select_column {
   chainId
 
   """column name"""
-  closeInCol
+  closeUSD
 
   """column name"""
   date
@@ -3180,37 +5445,37 @@ enum IssuanceTokenDayData_select_column {
   db_write_timestamp
 
   """column name"""
-  highInCol
+  highUSD
 
   """column name"""
   id
 
   """column name"""
-  lowInCol
+  lowUSD
 
   """column name"""
-  openInCol
+  openUSD
 
   """column name"""
-  priceInCol
+  priceUSD
 
   """column name"""
-  projectFeeInCol
+  projectFeeUSD
 
   """column name"""
-  protocolFeeInCol
+  protocolFeeISS
 
   """column name"""
-  protocolFeeInIssuance
+  protocolFeeUSD
 
   """column name"""
   token_id
 
   """column name"""
-  volumeInCol
+  volumeISS
 
   """column name"""
-  volumeInIssuance
+  volumeUSD
 }
 
 """
@@ -3218,68 +5483,122 @@ input type for updating data in table "IssuanceTokenDayData"
 """
 input IssuanceTokenDayData_set_input {
   chainId: Int
-  closeInCol: numeric
+  closeUSD: numeric
   date: Int
   db_write_timestamp: timestamp
-  highInCol: numeric
+  highUSD: numeric
   id: String
-  lowInCol: numeric
-  openInCol: numeric
-  priceInCol: numeric
-  projectFeeInCol: numeric
-  protocolFeeInCol: numeric
-  protocolFeeInIssuance: numeric
+  lowUSD: numeric
+  openUSD: numeric
+  priceUSD: numeric
+  projectFeeUSD: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
   token_id: String
-  volumeInCol: numeric
-  volumeInIssuance: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
 }
 
 """aggregate stddev on columns"""
 type IssuanceTokenDayData_stddev_fields {
   chainId: Float
-  closeInCol: Float
+  closeUSD: Float
   date: Float
-  highInCol: Float
-  lowInCol: Float
-  openInCol: Float
-  priceInCol: Float
-  projectFeeInCol: Float
-  protocolFeeInCol: Float
-  protocolFeeInIssuance: Float
-  volumeInCol: Float
-  volumeInIssuance: Float
+  highUSD: Float
+  lowUSD: Float
+  openUSD: Float
+  priceUSD: Float
+  projectFeeUSD: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by stddev() on columns of table "IssuanceTokenDayData"
+"""
+input IssuanceTokenDayData_stddev_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  date: order_by
+  highUSD: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """aggregate stddev_pop on columns"""
 type IssuanceTokenDayData_stddev_pop_fields {
   chainId: Float
-  closeInCol: Float
+  closeUSD: Float
   date: Float
-  highInCol: Float
-  lowInCol: Float
-  openInCol: Float
-  priceInCol: Float
-  projectFeeInCol: Float
-  protocolFeeInCol: Float
-  protocolFeeInIssuance: Float
-  volumeInCol: Float
-  volumeInIssuance: Float
+  highUSD: Float
+  lowUSD: Float
+  openUSD: Float
+  priceUSD: Float
+  projectFeeUSD: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by stddev_pop() on columns of table "IssuanceTokenDayData"
+"""
+input IssuanceTokenDayData_stddev_pop_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  date: order_by
+  highUSD: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """aggregate stddev_samp on columns"""
 type IssuanceTokenDayData_stddev_samp_fields {
   chainId: Float
-  closeInCol: Float
+  closeUSD: Float
   date: Float
-  highInCol: Float
-  lowInCol: Float
-  openInCol: Float
-  priceInCol: Float
-  projectFeeInCol: Float
-  protocolFeeInCol: Float
-  protocolFeeInIssuance: Float
-  volumeInCol: Float
-  volumeInIssuance: Float
+  highUSD: Float
+  lowUSD: Float
+  openUSD: Float
+  priceUSD: Float
+  projectFeeUSD: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by stddev_samp() on columns of table "IssuanceTokenDayData"
+"""
+input IssuanceTokenDayData_stddev_samp_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  date: order_by
+  highUSD: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """
@@ -3296,36 +5615,54 @@ input IssuanceTokenDayData_stream_cursor_input {
 """Initial value of the column from where the streaming should start"""
 input IssuanceTokenDayData_stream_cursor_value_input {
   chainId: Int
-  closeInCol: numeric
+  closeUSD: numeric
   date: Int
   db_write_timestamp: timestamp
-  highInCol: numeric
+  highUSD: numeric
   id: String
-  lowInCol: numeric
-  openInCol: numeric
-  priceInCol: numeric
-  projectFeeInCol: numeric
-  protocolFeeInCol: numeric
-  protocolFeeInIssuance: numeric
+  lowUSD: numeric
+  openUSD: numeric
+  priceUSD: numeric
+  projectFeeUSD: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
   token_id: String
-  volumeInCol: numeric
-  volumeInIssuance: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
 }
 
 """aggregate sum on columns"""
 type IssuanceTokenDayData_sum_fields {
   chainId: Int
-  closeInCol: numeric
+  closeUSD: numeric
   date: Int
-  highInCol: numeric
-  lowInCol: numeric
-  openInCol: numeric
-  priceInCol: numeric
-  projectFeeInCol: numeric
-  protocolFeeInCol: numeric
-  protocolFeeInIssuance: numeric
-  volumeInCol: numeric
-  volumeInIssuance: numeric
+  highUSD: numeric
+  lowUSD: numeric
+  openUSD: numeric
+  priceUSD: numeric
+  projectFeeUSD: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""
+order by sum() on columns of table "IssuanceTokenDayData"
+"""
+input IssuanceTokenDayData_sum_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  date: order_by
+  highUSD: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """
@@ -3336,7 +5673,7 @@ enum IssuanceTokenDayData_update_column {
   chainId
 
   """column name"""
-  closeInCol
+  closeUSD
 
   """column name"""
   date
@@ -3345,37 +5682,37 @@ enum IssuanceTokenDayData_update_column {
   db_write_timestamp
 
   """column name"""
-  highInCol
+  highUSD
 
   """column name"""
   id
 
   """column name"""
-  lowInCol
+  lowUSD
 
   """column name"""
-  openInCol
+  openUSD
 
   """column name"""
-  priceInCol
+  priceUSD
 
   """column name"""
-  projectFeeInCol
+  projectFeeUSD
 
   """column name"""
-  protocolFeeInCol
+  protocolFeeISS
 
   """column name"""
-  protocolFeeInIssuance
+  protocolFeeUSD
 
   """column name"""
   token_id
 
   """column name"""
-  volumeInCol
+  volumeISS
 
   """column name"""
-  volumeInIssuance
+  volumeUSD
 }
 
 input IssuanceTokenDayData_updates {
@@ -3392,49 +5729,103 @@ input IssuanceTokenDayData_updates {
 """aggregate var_pop on columns"""
 type IssuanceTokenDayData_var_pop_fields {
   chainId: Float
-  closeInCol: Float
+  closeUSD: Float
   date: Float
-  highInCol: Float
-  lowInCol: Float
-  openInCol: Float
-  priceInCol: Float
-  projectFeeInCol: Float
-  protocolFeeInCol: Float
-  protocolFeeInIssuance: Float
-  volumeInCol: Float
-  volumeInIssuance: Float
+  highUSD: Float
+  lowUSD: Float
+  openUSD: Float
+  priceUSD: Float
+  projectFeeUSD: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by var_pop() on columns of table "IssuanceTokenDayData"
+"""
+input IssuanceTokenDayData_var_pop_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  date: order_by
+  highUSD: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """aggregate var_samp on columns"""
 type IssuanceTokenDayData_var_samp_fields {
   chainId: Float
-  closeInCol: Float
+  closeUSD: Float
   date: Float
-  highInCol: Float
-  lowInCol: Float
-  openInCol: Float
-  priceInCol: Float
-  projectFeeInCol: Float
-  protocolFeeInCol: Float
-  protocolFeeInIssuance: Float
-  volumeInCol: Float
-  volumeInIssuance: Float
+  highUSD: Float
+  lowUSD: Float
+  openUSD: Float
+  priceUSD: Float
+  projectFeeUSD: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by var_samp() on columns of table "IssuanceTokenDayData"
+"""
+input IssuanceTokenDayData_var_samp_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  date: order_by
+  highUSD: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """aggregate variance on columns"""
 type IssuanceTokenDayData_variance_fields {
   chainId: Float
-  closeInCol: Float
+  closeUSD: Float
   date: Float
-  highInCol: Float
-  lowInCol: Float
-  openInCol: Float
-  priceInCol: Float
-  projectFeeInCol: Float
-  protocolFeeInCol: Float
-  protocolFeeInIssuance: Float
-  volumeInCol: Float
-  volumeInIssuance: Float
+  highUSD: Float
+  lowUSD: Float
+  openUSD: Float
+  priceUSD: Float
+  projectFeeUSD: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by variance() on columns of table "IssuanceTokenDayData"
+"""
+input IssuanceTokenDayData_variance_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  date: order_by
+  highUSD: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """
@@ -3442,23 +5833,20 @@ columns and relationships of "IssuanceTokenHourData"
 """
 type IssuanceTokenHourData {
   chainId: Int!
-  closeInCol: numeric!
+  closeUSD: numeric!
   db_write_timestamp: timestamp
-  highInCol: numeric!
+  highUSD: numeric!
   id: String!
-  lowInCol: numeric!
-  openInCol: numeric!
+  lowUSD: numeric!
+  openUSD: numeric!
   periodStartUnix: Int!
-  priceInCol: numeric!
-  projectFeeInCol: numeric!
-  protocolFeeInCol: numeric!
-  protocolFeeInIssuance: numeric!
-
-  """An object relationship"""
-  token: Token
+  priceUSD: numeric!
+  projectFeeUSD: numeric!
+  protocolFeeISS: numeric!
+  protocolFeeUSD: numeric!
   token_id: String!
-  volumeInCol: numeric!
-  volumeInIssuance: numeric!
+  volumeISS: numeric!
+  volumeUSD: numeric!
 }
 
 """
@@ -3467,6 +5855,17 @@ aggregated selection of "IssuanceTokenHourData"
 type IssuanceTokenHourData_aggregate {
   aggregate: IssuanceTokenHourData_aggregate_fields
   nodes: [IssuanceTokenHourData!]!
+}
+
+input IssuanceTokenHourData_aggregate_bool_exp {
+  count: IssuanceTokenHourData_aggregate_bool_exp_count
+}
+
+input IssuanceTokenHourData_aggregate_bool_exp_count {
+  arguments: [IssuanceTokenHourData_select_column!]
+  distinct: Boolean
+  filter: IssuanceTokenHourData_bool_exp
+  predicate: Int_comparison_exp!
 }
 
 """
@@ -3486,20 +5885,65 @@ type IssuanceTokenHourData_aggregate_fields {
   variance: IssuanceTokenHourData_variance_fields
 }
 
+"""
+order by aggregate values of table "IssuanceTokenHourData"
+"""
+input IssuanceTokenHourData_aggregate_order_by {
+  avg: IssuanceTokenHourData_avg_order_by
+  count: order_by
+  max: IssuanceTokenHourData_max_order_by
+  min: IssuanceTokenHourData_min_order_by
+  stddev: IssuanceTokenHourData_stddev_order_by
+  stddev_pop: IssuanceTokenHourData_stddev_pop_order_by
+  stddev_samp: IssuanceTokenHourData_stddev_samp_order_by
+  sum: IssuanceTokenHourData_sum_order_by
+  var_pop: IssuanceTokenHourData_var_pop_order_by
+  var_samp: IssuanceTokenHourData_var_samp_order_by
+  variance: IssuanceTokenHourData_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "IssuanceTokenHourData"
+"""
+input IssuanceTokenHourData_arr_rel_insert_input {
+  data: [IssuanceTokenHourData_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: IssuanceTokenHourData_on_conflict
+}
+
 """aggregate avg on columns"""
 type IssuanceTokenHourData_avg_fields {
   chainId: Float
-  closeInCol: Float
-  highInCol: Float
-  lowInCol: Float
-  openInCol: Float
+  closeUSD: Float
+  highUSD: Float
+  lowUSD: Float
+  openUSD: Float
   periodStartUnix: Float
-  priceInCol: Float
-  projectFeeInCol: Float
-  protocolFeeInCol: Float
-  protocolFeeInIssuance: Float
-  volumeInCol: Float
-  volumeInIssuance: Float
+  priceUSD: Float
+  projectFeeUSD: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by avg() on columns of table "IssuanceTokenHourData"
+"""
+input IssuanceTokenHourData_avg_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  highUSD: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """
@@ -3510,21 +5954,20 @@ input IssuanceTokenHourData_bool_exp {
   _not: IssuanceTokenHourData_bool_exp
   _or: [IssuanceTokenHourData_bool_exp!]
   chainId: Int_comparison_exp
-  closeInCol: numeric_comparison_exp
+  closeUSD: numeric_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
-  highInCol: numeric_comparison_exp
+  highUSD: numeric_comparison_exp
   id: String_comparison_exp
-  lowInCol: numeric_comparison_exp
-  openInCol: numeric_comparison_exp
+  lowUSD: numeric_comparison_exp
+  openUSD: numeric_comparison_exp
   periodStartUnix: Int_comparison_exp
-  priceInCol: numeric_comparison_exp
-  projectFeeInCol: numeric_comparison_exp
-  protocolFeeInCol: numeric_comparison_exp
-  protocolFeeInIssuance: numeric_comparison_exp
-  token: Token_bool_exp
+  priceUSD: numeric_comparison_exp
+  projectFeeUSD: numeric_comparison_exp
+  protocolFeeISS: numeric_comparison_exp
+  protocolFeeUSD: numeric_comparison_exp
   token_id: String_comparison_exp
-  volumeInCol: numeric_comparison_exp
-  volumeInIssuance: numeric_comparison_exp
+  volumeISS: numeric_comparison_exp
+  volumeUSD: numeric_comparison_exp
 }
 
 """
@@ -3542,17 +5985,17 @@ input type for incrementing numeric columns in table "IssuanceTokenHourData"
 """
 input IssuanceTokenHourData_inc_input {
   chainId: Int
-  closeInCol: numeric
-  highInCol: numeric
-  lowInCol: numeric
-  openInCol: numeric
+  closeUSD: numeric
+  highUSD: numeric
+  lowUSD: numeric
+  openUSD: numeric
   periodStartUnix: Int
-  priceInCol: numeric
-  projectFeeInCol: numeric
-  protocolFeeInCol: numeric
-  protocolFeeInIssuance: numeric
-  volumeInCol: numeric
-  volumeInIssuance: numeric
+  priceUSD: numeric
+  projectFeeUSD: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
 }
 
 """
@@ -3560,59 +6003,100 @@ input type for inserting data into table "IssuanceTokenHourData"
 """
 input IssuanceTokenHourData_insert_input {
   chainId: Int
-  closeInCol: numeric
+  closeUSD: numeric
   db_write_timestamp: timestamp
-  highInCol: numeric
+  highUSD: numeric
   id: String
-  lowInCol: numeric
-  openInCol: numeric
+  lowUSD: numeric
+  openUSD: numeric
   periodStartUnix: Int
-  priceInCol: numeric
-  projectFeeInCol: numeric
-  protocolFeeInCol: numeric
-  protocolFeeInIssuance: numeric
-  token: Token_obj_rel_insert_input
+  priceUSD: numeric
+  projectFeeUSD: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
   token_id: String
-  volumeInCol: numeric
-  volumeInIssuance: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
 }
 
 """aggregate max on columns"""
 type IssuanceTokenHourData_max_fields {
   chainId: Int
-  closeInCol: numeric
+  closeUSD: numeric
   db_write_timestamp: timestamp
-  highInCol: numeric
+  highUSD: numeric
   id: String
-  lowInCol: numeric
-  openInCol: numeric
+  lowUSD: numeric
+  openUSD: numeric
   periodStartUnix: Int
-  priceInCol: numeric
-  projectFeeInCol: numeric
-  protocolFeeInCol: numeric
-  protocolFeeInIssuance: numeric
+  priceUSD: numeric
+  projectFeeUSD: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
   token_id: String
-  volumeInCol: numeric
-  volumeInIssuance: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""
+order by max() on columns of table "IssuanceTokenHourData"
+"""
+input IssuanceTokenHourData_max_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  db_write_timestamp: order_by
+  highUSD: order_by
+  id: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  token_id: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """aggregate min on columns"""
 type IssuanceTokenHourData_min_fields {
   chainId: Int
-  closeInCol: numeric
+  closeUSD: numeric
   db_write_timestamp: timestamp
-  highInCol: numeric
+  highUSD: numeric
   id: String
-  lowInCol: numeric
-  openInCol: numeric
+  lowUSD: numeric
+  openUSD: numeric
   periodStartUnix: Int
-  priceInCol: numeric
-  projectFeeInCol: numeric
-  protocolFeeInCol: numeric
-  protocolFeeInIssuance: numeric
+  priceUSD: numeric
+  projectFeeUSD: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
   token_id: String
-  volumeInCol: numeric
-  volumeInIssuance: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""
+order by min() on columns of table "IssuanceTokenHourData"
+"""
+input IssuanceTokenHourData_min_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  db_write_timestamp: order_by
+  highUSD: order_by
+  id: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  token_id: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """
@@ -3638,21 +6122,20 @@ input IssuanceTokenHourData_on_conflict {
 """Ordering options when selecting data from "IssuanceTokenHourData"."""
 input IssuanceTokenHourData_order_by {
   chainId: order_by
-  closeInCol: order_by
+  closeUSD: order_by
   db_write_timestamp: order_by
-  highInCol: order_by
+  highUSD: order_by
   id: order_by
-  lowInCol: order_by
-  openInCol: order_by
+  lowUSD: order_by
+  openUSD: order_by
   periodStartUnix: order_by
-  priceInCol: order_by
-  projectFeeInCol: order_by
-  protocolFeeInCol: order_by
-  protocolFeeInIssuance: order_by
-  token: Token_order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
   token_id: order_by
-  volumeInCol: order_by
-  volumeInIssuance: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """primary key columns input for table: IssuanceTokenHourData"""
@@ -3668,46 +6151,46 @@ enum IssuanceTokenHourData_select_column {
   chainId
 
   """column name"""
-  closeInCol
+  closeUSD
 
   """column name"""
   db_write_timestamp
 
   """column name"""
-  highInCol
+  highUSD
 
   """column name"""
   id
 
   """column name"""
-  lowInCol
+  lowUSD
 
   """column name"""
-  openInCol
+  openUSD
 
   """column name"""
   periodStartUnix
 
   """column name"""
-  priceInCol
+  priceUSD
 
   """column name"""
-  projectFeeInCol
+  projectFeeUSD
 
   """column name"""
-  protocolFeeInCol
+  protocolFeeISS
 
   """column name"""
-  protocolFeeInIssuance
+  protocolFeeUSD
 
   """column name"""
   token_id
 
   """column name"""
-  volumeInCol
+  volumeISS
 
   """column name"""
-  volumeInIssuance
+  volumeUSD
 }
 
 """
@@ -3715,68 +6198,122 @@ input type for updating data in table "IssuanceTokenHourData"
 """
 input IssuanceTokenHourData_set_input {
   chainId: Int
-  closeInCol: numeric
+  closeUSD: numeric
   db_write_timestamp: timestamp
-  highInCol: numeric
+  highUSD: numeric
   id: String
-  lowInCol: numeric
-  openInCol: numeric
+  lowUSD: numeric
+  openUSD: numeric
   periodStartUnix: Int
-  priceInCol: numeric
-  projectFeeInCol: numeric
-  protocolFeeInCol: numeric
-  protocolFeeInIssuance: numeric
+  priceUSD: numeric
+  projectFeeUSD: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
   token_id: String
-  volumeInCol: numeric
-  volumeInIssuance: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
 }
 
 """aggregate stddev on columns"""
 type IssuanceTokenHourData_stddev_fields {
   chainId: Float
-  closeInCol: Float
-  highInCol: Float
-  lowInCol: Float
-  openInCol: Float
+  closeUSD: Float
+  highUSD: Float
+  lowUSD: Float
+  openUSD: Float
   periodStartUnix: Float
-  priceInCol: Float
-  projectFeeInCol: Float
-  protocolFeeInCol: Float
-  protocolFeeInIssuance: Float
-  volumeInCol: Float
-  volumeInIssuance: Float
+  priceUSD: Float
+  projectFeeUSD: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by stddev() on columns of table "IssuanceTokenHourData"
+"""
+input IssuanceTokenHourData_stddev_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  highUSD: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """aggregate stddev_pop on columns"""
 type IssuanceTokenHourData_stddev_pop_fields {
   chainId: Float
-  closeInCol: Float
-  highInCol: Float
-  lowInCol: Float
-  openInCol: Float
+  closeUSD: Float
+  highUSD: Float
+  lowUSD: Float
+  openUSD: Float
   periodStartUnix: Float
-  priceInCol: Float
-  projectFeeInCol: Float
-  protocolFeeInCol: Float
-  protocolFeeInIssuance: Float
-  volumeInCol: Float
-  volumeInIssuance: Float
+  priceUSD: Float
+  projectFeeUSD: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by stddev_pop() on columns of table "IssuanceTokenHourData"
+"""
+input IssuanceTokenHourData_stddev_pop_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  highUSD: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """aggregate stddev_samp on columns"""
 type IssuanceTokenHourData_stddev_samp_fields {
   chainId: Float
-  closeInCol: Float
-  highInCol: Float
-  lowInCol: Float
-  openInCol: Float
+  closeUSD: Float
+  highUSD: Float
+  lowUSD: Float
+  openUSD: Float
   periodStartUnix: Float
-  priceInCol: Float
-  projectFeeInCol: Float
-  protocolFeeInCol: Float
-  protocolFeeInIssuance: Float
-  volumeInCol: Float
-  volumeInIssuance: Float
+  priceUSD: Float
+  projectFeeUSD: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by stddev_samp() on columns of table "IssuanceTokenHourData"
+"""
+input IssuanceTokenHourData_stddev_samp_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  highUSD: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """
@@ -3793,36 +6330,54 @@ input IssuanceTokenHourData_stream_cursor_input {
 """Initial value of the column from where the streaming should start"""
 input IssuanceTokenHourData_stream_cursor_value_input {
   chainId: Int
-  closeInCol: numeric
+  closeUSD: numeric
   db_write_timestamp: timestamp
-  highInCol: numeric
+  highUSD: numeric
   id: String
-  lowInCol: numeric
-  openInCol: numeric
+  lowUSD: numeric
+  openUSD: numeric
   periodStartUnix: Int
-  priceInCol: numeric
-  projectFeeInCol: numeric
-  protocolFeeInCol: numeric
-  protocolFeeInIssuance: numeric
+  priceUSD: numeric
+  projectFeeUSD: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
   token_id: String
-  volumeInCol: numeric
-  volumeInIssuance: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
 }
 
 """aggregate sum on columns"""
 type IssuanceTokenHourData_sum_fields {
   chainId: Int
-  closeInCol: numeric
-  highInCol: numeric
-  lowInCol: numeric
-  openInCol: numeric
+  closeUSD: numeric
+  highUSD: numeric
+  lowUSD: numeric
+  openUSD: numeric
   periodStartUnix: Int
-  priceInCol: numeric
-  projectFeeInCol: numeric
-  protocolFeeInCol: numeric
-  protocolFeeInIssuance: numeric
-  volumeInCol: numeric
-  volumeInIssuance: numeric
+  priceUSD: numeric
+  projectFeeUSD: numeric
+  protocolFeeISS: numeric
+  protocolFeeUSD: numeric
+  volumeISS: numeric
+  volumeUSD: numeric
+}
+
+"""
+order by sum() on columns of table "IssuanceTokenHourData"
+"""
+input IssuanceTokenHourData_sum_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  highUSD: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """
@@ -3833,46 +6388,46 @@ enum IssuanceTokenHourData_update_column {
   chainId
 
   """column name"""
-  closeInCol
+  closeUSD
 
   """column name"""
   db_write_timestamp
 
   """column name"""
-  highInCol
+  highUSD
 
   """column name"""
   id
 
   """column name"""
-  lowInCol
+  lowUSD
 
   """column name"""
-  openInCol
+  openUSD
 
   """column name"""
   periodStartUnix
 
   """column name"""
-  priceInCol
+  priceUSD
 
   """column name"""
-  projectFeeInCol
+  projectFeeUSD
 
   """column name"""
-  protocolFeeInCol
+  protocolFeeISS
 
   """column name"""
-  protocolFeeInIssuance
+  protocolFeeUSD
 
   """column name"""
   token_id
 
   """column name"""
-  volumeInCol
+  volumeISS
 
   """column name"""
-  volumeInIssuance
+  volumeUSD
 }
 
 input IssuanceTokenHourData_updates {
@@ -3889,56 +6444,110 @@ input IssuanceTokenHourData_updates {
 """aggregate var_pop on columns"""
 type IssuanceTokenHourData_var_pop_fields {
   chainId: Float
-  closeInCol: Float
-  highInCol: Float
-  lowInCol: Float
-  openInCol: Float
+  closeUSD: Float
+  highUSD: Float
+  lowUSD: Float
+  openUSD: Float
   periodStartUnix: Float
-  priceInCol: Float
-  projectFeeInCol: Float
-  protocolFeeInCol: Float
-  protocolFeeInIssuance: Float
-  volumeInCol: Float
-  volumeInIssuance: Float
+  priceUSD: Float
+  projectFeeUSD: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by var_pop() on columns of table "IssuanceTokenHourData"
+"""
+input IssuanceTokenHourData_var_pop_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  highUSD: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """aggregate var_samp on columns"""
 type IssuanceTokenHourData_var_samp_fields {
   chainId: Float
-  closeInCol: Float
-  highInCol: Float
-  lowInCol: Float
-  openInCol: Float
+  closeUSD: Float
+  highUSD: Float
+  lowUSD: Float
+  openUSD: Float
   periodStartUnix: Float
-  priceInCol: Float
-  projectFeeInCol: Float
-  protocolFeeInCol: Float
-  protocolFeeInIssuance: Float
-  volumeInCol: Float
-  volumeInIssuance: Float
+  priceUSD: Float
+  projectFeeUSD: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by var_samp() on columns of table "IssuanceTokenHourData"
+"""
+input IssuanceTokenHourData_var_samp_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  highUSD: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """aggregate variance on columns"""
 type IssuanceTokenHourData_variance_fields {
   chainId: Float
-  closeInCol: Float
-  highInCol: Float
-  lowInCol: Float
-  openInCol: Float
+  closeUSD: Float
+  highUSD: Float
+  lowUSD: Float
+  openUSD: Float
   periodStartUnix: Float
-  priceInCol: Float
-  projectFeeInCol: Float
-  protocolFeeInCol: Float
-  protocolFeeInIssuance: Float
-  volumeInCol: Float
-  volumeInIssuance: Float
+  priceUSD: Float
+  projectFeeUSD: Float
+  protocolFeeISS: Float
+  protocolFeeUSD: Float
+  volumeISS: Float
+  volumeUSD: Float
+}
+
+"""
+order by variance() on columns of table "IssuanceTokenHourData"
+"""
+input IssuanceTokenHourData_variance_order_by {
+  chainId: order_by
+  closeUSD: order_by
+  highUSD: order_by
+  lowUSD: order_by
+  openUSD: order_by
+  periodStartUnix: order_by
+  priceUSD: order_by
+  projectFeeUSD: order_by
+  protocolFeeISS: order_by
+  protocolFeeUSD: order_by
+  volumeISS: order_by
+  volumeUSD: order_by
 }
 
 """
 columns and relationships of "LinearVesting"
 """
 type LinearVesting {
-  amountRaw: numeric!
+  amount: numeric!
   blockTimestamp: Int!
   chainId: Int!
   cliff: numeric!
@@ -3952,7 +6561,10 @@ type LinearVesting {
   """An object relationship"""
   streamingPaymentProcessor: StreamingPaymentProcessor
   streamingPaymentProcessor_id: String!
-  token: String!
+
+  """An object relationship"""
+  token: Token
+  token_id: String!
 }
 
 """
@@ -4020,7 +6632,7 @@ input LinearVesting_arr_rel_insert_input {
 
 """aggregate avg on columns"""
 type LinearVesting_avg_fields {
-  amountRaw: Float
+  amount: Float
   blockTimestamp: Float
   chainId: Float
   cliff: Float
@@ -4032,7 +6644,7 @@ type LinearVesting_avg_fields {
 order by avg() on columns of table "LinearVesting"
 """
 input LinearVesting_avg_order_by {
-  amountRaw: order_by
+  amount: order_by
   blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
@@ -4047,7 +6659,7 @@ input LinearVesting_bool_exp {
   _and: [LinearVesting_bool_exp!]
   _not: LinearVesting_bool_exp
   _or: [LinearVesting_bool_exp!]
-  amountRaw: numeric_comparison_exp
+  amount: numeric_comparison_exp
   blockTimestamp: Int_comparison_exp
   chainId: Int_comparison_exp
   cliff: numeric_comparison_exp
@@ -4059,7 +6671,8 @@ input LinearVesting_bool_exp {
   status: vestingstatus_comparison_exp
   streamingPaymentProcessor: StreamingPaymentProcessor_bool_exp
   streamingPaymentProcessor_id: String_comparison_exp
-  token: String_comparison_exp
+  token: Token_bool_exp
+  token_id: String_comparison_exp
 }
 
 """
@@ -4076,7 +6689,7 @@ enum LinearVesting_constraint {
 input type for incrementing numeric columns in table "LinearVesting"
 """
 input LinearVesting_inc_input {
-  amountRaw: numeric
+  amount: numeric
   blockTimestamp: Int
   chainId: Int
   cliff: numeric
@@ -4088,7 +6701,7 @@ input LinearVesting_inc_input {
 input type for inserting data into table "LinearVesting"
 """
 input LinearVesting_insert_input {
-  amountRaw: numeric
+  amount: numeric
   blockTimestamp: Int
   chainId: Int
   cliff: numeric
@@ -4100,12 +6713,13 @@ input LinearVesting_insert_input {
   status: vestingstatus
   streamingPaymentProcessor: StreamingPaymentProcessor_obj_rel_insert_input
   streamingPaymentProcessor_id: String
-  token: String
+  token: Token_obj_rel_insert_input
+  token_id: String
 }
 
 """aggregate max on columns"""
 type LinearVesting_max_fields {
-  amountRaw: numeric
+  amount: numeric
   blockTimestamp: Int
   chainId: Int
   cliff: numeric
@@ -4116,14 +6730,14 @@ type LinearVesting_max_fields {
   start: numeric
   status: vestingstatus
   streamingPaymentProcessor_id: String
-  token: String
+  token_id: String
 }
 
 """
 order by max() on columns of table "LinearVesting"
 """
 input LinearVesting_max_order_by {
-  amountRaw: order_by
+  amount: order_by
   blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
@@ -4134,12 +6748,12 @@ input LinearVesting_max_order_by {
   start: order_by
   status: order_by
   streamingPaymentProcessor_id: order_by
-  token: order_by
+  token_id: order_by
 }
 
 """aggregate min on columns"""
 type LinearVesting_min_fields {
-  amountRaw: numeric
+  amount: numeric
   blockTimestamp: Int
   chainId: Int
   cliff: numeric
@@ -4150,14 +6764,14 @@ type LinearVesting_min_fields {
   start: numeric
   status: vestingstatus
   streamingPaymentProcessor_id: String
-  token: String
+  token_id: String
 }
 
 """
 order by min() on columns of table "LinearVesting"
 """
 input LinearVesting_min_order_by {
-  amountRaw: order_by
+  amount: order_by
   blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
@@ -4168,7 +6782,7 @@ input LinearVesting_min_order_by {
   start: order_by
   status: order_by
   streamingPaymentProcessor_id: order_by
-  token: order_by
+  token_id: order_by
 }
 
 """
@@ -4193,7 +6807,7 @@ input LinearVesting_on_conflict {
 
 """Ordering options when selecting data from "LinearVesting"."""
 input LinearVesting_order_by {
-  amountRaw: order_by
+  amount: order_by
   blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
@@ -4205,7 +6819,8 @@ input LinearVesting_order_by {
   status: order_by
   streamingPaymentProcessor: StreamingPaymentProcessor_order_by
   streamingPaymentProcessor_id: order_by
-  token: order_by
+  token: Token_order_by
+  token_id: order_by
 }
 
 """primary key columns input for table: LinearVesting"""
@@ -4218,7 +6833,7 @@ select columns of table "LinearVesting"
 """
 enum LinearVesting_select_column {
   """column name"""
-  amountRaw
+  amount
 
   """column name"""
   blockTimestamp
@@ -4251,14 +6866,14 @@ enum LinearVesting_select_column {
   streamingPaymentProcessor_id
 
   """column name"""
-  token
+  token_id
 }
 
 """
 input type for updating data in table "LinearVesting"
 """
 input LinearVesting_set_input {
-  amountRaw: numeric
+  amount: numeric
   blockTimestamp: Int
   chainId: Int
   cliff: numeric
@@ -4269,12 +6884,12 @@ input LinearVesting_set_input {
   start: numeric
   status: vestingstatus
   streamingPaymentProcessor_id: String
-  token: String
+  token_id: String
 }
 
 """aggregate stddev on columns"""
 type LinearVesting_stddev_fields {
-  amountRaw: Float
+  amount: Float
   blockTimestamp: Float
   chainId: Float
   cliff: Float
@@ -4286,7 +6901,7 @@ type LinearVesting_stddev_fields {
 order by stddev() on columns of table "LinearVesting"
 """
 input LinearVesting_stddev_order_by {
-  amountRaw: order_by
+  amount: order_by
   blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
@@ -4296,7 +6911,7 @@ input LinearVesting_stddev_order_by {
 
 """aggregate stddev_pop on columns"""
 type LinearVesting_stddev_pop_fields {
-  amountRaw: Float
+  amount: Float
   blockTimestamp: Float
   chainId: Float
   cliff: Float
@@ -4308,7 +6923,7 @@ type LinearVesting_stddev_pop_fields {
 order by stddev_pop() on columns of table "LinearVesting"
 """
 input LinearVesting_stddev_pop_order_by {
-  amountRaw: order_by
+  amount: order_by
   blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
@@ -4318,7 +6933,7 @@ input LinearVesting_stddev_pop_order_by {
 
 """aggregate stddev_samp on columns"""
 type LinearVesting_stddev_samp_fields {
-  amountRaw: Float
+  amount: Float
   blockTimestamp: Float
   chainId: Float
   cliff: Float
@@ -4330,7 +6945,7 @@ type LinearVesting_stddev_samp_fields {
 order by stddev_samp() on columns of table "LinearVesting"
 """
 input LinearVesting_stddev_samp_order_by {
-  amountRaw: order_by
+  amount: order_by
   blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
@@ -4351,7 +6966,7 @@ input LinearVesting_stream_cursor_input {
 
 """Initial value of the column from where the streaming should start"""
 input LinearVesting_stream_cursor_value_input {
-  amountRaw: numeric
+  amount: numeric
   blockTimestamp: Int
   chainId: Int
   cliff: numeric
@@ -4362,12 +6977,12 @@ input LinearVesting_stream_cursor_value_input {
   start: numeric
   status: vestingstatus
   streamingPaymentProcessor_id: String
-  token: String
+  token_id: String
 }
 
 """aggregate sum on columns"""
 type LinearVesting_sum_fields {
-  amountRaw: numeric
+  amount: numeric
   blockTimestamp: Int
   chainId: Int
   cliff: numeric
@@ -4379,7 +6994,7 @@ type LinearVesting_sum_fields {
 order by sum() on columns of table "LinearVesting"
 """
 input LinearVesting_sum_order_by {
-  amountRaw: order_by
+  amount: order_by
   blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
@@ -4392,7 +7007,7 @@ update columns of table "LinearVesting"
 """
 enum LinearVesting_update_column {
   """column name"""
-  amountRaw
+  amount
 
   """column name"""
   blockTimestamp
@@ -4425,7 +7040,7 @@ enum LinearVesting_update_column {
   streamingPaymentProcessor_id
 
   """column name"""
-  token
+  token_id
 }
 
 input LinearVesting_updates {
@@ -4441,7 +7056,7 @@ input LinearVesting_updates {
 
 """aggregate var_pop on columns"""
 type LinearVesting_var_pop_fields {
-  amountRaw: Float
+  amount: Float
   blockTimestamp: Float
   chainId: Float
   cliff: Float
@@ -4453,7 +7068,7 @@ type LinearVesting_var_pop_fields {
 order by var_pop() on columns of table "LinearVesting"
 """
 input LinearVesting_var_pop_order_by {
-  amountRaw: order_by
+  amount: order_by
   blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
@@ -4463,7 +7078,7 @@ input LinearVesting_var_pop_order_by {
 
 """aggregate var_samp on columns"""
 type LinearVesting_var_samp_fields {
-  amountRaw: Float
+  amount: Float
   blockTimestamp: Float
   chainId: Float
   cliff: Float
@@ -4475,7 +7090,7 @@ type LinearVesting_var_samp_fields {
 order by var_samp() on columns of table "LinearVesting"
 """
 input LinearVesting_var_samp_order_by {
-  amountRaw: order_by
+  amount: order_by
   blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
@@ -4485,7 +7100,7 @@ input LinearVesting_var_samp_order_by {
 
 """aggregate variance on columns"""
 type LinearVesting_variance_fields {
-  amountRaw: Float
+  amount: Float
   blockTimestamp: Float
   chainId: Float
   cliff: Float
@@ -4497,7 +7112,7 @@ type LinearVesting_variance_fields {
 order by variance() on columns of table "LinearVesting"
 """
 input LinearVesting_variance_order_by {
-  amountRaw: order_by
+  amount: order_by
   blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
@@ -4510,15 +7125,17 @@ columns and relationships of "ProjectFee"
 """
 type ProjectFee {
   amount: numeric!
+  amountUSD: numeric!
   blockTimestamp: Int!
-
-  """An object relationship"""
-  bondingCurve: BondingCurve
-  bondingCurve_id: String!
   chainId: Int!
   db_write_timestamp: timestamp
   id: String!
+  module_id: String!
   recipient: String!
+
+  """An object relationship"""
+  token: Token
+  token_id: String!
 }
 
 """
@@ -4587,6 +7204,7 @@ input ProjectFee_arr_rel_insert_input {
 """aggregate avg on columns"""
 type ProjectFee_avg_fields {
   amount: Float
+  amountUSD: Float
   blockTimestamp: Float
   chainId: Float
 }
@@ -4596,6 +7214,7 @@ order by avg() on columns of table "ProjectFee"
 """
 input ProjectFee_avg_order_by {
   amount: order_by
+  amountUSD: order_by
   blockTimestamp: order_by
   chainId: order_by
 }
@@ -4608,13 +7227,15 @@ input ProjectFee_bool_exp {
   _not: ProjectFee_bool_exp
   _or: [ProjectFee_bool_exp!]
   amount: numeric_comparison_exp
+  amountUSD: numeric_comparison_exp
   blockTimestamp: Int_comparison_exp
-  bondingCurve: BondingCurve_bool_exp
-  bondingCurve_id: String_comparison_exp
   chainId: Int_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
   id: String_comparison_exp
+  module_id: String_comparison_exp
   recipient: String_comparison_exp
+  token: Token_bool_exp
+  token_id: String_comparison_exp
 }
 
 """
@@ -4632,6 +7253,7 @@ input type for incrementing numeric columns in table "ProjectFee"
 """
 input ProjectFee_inc_input {
   amount: numeric
+  amountUSD: numeric
   blockTimestamp: Int
   chainId: Int
 }
@@ -4641,24 +7263,28 @@ input type for inserting data into table "ProjectFee"
 """
 input ProjectFee_insert_input {
   amount: numeric
+  amountUSD: numeric
   blockTimestamp: Int
-  bondingCurve: BondingCurve_obj_rel_insert_input
-  bondingCurve_id: String
   chainId: Int
   db_write_timestamp: timestamp
   id: String
+  module_id: String
   recipient: String
+  token: Token_obj_rel_insert_input
+  token_id: String
 }
 
 """aggregate max on columns"""
 type ProjectFee_max_fields {
   amount: numeric
+  amountUSD: numeric
   blockTimestamp: Int
-  bondingCurve_id: String
   chainId: Int
   db_write_timestamp: timestamp
   id: String
+  module_id: String
   recipient: String
+  token_id: String
 }
 
 """
@@ -4666,23 +7292,27 @@ order by max() on columns of table "ProjectFee"
 """
 input ProjectFee_max_order_by {
   amount: order_by
+  amountUSD: order_by
   blockTimestamp: order_by
-  bondingCurve_id: order_by
   chainId: order_by
   db_write_timestamp: order_by
   id: order_by
+  module_id: order_by
   recipient: order_by
+  token_id: order_by
 }
 
 """aggregate min on columns"""
 type ProjectFee_min_fields {
   amount: numeric
+  amountUSD: numeric
   blockTimestamp: Int
-  bondingCurve_id: String
   chainId: Int
   db_write_timestamp: timestamp
   id: String
+  module_id: String
   recipient: String
+  token_id: String
 }
 
 """
@@ -4690,12 +7320,14 @@ order by min() on columns of table "ProjectFee"
 """
 input ProjectFee_min_order_by {
   amount: order_by
+  amountUSD: order_by
   blockTimestamp: order_by
-  bondingCurve_id: order_by
   chainId: order_by
   db_write_timestamp: order_by
   id: order_by
+  module_id: order_by
   recipient: order_by
+  token_id: order_by
 }
 
 """
@@ -4721,13 +7353,15 @@ input ProjectFee_on_conflict {
 """Ordering options when selecting data from "ProjectFee"."""
 input ProjectFee_order_by {
   amount: order_by
+  amountUSD: order_by
   blockTimestamp: order_by
-  bondingCurve: BondingCurve_order_by
-  bondingCurve_id: order_by
   chainId: order_by
   db_write_timestamp: order_by
   id: order_by
+  module_id: order_by
   recipient: order_by
+  token: Token_order_by
+  token_id: order_by
 }
 
 """primary key columns input for table: ProjectFee"""
@@ -4743,10 +7377,10 @@ enum ProjectFee_select_column {
   amount
 
   """column name"""
-  blockTimestamp
+  amountUSD
 
   """column name"""
-  bondingCurve_id
+  blockTimestamp
 
   """column name"""
   chainId
@@ -4758,7 +7392,13 @@ enum ProjectFee_select_column {
   id
 
   """column name"""
+  module_id
+
+  """column name"""
   recipient
+
+  """column name"""
+  token_id
 }
 
 """
@@ -4766,17 +7406,20 @@ input type for updating data in table "ProjectFee"
 """
 input ProjectFee_set_input {
   amount: numeric
+  amountUSD: numeric
   blockTimestamp: Int
-  bondingCurve_id: String
   chainId: Int
   db_write_timestamp: timestamp
   id: String
+  module_id: String
   recipient: String
+  token_id: String
 }
 
 """aggregate stddev on columns"""
 type ProjectFee_stddev_fields {
   amount: Float
+  amountUSD: Float
   blockTimestamp: Float
   chainId: Float
 }
@@ -4786,6 +7429,7 @@ order by stddev() on columns of table "ProjectFee"
 """
 input ProjectFee_stddev_order_by {
   amount: order_by
+  amountUSD: order_by
   blockTimestamp: order_by
   chainId: order_by
 }
@@ -4793,6 +7437,7 @@ input ProjectFee_stddev_order_by {
 """aggregate stddev_pop on columns"""
 type ProjectFee_stddev_pop_fields {
   amount: Float
+  amountUSD: Float
   blockTimestamp: Float
   chainId: Float
 }
@@ -4802,6 +7447,7 @@ order by stddev_pop() on columns of table "ProjectFee"
 """
 input ProjectFee_stddev_pop_order_by {
   amount: order_by
+  amountUSD: order_by
   blockTimestamp: order_by
   chainId: order_by
 }
@@ -4809,6 +7455,7 @@ input ProjectFee_stddev_pop_order_by {
 """aggregate stddev_samp on columns"""
 type ProjectFee_stddev_samp_fields {
   amount: Float
+  amountUSD: Float
   blockTimestamp: Float
   chainId: Float
 }
@@ -4818,6 +7465,7 @@ order by stddev_samp() on columns of table "ProjectFee"
 """
 input ProjectFee_stddev_samp_order_by {
   amount: order_by
+  amountUSD: order_by
   blockTimestamp: order_by
   chainId: order_by
 }
@@ -4836,17 +7484,20 @@ input ProjectFee_stream_cursor_input {
 """Initial value of the column from where the streaming should start"""
 input ProjectFee_stream_cursor_value_input {
   amount: numeric
+  amountUSD: numeric
   blockTimestamp: Int
-  bondingCurve_id: String
   chainId: Int
   db_write_timestamp: timestamp
   id: String
+  module_id: String
   recipient: String
+  token_id: String
 }
 
 """aggregate sum on columns"""
 type ProjectFee_sum_fields {
   amount: numeric
+  amountUSD: numeric
   blockTimestamp: Int
   chainId: Int
 }
@@ -4856,6 +7507,7 @@ order by sum() on columns of table "ProjectFee"
 """
 input ProjectFee_sum_order_by {
   amount: order_by
+  amountUSD: order_by
   blockTimestamp: order_by
   chainId: order_by
 }
@@ -4868,10 +7520,10 @@ enum ProjectFee_update_column {
   amount
 
   """column name"""
-  blockTimestamp
+  amountUSD
 
   """column name"""
-  bondingCurve_id
+  blockTimestamp
 
   """column name"""
   chainId
@@ -4883,7 +7535,13 @@ enum ProjectFee_update_column {
   id
 
   """column name"""
+  module_id
+
+  """column name"""
   recipient
+
+  """column name"""
+  token_id
 }
 
 input ProjectFee_updates {
@@ -4900,6 +7558,7 @@ input ProjectFee_updates {
 """aggregate var_pop on columns"""
 type ProjectFee_var_pop_fields {
   amount: Float
+  amountUSD: Float
   blockTimestamp: Float
   chainId: Float
 }
@@ -4909,6 +7568,7 @@ order by var_pop() on columns of table "ProjectFee"
 """
 input ProjectFee_var_pop_order_by {
   amount: order_by
+  amountUSD: order_by
   blockTimestamp: order_by
   chainId: order_by
 }
@@ -4916,6 +7576,7 @@ input ProjectFee_var_pop_order_by {
 """aggregate var_samp on columns"""
 type ProjectFee_var_samp_fields {
   amount: Float
+  amountUSD: Float
   blockTimestamp: Float
   chainId: Float
 }
@@ -4925,6 +7586,7 @@ order by var_samp() on columns of table "ProjectFee"
 """
 input ProjectFee_var_samp_order_by {
   amount: order_by
+  amountUSD: order_by
   blockTimestamp: order_by
   chainId: order_by
 }
@@ -4932,6 +7594,7 @@ input ProjectFee_var_samp_order_by {
 """aggregate variance on columns"""
 type ProjectFee_variance_fields {
   amount: Float
+  amountUSD: Float
   blockTimestamp: Float
   chainId: Float
 }
@@ -4941,6 +7604,7 @@ order by variance() on columns of table "ProjectFee"
 """
 input ProjectFee_variance_order_by {
   amount: order_by
+  amountUSD: order_by
   blockTimestamp: order_by
   chainId: order_by
 }
@@ -4950,13 +7614,12 @@ columns and relationships of "ProtocolFee"
 """
 type ProtocolFee {
   amount: numeric!
-
-  """An object relationship"""
-  bondingCurve: BondingCurve
-  bondingCurve_id: String!
+  amountUSD: numeric!
+  blockTimestamp: Int!
   chainId: Int!
   db_write_timestamp: timestamp
   id: String!
+  module_id: String!
   source: feesource!
 
   """An object relationship"""
@@ -5031,6 +7694,8 @@ input ProtocolFee_arr_rel_insert_input {
 """aggregate avg on columns"""
 type ProtocolFee_avg_fields {
   amount: Float
+  amountUSD: Float
+  blockTimestamp: Float
   chainId: Float
 }
 
@@ -5039,6 +7704,8 @@ order by avg() on columns of table "ProtocolFee"
 """
 input ProtocolFee_avg_order_by {
   amount: order_by
+  amountUSD: order_by
+  blockTimestamp: order_by
   chainId: order_by
 }
 
@@ -5050,11 +7717,12 @@ input ProtocolFee_bool_exp {
   _not: ProtocolFee_bool_exp
   _or: [ProtocolFee_bool_exp!]
   amount: numeric_comparison_exp
-  bondingCurve: BondingCurve_bool_exp
-  bondingCurve_id: String_comparison_exp
+  amountUSD: numeric_comparison_exp
+  blockTimestamp: Int_comparison_exp
   chainId: Int_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
   id: String_comparison_exp
+  module_id: String_comparison_exp
   source: feesource_comparison_exp
   token: Token_bool_exp
   token_id: String_comparison_exp
@@ -5076,6 +7744,8 @@ input type for incrementing numeric columns in table "ProtocolFee"
 """
 input ProtocolFee_inc_input {
   amount: numeric
+  amountUSD: numeric
+  blockTimestamp: Int
   chainId: Int
 }
 
@@ -5084,11 +7754,12 @@ input type for inserting data into table "ProtocolFee"
 """
 input ProtocolFee_insert_input {
   amount: numeric
-  bondingCurve: BondingCurve_obj_rel_insert_input
-  bondingCurve_id: String
+  amountUSD: numeric
+  blockTimestamp: Int
   chainId: Int
   db_write_timestamp: timestamp
   id: String
+  module_id: String
   source: feesource
   token: Token_obj_rel_insert_input
   token_id: String
@@ -5098,10 +7769,12 @@ input ProtocolFee_insert_input {
 """aggregate max on columns"""
 type ProtocolFee_max_fields {
   amount: numeric
-  bondingCurve_id: String
+  amountUSD: numeric
+  blockTimestamp: Int
   chainId: Int
   db_write_timestamp: timestamp
   id: String
+  module_id: String
   source: feesource
   token_id: String
   treasury: String
@@ -5112,10 +7785,12 @@ order by max() on columns of table "ProtocolFee"
 """
 input ProtocolFee_max_order_by {
   amount: order_by
-  bondingCurve_id: order_by
+  amountUSD: order_by
+  blockTimestamp: order_by
   chainId: order_by
   db_write_timestamp: order_by
   id: order_by
+  module_id: order_by
   source: order_by
   token_id: order_by
   treasury: order_by
@@ -5124,10 +7799,12 @@ input ProtocolFee_max_order_by {
 """aggregate min on columns"""
 type ProtocolFee_min_fields {
   amount: numeric
-  bondingCurve_id: String
+  amountUSD: numeric
+  blockTimestamp: Int
   chainId: Int
   db_write_timestamp: timestamp
   id: String
+  module_id: String
   source: feesource
   token_id: String
   treasury: String
@@ -5138,10 +7815,12 @@ order by min() on columns of table "ProtocolFee"
 """
 input ProtocolFee_min_order_by {
   amount: order_by
-  bondingCurve_id: order_by
+  amountUSD: order_by
+  blockTimestamp: order_by
   chainId: order_by
   db_write_timestamp: order_by
   id: order_by
+  module_id: order_by
   source: order_by
   token_id: order_by
   treasury: order_by
@@ -5170,11 +7849,12 @@ input ProtocolFee_on_conflict {
 """Ordering options when selecting data from "ProtocolFee"."""
 input ProtocolFee_order_by {
   amount: order_by
-  bondingCurve: BondingCurve_order_by
-  bondingCurve_id: order_by
+  amountUSD: order_by
+  blockTimestamp: order_by
   chainId: order_by
   db_write_timestamp: order_by
   id: order_by
+  module_id: order_by
   source: order_by
   token: Token_order_by
   token_id: order_by
@@ -5194,7 +7874,10 @@ enum ProtocolFee_select_column {
   amount
 
   """column name"""
-  bondingCurve_id
+  amountUSD
+
+  """column name"""
+  blockTimestamp
 
   """column name"""
   chainId
@@ -5204,6 +7887,9 @@ enum ProtocolFee_select_column {
 
   """column name"""
   id
+
+  """column name"""
+  module_id
 
   """column name"""
   source
@@ -5220,10 +7906,12 @@ input type for updating data in table "ProtocolFee"
 """
 input ProtocolFee_set_input {
   amount: numeric
-  bondingCurve_id: String
+  amountUSD: numeric
+  blockTimestamp: Int
   chainId: Int
   db_write_timestamp: timestamp
   id: String
+  module_id: String
   source: feesource
   token_id: String
   treasury: String
@@ -5232,6 +7920,8 @@ input ProtocolFee_set_input {
 """aggregate stddev on columns"""
 type ProtocolFee_stddev_fields {
   amount: Float
+  amountUSD: Float
+  blockTimestamp: Float
   chainId: Float
 }
 
@@ -5240,12 +7930,16 @@ order by stddev() on columns of table "ProtocolFee"
 """
 input ProtocolFee_stddev_order_by {
   amount: order_by
+  amountUSD: order_by
+  blockTimestamp: order_by
   chainId: order_by
 }
 
 """aggregate stddev_pop on columns"""
 type ProtocolFee_stddev_pop_fields {
   amount: Float
+  amountUSD: Float
+  blockTimestamp: Float
   chainId: Float
 }
 
@@ -5254,12 +7948,16 @@ order by stddev_pop() on columns of table "ProtocolFee"
 """
 input ProtocolFee_stddev_pop_order_by {
   amount: order_by
+  amountUSD: order_by
+  blockTimestamp: order_by
   chainId: order_by
 }
 
 """aggregate stddev_samp on columns"""
 type ProtocolFee_stddev_samp_fields {
   amount: Float
+  amountUSD: Float
+  blockTimestamp: Float
   chainId: Float
 }
 
@@ -5268,6 +7966,8 @@ order by stddev_samp() on columns of table "ProtocolFee"
 """
 input ProtocolFee_stddev_samp_order_by {
   amount: order_by
+  amountUSD: order_by
+  blockTimestamp: order_by
   chainId: order_by
 }
 
@@ -5285,10 +7985,12 @@ input ProtocolFee_stream_cursor_input {
 """Initial value of the column from where the streaming should start"""
 input ProtocolFee_stream_cursor_value_input {
   amount: numeric
-  bondingCurve_id: String
+  amountUSD: numeric
+  blockTimestamp: Int
   chainId: Int
   db_write_timestamp: timestamp
   id: String
+  module_id: String
   source: feesource
   token_id: String
   treasury: String
@@ -5297,6 +7999,8 @@ input ProtocolFee_stream_cursor_value_input {
 """aggregate sum on columns"""
 type ProtocolFee_sum_fields {
   amount: numeric
+  amountUSD: numeric
+  blockTimestamp: Int
   chainId: Int
 }
 
@@ -5305,6 +8009,8 @@ order by sum() on columns of table "ProtocolFee"
 """
 input ProtocolFee_sum_order_by {
   amount: order_by
+  amountUSD: order_by
+  blockTimestamp: order_by
   chainId: order_by
 }
 
@@ -5316,7 +8022,10 @@ enum ProtocolFee_update_column {
   amount
 
   """column name"""
-  bondingCurve_id
+  amountUSD
+
+  """column name"""
+  blockTimestamp
 
   """column name"""
   chainId
@@ -5326,6 +8035,9 @@ enum ProtocolFee_update_column {
 
   """column name"""
   id
+
+  """column name"""
+  module_id
 
   """column name"""
   source
@@ -5351,6 +8063,8 @@ input ProtocolFee_updates {
 """aggregate var_pop on columns"""
 type ProtocolFee_var_pop_fields {
   amount: Float
+  amountUSD: Float
+  blockTimestamp: Float
   chainId: Float
 }
 
@@ -5359,12 +8073,16 @@ order by var_pop() on columns of table "ProtocolFee"
 """
 input ProtocolFee_var_pop_order_by {
   amount: order_by
+  amountUSD: order_by
+  blockTimestamp: order_by
   chainId: order_by
 }
 
 """aggregate var_samp on columns"""
 type ProtocolFee_var_samp_fields {
   amount: Float
+  amountUSD: Float
+  blockTimestamp: Float
   chainId: Float
 }
 
@@ -5373,12 +8091,16 @@ order by var_samp() on columns of table "ProtocolFee"
 """
 input ProtocolFee_var_samp_order_by {
   amount: order_by
+  amountUSD: order_by
+  blockTimestamp: order_by
   chainId: order_by
 }
 
 """aggregate variance on columns"""
 type ProtocolFee_variance_fields {
   amount: Float
+  amountUSD: Float
+  blockTimestamp: Float
   chainId: Float
 }
 
@@ -5387,6 +8109,8 @@ order by variance() on columns of table "ProtocolFee"
 """
 input ProtocolFee_variance_order_by {
   amount: order_by
+  amountUSD: order_by
+  blockTimestamp: order_by
   chainId: order_by
 }
 
@@ -5761,13 +8485,10 @@ input String_comparison_exp {
 columns and relationships of "Swap"
 """
 type Swap {
+  amountCOL: numeric!
+  amountISS: numeric!
   blockTimestamp: Int!
-
-  """An object relationship"""
-  bondingCurve: BondingCurve
-  bondingCurve_id: String!
   chainId: Int!
-  collateralAmount: numeric!
 
   """An object relationship"""
   collateralToken: Token
@@ -5775,12 +8496,13 @@ type Swap {
   db_write_timestamp: timestamp
   id: String!
   initiator: String!
-  issuanceAmount: numeric!
 
   """An object relationship"""
   issuanceToken: Token
   issuanceToken_id: String!
-  priceInCol: numeric!
+  module_id: String!
+  priceCOL: numeric!
+  priceUSD: numeric!
   recipient: String!
   swapType: swaptype!
 }
@@ -5850,22 +8572,24 @@ input Swap_arr_rel_insert_input {
 
 """aggregate avg on columns"""
 type Swap_avg_fields {
+  amountCOL: Float
+  amountISS: Float
   blockTimestamp: Float
   chainId: Float
-  collateralAmount: Float
-  issuanceAmount: Float
-  priceInCol: Float
+  priceCOL: Float
+  priceUSD: Float
 }
 
 """
 order by avg() on columns of table "Swap"
 """
 input Swap_avg_order_by {
+  amountCOL: order_by
+  amountISS: order_by
   blockTimestamp: order_by
   chainId: order_by
-  collateralAmount: order_by
-  issuanceAmount: order_by
-  priceInCol: order_by
+  priceCOL: order_by
+  priceUSD: order_by
 }
 
 """
@@ -5875,20 +8599,20 @@ input Swap_bool_exp {
   _and: [Swap_bool_exp!]
   _not: Swap_bool_exp
   _or: [Swap_bool_exp!]
+  amountCOL: numeric_comparison_exp
+  amountISS: numeric_comparison_exp
   blockTimestamp: Int_comparison_exp
-  bondingCurve: BondingCurve_bool_exp
-  bondingCurve_id: String_comparison_exp
   chainId: Int_comparison_exp
-  collateralAmount: numeric_comparison_exp
   collateralToken: Token_bool_exp
   collateralToken_id: String_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
   id: String_comparison_exp
   initiator: String_comparison_exp
-  issuanceAmount: numeric_comparison_exp
   issuanceToken: Token_bool_exp
   issuanceToken_id: String_comparison_exp
-  priceInCol: numeric_comparison_exp
+  module_id: String_comparison_exp
+  priceCOL: numeric_comparison_exp
+  priceUSD: numeric_comparison_exp
   recipient: String_comparison_exp
   swapType: swaptype_comparison_exp
 }
@@ -5907,48 +8631,50 @@ enum Swap_constraint {
 input type for incrementing numeric columns in table "Swap"
 """
 input Swap_inc_input {
+  amountCOL: numeric
+  amountISS: numeric
   blockTimestamp: Int
   chainId: Int
-  collateralAmount: numeric
-  issuanceAmount: numeric
-  priceInCol: numeric
+  priceCOL: numeric
+  priceUSD: numeric
 }
 
 """
 input type for inserting data into table "Swap"
 """
 input Swap_insert_input {
+  amountCOL: numeric
+  amountISS: numeric
   blockTimestamp: Int
-  bondingCurve: BondingCurve_obj_rel_insert_input
-  bondingCurve_id: String
   chainId: Int
-  collateralAmount: numeric
   collateralToken: Token_obj_rel_insert_input
   collateralToken_id: String
   db_write_timestamp: timestamp
   id: String
   initiator: String
-  issuanceAmount: numeric
   issuanceToken: Token_obj_rel_insert_input
   issuanceToken_id: String
-  priceInCol: numeric
+  module_id: String
+  priceCOL: numeric
+  priceUSD: numeric
   recipient: String
   swapType: swaptype
 }
 
 """aggregate max on columns"""
 type Swap_max_fields {
+  amountCOL: numeric
+  amountISS: numeric
   blockTimestamp: Int
-  bondingCurve_id: String
   chainId: Int
-  collateralAmount: numeric
   collateralToken_id: String
   db_write_timestamp: timestamp
   id: String
   initiator: String
-  issuanceAmount: numeric
   issuanceToken_id: String
-  priceInCol: numeric
+  module_id: String
+  priceCOL: numeric
+  priceUSD: numeric
   recipient: String
   swapType: swaptype
 }
@@ -5957,34 +8683,36 @@ type Swap_max_fields {
 order by max() on columns of table "Swap"
 """
 input Swap_max_order_by {
+  amountCOL: order_by
+  amountISS: order_by
   blockTimestamp: order_by
-  bondingCurve_id: order_by
   chainId: order_by
-  collateralAmount: order_by
   collateralToken_id: order_by
   db_write_timestamp: order_by
   id: order_by
   initiator: order_by
-  issuanceAmount: order_by
   issuanceToken_id: order_by
-  priceInCol: order_by
+  module_id: order_by
+  priceCOL: order_by
+  priceUSD: order_by
   recipient: order_by
   swapType: order_by
 }
 
 """aggregate min on columns"""
 type Swap_min_fields {
+  amountCOL: numeric
+  amountISS: numeric
   blockTimestamp: Int
-  bondingCurve_id: String
   chainId: Int
-  collateralAmount: numeric
   collateralToken_id: String
   db_write_timestamp: timestamp
   id: String
   initiator: String
-  issuanceAmount: numeric
   issuanceToken_id: String
-  priceInCol: numeric
+  module_id: String
+  priceCOL: numeric
+  priceUSD: numeric
   recipient: String
   swapType: swaptype
 }
@@ -5993,17 +8721,18 @@ type Swap_min_fields {
 order by min() on columns of table "Swap"
 """
 input Swap_min_order_by {
+  amountCOL: order_by
+  amountISS: order_by
   blockTimestamp: order_by
-  bondingCurve_id: order_by
   chainId: order_by
-  collateralAmount: order_by
   collateralToken_id: order_by
   db_write_timestamp: order_by
   id: order_by
   initiator: order_by
-  issuanceAmount: order_by
   issuanceToken_id: order_by
-  priceInCol: order_by
+  module_id: order_by
+  priceCOL: order_by
+  priceUSD: order_by
   recipient: order_by
   swapType: order_by
 }
@@ -6030,20 +8759,20 @@ input Swap_on_conflict {
 
 """Ordering options when selecting data from "Swap"."""
 input Swap_order_by {
+  amountCOL: order_by
+  amountISS: order_by
   blockTimestamp: order_by
-  bondingCurve: BondingCurve_order_by
-  bondingCurve_id: order_by
   chainId: order_by
-  collateralAmount: order_by
   collateralToken: Token_order_by
   collateralToken_id: order_by
   db_write_timestamp: order_by
   id: order_by
   initiator: order_by
-  issuanceAmount: order_by
   issuanceToken: Token_order_by
   issuanceToken_id: order_by
-  priceInCol: order_by
+  module_id: order_by
+  priceCOL: order_by
+  priceUSD: order_by
   recipient: order_by
   swapType: order_by
 }
@@ -6058,16 +8787,16 @@ select columns of table "Swap"
 """
 enum Swap_select_column {
   """column name"""
+  amountCOL
+
+  """column name"""
+  amountISS
+
+  """column name"""
   blockTimestamp
 
   """column name"""
-  bondingCurve_id
-
-  """column name"""
   chainId
-
-  """column name"""
-  collateralAmount
 
   """column name"""
   collateralToken_id
@@ -6082,13 +8811,16 @@ enum Swap_select_column {
   initiator
 
   """column name"""
-  issuanceAmount
-
-  """column name"""
   issuanceToken_id
 
   """column name"""
-  priceInCol
+  module_id
+
+  """column name"""
+  priceCOL
+
+  """column name"""
+  priceUSD
 
   """column name"""
   recipient
@@ -6101,79 +8833,86 @@ enum Swap_select_column {
 input type for updating data in table "Swap"
 """
 input Swap_set_input {
+  amountCOL: numeric
+  amountISS: numeric
   blockTimestamp: Int
-  bondingCurve_id: String
   chainId: Int
-  collateralAmount: numeric
   collateralToken_id: String
   db_write_timestamp: timestamp
   id: String
   initiator: String
-  issuanceAmount: numeric
   issuanceToken_id: String
-  priceInCol: numeric
+  module_id: String
+  priceCOL: numeric
+  priceUSD: numeric
   recipient: String
   swapType: swaptype
 }
 
 """aggregate stddev on columns"""
 type Swap_stddev_fields {
+  amountCOL: Float
+  amountISS: Float
   blockTimestamp: Float
   chainId: Float
-  collateralAmount: Float
-  issuanceAmount: Float
-  priceInCol: Float
+  priceCOL: Float
+  priceUSD: Float
 }
 
 """
 order by stddev() on columns of table "Swap"
 """
 input Swap_stddev_order_by {
+  amountCOL: order_by
+  amountISS: order_by
   blockTimestamp: order_by
   chainId: order_by
-  collateralAmount: order_by
-  issuanceAmount: order_by
-  priceInCol: order_by
+  priceCOL: order_by
+  priceUSD: order_by
 }
 
 """aggregate stddev_pop on columns"""
 type Swap_stddev_pop_fields {
+  amountCOL: Float
+  amountISS: Float
   blockTimestamp: Float
   chainId: Float
-  collateralAmount: Float
-  issuanceAmount: Float
-  priceInCol: Float
+  priceCOL: Float
+  priceUSD: Float
 }
 
 """
 order by stddev_pop() on columns of table "Swap"
 """
 input Swap_stddev_pop_order_by {
+  amountCOL: order_by
+  amountISS: order_by
   blockTimestamp: order_by
   chainId: order_by
-  collateralAmount: order_by
-  issuanceAmount: order_by
-  priceInCol: order_by
+  priceCOL: order_by
+  priceUSD: order_by
 }
 
 """aggregate stddev_samp on columns"""
 type Swap_stddev_samp_fields {
+  amountCOL: Float
+  amountISS: Float
   blockTimestamp: Float
   chainId: Float
-  collateralAmount: Float
-  issuanceAmount: Float
-  priceInCol: Float
+  priceCOL: Float
+  priceUSD: Float
 }
 
 """
 order by stddev_samp() on columns of table "Swap"
 """
 input Swap_stddev_samp_order_by {
+  amountCOL: order_by
+  amountISS: order_by
   blockTimestamp: order_by
   chainId: order_by
-  collateralAmount: order_by
-  issuanceAmount: order_by
-  priceInCol: order_by
+  priceCOL: order_by
+  priceUSD: order_by
 }
 
 """
@@ -6189,39 +8928,42 @@ input Swap_stream_cursor_input {
 
 """Initial value of the column from where the streaming should start"""
 input Swap_stream_cursor_value_input {
+  amountCOL: numeric
+  amountISS: numeric
   blockTimestamp: Int
-  bondingCurve_id: String
   chainId: Int
-  collateralAmount: numeric
   collateralToken_id: String
   db_write_timestamp: timestamp
   id: String
   initiator: String
-  issuanceAmount: numeric
   issuanceToken_id: String
-  priceInCol: numeric
+  module_id: String
+  priceCOL: numeric
+  priceUSD: numeric
   recipient: String
   swapType: swaptype
 }
 
 """aggregate sum on columns"""
 type Swap_sum_fields {
+  amountCOL: numeric
+  amountISS: numeric
   blockTimestamp: Int
   chainId: Int
-  collateralAmount: numeric
-  issuanceAmount: numeric
-  priceInCol: numeric
+  priceCOL: numeric
+  priceUSD: numeric
 }
 
 """
 order by sum() on columns of table "Swap"
 """
 input Swap_sum_order_by {
+  amountCOL: order_by
+  amountISS: order_by
   blockTimestamp: order_by
   chainId: order_by
-  collateralAmount: order_by
-  issuanceAmount: order_by
-  priceInCol: order_by
+  priceCOL: order_by
+  priceUSD: order_by
 }
 
 """
@@ -6229,16 +8971,16 @@ update columns of table "Swap"
 """
 enum Swap_update_column {
   """column name"""
+  amountCOL
+
+  """column name"""
+  amountISS
+
+  """column name"""
   blockTimestamp
 
   """column name"""
-  bondingCurve_id
-
-  """column name"""
   chainId
-
-  """column name"""
-  collateralAmount
 
   """column name"""
   collateralToken_id
@@ -6253,13 +8995,16 @@ enum Swap_update_column {
   initiator
 
   """column name"""
-  issuanceAmount
-
-  """column name"""
   issuanceToken_id
 
   """column name"""
-  priceInCol
+  module_id
+
+  """column name"""
+  priceCOL
+
+  """column name"""
+  priceUSD
 
   """column name"""
   recipient
@@ -6281,62 +9026,68 @@ input Swap_updates {
 
 """aggregate var_pop on columns"""
 type Swap_var_pop_fields {
+  amountCOL: Float
+  amountISS: Float
   blockTimestamp: Float
   chainId: Float
-  collateralAmount: Float
-  issuanceAmount: Float
-  priceInCol: Float
+  priceCOL: Float
+  priceUSD: Float
 }
 
 """
 order by var_pop() on columns of table "Swap"
 """
 input Swap_var_pop_order_by {
+  amountCOL: order_by
+  amountISS: order_by
   blockTimestamp: order_by
   chainId: order_by
-  collateralAmount: order_by
-  issuanceAmount: order_by
-  priceInCol: order_by
+  priceCOL: order_by
+  priceUSD: order_by
 }
 
 """aggregate var_samp on columns"""
 type Swap_var_samp_fields {
+  amountCOL: Float
+  amountISS: Float
   blockTimestamp: Float
   chainId: Float
-  collateralAmount: Float
-  issuanceAmount: Float
-  priceInCol: Float
+  priceCOL: Float
+  priceUSD: Float
 }
 
 """
 order by var_samp() on columns of table "Swap"
 """
 input Swap_var_samp_order_by {
+  amountCOL: order_by
+  amountISS: order_by
   blockTimestamp: order_by
   chainId: order_by
-  collateralAmount: order_by
-  issuanceAmount: order_by
-  priceInCol: order_by
+  priceCOL: order_by
+  priceUSD: order_by
 }
 
 """aggregate variance on columns"""
 type Swap_variance_fields {
+  amountCOL: Float
+  amountISS: Float
   blockTimestamp: Float
   chainId: Float
-  collateralAmount: Float
-  issuanceAmount: Float
-  priceInCol: Float
+  priceCOL: Float
+  priceUSD: Float
 }
 
 """
 order by variance() on columns of table "Swap"
 """
 input Swap_variance_order_by {
+  amountCOL: order_by
+  amountISS: order_by
   blockTimestamp: order_by
   chainId: order_by
-  collateralAmount: order_by
-  issuanceAmount: order_by
-  priceInCol: order_by
+  priceCOL: order_by
+  priceUSD: order_by
 }
 
 """
@@ -6349,7 +9100,7 @@ type Token {
   decimals: Int!
   id: String!
   name: String!
-  priceInUsd: numeric!
+  priceUSD: numeric!
   symbol: String!
   totalSupply: numeric!
 }
@@ -6383,7 +9134,7 @@ type Token_aggregate_fields {
 type Token_avg_fields {
   chainId: Float
   decimals: Float
-  priceInUsd: Float
+  priceUSD: Float
   totalSupply: Float
 }
 
@@ -6400,7 +9151,7 @@ input Token_bool_exp {
   decimals: Int_comparison_exp
   id: String_comparison_exp
   name: String_comparison_exp
-  priceInUsd: numeric_comparison_exp
+  priceUSD: numeric_comparison_exp
   symbol: String_comparison_exp
   totalSupply: numeric_comparison_exp
 }
@@ -6421,7 +9172,7 @@ input type for incrementing numeric columns in table "Token"
 input Token_inc_input {
   chainId: Int
   decimals: Int
-  priceInUsd: numeric
+  priceUSD: numeric
   totalSupply: numeric
 }
 
@@ -6435,7 +9186,7 @@ input Token_insert_input {
   decimals: Int
   id: String
   name: String
-  priceInUsd: numeric
+  priceUSD: numeric
   symbol: String
   totalSupply: numeric
 }
@@ -6448,7 +9199,7 @@ type Token_max_fields {
   decimals: Int
   id: String
   name: String
-  priceInUsd: numeric
+  priceUSD: numeric
   symbol: String
   totalSupply: numeric
 }
@@ -6461,7 +9212,7 @@ type Token_min_fields {
   decimals: Int
   id: String
   name: String
-  priceInUsd: numeric
+  priceUSD: numeric
   symbol: String
   totalSupply: numeric
 }
@@ -6504,7 +9255,7 @@ input Token_order_by {
   decimals: order_by
   id: order_by
   name: order_by
-  priceInUsd: order_by
+  priceUSD: order_by
   symbol: order_by
   totalSupply: order_by
 }
@@ -6537,7 +9288,7 @@ enum Token_select_column {
   name
 
   """column name"""
-  priceInUsd
+  priceUSD
 
   """column name"""
   symbol
@@ -6556,7 +9307,7 @@ input Token_set_input {
   decimals: Int
   id: String
   name: String
-  priceInUsd: numeric
+  priceUSD: numeric
   symbol: String
   totalSupply: numeric
 }
@@ -6565,7 +9316,7 @@ input Token_set_input {
 type Token_stddev_fields {
   chainId: Float
   decimals: Float
-  priceInUsd: Float
+  priceUSD: Float
   totalSupply: Float
 }
 
@@ -6573,7 +9324,7 @@ type Token_stddev_fields {
 type Token_stddev_pop_fields {
   chainId: Float
   decimals: Float
-  priceInUsd: Float
+  priceUSD: Float
   totalSupply: Float
 }
 
@@ -6581,7 +9332,7 @@ type Token_stddev_pop_fields {
 type Token_stddev_samp_fields {
   chainId: Float
   decimals: Float
-  priceInUsd: Float
+  priceUSD: Float
   totalSupply: Float
 }
 
@@ -6604,7 +9355,7 @@ input Token_stream_cursor_value_input {
   decimals: Int
   id: String
   name: String
-  priceInUsd: numeric
+  priceUSD: numeric
   symbol: String
   totalSupply: numeric
 }
@@ -6613,7 +9364,7 @@ input Token_stream_cursor_value_input {
 type Token_sum_fields {
   chainId: Int
   decimals: Int
-  priceInUsd: numeric
+  priceUSD: numeric
   totalSupply: numeric
 }
 
@@ -6640,7 +9391,7 @@ enum Token_update_column {
   name
 
   """column name"""
-  priceInUsd
+  priceUSD
 
   """column name"""
   symbol
@@ -6664,7 +9415,7 @@ input Token_updates {
 type Token_var_pop_fields {
   chainId: Float
   decimals: Float
-  priceInUsd: Float
+  priceUSD: Float
   totalSupply: Float
 }
 
@@ -6672,7 +9423,7 @@ type Token_var_pop_fields {
 type Token_var_samp_fields {
   chainId: Float
   decimals: Float
-  priceInUsd: Float
+  priceUSD: Float
   totalSupply: Float
 }
 
@@ -6680,7 +9431,7 @@ type Token_var_samp_fields {
 type Token_variance_fields {
   chainId: Float
   decimals: Float
-  priceInUsd: Float
+  priceUSD: Float
   totalSupply: Float
 }
 
@@ -9490,6 +12241,32 @@ type mutation_root {
   delete_Bounty_by_pk(id: String!): Bounty
 
   """
+  delete data from the table: "CurveDayData"
+  """
+  delete_CurveDayData(
+    """filter the rows which have to be deleted"""
+    where: CurveDayData_bool_exp!
+  ): CurveDayData_mutation_response
+
+  """
+  delete single row from the table: "CurveDayData"
+  """
+  delete_CurveDayData_by_pk(id: String!): CurveDayData
+
+  """
+  delete data from the table: "CurveHourData"
+  """
+  delete_CurveHourData(
+    """filter the rows which have to be deleted"""
+    where: CurveHourData_bool_exp!
+  ): CurveHourData_mutation_response
+
+  """
+  delete single row from the table: "CurveHourData"
+  """
+  delete_CurveHourData_by_pk(id: String!): CurveHourData
+
+  """
   delete data from the table: "Deposit"
   """
   delete_Deposit(
@@ -9858,6 +12635,50 @@ type mutation_root {
     """upsert condition"""
     on_conflict: Bounty_on_conflict
   ): Bounty
+
+  """
+  insert data into the table: "CurveDayData"
+  """
+  insert_CurveDayData(
+    """the rows to be inserted"""
+    objects: [CurveDayData_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: CurveDayData_on_conflict
+  ): CurveDayData_mutation_response
+
+  """
+  insert a single row into the table: "CurveDayData"
+  """
+  insert_CurveDayData_one(
+    """the row to be inserted"""
+    object: CurveDayData_insert_input!
+
+    """upsert condition"""
+    on_conflict: CurveDayData_on_conflict
+  ): CurveDayData
+
+  """
+  insert data into the table: "CurveHourData"
+  """
+  insert_CurveHourData(
+    """the rows to be inserted"""
+    objects: [CurveHourData_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: CurveHourData_on_conflict
+  ): CurveHourData_mutation_response
+
+  """
+  insert a single row into the table: "CurveHourData"
+  """
+  insert_CurveHourData_one(
+    """the row to be inserted"""
+    object: CurveHourData_insert_input!
+
+    """upsert condition"""
+    on_conflict: CurveHourData_on_conflict
+  ): CurveHourData
 
   """
   insert data into the table: "Deposit"
@@ -10462,6 +13283,74 @@ type mutation_root {
     """updates to execute, in order"""
     updates: [Bounty_updates!]!
   ): [Bounty_mutation_response]
+
+  """
+  update data of the table: "CurveDayData"
+  """
+  update_CurveDayData(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: CurveDayData_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: CurveDayData_set_input
+
+    """filter the rows which have to be updated"""
+    where: CurveDayData_bool_exp!
+  ): CurveDayData_mutation_response
+
+  """
+  update single row of the table: "CurveDayData"
+  """
+  update_CurveDayData_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: CurveDayData_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: CurveDayData_set_input
+    pk_columns: CurveDayData_pk_columns_input!
+  ): CurveDayData
+
+  """
+  update multiples rows of table: "CurveDayData"
+  """
+  update_CurveDayData_many(
+    """updates to execute, in order"""
+    updates: [CurveDayData_updates!]!
+  ): [CurveDayData_mutation_response]
+
+  """
+  update data of the table: "CurveHourData"
+  """
+  update_CurveHourData(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: CurveHourData_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: CurveHourData_set_input
+
+    """filter the rows which have to be updated"""
+    where: CurveHourData_bool_exp!
+  ): CurveHourData_mutation_response
+
+  """
+  update single row of the table: "CurveHourData"
+  """
+  update_CurveHourData_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: CurveHourData_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: CurveHourData_set_input
+    pk_columns: CurveHourData_pk_columns_input!
+  ): CurveHourData
+
+  """
+  update multiples rows of table: "CurveHourData"
+  """
+  update_CurveHourData_many(
+    """updates to execute, in order"""
+    updates: [CurveHourData_updates!]!
+  ): [CurveHourData_mutation_response]
 
   """
   update data of the table: "Deposit"
@@ -11707,6 +14596,92 @@ type query_root {
 
   """fetch data from the table: "Bounty" using primary key columns"""
   Bounty_by_pk(id: String!): Bounty
+
+  """
+  fetch data from the table: "CurveDayData"
+  """
+  CurveDayData(
+    """distinct select on columns"""
+    distinct_on: [CurveDayData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveDayData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveDayData_bool_exp
+  ): [CurveDayData!]!
+
+  """
+  fetch aggregated fields from the table: "CurveDayData"
+  """
+  CurveDayData_aggregate(
+    """distinct select on columns"""
+    distinct_on: [CurveDayData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveDayData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveDayData_bool_exp
+  ): CurveDayData_aggregate!
+
+  """fetch data from the table: "CurveDayData" using primary key columns"""
+  CurveDayData_by_pk(id: String!): CurveDayData
+
+  """
+  fetch data from the table: "CurveHourData"
+  """
+  CurveHourData(
+    """distinct select on columns"""
+    distinct_on: [CurveHourData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveHourData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveHourData_bool_exp
+  ): [CurveHourData!]!
+
+  """
+  fetch aggregated fields from the table: "CurveHourData"
+  """
+  CurveHourData_aggregate(
+    """distinct select on columns"""
+    distinct_on: [CurveHourData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveHourData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveHourData_bool_exp
+  ): CurveHourData_aggregate!
+
+  """fetch data from the table: "CurveHourData" using primary key columns"""
+  CurveHourData_by_pk(id: String!): CurveHourData
 
   """
   fetch data from the table: "Deposit"
@@ -13358,6 +16333,120 @@ type subscription_root {
     """filter the rows returned"""
     where: Bounty_bool_exp
   ): [Bounty!]!
+
+  """
+  fetch data from the table: "CurveDayData"
+  """
+  CurveDayData(
+    """distinct select on columns"""
+    distinct_on: [CurveDayData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveDayData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveDayData_bool_exp
+  ): [CurveDayData!]!
+
+  """
+  fetch aggregated fields from the table: "CurveDayData"
+  """
+  CurveDayData_aggregate(
+    """distinct select on columns"""
+    distinct_on: [CurveDayData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveDayData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveDayData_bool_exp
+  ): CurveDayData_aggregate!
+
+  """fetch data from the table: "CurveDayData" using primary key columns"""
+  CurveDayData_by_pk(id: String!): CurveDayData
+
+  """
+  fetch data from the table in a streaming manner: "CurveDayData"
+  """
+  CurveDayData_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [CurveDayData_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: CurveDayData_bool_exp
+  ): [CurveDayData!]!
+
+  """
+  fetch data from the table: "CurveHourData"
+  """
+  CurveHourData(
+    """distinct select on columns"""
+    distinct_on: [CurveHourData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveHourData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveHourData_bool_exp
+  ): [CurveHourData!]!
+
+  """
+  fetch aggregated fields from the table: "CurveHourData"
+  """
+  CurveHourData_aggregate(
+    """distinct select on columns"""
+    distinct_on: [CurveHourData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveHourData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveHourData_bool_exp
+  ): CurveHourData_aggregate!
+
+  """fetch data from the table: "CurveHourData" using primary key columns"""
+  CurveHourData_by_pk(id: String!): CurveHourData
+
+  """
+  fetch data from the table in a streaming manner: "CurveHourData"
+  """
+  CurveHourData_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [CurveHourData_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: CurveHourData_bool_exp
+  ): [CurveHourData!]!
 
   """
   fetch data from the table: "Deposit"
