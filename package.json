@@ -13,7 +13,7 @@
     "test": "mocha",
     "start": "ts-node generated/src/Index.bs.js",
     "format": "prettier --write .",
-    "compile": "genql --endpoint http://localhost:8080/v1/graphql -H 'X-Hasura-Admin-Secret: testing' --prefix GQL --output graphql/src/gen && prettier --write graphql/src/gen/**/*.ts && eslint --fix graphql/src/gen/**/*.ts",
+    "compile": "genql --endpoint http://localhost:8080/v1/graphql --prefix GQL --output graphql/src/gen && prettier --write graphql/src/gen/**/*.ts && eslint --fix graphql/src/gen/**/*.ts",
     "release": "standard-version -a",
     "release:pub": "git push --follow-tags origin $(git rev-parse --abbrev-ref HEAD)"
   },
