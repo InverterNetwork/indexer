@@ -38,9 +38,10 @@
     "postpack": "pinst --enable"
   },
   "dependencies": {
-    "wonka": "6.3.4",
     "@urql/core": "^5.1.0",
-    "subscriptions-transport-ws": "^0.11.0"
+    "subscriptions-transport-ws": "^0.11.0",
+    "uuid": "^11.0.5",
+    "wonka": "6.3.4"
   },
   "devDependencies": {
     "pinst": "^3.0.0",

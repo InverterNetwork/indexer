@@ -1,4 +1,6 @@
 import { pipe, subscribe } from 'wonka'
+import { v4 as uuidv4 } from 'uuid'
+
 import { Client } from './client'
 import { generateSubscriptionOp } from './gen'
 import type { subscription_rootGenqlSelection, SubscriptionResult } from './gen'
@@ -126,8 +128,6 @@ export class SubscriptionManager<
    * @returns CallbackId - The generated unique callback ID.
    */
   private generateCallbackId(): CallbackId {
-    return (
-      (crypto as any)?.randomUUID?.() ?? Math.random().toString(36).substring(2)
-    )
+    return uuidv4()
   }
 }

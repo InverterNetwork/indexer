@@ -13,7 +13,7 @@
     "test": "mocha",
     "start": "ts-node generated/src/Index.bs.js",
     "format": "prettier --write .",
-    "compile": "genql --endpoint http://localhost:8080/v1/graphql -H 'X-Hasura-Admin-Secret: testing' --prefix GQL --output graphql/src/gen && prettier --write graphql/src/gen/**/*.ts",
+    "compile": "genql --endpoint http://localhost:8080/v1/graphql -H 'X-Hasura-Admin-Secret: testing' --prefix GQL --output graphql/src/gen",
     "release": "standard-version -a",
     "release:pub": "git push --follow-tags origin $(git rev-parse --abbrev-ref HEAD)"
   },
@@ -27,7 +27,6 @@
     ]
   },
   "resolutions": {
-    "eslint": "^9.17.0",
     "typescript": "^5.7.2"
   },
   "peerDependencies": {
@@ -44,6 +43,7 @@
     "generated": "./generated"
   },
   "devDependencies": {
+    "eslint": "^9.18.0",
     "@commitlint/cli": "^19.6.0",
     "@commitlint/config-conventional": "^19.6.0",
     "@genql/cli": "^6.3.3",
@@ -61,6 +61,6 @@
     "ts-node": "10.9.1",
     "tsc-files": "^1.1.4",
     "type-fest": "^4.32.0",
-    "typescript-eslint": "^8.19.0"
+    "typescript-eslint": "^8.21.0"
   }
 }
