@@ -1,0 +1,14 @@
+services:
+  graphiql:
+    restart: always
+    container_name: graphiql
+    image: plutoz/graphiql
+    ports:
+      - 4000:4000
+    depends_on:
+      - graphql-engine
+    environment:
+      PORT: 4000
+      API_ENDPOINT: http://127.0.0.1:8080/v1/graphql
+    networks:
+      - my-proxy-net
