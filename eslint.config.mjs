@@ -6,7 +6,11 @@ import importX from 'eslint-plugin-import-x'
 
 export default tseslint.config({
   files: ['**/*.{mjs,cjs,js,ts}'],
-  ignores: ['**/*.{config,test,scripts}.{mjs,cjs,js,ts}', '.*.mjs'],
+  ignores: [
+    '**/*.{config,test,scripts}.{mjs,cjs,js,ts}',
+    '.*.mjs',
+    'graphql/src/gen/{types,schema}.ts',
+  ],
   plugins: {
     '@typescript-eslint': tseslint.plugin,
     prettier,

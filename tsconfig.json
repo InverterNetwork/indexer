@@ -7,7 +7,7 @@
     "allowJs": true,
     "checkJs": false,
     "outDir": "build",
-    "rootDirs": ["src", "generated", "tests"],
+    "rootDirs": ["src", "generated"],
     "strict": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
