@@ -10,7 +10,7 @@
     "codegen": "envio codegen",
     "postcodegen": "ts-node scripts/postcodegen/index.ts",
     "dev": "envio dev",
-    "prod": "pnpm codegen && envio local docker up && pnpm migrate && TUI_OFF=true pnpm start",
+    "prod": "pnpm codegen && docker-compose --file generated/docker-compose.yaml up -d && pnpm migrate && TUI_OFF=true pnpm start",
     "migrate": "envio local db-migrate setup",
     "test": "mocha",
     "start": "ts-node generated/src/Index.bs.js",
