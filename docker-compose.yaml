@@ -1,14 +1,13 @@
 services:
-  graphiql:
+  altair:
     restart: always
-    container_name: graphiql
-    image: plutoz/graphiql
+    container_name: altair
+    image: appwrite/altair:0.3.0
     ports:
-      - 4000:4000
+      - 3000:3000
     depends_on:
       - graphql-engine
     environment:
-      PORT: 4000
-      API_ENDPOINT: http://127.0.0.1:8080/v1/graphql
+      SERVER_URL: http://graphql-engine:8080/v1/graphql
     networks:
       - my-proxy-net
