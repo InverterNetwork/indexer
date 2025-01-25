@@ -38,5 +38,18 @@ COPY --from=builder /app/package.json /app/pnpm-workspace.yaml /app/.npmrc ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/generated ./generated
 
-# Default command
-CMD ["sh", "-c", "pnpm start --character=characters/${CHARACTER_NAME:-samantha}.character.json & pnpm start:client"]
+# Define default values for arguments
+ARG COMMAND_TYPE=SETUP
+
+ARG SETUP_COMMANDS="pnpm -C generated run db-setup && pnpm ts-node scripts/grant-aggregate-permissions.ts && TUI_OFF=true pnpm -C generated run start"
+ARG MIGRATE_COMMANDS="pnpm -C generated run db-up && pnpm ts-node scripts/grant-aggregate-permissions.ts && TUI_OFF=true pnpm -C generated run start"
+ARG UPDATE_COMMANDS="TUI_OFF=true pnpm -C generated run start"
+
+# Use a shell form CMD to evaluate the arguments
+CMD if [ "$COMMAND_TYPE" = "SETUP" ]; then \
+    sh -c "$SETUP_COMMANDS"; \
+    elif [ "$COMMAND_TYPE" = "MIGRATE" ]; then \
+    sh -c "$MIGRATE_COMMANDS"; \
+    else \
+    sh -c "$UPDATE_COMMANDS"; \
+    fi
