@@ -14,7 +14,7 @@ FROM base AS builder
 WORKDIR /app
 
 # Copy dependency-related files to leverage caching
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc schema.graphql config.yaml config.ts ./
 
 COPY src ./src
 COPY abis ./abis
