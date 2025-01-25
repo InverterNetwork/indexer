@@ -14,17 +14,18 @@ FROM base AS builder
 WORKDIR /app
 
 # Copy dependency-related files to leverage caching
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc turbo.json ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
 
-COPY
+COPY src ./src
+COPY abis ./abis
+COPY scripts ./scripts
 
 # Install dependencies using BuildKit cache for pnpm store
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
     pnpm install --frozen-lockfile
 
-# Build the project and prune dev dependencies
-RUN pnpm build-docker && \
-    pnpm prune --prod
+# Generate the schema ( codegen )
+RUN pnpm codegen
 
 # Stage 2: Final Production Image
 FROM base
@@ -33,13 +34,9 @@ FROM base
 WORKDIR /app
 
 # Copy only necessary files and production dependencies
-COPY --from=builder /app/package.json /app/pnpm-workspace.yaml /app/.npmrc /app/turbo.json ./
+COPY --from=builder /app/package.json /app/pnpm-workspace.yaml /app/.npmrc ./
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/agent ./agent
-COPY --from=builder /app/packages ./packages
-COPY --from=builder /app/scripts ./scripts
-COPY --from=builder /app/characters ./characters
-COPY --from=builder /app/client ./client
+COPY --from=builder /app/generated ./generated
 
 # Default command
 CMD ["sh", "-c", "pnpm start --character=characters/${CHARACTER_NAME:-samantha}.character.json & pnpm start:client"]
