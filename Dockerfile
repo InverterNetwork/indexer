@@ -41,6 +41,8 @@ COPY --from=builder /app/scripts ./scripts
 
 # Define default values for arguments
 ARG COMMAND_TYPE=SETUP
+# Transfer build arg to env var so it's available at runtime
+ENV COMMAND_TYPE=${COMMAND_TYPE}
 
 # Define the commands as environment variables for better readability and maintenance
 ENV SETUP_COMMANDS="pnpm -C generated run db-setup && pnpm ts-node scripts/grant-aggregate-permissions.ts && TUI_OFF=true pnpm -C generated run start"
