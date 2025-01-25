@@ -34,7 +34,7 @@ FROM base
 WORKDIR /app
 
 # Copy only necessary files and production dependencies
-COPY --from=builder /app/package.json /app/pnpm-workspace.yaml /app/.npmrc ./
+COPY --from=builder /app/package.json /app/pnpm-workspace.yaml /app/.npmrc /app/config.ts ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/generated ./generated
 COPY --from=builder /app/scripts ./scripts
