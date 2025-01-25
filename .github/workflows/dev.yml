@@ -1,0 +1,101 @@
+name: Dev CI-CD
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        description: 'Please select your command'
+        type: choice
+        options:
+          - SETUP
+          - MIGRATE
+          - UPDATE
+
+env:
+  REGION: eu-central-1
+  PLATFORM: dev
+
+
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    environment: development
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive #ensures submodules are checked out
+
+      - uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          channel: 'n-platform-deployments'
+          config: .github/config/slack.yml
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+        if: always()
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{secrets.ACCOUNT_ID_DEV}}:role/platform-github-action-role-${{env.PLATFORM}}
+          aws-region: ${{ env.REGION }}
+          role-duration-seconds: 1200
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: get-name
+        run: |
+          echo "REPO_NAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV
+
+      - name: Build, tag, and push image to Amazon ECR Setup
+        id: build-image-setup
+        if: ${{ always() && inputs.env == 'SETUP' }}
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ env.REPO_NAME }}-${{env.PLATFORM}}
+          COMMAND: 'SETUP'
+        run: |
+          docker build --build-arg COMMAND_TYPE=$COMMAND -t $ECR_REGISTRY/$ECR_REPOSITORY:${{env.PLATFORM}}-${GITHUB_SHA::8} .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{env.PLATFORM}}-${GITHUB_SHA::8}
+
+      - name: Build, tag, and push image to Amazon ECR Migrate
+        id: build-image-migrate
+        if: ${{ always() && inputs.env == 'MIGRATE' }}
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ env.REPO_NAME }}-${{env.PLATFORM}}
+          COMMAND: 'MIGRATE'
+        run: |
+          docker build --build-arg COMMAND_TYPE=$COMMAND -t $ECR_REGISTRY/$ECR_REPOSITORY:${{env.PLATFORM}}-${GITHUB_SHA::8} .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{env.PLATFORM}}-${GITHUB_SHA::8}
+
+      - name: Build, tag, and push image to Amazon ECR Update
+        id: build-image-update
+        if: ${{ always() && inputs.env == 'UPDATE' }}
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ env.REPO_NAME }}-${{env.PLATFORM}}
+          COMMAND: 'UPDATE'
+        run: |
+          docker build --build-arg COMMAND_TYPE=$COMMAND -t $ECR_REGISTRY/$ECR_REPOSITORY:${{env.PLATFORM}}-${GITHUB_SHA::8} .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{env.PLATFORM}}-${GITHUB_SHA::8}
+
+
+      - uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          channel: 'n-platform-deployments'
+          config: .github/config/slack.yml
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+        if: always()
+
+
+
+
