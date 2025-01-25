@@ -37,6 +37,7 @@ WORKDIR /app
 COPY --from=builder /app/package.json /app/pnpm-workspace.yaml /app/.npmrc ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/generated ./generated
+COPY --from=builder /app/scripts ./scripts
 
 # Define default values for arguments
 ARG COMMAND_TYPE=SETUP

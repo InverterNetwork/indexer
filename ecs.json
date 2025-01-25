@@ -1,0 +1,217 @@
+{
+  "family": "indexer-dev",
+  "containerDefinitions": [
+    {
+      "name": "envio-postgres",
+      "image": "postgres:16",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "name": "envio-postgres",
+          "containerPort": 5432,
+          "hostPort": 5432,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "POSTGRES_USER",
+          "value": "postgres"
+        },
+        {
+          "name": "POSTGRES_PASSWORD",
+          "value": "Rx8peqe8j6AbmJ8Ri2YW"
+        },
+        {
+          "name": "POSTGRES_DB",
+          "value": "envio-dev"
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "db_data",
+          "containerPath": "/var/lib/postgresql/data",
+          "readOnly": false
+        }
+      ],
+      "volumesFrom": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/indexer-dev-ec2",
+          "mode": "non-blocking",
+          "awslogs-create-group": "true",
+          "max-buffer-size": "25m",
+          "awslogs-region": "eu-central-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "healthCheck": {
+        "command": ["CMD-SHELL", "pg_isready -U postgres"],
+        "interval": 10,
+        "timeout": 5,
+        "retries": 10,
+        "startPeriod": 60
+      },
+      "systemControls": []
+    },
+    {
+      "name": "graphql-engine",
+      "image": "hasura/graphql-engine:v2.43.0",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "name": "graphql-engine",
+          "containerPort": 8080,
+          "hostPort": 8080,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": false,
+      "environment": [
+        {
+          "name": "HASURA_GRAPHQL_NO_OF_RETRIES",
+          "value": "10"
+        },
+        {
+          "name": "HASURA_GRAPHQL_STRINGIFY_NUMERIC_TYPES",
+          "value": "true"
+        },
+        {
+          "name": "HASURA_GRAPHQL_ENABLE_CONSOLE",
+          "value": "true"
+        },
+        {
+          "name": "PORT",
+          "value": "8080"
+        },
+        {
+          "name": "HASURA_GRAPHQL_UNAUTHORIZED_ROLE",
+          "value": "public"
+        },
+        {
+          "name": "HASURA_GRAPHQL_ENABLED_LOG_TYPES",
+          "value": "startup,http-log,webhook-log,websocket-log,query-log"
+        },
+        {
+          "name": "HASURA_GRAPHQL_ADMIN_SECRET",
+          "value": "efLKX9LRrobMMLrkZ44D"
+        },
+        {
+          "name": "HASURA_GRAPHQL_DATABASE_URL",
+          "value": "postgres://postgres:Rx8peqe8j6AbmJ8Ri2YW@127.0.0.1:5432/envio-dev"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "dependsOn": [
+        {
+          "containerName": "envio-postgres",
+          "condition": "HEALTHY"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/indexer-dev-ec2",
+          "mode": "non-blocking",
+          "awslogs-create-group": "true",
+          "max-buffer-size": "25m",
+          "awslogs-region": "eu-central-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "timeout 1s bash -c ':> /dev/tcp/127.0.0.1/8080' || exit 1"
+        ],
+        "interval": 5,
+        "timeout": 2,
+        "retries": 10,
+        "startPeriod": 5
+      },
+      "systemControls": []
+    },
+    {
+      "name": "indexer-dev",
+      "image": "137068232927.dkr.ecr.eu-central-1.amazonaws.com/indexer-dev:dev-5bb6c5b0",
+      "cpu": 0,
+      "portMappings": [],
+      "essential": true,
+      "environment": [
+        {
+          "name": "ENVIO_POSTGRES_PASSWORD",
+          "value": "Rx8peqe8j6AbmJ8Ri2YW"
+        },
+        {
+          "name": "HASURA_GRAPHQL_ADMIN_SECRET",
+          "value": "efLKX9LRrobMMLrkZ44D"
+        },
+        {
+          "name": "ENVIO_PG_DATABASE",
+          "value": "envio-dev"
+        },
+        {
+          "name": "ENVIO_PG_USER",
+          "value": "postgres"
+        },
+        {
+          "name": "ENVIO_PG_HOST",
+          "value": "127.0.0.1"
+        },
+        {
+          "name": "ENVIO_PG_PORT",
+          "value": "5432"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "dependsOn": [
+        {
+          "containerName": "graphql-engine",
+          "condition": "HEALTHY"
+        },
+        {
+          "containerName": "envio-postgres",
+          "condition": "HEALTHY"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/indexer-dev-ec2",
+          "mode": "non-blocking",
+          "awslogs-create-group": "true",
+          "max-buffer-size": "25m",
+          "awslogs-region": "eu-central-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "systemControls": []
+    }
+  ],
+  "executionRoleArn": "arn:aws:iam::137068232927:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "volumes": [
+    {
+      "name": "db_data",
+      "dockerVolumeConfiguration": {
+        "scope": "task",
+        "driver": "local"
+      }
+    }
+  ],
+  "placementConstraints": [],
+  "requiresCompatibilities": ["EC2"],
+  "cpu": "2048",
+  "memory": "4096",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "enableFaultInjection": false
+}
