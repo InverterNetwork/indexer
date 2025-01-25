@@ -1,2 +1,2 @@
-import './gen-docker-compose'
+// import './gen-docker-compose'
 import './copy-env'

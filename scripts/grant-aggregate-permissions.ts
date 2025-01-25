@@ -6,7 +6,7 @@ dotenv.config()
 const HASURA_ENDPOINT = 'http://localhost:8080/v1/metadata'
 const HASURA_ADMIN_SECRET = process.env.HASURA_GRAPHQL_ADMIN_SECRET
 
-async function grantSelectPermissions() {
+async function grantAggregatePermissions() {
   for (const table of publicAggregationTables) {
     try {
       // First, drop existing select permission
@@ -62,4 +62,4 @@ async function grantSelectPermissions() {
   }
 }
 
-grantSelectPermissions().catch(console.error)
+grantAggregatePermissions().catch(console.error)
