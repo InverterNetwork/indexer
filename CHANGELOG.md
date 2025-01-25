@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.2](https://github.com/InverterNetwork/indexer/compare/v0.9.1...v0.9.2) (2025-01-24)
+
+
+### Features
+
+* add configuration for public aggregation tables and update docker-compose service ([888b0b8](https://github.com/InverterNetwork/indexer/commit/888b0b8d447100e3cbaf7ac913ae34aaa3ca4e11))
+
+
+### Bug Fixes
+
+* update production script to use docker-compose for improved deployment ([0cb1c0f](https://github.com/InverterNetwork/indexer/commit/0cb1c0f5ee7faa9853ab6b2f49462927d1a386c1))
+
 ### [0.9.1](https://github.com/InverterNetwork/indexer/compare/v0.9.0...v0.9.1) (2025-01-23)
 
 ## 0.9.0 (2025-01-22)

@@ -10,6 +10,7 @@ export default tseslint.config({
     '**/*.{config,test,scripts}.{mjs,cjs,js,ts}',
     '.*.mjs',
     'graphql/src/gen/{types,schema}.ts',
+    'config.ts',
   ],
   plugins: {
     '@typescript-eslint': tseslint.plugin,
