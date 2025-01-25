@@ -42,15 +42,23 @@ COPY --from=builder /app/scripts ./scripts
 # Define default values for arguments
 ARG COMMAND_TYPE=SETUP
 
-ARG SETUP_COMMANDS="pnpm -C generated run db-setup && pnpm ts-node scripts/grant-aggregate-permissions.ts && TUI_OFF=true pnpm -C generated run start"
-ARG MIGRATE_COMMANDS="pnpm -C generated run db-up && pnpm ts-node scripts/grant-aggregate-permissions.ts && TUI_OFF=true pnpm -C generated run start"
-ARG UPDATE_COMMANDS="TUI_OFF=true pnpm -C generated run start"
+# Define the commands as environment variables for better readability and maintenance
+ENV SETUP_COMMANDS="pnpm -C generated run db-setup && pnpm ts-node scripts/grant-aggregate-permissions.ts && TUI_OFF=true pnpm -C generated run start"
+ENV MIGRATE_COMMANDS="pnpm -C generated run db-up && pnpm ts-node scripts/grant-aggregate-permissions.ts && TUI_OFF=true pnpm -C generated run start"
+ENV UPDATE_COMMANDS="TUI_OFF=true pnpm -C generated run start"
 
-# Use a shell form CMD to evaluate the arguments
-CMD if [ "$COMMAND_TYPE" = "SETUP" ]; then \
-    sh -c "$SETUP_COMMANDS"; \
-    elif [ "$COMMAND_TYPE" = "MIGRATE" ]; then \
-    sh -c "$MIGRATE_COMMANDS"; \
-    else \
-    sh -c "$UPDATE_COMMANDS"; \
-    fi
+# Use case statement for cleaner conditional execution
+CMD case "$COMMAND_TYPE" in \
+    "SETUP") \
+    sh -c "$SETUP_COMMANDS" \
+    ;; \
+    "MIGRATE") \
+    sh -c "$MIGRATE_COMMANDS" \
+    ;; \
+    "UPDATE") \
+    sh -c "$UPDATE_COMMANDS" \
+    ;; \
+    *) \
+    echo "Invalid COMMAND_TYPE: $COMMAND_TYPE" && exit 1 \
+    ;; \
+    esac
