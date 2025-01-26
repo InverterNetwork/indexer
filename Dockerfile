@@ -14,7 +14,7 @@ FROM base AS builder
 WORKDIR /app
 
 # Copy dependency-related files to leverage caching
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc schema.graphql config.yaml config.ts ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc schema.graphql config.yaml config.ts tsconfig.json ./
 
 COPY src ./src
 COPY abis ./abis
@@ -33,11 +33,20 @@ FROM base
 # Set working directory
 WORKDIR /app
 
+# Set up PNPM global directory
+ENV SHELL=/bin/sh
+ENV PNPM_HOME="/root/.local/share/pnpm"
+ENV PATH="${PNPM_HOME}:${PATH}"
+
 # Copy only necessary files and production dependencies
-COPY --from=builder /app/package.json /app/pnpm-workspace.yaml /app/.npmrc /app/config.ts ./
+COPY --from=builder /app/package.json /app/pnpm-workspace.yaml /app/.npmrc /app/config.ts /app/tsconfig.json ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/generated ./generated
 COPY --from=builder /app/scripts ./scripts
+COPY --from=builder /app/src ./src
+
+# Install typescript and ts-node as runtime dependencies
+RUN pnpm add -g typescript ts-node
 
 # Define default values for arguments
 ARG COMMAND_TYPE=SETUP

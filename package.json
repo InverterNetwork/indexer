@@ -22,7 +22,8 @@
     "format": "prettier --write .",
     "postinstall": "husky || true",
     "release": "standard-version -a",
-    "release:pub": "git push --follow-tags origin $(git rev-parse --abbrev-ref HEAD)"
+    "release:pub": "git push --follow-tags origin $(git rev-parse --abbrev-ref HEAD)",
+    "build-run-docker": "chmod +x scripts/build-run-docker.sh && ./scripts/build-run-docker.sh"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
