@@ -33,8 +33,5 @@ build
 generated
 ref
 .DS_Store
-.cache
 .env
-
-
 *.idea/
