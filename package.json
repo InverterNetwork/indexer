@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "envio dev",
     "watch": "tsc --watch --noEmit -p tsconfig.json",
-    "start": "TUI_OFF=true pnpm -C generated run start",
+    "start": "TUI_OFF=true pnpm ts-node generated/src/Index.bs.js",
     "start:pm2": "pm2 restart envio || pm2 start 'pnpm start' --name envio",
     "clean": "rm -rf build",
     "build": "pnpm clean && tsc --build tsconfig.build.json && pnpm ts-add-js-extension --dir=build/src",

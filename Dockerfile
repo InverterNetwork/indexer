@@ -45,9 +45,9 @@ ARG COMMAND_TYPE=SETUP
 ENV COMMAND_TYPE=${COMMAND_TYPE}
 
 # Define the commands as environment variables for better readability and maintenance
-ENV SETUP_COMMANDS="pnpm -C generated run db-setup && pnpm ts-node scripts/grant-aggregate-permissions.ts && TUI_OFF=true pnpm -C generated run start"
-ENV MIGRATE_COMMANDS="pnpm -C generated run db-up && pnpm ts-node scripts/grant-aggregate-permissions.ts && TUI_OFF=true pnpm -C generated run start"
-ENV UPDATE_COMMANDS="TUI_OFF=true pnpm -C generated run start"
+ENV SETUP_COMMANDS="pnpm -C generated run db-setup && pnpm ts-node scripts/grant-aggregate-permissions.ts && TUI_OFF=true pnpm ts-node generated/src/Index.bs.js"
+ENV MIGRATE_COMMANDS="pnpm -C generated run db-up && pnpm ts-node scripts/grant-aggregate-permissions.ts && TUI_OFF=true pnpm ts-node generated/src/Index.bs.js"
+ENV UPDATE_COMMANDS="TUI_OFF=true pnpm ts-node generated/src/Index.bs.js"
 
 # Use case statement for cleaner conditional execution
 CMD case "$COMMAND_TYPE" in \
