@@ -13,12 +13,10 @@ FROM base AS builder
 # Set working directory
 WORKDIR /app
 
-# Copy dependency-related files to leverage caching
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc schema.graphql config.yaml config.ts tsconfig.json ./
-
-COPY src ./src
-COPY abis ./abis
-COPY scripts ./scripts
+# Copy all files except node_modules
+COPY . .
+# Remove node_modules if they were copied
+RUN rm -rf node_modules ref tests graphql .github .env Dockerfile build
 
 # Install dependencies using BuildKit cache for pnpm store
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
@@ -39,14 +37,7 @@ ENV PNPM_HOME="/root/.local/share/pnpm"
 ENV PATH="${PNPM_HOME}:${PATH}"
 
 # Copy only necessary files and production dependencies
-COPY --from=builder /app/package.json /app/pnpm-workspace.yaml /app/.npmrc /app/config.ts /app/tsconfig.json ./
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/generated ./generated
-COPY --from=builder /app/scripts ./scripts
-COPY --from=builder /app/src ./src
-
-# Install typescript and ts-node as runtime dependencies
-RUN pnpm add -g typescript ts-node
+COPY --from=builder /app .
 
 # Define default values for arguments
 ARG COMMAND_TYPE=SETUP
@@ -54,8 +45,8 @@ ARG COMMAND_TYPE=SETUP
 ENV COMMAND_TYPE=${COMMAND_TYPE}
 
 # Define the commands as environment variables for better readability and maintenance
-ENV SETUP_COMMANDS="pnpm -C generated run db-setup && pnpm ts-node scripts/grant-aggregate-permissions.ts && TUI_OFF=true pnpm ts-node generated/src/Index.bs.js"
-ENV MIGRATE_COMMANDS="pnpm -C generated run db-up && pnpm ts-node scripts/grant-aggregate-permissions.ts && TUI_OFF=true pnpm ts-node generated/src/Index.bs.js"
+ENV SETUP_COMMANDS="node -e \"require('./generated/src/db/Migrations.bs.js').setupDb()\" && pnpm ts-node scripts/grant-aggregate-permissions.ts && TUI_OFF=true pnpm ts-node generated/src/Index.bs.js"
+ENV MIGRATE_COMMANDS="node -e \"require('./generated/src/db/Migrations.bs.js').runUpMigrations(true)\" && pnpm ts-node scripts/grant-aggregate-permissions.ts && TUI_OFF=true pnpm ts-node generated/src/Index.bs.js"
 ENV UPDATE_COMMANDS="TUI_OFF=true pnpm ts-node generated/src/Index.bs.js"
 
 # Use case statement for cleaner conditional execution
