@@ -64,16 +64,28 @@
     ></script>
     <script>
       const fetcher = GraphiQL.createFetcher({
-        url: 'http://localhost:8080/v1/graphql',
+        url: 'http://indexer-graphql-dev-1145992051.eu-central-1.elb.amazonaws.com/v1/graphql',
       })
 
       const explorerPlugin = GraphiQLPluginExplorer.explorerPlugin()
+
+      const defaultQuery = /* GraphiQL */ `query MyQuery {
+  Token(limit: 5) {
+    name
+    priceUSD
+    symbol
+    totalSupply
+    address
+    chainId
+  }
+}`
 
       function GraphiQLWithExplorer() {
         return React.createElement(GraphiQL, {
           fetcher,
           defaultEditorToolsVisibility: true,
           plugins: [explorerPlugin],
+          defaultQuery,
         })
       }
 
