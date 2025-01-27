@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.5](https://github.com/InverterNetwork/indexer/compare/v0.9.4...v0.9.5) (2025-01-27)
+
+
+### Features
+
+* add service stability check to ECS deployment workflow ([da5394d](https://github.com/InverterNetwork/indexer/commit/da5394d88ce0250587f72d15a9522ee1737f345a))
+* optimize GitHub Actions workflow with change detection ([2b09153](https://github.com/InverterNetwork/indexer/commit/2b09153c7adef33ec9f4a1b16139250533c67cbe))
+
+
+### Bug Fixes
+
+* improve Slack notification logic in GitHub Actions workflow ([c94fa17](https://github.com/InverterNetwork/indexer/commit/c94fa17d162912480930e151e20d92c0534392a6))
+
 ### [0.9.4](https://github.com/InverterNetwork/indexer/compare/v0.9.3...v0.9.4) (2025-01-27)
 
 

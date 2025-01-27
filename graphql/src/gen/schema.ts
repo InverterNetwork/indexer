@@ -5,6 +5,7 @@
 
 export type Scalars = {
   Boolean: boolean
+  Float: number
   Int: number
   String: string
   contract_type: any
@@ -29,21 +30,33 @@ export interface BondingCurve {
   collateralToken_id: Scalars['String']
   /** An array relationship */
   curveDayData: CurveDayData[]
+  /** An aggregate relationship */
+  curveDayData_aggregate: CurveDayData_aggregate
   /** An array relationship */
   curveHourData: CurveHourData[]
+  /** An aggregate relationship */
+  curveHourData_aggregate: CurveHourData_aggregate
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String']
   /** An object relationship */
   issuanceToken: Token | null
   /** An array relationship */
   issuanceTokenDayData: IssuanceTokenDayData[]
+  /** An aggregate relationship */
+  issuanceTokenDayData_aggregate: IssuanceTokenDayData_aggregate
   /** An array relationship */
   issuanceTokenHourData: IssuanceTokenHourData[]
+  /** An aggregate relationship */
+  issuanceTokenHourData_aggregate: IssuanceTokenHourData_aggregate
   issuanceToken_id: Scalars['String']
   /** An array relationship */
   projectFees: ProjectFee[]
+  /** An aggregate relationship */
+  projectFees_aggregate: ProjectFee_aggregate
   /** An array relationship */
   protocolFees: ProtocolFee[]
+  /** An aggregate relationship */
+  protocolFees_aggregate: ProtocolFee_aggregate
   reserveCOL: Scalars['numeric']
   reserveUSD: Scalars['numeric']
   sellFee: Scalars['numeric']
@@ -56,6 +69,85 @@ export interface BondingCurve {
   workflow: Workflow | null
   workflow_id: Scalars['String']
   __typename: 'BondingCurve'
+}
+
+/** aggregated selection of "BondingCurve" */
+export interface BondingCurve_aggregate {
+  aggregate: BondingCurve_aggregate_fields | null
+  nodes: BondingCurve[]
+  __typename: 'BondingCurve_aggregate'
+}
+
+/** aggregate fields of "BondingCurve" */
+export interface BondingCurve_aggregate_fields {
+  avg: BondingCurve_avg_fields | null
+  count: Scalars['Int']
+  max: BondingCurve_max_fields | null
+  min: BondingCurve_min_fields | null
+  stddev: BondingCurve_stddev_fields | null
+  stddev_pop: BondingCurve_stddev_pop_fields | null
+  stddev_samp: BondingCurve_stddev_samp_fields | null
+  sum: BondingCurve_sum_fields | null
+  var_pop: BondingCurve_var_pop_fields | null
+  var_samp: BondingCurve_var_samp_fields | null
+  variance: BondingCurve_variance_fields | null
+  __typename: 'BondingCurve_aggregate_fields'
+}
+
+/** aggregate avg on columns */
+export interface BondingCurve_avg_fields {
+  buyFee: Scalars['Float'] | null
+  buyReserveRatio: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  reserveCOL: Scalars['Float'] | null
+  reserveUSD: Scalars['Float'] | null
+  sellFee: Scalars['Float'] | null
+  sellReserveRatio: Scalars['Float'] | null
+  virtualCOL: Scalars['Float'] | null
+  virtualISS: Scalars['Float'] | null
+  __typename: 'BondingCurve_avg_fields'
+}
+
+/** aggregate max on columns */
+export interface BondingCurve_max_fields {
+  address: Scalars['String'] | null
+  bcType: Scalars['String'] | null
+  buyFee: Scalars['numeric'] | null
+  buyReserveRatio: Scalars['numeric'] | null
+  chainId: Scalars['Int'] | null
+  collateralToken_id: Scalars['String'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  id: Scalars['String'] | null
+  issuanceToken_id: Scalars['String'] | null
+  reserveCOL: Scalars['numeric'] | null
+  reserveUSD: Scalars['numeric'] | null
+  sellFee: Scalars['numeric'] | null
+  sellReserveRatio: Scalars['numeric'] | null
+  virtualCOL: Scalars['numeric'] | null
+  virtualISS: Scalars['numeric'] | null
+  workflow_id: Scalars['String'] | null
+  __typename: 'BondingCurve_max_fields'
+}
+
+/** aggregate min on columns */
+export interface BondingCurve_min_fields {
+  address: Scalars['String'] | null
+  bcType: Scalars['String'] | null
+  buyFee: Scalars['numeric'] | null
+  buyReserveRatio: Scalars['numeric'] | null
+  chainId: Scalars['Int'] | null
+  collateralToken_id: Scalars['String'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  id: Scalars['String'] | null
+  issuanceToken_id: Scalars['String'] | null
+  reserveCOL: Scalars['numeric'] | null
+  reserveUSD: Scalars['numeric'] | null
+  sellFee: Scalars['numeric'] | null
+  sellReserveRatio: Scalars['numeric'] | null
+  virtualCOL: Scalars['numeric'] | null
+  virtualISS: Scalars['numeric'] | null
+  workflow_id: Scalars['String'] | null
+  __typename: 'BondingCurve_min_fields'
 }
 
 /** select columns of table "BondingCurve" */
@@ -77,6 +169,104 @@ export type BondingCurve_select_column =
   | 'virtualISS'
   | 'workflow_id'
 
+/** aggregate stddev on columns */
+export interface BondingCurve_stddev_fields {
+  buyFee: Scalars['Float'] | null
+  buyReserveRatio: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  reserveCOL: Scalars['Float'] | null
+  reserveUSD: Scalars['Float'] | null
+  sellFee: Scalars['Float'] | null
+  sellReserveRatio: Scalars['Float'] | null
+  virtualCOL: Scalars['Float'] | null
+  virtualISS: Scalars['Float'] | null
+  __typename: 'BondingCurve_stddev_fields'
+}
+
+/** aggregate stddev_pop on columns */
+export interface BondingCurve_stddev_pop_fields {
+  buyFee: Scalars['Float'] | null
+  buyReserveRatio: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  reserveCOL: Scalars['Float'] | null
+  reserveUSD: Scalars['Float'] | null
+  sellFee: Scalars['Float'] | null
+  sellReserveRatio: Scalars['Float'] | null
+  virtualCOL: Scalars['Float'] | null
+  virtualISS: Scalars['Float'] | null
+  __typename: 'BondingCurve_stddev_pop_fields'
+}
+
+/** aggregate stddev_samp on columns */
+export interface BondingCurve_stddev_samp_fields {
+  buyFee: Scalars['Float'] | null
+  buyReserveRatio: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  reserveCOL: Scalars['Float'] | null
+  reserveUSD: Scalars['Float'] | null
+  sellFee: Scalars['Float'] | null
+  sellReserveRatio: Scalars['Float'] | null
+  virtualCOL: Scalars['Float'] | null
+  virtualISS: Scalars['Float'] | null
+  __typename: 'BondingCurve_stddev_samp_fields'
+}
+
+/** aggregate sum on columns */
+export interface BondingCurve_sum_fields {
+  buyFee: Scalars['numeric'] | null
+  buyReserveRatio: Scalars['numeric'] | null
+  chainId: Scalars['Int'] | null
+  reserveCOL: Scalars['numeric'] | null
+  reserveUSD: Scalars['numeric'] | null
+  sellFee: Scalars['numeric'] | null
+  sellReserveRatio: Scalars['numeric'] | null
+  virtualCOL: Scalars['numeric'] | null
+  virtualISS: Scalars['numeric'] | null
+  __typename: 'BondingCurve_sum_fields'
+}
+
+/** aggregate var_pop on columns */
+export interface BondingCurve_var_pop_fields {
+  buyFee: Scalars['Float'] | null
+  buyReserveRatio: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  reserveCOL: Scalars['Float'] | null
+  reserveUSD: Scalars['Float'] | null
+  sellFee: Scalars['Float'] | null
+  sellReserveRatio: Scalars['Float'] | null
+  virtualCOL: Scalars['Float'] | null
+  virtualISS: Scalars['Float'] | null
+  __typename: 'BondingCurve_var_pop_fields'
+}
+
+/** aggregate var_samp on columns */
+export interface BondingCurve_var_samp_fields {
+  buyFee: Scalars['Float'] | null
+  buyReserveRatio: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  reserveCOL: Scalars['Float'] | null
+  reserveUSD: Scalars['Float'] | null
+  sellFee: Scalars['Float'] | null
+  sellReserveRatio: Scalars['Float'] | null
+  virtualCOL: Scalars['Float'] | null
+  virtualISS: Scalars['Float'] | null
+  __typename: 'BondingCurve_var_samp_fields'
+}
+
+/** aggregate variance on columns */
+export interface BondingCurve_variance_fields {
+  buyFee: Scalars['Float'] | null
+  buyReserveRatio: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  reserveCOL: Scalars['Float'] | null
+  reserveUSD: Scalars['Float'] | null
+  sellFee: Scalars['Float'] | null
+  sellReserveRatio: Scalars['Float'] | null
+  virtualCOL: Scalars['Float'] | null
+  virtualISS: Scalars['Float'] | null
+  __typename: 'BondingCurve_variance_fields'
+}
+
 /** columns and relationships of "Bounty" */
 export interface Bounty {
   /** An object relationship */
@@ -84,6 +274,8 @@ export interface Bounty {
   bountyModule_id: Scalars['String']
   /** An array relationship */
   claims: BountyClaim[]
+  /** An aggregate relationship */
+  claims_aggregate: BountyClaim_aggregate
   db_write_timestamp: Scalars['timestamp'] | null
   details: Scalars['String']
   id: Scalars['String']
@@ -107,6 +299,39 @@ export interface BountyClaim {
   __typename: 'BountyClaim'
 }
 
+/** aggregated selection of "BountyClaim" */
+export interface BountyClaim_aggregate {
+  aggregate: BountyClaim_aggregate_fields | null
+  nodes: BountyClaim[]
+  __typename: 'BountyClaim_aggregate'
+}
+
+/** aggregate fields of "BountyClaim" */
+export interface BountyClaim_aggregate_fields {
+  count: Scalars['Int']
+  max: BountyClaim_max_fields | null
+  min: BountyClaim_min_fields | null
+  __typename: 'BountyClaim_aggregate_fields'
+}
+
+/** aggregate max on columns */
+export interface BountyClaim_max_fields {
+  bounty_id: Scalars['String'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  details: Scalars['String'] | null
+  id: Scalars['String'] | null
+  __typename: 'BountyClaim_max_fields'
+}
+
+/** aggregate min on columns */
+export interface BountyClaim_min_fields {
+  bounty_id: Scalars['String'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  details: Scalars['String'] | null
+  id: Scalars['String'] | null
+  __typename: 'BountyClaim_min_fields'
+}
+
 /** select columns of table "BountyClaim" */
 export type BountyClaim_select_column =
   | 'bounty_id'
@@ -114,6 +339,14 @@ export type BountyClaim_select_column =
   | 'db_write_timestamp'
   | 'details'
   | 'id'
+
+/** select "BountyClaim_aggregate_bool_exp_bool_and_arguments_columns" columns of table "BountyClaim" */
+export type BountyClaim_select_column_BountyClaim_aggregate_bool_exp_bool_and_arguments_columns =
+  'claimed'
+
+/** select "BountyClaim_aggregate_bool_exp_bool_or_arguments_columns" columns of table "BountyClaim" */
+export type BountyClaim_select_column_BountyClaim_aggregate_bool_exp_bool_or_arguments_columns =
+  'claimed'
 
 /** columns and relationships of "BountyContributor" */
 export interface BountyContributor {
@@ -139,6 +372,8 @@ export type BountyContributor_select_column =
 export interface BountyModule {
   /** An array relationship */
   bounties: Bounty[]
+  /** An aggregate relationship */
+  bounties_aggregate: Bounty_aggregate
   chainId: Scalars['Int']
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String']
@@ -155,6 +390,58 @@ export type BountyModule_select_column =
   | 'id'
   | 'workflow_id'
 
+/** aggregated selection of "Bounty" */
+export interface Bounty_aggregate {
+  aggregate: Bounty_aggregate_fields | null
+  nodes: Bounty[]
+  __typename: 'Bounty_aggregate'
+}
+
+/** aggregate fields of "Bounty" */
+export interface Bounty_aggregate_fields {
+  avg: Bounty_avg_fields | null
+  count: Scalars['Int']
+  max: Bounty_max_fields | null
+  min: Bounty_min_fields | null
+  stddev: Bounty_stddev_fields | null
+  stddev_pop: Bounty_stddev_pop_fields | null
+  stddev_samp: Bounty_stddev_samp_fields | null
+  sum: Bounty_sum_fields | null
+  var_pop: Bounty_var_pop_fields | null
+  var_samp: Bounty_var_samp_fields | null
+  variance: Bounty_variance_fields | null
+  __typename: 'Bounty_aggregate_fields'
+}
+
+/** aggregate avg on columns */
+export interface Bounty_avg_fields {
+  maximumPayoutAmount: Scalars['Float'] | null
+  minimumPayoutAmount: Scalars['Float'] | null
+  __typename: 'Bounty_avg_fields'
+}
+
+/** aggregate max on columns */
+export interface Bounty_max_fields {
+  bountyModule_id: Scalars['String'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  details: Scalars['String'] | null
+  id: Scalars['String'] | null
+  maximumPayoutAmount: Scalars['numeric'] | null
+  minimumPayoutAmount: Scalars['numeric'] | null
+  __typename: 'Bounty_max_fields'
+}
+
+/** aggregate min on columns */
+export interface Bounty_min_fields {
+  bountyModule_id: Scalars['String'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  details: Scalars['String'] | null
+  id: Scalars['String'] | null
+  maximumPayoutAmount: Scalars['numeric'] | null
+  minimumPayoutAmount: Scalars['numeric'] | null
+  __typename: 'Bounty_min_fields'
+}
+
 /** select columns of table "Bounty" */
 export type Bounty_select_column =
   | 'bountyModule_id'
@@ -164,6 +451,63 @@ export type Bounty_select_column =
   | 'locked'
   | 'maximumPayoutAmount'
   | 'minimumPayoutAmount'
+
+/** select "Bounty_aggregate_bool_exp_bool_and_arguments_columns" columns of table "Bounty" */
+export type Bounty_select_column_Bounty_aggregate_bool_exp_bool_and_arguments_columns =
+  'locked'
+
+/** select "Bounty_aggregate_bool_exp_bool_or_arguments_columns" columns of table "Bounty" */
+export type Bounty_select_column_Bounty_aggregate_bool_exp_bool_or_arguments_columns =
+  'locked'
+
+/** aggregate stddev on columns */
+export interface Bounty_stddev_fields {
+  maximumPayoutAmount: Scalars['Float'] | null
+  minimumPayoutAmount: Scalars['Float'] | null
+  __typename: 'Bounty_stddev_fields'
+}
+
+/** aggregate stddev_pop on columns */
+export interface Bounty_stddev_pop_fields {
+  maximumPayoutAmount: Scalars['Float'] | null
+  minimumPayoutAmount: Scalars['Float'] | null
+  __typename: 'Bounty_stddev_pop_fields'
+}
+
+/** aggregate stddev_samp on columns */
+export interface Bounty_stddev_samp_fields {
+  maximumPayoutAmount: Scalars['Float'] | null
+  minimumPayoutAmount: Scalars['Float'] | null
+  __typename: 'Bounty_stddev_samp_fields'
+}
+
+/** aggregate sum on columns */
+export interface Bounty_sum_fields {
+  maximumPayoutAmount: Scalars['numeric'] | null
+  minimumPayoutAmount: Scalars['numeric'] | null
+  __typename: 'Bounty_sum_fields'
+}
+
+/** aggregate var_pop on columns */
+export interface Bounty_var_pop_fields {
+  maximumPayoutAmount: Scalars['Float'] | null
+  minimumPayoutAmount: Scalars['Float'] | null
+  __typename: 'Bounty_var_pop_fields'
+}
+
+/** aggregate var_samp on columns */
+export interface Bounty_var_samp_fields {
+  maximumPayoutAmount: Scalars['Float'] | null
+  minimumPayoutAmount: Scalars['Float'] | null
+  __typename: 'Bounty_var_samp_fields'
+}
+
+/** aggregate variance on columns */
+export interface Bounty_variance_fields {
+  maximumPayoutAmount: Scalars['Float'] | null
+  minimumPayoutAmount: Scalars['Float'] | null
+  __typename: 'Bounty_variance_fields'
+}
 
 /** columns and relationships of "CurveDayData" */
 export interface CurveDayData {
@@ -199,6 +543,114 @@ export interface CurveDayData {
   __typename: 'CurveDayData'
 }
 
+/** aggregated selection of "CurveDayData" */
+export interface CurveDayData_aggregate {
+  aggregate: CurveDayData_aggregate_fields | null
+  nodes: CurveDayData[]
+  __typename: 'CurveDayData_aggregate'
+}
+
+/** aggregate fields of "CurveDayData" */
+export interface CurveDayData_aggregate_fields {
+  avg: CurveDayData_avg_fields | null
+  count: Scalars['Int']
+  max: CurveDayData_max_fields | null
+  min: CurveDayData_min_fields | null
+  stddev: CurveDayData_stddev_fields | null
+  stddev_pop: CurveDayData_stddev_pop_fields | null
+  stddev_samp: CurveDayData_stddev_samp_fields | null
+  sum: CurveDayData_sum_fields | null
+  var_pop: CurveDayData_var_pop_fields | null
+  var_samp: CurveDayData_var_samp_fields | null
+  variance: CurveDayData_variance_fields | null
+  __typename: 'CurveDayData_aggregate_fields'
+}
+
+/** aggregate avg on columns */
+export interface CurveDayData_avg_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveDayData_avg_fields'
+}
+
+/** aggregate max on columns */
+export interface CurveDayData_max_fields {
+  chainId: Scalars['Int'] | null
+  closeCOL: Scalars['numeric'] | null
+  closeUSD: Scalars['numeric'] | null
+  collateralToken_id: Scalars['String'] | null
+  date: Scalars['Int'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  highCOL: Scalars['numeric'] | null
+  highUSD: Scalars['numeric'] | null
+  id: Scalars['String'] | null
+  issuanceToken_id: Scalars['String'] | null
+  lowCOL: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  module_id: Scalars['String'] | null
+  openCOL: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  priceCOL: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeCOL: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeCOL: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  volumeCOL: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
+  __typename: 'CurveDayData_max_fields'
+}
+
+/** aggregate min on columns */
+export interface CurveDayData_min_fields {
+  chainId: Scalars['Int'] | null
+  closeCOL: Scalars['numeric'] | null
+  closeUSD: Scalars['numeric'] | null
+  collateralToken_id: Scalars['String'] | null
+  date: Scalars['Int'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  highCOL: Scalars['numeric'] | null
+  highUSD: Scalars['numeric'] | null
+  id: Scalars['String'] | null
+  issuanceToken_id: Scalars['String'] | null
+  lowCOL: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  module_id: Scalars['String'] | null
+  openCOL: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  priceCOL: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeCOL: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeCOL: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  volumeCOL: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
+  __typename: 'CurveDayData_min_fields'
+}
+
 /** select columns of table "CurveDayData" */
 export type CurveDayData_select_column =
   | 'chainId'
@@ -226,6 +678,181 @@ export type CurveDayData_select_column =
   | 'volumeCOL'
   | 'volumeISS'
   | 'volumeUSD'
+
+/** aggregate stddev on columns */
+export interface CurveDayData_stddev_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveDayData_stddev_fields'
+}
+
+/** aggregate stddev_pop on columns */
+export interface CurveDayData_stddev_pop_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveDayData_stddev_pop_fields'
+}
+
+/** aggregate stddev_samp on columns */
+export interface CurveDayData_stddev_samp_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveDayData_stddev_samp_fields'
+}
+
+/** aggregate sum on columns */
+export interface CurveDayData_sum_fields {
+  chainId: Scalars['Int'] | null
+  closeCOL: Scalars['numeric'] | null
+  closeUSD: Scalars['numeric'] | null
+  date: Scalars['Int'] | null
+  highCOL: Scalars['numeric'] | null
+  highUSD: Scalars['numeric'] | null
+  lowCOL: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  openCOL: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  priceCOL: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeCOL: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeCOL: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  volumeCOL: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
+  __typename: 'CurveDayData_sum_fields'
+}
+
+/** aggregate var_pop on columns */
+export interface CurveDayData_var_pop_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveDayData_var_pop_fields'
+}
+
+/** aggregate var_samp on columns */
+export interface CurveDayData_var_samp_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveDayData_var_samp_fields'
+}
+
+/** aggregate variance on columns */
+export interface CurveDayData_variance_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveDayData_variance_fields'
+}
 
 /** columns and relationships of "CurveHourData" */
 export interface CurveHourData {
@@ -261,6 +888,114 @@ export interface CurveHourData {
   __typename: 'CurveHourData'
 }
 
+/** aggregated selection of "CurveHourData" */
+export interface CurveHourData_aggregate {
+  aggregate: CurveHourData_aggregate_fields | null
+  nodes: CurveHourData[]
+  __typename: 'CurveHourData_aggregate'
+}
+
+/** aggregate fields of "CurveHourData" */
+export interface CurveHourData_aggregate_fields {
+  avg: CurveHourData_avg_fields | null
+  count: Scalars['Int']
+  max: CurveHourData_max_fields | null
+  min: CurveHourData_min_fields | null
+  stddev: CurveHourData_stddev_fields | null
+  stddev_pop: CurveHourData_stddev_pop_fields | null
+  stddev_samp: CurveHourData_stddev_samp_fields | null
+  sum: CurveHourData_sum_fields | null
+  var_pop: CurveHourData_var_pop_fields | null
+  var_samp: CurveHourData_var_samp_fields | null
+  variance: CurveHourData_variance_fields | null
+  __typename: 'CurveHourData_aggregate_fields'
+}
+
+/** aggregate avg on columns */
+export interface CurveHourData_avg_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveHourData_avg_fields'
+}
+
+/** aggregate max on columns */
+export interface CurveHourData_max_fields {
+  chainId: Scalars['Int'] | null
+  closeCOL: Scalars['numeric'] | null
+  closeUSD: Scalars['numeric'] | null
+  collateralToken_id: Scalars['String'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  highCOL: Scalars['numeric'] | null
+  highUSD: Scalars['numeric'] | null
+  id: Scalars['String'] | null
+  issuanceToken_id: Scalars['String'] | null
+  lowCOL: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  module_id: Scalars['String'] | null
+  openCOL: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  periodStartUnix: Scalars['Int'] | null
+  priceCOL: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeCOL: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeCOL: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  volumeCOL: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
+  __typename: 'CurveHourData_max_fields'
+}
+
+/** aggregate min on columns */
+export interface CurveHourData_min_fields {
+  chainId: Scalars['Int'] | null
+  closeCOL: Scalars['numeric'] | null
+  closeUSD: Scalars['numeric'] | null
+  collateralToken_id: Scalars['String'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  highCOL: Scalars['numeric'] | null
+  highUSD: Scalars['numeric'] | null
+  id: Scalars['String'] | null
+  issuanceToken_id: Scalars['String'] | null
+  lowCOL: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  module_id: Scalars['String'] | null
+  openCOL: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  periodStartUnix: Scalars['Int'] | null
+  priceCOL: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeCOL: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeCOL: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  volumeCOL: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
+  __typename: 'CurveHourData_min_fields'
+}
+
 /** select columns of table "CurveHourData" */
 export type CurveHourData_select_column =
   | 'chainId'
@@ -289,6 +1024,181 @@ export type CurveHourData_select_column =
   | 'volumeISS'
   | 'volumeUSD'
 
+/** aggregate stddev on columns */
+export interface CurveHourData_stddev_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveHourData_stddev_fields'
+}
+
+/** aggregate stddev_pop on columns */
+export interface CurveHourData_stddev_pop_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveHourData_stddev_pop_fields'
+}
+
+/** aggregate stddev_samp on columns */
+export interface CurveHourData_stddev_samp_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveHourData_stddev_samp_fields'
+}
+
+/** aggregate sum on columns */
+export interface CurveHourData_sum_fields {
+  chainId: Scalars['Int'] | null
+  closeCOL: Scalars['numeric'] | null
+  closeUSD: Scalars['numeric'] | null
+  highCOL: Scalars['numeric'] | null
+  highUSD: Scalars['numeric'] | null
+  lowCOL: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  openCOL: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  periodStartUnix: Scalars['Int'] | null
+  priceCOL: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeCOL: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeCOL: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  volumeCOL: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
+  __typename: 'CurveHourData_sum_fields'
+}
+
+/** aggregate var_pop on columns */
+export interface CurveHourData_var_pop_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveHourData_var_pop_fields'
+}
+
+/** aggregate var_samp on columns */
+export interface CurveHourData_var_samp_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveHourData_var_samp_fields'
+}
+
+/** aggregate variance on columns */
+export interface CurveHourData_variance_fields {
+  chainId: Scalars['Float'] | null
+  closeCOL: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highCOL: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowCOL: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openCOL: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceCOL: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeCOL: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeCOL: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeCOL: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'CurveHourData_variance_fields'
+}
+
 /** columns and relationships of "Deposit" */
 export interface Deposit {
   amount: Scalars['numeric']
@@ -312,16 +1222,77 @@ export interface DepositVault {
   db_write_timestamp: Scalars['timestamp'] | null
   /** An array relationship */
   deposits: Deposit[]
+  /** An aggregate relationship */
+  deposits_aggregate: Deposit_aggregate
   id: Scalars['String']
   /** An object relationship */
   token: Token | null
   token_id: Scalars['String']
   /** An array relationship */
   transfers: Transfer[]
+  /** An aggregate relationship */
+  transfers_aggregate: Transfer_aggregate
   /** An object relationship */
   workflow: Workflow | null
   workflow_id: Scalars['String']
   __typename: 'DepositVault'
+}
+
+/** aggregated selection of "DepositVault" */
+export interface DepositVault_aggregate {
+  aggregate: DepositVault_aggregate_fields | null
+  nodes: DepositVault[]
+  __typename: 'DepositVault_aggregate'
+}
+
+/** aggregate fields of "DepositVault" */
+export interface DepositVault_aggregate_fields {
+  avg: DepositVault_avg_fields | null
+  count: Scalars['Int']
+  max: DepositVault_max_fields | null
+  min: DepositVault_min_fields | null
+  stddev: DepositVault_stddev_fields | null
+  stddev_pop: DepositVault_stddev_pop_fields | null
+  stddev_samp: DepositVault_stddev_samp_fields | null
+  sum: DepositVault_sum_fields | null
+  var_pop: DepositVault_var_pop_fields | null
+  var_samp: DepositVault_var_samp_fields | null
+  variance: DepositVault_variance_fields | null
+  __typename: 'DepositVault_aggregate_fields'
+}
+
+/** aggregate avg on columns */
+export interface DepositVault_avg_fields {
+  balance: Scalars['Float'] | null
+  balanceUSD: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'DepositVault_avg_fields'
+}
+
+/** aggregate max on columns */
+export interface DepositVault_max_fields {
+  address: Scalars['String'] | null
+  balance: Scalars['numeric'] | null
+  balanceUSD: Scalars['numeric'] | null
+  chainId: Scalars['Int'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  id: Scalars['String'] | null
+  token_id: Scalars['String'] | null
+  workflow_id: Scalars['String'] | null
+  __typename: 'DepositVault_max_fields'
+}
+
+/** aggregate min on columns */
+export interface DepositVault_min_fields {
+  address: Scalars['String'] | null
+  balance: Scalars['numeric'] | null
+  balanceUSD: Scalars['numeric'] | null
+  chainId: Scalars['Int'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  id: Scalars['String'] | null
+  token_id: Scalars['String'] | null
+  workflow_id: Scalars['String'] | null
+  __typename: 'DepositVault_min_fields'
 }
 
 /** select columns of table "DepositVault" */
@@ -335,6 +1306,117 @@ export type DepositVault_select_column =
   | 'token_id'
   | 'workflow_id'
 
+/** aggregate stddev on columns */
+export interface DepositVault_stddev_fields {
+  balance: Scalars['Float'] | null
+  balanceUSD: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'DepositVault_stddev_fields'
+}
+
+/** aggregate stddev_pop on columns */
+export interface DepositVault_stddev_pop_fields {
+  balance: Scalars['Float'] | null
+  balanceUSD: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'DepositVault_stddev_pop_fields'
+}
+
+/** aggregate stddev_samp on columns */
+export interface DepositVault_stddev_samp_fields {
+  balance: Scalars['Float'] | null
+  balanceUSD: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'DepositVault_stddev_samp_fields'
+}
+
+/** aggregate sum on columns */
+export interface DepositVault_sum_fields {
+  balance: Scalars['numeric'] | null
+  balanceUSD: Scalars['numeric'] | null
+  chainId: Scalars['Int'] | null
+  __typename: 'DepositVault_sum_fields'
+}
+
+/** aggregate var_pop on columns */
+export interface DepositVault_var_pop_fields {
+  balance: Scalars['Float'] | null
+  balanceUSD: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'DepositVault_var_pop_fields'
+}
+
+/** aggregate var_samp on columns */
+export interface DepositVault_var_samp_fields {
+  balance: Scalars['Float'] | null
+  balanceUSD: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'DepositVault_var_samp_fields'
+}
+
+/** aggregate variance on columns */
+export interface DepositVault_variance_fields {
+  balance: Scalars['Float'] | null
+  balanceUSD: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'DepositVault_variance_fields'
+}
+
+/** aggregated selection of "Deposit" */
+export interface Deposit_aggregate {
+  aggregate: Deposit_aggregate_fields | null
+  nodes: Deposit[]
+  __typename: 'Deposit_aggregate'
+}
+
+/** aggregate fields of "Deposit" */
+export interface Deposit_aggregate_fields {
+  avg: Deposit_avg_fields | null
+  count: Scalars['Int']
+  max: Deposit_max_fields | null
+  min: Deposit_min_fields | null
+  stddev: Deposit_stddev_fields | null
+  stddev_pop: Deposit_stddev_pop_fields | null
+  stddev_samp: Deposit_stddev_samp_fields | null
+  sum: Deposit_sum_fields | null
+  var_pop: Deposit_var_pop_fields | null
+  var_samp: Deposit_var_samp_fields | null
+  variance: Deposit_variance_fields | null
+  __typename: 'Deposit_aggregate_fields'
+}
+
+/** aggregate avg on columns */
+export interface Deposit_avg_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  __typename: 'Deposit_avg_fields'
+}
+
+/** aggregate max on columns */
+export interface Deposit_max_fields {
+  amount: Scalars['numeric'] | null
+  amountUSD: Scalars['numeric'] | null
+  blockTimestamp: Scalars['Int'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  depositVault_id: Scalars['String'] | null
+  depositor: Scalars['String'] | null
+  id: Scalars['String'] | null
+  __typename: 'Deposit_max_fields'
+}
+
+/** aggregate min on columns */
+export interface Deposit_min_fields {
+  amount: Scalars['numeric'] | null
+  amountUSD: Scalars['numeric'] | null
+  blockTimestamp: Scalars['Int'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  depositVault_id: Scalars['String'] | null
+  depositor: Scalars['String'] | null
+  id: Scalars['String'] | null
+  __typename: 'Deposit_min_fields'
+}
+
 /** select columns of table "Deposit" */
 export type Deposit_select_column =
   | 'amount'
@@ -344,6 +1426,62 @@ export type Deposit_select_column =
   | 'depositVault_id'
   | 'depositor'
   | 'id'
+
+/** aggregate stddev on columns */
+export interface Deposit_stddev_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  __typename: 'Deposit_stddev_fields'
+}
+
+/** aggregate stddev_pop on columns */
+export interface Deposit_stddev_pop_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  __typename: 'Deposit_stddev_pop_fields'
+}
+
+/** aggregate stddev_samp on columns */
+export interface Deposit_stddev_samp_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  __typename: 'Deposit_stddev_samp_fields'
+}
+
+/** aggregate sum on columns */
+export interface Deposit_sum_fields {
+  amount: Scalars['numeric'] | null
+  amountUSD: Scalars['numeric'] | null
+  blockTimestamp: Scalars['Int'] | null
+  __typename: 'Deposit_sum_fields'
+}
+
+/** aggregate var_pop on columns */
+export interface Deposit_var_pop_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  __typename: 'Deposit_var_pop_fields'
+}
+
+/** aggregate var_samp on columns */
+export interface Deposit_var_samp_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  __typename: 'Deposit_var_samp_fields'
+}
+
+/** aggregate variance on columns */
+export interface Deposit_variance_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  __typename: 'Deposit_variance_fields'
+}
 
 /** columns and relationships of "IssuanceTokenDayData" */
 export interface IssuanceTokenDayData {
@@ -365,6 +1503,86 @@ export interface IssuanceTokenDayData {
   __typename: 'IssuanceTokenDayData'
 }
 
+/** aggregated selection of "IssuanceTokenDayData" */
+export interface IssuanceTokenDayData_aggregate {
+  aggregate: IssuanceTokenDayData_aggregate_fields | null
+  nodes: IssuanceTokenDayData[]
+  __typename: 'IssuanceTokenDayData_aggregate'
+}
+
+/** aggregate fields of "IssuanceTokenDayData" */
+export interface IssuanceTokenDayData_aggregate_fields {
+  avg: IssuanceTokenDayData_avg_fields | null
+  count: Scalars['Int']
+  max: IssuanceTokenDayData_max_fields | null
+  min: IssuanceTokenDayData_min_fields | null
+  stddev: IssuanceTokenDayData_stddev_fields | null
+  stddev_pop: IssuanceTokenDayData_stddev_pop_fields | null
+  stddev_samp: IssuanceTokenDayData_stddev_samp_fields | null
+  sum: IssuanceTokenDayData_sum_fields | null
+  var_pop: IssuanceTokenDayData_var_pop_fields | null
+  var_samp: IssuanceTokenDayData_var_samp_fields | null
+  variance: IssuanceTokenDayData_variance_fields | null
+  __typename: 'IssuanceTokenDayData_aggregate_fields'
+}
+
+/** aggregate avg on columns */
+export interface IssuanceTokenDayData_avg_fields {
+  chainId: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'IssuanceTokenDayData_avg_fields'
+}
+
+/** aggregate max on columns */
+export interface IssuanceTokenDayData_max_fields {
+  chainId: Scalars['Int'] | null
+  closeUSD: Scalars['numeric'] | null
+  date: Scalars['Int'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  highUSD: Scalars['numeric'] | null
+  id: Scalars['String'] | null
+  lowUSD: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  token_id: Scalars['String'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
+  __typename: 'IssuanceTokenDayData_max_fields'
+}
+
+/** aggregate min on columns */
+export interface IssuanceTokenDayData_min_fields {
+  chainId: Scalars['Int'] | null
+  closeUSD: Scalars['numeric'] | null
+  date: Scalars['Int'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  highUSD: Scalars['numeric'] | null
+  id: Scalars['String'] | null
+  lowUSD: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  token_id: Scalars['String'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
+  __typename: 'IssuanceTokenDayData_min_fields'
+}
+
 /** select columns of table "IssuanceTokenDayData" */
 export type IssuanceTokenDayData_select_column =
   | 'chainId'
@@ -382,6 +1600,125 @@ export type IssuanceTokenDayData_select_column =
   | 'token_id'
   | 'volumeISS'
   | 'volumeUSD'
+
+/** aggregate stddev on columns */
+export interface IssuanceTokenDayData_stddev_fields {
+  chainId: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'IssuanceTokenDayData_stddev_fields'
+}
+
+/** aggregate stddev_pop on columns */
+export interface IssuanceTokenDayData_stddev_pop_fields {
+  chainId: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'IssuanceTokenDayData_stddev_pop_fields'
+}
+
+/** aggregate stddev_samp on columns */
+export interface IssuanceTokenDayData_stddev_samp_fields {
+  chainId: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'IssuanceTokenDayData_stddev_samp_fields'
+}
+
+/** aggregate sum on columns */
+export interface IssuanceTokenDayData_sum_fields {
+  chainId: Scalars['Int'] | null
+  closeUSD: Scalars['numeric'] | null
+  date: Scalars['Int'] | null
+  highUSD: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
+  __typename: 'IssuanceTokenDayData_sum_fields'
+}
+
+/** aggregate var_pop on columns */
+export interface IssuanceTokenDayData_var_pop_fields {
+  chainId: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'IssuanceTokenDayData_var_pop_fields'
+}
+
+/** aggregate var_samp on columns */
+export interface IssuanceTokenDayData_var_samp_fields {
+  chainId: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'IssuanceTokenDayData_var_samp_fields'
+}
+
+/** aggregate variance on columns */
+export interface IssuanceTokenDayData_variance_fields {
+  chainId: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  date: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'IssuanceTokenDayData_variance_fields'
+}
 
 /** columns and relationships of "IssuanceTokenHourData" */
 export interface IssuanceTokenHourData {
@@ -403,6 +1740,86 @@ export interface IssuanceTokenHourData {
   __typename: 'IssuanceTokenHourData'
 }
 
+/** aggregated selection of "IssuanceTokenHourData" */
+export interface IssuanceTokenHourData_aggregate {
+  aggregate: IssuanceTokenHourData_aggregate_fields | null
+  nodes: IssuanceTokenHourData[]
+  __typename: 'IssuanceTokenHourData_aggregate'
+}
+
+/** aggregate fields of "IssuanceTokenHourData" */
+export interface IssuanceTokenHourData_aggregate_fields {
+  avg: IssuanceTokenHourData_avg_fields | null
+  count: Scalars['Int']
+  max: IssuanceTokenHourData_max_fields | null
+  min: IssuanceTokenHourData_min_fields | null
+  stddev: IssuanceTokenHourData_stddev_fields | null
+  stddev_pop: IssuanceTokenHourData_stddev_pop_fields | null
+  stddev_samp: IssuanceTokenHourData_stddev_samp_fields | null
+  sum: IssuanceTokenHourData_sum_fields | null
+  var_pop: IssuanceTokenHourData_var_pop_fields | null
+  var_samp: IssuanceTokenHourData_var_samp_fields | null
+  variance: IssuanceTokenHourData_variance_fields | null
+  __typename: 'IssuanceTokenHourData_aggregate_fields'
+}
+
+/** aggregate avg on columns */
+export interface IssuanceTokenHourData_avg_fields {
+  chainId: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'IssuanceTokenHourData_avg_fields'
+}
+
+/** aggregate max on columns */
+export interface IssuanceTokenHourData_max_fields {
+  chainId: Scalars['Int'] | null
+  closeUSD: Scalars['numeric'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  highUSD: Scalars['numeric'] | null
+  id: Scalars['String'] | null
+  lowUSD: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  periodStartUnix: Scalars['Int'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  token_id: Scalars['String'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
+  __typename: 'IssuanceTokenHourData_max_fields'
+}
+
+/** aggregate min on columns */
+export interface IssuanceTokenHourData_min_fields {
+  chainId: Scalars['Int'] | null
+  closeUSD: Scalars['numeric'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  highUSD: Scalars['numeric'] | null
+  id: Scalars['String'] | null
+  lowUSD: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  periodStartUnix: Scalars['Int'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  token_id: Scalars['String'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
+  __typename: 'IssuanceTokenHourData_min_fields'
+}
+
 /** select columns of table "IssuanceTokenHourData" */
 export type IssuanceTokenHourData_select_column =
   | 'chainId'
@@ -420,6 +1837,125 @@ export type IssuanceTokenHourData_select_column =
   | 'token_id'
   | 'volumeISS'
   | 'volumeUSD'
+
+/** aggregate stddev on columns */
+export interface IssuanceTokenHourData_stddev_fields {
+  chainId: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'IssuanceTokenHourData_stddev_fields'
+}
+
+/** aggregate stddev_pop on columns */
+export interface IssuanceTokenHourData_stddev_pop_fields {
+  chainId: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'IssuanceTokenHourData_stddev_pop_fields'
+}
+
+/** aggregate stddev_samp on columns */
+export interface IssuanceTokenHourData_stddev_samp_fields {
+  chainId: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'IssuanceTokenHourData_stddev_samp_fields'
+}
+
+/** aggregate sum on columns */
+export interface IssuanceTokenHourData_sum_fields {
+  chainId: Scalars['Int'] | null
+  closeUSD: Scalars['numeric'] | null
+  highUSD: Scalars['numeric'] | null
+  lowUSD: Scalars['numeric'] | null
+  openUSD: Scalars['numeric'] | null
+  periodStartUnix: Scalars['Int'] | null
+  priceUSD: Scalars['numeric'] | null
+  projectFeeUSD: Scalars['numeric'] | null
+  protocolFeeISS: Scalars['numeric'] | null
+  protocolFeeUSD: Scalars['numeric'] | null
+  volumeISS: Scalars['numeric'] | null
+  volumeUSD: Scalars['numeric'] | null
+  __typename: 'IssuanceTokenHourData_sum_fields'
+}
+
+/** aggregate var_pop on columns */
+export interface IssuanceTokenHourData_var_pop_fields {
+  chainId: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'IssuanceTokenHourData_var_pop_fields'
+}
+
+/** aggregate var_samp on columns */
+export interface IssuanceTokenHourData_var_samp_fields {
+  chainId: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'IssuanceTokenHourData_var_samp_fields'
+}
+
+/** aggregate variance on columns */
+export interface IssuanceTokenHourData_variance_fields {
+  chainId: Scalars['Float'] | null
+  closeUSD: Scalars['Float'] | null
+  highUSD: Scalars['Float'] | null
+  lowUSD: Scalars['Float'] | null
+  openUSD: Scalars['Float'] | null
+  periodStartUnix: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  projectFeeUSD: Scalars['Float'] | null
+  protocolFeeISS: Scalars['Float'] | null
+  protocolFeeUSD: Scalars['Float'] | null
+  volumeISS: Scalars['Float'] | null
+  volumeUSD: Scalars['Float'] | null
+  __typename: 'IssuanceTokenHourData_variance_fields'
+}
 
 /** columns and relationships of "LinearVesting" */
 export interface LinearVesting {
@@ -473,6 +2009,66 @@ export interface ProjectFee {
   __typename: 'ProjectFee'
 }
 
+/** aggregated selection of "ProjectFee" */
+export interface ProjectFee_aggregate {
+  aggregate: ProjectFee_aggregate_fields | null
+  nodes: ProjectFee[]
+  __typename: 'ProjectFee_aggregate'
+}
+
+/** aggregate fields of "ProjectFee" */
+export interface ProjectFee_aggregate_fields {
+  avg: ProjectFee_avg_fields | null
+  count: Scalars['Int']
+  max: ProjectFee_max_fields | null
+  min: ProjectFee_min_fields | null
+  stddev: ProjectFee_stddev_fields | null
+  stddev_pop: ProjectFee_stddev_pop_fields | null
+  stddev_samp: ProjectFee_stddev_samp_fields | null
+  sum: ProjectFee_sum_fields | null
+  var_pop: ProjectFee_var_pop_fields | null
+  var_samp: ProjectFee_var_samp_fields | null
+  variance: ProjectFee_variance_fields | null
+  __typename: 'ProjectFee_aggregate_fields'
+}
+
+/** aggregate avg on columns */
+export interface ProjectFee_avg_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'ProjectFee_avg_fields'
+}
+
+/** aggregate max on columns */
+export interface ProjectFee_max_fields {
+  amount: Scalars['numeric'] | null
+  amountUSD: Scalars['numeric'] | null
+  blockTimestamp: Scalars['Int'] | null
+  chainId: Scalars['Int'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  id: Scalars['String'] | null
+  module_id: Scalars['String'] | null
+  recipient: Scalars['String'] | null
+  token_id: Scalars['String'] | null
+  __typename: 'ProjectFee_max_fields'
+}
+
+/** aggregate min on columns */
+export interface ProjectFee_min_fields {
+  amount: Scalars['numeric'] | null
+  amountUSD: Scalars['numeric'] | null
+  blockTimestamp: Scalars['Int'] | null
+  chainId: Scalars['Int'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  id: Scalars['String'] | null
+  module_id: Scalars['String'] | null
+  recipient: Scalars['String'] | null
+  token_id: Scalars['String'] | null
+  __typename: 'ProjectFee_min_fields'
+}
+
 /** select columns of table "ProjectFee" */
 export type ProjectFee_select_column =
   | 'amount'
@@ -484,6 +2080,69 @@ export type ProjectFee_select_column =
   | 'module_id'
   | 'recipient'
   | 'token_id'
+
+/** aggregate stddev on columns */
+export interface ProjectFee_stddev_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'ProjectFee_stddev_fields'
+}
+
+/** aggregate stddev_pop on columns */
+export interface ProjectFee_stddev_pop_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'ProjectFee_stddev_pop_fields'
+}
+
+/** aggregate stddev_samp on columns */
+export interface ProjectFee_stddev_samp_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'ProjectFee_stddev_samp_fields'
+}
+
+/** aggregate sum on columns */
+export interface ProjectFee_sum_fields {
+  amount: Scalars['numeric'] | null
+  amountUSD: Scalars['numeric'] | null
+  blockTimestamp: Scalars['Int'] | null
+  chainId: Scalars['Int'] | null
+  __typename: 'ProjectFee_sum_fields'
+}
+
+/** aggregate var_pop on columns */
+export interface ProjectFee_var_pop_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'ProjectFee_var_pop_fields'
+}
+
+/** aggregate var_samp on columns */
+export interface ProjectFee_var_samp_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'ProjectFee_var_samp_fields'
+}
+
+/** aggregate variance on columns */
+export interface ProjectFee_variance_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'ProjectFee_variance_fields'
+}
 
 /** columns and relationships of "ProtocolFee" */
 export interface ProtocolFee {
@@ -502,6 +2161,68 @@ export interface ProtocolFee {
   __typename: 'ProtocolFee'
 }
 
+/** aggregated selection of "ProtocolFee" */
+export interface ProtocolFee_aggregate {
+  aggregate: ProtocolFee_aggregate_fields | null
+  nodes: ProtocolFee[]
+  __typename: 'ProtocolFee_aggregate'
+}
+
+/** aggregate fields of "ProtocolFee" */
+export interface ProtocolFee_aggregate_fields {
+  avg: ProtocolFee_avg_fields | null
+  count: Scalars['Int']
+  max: ProtocolFee_max_fields | null
+  min: ProtocolFee_min_fields | null
+  stddev: ProtocolFee_stddev_fields | null
+  stddev_pop: ProtocolFee_stddev_pop_fields | null
+  stddev_samp: ProtocolFee_stddev_samp_fields | null
+  sum: ProtocolFee_sum_fields | null
+  var_pop: ProtocolFee_var_pop_fields | null
+  var_samp: ProtocolFee_var_samp_fields | null
+  variance: ProtocolFee_variance_fields | null
+  __typename: 'ProtocolFee_aggregate_fields'
+}
+
+/** aggregate avg on columns */
+export interface ProtocolFee_avg_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'ProtocolFee_avg_fields'
+}
+
+/** aggregate max on columns */
+export interface ProtocolFee_max_fields {
+  amount: Scalars['numeric'] | null
+  amountUSD: Scalars['numeric'] | null
+  blockTimestamp: Scalars['Int'] | null
+  chainId: Scalars['Int'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  id: Scalars['String'] | null
+  module_id: Scalars['String'] | null
+  source: Scalars['feesource'] | null
+  token_id: Scalars['String'] | null
+  treasury: Scalars['String'] | null
+  __typename: 'ProtocolFee_max_fields'
+}
+
+/** aggregate min on columns */
+export interface ProtocolFee_min_fields {
+  amount: Scalars['numeric'] | null
+  amountUSD: Scalars['numeric'] | null
+  blockTimestamp: Scalars['Int'] | null
+  chainId: Scalars['Int'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  id: Scalars['String'] | null
+  module_id: Scalars['String'] | null
+  source: Scalars['feesource'] | null
+  token_id: Scalars['String'] | null
+  treasury: Scalars['String'] | null
+  __typename: 'ProtocolFee_min_fields'
+}
+
 /** select columns of table "ProtocolFee" */
 export type ProtocolFee_select_column =
   | 'amount'
@@ -514,6 +2235,69 @@ export type ProtocolFee_select_column =
   | 'source'
   | 'token_id'
   | 'treasury'
+
+/** aggregate stddev on columns */
+export interface ProtocolFee_stddev_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'ProtocolFee_stddev_fields'
+}
+
+/** aggregate stddev_pop on columns */
+export interface ProtocolFee_stddev_pop_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'ProtocolFee_stddev_pop_fields'
+}
+
+/** aggregate stddev_samp on columns */
+export interface ProtocolFee_stddev_samp_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'ProtocolFee_stddev_samp_fields'
+}
+
+/** aggregate sum on columns */
+export interface ProtocolFee_sum_fields {
+  amount: Scalars['numeric'] | null
+  amountUSD: Scalars['numeric'] | null
+  blockTimestamp: Scalars['Int'] | null
+  chainId: Scalars['Int'] | null
+  __typename: 'ProtocolFee_sum_fields'
+}
+
+/** aggregate var_pop on columns */
+export interface ProtocolFee_var_pop_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'ProtocolFee_var_pop_fields'
+}
+
+/** aggregate var_samp on columns */
+export interface ProtocolFee_var_samp_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'ProtocolFee_var_samp_fields'
+}
+
+/** aggregate variance on columns */
+export interface ProtocolFee_variance_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  __typename: 'ProtocolFee_variance_fields'
+}
 
 /** columns and relationships of "StreamingPaymentProcessor" */
 export interface StreamingPaymentProcessor {
@@ -591,6 +2375,66 @@ export interface Token {
   __typename: 'Token'
 }
 
+/** aggregated selection of "Token" */
+export interface Token_aggregate {
+  aggregate: Token_aggregate_fields | null
+  nodes: Token[]
+  __typename: 'Token_aggregate'
+}
+
+/** aggregate fields of "Token" */
+export interface Token_aggregate_fields {
+  avg: Token_avg_fields | null
+  count: Scalars['Int']
+  max: Token_max_fields | null
+  min: Token_min_fields | null
+  stddev: Token_stddev_fields | null
+  stddev_pop: Token_stddev_pop_fields | null
+  stddev_samp: Token_stddev_samp_fields | null
+  sum: Token_sum_fields | null
+  var_pop: Token_var_pop_fields | null
+  var_samp: Token_var_samp_fields | null
+  variance: Token_variance_fields | null
+  __typename: 'Token_aggregate_fields'
+}
+
+/** aggregate avg on columns */
+export interface Token_avg_fields {
+  chainId: Scalars['Float'] | null
+  decimals: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  totalSupply: Scalars['Float'] | null
+  __typename: 'Token_avg_fields'
+}
+
+/** aggregate max on columns */
+export interface Token_max_fields {
+  address: Scalars['String'] | null
+  chainId: Scalars['Int'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  decimals: Scalars['Int'] | null
+  id: Scalars['String'] | null
+  name: Scalars['String'] | null
+  priceUSD: Scalars['numeric'] | null
+  symbol: Scalars['String'] | null
+  totalSupply: Scalars['numeric'] | null
+  __typename: 'Token_max_fields'
+}
+
+/** aggregate min on columns */
+export interface Token_min_fields {
+  address: Scalars['String'] | null
+  chainId: Scalars['Int'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  decimals: Scalars['Int'] | null
+  id: Scalars['String'] | null
+  name: Scalars['String'] | null
+  priceUSD: Scalars['numeric'] | null
+  symbol: Scalars['String'] | null
+  totalSupply: Scalars['numeric'] | null
+  __typename: 'Token_min_fields'
+}
+
 /** select columns of table "Token" */
 export type Token_select_column =
   | 'address'
@@ -602,6 +2446,69 @@ export type Token_select_column =
   | 'priceUSD'
   | 'symbol'
   | 'totalSupply'
+
+/** aggregate stddev on columns */
+export interface Token_stddev_fields {
+  chainId: Scalars['Float'] | null
+  decimals: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  totalSupply: Scalars['Float'] | null
+  __typename: 'Token_stddev_fields'
+}
+
+/** aggregate stddev_pop on columns */
+export interface Token_stddev_pop_fields {
+  chainId: Scalars['Float'] | null
+  decimals: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  totalSupply: Scalars['Float'] | null
+  __typename: 'Token_stddev_pop_fields'
+}
+
+/** aggregate stddev_samp on columns */
+export interface Token_stddev_samp_fields {
+  chainId: Scalars['Float'] | null
+  decimals: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  totalSupply: Scalars['Float'] | null
+  __typename: 'Token_stddev_samp_fields'
+}
+
+/** aggregate sum on columns */
+export interface Token_sum_fields {
+  chainId: Scalars['Int'] | null
+  decimals: Scalars['Int'] | null
+  priceUSD: Scalars['numeric'] | null
+  totalSupply: Scalars['numeric'] | null
+  __typename: 'Token_sum_fields'
+}
+
+/** aggregate var_pop on columns */
+export interface Token_var_pop_fields {
+  chainId: Scalars['Float'] | null
+  decimals: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  totalSupply: Scalars['Float'] | null
+  __typename: 'Token_var_pop_fields'
+}
+
+/** aggregate var_samp on columns */
+export interface Token_var_samp_fields {
+  chainId: Scalars['Float'] | null
+  decimals: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  totalSupply: Scalars['Float'] | null
+  __typename: 'Token_var_samp_fields'
+}
+
+/** aggregate variance on columns */
+export interface Token_variance_fields {
+  chainId: Scalars['Float'] | null
+  decimals: Scalars['Float'] | null
+  priceUSD: Scalars['Float'] | null
+  totalSupply: Scalars['Float'] | null
+  __typename: 'Token_variance_fields'
+}
 
 /** columns and relationships of "Transfer" */
 export interface Transfer {
@@ -617,6 +2524,61 @@ export interface Transfer {
   __typename: 'Transfer'
 }
 
+/** aggregated selection of "Transfer" */
+export interface Transfer_aggregate {
+  aggregate: Transfer_aggregate_fields | null
+  nodes: Transfer[]
+  __typename: 'Transfer_aggregate'
+}
+
+/** aggregate fields of "Transfer" */
+export interface Transfer_aggregate_fields {
+  avg: Transfer_avg_fields | null
+  count: Scalars['Int']
+  max: Transfer_max_fields | null
+  min: Transfer_min_fields | null
+  stddev: Transfer_stddev_fields | null
+  stddev_pop: Transfer_stddev_pop_fields | null
+  stddev_samp: Transfer_stddev_samp_fields | null
+  sum: Transfer_sum_fields | null
+  var_pop: Transfer_var_pop_fields | null
+  var_samp: Transfer_var_samp_fields | null
+  variance: Transfer_variance_fields | null
+  __typename: 'Transfer_aggregate_fields'
+}
+
+/** aggregate avg on columns */
+export interface Transfer_avg_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  __typename: 'Transfer_avg_fields'
+}
+
+/** aggregate max on columns */
+export interface Transfer_max_fields {
+  amount: Scalars['numeric'] | null
+  amountUSD: Scalars['numeric'] | null
+  blockTimestamp: Scalars['Int'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  depositVault_id: Scalars['String'] | null
+  id: Scalars['String'] | null
+  recipient: Scalars['String'] | null
+  __typename: 'Transfer_max_fields'
+}
+
+/** aggregate min on columns */
+export interface Transfer_min_fields {
+  amount: Scalars['numeric'] | null
+  amountUSD: Scalars['numeric'] | null
+  blockTimestamp: Scalars['Int'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  depositVault_id: Scalars['String'] | null
+  id: Scalars['String'] | null
+  recipient: Scalars['String'] | null
+  __typename: 'Transfer_min_fields'
+}
+
 /** select columns of table "Transfer" */
 export type Transfer_select_column =
   | 'amount'
@@ -626,6 +2588,62 @@ export type Transfer_select_column =
   | 'depositVault_id'
   | 'id'
   | 'recipient'
+
+/** aggregate stddev on columns */
+export interface Transfer_stddev_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  __typename: 'Transfer_stddev_fields'
+}
+
+/** aggregate stddev_pop on columns */
+export interface Transfer_stddev_pop_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  __typename: 'Transfer_stddev_pop_fields'
+}
+
+/** aggregate stddev_samp on columns */
+export interface Transfer_stddev_samp_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  __typename: 'Transfer_stddev_samp_fields'
+}
+
+/** aggregate sum on columns */
+export interface Transfer_sum_fields {
+  amount: Scalars['numeric'] | null
+  amountUSD: Scalars['numeric'] | null
+  blockTimestamp: Scalars['Int'] | null
+  __typename: 'Transfer_sum_fields'
+}
+
+/** aggregate var_pop on columns */
+export interface Transfer_var_pop_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  __typename: 'Transfer_var_pop_fields'
+}
+
+/** aggregate var_samp on columns */
+export interface Transfer_var_samp_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  __typename: 'Transfer_var_samp_fields'
+}
+
+/** aggregate variance on columns */
+export interface Transfer_variance_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  blockTimestamp: Scalars['Float'] | null
+  __typename: 'Transfer_variance_fields'
+}
 
 /** columns and relationships of "Workflow" */
 export interface Workflow {
@@ -834,12 +2852,16 @@ export type persisted_state_select_column =
 export interface query_root {
   /** fetch data from the table: "BondingCurve" */
   BondingCurve: BondingCurve[]
+  /** fetch aggregated fields from the table: "BondingCurve" */
+  BondingCurve_aggregate: BondingCurve_aggregate
   /** fetch data from the table: "BondingCurve" using primary key columns */
   BondingCurve_by_pk: BondingCurve | null
   /** fetch data from the table: "Bounty" */
   Bounty: Bounty[]
   /** fetch data from the table: "BountyClaim" */
   BountyClaim: BountyClaim[]
+  /** fetch aggregated fields from the table: "BountyClaim" */
+  BountyClaim_aggregate: BountyClaim_aggregate
   /** fetch data from the table: "BountyClaim" using primary key columns */
   BountyClaim_by_pk: BountyClaim | null
   /** fetch data from the table: "BountyContributor" */
@@ -850,30 +2872,44 @@ export interface query_root {
   BountyModule: BountyModule[]
   /** fetch data from the table: "BountyModule" using primary key columns */
   BountyModule_by_pk: BountyModule | null
+  /** fetch aggregated fields from the table: "Bounty" */
+  Bounty_aggregate: Bounty_aggregate
   /** fetch data from the table: "Bounty" using primary key columns */
   Bounty_by_pk: Bounty | null
   /** fetch data from the table: "CurveDayData" */
   CurveDayData: CurveDayData[]
+  /** fetch aggregated fields from the table: "CurveDayData" */
+  CurveDayData_aggregate: CurveDayData_aggregate
   /** fetch data from the table: "CurveDayData" using primary key columns */
   CurveDayData_by_pk: CurveDayData | null
   /** fetch data from the table: "CurveHourData" */
   CurveHourData: CurveHourData[]
+  /** fetch aggregated fields from the table: "CurveHourData" */
+  CurveHourData_aggregate: CurveHourData_aggregate
   /** fetch data from the table: "CurveHourData" using primary key columns */
   CurveHourData_by_pk: CurveHourData | null
   /** fetch data from the table: "Deposit" */
   Deposit: Deposit[]
   /** fetch data from the table: "DepositVault" */
   DepositVault: DepositVault[]
+  /** fetch aggregated fields from the table: "DepositVault" */
+  DepositVault_aggregate: DepositVault_aggregate
   /** fetch data from the table: "DepositVault" using primary key columns */
   DepositVault_by_pk: DepositVault | null
+  /** fetch aggregated fields from the table: "Deposit" */
+  Deposit_aggregate: Deposit_aggregate
   /** fetch data from the table: "Deposit" using primary key columns */
   Deposit_by_pk: Deposit | null
   /** fetch data from the table: "IssuanceTokenDayData" */
   IssuanceTokenDayData: IssuanceTokenDayData[]
+  /** fetch aggregated fields from the table: "IssuanceTokenDayData" */
+  IssuanceTokenDayData_aggregate: IssuanceTokenDayData_aggregate
   /** fetch data from the table: "IssuanceTokenDayData" using primary key columns */
   IssuanceTokenDayData_by_pk: IssuanceTokenDayData | null
   /** fetch data from the table: "IssuanceTokenHourData" */
   IssuanceTokenHourData: IssuanceTokenHourData[]
+  /** fetch aggregated fields from the table: "IssuanceTokenHourData" */
+  IssuanceTokenHourData_aggregate: IssuanceTokenHourData_aggregate
   /** fetch data from the table: "IssuanceTokenHourData" using primary key columns */
   IssuanceTokenHourData_by_pk: IssuanceTokenHourData | null
   /** fetch data from the table: "LinearVesting" */
@@ -882,10 +2918,14 @@ export interface query_root {
   LinearVesting_by_pk: LinearVesting | null
   /** fetch data from the table: "ProjectFee" */
   ProjectFee: ProjectFee[]
+  /** fetch aggregated fields from the table: "ProjectFee" */
+  ProjectFee_aggregate: ProjectFee_aggregate
   /** fetch data from the table: "ProjectFee" using primary key columns */
   ProjectFee_by_pk: ProjectFee | null
   /** fetch data from the table: "ProtocolFee" */
   ProtocolFee: ProtocolFee[]
+  /** fetch aggregated fields from the table: "ProtocolFee" */
+  ProtocolFee_aggregate: ProtocolFee_aggregate
   /** fetch data from the table: "ProtocolFee" using primary key columns */
   ProtocolFee_by_pk: ProtocolFee | null
   /** fetch data from the table: "StreamingPaymentProcessor" */
@@ -898,10 +2938,14 @@ export interface query_root {
   Swap_by_pk: Swap | null
   /** fetch data from the table: "Token" */
   Token: Token[]
+  /** fetch aggregated fields from the table: "Token" */
+  Token_aggregate: Token_aggregate
   /** fetch data from the table: "Token" using primary key columns */
   Token_by_pk: Token | null
   /** fetch data from the table: "Transfer" */
   Transfer: Transfer[]
+  /** fetch aggregated fields from the table: "Transfer" */
+  Transfer_aggregate: Transfer_aggregate
   /** fetch data from the table: "Transfer" using primary key columns */
   Transfer_by_pk: Transfer | null
   /** fetch data from the table: "Workflow" */
@@ -982,6 +3026,8 @@ export type raw_events_select_column =
 export interface subscription_root {
   /** fetch data from the table: "BondingCurve" */
   BondingCurve: BondingCurve[]
+  /** fetch aggregated fields from the table: "BondingCurve" */
+  BondingCurve_aggregate: BondingCurve_aggregate
   /** fetch data from the table: "BondingCurve" using primary key columns */
   BondingCurve_by_pk: BondingCurve | null
   /** fetch data from the table in a streaming manner: "BondingCurve" */
@@ -990,6 +3036,8 @@ export interface subscription_root {
   Bounty: Bounty[]
   /** fetch data from the table: "BountyClaim" */
   BountyClaim: BountyClaim[]
+  /** fetch aggregated fields from the table: "BountyClaim" */
+  BountyClaim_aggregate: BountyClaim_aggregate
   /** fetch data from the table: "BountyClaim" using primary key columns */
   BountyClaim_by_pk: BountyClaim | null
   /** fetch data from the table in a streaming manner: "BountyClaim" */
@@ -1006,18 +3054,24 @@ export interface subscription_root {
   BountyModule_by_pk: BountyModule | null
   /** fetch data from the table in a streaming manner: "BountyModule" */
   BountyModule_stream: BountyModule[]
+  /** fetch aggregated fields from the table: "Bounty" */
+  Bounty_aggregate: Bounty_aggregate
   /** fetch data from the table: "Bounty" using primary key columns */
   Bounty_by_pk: Bounty | null
   /** fetch data from the table in a streaming manner: "Bounty" */
   Bounty_stream: Bounty[]
   /** fetch data from the table: "CurveDayData" */
   CurveDayData: CurveDayData[]
+  /** fetch aggregated fields from the table: "CurveDayData" */
+  CurveDayData_aggregate: CurveDayData_aggregate
   /** fetch data from the table: "CurveDayData" using primary key columns */
   CurveDayData_by_pk: CurveDayData | null
   /** fetch data from the table in a streaming manner: "CurveDayData" */
   CurveDayData_stream: CurveDayData[]
   /** fetch data from the table: "CurveHourData" */
   CurveHourData: CurveHourData[]
+  /** fetch aggregated fields from the table: "CurveHourData" */
+  CurveHourData_aggregate: CurveHourData_aggregate
   /** fetch data from the table: "CurveHourData" using primary key columns */
   CurveHourData_by_pk: CurveHourData | null
   /** fetch data from the table in a streaming manner: "CurveHourData" */
@@ -1026,22 +3080,30 @@ export interface subscription_root {
   Deposit: Deposit[]
   /** fetch data from the table: "DepositVault" */
   DepositVault: DepositVault[]
+  /** fetch aggregated fields from the table: "DepositVault" */
+  DepositVault_aggregate: DepositVault_aggregate
   /** fetch data from the table: "DepositVault" using primary key columns */
   DepositVault_by_pk: DepositVault | null
   /** fetch data from the table in a streaming manner: "DepositVault" */
   DepositVault_stream: DepositVault[]
+  /** fetch aggregated fields from the table: "Deposit" */
+  Deposit_aggregate: Deposit_aggregate
   /** fetch data from the table: "Deposit" using primary key columns */
   Deposit_by_pk: Deposit | null
   /** fetch data from the table in a streaming manner: "Deposit" */
   Deposit_stream: Deposit[]
   /** fetch data from the table: "IssuanceTokenDayData" */
   IssuanceTokenDayData: IssuanceTokenDayData[]
+  /** fetch aggregated fields from the table: "IssuanceTokenDayData" */
+  IssuanceTokenDayData_aggregate: IssuanceTokenDayData_aggregate
   /** fetch data from the table: "IssuanceTokenDayData" using primary key columns */
   IssuanceTokenDayData_by_pk: IssuanceTokenDayData | null
   /** fetch data from the table in a streaming manner: "IssuanceTokenDayData" */
   IssuanceTokenDayData_stream: IssuanceTokenDayData[]
   /** fetch data from the table: "IssuanceTokenHourData" */
   IssuanceTokenHourData: IssuanceTokenHourData[]
+  /** fetch aggregated fields from the table: "IssuanceTokenHourData" */
+  IssuanceTokenHourData_aggregate: IssuanceTokenHourData_aggregate
   /** fetch data from the table: "IssuanceTokenHourData" using primary key columns */
   IssuanceTokenHourData_by_pk: IssuanceTokenHourData | null
   /** fetch data from the table in a streaming manner: "IssuanceTokenHourData" */
@@ -1054,12 +3116,16 @@ export interface subscription_root {
   LinearVesting_stream: LinearVesting[]
   /** fetch data from the table: "ProjectFee" */
   ProjectFee: ProjectFee[]
+  /** fetch aggregated fields from the table: "ProjectFee" */
+  ProjectFee_aggregate: ProjectFee_aggregate
   /** fetch data from the table: "ProjectFee" using primary key columns */
   ProjectFee_by_pk: ProjectFee | null
   /** fetch data from the table in a streaming manner: "ProjectFee" */
   ProjectFee_stream: ProjectFee[]
   /** fetch data from the table: "ProtocolFee" */
   ProtocolFee: ProtocolFee[]
+  /** fetch aggregated fields from the table: "ProtocolFee" */
+  ProtocolFee_aggregate: ProtocolFee_aggregate
   /** fetch data from the table: "ProtocolFee" using primary key columns */
   ProtocolFee_by_pk: ProtocolFee | null
   /** fetch data from the table in a streaming manner: "ProtocolFee" */
@@ -1078,12 +3144,16 @@ export interface subscription_root {
   Swap_stream: Swap[]
   /** fetch data from the table: "Token" */
   Token: Token[]
+  /** fetch aggregated fields from the table: "Token" */
+  Token_aggregate: Token_aggregate
   /** fetch data from the table: "Token" using primary key columns */
   Token_by_pk: Token | null
   /** fetch data from the table in a streaming manner: "Token" */
   Token_stream: Token[]
   /** fetch data from the table: "Transfer" */
   Transfer: Transfer[]
+  /** fetch aggregated fields from the table: "Transfer" */
+  Transfer_aggregate: Transfer_aggregate
   /** fetch data from the table: "Transfer" using primary key columns */
   Transfer_by_pk: Transfer | null
   /** fetch data from the table in a streaming manner: "Transfer" */
@@ -1173,8 +3243,38 @@ export interface BondingCurveGenqlSelection {
       where?: CurveDayData_bool_exp | null
     }
   }
+  /** An aggregate relationship */
+  curveDayData_aggregate?: CurveDayData_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveDayData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveDayData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveDayData_bool_exp | null
+    }
+  }
   /** An array relationship */
   curveHourData?: CurveHourDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveHourData_bool_exp | null
+    }
+  }
+  /** An aggregate relationship */
+  curveHourData_aggregate?: CurveHourData_aggregateGenqlSelection & {
     __args?: {
       /** distinct select on columns */
       distinct_on?: CurveHourData_select_column[] | null
@@ -1207,8 +3307,38 @@ export interface BondingCurveGenqlSelection {
       where?: IssuanceTokenDayData_bool_exp | null
     }
   }
+  /** An aggregate relationship */
+  issuanceTokenDayData_aggregate?: IssuanceTokenDayData_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: IssuanceTokenDayData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: IssuanceTokenDayData_order_by[] | null
+      /** filter the rows returned */
+      where?: IssuanceTokenDayData_bool_exp | null
+    }
+  }
   /** An array relationship */
   issuanceTokenHourData?: IssuanceTokenHourDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: IssuanceTokenHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: IssuanceTokenHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: IssuanceTokenHourData_bool_exp | null
+    }
+  }
+  /** An aggregate relationship */
+  issuanceTokenHourData_aggregate?: IssuanceTokenHourData_aggregateGenqlSelection & {
     __args?: {
       /** distinct select on columns */
       distinct_on?: IssuanceTokenHourData_select_column[] | null
@@ -1238,8 +3368,38 @@ export interface BondingCurveGenqlSelection {
       where?: ProjectFee_bool_exp | null
     }
   }
+  /** An aggregate relationship */
+  projectFees_aggregate?: ProjectFee_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: ProjectFee_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: ProjectFee_order_by[] | null
+      /** filter the rows returned */
+      where?: ProjectFee_bool_exp | null
+    }
+  }
   /** An array relationship */
   protocolFees?: ProtocolFeeGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: ProtocolFee_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: ProtocolFee_order_by[] | null
+      /** filter the rows returned */
+      where?: ProtocolFee_bool_exp | null
+    }
+  }
+  /** An aggregate relationship */
+  protocolFees_aggregate?: ProtocolFee_aggregateGenqlSelection & {
     __args?: {
       /** distinct select on columns */
       distinct_on?: ProtocolFee_select_column[] | null
@@ -1281,6 +3441,54 @@ export interface BondingCurveGenqlSelection {
   __scalar?: boolean | number
 }
 
+/** aggregated selection of "BondingCurve" */
+export interface BondingCurve_aggregateGenqlSelection {
+  aggregate?: BondingCurve_aggregate_fieldsGenqlSelection
+  nodes?: BondingCurveGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate fields of "BondingCurve" */
+export interface BondingCurve_aggregate_fieldsGenqlSelection {
+  avg?: BondingCurve_avg_fieldsGenqlSelection
+  count?:
+    | {
+        __args: {
+          columns?: BondingCurve_select_column[] | null
+          distinct?: Scalars['Boolean'] | null
+        }
+      }
+    | boolean
+    | number
+  max?: BondingCurve_max_fieldsGenqlSelection
+  min?: BondingCurve_min_fieldsGenqlSelection
+  stddev?: BondingCurve_stddev_fieldsGenqlSelection
+  stddev_pop?: BondingCurve_stddev_pop_fieldsGenqlSelection
+  stddev_samp?: BondingCurve_stddev_samp_fieldsGenqlSelection
+  sum?: BondingCurve_sum_fieldsGenqlSelection
+  var_pop?: BondingCurve_var_pop_fieldsGenqlSelection
+  var_samp?: BondingCurve_var_samp_fieldsGenqlSelection
+  variance?: BondingCurve_variance_fieldsGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate avg on columns */
+export interface BondingCurve_avg_fieldsGenqlSelection {
+  buyFee?: boolean | number
+  buyReserveRatio?: boolean | number
+  chainId?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  sellReserveRatio?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** Boolean expression to filter rows from the table "BondingCurve". All fields are combined with a logical 'AND'. */
 export interface BondingCurve_bool_exp {
   _and?: BondingCurve_bool_exp[] | null
@@ -1294,15 +3502,21 @@ export interface BondingCurve_bool_exp {
   collateralToken?: Token_bool_exp | null
   collateralToken_id?: String_comparison_exp | null
   curveDayData?: CurveDayData_bool_exp | null
+  curveDayData_aggregate?: CurveDayData_aggregate_bool_exp | null
   curveHourData?: CurveHourData_bool_exp | null
+  curveHourData_aggregate?: CurveHourData_aggregate_bool_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   id?: String_comparison_exp | null
   issuanceToken?: Token_bool_exp | null
   issuanceTokenDayData?: IssuanceTokenDayData_bool_exp | null
+  issuanceTokenDayData_aggregate?: IssuanceTokenDayData_aggregate_bool_exp | null
   issuanceTokenHourData?: IssuanceTokenHourData_bool_exp | null
+  issuanceTokenHourData_aggregate?: IssuanceTokenHourData_aggregate_bool_exp | null
   issuanceToken_id?: String_comparison_exp | null
   projectFees?: ProjectFee_bool_exp | null
+  projectFees_aggregate?: ProjectFee_aggregate_bool_exp | null
   protocolFees?: ProtocolFee_bool_exp | null
+  protocolFees_aggregate?: ProtocolFee_aggregate_bool_exp | null
   reserveCOL?: numeric_comparison_exp | null
   reserveUSD?: numeric_comparison_exp | null
   sellFee?: numeric_comparison_exp | null
@@ -1312,6 +3526,50 @@ export interface BondingCurve_bool_exp {
   virtualISS?: numeric_comparison_exp | null
   workflow?: Workflow_bool_exp | null
   workflow_id?: String_comparison_exp | null
+}
+
+/** aggregate max on columns */
+export interface BondingCurve_max_fieldsGenqlSelection {
+  address?: boolean | number
+  bcType?: boolean | number
+  buyFee?: boolean | number
+  buyReserveRatio?: boolean | number
+  chainId?: boolean | number
+  collateralToken_id?: boolean | number
+  db_write_timestamp?: boolean | number
+  id?: boolean | number
+  issuanceToken_id?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  sellReserveRatio?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
+  workflow_id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate min on columns */
+export interface BondingCurve_min_fieldsGenqlSelection {
+  address?: boolean | number
+  bcType?: boolean | number
+  buyFee?: boolean | number
+  buyReserveRatio?: boolean | number
+  chainId?: boolean | number
+  collateralToken_id?: boolean | number
+  db_write_timestamp?: boolean | number
+  id?: boolean | number
+  issuanceToken_id?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  sellReserveRatio?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
+  workflow_id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** Ordering options when selecting data from "BondingCurve". */
@@ -1344,6 +3602,51 @@ export interface BondingCurve_order_by {
   workflow_id?: order_by | null
 }
 
+/** aggregate stddev on columns */
+export interface BondingCurve_stddev_fieldsGenqlSelection {
+  buyFee?: boolean | number
+  buyReserveRatio?: boolean | number
+  chainId?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  sellReserveRatio?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate stddev_pop on columns */
+export interface BondingCurve_stddev_pop_fieldsGenqlSelection {
+  buyFee?: boolean | number
+  buyReserveRatio?: boolean | number
+  chainId?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  sellReserveRatio?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate stddev_samp on columns */
+export interface BondingCurve_stddev_samp_fieldsGenqlSelection {
+  buyFee?: boolean | number
+  buyReserveRatio?: boolean | number
+  chainId?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  sellReserveRatio?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** Streaming cursor of the table "BondingCurve" */
 export interface BondingCurve_stream_cursor_input {
   /** Stream column input with initial value */
@@ -1372,6 +3675,66 @@ export interface BondingCurve_stream_cursor_value_input {
   workflow_id?: Scalars['String'] | null
 }
 
+/** aggregate sum on columns */
+export interface BondingCurve_sum_fieldsGenqlSelection {
+  buyFee?: boolean | number
+  buyReserveRatio?: boolean | number
+  chainId?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  sellReserveRatio?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate var_pop on columns */
+export interface BondingCurve_var_pop_fieldsGenqlSelection {
+  buyFee?: boolean | number
+  buyReserveRatio?: boolean | number
+  chainId?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  sellReserveRatio?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate var_samp on columns */
+export interface BondingCurve_var_samp_fieldsGenqlSelection {
+  buyFee?: boolean | number
+  buyReserveRatio?: boolean | number
+  chainId?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  sellReserveRatio?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate variance on columns */
+export interface BondingCurve_variance_fieldsGenqlSelection {
+  buyFee?: boolean | number
+  buyReserveRatio?: boolean | number
+  chainId?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  sellReserveRatio?: boolean | number
+  virtualCOL?: boolean | number
+  virtualISS?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
 export interface Boolean_comparison_exp {
   _eq?: Scalars['Boolean'] | null
@@ -1392,6 +3755,21 @@ export interface BountyGenqlSelection {
   bountyModule_id?: boolean | number
   /** An array relationship */
   claims?: BountyClaimGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: BountyClaim_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: BountyClaim_order_by[] | null
+      /** filter the rows returned */
+      where?: BountyClaim_bool_exp | null
+    }
+  }
+  /** An aggregate relationship */
+  claims_aggregate?: BountyClaim_aggregateGenqlSelection & {
     __args?: {
       /** distinct select on columns */
       distinct_on?: BountyClaim_select_column[] | null
@@ -1443,6 +3821,58 @@ export interface BountyClaimGenqlSelection {
   __scalar?: boolean | number
 }
 
+/** aggregated selection of "BountyClaim" */
+export interface BountyClaim_aggregateGenqlSelection {
+  aggregate?: BountyClaim_aggregate_fieldsGenqlSelection
+  nodes?: BountyClaimGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+export interface BountyClaim_aggregate_bool_exp {
+  bool_and?: BountyClaim_aggregate_bool_exp_bool_and | null
+  bool_or?: BountyClaim_aggregate_bool_exp_bool_or | null
+  count?: BountyClaim_aggregate_bool_exp_count | null
+}
+
+export interface BountyClaim_aggregate_bool_exp_bool_and {
+  arguments: BountyClaim_select_column_BountyClaim_aggregate_bool_exp_bool_and_arguments_columns
+  distinct?: Scalars['Boolean'] | null
+  filter?: BountyClaim_bool_exp | null
+  predicate: Boolean_comparison_exp
+}
+
+export interface BountyClaim_aggregate_bool_exp_bool_or {
+  arguments: BountyClaim_select_column_BountyClaim_aggregate_bool_exp_bool_or_arguments_columns
+  distinct?: Scalars['Boolean'] | null
+  filter?: BountyClaim_bool_exp | null
+  predicate: Boolean_comparison_exp
+}
+
+export interface BountyClaim_aggregate_bool_exp_count {
+  arguments?: BountyClaim_select_column[] | null
+  distinct?: Scalars['Boolean'] | null
+  filter?: BountyClaim_bool_exp | null
+  predicate: Int_comparison_exp
+}
+
+/** aggregate fields of "BountyClaim" */
+export interface BountyClaim_aggregate_fieldsGenqlSelection {
+  count?:
+    | {
+        __args: {
+          columns?: BountyClaim_select_column[] | null
+          distinct?: Scalars['Boolean'] | null
+        }
+      }
+    | boolean
+    | number
+  max?: BountyClaim_max_fieldsGenqlSelection
+  min?: BountyClaim_min_fieldsGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by aggregate values of table "BountyClaim" */
 export interface BountyClaim_aggregate_order_by {
   count?: order_by | null
@@ -1464,12 +3894,32 @@ export interface BountyClaim_bool_exp {
   id?: String_comparison_exp | null
 }
 
+/** aggregate max on columns */
+export interface BountyClaim_max_fieldsGenqlSelection {
+  bounty_id?: boolean | number
+  db_write_timestamp?: boolean | number
+  details?: boolean | number
+  id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by max() on columns of table "BountyClaim" */
 export interface BountyClaim_max_order_by {
   bounty_id?: order_by | null
   db_write_timestamp?: order_by | null
   details?: order_by | null
   id?: order_by | null
+}
+
+/** aggregate min on columns */
+export interface BountyClaim_min_fieldsGenqlSelection {
+  bounty_id?: boolean | number
+  db_write_timestamp?: boolean | number
+  details?: boolean | number
+  id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by min() on columns of table "BountyClaim" */
@@ -1651,6 +4101,21 @@ export interface BountyModuleGenqlSelection {
       where?: Bounty_bool_exp | null
     }
   }
+  /** An aggregate relationship */
+  bounties_aggregate?: Bounty_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: Bounty_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: Bounty_order_by[] | null
+      /** filter the rows returned */
+      where?: Bounty_bool_exp | null
+    }
+  }
   chainId?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
@@ -1667,6 +4132,7 @@ export interface BountyModule_bool_exp {
   _not?: BountyModule_bool_exp | null
   _or?: BountyModule_bool_exp[] | null
   bounties?: Bounty_bool_exp | null
+  bounties_aggregate?: Bounty_aggregate_bool_exp | null
   chainId?: Int_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   id?: String_comparison_exp | null
@@ -1700,6 +4166,66 @@ export interface BountyModule_stream_cursor_value_input {
   workflow_id?: Scalars['String'] | null
 }
 
+/** aggregated selection of "Bounty" */
+export interface Bounty_aggregateGenqlSelection {
+  aggregate?: Bounty_aggregate_fieldsGenqlSelection
+  nodes?: BountyGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+export interface Bounty_aggregate_bool_exp {
+  bool_and?: Bounty_aggregate_bool_exp_bool_and | null
+  bool_or?: Bounty_aggregate_bool_exp_bool_or | null
+  count?: Bounty_aggregate_bool_exp_count | null
+}
+
+export interface Bounty_aggregate_bool_exp_bool_and {
+  arguments: Bounty_select_column_Bounty_aggregate_bool_exp_bool_and_arguments_columns
+  distinct?: Scalars['Boolean'] | null
+  filter?: Bounty_bool_exp | null
+  predicate: Boolean_comparison_exp
+}
+
+export interface Bounty_aggregate_bool_exp_bool_or {
+  arguments: Bounty_select_column_Bounty_aggregate_bool_exp_bool_or_arguments_columns
+  distinct?: Scalars['Boolean'] | null
+  filter?: Bounty_bool_exp | null
+  predicate: Boolean_comparison_exp
+}
+
+export interface Bounty_aggregate_bool_exp_count {
+  arguments?: Bounty_select_column[] | null
+  distinct?: Scalars['Boolean'] | null
+  filter?: Bounty_bool_exp | null
+  predicate: Int_comparison_exp
+}
+
+/** aggregate fields of "Bounty" */
+export interface Bounty_aggregate_fieldsGenqlSelection {
+  avg?: Bounty_avg_fieldsGenqlSelection
+  count?:
+    | {
+        __args: {
+          columns?: Bounty_select_column[] | null
+          distinct?: Scalars['Boolean'] | null
+        }
+      }
+    | boolean
+    | number
+  max?: Bounty_max_fieldsGenqlSelection
+  min?: Bounty_min_fieldsGenqlSelection
+  stddev?: Bounty_stddev_fieldsGenqlSelection
+  stddev_pop?: Bounty_stddev_pop_fieldsGenqlSelection
+  stddev_samp?: Bounty_stddev_samp_fieldsGenqlSelection
+  sum?: Bounty_sum_fieldsGenqlSelection
+  var_pop?: Bounty_var_pop_fieldsGenqlSelection
+  var_samp?: Bounty_var_samp_fieldsGenqlSelection
+  variance?: Bounty_variance_fieldsGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by aggregate values of table "Bounty" */
 export interface Bounty_aggregate_order_by {
   avg?: Bounty_avg_order_by | null
@@ -1713,6 +4239,14 @@ export interface Bounty_aggregate_order_by {
   var_pop?: Bounty_var_pop_order_by | null
   var_samp?: Bounty_var_samp_order_by | null
   variance?: Bounty_variance_order_by | null
+}
+
+/** aggregate avg on columns */
+export interface Bounty_avg_fieldsGenqlSelection {
+  maximumPayoutAmount?: boolean | number
+  minimumPayoutAmount?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by avg() on columns of table "Bounty" */
@@ -1729,12 +4263,25 @@ export interface Bounty_bool_exp {
   bountyModule?: BountyModule_bool_exp | null
   bountyModule_id?: String_comparison_exp | null
   claims?: BountyClaim_bool_exp | null
+  claims_aggregate?: BountyClaim_aggregate_bool_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   details?: String_comparison_exp | null
   id?: String_comparison_exp | null
   locked?: Boolean_comparison_exp | null
   maximumPayoutAmount?: numeric_comparison_exp | null
   minimumPayoutAmount?: numeric_comparison_exp | null
+}
+
+/** aggregate max on columns */
+export interface Bounty_max_fieldsGenqlSelection {
+  bountyModule_id?: boolean | number
+  db_write_timestamp?: boolean | number
+  details?: boolean | number
+  id?: boolean | number
+  maximumPayoutAmount?: boolean | number
+  minimumPayoutAmount?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by max() on columns of table "Bounty" */
@@ -1745,6 +4292,18 @@ export interface Bounty_max_order_by {
   id?: order_by | null
   maximumPayoutAmount?: order_by | null
   minimumPayoutAmount?: order_by | null
+}
+
+/** aggregate min on columns */
+export interface Bounty_min_fieldsGenqlSelection {
+  bountyModule_id?: boolean | number
+  db_write_timestamp?: boolean | number
+  details?: boolean | number
+  id?: boolean | number
+  maximumPayoutAmount?: boolean | number
+  minimumPayoutAmount?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by min() on columns of table "Bounty" */
@@ -1770,16 +4329,40 @@ export interface Bounty_order_by {
   minimumPayoutAmount?: order_by | null
 }
 
+/** aggregate stddev on columns */
+export interface Bounty_stddev_fieldsGenqlSelection {
+  maximumPayoutAmount?: boolean | number
+  minimumPayoutAmount?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by stddev() on columns of table "Bounty" */
 export interface Bounty_stddev_order_by {
   maximumPayoutAmount?: order_by | null
   minimumPayoutAmount?: order_by | null
 }
 
+/** aggregate stddev_pop on columns */
+export interface Bounty_stddev_pop_fieldsGenqlSelection {
+  maximumPayoutAmount?: boolean | number
+  minimumPayoutAmount?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by stddev_pop() on columns of table "Bounty" */
 export interface Bounty_stddev_pop_order_by {
   maximumPayoutAmount?: order_by | null
   minimumPayoutAmount?: order_by | null
+}
+
+/** aggregate stddev_samp on columns */
+export interface Bounty_stddev_samp_fieldsGenqlSelection {
+  maximumPayoutAmount?: boolean | number
+  minimumPayoutAmount?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by stddev_samp() on columns of table "Bounty" */
@@ -1807,10 +4390,26 @@ export interface Bounty_stream_cursor_value_input {
   minimumPayoutAmount?: Scalars['numeric'] | null
 }
 
+/** aggregate sum on columns */
+export interface Bounty_sum_fieldsGenqlSelection {
+  maximumPayoutAmount?: boolean | number
+  minimumPayoutAmount?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by sum() on columns of table "Bounty" */
 export interface Bounty_sum_order_by {
   maximumPayoutAmount?: order_by | null
   minimumPayoutAmount?: order_by | null
+}
+
+/** aggregate var_pop on columns */
+export interface Bounty_var_pop_fieldsGenqlSelection {
+  maximumPayoutAmount?: boolean | number
+  minimumPayoutAmount?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by var_pop() on columns of table "Bounty" */
@@ -1819,10 +4418,26 @@ export interface Bounty_var_pop_order_by {
   minimumPayoutAmount?: order_by | null
 }
 
+/** aggregate var_samp on columns */
+export interface Bounty_var_samp_fieldsGenqlSelection {
+  maximumPayoutAmount?: boolean | number
+  minimumPayoutAmount?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by var_samp() on columns of table "Bounty" */
 export interface Bounty_var_samp_order_by {
   maximumPayoutAmount?: order_by | null
   minimumPayoutAmount?: order_by | null
+}
+
+/** aggregate variance on columns */
+export interface Bounty_variance_fieldsGenqlSelection {
+  maximumPayoutAmount?: boolean | number
+  minimumPayoutAmount?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by variance() on columns of table "Bounty" */
@@ -1866,6 +4481,50 @@ export interface CurveDayDataGenqlSelection {
   __scalar?: boolean | number
 }
 
+/** aggregated selection of "CurveDayData" */
+export interface CurveDayData_aggregateGenqlSelection {
+  aggregate?: CurveDayData_aggregate_fieldsGenqlSelection
+  nodes?: CurveDayDataGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+export interface CurveDayData_aggregate_bool_exp {
+  count?: CurveDayData_aggregate_bool_exp_count | null
+}
+
+export interface CurveDayData_aggregate_bool_exp_count {
+  arguments?: CurveDayData_select_column[] | null
+  distinct?: Scalars['Boolean'] | null
+  filter?: CurveDayData_bool_exp | null
+  predicate: Int_comparison_exp
+}
+
+/** aggregate fields of "CurveDayData" */
+export interface CurveDayData_aggregate_fieldsGenqlSelection {
+  avg?: CurveDayData_avg_fieldsGenqlSelection
+  count?:
+    | {
+        __args: {
+          columns?: CurveDayData_select_column[] | null
+          distinct?: Scalars['Boolean'] | null
+        }
+      }
+    | boolean
+    | number
+  max?: CurveDayData_max_fieldsGenqlSelection
+  min?: CurveDayData_min_fieldsGenqlSelection
+  stddev?: CurveDayData_stddev_fieldsGenqlSelection
+  stddev_pop?: CurveDayData_stddev_pop_fieldsGenqlSelection
+  stddev_samp?: CurveDayData_stddev_samp_fieldsGenqlSelection
+  sum?: CurveDayData_sum_fieldsGenqlSelection
+  var_pop?: CurveDayData_var_pop_fieldsGenqlSelection
+  var_samp?: CurveDayData_var_samp_fieldsGenqlSelection
+  variance?: CurveDayData_variance_fieldsGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by aggregate values of table "CurveDayData" */
 export interface CurveDayData_aggregate_order_by {
   avg?: CurveDayData_avg_order_by | null
@@ -1879,6 +4538,32 @@ export interface CurveDayData_aggregate_order_by {
   var_pop?: CurveDayData_var_pop_order_by | null
   var_samp?: CurveDayData_var_samp_order_by | null
   variance?: CurveDayData_variance_order_by | null
+}
+
+/** aggregate avg on columns */
+export interface CurveDayData_avg_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by avg() on columns of table "CurveDayData" */
@@ -1939,6 +4624,37 @@ export interface CurveDayData_bool_exp {
   volumeUSD?: numeric_comparison_exp | null
 }
 
+/** aggregate max on columns */
+export interface CurveDayData_max_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  collateralToken_id?: boolean | number
+  date?: boolean | number
+  db_write_timestamp?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  id?: boolean | number
+  issuanceToken_id?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  module_id?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by max() on columns of table "CurveDayData" */
 export interface CurveDayData_max_order_by {
   chainId?: order_by | null
@@ -1966,6 +4682,37 @@ export interface CurveDayData_max_order_by {
   volumeCOL?: order_by | null
   volumeISS?: order_by | null
   volumeUSD?: order_by | null
+}
+
+/** aggregate min on columns */
+export interface CurveDayData_min_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  collateralToken_id?: boolean | number
+  date?: boolean | number
+  db_write_timestamp?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  id?: boolean | number
+  issuanceToken_id?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  module_id?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by min() on columns of table "CurveDayData" */
@@ -2028,6 +4775,32 @@ export interface CurveDayData_order_by {
   volumeUSD?: order_by | null
 }
 
+/** aggregate stddev on columns */
+export interface CurveDayData_stddev_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by stddev() on columns of table "CurveDayData" */
 export interface CurveDayData_stddev_order_by {
   chainId?: order_by | null
@@ -2052,6 +4825,32 @@ export interface CurveDayData_stddev_order_by {
   volumeUSD?: order_by | null
 }
 
+/** aggregate stddev_pop on columns */
+export interface CurveDayData_stddev_pop_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by stddev_pop() on columns of table "CurveDayData" */
 export interface CurveDayData_stddev_pop_order_by {
   chainId?: order_by | null
@@ -2074,6 +4873,32 @@ export interface CurveDayData_stddev_pop_order_by {
   volumeCOL?: order_by | null
   volumeISS?: order_by | null
   volumeUSD?: order_by | null
+}
+
+/** aggregate stddev_samp on columns */
+export interface CurveDayData_stddev_samp_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by stddev_samp() on columns of table "CurveDayData" */
@@ -2137,6 +4962,32 @@ export interface CurveDayData_stream_cursor_value_input {
   volumeUSD?: Scalars['numeric'] | null
 }
 
+/** aggregate sum on columns */
+export interface CurveDayData_sum_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by sum() on columns of table "CurveDayData" */
 export interface CurveDayData_sum_order_by {
   chainId?: order_by | null
@@ -2159,6 +5010,32 @@ export interface CurveDayData_sum_order_by {
   volumeCOL?: order_by | null
   volumeISS?: order_by | null
   volumeUSD?: order_by | null
+}
+
+/** aggregate var_pop on columns */
+export interface CurveDayData_var_pop_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by var_pop() on columns of table "CurveDayData" */
@@ -2185,6 +5062,32 @@ export interface CurveDayData_var_pop_order_by {
   volumeUSD?: order_by | null
 }
 
+/** aggregate var_samp on columns */
+export interface CurveDayData_var_samp_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by var_samp() on columns of table "CurveDayData" */
 export interface CurveDayData_var_samp_order_by {
   chainId?: order_by | null
@@ -2207,6 +5110,32 @@ export interface CurveDayData_var_samp_order_by {
   volumeCOL?: order_by | null
   volumeISS?: order_by | null
   volumeUSD?: order_by | null
+}
+
+/** aggregate variance on columns */
+export interface CurveDayData_variance_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by variance() on columns of table "CurveDayData" */
@@ -2268,6 +5197,50 @@ export interface CurveHourDataGenqlSelection {
   __scalar?: boolean | number
 }
 
+/** aggregated selection of "CurveHourData" */
+export interface CurveHourData_aggregateGenqlSelection {
+  aggregate?: CurveHourData_aggregate_fieldsGenqlSelection
+  nodes?: CurveHourDataGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+export interface CurveHourData_aggregate_bool_exp {
+  count?: CurveHourData_aggregate_bool_exp_count | null
+}
+
+export interface CurveHourData_aggregate_bool_exp_count {
+  arguments?: CurveHourData_select_column[] | null
+  distinct?: Scalars['Boolean'] | null
+  filter?: CurveHourData_bool_exp | null
+  predicate: Int_comparison_exp
+}
+
+/** aggregate fields of "CurveHourData" */
+export interface CurveHourData_aggregate_fieldsGenqlSelection {
+  avg?: CurveHourData_avg_fieldsGenqlSelection
+  count?:
+    | {
+        __args: {
+          columns?: CurveHourData_select_column[] | null
+          distinct?: Scalars['Boolean'] | null
+        }
+      }
+    | boolean
+    | number
+  max?: CurveHourData_max_fieldsGenqlSelection
+  min?: CurveHourData_min_fieldsGenqlSelection
+  stddev?: CurveHourData_stddev_fieldsGenqlSelection
+  stddev_pop?: CurveHourData_stddev_pop_fieldsGenqlSelection
+  stddev_samp?: CurveHourData_stddev_samp_fieldsGenqlSelection
+  sum?: CurveHourData_sum_fieldsGenqlSelection
+  var_pop?: CurveHourData_var_pop_fieldsGenqlSelection
+  var_samp?: CurveHourData_var_samp_fieldsGenqlSelection
+  variance?: CurveHourData_variance_fieldsGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by aggregate values of table "CurveHourData" */
 export interface CurveHourData_aggregate_order_by {
   avg?: CurveHourData_avg_order_by | null
@@ -2281,6 +5254,32 @@ export interface CurveHourData_aggregate_order_by {
   var_pop?: CurveHourData_var_pop_order_by | null
   var_samp?: CurveHourData_var_samp_order_by | null
   variance?: CurveHourData_variance_order_by | null
+}
+
+/** aggregate avg on columns */
+export interface CurveHourData_avg_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by avg() on columns of table "CurveHourData" */
@@ -2341,6 +5340,37 @@ export interface CurveHourData_bool_exp {
   volumeUSD?: numeric_comparison_exp | null
 }
 
+/** aggregate max on columns */
+export interface CurveHourData_max_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  collateralToken_id?: boolean | number
+  db_write_timestamp?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  id?: boolean | number
+  issuanceToken_id?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  module_id?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by max() on columns of table "CurveHourData" */
 export interface CurveHourData_max_order_by {
   chainId?: order_by | null
@@ -2368,6 +5398,37 @@ export interface CurveHourData_max_order_by {
   volumeCOL?: order_by | null
   volumeISS?: order_by | null
   volumeUSD?: order_by | null
+}
+
+/** aggregate min on columns */
+export interface CurveHourData_min_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  collateralToken_id?: boolean | number
+  db_write_timestamp?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  id?: boolean | number
+  issuanceToken_id?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  module_id?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by min() on columns of table "CurveHourData" */
@@ -2430,6 +5491,32 @@ export interface CurveHourData_order_by {
   volumeUSD?: order_by | null
 }
 
+/** aggregate stddev on columns */
+export interface CurveHourData_stddev_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by stddev() on columns of table "CurveHourData" */
 export interface CurveHourData_stddev_order_by {
   chainId?: order_by | null
@@ -2454,6 +5541,32 @@ export interface CurveHourData_stddev_order_by {
   volumeUSD?: order_by | null
 }
 
+/** aggregate stddev_pop on columns */
+export interface CurveHourData_stddev_pop_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by stddev_pop() on columns of table "CurveHourData" */
 export interface CurveHourData_stddev_pop_order_by {
   chainId?: order_by | null
@@ -2476,6 +5589,32 @@ export interface CurveHourData_stddev_pop_order_by {
   volumeCOL?: order_by | null
   volumeISS?: order_by | null
   volumeUSD?: order_by | null
+}
+
+/** aggregate stddev_samp on columns */
+export interface CurveHourData_stddev_samp_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by stddev_samp() on columns of table "CurveHourData" */
@@ -2539,6 +5678,32 @@ export interface CurveHourData_stream_cursor_value_input {
   volumeUSD?: Scalars['numeric'] | null
 }
 
+/** aggregate sum on columns */
+export interface CurveHourData_sum_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by sum() on columns of table "CurveHourData" */
 export interface CurveHourData_sum_order_by {
   chainId?: order_by | null
@@ -2561,6 +5726,32 @@ export interface CurveHourData_sum_order_by {
   volumeCOL?: order_by | null
   volumeISS?: order_by | null
   volumeUSD?: order_by | null
+}
+
+/** aggregate var_pop on columns */
+export interface CurveHourData_var_pop_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by var_pop() on columns of table "CurveHourData" */
@@ -2587,6 +5778,32 @@ export interface CurveHourData_var_pop_order_by {
   volumeUSD?: order_by | null
 }
 
+/** aggregate var_samp on columns */
+export interface CurveHourData_var_samp_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by var_samp() on columns of table "CurveHourData" */
 export interface CurveHourData_var_samp_order_by {
   chainId?: order_by | null
@@ -2609,6 +5826,32 @@ export interface CurveHourData_var_samp_order_by {
   volumeCOL?: order_by | null
   volumeISS?: order_by | null
   volumeUSD?: order_by | null
+}
+
+/** aggregate variance on columns */
+export interface CurveHourData_variance_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeCOL?: boolean | number
+  closeUSD?: boolean | number
+  highCOL?: boolean | number
+  highUSD?: boolean | number
+  lowCOL?: boolean | number
+  lowUSD?: boolean | number
+  openCOL?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeCOL?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeCOL?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeCOL?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by variance() on columns of table "CurveHourData" */
@@ -2672,12 +5915,42 @@ export interface DepositVaultGenqlSelection {
       where?: Deposit_bool_exp | null
     }
   }
+  /** An aggregate relationship */
+  deposits_aggregate?: Deposit_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: Deposit_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: Deposit_order_by[] | null
+      /** filter the rows returned */
+      where?: Deposit_bool_exp | null
+    }
+  }
   id?: boolean | number
   /** An object relationship */
   token?: TokenGenqlSelection
   token_id?: boolean | number
   /** An array relationship */
   transfers?: TransferGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: Transfer_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: Transfer_order_by[] | null
+      /** filter the rows returned */
+      where?: Transfer_bool_exp | null
+    }
+  }
+  /** An aggregate relationship */
+  transfers_aggregate?: Transfer_aggregateGenqlSelection & {
     __args?: {
       /** distinct select on columns */
       distinct_on?: Transfer_select_column[] | null
@@ -2698,6 +5971,48 @@ export interface DepositVaultGenqlSelection {
   __scalar?: boolean | number
 }
 
+/** aggregated selection of "DepositVault" */
+export interface DepositVault_aggregateGenqlSelection {
+  aggregate?: DepositVault_aggregate_fieldsGenqlSelection
+  nodes?: DepositVaultGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate fields of "DepositVault" */
+export interface DepositVault_aggregate_fieldsGenqlSelection {
+  avg?: DepositVault_avg_fieldsGenqlSelection
+  count?:
+    | {
+        __args: {
+          columns?: DepositVault_select_column[] | null
+          distinct?: Scalars['Boolean'] | null
+        }
+      }
+    | boolean
+    | number
+  max?: DepositVault_max_fieldsGenqlSelection
+  min?: DepositVault_min_fieldsGenqlSelection
+  stddev?: DepositVault_stddev_fieldsGenqlSelection
+  stddev_pop?: DepositVault_stddev_pop_fieldsGenqlSelection
+  stddev_samp?: DepositVault_stddev_samp_fieldsGenqlSelection
+  sum?: DepositVault_sum_fieldsGenqlSelection
+  var_pop?: DepositVault_var_pop_fieldsGenqlSelection
+  var_samp?: DepositVault_var_samp_fieldsGenqlSelection
+  variance?: DepositVault_variance_fieldsGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate avg on columns */
+export interface DepositVault_avg_fieldsGenqlSelection {
+  balance?: boolean | number
+  balanceUSD?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** Boolean expression to filter rows from the table "DepositVault". All fields are combined with a logical 'AND'. */
 export interface DepositVault_bool_exp {
   _and?: DepositVault_bool_exp[] | null
@@ -2709,12 +6024,42 @@ export interface DepositVault_bool_exp {
   chainId?: Int_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   deposits?: Deposit_bool_exp | null
+  deposits_aggregate?: Deposit_aggregate_bool_exp | null
   id?: String_comparison_exp | null
   token?: Token_bool_exp | null
   token_id?: String_comparison_exp | null
   transfers?: Transfer_bool_exp | null
+  transfers_aggregate?: Transfer_aggregate_bool_exp | null
   workflow?: Workflow_bool_exp | null
   workflow_id?: String_comparison_exp | null
+}
+
+/** aggregate max on columns */
+export interface DepositVault_max_fieldsGenqlSelection {
+  address?: boolean | number
+  balance?: boolean | number
+  balanceUSD?: boolean | number
+  chainId?: boolean | number
+  db_write_timestamp?: boolean | number
+  id?: boolean | number
+  token_id?: boolean | number
+  workflow_id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate min on columns */
+export interface DepositVault_min_fieldsGenqlSelection {
+  address?: boolean | number
+  balance?: boolean | number
+  balanceUSD?: boolean | number
+  chainId?: boolean | number
+  db_write_timestamp?: boolean | number
+  id?: boolean | number
+  token_id?: boolean | number
+  workflow_id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** Ordering options when selecting data from "DepositVault". */
@@ -2731,6 +6076,33 @@ export interface DepositVault_order_by {
   transfers_aggregate?: Transfer_aggregate_order_by | null
   workflow?: Workflow_order_by | null
   workflow_id?: order_by | null
+}
+
+/** aggregate stddev on columns */
+export interface DepositVault_stddev_fieldsGenqlSelection {
+  balance?: boolean | number
+  balanceUSD?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate stddev_pop on columns */
+export interface DepositVault_stddev_pop_fieldsGenqlSelection {
+  balance?: boolean | number
+  balanceUSD?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate stddev_samp on columns */
+export interface DepositVault_stddev_samp_fieldsGenqlSelection {
+  balance?: boolean | number
+  balanceUSD?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** Streaming cursor of the table "DepositVault" */
@@ -2753,6 +6125,86 @@ export interface DepositVault_stream_cursor_value_input {
   workflow_id?: Scalars['String'] | null
 }
 
+/** aggregate sum on columns */
+export interface DepositVault_sum_fieldsGenqlSelection {
+  balance?: boolean | number
+  balanceUSD?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate var_pop on columns */
+export interface DepositVault_var_pop_fieldsGenqlSelection {
+  balance?: boolean | number
+  balanceUSD?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate var_samp on columns */
+export interface DepositVault_var_samp_fieldsGenqlSelection {
+  balance?: boolean | number
+  balanceUSD?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate variance on columns */
+export interface DepositVault_variance_fieldsGenqlSelection {
+  balance?: boolean | number
+  balanceUSD?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregated selection of "Deposit" */
+export interface Deposit_aggregateGenqlSelection {
+  aggregate?: Deposit_aggregate_fieldsGenqlSelection
+  nodes?: DepositGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+export interface Deposit_aggregate_bool_exp {
+  count?: Deposit_aggregate_bool_exp_count | null
+}
+
+export interface Deposit_aggregate_bool_exp_count {
+  arguments?: Deposit_select_column[] | null
+  distinct?: Scalars['Boolean'] | null
+  filter?: Deposit_bool_exp | null
+  predicate: Int_comparison_exp
+}
+
+/** aggregate fields of "Deposit" */
+export interface Deposit_aggregate_fieldsGenqlSelection {
+  avg?: Deposit_avg_fieldsGenqlSelection
+  count?:
+    | {
+        __args: {
+          columns?: Deposit_select_column[] | null
+          distinct?: Scalars['Boolean'] | null
+        }
+      }
+    | boolean
+    | number
+  max?: Deposit_max_fieldsGenqlSelection
+  min?: Deposit_min_fieldsGenqlSelection
+  stddev?: Deposit_stddev_fieldsGenqlSelection
+  stddev_pop?: Deposit_stddev_pop_fieldsGenqlSelection
+  stddev_samp?: Deposit_stddev_samp_fieldsGenqlSelection
+  sum?: Deposit_sum_fieldsGenqlSelection
+  var_pop?: Deposit_var_pop_fieldsGenqlSelection
+  var_samp?: Deposit_var_samp_fieldsGenqlSelection
+  variance?: Deposit_variance_fieldsGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by aggregate values of table "Deposit" */
 export interface Deposit_aggregate_order_by {
   avg?: Deposit_avg_order_by | null
@@ -2766,6 +6218,15 @@ export interface Deposit_aggregate_order_by {
   var_pop?: Deposit_var_pop_order_by | null
   var_samp?: Deposit_var_samp_order_by | null
   variance?: Deposit_variance_order_by | null
+}
+
+/** aggregate avg on columns */
+export interface Deposit_avg_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by avg() on columns of table "Deposit" */
@@ -2790,6 +6251,19 @@ export interface Deposit_bool_exp {
   id?: String_comparison_exp | null
 }
 
+/** aggregate max on columns */
+export interface Deposit_max_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  db_write_timestamp?: boolean | number
+  depositVault_id?: boolean | number
+  depositor?: boolean | number
+  id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by max() on columns of table "Deposit" */
 export interface Deposit_max_order_by {
   amount?: order_by | null
@@ -2799,6 +6273,19 @@ export interface Deposit_max_order_by {
   depositVault_id?: order_by | null
   depositor?: order_by | null
   id?: order_by | null
+}
+
+/** aggregate min on columns */
+export interface Deposit_min_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  db_write_timestamp?: boolean | number
+  depositVault_id?: boolean | number
+  depositor?: boolean | number
+  id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by min() on columns of table "Deposit" */
@@ -2824,6 +6311,15 @@ export interface Deposit_order_by {
   id?: order_by | null
 }
 
+/** aggregate stddev on columns */
+export interface Deposit_stddev_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by stddev() on columns of table "Deposit" */
 export interface Deposit_stddev_order_by {
   amount?: order_by | null
@@ -2831,11 +6327,29 @@ export interface Deposit_stddev_order_by {
   blockTimestamp?: order_by | null
 }
 
+/** aggregate stddev_pop on columns */
+export interface Deposit_stddev_pop_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by stddev_pop() on columns of table "Deposit" */
 export interface Deposit_stddev_pop_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
   blockTimestamp?: order_by | null
+}
+
+/** aggregate stddev_samp on columns */
+export interface Deposit_stddev_samp_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by stddev_samp() on columns of table "Deposit" */
@@ -2864,11 +6378,29 @@ export interface Deposit_stream_cursor_value_input {
   id?: Scalars['String'] | null
 }
 
+/** aggregate sum on columns */
+export interface Deposit_sum_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by sum() on columns of table "Deposit" */
 export interface Deposit_sum_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
   blockTimestamp?: order_by | null
+}
+
+/** aggregate var_pop on columns */
+export interface Deposit_var_pop_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by var_pop() on columns of table "Deposit" */
@@ -2878,11 +6410,29 @@ export interface Deposit_var_pop_order_by {
   blockTimestamp?: order_by | null
 }
 
+/** aggregate var_samp on columns */
+export interface Deposit_var_samp_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by var_samp() on columns of table "Deposit" */
 export interface Deposit_var_samp_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
   blockTimestamp?: order_by | null
+}
+
+/** aggregate variance on columns */
+export interface Deposit_variance_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by variance() on columns of table "Deposit" */
@@ -2926,6 +6476,50 @@ export interface IssuanceTokenDayDataGenqlSelection {
   __scalar?: boolean | number
 }
 
+/** aggregated selection of "IssuanceTokenDayData" */
+export interface IssuanceTokenDayData_aggregateGenqlSelection {
+  aggregate?: IssuanceTokenDayData_aggregate_fieldsGenqlSelection
+  nodes?: IssuanceTokenDayDataGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+export interface IssuanceTokenDayData_aggregate_bool_exp {
+  count?: IssuanceTokenDayData_aggregate_bool_exp_count | null
+}
+
+export interface IssuanceTokenDayData_aggregate_bool_exp_count {
+  arguments?: IssuanceTokenDayData_select_column[] | null
+  distinct?: Scalars['Boolean'] | null
+  filter?: IssuanceTokenDayData_bool_exp | null
+  predicate: Int_comparison_exp
+}
+
+/** aggregate fields of "IssuanceTokenDayData" */
+export interface IssuanceTokenDayData_aggregate_fieldsGenqlSelection {
+  avg?: IssuanceTokenDayData_avg_fieldsGenqlSelection
+  count?:
+    | {
+        __args: {
+          columns?: IssuanceTokenDayData_select_column[] | null
+          distinct?: Scalars['Boolean'] | null
+        }
+      }
+    | boolean
+    | number
+  max?: IssuanceTokenDayData_max_fieldsGenqlSelection
+  min?: IssuanceTokenDayData_min_fieldsGenqlSelection
+  stddev?: IssuanceTokenDayData_stddev_fieldsGenqlSelection
+  stddev_pop?: IssuanceTokenDayData_stddev_pop_fieldsGenqlSelection
+  stddev_samp?: IssuanceTokenDayData_stddev_samp_fieldsGenqlSelection
+  sum?: IssuanceTokenDayData_sum_fieldsGenqlSelection
+  var_pop?: IssuanceTokenDayData_var_pop_fieldsGenqlSelection
+  var_samp?: IssuanceTokenDayData_var_samp_fieldsGenqlSelection
+  variance?: IssuanceTokenDayData_variance_fieldsGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by aggregate values of table "IssuanceTokenDayData" */
 export interface IssuanceTokenDayData_aggregate_order_by {
   avg?: IssuanceTokenDayData_avg_order_by | null
@@ -2939,6 +6533,24 @@ export interface IssuanceTokenDayData_aggregate_order_by {
   var_pop?: IssuanceTokenDayData_var_pop_order_by | null
   var_samp?: IssuanceTokenDayData_var_samp_order_by | null
   variance?: IssuanceTokenDayData_variance_order_by | null
+}
+
+/** aggregate avg on columns */
+export interface IssuanceTokenDayData_avg_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by avg() on columns of table "IssuanceTokenDayData" */
@@ -2979,6 +6591,27 @@ export interface IssuanceTokenDayData_bool_exp {
   volumeUSD?: numeric_comparison_exp | null
 }
 
+/** aggregate max on columns */
+export interface IssuanceTokenDayData_max_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  db_write_timestamp?: boolean | number
+  highUSD?: boolean | number
+  id?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  token_id?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by max() on columns of table "IssuanceTokenDayData" */
 export interface IssuanceTokenDayData_max_order_by {
   chainId?: order_by | null
@@ -2996,6 +6629,27 @@ export interface IssuanceTokenDayData_max_order_by {
   token_id?: order_by | null
   volumeISS?: order_by | null
   volumeUSD?: order_by | null
+}
+
+/** aggregate min on columns */
+export interface IssuanceTokenDayData_min_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  db_write_timestamp?: boolean | number
+  highUSD?: boolean | number
+  id?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  token_id?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by min() on columns of table "IssuanceTokenDayData" */
@@ -3036,6 +6690,24 @@ export interface IssuanceTokenDayData_order_by {
   volumeUSD?: order_by | null
 }
 
+/** aggregate stddev on columns */
+export interface IssuanceTokenDayData_stddev_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by stddev() on columns of table "IssuanceTokenDayData" */
 export interface IssuanceTokenDayData_stddev_order_by {
   chainId?: order_by | null
@@ -3052,6 +6724,24 @@ export interface IssuanceTokenDayData_stddev_order_by {
   volumeUSD?: order_by | null
 }
 
+/** aggregate stddev_pop on columns */
+export interface IssuanceTokenDayData_stddev_pop_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by stddev_pop() on columns of table "IssuanceTokenDayData" */
 export interface IssuanceTokenDayData_stddev_pop_order_by {
   chainId?: order_by | null
@@ -3066,6 +6756,24 @@ export interface IssuanceTokenDayData_stddev_pop_order_by {
   protocolFeeUSD?: order_by | null
   volumeISS?: order_by | null
   volumeUSD?: order_by | null
+}
+
+/** aggregate stddev_samp on columns */
+export interface IssuanceTokenDayData_stddev_samp_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by stddev_samp() on columns of table "IssuanceTokenDayData" */
@@ -3111,6 +6819,24 @@ export interface IssuanceTokenDayData_stream_cursor_value_input {
   volumeUSD?: Scalars['numeric'] | null
 }
 
+/** aggregate sum on columns */
+export interface IssuanceTokenDayData_sum_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by sum() on columns of table "IssuanceTokenDayData" */
 export interface IssuanceTokenDayData_sum_order_by {
   chainId?: order_by | null
@@ -3125,6 +6851,24 @@ export interface IssuanceTokenDayData_sum_order_by {
   protocolFeeUSD?: order_by | null
   volumeISS?: order_by | null
   volumeUSD?: order_by | null
+}
+
+/** aggregate var_pop on columns */
+export interface IssuanceTokenDayData_var_pop_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by var_pop() on columns of table "IssuanceTokenDayData" */
@@ -3143,6 +6887,24 @@ export interface IssuanceTokenDayData_var_pop_order_by {
   volumeUSD?: order_by | null
 }
 
+/** aggregate var_samp on columns */
+export interface IssuanceTokenDayData_var_samp_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by var_samp() on columns of table "IssuanceTokenDayData" */
 export interface IssuanceTokenDayData_var_samp_order_by {
   chainId?: order_by | null
@@ -3157,6 +6919,24 @@ export interface IssuanceTokenDayData_var_samp_order_by {
   protocolFeeUSD?: order_by | null
   volumeISS?: order_by | null
   volumeUSD?: order_by | null
+}
+
+/** aggregate variance on columns */
+export interface IssuanceTokenDayData_variance_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  date?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by variance() on columns of table "IssuanceTokenDayData" */
@@ -3196,6 +6976,50 @@ export interface IssuanceTokenHourDataGenqlSelection {
   __scalar?: boolean | number
 }
 
+/** aggregated selection of "IssuanceTokenHourData" */
+export interface IssuanceTokenHourData_aggregateGenqlSelection {
+  aggregate?: IssuanceTokenHourData_aggregate_fieldsGenqlSelection
+  nodes?: IssuanceTokenHourDataGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+export interface IssuanceTokenHourData_aggregate_bool_exp {
+  count?: IssuanceTokenHourData_aggregate_bool_exp_count | null
+}
+
+export interface IssuanceTokenHourData_aggregate_bool_exp_count {
+  arguments?: IssuanceTokenHourData_select_column[] | null
+  distinct?: Scalars['Boolean'] | null
+  filter?: IssuanceTokenHourData_bool_exp | null
+  predicate: Int_comparison_exp
+}
+
+/** aggregate fields of "IssuanceTokenHourData" */
+export interface IssuanceTokenHourData_aggregate_fieldsGenqlSelection {
+  avg?: IssuanceTokenHourData_avg_fieldsGenqlSelection
+  count?:
+    | {
+        __args: {
+          columns?: IssuanceTokenHourData_select_column[] | null
+          distinct?: Scalars['Boolean'] | null
+        }
+      }
+    | boolean
+    | number
+  max?: IssuanceTokenHourData_max_fieldsGenqlSelection
+  min?: IssuanceTokenHourData_min_fieldsGenqlSelection
+  stddev?: IssuanceTokenHourData_stddev_fieldsGenqlSelection
+  stddev_pop?: IssuanceTokenHourData_stddev_pop_fieldsGenqlSelection
+  stddev_samp?: IssuanceTokenHourData_stddev_samp_fieldsGenqlSelection
+  sum?: IssuanceTokenHourData_sum_fieldsGenqlSelection
+  var_pop?: IssuanceTokenHourData_var_pop_fieldsGenqlSelection
+  var_samp?: IssuanceTokenHourData_var_samp_fieldsGenqlSelection
+  variance?: IssuanceTokenHourData_variance_fieldsGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by aggregate values of table "IssuanceTokenHourData" */
 export interface IssuanceTokenHourData_aggregate_order_by {
   avg?: IssuanceTokenHourData_avg_order_by | null
@@ -3209,6 +7033,24 @@ export interface IssuanceTokenHourData_aggregate_order_by {
   var_pop?: IssuanceTokenHourData_var_pop_order_by | null
   var_samp?: IssuanceTokenHourData_var_samp_order_by | null
   variance?: IssuanceTokenHourData_variance_order_by | null
+}
+
+/** aggregate avg on columns */
+export interface IssuanceTokenHourData_avg_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by avg() on columns of table "IssuanceTokenHourData" */
@@ -3249,6 +7091,27 @@ export interface IssuanceTokenHourData_bool_exp {
   volumeUSD?: numeric_comparison_exp | null
 }
 
+/** aggregate max on columns */
+export interface IssuanceTokenHourData_max_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  db_write_timestamp?: boolean | number
+  highUSD?: boolean | number
+  id?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  token_id?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by max() on columns of table "IssuanceTokenHourData" */
 export interface IssuanceTokenHourData_max_order_by {
   chainId?: order_by | null
@@ -3266,6 +7129,27 @@ export interface IssuanceTokenHourData_max_order_by {
   token_id?: order_by | null
   volumeISS?: order_by | null
   volumeUSD?: order_by | null
+}
+
+/** aggregate min on columns */
+export interface IssuanceTokenHourData_min_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  db_write_timestamp?: boolean | number
+  highUSD?: boolean | number
+  id?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  token_id?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by min() on columns of table "IssuanceTokenHourData" */
@@ -3306,6 +7190,24 @@ export interface IssuanceTokenHourData_order_by {
   volumeUSD?: order_by | null
 }
 
+/** aggregate stddev on columns */
+export interface IssuanceTokenHourData_stddev_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by stddev() on columns of table "IssuanceTokenHourData" */
 export interface IssuanceTokenHourData_stddev_order_by {
   chainId?: order_by | null
@@ -3322,6 +7224,24 @@ export interface IssuanceTokenHourData_stddev_order_by {
   volumeUSD?: order_by | null
 }
 
+/** aggregate stddev_pop on columns */
+export interface IssuanceTokenHourData_stddev_pop_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by stddev_pop() on columns of table "IssuanceTokenHourData" */
 export interface IssuanceTokenHourData_stddev_pop_order_by {
   chainId?: order_by | null
@@ -3336,6 +7256,24 @@ export interface IssuanceTokenHourData_stddev_pop_order_by {
   protocolFeeUSD?: order_by | null
   volumeISS?: order_by | null
   volumeUSD?: order_by | null
+}
+
+/** aggregate stddev_samp on columns */
+export interface IssuanceTokenHourData_stddev_samp_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by stddev_samp() on columns of table "IssuanceTokenHourData" */
@@ -3381,6 +7319,24 @@ export interface IssuanceTokenHourData_stream_cursor_value_input {
   volumeUSD?: Scalars['numeric'] | null
 }
 
+/** aggregate sum on columns */
+export interface IssuanceTokenHourData_sum_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by sum() on columns of table "IssuanceTokenHourData" */
 export interface IssuanceTokenHourData_sum_order_by {
   chainId?: order_by | null
@@ -3395,6 +7351,24 @@ export interface IssuanceTokenHourData_sum_order_by {
   protocolFeeUSD?: order_by | null
   volumeISS?: order_by | null
   volumeUSD?: order_by | null
+}
+
+/** aggregate var_pop on columns */
+export interface IssuanceTokenHourData_var_pop_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by var_pop() on columns of table "IssuanceTokenHourData" */
@@ -3413,6 +7387,24 @@ export interface IssuanceTokenHourData_var_pop_order_by {
   volumeUSD?: order_by | null
 }
 
+/** aggregate var_samp on columns */
+export interface IssuanceTokenHourData_var_samp_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by var_samp() on columns of table "IssuanceTokenHourData" */
 export interface IssuanceTokenHourData_var_samp_order_by {
   chainId?: order_by | null
@@ -3427,6 +7419,24 @@ export interface IssuanceTokenHourData_var_samp_order_by {
   protocolFeeUSD?: order_by | null
   volumeISS?: order_by | null
   volumeUSD?: order_by | null
+}
+
+/** aggregate variance on columns */
+export interface IssuanceTokenHourData_variance_fieldsGenqlSelection {
+  chainId?: boolean | number
+  closeUSD?: boolean | number
+  highUSD?: boolean | number
+  lowUSD?: boolean | number
+  openUSD?: boolean | number
+  periodStartUnix?: boolean | number
+  priceUSD?: boolean | number
+  projectFeeUSD?: boolean | number
+  protocolFeeISS?: boolean | number
+  protocolFeeUSD?: boolean | number
+  volumeISS?: boolean | number
+  volumeUSD?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by variance() on columns of table "IssuanceTokenHourData" */
@@ -3674,6 +7684,50 @@ export interface ProjectFeeGenqlSelection {
   __scalar?: boolean | number
 }
 
+/** aggregated selection of "ProjectFee" */
+export interface ProjectFee_aggregateGenqlSelection {
+  aggregate?: ProjectFee_aggregate_fieldsGenqlSelection
+  nodes?: ProjectFeeGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+export interface ProjectFee_aggregate_bool_exp {
+  count?: ProjectFee_aggregate_bool_exp_count | null
+}
+
+export interface ProjectFee_aggregate_bool_exp_count {
+  arguments?: ProjectFee_select_column[] | null
+  distinct?: Scalars['Boolean'] | null
+  filter?: ProjectFee_bool_exp | null
+  predicate: Int_comparison_exp
+}
+
+/** aggregate fields of "ProjectFee" */
+export interface ProjectFee_aggregate_fieldsGenqlSelection {
+  avg?: ProjectFee_avg_fieldsGenqlSelection
+  count?:
+    | {
+        __args: {
+          columns?: ProjectFee_select_column[] | null
+          distinct?: Scalars['Boolean'] | null
+        }
+      }
+    | boolean
+    | number
+  max?: ProjectFee_max_fieldsGenqlSelection
+  min?: ProjectFee_min_fieldsGenqlSelection
+  stddev?: ProjectFee_stddev_fieldsGenqlSelection
+  stddev_pop?: ProjectFee_stddev_pop_fieldsGenqlSelection
+  stddev_samp?: ProjectFee_stddev_samp_fieldsGenqlSelection
+  sum?: ProjectFee_sum_fieldsGenqlSelection
+  var_pop?: ProjectFee_var_pop_fieldsGenqlSelection
+  var_samp?: ProjectFee_var_samp_fieldsGenqlSelection
+  variance?: ProjectFee_variance_fieldsGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by aggregate values of table "ProjectFee" */
 export interface ProjectFee_aggregate_order_by {
   avg?: ProjectFee_avg_order_by | null
@@ -3687,6 +7741,16 @@ export interface ProjectFee_aggregate_order_by {
   var_pop?: ProjectFee_var_pop_order_by | null
   var_samp?: ProjectFee_var_samp_order_by | null
   variance?: ProjectFee_variance_order_by | null
+}
+
+/** aggregate avg on columns */
+export interface ProjectFee_avg_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by avg() on columns of table "ProjectFee" */
@@ -3714,6 +7778,21 @@ export interface ProjectFee_bool_exp {
   token_id?: String_comparison_exp | null
 }
 
+/** aggregate max on columns */
+export interface ProjectFee_max_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  db_write_timestamp?: boolean | number
+  id?: boolean | number
+  module_id?: boolean | number
+  recipient?: boolean | number
+  token_id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by max() on columns of table "ProjectFee" */
 export interface ProjectFee_max_order_by {
   amount?: order_by | null
@@ -3725,6 +7804,21 @@ export interface ProjectFee_max_order_by {
   module_id?: order_by | null
   recipient?: order_by | null
   token_id?: order_by | null
+}
+
+/** aggregate min on columns */
+export interface ProjectFee_min_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  db_write_timestamp?: boolean | number
+  id?: boolean | number
+  module_id?: boolean | number
+  recipient?: boolean | number
+  token_id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by min() on columns of table "ProjectFee" */
@@ -3754,6 +7848,16 @@ export interface ProjectFee_order_by {
   token_id?: order_by | null
 }
 
+/** aggregate stddev on columns */
+export interface ProjectFee_stddev_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by stddev() on columns of table "ProjectFee" */
 export interface ProjectFee_stddev_order_by {
   amount?: order_by | null
@@ -3762,12 +7866,32 @@ export interface ProjectFee_stddev_order_by {
   chainId?: order_by | null
 }
 
+/** aggregate stddev_pop on columns */
+export interface ProjectFee_stddev_pop_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by stddev_pop() on columns of table "ProjectFee" */
 export interface ProjectFee_stddev_pop_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
+}
+
+/** aggregate stddev_samp on columns */
+export interface ProjectFee_stddev_samp_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by stddev_samp() on columns of table "ProjectFee" */
@@ -3799,12 +7923,32 @@ export interface ProjectFee_stream_cursor_value_input {
   token_id?: Scalars['String'] | null
 }
 
+/** aggregate sum on columns */
+export interface ProjectFee_sum_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by sum() on columns of table "ProjectFee" */
 export interface ProjectFee_sum_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
+}
+
+/** aggregate var_pop on columns */
+export interface ProjectFee_var_pop_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by var_pop() on columns of table "ProjectFee" */
@@ -3815,12 +7959,32 @@ export interface ProjectFee_var_pop_order_by {
   chainId?: order_by | null
 }
 
+/** aggregate var_samp on columns */
+export interface ProjectFee_var_samp_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by var_samp() on columns of table "ProjectFee" */
 export interface ProjectFee_var_samp_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
+}
+
+/** aggregate variance on columns */
+export interface ProjectFee_variance_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by variance() on columns of table "ProjectFee" */
@@ -3849,6 +8013,50 @@ export interface ProtocolFeeGenqlSelection {
   __scalar?: boolean | number
 }
 
+/** aggregated selection of "ProtocolFee" */
+export interface ProtocolFee_aggregateGenqlSelection {
+  aggregate?: ProtocolFee_aggregate_fieldsGenqlSelection
+  nodes?: ProtocolFeeGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+export interface ProtocolFee_aggregate_bool_exp {
+  count?: ProtocolFee_aggregate_bool_exp_count | null
+}
+
+export interface ProtocolFee_aggregate_bool_exp_count {
+  arguments?: ProtocolFee_select_column[] | null
+  distinct?: Scalars['Boolean'] | null
+  filter?: ProtocolFee_bool_exp | null
+  predicate: Int_comparison_exp
+}
+
+/** aggregate fields of "ProtocolFee" */
+export interface ProtocolFee_aggregate_fieldsGenqlSelection {
+  avg?: ProtocolFee_avg_fieldsGenqlSelection
+  count?:
+    | {
+        __args: {
+          columns?: ProtocolFee_select_column[] | null
+          distinct?: Scalars['Boolean'] | null
+        }
+      }
+    | boolean
+    | number
+  max?: ProtocolFee_max_fieldsGenqlSelection
+  min?: ProtocolFee_min_fieldsGenqlSelection
+  stddev?: ProtocolFee_stddev_fieldsGenqlSelection
+  stddev_pop?: ProtocolFee_stddev_pop_fieldsGenqlSelection
+  stddev_samp?: ProtocolFee_stddev_samp_fieldsGenqlSelection
+  sum?: ProtocolFee_sum_fieldsGenqlSelection
+  var_pop?: ProtocolFee_var_pop_fieldsGenqlSelection
+  var_samp?: ProtocolFee_var_samp_fieldsGenqlSelection
+  variance?: ProtocolFee_variance_fieldsGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by aggregate values of table "ProtocolFee" */
 export interface ProtocolFee_aggregate_order_by {
   avg?: ProtocolFee_avg_order_by | null
@@ -3862,6 +8070,16 @@ export interface ProtocolFee_aggregate_order_by {
   var_pop?: ProtocolFee_var_pop_order_by | null
   var_samp?: ProtocolFee_var_samp_order_by | null
   variance?: ProtocolFee_variance_order_by | null
+}
+
+/** aggregate avg on columns */
+export interface ProtocolFee_avg_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by avg() on columns of table "ProtocolFee" */
@@ -3890,6 +8108,22 @@ export interface ProtocolFee_bool_exp {
   treasury?: String_comparison_exp | null
 }
 
+/** aggregate max on columns */
+export interface ProtocolFee_max_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  db_write_timestamp?: boolean | number
+  id?: boolean | number
+  module_id?: boolean | number
+  source?: boolean | number
+  token_id?: boolean | number
+  treasury?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by max() on columns of table "ProtocolFee" */
 export interface ProtocolFee_max_order_by {
   amount?: order_by | null
@@ -3902,6 +8136,22 @@ export interface ProtocolFee_max_order_by {
   source?: order_by | null
   token_id?: order_by | null
   treasury?: order_by | null
+}
+
+/** aggregate min on columns */
+export interface ProtocolFee_min_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  db_write_timestamp?: boolean | number
+  id?: boolean | number
+  module_id?: boolean | number
+  source?: boolean | number
+  token_id?: boolean | number
+  treasury?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by min() on columns of table "ProtocolFee" */
@@ -3933,6 +8183,16 @@ export interface ProtocolFee_order_by {
   treasury?: order_by | null
 }
 
+/** aggregate stddev on columns */
+export interface ProtocolFee_stddev_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by stddev() on columns of table "ProtocolFee" */
 export interface ProtocolFee_stddev_order_by {
   amount?: order_by | null
@@ -3941,12 +8201,32 @@ export interface ProtocolFee_stddev_order_by {
   chainId?: order_by | null
 }
 
+/** aggregate stddev_pop on columns */
+export interface ProtocolFee_stddev_pop_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by stddev_pop() on columns of table "ProtocolFee" */
 export interface ProtocolFee_stddev_pop_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
+}
+
+/** aggregate stddev_samp on columns */
+export interface ProtocolFee_stddev_samp_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by stddev_samp() on columns of table "ProtocolFee" */
@@ -3979,12 +8259,32 @@ export interface ProtocolFee_stream_cursor_value_input {
   treasury?: Scalars['String'] | null
 }
 
+/** aggregate sum on columns */
+export interface ProtocolFee_sum_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by sum() on columns of table "ProtocolFee" */
 export interface ProtocolFee_sum_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
+}
+
+/** aggregate var_pop on columns */
+export interface ProtocolFee_var_pop_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by var_pop() on columns of table "ProtocolFee" */
@@ -3995,12 +8295,32 @@ export interface ProtocolFee_var_pop_order_by {
   chainId?: order_by | null
 }
 
+/** aggregate var_samp on columns */
+export interface ProtocolFee_var_samp_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by var_samp() on columns of table "ProtocolFee" */
 export interface ProtocolFee_var_samp_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
   blockTimestamp?: order_by | null
   chainId?: order_by | null
+}
+
+/** aggregate variance on columns */
+export interface ProtocolFee_variance_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  chainId?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by variance() on columns of table "ProtocolFee" */
@@ -4380,6 +8700,49 @@ export interface TokenGenqlSelection {
   __scalar?: boolean | number
 }
 
+/** aggregated selection of "Token" */
+export interface Token_aggregateGenqlSelection {
+  aggregate?: Token_aggregate_fieldsGenqlSelection
+  nodes?: TokenGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate fields of "Token" */
+export interface Token_aggregate_fieldsGenqlSelection {
+  avg?: Token_avg_fieldsGenqlSelection
+  count?:
+    | {
+        __args: {
+          columns?: Token_select_column[] | null
+          distinct?: Scalars['Boolean'] | null
+        }
+      }
+    | boolean
+    | number
+  max?: Token_max_fieldsGenqlSelection
+  min?: Token_min_fieldsGenqlSelection
+  stddev?: Token_stddev_fieldsGenqlSelection
+  stddev_pop?: Token_stddev_pop_fieldsGenqlSelection
+  stddev_samp?: Token_stddev_samp_fieldsGenqlSelection
+  sum?: Token_sum_fieldsGenqlSelection
+  var_pop?: Token_var_pop_fieldsGenqlSelection
+  var_samp?: Token_var_samp_fieldsGenqlSelection
+  variance?: Token_variance_fieldsGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate avg on columns */
+export interface Token_avg_fieldsGenqlSelection {
+  chainId?: boolean | number
+  decimals?: boolean | number
+  priceUSD?: boolean | number
+  totalSupply?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** Boolean expression to filter rows from the table "Token". All fields are combined with a logical 'AND'. */
 export interface Token_bool_exp {
   _and?: Token_bool_exp[] | null
@@ -4396,6 +8759,36 @@ export interface Token_bool_exp {
   totalSupply?: numeric_comparison_exp | null
 }
 
+/** aggregate max on columns */
+export interface Token_max_fieldsGenqlSelection {
+  address?: boolean | number
+  chainId?: boolean | number
+  db_write_timestamp?: boolean | number
+  decimals?: boolean | number
+  id?: boolean | number
+  name?: boolean | number
+  priceUSD?: boolean | number
+  symbol?: boolean | number
+  totalSupply?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate min on columns */
+export interface Token_min_fieldsGenqlSelection {
+  address?: boolean | number
+  chainId?: boolean | number
+  db_write_timestamp?: boolean | number
+  decimals?: boolean | number
+  id?: boolean | number
+  name?: boolean | number
+  priceUSD?: boolean | number
+  symbol?: boolean | number
+  totalSupply?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** Ordering options when selecting data from "Token". */
 export interface Token_order_by {
   address?: order_by | null
@@ -4407,6 +8800,36 @@ export interface Token_order_by {
   priceUSD?: order_by | null
   symbol?: order_by | null
   totalSupply?: order_by | null
+}
+
+/** aggregate stddev on columns */
+export interface Token_stddev_fieldsGenqlSelection {
+  chainId?: boolean | number
+  decimals?: boolean | number
+  priceUSD?: boolean | number
+  totalSupply?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate stddev_pop on columns */
+export interface Token_stddev_pop_fieldsGenqlSelection {
+  chainId?: boolean | number
+  decimals?: boolean | number
+  priceUSD?: boolean | number
+  totalSupply?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate stddev_samp on columns */
+export interface Token_stddev_samp_fieldsGenqlSelection {
+  chainId?: boolean | number
+  decimals?: boolean | number
+  priceUSD?: boolean | number
+  totalSupply?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** Streaming cursor of the table "Token" */
@@ -4430,6 +8853,46 @@ export interface Token_stream_cursor_value_input {
   totalSupply?: Scalars['numeric'] | null
 }
 
+/** aggregate sum on columns */
+export interface Token_sum_fieldsGenqlSelection {
+  chainId?: boolean | number
+  decimals?: boolean | number
+  priceUSD?: boolean | number
+  totalSupply?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate var_pop on columns */
+export interface Token_var_pop_fieldsGenqlSelection {
+  chainId?: boolean | number
+  decimals?: boolean | number
+  priceUSD?: boolean | number
+  totalSupply?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate var_samp on columns */
+export interface Token_var_samp_fieldsGenqlSelection {
+  chainId?: boolean | number
+  decimals?: boolean | number
+  priceUSD?: boolean | number
+  totalSupply?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate variance on columns */
+export interface Token_variance_fieldsGenqlSelection {
+  chainId?: boolean | number
+  decimals?: boolean | number
+  priceUSD?: boolean | number
+  totalSupply?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** columns and relationships of "Transfer" */
 export interface TransferGenqlSelection {
   amount?: boolean | number
@@ -4441,6 +8904,50 @@ export interface TransferGenqlSelection {
   depositVault_id?: boolean | number
   id?: boolean | number
   recipient?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregated selection of "Transfer" */
+export interface Transfer_aggregateGenqlSelection {
+  aggregate?: Transfer_aggregate_fieldsGenqlSelection
+  nodes?: TransferGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+export interface Transfer_aggregate_bool_exp {
+  count?: Transfer_aggregate_bool_exp_count | null
+}
+
+export interface Transfer_aggregate_bool_exp_count {
+  arguments?: Transfer_select_column[] | null
+  distinct?: Scalars['Boolean'] | null
+  filter?: Transfer_bool_exp | null
+  predicate: Int_comparison_exp
+}
+
+/** aggregate fields of "Transfer" */
+export interface Transfer_aggregate_fieldsGenqlSelection {
+  avg?: Transfer_avg_fieldsGenqlSelection
+  count?:
+    | {
+        __args: {
+          columns?: Transfer_select_column[] | null
+          distinct?: Scalars['Boolean'] | null
+        }
+      }
+    | boolean
+    | number
+  max?: Transfer_max_fieldsGenqlSelection
+  min?: Transfer_min_fieldsGenqlSelection
+  stddev?: Transfer_stddev_fieldsGenqlSelection
+  stddev_pop?: Transfer_stddev_pop_fieldsGenqlSelection
+  stddev_samp?: Transfer_stddev_samp_fieldsGenqlSelection
+  sum?: Transfer_sum_fieldsGenqlSelection
+  var_pop?: Transfer_var_pop_fieldsGenqlSelection
+  var_samp?: Transfer_var_samp_fieldsGenqlSelection
+  variance?: Transfer_variance_fieldsGenqlSelection
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -4458,6 +8965,15 @@ export interface Transfer_aggregate_order_by {
   var_pop?: Transfer_var_pop_order_by | null
   var_samp?: Transfer_var_samp_order_by | null
   variance?: Transfer_variance_order_by | null
+}
+
+/** aggregate avg on columns */
+export interface Transfer_avg_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by avg() on columns of table "Transfer" */
@@ -4482,6 +8998,19 @@ export interface Transfer_bool_exp {
   recipient?: String_comparison_exp | null
 }
 
+/** aggregate max on columns */
+export interface Transfer_max_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  db_write_timestamp?: boolean | number
+  depositVault_id?: boolean | number
+  id?: boolean | number
+  recipient?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by max() on columns of table "Transfer" */
 export interface Transfer_max_order_by {
   amount?: order_by | null
@@ -4491,6 +9020,19 @@ export interface Transfer_max_order_by {
   depositVault_id?: order_by | null
   id?: order_by | null
   recipient?: order_by | null
+}
+
+/** aggregate min on columns */
+export interface Transfer_min_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  db_write_timestamp?: boolean | number
+  depositVault_id?: boolean | number
+  id?: boolean | number
+  recipient?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by min() on columns of table "Transfer" */
@@ -4516,6 +9058,15 @@ export interface Transfer_order_by {
   recipient?: order_by | null
 }
 
+/** aggregate stddev on columns */
+export interface Transfer_stddev_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by stddev() on columns of table "Transfer" */
 export interface Transfer_stddev_order_by {
   amount?: order_by | null
@@ -4523,11 +9074,29 @@ export interface Transfer_stddev_order_by {
   blockTimestamp?: order_by | null
 }
 
+/** aggregate stddev_pop on columns */
+export interface Transfer_stddev_pop_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by stddev_pop() on columns of table "Transfer" */
 export interface Transfer_stddev_pop_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
   blockTimestamp?: order_by | null
+}
+
+/** aggregate stddev_samp on columns */
+export interface Transfer_stddev_samp_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by stddev_samp() on columns of table "Transfer" */
@@ -4556,11 +9125,29 @@ export interface Transfer_stream_cursor_value_input {
   recipient?: Scalars['String'] | null
 }
 
+/** aggregate sum on columns */
+export interface Transfer_sum_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by sum() on columns of table "Transfer" */
 export interface Transfer_sum_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
   blockTimestamp?: order_by | null
+}
+
+/** aggregate var_pop on columns */
+export interface Transfer_var_pop_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by var_pop() on columns of table "Transfer" */
@@ -4570,11 +9157,29 @@ export interface Transfer_var_pop_order_by {
   blockTimestamp?: order_by | null
 }
 
+/** aggregate var_samp on columns */
+export interface Transfer_var_samp_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** order by var_samp() on columns of table "Transfer" */
 export interface Transfer_var_samp_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
   blockTimestamp?: order_by | null
+}
+
+/** aggregate variance on columns */
+export interface Transfer_variance_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  blockTimestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** order by variance() on columns of table "Transfer" */
@@ -5155,6 +9760,21 @@ export interface query_rootGenqlSelection {
       where?: BondingCurve_bool_exp | null
     }
   }
+  /** fetch aggregated fields from the table: "BondingCurve" */
+  BondingCurve_aggregate?: BondingCurve_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: BondingCurve_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: BondingCurve_order_by[] | null
+      /** filter the rows returned */
+      where?: BondingCurve_bool_exp | null
+    }
+  }
   /** fetch data from the table: "BondingCurve" using primary key columns */
   BondingCurve_by_pk?: BondingCurveGenqlSelection & {
     __args: { id: Scalars['String'] }
@@ -5176,6 +9796,21 @@ export interface query_rootGenqlSelection {
   }
   /** fetch data from the table: "BountyClaim" */
   BountyClaim?: BountyClaimGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: BountyClaim_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: BountyClaim_order_by[] | null
+      /** filter the rows returned */
+      where?: BountyClaim_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "BountyClaim" */
+  BountyClaim_aggregate?: BountyClaim_aggregateGenqlSelection & {
     __args?: {
       /** distinct select on columns */
       distinct_on?: BountyClaim_select_column[] | null
@@ -5231,10 +9866,40 @@ export interface query_rootGenqlSelection {
   BountyModule_by_pk?: BountyModuleGenqlSelection & {
     __args: { id: Scalars['String'] }
   }
+  /** fetch aggregated fields from the table: "Bounty" */
+  Bounty_aggregate?: Bounty_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: Bounty_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: Bounty_order_by[] | null
+      /** filter the rows returned */
+      where?: Bounty_bool_exp | null
+    }
+  }
   /** fetch data from the table: "Bounty" using primary key columns */
   Bounty_by_pk?: BountyGenqlSelection & { __args: { id: Scalars['String'] } }
   /** fetch data from the table: "CurveDayData" */
   CurveDayData?: CurveDayDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveDayData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveDayData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveDayData_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "CurveDayData" */
+  CurveDayData_aggregate?: CurveDayData_aggregateGenqlSelection & {
     __args?: {
       /** distinct select on columns */
       distinct_on?: CurveDayData_select_column[] | null
@@ -5254,6 +9919,21 @@ export interface query_rootGenqlSelection {
   }
   /** fetch data from the table: "CurveHourData" */
   CurveHourData?: CurveHourDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveHourData_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "CurveHourData" */
+  CurveHourData_aggregate?: CurveHourData_aggregateGenqlSelection & {
     __args?: {
       /** distinct select on columns */
       distinct_on?: CurveHourData_select_column[] | null
@@ -5301,14 +9981,59 @@ export interface query_rootGenqlSelection {
       where?: DepositVault_bool_exp | null
     }
   }
+  /** fetch aggregated fields from the table: "DepositVault" */
+  DepositVault_aggregate?: DepositVault_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: DepositVault_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: DepositVault_order_by[] | null
+      /** filter the rows returned */
+      where?: DepositVault_bool_exp | null
+    }
+  }
   /** fetch data from the table: "DepositVault" using primary key columns */
   DepositVault_by_pk?: DepositVaultGenqlSelection & {
     __args: { id: Scalars['String'] }
+  }
+  /** fetch aggregated fields from the table: "Deposit" */
+  Deposit_aggregate?: Deposit_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: Deposit_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: Deposit_order_by[] | null
+      /** filter the rows returned */
+      where?: Deposit_bool_exp | null
+    }
   }
   /** fetch data from the table: "Deposit" using primary key columns */
   Deposit_by_pk?: DepositGenqlSelection & { __args: { id: Scalars['String'] } }
   /** fetch data from the table: "IssuanceTokenDayData" */
   IssuanceTokenDayData?: IssuanceTokenDayDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: IssuanceTokenDayData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: IssuanceTokenDayData_order_by[] | null
+      /** filter the rows returned */
+      where?: IssuanceTokenDayData_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "IssuanceTokenDayData" */
+  IssuanceTokenDayData_aggregate?: IssuanceTokenDayData_aggregateGenqlSelection & {
     __args?: {
       /** distinct select on columns */
       distinct_on?: IssuanceTokenDayData_select_column[] | null
@@ -5328,6 +10053,21 @@ export interface query_rootGenqlSelection {
   }
   /** fetch data from the table: "IssuanceTokenHourData" */
   IssuanceTokenHourData?: IssuanceTokenHourDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: IssuanceTokenHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: IssuanceTokenHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: IssuanceTokenHourData_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "IssuanceTokenHourData" */
+  IssuanceTokenHourData_aggregate?: IssuanceTokenHourData_aggregateGenqlSelection & {
     __args?: {
       /** distinct select on columns */
       distinct_on?: IssuanceTokenHourData_select_column[] | null
@@ -5379,12 +10119,42 @@ export interface query_rootGenqlSelection {
       where?: ProjectFee_bool_exp | null
     }
   }
+  /** fetch aggregated fields from the table: "ProjectFee" */
+  ProjectFee_aggregate?: ProjectFee_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: ProjectFee_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: ProjectFee_order_by[] | null
+      /** filter the rows returned */
+      where?: ProjectFee_bool_exp | null
+    }
+  }
   /** fetch data from the table: "ProjectFee" using primary key columns */
   ProjectFee_by_pk?: ProjectFeeGenqlSelection & {
     __args: { id: Scalars['String'] }
   }
   /** fetch data from the table: "ProtocolFee" */
   ProtocolFee?: ProtocolFeeGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: ProtocolFee_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: ProtocolFee_order_by[] | null
+      /** filter the rows returned */
+      where?: ProtocolFee_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "ProtocolFee" */
+  ProtocolFee_aggregate?: ProtocolFee_aggregateGenqlSelection & {
     __args?: {
       /** distinct select on columns */
       distinct_on?: ProtocolFee_select_column[] | null
@@ -5453,10 +10223,40 @@ export interface query_rootGenqlSelection {
       where?: Token_bool_exp | null
     }
   }
+  /** fetch aggregated fields from the table: "Token" */
+  Token_aggregate?: Token_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: Token_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: Token_order_by[] | null
+      /** filter the rows returned */
+      where?: Token_bool_exp | null
+    }
+  }
   /** fetch data from the table: "Token" using primary key columns */
   Token_by_pk?: TokenGenqlSelection & { __args: { id: Scalars['String'] } }
   /** fetch data from the table: "Transfer" */
   Transfer?: TransferGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: Transfer_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: Transfer_order_by[] | null
+      /** filter the rows returned */
+      where?: Transfer_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "Transfer" */
+  Transfer_aggregate?: Transfer_aggregateGenqlSelection & {
     __args?: {
       /** distinct select on columns */
       distinct_on?: Transfer_select_column[] | null
@@ -5774,6 +10574,21 @@ export interface subscription_rootGenqlSelection {
       where?: BondingCurve_bool_exp | null
     }
   }
+  /** fetch aggregated fields from the table: "BondingCurve" */
+  BondingCurve_aggregate?: BondingCurve_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: BondingCurve_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: BondingCurve_order_by[] | null
+      /** filter the rows returned */
+      where?: BondingCurve_bool_exp | null
+    }
+  }
   /** fetch data from the table: "BondingCurve" using primary key columns */
   BondingCurve_by_pk?: BondingCurveGenqlSelection & {
     __args: { id: Scalars['String'] }
@@ -5806,6 +10621,21 @@ export interface subscription_rootGenqlSelection {
   }
   /** fetch data from the table: "BountyClaim" */
   BountyClaim?: BountyClaimGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: BountyClaim_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: BountyClaim_order_by[] | null
+      /** filter the rows returned */
+      where?: BountyClaim_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "BountyClaim" */
+  BountyClaim_aggregate?: BountyClaim_aggregateGenqlSelection & {
     __args?: {
       /** distinct select on columns */
       distinct_on?: BountyClaim_select_column[] | null
@@ -5894,6 +10724,21 @@ export interface subscription_rootGenqlSelection {
       where?: BountyModule_bool_exp | null
     }
   }
+  /** fetch aggregated fields from the table: "Bounty" */
+  Bounty_aggregate?: Bounty_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: Bounty_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: Bounty_order_by[] | null
+      /** filter the rows returned */
+      where?: Bounty_bool_exp | null
+    }
+  }
   /** fetch data from the table: "Bounty" using primary key columns */
   Bounty_by_pk?: BountyGenqlSelection & { __args: { id: Scalars['String'] } }
   /** fetch data from the table in a streaming manner: "Bounty" */
@@ -5909,6 +10754,21 @@ export interface subscription_rootGenqlSelection {
   }
   /** fetch data from the table: "CurveDayData" */
   CurveDayData?: CurveDayDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveDayData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveDayData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveDayData_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "CurveDayData" */
+  CurveDayData_aggregate?: CurveDayData_aggregateGenqlSelection & {
     __args?: {
       /** distinct select on columns */
       distinct_on?: CurveDayData_select_column[] | null
@@ -5939,6 +10799,21 @@ export interface subscription_rootGenqlSelection {
   }
   /** fetch data from the table: "CurveHourData" */
   CurveHourData?: CurveHourDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveHourData_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "CurveHourData" */
+  CurveHourData_aggregate?: CurveHourData_aggregateGenqlSelection & {
     __args?: {
       /** distinct select on columns */
       distinct_on?: CurveHourData_select_column[] | null
@@ -5997,6 +10872,21 @@ export interface subscription_rootGenqlSelection {
       where?: DepositVault_bool_exp | null
     }
   }
+  /** fetch aggregated fields from the table: "DepositVault" */
+  DepositVault_aggregate?: DepositVault_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: DepositVault_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: DepositVault_order_by[] | null
+      /** filter the rows returned */
+      where?: DepositVault_bool_exp | null
+    }
+  }
   /** fetch data from the table: "DepositVault" using primary key columns */
   DepositVault_by_pk?: DepositVaultGenqlSelection & {
     __args: { id: Scalars['String'] }
@@ -6010,6 +10900,21 @@ export interface subscription_rootGenqlSelection {
       cursor: (DepositVault_stream_cursor_input | null)[]
       /** filter the rows returned */
       where?: DepositVault_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "Deposit" */
+  Deposit_aggregate?: Deposit_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: Deposit_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: Deposit_order_by[] | null
+      /** filter the rows returned */
+      where?: Deposit_bool_exp | null
     }
   }
   /** fetch data from the table: "Deposit" using primary key columns */
@@ -6040,6 +10945,21 @@ export interface subscription_rootGenqlSelection {
       where?: IssuanceTokenDayData_bool_exp | null
     }
   }
+  /** fetch aggregated fields from the table: "IssuanceTokenDayData" */
+  IssuanceTokenDayData_aggregate?: IssuanceTokenDayData_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: IssuanceTokenDayData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: IssuanceTokenDayData_order_by[] | null
+      /** filter the rows returned */
+      where?: IssuanceTokenDayData_bool_exp | null
+    }
+  }
   /** fetch data from the table: "IssuanceTokenDayData" using primary key columns */
   IssuanceTokenDayData_by_pk?: IssuanceTokenDayDataGenqlSelection & {
     __args: { id: Scalars['String'] }
@@ -6057,6 +10977,21 @@ export interface subscription_rootGenqlSelection {
   }
   /** fetch data from the table: "IssuanceTokenHourData" */
   IssuanceTokenHourData?: IssuanceTokenHourDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: IssuanceTokenHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: IssuanceTokenHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: IssuanceTokenHourData_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "IssuanceTokenHourData" */
+  IssuanceTokenHourData_aggregate?: IssuanceTokenHourData_aggregateGenqlSelection & {
     __args?: {
       /** distinct select on columns */
       distinct_on?: IssuanceTokenHourData_select_column[] | null
@@ -6130,6 +11065,21 @@ export interface subscription_rootGenqlSelection {
       where?: ProjectFee_bool_exp | null
     }
   }
+  /** fetch aggregated fields from the table: "ProjectFee" */
+  ProjectFee_aggregate?: ProjectFee_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: ProjectFee_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: ProjectFee_order_by[] | null
+      /** filter the rows returned */
+      where?: ProjectFee_bool_exp | null
+    }
+  }
   /** fetch data from the table: "ProjectFee" using primary key columns */
   ProjectFee_by_pk?: ProjectFeeGenqlSelection & {
     __args: { id: Scalars['String'] }
@@ -6147,6 +11097,21 @@ export interface subscription_rootGenqlSelection {
   }
   /** fetch data from the table: "ProtocolFee" */
   ProtocolFee?: ProtocolFeeGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: ProtocolFee_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: ProtocolFee_order_by[] | null
+      /** filter the rows returned */
+      where?: ProtocolFee_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "ProtocolFee" */
+  ProtocolFee_aggregate?: ProtocolFee_aggregateGenqlSelection & {
     __args?: {
       /** distinct select on columns */
       distinct_on?: ProtocolFee_select_column[] | null
@@ -6248,6 +11213,21 @@ export interface subscription_rootGenqlSelection {
       where?: Token_bool_exp | null
     }
   }
+  /** fetch aggregated fields from the table: "Token" */
+  Token_aggregate?: Token_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: Token_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: Token_order_by[] | null
+      /** filter the rows returned */
+      where?: Token_bool_exp | null
+    }
+  }
   /** fetch data from the table: "Token" using primary key columns */
   Token_by_pk?: TokenGenqlSelection & { __args: { id: Scalars['String'] } }
   /** fetch data from the table in a streaming manner: "Token" */
@@ -6263,6 +11243,21 @@ export interface subscription_rootGenqlSelection {
   }
   /** fetch data from the table: "Transfer" */
   Transfer?: TransferGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: Transfer_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: Transfer_order_by[] | null
+      /** filter the rows returned */
+      where?: Transfer_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "Transfer" */
+  Transfer_aggregate?: Transfer_aggregateGenqlSelection & {
     __args?: {
       /** distinct select on columns */
       distinct_on?: Transfer_select_column[] | null
@@ -6629,6 +11624,144 @@ export const isBondingCurve = (
   return BondingCurve_possibleTypes.includes(obj.__typename)
 }
 
+const BondingCurve_aggregate_possibleTypes: string[] = [
+  'BondingCurve_aggregate',
+]
+export const isBondingCurve_aggregate = (
+  obj?: { __typename?: any } | null
+): obj is BondingCurve_aggregate => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBondingCurve_aggregate"')
+  return BondingCurve_aggregate_possibleTypes.includes(obj.__typename)
+}
+
+const BondingCurve_aggregate_fields_possibleTypes: string[] = [
+  'BondingCurve_aggregate_fields',
+]
+export const isBondingCurve_aggregate_fields = (
+  obj?: { __typename?: any } | null
+): obj is BondingCurve_aggregate_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isBondingCurve_aggregate_fields"'
+    )
+  return BondingCurve_aggregate_fields_possibleTypes.includes(obj.__typename)
+}
+
+const BondingCurve_avg_fields_possibleTypes: string[] = [
+  'BondingCurve_avg_fields',
+]
+export const isBondingCurve_avg_fields = (
+  obj?: { __typename?: any } | null
+): obj is BondingCurve_avg_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBondingCurve_avg_fields"')
+  return BondingCurve_avg_fields_possibleTypes.includes(obj.__typename)
+}
+
+const BondingCurve_max_fields_possibleTypes: string[] = [
+  'BondingCurve_max_fields',
+]
+export const isBondingCurve_max_fields = (
+  obj?: { __typename?: any } | null
+): obj is BondingCurve_max_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBondingCurve_max_fields"')
+  return BondingCurve_max_fields_possibleTypes.includes(obj.__typename)
+}
+
+const BondingCurve_min_fields_possibleTypes: string[] = [
+  'BondingCurve_min_fields',
+]
+export const isBondingCurve_min_fields = (
+  obj?: { __typename?: any } | null
+): obj is BondingCurve_min_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBondingCurve_min_fields"')
+  return BondingCurve_min_fields_possibleTypes.includes(obj.__typename)
+}
+
+const BondingCurve_stddev_fields_possibleTypes: string[] = [
+  'BondingCurve_stddev_fields',
+]
+export const isBondingCurve_stddev_fields = (
+  obj?: { __typename?: any } | null
+): obj is BondingCurve_stddev_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBondingCurve_stddev_fields"')
+  return BondingCurve_stddev_fields_possibleTypes.includes(obj.__typename)
+}
+
+const BondingCurve_stddev_pop_fields_possibleTypes: string[] = [
+  'BondingCurve_stddev_pop_fields',
+]
+export const isBondingCurve_stddev_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is BondingCurve_stddev_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isBondingCurve_stddev_pop_fields"'
+    )
+  return BondingCurve_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const BondingCurve_stddev_samp_fields_possibleTypes: string[] = [
+  'BondingCurve_stddev_samp_fields',
+]
+export const isBondingCurve_stddev_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is BondingCurve_stddev_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isBondingCurve_stddev_samp_fields"'
+    )
+  return BondingCurve_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const BondingCurve_sum_fields_possibleTypes: string[] = [
+  'BondingCurve_sum_fields',
+]
+export const isBondingCurve_sum_fields = (
+  obj?: { __typename?: any } | null
+): obj is BondingCurve_sum_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBondingCurve_sum_fields"')
+  return BondingCurve_sum_fields_possibleTypes.includes(obj.__typename)
+}
+
+const BondingCurve_var_pop_fields_possibleTypes: string[] = [
+  'BondingCurve_var_pop_fields',
+]
+export const isBondingCurve_var_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is BondingCurve_var_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBondingCurve_var_pop_fields"')
+  return BondingCurve_var_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const BondingCurve_var_samp_fields_possibleTypes: string[] = [
+  'BondingCurve_var_samp_fields',
+]
+export const isBondingCurve_var_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is BondingCurve_var_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBondingCurve_var_samp_fields"')
+  return BondingCurve_var_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const BondingCurve_variance_fields_possibleTypes: string[] = [
+  'BondingCurve_variance_fields',
+]
+export const isBondingCurve_variance_fields = (
+  obj?: { __typename?: any } | null
+): obj is BondingCurve_variance_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBondingCurve_variance_fields"')
+  return BondingCurve_variance_fields_possibleTypes.includes(obj.__typename)
+}
+
 const Bounty_possibleTypes: string[] = ['Bounty']
 export const isBounty = (obj?: { __typename?: any } | null): obj is Bounty => {
   if (!obj?.__typename) throw new Error('__typename is missing in "isBounty"')
@@ -6642,6 +11775,48 @@ export const isBountyClaim = (
   if (!obj?.__typename)
     throw new Error('__typename is missing in "isBountyClaim"')
   return BountyClaim_possibleTypes.includes(obj.__typename)
+}
+
+const BountyClaim_aggregate_possibleTypes: string[] = ['BountyClaim_aggregate']
+export const isBountyClaim_aggregate = (
+  obj?: { __typename?: any } | null
+): obj is BountyClaim_aggregate => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBountyClaim_aggregate"')
+  return BountyClaim_aggregate_possibleTypes.includes(obj.__typename)
+}
+
+const BountyClaim_aggregate_fields_possibleTypes: string[] = [
+  'BountyClaim_aggregate_fields',
+]
+export const isBountyClaim_aggregate_fields = (
+  obj?: { __typename?: any } | null
+): obj is BountyClaim_aggregate_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBountyClaim_aggregate_fields"')
+  return BountyClaim_aggregate_fields_possibleTypes.includes(obj.__typename)
+}
+
+const BountyClaim_max_fields_possibleTypes: string[] = [
+  'BountyClaim_max_fields',
+]
+export const isBountyClaim_max_fields = (
+  obj?: { __typename?: any } | null
+): obj is BountyClaim_max_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBountyClaim_max_fields"')
+  return BountyClaim_max_fields_possibleTypes.includes(obj.__typename)
+}
+
+const BountyClaim_min_fields_possibleTypes: string[] = [
+  'BountyClaim_min_fields',
+]
+export const isBountyClaim_min_fields = (
+  obj?: { __typename?: any } | null
+): obj is BountyClaim_min_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBountyClaim_min_fields"')
+  return BountyClaim_min_fields_possibleTypes.includes(obj.__typename)
 }
 
 const BountyContributor_possibleTypes: string[] = ['BountyContributor']
@@ -6662,6 +11837,124 @@ export const isBountyModule = (
   return BountyModule_possibleTypes.includes(obj.__typename)
 }
 
+const Bounty_aggregate_possibleTypes: string[] = ['Bounty_aggregate']
+export const isBounty_aggregate = (
+  obj?: { __typename?: any } | null
+): obj is Bounty_aggregate => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBounty_aggregate"')
+  return Bounty_aggregate_possibleTypes.includes(obj.__typename)
+}
+
+const Bounty_aggregate_fields_possibleTypes: string[] = [
+  'Bounty_aggregate_fields',
+]
+export const isBounty_aggregate_fields = (
+  obj?: { __typename?: any } | null
+): obj is Bounty_aggregate_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBounty_aggregate_fields"')
+  return Bounty_aggregate_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Bounty_avg_fields_possibleTypes: string[] = ['Bounty_avg_fields']
+export const isBounty_avg_fields = (
+  obj?: { __typename?: any } | null
+): obj is Bounty_avg_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBounty_avg_fields"')
+  return Bounty_avg_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Bounty_max_fields_possibleTypes: string[] = ['Bounty_max_fields']
+export const isBounty_max_fields = (
+  obj?: { __typename?: any } | null
+): obj is Bounty_max_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBounty_max_fields"')
+  return Bounty_max_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Bounty_min_fields_possibleTypes: string[] = ['Bounty_min_fields']
+export const isBounty_min_fields = (
+  obj?: { __typename?: any } | null
+): obj is Bounty_min_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBounty_min_fields"')
+  return Bounty_min_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Bounty_stddev_fields_possibleTypes: string[] = ['Bounty_stddev_fields']
+export const isBounty_stddev_fields = (
+  obj?: { __typename?: any } | null
+): obj is Bounty_stddev_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBounty_stddev_fields"')
+  return Bounty_stddev_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Bounty_stddev_pop_fields_possibleTypes: string[] = [
+  'Bounty_stddev_pop_fields',
+]
+export const isBounty_stddev_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is Bounty_stddev_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBounty_stddev_pop_fields"')
+  return Bounty_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Bounty_stddev_samp_fields_possibleTypes: string[] = [
+  'Bounty_stddev_samp_fields',
+]
+export const isBounty_stddev_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is Bounty_stddev_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBounty_stddev_samp_fields"')
+  return Bounty_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Bounty_sum_fields_possibleTypes: string[] = ['Bounty_sum_fields']
+export const isBounty_sum_fields = (
+  obj?: { __typename?: any } | null
+): obj is Bounty_sum_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBounty_sum_fields"')
+  return Bounty_sum_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Bounty_var_pop_fields_possibleTypes: string[] = ['Bounty_var_pop_fields']
+export const isBounty_var_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is Bounty_var_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBounty_var_pop_fields"')
+  return Bounty_var_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Bounty_var_samp_fields_possibleTypes: string[] = [
+  'Bounty_var_samp_fields',
+]
+export const isBounty_var_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is Bounty_var_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBounty_var_samp_fields"')
+  return Bounty_var_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Bounty_variance_fields_possibleTypes: string[] = [
+  'Bounty_variance_fields',
+]
+export const isBounty_variance_fields = (
+  obj?: { __typename?: any } | null
+): obj is Bounty_variance_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBounty_variance_fields"')
+  return Bounty_variance_fields_possibleTypes.includes(obj.__typename)
+}
+
 const CurveDayData_possibleTypes: string[] = ['CurveDayData']
 export const isCurveDayData = (
   obj?: { __typename?: any } | null
@@ -6671,6 +11964,144 @@ export const isCurveDayData = (
   return CurveDayData_possibleTypes.includes(obj.__typename)
 }
 
+const CurveDayData_aggregate_possibleTypes: string[] = [
+  'CurveDayData_aggregate',
+]
+export const isCurveDayData_aggregate = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_aggregate => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveDayData_aggregate"')
+  return CurveDayData_aggregate_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_aggregate_fields_possibleTypes: string[] = [
+  'CurveDayData_aggregate_fields',
+]
+export const isCurveDayData_aggregate_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_aggregate_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isCurveDayData_aggregate_fields"'
+    )
+  return CurveDayData_aggregate_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_avg_fields_possibleTypes: string[] = [
+  'CurveDayData_avg_fields',
+]
+export const isCurveDayData_avg_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_avg_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveDayData_avg_fields"')
+  return CurveDayData_avg_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_max_fields_possibleTypes: string[] = [
+  'CurveDayData_max_fields',
+]
+export const isCurveDayData_max_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_max_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveDayData_max_fields"')
+  return CurveDayData_max_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_min_fields_possibleTypes: string[] = [
+  'CurveDayData_min_fields',
+]
+export const isCurveDayData_min_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_min_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveDayData_min_fields"')
+  return CurveDayData_min_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_stddev_fields_possibleTypes: string[] = [
+  'CurveDayData_stddev_fields',
+]
+export const isCurveDayData_stddev_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_stddev_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveDayData_stddev_fields"')
+  return CurveDayData_stddev_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_stddev_pop_fields_possibleTypes: string[] = [
+  'CurveDayData_stddev_pop_fields',
+]
+export const isCurveDayData_stddev_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_stddev_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isCurveDayData_stddev_pop_fields"'
+    )
+  return CurveDayData_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_stddev_samp_fields_possibleTypes: string[] = [
+  'CurveDayData_stddev_samp_fields',
+]
+export const isCurveDayData_stddev_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_stddev_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isCurveDayData_stddev_samp_fields"'
+    )
+  return CurveDayData_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_sum_fields_possibleTypes: string[] = [
+  'CurveDayData_sum_fields',
+]
+export const isCurveDayData_sum_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_sum_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveDayData_sum_fields"')
+  return CurveDayData_sum_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_var_pop_fields_possibleTypes: string[] = [
+  'CurveDayData_var_pop_fields',
+]
+export const isCurveDayData_var_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_var_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveDayData_var_pop_fields"')
+  return CurveDayData_var_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_var_samp_fields_possibleTypes: string[] = [
+  'CurveDayData_var_samp_fields',
+]
+export const isCurveDayData_var_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_var_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveDayData_var_samp_fields"')
+  return CurveDayData_var_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveDayData_variance_fields_possibleTypes: string[] = [
+  'CurveDayData_variance_fields',
+]
+export const isCurveDayData_variance_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveDayData_variance_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveDayData_variance_fields"')
+  return CurveDayData_variance_fields_possibleTypes.includes(obj.__typename)
+}
+
 const CurveHourData_possibleTypes: string[] = ['CurveHourData']
 export const isCurveHourData = (
   obj?: { __typename?: any } | null
@@ -6678,6 +12109,148 @@ export const isCurveHourData = (
   if (!obj?.__typename)
     throw new Error('__typename is missing in "isCurveHourData"')
   return CurveHourData_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_aggregate_possibleTypes: string[] = [
+  'CurveHourData_aggregate',
+]
+export const isCurveHourData_aggregate = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_aggregate => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveHourData_aggregate"')
+  return CurveHourData_aggregate_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_aggregate_fields_possibleTypes: string[] = [
+  'CurveHourData_aggregate_fields',
+]
+export const isCurveHourData_aggregate_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_aggregate_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isCurveHourData_aggregate_fields"'
+    )
+  return CurveHourData_aggregate_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_avg_fields_possibleTypes: string[] = [
+  'CurveHourData_avg_fields',
+]
+export const isCurveHourData_avg_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_avg_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveHourData_avg_fields"')
+  return CurveHourData_avg_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_max_fields_possibleTypes: string[] = [
+  'CurveHourData_max_fields',
+]
+export const isCurveHourData_max_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_max_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveHourData_max_fields"')
+  return CurveHourData_max_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_min_fields_possibleTypes: string[] = [
+  'CurveHourData_min_fields',
+]
+export const isCurveHourData_min_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_min_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveHourData_min_fields"')
+  return CurveHourData_min_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_stddev_fields_possibleTypes: string[] = [
+  'CurveHourData_stddev_fields',
+]
+export const isCurveHourData_stddev_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_stddev_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveHourData_stddev_fields"')
+  return CurveHourData_stddev_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_stddev_pop_fields_possibleTypes: string[] = [
+  'CurveHourData_stddev_pop_fields',
+]
+export const isCurveHourData_stddev_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_stddev_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isCurveHourData_stddev_pop_fields"'
+    )
+  return CurveHourData_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_stddev_samp_fields_possibleTypes: string[] = [
+  'CurveHourData_stddev_samp_fields',
+]
+export const isCurveHourData_stddev_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_stddev_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isCurveHourData_stddev_samp_fields"'
+    )
+  return CurveHourData_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_sum_fields_possibleTypes: string[] = [
+  'CurveHourData_sum_fields',
+]
+export const isCurveHourData_sum_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_sum_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveHourData_sum_fields"')
+  return CurveHourData_sum_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_var_pop_fields_possibleTypes: string[] = [
+  'CurveHourData_var_pop_fields',
+]
+export const isCurveHourData_var_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_var_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isCurveHourData_var_pop_fields"')
+  return CurveHourData_var_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_var_samp_fields_possibleTypes: string[] = [
+  'CurveHourData_var_samp_fields',
+]
+export const isCurveHourData_var_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_var_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isCurveHourData_var_samp_fields"'
+    )
+  return CurveHourData_var_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const CurveHourData_variance_fields_possibleTypes: string[] = [
+  'CurveHourData_variance_fields',
+]
+export const isCurveHourData_variance_fields = (
+  obj?: { __typename?: any } | null
+): obj is CurveHourData_variance_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isCurveHourData_variance_fields"'
+    )
+  return CurveHourData_variance_fields_possibleTypes.includes(obj.__typename)
 }
 
 const Deposit_possibleTypes: string[] = ['Deposit']
@@ -6697,6 +12270,264 @@ export const isDepositVault = (
   return DepositVault_possibleTypes.includes(obj.__typename)
 }
 
+const DepositVault_aggregate_possibleTypes: string[] = [
+  'DepositVault_aggregate',
+]
+export const isDepositVault_aggregate = (
+  obj?: { __typename?: any } | null
+): obj is DepositVault_aggregate => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDepositVault_aggregate"')
+  return DepositVault_aggregate_possibleTypes.includes(obj.__typename)
+}
+
+const DepositVault_aggregate_fields_possibleTypes: string[] = [
+  'DepositVault_aggregate_fields',
+]
+export const isDepositVault_aggregate_fields = (
+  obj?: { __typename?: any } | null
+): obj is DepositVault_aggregate_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isDepositVault_aggregate_fields"'
+    )
+  return DepositVault_aggregate_fields_possibleTypes.includes(obj.__typename)
+}
+
+const DepositVault_avg_fields_possibleTypes: string[] = [
+  'DepositVault_avg_fields',
+]
+export const isDepositVault_avg_fields = (
+  obj?: { __typename?: any } | null
+): obj is DepositVault_avg_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDepositVault_avg_fields"')
+  return DepositVault_avg_fields_possibleTypes.includes(obj.__typename)
+}
+
+const DepositVault_max_fields_possibleTypes: string[] = [
+  'DepositVault_max_fields',
+]
+export const isDepositVault_max_fields = (
+  obj?: { __typename?: any } | null
+): obj is DepositVault_max_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDepositVault_max_fields"')
+  return DepositVault_max_fields_possibleTypes.includes(obj.__typename)
+}
+
+const DepositVault_min_fields_possibleTypes: string[] = [
+  'DepositVault_min_fields',
+]
+export const isDepositVault_min_fields = (
+  obj?: { __typename?: any } | null
+): obj is DepositVault_min_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDepositVault_min_fields"')
+  return DepositVault_min_fields_possibleTypes.includes(obj.__typename)
+}
+
+const DepositVault_stddev_fields_possibleTypes: string[] = [
+  'DepositVault_stddev_fields',
+]
+export const isDepositVault_stddev_fields = (
+  obj?: { __typename?: any } | null
+): obj is DepositVault_stddev_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDepositVault_stddev_fields"')
+  return DepositVault_stddev_fields_possibleTypes.includes(obj.__typename)
+}
+
+const DepositVault_stddev_pop_fields_possibleTypes: string[] = [
+  'DepositVault_stddev_pop_fields',
+]
+export const isDepositVault_stddev_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is DepositVault_stddev_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isDepositVault_stddev_pop_fields"'
+    )
+  return DepositVault_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const DepositVault_stddev_samp_fields_possibleTypes: string[] = [
+  'DepositVault_stddev_samp_fields',
+]
+export const isDepositVault_stddev_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is DepositVault_stddev_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isDepositVault_stddev_samp_fields"'
+    )
+  return DepositVault_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const DepositVault_sum_fields_possibleTypes: string[] = [
+  'DepositVault_sum_fields',
+]
+export const isDepositVault_sum_fields = (
+  obj?: { __typename?: any } | null
+): obj is DepositVault_sum_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDepositVault_sum_fields"')
+  return DepositVault_sum_fields_possibleTypes.includes(obj.__typename)
+}
+
+const DepositVault_var_pop_fields_possibleTypes: string[] = [
+  'DepositVault_var_pop_fields',
+]
+export const isDepositVault_var_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is DepositVault_var_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDepositVault_var_pop_fields"')
+  return DepositVault_var_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const DepositVault_var_samp_fields_possibleTypes: string[] = [
+  'DepositVault_var_samp_fields',
+]
+export const isDepositVault_var_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is DepositVault_var_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDepositVault_var_samp_fields"')
+  return DepositVault_var_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const DepositVault_variance_fields_possibleTypes: string[] = [
+  'DepositVault_variance_fields',
+]
+export const isDepositVault_variance_fields = (
+  obj?: { __typename?: any } | null
+): obj is DepositVault_variance_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDepositVault_variance_fields"')
+  return DepositVault_variance_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Deposit_aggregate_possibleTypes: string[] = ['Deposit_aggregate']
+export const isDeposit_aggregate = (
+  obj?: { __typename?: any } | null
+): obj is Deposit_aggregate => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDeposit_aggregate"')
+  return Deposit_aggregate_possibleTypes.includes(obj.__typename)
+}
+
+const Deposit_aggregate_fields_possibleTypes: string[] = [
+  'Deposit_aggregate_fields',
+]
+export const isDeposit_aggregate_fields = (
+  obj?: { __typename?: any } | null
+): obj is Deposit_aggregate_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDeposit_aggregate_fields"')
+  return Deposit_aggregate_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Deposit_avg_fields_possibleTypes: string[] = ['Deposit_avg_fields']
+export const isDeposit_avg_fields = (
+  obj?: { __typename?: any } | null
+): obj is Deposit_avg_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDeposit_avg_fields"')
+  return Deposit_avg_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Deposit_max_fields_possibleTypes: string[] = ['Deposit_max_fields']
+export const isDeposit_max_fields = (
+  obj?: { __typename?: any } | null
+): obj is Deposit_max_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDeposit_max_fields"')
+  return Deposit_max_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Deposit_min_fields_possibleTypes: string[] = ['Deposit_min_fields']
+export const isDeposit_min_fields = (
+  obj?: { __typename?: any } | null
+): obj is Deposit_min_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDeposit_min_fields"')
+  return Deposit_min_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Deposit_stddev_fields_possibleTypes: string[] = ['Deposit_stddev_fields']
+export const isDeposit_stddev_fields = (
+  obj?: { __typename?: any } | null
+): obj is Deposit_stddev_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDeposit_stddev_fields"')
+  return Deposit_stddev_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Deposit_stddev_pop_fields_possibleTypes: string[] = [
+  'Deposit_stddev_pop_fields',
+]
+export const isDeposit_stddev_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is Deposit_stddev_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDeposit_stddev_pop_fields"')
+  return Deposit_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Deposit_stddev_samp_fields_possibleTypes: string[] = [
+  'Deposit_stddev_samp_fields',
+]
+export const isDeposit_stddev_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is Deposit_stddev_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDeposit_stddev_samp_fields"')
+  return Deposit_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Deposit_sum_fields_possibleTypes: string[] = ['Deposit_sum_fields']
+export const isDeposit_sum_fields = (
+  obj?: { __typename?: any } | null
+): obj is Deposit_sum_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDeposit_sum_fields"')
+  return Deposit_sum_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Deposit_var_pop_fields_possibleTypes: string[] = [
+  'Deposit_var_pop_fields',
+]
+export const isDeposit_var_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is Deposit_var_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDeposit_var_pop_fields"')
+  return Deposit_var_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Deposit_var_samp_fields_possibleTypes: string[] = [
+  'Deposit_var_samp_fields',
+]
+export const isDeposit_var_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is Deposit_var_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDeposit_var_samp_fields"')
+  return Deposit_var_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Deposit_variance_fields_possibleTypes: string[] = [
+  'Deposit_variance_fields',
+]
+export const isDeposit_variance_fields = (
+  obj?: { __typename?: any } | null
+): obj is Deposit_variance_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isDeposit_variance_fields"')
+  return Deposit_variance_fields_possibleTypes.includes(obj.__typename)
+}
+
 const IssuanceTokenDayData_possibleTypes: string[] = ['IssuanceTokenDayData']
 export const isIssuanceTokenDayData = (
   obj?: { __typename?: any } | null
@@ -6706,6 +12537,176 @@ export const isIssuanceTokenDayData = (
   return IssuanceTokenDayData_possibleTypes.includes(obj.__typename)
 }
 
+const IssuanceTokenDayData_aggregate_possibleTypes: string[] = [
+  'IssuanceTokenDayData_aggregate',
+]
+export const isIssuanceTokenDayData_aggregate = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenDayData_aggregate => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenDayData_aggregate"'
+    )
+  return IssuanceTokenDayData_aggregate_possibleTypes.includes(obj.__typename)
+}
+
+const IssuanceTokenDayData_aggregate_fields_possibleTypes: string[] = [
+  'IssuanceTokenDayData_aggregate_fields',
+]
+export const isIssuanceTokenDayData_aggregate_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenDayData_aggregate_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenDayData_aggregate_fields"'
+    )
+  return IssuanceTokenDayData_aggregate_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const IssuanceTokenDayData_avg_fields_possibleTypes: string[] = [
+  'IssuanceTokenDayData_avg_fields',
+]
+export const isIssuanceTokenDayData_avg_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenDayData_avg_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenDayData_avg_fields"'
+    )
+  return IssuanceTokenDayData_avg_fields_possibleTypes.includes(obj.__typename)
+}
+
+const IssuanceTokenDayData_max_fields_possibleTypes: string[] = [
+  'IssuanceTokenDayData_max_fields',
+]
+export const isIssuanceTokenDayData_max_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenDayData_max_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenDayData_max_fields"'
+    )
+  return IssuanceTokenDayData_max_fields_possibleTypes.includes(obj.__typename)
+}
+
+const IssuanceTokenDayData_min_fields_possibleTypes: string[] = [
+  'IssuanceTokenDayData_min_fields',
+]
+export const isIssuanceTokenDayData_min_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenDayData_min_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenDayData_min_fields"'
+    )
+  return IssuanceTokenDayData_min_fields_possibleTypes.includes(obj.__typename)
+}
+
+const IssuanceTokenDayData_stddev_fields_possibleTypes: string[] = [
+  'IssuanceTokenDayData_stddev_fields',
+]
+export const isIssuanceTokenDayData_stddev_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenDayData_stddev_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenDayData_stddev_fields"'
+    )
+  return IssuanceTokenDayData_stddev_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const IssuanceTokenDayData_stddev_pop_fields_possibleTypes: string[] = [
+  'IssuanceTokenDayData_stddev_pop_fields',
+]
+export const isIssuanceTokenDayData_stddev_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenDayData_stddev_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenDayData_stddev_pop_fields"'
+    )
+  return IssuanceTokenDayData_stddev_pop_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const IssuanceTokenDayData_stddev_samp_fields_possibleTypes: string[] = [
+  'IssuanceTokenDayData_stddev_samp_fields',
+]
+export const isIssuanceTokenDayData_stddev_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenDayData_stddev_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenDayData_stddev_samp_fields"'
+    )
+  return IssuanceTokenDayData_stddev_samp_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const IssuanceTokenDayData_sum_fields_possibleTypes: string[] = [
+  'IssuanceTokenDayData_sum_fields',
+]
+export const isIssuanceTokenDayData_sum_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenDayData_sum_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenDayData_sum_fields"'
+    )
+  return IssuanceTokenDayData_sum_fields_possibleTypes.includes(obj.__typename)
+}
+
+const IssuanceTokenDayData_var_pop_fields_possibleTypes: string[] = [
+  'IssuanceTokenDayData_var_pop_fields',
+]
+export const isIssuanceTokenDayData_var_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenDayData_var_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenDayData_var_pop_fields"'
+    )
+  return IssuanceTokenDayData_var_pop_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const IssuanceTokenDayData_var_samp_fields_possibleTypes: string[] = [
+  'IssuanceTokenDayData_var_samp_fields',
+]
+export const isIssuanceTokenDayData_var_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenDayData_var_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenDayData_var_samp_fields"'
+    )
+  return IssuanceTokenDayData_var_samp_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const IssuanceTokenDayData_variance_fields_possibleTypes: string[] = [
+  'IssuanceTokenDayData_variance_fields',
+]
+export const isIssuanceTokenDayData_variance_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenDayData_variance_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenDayData_variance_fields"'
+    )
+  return IssuanceTokenDayData_variance_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
 const IssuanceTokenHourData_possibleTypes: string[] = ['IssuanceTokenHourData']
 export const isIssuanceTokenHourData = (
   obj?: { __typename?: any } | null
@@ -6713,6 +12714,176 @@ export const isIssuanceTokenHourData = (
   if (!obj?.__typename)
     throw new Error('__typename is missing in "isIssuanceTokenHourData"')
   return IssuanceTokenHourData_possibleTypes.includes(obj.__typename)
+}
+
+const IssuanceTokenHourData_aggregate_possibleTypes: string[] = [
+  'IssuanceTokenHourData_aggregate',
+]
+export const isIssuanceTokenHourData_aggregate = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenHourData_aggregate => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenHourData_aggregate"'
+    )
+  return IssuanceTokenHourData_aggregate_possibleTypes.includes(obj.__typename)
+}
+
+const IssuanceTokenHourData_aggregate_fields_possibleTypes: string[] = [
+  'IssuanceTokenHourData_aggregate_fields',
+]
+export const isIssuanceTokenHourData_aggregate_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenHourData_aggregate_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenHourData_aggregate_fields"'
+    )
+  return IssuanceTokenHourData_aggregate_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const IssuanceTokenHourData_avg_fields_possibleTypes: string[] = [
+  'IssuanceTokenHourData_avg_fields',
+]
+export const isIssuanceTokenHourData_avg_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenHourData_avg_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenHourData_avg_fields"'
+    )
+  return IssuanceTokenHourData_avg_fields_possibleTypes.includes(obj.__typename)
+}
+
+const IssuanceTokenHourData_max_fields_possibleTypes: string[] = [
+  'IssuanceTokenHourData_max_fields',
+]
+export const isIssuanceTokenHourData_max_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenHourData_max_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenHourData_max_fields"'
+    )
+  return IssuanceTokenHourData_max_fields_possibleTypes.includes(obj.__typename)
+}
+
+const IssuanceTokenHourData_min_fields_possibleTypes: string[] = [
+  'IssuanceTokenHourData_min_fields',
+]
+export const isIssuanceTokenHourData_min_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenHourData_min_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenHourData_min_fields"'
+    )
+  return IssuanceTokenHourData_min_fields_possibleTypes.includes(obj.__typename)
+}
+
+const IssuanceTokenHourData_stddev_fields_possibleTypes: string[] = [
+  'IssuanceTokenHourData_stddev_fields',
+]
+export const isIssuanceTokenHourData_stddev_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenHourData_stddev_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenHourData_stddev_fields"'
+    )
+  return IssuanceTokenHourData_stddev_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const IssuanceTokenHourData_stddev_pop_fields_possibleTypes: string[] = [
+  'IssuanceTokenHourData_stddev_pop_fields',
+]
+export const isIssuanceTokenHourData_stddev_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenHourData_stddev_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenHourData_stddev_pop_fields"'
+    )
+  return IssuanceTokenHourData_stddev_pop_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const IssuanceTokenHourData_stddev_samp_fields_possibleTypes: string[] = [
+  'IssuanceTokenHourData_stddev_samp_fields',
+]
+export const isIssuanceTokenHourData_stddev_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenHourData_stddev_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenHourData_stddev_samp_fields"'
+    )
+  return IssuanceTokenHourData_stddev_samp_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const IssuanceTokenHourData_sum_fields_possibleTypes: string[] = [
+  'IssuanceTokenHourData_sum_fields',
+]
+export const isIssuanceTokenHourData_sum_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenHourData_sum_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenHourData_sum_fields"'
+    )
+  return IssuanceTokenHourData_sum_fields_possibleTypes.includes(obj.__typename)
+}
+
+const IssuanceTokenHourData_var_pop_fields_possibleTypes: string[] = [
+  'IssuanceTokenHourData_var_pop_fields',
+]
+export const isIssuanceTokenHourData_var_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenHourData_var_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenHourData_var_pop_fields"'
+    )
+  return IssuanceTokenHourData_var_pop_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const IssuanceTokenHourData_var_samp_fields_possibleTypes: string[] = [
+  'IssuanceTokenHourData_var_samp_fields',
+]
+export const isIssuanceTokenHourData_var_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenHourData_var_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenHourData_var_samp_fields"'
+    )
+  return IssuanceTokenHourData_var_samp_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const IssuanceTokenHourData_variance_fields_possibleTypes: string[] = [
+  'IssuanceTokenHourData_variance_fields',
+]
+export const isIssuanceTokenHourData_variance_fields = (
+  obj?: { __typename?: any } | null
+): obj is IssuanceTokenHourData_variance_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isIssuanceTokenHourData_variance_fields"'
+    )
+  return IssuanceTokenHourData_variance_fields_possibleTypes.includes(
+    obj.__typename
+  )
 }
 
 const LinearVesting_possibleTypes: string[] = ['LinearVesting']
@@ -6733,6 +12904,130 @@ export const isProjectFee = (
   return ProjectFee_possibleTypes.includes(obj.__typename)
 }
 
+const ProjectFee_aggregate_possibleTypes: string[] = ['ProjectFee_aggregate']
+export const isProjectFee_aggregate = (
+  obj?: { __typename?: any } | null
+): obj is ProjectFee_aggregate => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProjectFee_aggregate"')
+  return ProjectFee_aggregate_possibleTypes.includes(obj.__typename)
+}
+
+const ProjectFee_aggregate_fields_possibleTypes: string[] = [
+  'ProjectFee_aggregate_fields',
+]
+export const isProjectFee_aggregate_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProjectFee_aggregate_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProjectFee_aggregate_fields"')
+  return ProjectFee_aggregate_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProjectFee_avg_fields_possibleTypes: string[] = ['ProjectFee_avg_fields']
+export const isProjectFee_avg_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProjectFee_avg_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProjectFee_avg_fields"')
+  return ProjectFee_avg_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProjectFee_max_fields_possibleTypes: string[] = ['ProjectFee_max_fields']
+export const isProjectFee_max_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProjectFee_max_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProjectFee_max_fields"')
+  return ProjectFee_max_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProjectFee_min_fields_possibleTypes: string[] = ['ProjectFee_min_fields']
+export const isProjectFee_min_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProjectFee_min_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProjectFee_min_fields"')
+  return ProjectFee_min_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProjectFee_stddev_fields_possibleTypes: string[] = [
+  'ProjectFee_stddev_fields',
+]
+export const isProjectFee_stddev_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProjectFee_stddev_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProjectFee_stddev_fields"')
+  return ProjectFee_stddev_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProjectFee_stddev_pop_fields_possibleTypes: string[] = [
+  'ProjectFee_stddev_pop_fields',
+]
+export const isProjectFee_stddev_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProjectFee_stddev_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProjectFee_stddev_pop_fields"')
+  return ProjectFee_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProjectFee_stddev_samp_fields_possibleTypes: string[] = [
+  'ProjectFee_stddev_samp_fields',
+]
+export const isProjectFee_stddev_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProjectFee_stddev_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isProjectFee_stddev_samp_fields"'
+    )
+  return ProjectFee_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProjectFee_sum_fields_possibleTypes: string[] = ['ProjectFee_sum_fields']
+export const isProjectFee_sum_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProjectFee_sum_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProjectFee_sum_fields"')
+  return ProjectFee_sum_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProjectFee_var_pop_fields_possibleTypes: string[] = [
+  'ProjectFee_var_pop_fields',
+]
+export const isProjectFee_var_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProjectFee_var_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProjectFee_var_pop_fields"')
+  return ProjectFee_var_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProjectFee_var_samp_fields_possibleTypes: string[] = [
+  'ProjectFee_var_samp_fields',
+]
+export const isProjectFee_var_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProjectFee_var_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProjectFee_var_samp_fields"')
+  return ProjectFee_var_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProjectFee_variance_fields_possibleTypes: string[] = [
+  'ProjectFee_variance_fields',
+]
+export const isProjectFee_variance_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProjectFee_variance_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProjectFee_variance_fields"')
+  return ProjectFee_variance_fields_possibleTypes.includes(obj.__typename)
+}
+
 const ProtocolFee_possibleTypes: string[] = ['ProtocolFee']
 export const isProtocolFee = (
   obj?: { __typename?: any } | null
@@ -6740,6 +13035,140 @@ export const isProtocolFee = (
   if (!obj?.__typename)
     throw new Error('__typename is missing in "isProtocolFee"')
   return ProtocolFee_possibleTypes.includes(obj.__typename)
+}
+
+const ProtocolFee_aggregate_possibleTypes: string[] = ['ProtocolFee_aggregate']
+export const isProtocolFee_aggregate = (
+  obj?: { __typename?: any } | null
+): obj is ProtocolFee_aggregate => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProtocolFee_aggregate"')
+  return ProtocolFee_aggregate_possibleTypes.includes(obj.__typename)
+}
+
+const ProtocolFee_aggregate_fields_possibleTypes: string[] = [
+  'ProtocolFee_aggregate_fields',
+]
+export const isProtocolFee_aggregate_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProtocolFee_aggregate_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProtocolFee_aggregate_fields"')
+  return ProtocolFee_aggregate_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProtocolFee_avg_fields_possibleTypes: string[] = [
+  'ProtocolFee_avg_fields',
+]
+export const isProtocolFee_avg_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProtocolFee_avg_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProtocolFee_avg_fields"')
+  return ProtocolFee_avg_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProtocolFee_max_fields_possibleTypes: string[] = [
+  'ProtocolFee_max_fields',
+]
+export const isProtocolFee_max_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProtocolFee_max_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProtocolFee_max_fields"')
+  return ProtocolFee_max_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProtocolFee_min_fields_possibleTypes: string[] = [
+  'ProtocolFee_min_fields',
+]
+export const isProtocolFee_min_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProtocolFee_min_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProtocolFee_min_fields"')
+  return ProtocolFee_min_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProtocolFee_stddev_fields_possibleTypes: string[] = [
+  'ProtocolFee_stddev_fields',
+]
+export const isProtocolFee_stddev_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProtocolFee_stddev_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProtocolFee_stddev_fields"')
+  return ProtocolFee_stddev_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProtocolFee_stddev_pop_fields_possibleTypes: string[] = [
+  'ProtocolFee_stddev_pop_fields',
+]
+export const isProtocolFee_stddev_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProtocolFee_stddev_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isProtocolFee_stddev_pop_fields"'
+    )
+  return ProtocolFee_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProtocolFee_stddev_samp_fields_possibleTypes: string[] = [
+  'ProtocolFee_stddev_samp_fields',
+]
+export const isProtocolFee_stddev_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProtocolFee_stddev_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isProtocolFee_stddev_samp_fields"'
+    )
+  return ProtocolFee_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProtocolFee_sum_fields_possibleTypes: string[] = [
+  'ProtocolFee_sum_fields',
+]
+export const isProtocolFee_sum_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProtocolFee_sum_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProtocolFee_sum_fields"')
+  return ProtocolFee_sum_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProtocolFee_var_pop_fields_possibleTypes: string[] = [
+  'ProtocolFee_var_pop_fields',
+]
+export const isProtocolFee_var_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProtocolFee_var_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProtocolFee_var_pop_fields"')
+  return ProtocolFee_var_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProtocolFee_var_samp_fields_possibleTypes: string[] = [
+  'ProtocolFee_var_samp_fields',
+]
+export const isProtocolFee_var_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProtocolFee_var_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProtocolFee_var_samp_fields"')
+  return ProtocolFee_var_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const ProtocolFee_variance_fields_possibleTypes: string[] = [
+  'ProtocolFee_variance_fields',
+]
+export const isProtocolFee_variance_fields = (
+  obj?: { __typename?: any } | null
+): obj is ProtocolFee_variance_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isProtocolFee_variance_fields"')
+  return ProtocolFee_variance_fields_possibleTypes.includes(obj.__typename)
 }
 
 const StreamingPaymentProcessor_possibleTypes: string[] = [
@@ -6765,12 +13194,248 @@ export const isToken = (obj?: { __typename?: any } | null): obj is Token => {
   return Token_possibleTypes.includes(obj.__typename)
 }
 
+const Token_aggregate_possibleTypes: string[] = ['Token_aggregate']
+export const isToken_aggregate = (
+  obj?: { __typename?: any } | null
+): obj is Token_aggregate => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isToken_aggregate"')
+  return Token_aggregate_possibleTypes.includes(obj.__typename)
+}
+
+const Token_aggregate_fields_possibleTypes: string[] = [
+  'Token_aggregate_fields',
+]
+export const isToken_aggregate_fields = (
+  obj?: { __typename?: any } | null
+): obj is Token_aggregate_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isToken_aggregate_fields"')
+  return Token_aggregate_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Token_avg_fields_possibleTypes: string[] = ['Token_avg_fields']
+export const isToken_avg_fields = (
+  obj?: { __typename?: any } | null
+): obj is Token_avg_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isToken_avg_fields"')
+  return Token_avg_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Token_max_fields_possibleTypes: string[] = ['Token_max_fields']
+export const isToken_max_fields = (
+  obj?: { __typename?: any } | null
+): obj is Token_max_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isToken_max_fields"')
+  return Token_max_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Token_min_fields_possibleTypes: string[] = ['Token_min_fields']
+export const isToken_min_fields = (
+  obj?: { __typename?: any } | null
+): obj is Token_min_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isToken_min_fields"')
+  return Token_min_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Token_stddev_fields_possibleTypes: string[] = ['Token_stddev_fields']
+export const isToken_stddev_fields = (
+  obj?: { __typename?: any } | null
+): obj is Token_stddev_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isToken_stddev_fields"')
+  return Token_stddev_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Token_stddev_pop_fields_possibleTypes: string[] = [
+  'Token_stddev_pop_fields',
+]
+export const isToken_stddev_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is Token_stddev_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isToken_stddev_pop_fields"')
+  return Token_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Token_stddev_samp_fields_possibleTypes: string[] = [
+  'Token_stddev_samp_fields',
+]
+export const isToken_stddev_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is Token_stddev_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isToken_stddev_samp_fields"')
+  return Token_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Token_sum_fields_possibleTypes: string[] = ['Token_sum_fields']
+export const isToken_sum_fields = (
+  obj?: { __typename?: any } | null
+): obj is Token_sum_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isToken_sum_fields"')
+  return Token_sum_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Token_var_pop_fields_possibleTypes: string[] = ['Token_var_pop_fields']
+export const isToken_var_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is Token_var_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isToken_var_pop_fields"')
+  return Token_var_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Token_var_samp_fields_possibleTypes: string[] = ['Token_var_samp_fields']
+export const isToken_var_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is Token_var_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isToken_var_samp_fields"')
+  return Token_var_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Token_variance_fields_possibleTypes: string[] = ['Token_variance_fields']
+export const isToken_variance_fields = (
+  obj?: { __typename?: any } | null
+): obj is Token_variance_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isToken_variance_fields"')
+  return Token_variance_fields_possibleTypes.includes(obj.__typename)
+}
+
 const Transfer_possibleTypes: string[] = ['Transfer']
 export const isTransfer = (
   obj?: { __typename?: any } | null
 ): obj is Transfer => {
   if (!obj?.__typename) throw new Error('__typename is missing in "isTransfer"')
   return Transfer_possibleTypes.includes(obj.__typename)
+}
+
+const Transfer_aggregate_possibleTypes: string[] = ['Transfer_aggregate']
+export const isTransfer_aggregate = (
+  obj?: { __typename?: any } | null
+): obj is Transfer_aggregate => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isTransfer_aggregate"')
+  return Transfer_aggregate_possibleTypes.includes(obj.__typename)
+}
+
+const Transfer_aggregate_fields_possibleTypes: string[] = [
+  'Transfer_aggregate_fields',
+]
+export const isTransfer_aggregate_fields = (
+  obj?: { __typename?: any } | null
+): obj is Transfer_aggregate_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isTransfer_aggregate_fields"')
+  return Transfer_aggregate_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Transfer_avg_fields_possibleTypes: string[] = ['Transfer_avg_fields']
+export const isTransfer_avg_fields = (
+  obj?: { __typename?: any } | null
+): obj is Transfer_avg_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isTransfer_avg_fields"')
+  return Transfer_avg_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Transfer_max_fields_possibleTypes: string[] = ['Transfer_max_fields']
+export const isTransfer_max_fields = (
+  obj?: { __typename?: any } | null
+): obj is Transfer_max_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isTransfer_max_fields"')
+  return Transfer_max_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Transfer_min_fields_possibleTypes: string[] = ['Transfer_min_fields']
+export const isTransfer_min_fields = (
+  obj?: { __typename?: any } | null
+): obj is Transfer_min_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isTransfer_min_fields"')
+  return Transfer_min_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Transfer_stddev_fields_possibleTypes: string[] = [
+  'Transfer_stddev_fields',
+]
+export const isTransfer_stddev_fields = (
+  obj?: { __typename?: any } | null
+): obj is Transfer_stddev_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isTransfer_stddev_fields"')
+  return Transfer_stddev_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Transfer_stddev_pop_fields_possibleTypes: string[] = [
+  'Transfer_stddev_pop_fields',
+]
+export const isTransfer_stddev_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is Transfer_stddev_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isTransfer_stddev_pop_fields"')
+  return Transfer_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Transfer_stddev_samp_fields_possibleTypes: string[] = [
+  'Transfer_stddev_samp_fields',
+]
+export const isTransfer_stddev_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is Transfer_stddev_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isTransfer_stddev_samp_fields"')
+  return Transfer_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Transfer_sum_fields_possibleTypes: string[] = ['Transfer_sum_fields']
+export const isTransfer_sum_fields = (
+  obj?: { __typename?: any } | null
+): obj is Transfer_sum_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isTransfer_sum_fields"')
+  return Transfer_sum_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Transfer_var_pop_fields_possibleTypes: string[] = [
+  'Transfer_var_pop_fields',
+]
+export const isTransfer_var_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is Transfer_var_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isTransfer_var_pop_fields"')
+  return Transfer_var_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Transfer_var_samp_fields_possibleTypes: string[] = [
+  'Transfer_var_samp_fields',
+]
+export const isTransfer_var_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is Transfer_var_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isTransfer_var_samp_fields"')
+  return Transfer_var_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const Transfer_variance_fields_possibleTypes: string[] = [
+  'Transfer_variance_fields',
+]
+export const isTransfer_variance_fields = (
+  obj?: { __typename?: any } | null
+): obj is Transfer_variance_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isTransfer_variance_fields"')
+  return Transfer_variance_fields_possibleTypes.includes(obj.__typename)
 }
 
 const Workflow_possibleTypes: string[] = ['Workflow']
@@ -6904,6 +13569,16 @@ export const enumBountyClaimSelectColumn = {
   id: 'id' as const,
 }
 
+export const enumBountyClaimSelectColumnBountyClaimAggregateBoolExpBoolAndArgumentsColumns =
+  {
+    claimed: 'claimed' as const,
+  }
+
+export const enumBountyClaimSelectColumnBountyClaimAggregateBoolExpBoolOrArgumentsColumns =
+  {
+    claimed: 'claimed' as const,
+  }
+
 export const enumBountyContributorSelectColumn = {
   address: 'address' as const,
   bountyClaim_id: 'bountyClaim_id' as const,
@@ -6928,6 +13603,16 @@ export const enumBountySelectColumn = {
   maximumPayoutAmount: 'maximumPayoutAmount' as const,
   minimumPayoutAmount: 'minimumPayoutAmount' as const,
 }
+
+export const enumBountySelectColumnBountyAggregateBoolExpBoolAndArgumentsColumns =
+  {
+    locked: 'locked' as const,
+  }
+
+export const enumBountySelectColumnBountyAggregateBoolExpBoolOrArgumentsColumns =
+  {
+    locked: 'locked' as const,
+  }
 
 export const enumCurveDayDataSelectColumn = {
   chainId: 'chainId' as const,

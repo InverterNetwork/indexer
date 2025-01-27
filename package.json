@@ -1,6 +1,6 @@
 {
   "name": "indexer",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "scripts": {
     "dev": "env $(cat .env | xargs) envio dev",
     "watch": "tsc --watch --noEmit -p tsconfig.json",
@@ -8,7 +8,7 @@
     "start:pm2": "pm2 restart envio || pm2 start 'pnpm start' --name envio",
     "clean": "rm -rf build",
     "build": "pnpm clean && tsc --build tsconfig.build.json && pnpm ts-add-js-extension --dir=build/src",
-    "compile": "genql --endpoint http://localhost:8080/v1/graphql --output graphql/src/gen && prettier --write graphql/src/gen/**/*.ts && eslint --fix graphql/src/gen/**/*.ts",
+    "compile": "genql --endpoint https://dev.indexer.inverter.network/v1/graphql --output graphql/src/gen && prettier --write graphql/src/gen/**/*.ts && eslint --fix graphql/src/gen/**/*.ts",
     "codegen": "envio codegen",
     "grant:agg-permissions": "ts-node scripts/grant-aggregate-permissions.ts",
     "prod": "pnpm codegen && docker-compose --file generated/docker-compose.yaml up -d && pnpm migrate:setup && pnpm start:pm2",

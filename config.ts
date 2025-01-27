@@ -1,4 +1,5 @@
 export const publicAggregationTables = [
+  'BondingCurve',
   'IssuanceTokenDayData',
   'IssuanceTokenHourData',
   'CurveDayData',
