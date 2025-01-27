@@ -194,8 +194,8 @@ jobs:
           SLACK_ICON: https://pbs.twimg.com/profile_images/1323610441088671745/UTLvNRUK_400x400.jpg
           SLACK_USERNAME: inverter_cibot
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_COLOR: ${{ steps.ecs-deploy.outcome == 'success' && job.status || '#ff0000' }}
-          SLACK_MESSAGE: ${{ steps.ecs-deploy.outcome == 'success' && 'Deployment has been completed successfully :rocket:' || 'Deployment has not been completed...Please check CI Action :x:' }}
+          SLACK_COLOR: ${{ job.status == 'success' && 'good' || 'danger' }}
+          SLACK_MESSAGE: ${{ job.status == 'success' && 'Deployment has been completed successfully :rocket:' || 'Deployment has not been completed...Please check CI Action :x:' }}
           SLACK_TITLE: Message
         if: always()
 
