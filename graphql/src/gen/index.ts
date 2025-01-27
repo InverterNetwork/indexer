@@ -31,7 +31,7 @@ export interface Client {
 
 export const createClient = function (options?: ClientOptions): Client {
   return createClientOriginal({
-    url: 'http://3.69.222.236:8080/v1/graphql',
+    url: 'https://dev.indexer.inverter.network/v1/graphql',
 
     ...options,
     queryRoot: typeMap.Query!,
