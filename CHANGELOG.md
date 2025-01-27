@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.4](https://github.com/InverterNetwork/indexer/compare/v0.9.3...v0.9.4) (2025-01-27)
+
+
+### Features
+
+* add USD value tracking for tokens and vault operations ([9e85ac8](https://github.com/InverterNetwork/indexer/commit/9e85ac8d977fb4b05f10068565b3de2eab079d1b))
+* enhance token utility functions and Dockerfile deployment options ([9f5e364](https://github.com/InverterNetwork/indexer/commit/9f5e3646e9337fd321efe3b465c61843060ab483))
+
 ### [0.9.3](https://github.com/InverterNetwork/indexer/compare/v0.9.2...v0.9.3) (2025-01-27)
 
 
