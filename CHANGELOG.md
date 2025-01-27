@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.3](https://github.com/InverterNetwork/indexer/compare/v0.9.2...v0.9.3) (2025-01-27)
+
+
+### Features
+
+* add Docker build and run script for local development ([d791bdb](https://github.com/InverterNetwork/indexer/commit/d791bdbc190b0891fffce3568c7d470cc9968197))
+* add ECS task definition for indexer development environment ([710e1ea](https://github.com/InverterNetwork/indexer/commit/710e1eaaaac3a4a5833fdefe6df3e565371cb048))
+* add flexible Dockerfile command execution modes ([e23841b](https://github.com/InverterNetwork/indexer/commit/e23841be5109b9ba1a431eccfddebfcc4babda9c))
+* add GraphiQL Explorer plugin to improve GraphQL interface ([36522fb](https://github.com/InverterNetwork/indexer/commit/36522fbdd7c4fa41b4578f0f1456c24408359ba0))
+* enhance migration and permission management scripts ([251f920](https://github.com/InverterNetwork/indexer/commit/251f9204eb0c2e302d6af262f945c7d374bcc731))
+* improve Dockerfile runtime environment variable handling ([d7588a6](https://github.com/InverterNetwork/indexer/commit/d7588a6620f8fee8c7e9f5b3fe465a39b06371c2))
+
 ### [0.9.2](https://github.com/InverterNetwork/indexer/compare/v0.9.1...v0.9.2) (2025-01-24)
 
 
