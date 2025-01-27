@@ -142,15 +142,22 @@ jobs:
           jq --arg cmd "$CMD" '(.containerDefinitions[] | select(.name == "indexer-dev") | .command) = ["sh", "-c", $cmd]' task-definition.json > updated-task-definition.json
           mv updated-task-definition.json task-definition.json
 
-      - name: Register new task definition
-        run: |
-          aws ecs register-task-definition --cli-input-json file://task-definition.json
+          # Store the task definition ARN
+          echo "TASK_DEFINITION_ARN=$(aws ecs register-task-definition --cli-input-json file://task-definition.json --query 'taskDefinition.taskDefinitionArn' --output text)" >> $GITHUB_ENV
 
-      - name: ECS Deploy to DEV
-        id: ecs-deploy
+      - name: Update ECS Service
         run: |
-          pip install ecs-deploy
-          ecs deploy ${{env.PLATFORM}}-services-cluster ${{ env.REPO_NAME }}-${{env.PLATFORM}} --image ${{ env.REPO_NAME }}-${{env.PLATFORM}} ${{secrets.ACCOUNT_ID_DEV}}.dkr.ecr.${{ env.REGION }}.amazonaws.com/${{ env.REPO_NAME }}-${{env.PLATFORM}}:${{ needs.build.outputs.image_tag }} --timeout -1
+          aws ecs update-service \
+            --cluster ${{env.PLATFORM}}-services-cluster \
+            --service ${{ env.REPO_NAME }}-${{env.PLATFORM}} \
+            --task-definition ${{ env.TASK_DEFINITION_ARN }} \
+            --force-new-deployment
+
+      - name: Wait for service stability
+        run: |
+          aws ecs wait services-stable \
+            --cluster ${{env.PLATFORM}}-services-cluster \
+            --services ${{ env.REPO_NAME }}-${{env.PLATFORM}}
 
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
