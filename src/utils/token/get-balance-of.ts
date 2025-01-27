@@ -2,10 +2,6 @@ import { parseAbiItem } from 'viem'
 import { getPublicClient } from '../rpc'
 import { ZERO_BD } from '../constants'
 import { formatUnitsToBD } from '../base'
-import { CacheContainer } from 'node-ts-cache'
-import { MemoryStorage } from 'node-ts-cache-storage-memory'
-
-const shortTermBalanceCache = new CacheContainer(new MemoryStorage())
 
 export async function getBalanceOf({
   tokenAddress,
@@ -20,13 +16,7 @@ export async function getBalanceOf({
   decimals: number
   client?: ReturnType<typeof getPublicClient>
 }) {
-  const cacheKey = `${tokenAddress}-${address}-${chainId}-${decimals}`
-
   let balance: bigint
-
-  const cachedBalance = await shortTermBalanceCache.getItem<bigint>(cacheKey)
-
-  if (cachedBalance) return formatUnitsToBD(cachedBalance, decimals)
 
   if (!client) return ZERO_BD
 
@@ -48,10 +38,6 @@ export async function getBalanceOf({
     )
     return ZERO_BD
   }
-
-  await shortTermBalanceCache.setItem(cacheKey, balance, {
-    ttl: 2 * 1000, // 2 seconds
-  })
 
   return formatUnitsToBD(balance, decimals)
 }

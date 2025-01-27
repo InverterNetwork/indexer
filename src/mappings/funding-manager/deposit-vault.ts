@@ -28,6 +28,7 @@ FM_DepositVault_v1.ModuleInitialized.handler(async ({ event, context }) => {
     properties: {
       address: derivedAddress,
     },
+    triggerTotalSupply: true,
   })
 
   context.DepositVault.set({

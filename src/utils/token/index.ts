@@ -48,7 +48,12 @@ export async function updateToken({
   const id = `${address}-${chainId}`
   const currentEntity = await context.Token.get(id)
 
-  let tokenDetails = {} as Awaited<ReturnType<typeof getTokenDetails>>
+  let tokenDetails = {
+    name: currentEntity?.name,
+    symbol: currentEntity?.symbol,
+    decimals: currentEntity?.decimals,
+    address: currentEntity?.address,
+  } as Awaited<ReturnType<typeof getTokenDetails>>
   // Check if we need to fetch token details
   const tokenDetailsKeys = ['name', 'symbol', 'decimals', 'address']
   if (!tokenDetailsKeys.every((key) => key in (currentEntity || {}))) {

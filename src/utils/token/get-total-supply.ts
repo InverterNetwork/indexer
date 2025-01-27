@@ -1,10 +1,7 @@
 import { BigDecimal } from 'generated'
-import { getERC20Contract, getPublicClient } from '../rpc'
+import { getPublicClient } from '../rpc'
 import { ZERO_BD, formatUnitsToBD } from '..'
-import { CacheContainer } from 'node-ts-cache'
-import { MemoryStorage } from 'node-ts-cache-storage-memory'
-
-const shortTermTotalSupplyCache = new CacheContainer(new MemoryStorage())
+import { parseAbiItem } from 'viem'
 
 /**
  * Fetches the total supply of a token
@@ -26,23 +23,17 @@ export async function getTotalSupply({
 }): Promise<BigDecimal> {
   let totalSupply: bigint
 
-  const cacheKey = `${address.toLowerCase()}-${chainId}`
-
-  const cachedTotalSupply =
-    await shortTermTotalSupplyCache.getItem<bigint>(cacheKey)
-
-  if (cachedTotalSupply) {
-    return formatUnitsToBD(cachedTotalSupply, decimals)
-  }
-
   if (!client) return ZERO_BD
 
-  const erc20Contract = getERC20Contract(address as `0x${string}`)
+  const totalSupplyAbi = [
+    parseAbiItem('function totalSupply() external view returns (uint256)'),
+  ]
 
   try {
     // Attempt to read total supply from contract
     totalSupply = await client.readContract({
-      ...erc20Contract,
+      address: address as `0x${string}`,
+      abi: totalSupplyAbi,
       functionName: 'totalSupply',
     })
   } catch (error: any) {
@@ -53,11 +44,8 @@ export async function getTotalSupply({
     return ZERO_BD
   }
 
-  await shortTermTotalSupplyCache.setItem(cacheKey, totalSupply, {
-    ttl: 1 * 1000, // 1 seconds
-  })
-
   // Format the total supply with correct decimals
   const formattedTotalSupply = formatUnitsToBD(totalSupply, decimals)
+
   return formattedTotalSupply
 }

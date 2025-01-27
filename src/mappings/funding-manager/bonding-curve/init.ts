@@ -27,6 +27,7 @@ BondingCurve.ModuleInitialized.handler(async ({ event, context }) => {
     properties: {
       address: collateralTokenAddress,
     },
+    triggerTotalSupply: true,
   })
 
   const { derivedAddress: issuanceTokenAddress } = await deriveTokenAddress({
@@ -42,6 +43,7 @@ BondingCurve.ModuleInitialized.handler(async ({ event, context }) => {
     properties: {
       address: issuanceTokenAddress,
     },
+    triggerTotalSupply: true,
   })
 
   const bcType =
