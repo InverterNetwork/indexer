@@ -19,8 +19,28 @@ permissions:
   contents: read
 
 jobs:
+  check-changes:
+    name: Check for relevant changes
+    runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.check.outputs.has_changes }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for relevant file changes
+        id: check
+        run: |
+          git diff --name-only origin/${{ github.base_ref }} HEAD | grep -q -E '^(src/|abis/|schema\.graphql|config\.yaml|Dockerfile|scripts/)' && \
+          echo "has_changes=true" >> $GITHUB_OUTPUT || \
+          echo "has_changes=false" >> $GITHUB_OUTPUT
+
   build:
     name: Build
+    needs: check-changes
+    if: needs.check-changes.outputs.has_changes == 'true'
     runs-on: ubuntu-latest
     environment: development
     outputs:
@@ -91,7 +111,8 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build
+    needs: [check-changes, build]
+    if: always() && !cancelled()
     steps:
       - uses: actions/checkout@v4
 
@@ -105,6 +126,19 @@ jobs:
       - name: get-name
         run: |
           echo "REPO_NAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV
+
+      - name: Get latest image tag
+        id: get-image
+        run: |
+          echo "REPO_NAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV
+          if [[ "${{ needs.check-changes.outputs.has_changes }}" == "true" ]]; then
+            echo "IMAGE_TAG=${{ needs.build.outputs.image_tag }}" >> $GITHUB_ENV
+          else
+            # Get the latest image tag from ECR
+            REPO="${{ env.REPO_NAME }}-${{env.PLATFORM}}"
+            LATEST_TAG=$(aws ecr describe-images --repository-name $REPO --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]' --output text)
+            echo "IMAGE_TAG=$LATEST_TAG" >> $GITHUB_ENV
+          fi
 
       - name: Create Task Definition
         id: task-def
@@ -152,12 +186,6 @@ jobs:
             --service ${{ env.REPO_NAME }}-${{env.PLATFORM}} \
             --task-definition ${{ env.TASK_DEFINITION_ARN }} \
             --force-new-deployment
-
-      - name: Wait for service stability
-        run: |
-          aws ecs wait services-stable \
-            --cluster ${{env.PLATFORM}}-services-cluster \
-            --services ${{ env.REPO_NAME }}-${{env.PLATFORM}}
 
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
