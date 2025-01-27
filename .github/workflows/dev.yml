@@ -23,6 +23,8 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     environment: development
+    outputs:
+      image_tag: ${{ steps.set-image-tag.outputs.image_tag }}
 
     steps:
       - name: Check out code
@@ -45,15 +47,39 @@ jobs:
         run: |
           echo "REPO_NAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV
 
+      - name: Check if image exists
+        id: check-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ env.REPO_NAME }}-${{env.PLATFORM}}
+        run: |
+          LATEST_TAG="${{env.PLATFORM}}-${GITHUB_SHA::8}"
+          if aws ecr describe-images --repository-name $ECR_REPOSITORY --image-ids imageTag=$LATEST_TAG 2>/dev/null; then
+            echo "image_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "image_exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set image tag
+        id: set-image-tag
+        run: |
+          if [[ "${{ steps.check-image.outputs.image_exists }}" == "true" ]]; then
+            echo "image_tag=${{env.PLATFORM}}-${GITHUB_SHA::8}" >> $GITHUB_OUTPUT
+          else
+            LATEST_SHA=$(git rev-parse HEAD)
+            echo "image_tag=${{env.PLATFORM}}-${LATEST_SHA::8}" >> $GITHUB_OUTPUT
+          fi
+
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
+        if: steps.check-image.outputs.image_exists == 'false'
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ env.REPO_NAME }}-${{env.PLATFORM}}
           COMMAND: ${{ inputs.env }}
         run: |
-          docker build --build-arg COMMAND_TYPE=$COMMAND -t $ECR_REGISTRY/$ECR_REPOSITORY:${{env.PLATFORM}}-${GITHUB_SHA::8} .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{env.PLATFORM}}-${GITHUB_SHA::8}
+          docker build --build-arg COMMAND_TYPE=$COMMAND -t $ECR_REGISTRY/$ECR_REPOSITORY:${{ steps.set-image-tag.outputs.image_tag }} .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{ steps.set-image-tag.outputs.image_tag }}
 
       - uses: act10ns/slack@v1
         with:
@@ -80,11 +106,49 @@ jobs:
         run: |
           echo "REPO_NAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV
 
+      - name: Create Task Definition
+        id: task-def
+        run: |
+          MIGRATE_SETUP='node -e "require('\''./generated/src/db/Migrations.bs.js'\'').setupDb()"'
+          MIGRATE_UP='node -e "require('\''./generated/src/db/Migrations.bs.js'\'').runUpMigrations(true)"'
+          MIGRATE_DOWN='node -e "require('\''./generated/src/db/Migrations.bs.js'\'').runDownMigrations(true)"'
+          GRANT_PERMISSIONS='pnpm ts-node scripts/grant-aggregate-permissions.ts'
+          RUN_INDEXER='TUI_OFF=true pnpm ts-node generated/src/Index.bs.js'
+
+          case "${{ inputs.env }}" in
+            "SETUP")
+              CMD="$MIGRATE_SETUP && $GRANT_PERMISSIONS && $RUN_INDEXER"
+              ;;
+            "MIGRATE")
+              CMD="$MIGRATE_UP && $RUN_INDEXER"
+              ;;
+            "FRESH")
+              CMD="$MIGRATE_DOWN && $MIGRATE_UP && $RUN_INDEXER"
+              ;;
+            "UPDATE")
+              CMD="$RUN_INDEXER"
+              ;;
+            *)
+              echo "Invalid command type" && exit 1
+              ;;
+          esac
+
+          # Get current task definition
+          aws ecs describe-task-definition --task-definition indexer-dev --query taskDefinition > task-definition.json
+
+          # Update the command in the indexer-dev container
+          jq --arg cmd "$CMD" '(.containerDefinitions[] | select(.name == "indexer-dev") | .command) = ["sh", "-c", $cmd]' task-definition.json > updated-task-definition.json
+          mv updated-task-definition.json task-definition.json
+
+      - name: Register new task definition
+        run: |
+          aws ecs register-task-definition --cli-input-json file://task-definition.json
+
       - name: ECS Deploy to DEV
         id: ecs-deploy
         run: |
           pip install ecs-deploy
-          ecs deploy ${{env.PLATFORM}}-services-cluster ${{ env.REPO_NAME }}-${{env.PLATFORM}} --image ${{ env.REPO_NAME }}-${{env.PLATFORM}} ${{secrets.ACCOUNT_ID_DEV}}.dkr.ecr.${{ env.REGION }}.amazonaws.com/${{ env.REPO_NAME }}-${{env.PLATFORM}}:${{env.PLATFORM}}-${GITHUB_SHA::8} --timeout -1
+          ecs deploy ${{env.PLATFORM}}-services-cluster ${{ env.REPO_NAME }}-${{env.PLATFORM}} --image ${{ env.REPO_NAME }}-${{env.PLATFORM}} ${{secrets.ACCOUNT_ID_DEV}}.dkr.ecr.${{ env.REGION }}.amazonaws.com/${{ env.REPO_NAME }}-${{env.PLATFORM}}:${{ needs.build.outputs.image_tag }} --timeout -1
 
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
