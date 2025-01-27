@@ -3,9 +3,12 @@ import { BondingCurve } from 'generated'
 import {
   createSwap,
   CurveIntervalProperties,
+  getBalanceOf,
   getIssPriceFromCol,
   getQtyAndPrice,
+  getTotalSupply,
   IssuanceTokenIntervalProperties,
+  updateBondingCurve,
   updateCurveDayData,
   updateCurveHourData,
   updateIssuanceTokenDayData,
@@ -56,6 +59,7 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
 
       amountCOL,
       amountISS,
+      amountUSD,
 
       initiator: event.params.buyer,
       recipient: event.params.receiver,
@@ -95,15 +99,33 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
 
   await updateIssuanceTokenHourData(updateTimeDataParams)
   await updateIssuanceTokenDayData(updateTimeDataParams)
+
+  const reserveCOL = await getBalanceOf({
+    tokenAddress: collateralToken!.address,
+    address: bc!.address,
+    chainId: bc!.chainId,
+    decimals: collateralToken!.decimals,
+  })
+
+  const reserveUSD = reserveCOL.times(collateralToken!.priceUSD)
+
+  await updateBondingCurve({
+    context,
+    event,
+    properties: {
+      reserveCOL,
+      reserveUSD,
+    },
+  })
 })
 
 // Sell Operations
 BondingCurve.TokensSold.handler(async ({ event, context }) => {
   const id = `${event.srcAddress}-${event.chainId}`
-  const bc = await context.BondingCurve.get(id)
+  const bc = (await context.BondingCurve.get(id))!
 
-  const issuanceToken_id = bc!.issuanceToken_id!
-  const collateralToken_id = bc!.collateralToken_id!
+  const issuanceToken_id = bc.issuanceToken_id
+  const collateralToken_id = bc.collateralToken_id
 
   const issuanceToken = await context.Token.get(issuanceToken_id)
   const collateralToken = await context.Token.get(collateralToken_id)
@@ -136,6 +158,7 @@ BondingCurve.TokensSold.handler(async ({ event, context }) => {
 
       amountCOL,
       amountISS,
+      amountUSD,
 
       initiator: event.params.seller,
       recipient: event.params.receiver,
@@ -175,5 +198,23 @@ BondingCurve.TokensSold.handler(async ({ event, context }) => {
       priceUSD,
     },
     triggerTotalSupply: true,
+  })
+
+  const reserveCOL = await getBalanceOf({
+    tokenAddress: collateralToken!.address,
+    address: bc.address,
+    chainId: bc.chainId,
+    decimals: collateralToken!.decimals,
+  })
+
+  const reserveUSD = reserveCOL.times(collateralToken!.priceUSD)
+
+  await updateBondingCurve({
+    context,
+    event,
+    properties: {
+      reserveCOL,
+      reserveUSD,
+    },
   })
 })

@@ -24,11 +24,6 @@ export async function getTotalSupply({
   decimals: number
   client?: ReturnType<typeof getPublicClient>
 }): Promise<BigDecimal> {
-  // Return zero if no client is available
-  if (!client) {
-    return ZERO_BD
-  }
-
   let totalSupply: bigint
 
   const cacheKey = `${address.toLowerCase()}-${chainId}`
@@ -39,6 +34,8 @@ export async function getTotalSupply({
   if (cachedTotalSupply) {
     return formatUnitsToBD(cachedTotalSupply, decimals)
   }
+
+  if (!client) return ZERO_BD
 
   const erc20Contract = getERC20Contract(address as `0x${string}`)
 

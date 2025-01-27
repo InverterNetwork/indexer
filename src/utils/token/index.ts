@@ -9,6 +9,7 @@ export * from './derive-token-address'
 export * from './get-price-usd'
 export * from './get-total-supply'
 export * from './get-token-details'
+export * from './get-balance-of'
 
 /**
  * Updates or creates a token entity with the latest information
