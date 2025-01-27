@@ -133,8 +133,10 @@ jobs:
               ;;
           esac
 
-          # Get current task definition
-          aws ecs describe-task-definition --task-definition indexer-dev --query taskDefinition > task-definition.json
+          # Get current task definition and remove AWS-specific fields
+          aws ecs describe-task-definition --task-definition indexer-dev --query 'taskDefinition' > task-definition-full.json
+
+          jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' task-definition-full.json > task-definition.json
 
           # Update the command in the indexer-dev container
           jq --arg cmd "$CMD" '(.containerDefinitions[] | select(.name == "indexer-dev") | .command) = ["sh", "-c", $cmd]' task-definition.json > updated-task-definition.json
