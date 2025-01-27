@@ -2,7 +2,7 @@
   "name": "indexer",
   "version": "0.9.3",
   "scripts": {
-    "dev": "envio dev",
+    "dev": "env $(cat .env | xargs) envio dev",
     "watch": "tsc --watch --noEmit -p tsconfig.json",
     "start": "TUI_OFF=true pnpm ts-node generated/src/Index.bs.js",
     "start:pm2": "pm2 restart envio || pm2 start 'pnpm start' --name envio",
@@ -13,7 +13,7 @@
     "prod": "pnpm codegen && docker-compose --file generated/docker-compose.yaml up -d && pnpm migrate:setup && pnpm start:pm2",
     "prod:update": "pnpm codegen && pnpm start:pm2",
     "prod:migrate": "pnpm codegen && pnpm migrate:up && pnpm start:pm2",
-    "prod:fresh": "docker-compose --file generated/docker-compose.yaml down -v && pnpm prod",
+    "prod:fresh": "pnpm migrate:down && pnpm prod",
     "migrate:setup": "pnpm -C generated run db-setup && ts-node scripts/grant-aggregate-permissions.ts",
     "migrate:up": "pnpm -C generated run db-up && ts-node scripts/grant-aggregate-permissions.ts",
     "migrate:down": "pnpm -C generated run db-down",

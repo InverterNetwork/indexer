@@ -9,14 +9,13 @@ on:
           - SETUP
           - MIGRATE
           - UPDATE
-
+          - FRESH
 env:
   REGION: eu-central-1
   PLATFORM: dev
 
-
 permissions:
-  id-token: write   # This is required for requesting the JWT
+  id-token: write # This is required for requesting the JWT
   contents: read
 
 jobs:
@@ -29,15 +28,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
         with:
-          submodules: recursive #ensures submodules are checked out
-
-      - uses: act10ns/slack@v1
-        with:
-          status: ${{ job.status }}
-          channel: 'n-platform-deployments'
-          config: .github/config/slack.yml
-          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
-        if: always()
+          submodules: recursive
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -54,39 +45,15 @@ jobs:
         run: |
           echo "REPO_NAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV
 
-      - name: Build, tag, and push image to Amazon ECR Setup
-        id: build-image-setup
-        if: ${{ always() && inputs.env == 'SETUP' }}
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ env.REPO_NAME }}-${{env.PLATFORM}}
-          COMMAND: 'SETUP'
+          COMMAND: ${{ inputs.env }}
         run: |
           docker build --build-arg COMMAND_TYPE=$COMMAND -t $ECR_REGISTRY/$ECR_REPOSITORY:${{env.PLATFORM}}-${GITHUB_SHA::8} .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{env.PLATFORM}}-${GITHUB_SHA::8}
-
-      - name: Build, tag, and push image to Amazon ECR Migrate
-        id: build-image-migrate
-        if: ${{ always() && inputs.env == 'MIGRATE' }}
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ env.REPO_NAME }}-${{env.PLATFORM}}
-          COMMAND: 'MIGRATE'
-        run: |
-          docker build --build-arg COMMAND_TYPE=$COMMAND -t $ECR_REGISTRY/$ECR_REPOSITORY:${{env.PLATFORM}}-${GITHUB_SHA::8} .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{env.PLATFORM}}-${GITHUB_SHA::8}
-
-      - name: Build, tag, and push image to Amazon ECR Update
-        id: build-image-update
-        if: ${{ always() && inputs.env == 'UPDATE' }}
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ env.REPO_NAME }}-${{env.PLATFORM}}
-          COMMAND: 'UPDATE'
-        run: |
-          docker build --build-arg COMMAND_TYPE=$COMMAND -t $ECR_REGISTRY/$ECR_REPOSITORY:${{env.PLATFORM}}-${GITHUB_SHA::8} .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{env.PLATFORM}}-${GITHUB_SHA::8}
-
 
       - uses: act10ns/slack@v1
         with:
@@ -119,34 +86,17 @@ jobs:
           pip install ecs-deploy
           ecs deploy ${{env.PLATFORM}}-services-cluster ${{ env.REPO_NAME }}-${{env.PLATFORM}} --image ${{ env.REPO_NAME }}-${{env.PLATFORM}} ${{secrets.ACCOUNT_ID_DEV}}.dkr.ecr.${{ env.REGION }}.amazonaws.com/${{ env.REPO_NAME }}-${{env.PLATFORM}}:${{env.PLATFORM}}-${GITHUB_SHA::8} --timeout -1
 
-
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: n-platform-deployments
+          SLACK_ICON: https://pbs.twimg.com/profile_images/1323610441088671745/UTLvNRUK_400x400.jpg
+          SLACK_USERNAME: inverter_cibot
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_COLOR: ${{ steps.ecs-deploy.outcome == 'success' && job.status || '#ff0000' }}
+          SLACK_MESSAGE: ${{ steps.ecs-deploy.outcome == 'success' && 'Deployment has been completed successfully :rocket:' || 'Deployment has not been completed...Please check CI Action :x:' }}
+          SLACK_TITLE: Message
         if: always()
-
-      - name: Slack Notification
-        uses: rtCamp/action-slack-notify@v2
-        id: deploy-success
-        if: steps.ecs-deploy.outcome == 'success'
-        env:
-          SLACK_CHANNEL: n-platform-deployments
-          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
-          SLACK_ICON: https://pbs.twimg.com/profile_images/1323610441088671745/UTLvNRUK_400x400.jpg
-          SLACK_MESSAGE: 'Deployment has been completed by successfully  :rocket:'
-          SLACK_TITLE: Message
-          SLACK_USERNAME: inverter_cibot
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-
-      - name: Slack Notification
-        uses: rtCamp/action-slack-notify@v2
-        id: deploy-failure
-        if: ${{ always() && steps.ecs-deploy.outcome == 'failure' }}
-        env:
-          SLACK_CHANNEL: n-platform-deployments
-          SLACK_COLOR: '#ff0000' # or a specific color like 'good' or '#ff00ff'
-          SLACK_ICON: https://pbs.twimg.com/profile_images/1323610441088671745/UTLvNRUK_400x400.jpg
-          SLACK_MESSAGE: 'Deployment has not been completed...Please check CI Action  :x:'
-          SLACK_TITLE: Message
-          SLACK_USERNAME: inverter_cibot
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
       - uses: act10ns/slack@v1
         with:
@@ -156,7 +106,3 @@ jobs:
           webhook-url: ${{ secrets.SLACK_WEBHOOK }}
           steps: ${{ toJson(steps) }}
         if: always()
-
-
-
-

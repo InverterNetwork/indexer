@@ -47,12 +47,14 @@ ENV COMMAND_TYPE=${COMMAND_TYPE}
 # Define the commands as environment variables for better readability and maintenance
 ENV SETUP_DB="node -e \"require('./generated/src/db/Migrations.bs.js').setupDb()\""
 ENV MIGRATE_DB="node -e \"require('./generated/src/db/Migrations.bs.js').runUpMigrations(true)\""
+ENV MIGRATE_DOWN="node -e \"require('./generated/src/db/Migrations.bs.js').runDownMigrations(true)\""
 ENV GRANT_PERMISSIONS="pnpm ts-node scripts/grant-aggregate-permissions.ts"
 ENV RUN_INDEXER="TUI_OFF=true pnpm ts-node generated/src/Index.bs.js"
 
 ENV SETUP_COMMANDS="$SETUP_DB && $GRANT_PERMISSIONS && $RUN_INDEXER"
 ENV MIGRATE_COMMANDS="$MIGRATE_DB && $GRANT_PERMISSIONS && $RUN_INDEXER"
 ENV UPDATE_COMMANDS="$RUN_INDEXER"
+ENV FRESH_COMMANDS="$MIGRATE_DOWN && $SETUP_COMMANDS"
 
 # Use case statement for cleaner conditional execution
 CMD case "$COMMAND_TYPE" in \
@@ -61,6 +63,9 @@ CMD case "$COMMAND_TYPE" in \
     ;; \
     "MIGRATE") \
     sh -c "$MIGRATE_COMMANDS" \
+    ;; \
+    "FRESH") \
+    sh -c "$FRESH_COMMANDS" \
     ;; \
     "UPDATE") \
     sh -c "$UPDATE_COMMANDS" \
