@@ -187,6 +187,12 @@ jobs:
             --task-definition ${{ env.TASK_DEFINITION_ARN }} \
             --force-new-deployment
 
+      - name: Wait for service stability
+        run: |
+          aws ecs wait services-stable \
+            --cluster ${{env.PLATFORM}}-services-cluster \
+            --services ${{ env.REPO_NAME }}-${{env.PLATFORM}}
+
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
