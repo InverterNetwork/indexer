@@ -87,18 +87,12 @@ jobs:
 
     outputs:
       image_tag: ${{ env.IMAGE_TAG }}
-      ecr_registry: ${{ env.ECR_REGISTRY }}
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     if: always() && !cancelled()
     steps:
-      - name: Set AWS environment variables
-        run: |
-          echo "ECR_REGISTRY=${{ needs.build.outputs.ecr_registry }}" >> $GITHUB_ENV
-          echo "IMAGE_TAG=${{ needs.build.outputs.image_tag }}" >> $GITHUB_ENV
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -106,7 +100,14 @@ jobs:
           aws-region: ${{ env.REGION }}
           role-duration-seconds: 3600
 
-      - uses: actions/checkout@v4
+      - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Set ECR environment variables
+        run: |
+          echo "ECR_REGISTRY=${{ steps.login-ecr.outputs.registry }}" >> $GITHUB_ENV
+          echo "IMAGE_TAG=${{ needs.build.outputs.image_tag }}" >> $GITHUB_ENV
 
       - name: Get Latest Image ARN
         id: get-image-arn
@@ -115,13 +116,9 @@ jobs:
           IMAGE_URI="$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
           echo "Verifying image: $IMAGE_URI"
 
-          # Verify image exists with better error handling
-          if ! aws ecr describe-images \
-            --repository-name $ECR_REPOSITORY \
-            --image-ids imageTag=$IMAGE_TAG \
-            --query 'imageDetails[0].imageTags[0]' \
-            --output text >/dev/null 2>&1; then
-            echo "::error::Image verification failed: $IMAGE_TAG not found in repository $ECR_REPOSITORY"
+          # Verify image exists via ecr and image uri
+          if ! aws ecr describe-images --repository-name $ECR_REPOSITORY --image-ids imageTag=$IMAGE_TAG 2>/dev/null; then
+            echo "Image verification failed: $IMAGE_URI not found in repository $ECR_REPOSITORY"
             exit 1
           fi
 
@@ -161,7 +158,7 @@ jobs:
           jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' task-definition-full.json > task-definition.json
 
           # Update the command and image in the indexer-dev container using IMAGE_URI
-          jq --arg cmd "$CMD" --arg img "${{ env.IMAGE_URI }}" '(.containerDefinitions[] | select(.name == "indexer-dev") | .command) = ["sh", "-c", $cmd] | (.containerDefinitions[] | select(.name == "indexer-dev") | .image) = $img' task-definition.json > updated-task-definition.json
+          jq --arg cmd "$CMD" --arg img $IMAGE_URI '(.containerDefinitions[] | select(.name == "indexer-dev") | .command) = ["sh", "-c", $cmd] | (.containerDefinitions[] | select(.name == "indexer-dev") | .image) = $img' task-definition.json > updated-task-definition.json
           mv updated-task-definition.json task-definition.json
 
           # Store the task definition ARN
