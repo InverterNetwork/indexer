@@ -70,6 +70,9 @@ export const updateBondingCurve = async ({
       buyReserveRatio: 0n,
       sellReserveRatio: 0n,
 
+      reserveCOL: ZERO_BD,
+      reserveUSD: ZERO_BD,
+
       ...properties,
     } satisfies BondingCurve_t)
 

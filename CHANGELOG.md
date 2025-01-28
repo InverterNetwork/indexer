@@ -2,6 +2,53 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.5](https://github.com/InverterNetwork/indexer/compare/v0.9.4...v0.9.5) (2025-01-27)
+
+
+### Features
+
+* add service stability check to ECS deployment workflow ([da5394d](https://github.com/InverterNetwork/indexer/commit/da5394d88ce0250587f72d15a9522ee1737f345a))
+* optimize GitHub Actions workflow with change detection ([2b09153](https://github.com/InverterNetwork/indexer/commit/2b09153c7adef33ec9f4a1b16139250533c67cbe))
+
+
+### Bug Fixes
+
+* improve Slack notification logic in GitHub Actions workflow ([c94fa17](https://github.com/InverterNetwork/indexer/commit/c94fa17d162912480930e151e20d92c0534392a6))
+
+### [0.9.4](https://github.com/InverterNetwork/indexer/compare/v0.9.3...v0.9.4) (2025-01-27)
+
+
+### Features
+
+* add USD value tracking for tokens and vault operations ([9e85ac8](https://github.com/InverterNetwork/indexer/commit/9e85ac8d977fb4b05f10068565b3de2eab079d1b))
+* enhance token utility functions and Dockerfile deployment options ([9f5e364](https://github.com/InverterNetwork/indexer/commit/9f5e3646e9337fd321efe3b465c61843060ab483))
+
+### [0.9.3](https://github.com/InverterNetwork/indexer/compare/v0.9.2...v0.9.3) (2025-01-27)
+
+
+### Features
+
+* add Docker build and run script for local development ([d791bdb](https://github.com/InverterNetwork/indexer/commit/d791bdbc190b0891fffce3568c7d470cc9968197))
+* add ECS task definition for indexer development environment ([710e1ea](https://github.com/InverterNetwork/indexer/commit/710e1eaaaac3a4a5833fdefe6df3e565371cb048))
+* add flexible Dockerfile command execution modes ([e23841b](https://github.com/InverterNetwork/indexer/commit/e23841be5109b9ba1a431eccfddebfcc4babda9c))
+* add GraphiQL Explorer plugin to improve GraphQL interface ([36522fb](https://github.com/InverterNetwork/indexer/commit/36522fbdd7c4fa41b4578f0f1456c24408359ba0))
+* enhance migration and permission management scripts ([251f920](https://github.com/InverterNetwork/indexer/commit/251f9204eb0c2e302d6af262f945c7d374bcc731))
+* improve Dockerfile runtime environment variable handling ([d7588a6](https://github.com/InverterNetwork/indexer/commit/d7588a6620f8fee8c7e9f5b3fe465a39b06371c2))
+
+### [0.9.2](https://github.com/InverterNetwork/indexer/compare/v0.9.1...v0.9.2) (2025-01-24)
+
+
+### Features
+
+* add configuration for public aggregation tables and update docker-compose service ([888b0b8](https://github.com/InverterNetwork/indexer/commit/888b0b8d447100e3cbaf7ac913ae34aaa3ca4e11))
+
+
+### Bug Fixes
+
+* update production script to use docker-compose for improved deployment ([0cb1c0f](https://github.com/InverterNetwork/indexer/commit/0cb1c0f5ee7faa9853ab6b2f49462927d1a386c1))
+
+### [0.9.1](https://github.com/InverterNetwork/indexer/compare/v0.9.0...v0.9.1) (2025-01-23)
+
 ## 0.9.0 (2025-01-22)
 
 ### Features

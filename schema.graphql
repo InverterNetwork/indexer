@@ -199,6 +199,7 @@ type Swap {
 
   amountISS: BigDecimal!
   amountCOL: BigDecimal!
+  amountUSD: BigDecimal!
 }
 
 ## ------------------------------------------------------------
@@ -227,6 +228,9 @@ type BondingCurve {
 
   buyReserveRatio: BigInt!
   sellReserveRatio: BigInt!
+
+  reserveCOL: BigDecimal!
+  reserveUSD: BigDecimal!
 
   swaps: [Swap!]! @derivedFrom(field: "module_id")
   projectFees: [ProjectFee!]! @derivedFrom(field: "module_id")
@@ -288,7 +292,8 @@ type DepositVault {
 
   workflow: Workflow!
 
-  balance: BigDecimal
+  balance: BigDecimal!
+  balanceUSD: BigDecimal!
 
   deposits: [Deposit!]! @derivedFrom(field: "depositVault")
   transfers: [Transfer!]! @derivedFrom(field: "depositVault")
@@ -300,7 +305,9 @@ type Deposit {
 
   depositVault: DepositVault!
   depositor: String!
+
   amount: BigDecimal!
+  amountUSD: BigDecimal!
 }
 
 type Transfer {
@@ -309,7 +316,9 @@ type Transfer {
   depositVault: DepositVault!
 
   recipient: String!
+
   amount: BigDecimal!
+  amountUSD: BigDecimal!
 }
 
 ## ------------------------------------------------------------

@@ -28,16 +28,19 @@ FM_DepositVault_v1.ModuleInitialized.handler(async ({ event, context }) => {
     properties: {
       address: derivedAddress,
     },
+    triggerTotalSupply: true,
   })
 
   context.DepositVault.set({
     id,
+    address,
     chainId: event.chainId,
 
-    address,
     workflow_id,
-    balance: ZERO_BD,
     token_id,
+
+    balance: ZERO_BD,
+    balanceUSD: ZERO_BD,
   })
 })
 
@@ -47,31 +50,37 @@ FM_DepositVault_v1.ModuleInitialized.handler(async ({ event, context }) => {
 
 FM_DepositVault_v1.Deposit.handler(async ({ event, context }) => {
   const id = `${event.srcAddress}-${event.chainId}`
-  const depositVault = await context.DepositVault.get(id)
-  if (!depositVault) return
+  const depositVault = (await context.DepositVault.get(id))!
 
+  // Metadata
   const collateralToken = await context.Token.get(depositVault.token_id)
-
-  // Initialize balance if undefined
-  const currentBalance = depositVault.balance ?? ZERO_BD
   const decimals = collateralToken?.decimals
 
-  // TODO: Fetch the token decimals
+  // Balances
+  const currentBalance = depositVault.balance ?? ZERO_BD
+  const currentBalanceUSD = depositVault.balanceUSD ?? ZERO_BD
+
+  // Amounts
   const amount = formatUnitsToBD(event.params._amount, decimals)
+  const amountUSD = amount.times(collateralToken!.priceUSD)
 
   // Update vault balance
   context.DepositVault.set({
     ...depositVault,
     balance: currentBalance.plus(amount),
+    balanceUSD: currentBalanceUSD.plus(amountUSD),
   })
 
   // Create deposit record
   context.Deposit.set({
     id: `${id}-${event.logIndex}`,
     depositVault_id: id,
-    amount,
-    depositor: event.params._from,
     blockTimestamp: event.block.timestamp,
+
+    amount,
+    amountUSD,
+
+    depositor: event.params._from,
   })
 })
 
@@ -82,30 +91,37 @@ FM_DepositVault_v1.Deposit.handler(async ({ event, context }) => {
 FM_DepositVault_v1.TransferOrchestratorToken.handler(
   async ({ event, context }) => {
     const id = `${event.srcAddress}-${event.chainId}`
-    const depositVault = await context.DepositVault.get(id)
-    if (!depositVault) return
+    const depositVault = (await context.DepositVault.get(id))!
 
+    // Metadata
     const collateralToken = await context.Token.get(depositVault.token_id)
     const decimals = collateralToken?.decimals
-    // Initialize balance if undefined
-    const currentBalance = depositVault.balance ?? ZERO_BD
 
-    // TODO: Fetch the token decimals
+    // Balances
+    const currentBalance = depositVault.balance ?? ZERO_BD
+    const currentBalanceUSD = depositVault.balanceUSD ?? ZERO_BD
+
+    // Amounts
     const amount = formatUnitsToBD(event.params._amount, decimals)
+    const amountUSD = amount.times(collateralToken!.priceUSD)
 
     // Update vault balance
     context.DepositVault.set({
       ...depositVault,
       balance: currentBalance.minus(amount),
+      balanceUSD: currentBalanceUSD.minus(amountUSD),
     })
 
     // Create transfer record
     context.Transfer.set({
       id: `${id}-${event.logIndex}`,
-      depositVault_id: id,
-      amount,
-      recipient: event.params._to,
       blockTimestamp: event.block.timestamp,
+      depositVault_id: id,
+
+      amount,
+      amountUSD,
+
+      recipient: event.params._to,
     })
   }
 )
