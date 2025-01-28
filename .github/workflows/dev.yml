@@ -26,7 +26,6 @@ permissions:
 jobs:
   build:
     name: Build
-    if: inputs.build == true
     runs-on: ubuntu-latest
     environment: development
 
@@ -82,11 +81,11 @@ jobs:
           ECR_REPOSITORY: ${{ env.REPO_NAME }}-${{env.PLATFORM}}
           COMMAND: ${{ inputs.env }}
         run: |
-          docker build --build-arg COMMAND_TYPE=$COMMAND -t $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.IMAGE_TAG }} .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.IMAGE_TAG }} .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.IMAGE_TAG }}
 
       - uses: act10ns/slack@v1
-        if: always()
+        if: always() && inputs.build == true
         with:
           status: ${{ job.status }}
           channel: 'n-platform-deployments'
