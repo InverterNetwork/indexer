@@ -17,19 +17,29 @@ on:
 env:
   REGION: eu-central-1
   PLATFORM: dev
+  REPO_NAME: ${{ github.event.repository.name }} # Or use: ${GITHUB_REPOSITORY##*/}
 
 permissions:
   id-token: write # This is required for requesting the JWT
   contents: read
 
 jobs:
+  configure-aws:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{secrets.ACCOUNT_ID_DEV}}:role/platform-github-action-role-${{env.PLATFORM}}
+          aws-region: ${{ env.REGION }}
+          role-duration-seconds: 3600
+
   build:
     name: Build
     if: inputs.build == true
     runs-on: ubuntu-latest
     environment: development
-    outputs:
-      image_tag: ${{ steps.set-image-tag.outputs.image_tag }}
+    needs: configure-aws
 
     steps:
       - name: Check out code
@@ -37,20 +47,16 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::${{secrets.ACCOUNT_ID_DEV}}:role/platform-github-action-role-${{env.PLATFORM}}
-          aws-region: ${{ env.REGION }}
-          role-duration-seconds: 1200
-
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: get-name
+      - name: Get image tag
+        id: get-image-tag
         run: |
-          echo "REPO_NAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV
+          IMAGE_TAG=${{env.PLATFORM}}-${GITHUB_SHA::8}
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+          echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
 
       - name: Check if image exists
         id: check-image
@@ -58,33 +64,30 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ env.REPO_NAME }}-${{env.PLATFORM}}
         run: |
-          LATEST_TAG="${{env.PLATFORM}}-${GITHUB_SHA::8}"
-          if aws ecr describe-images --repository-name $ECR_REPOSITORY --image-ids imageTag=$LATEST_TAG 2>/dev/null; then
+          if aws ecr describe-images --repository-name $ECR_REPOSITORY --image-ids imageTag=${{env.IMAGE_TAG}} 2>/dev/null; then
             echo "image_exists=true" >> $GITHUB_OUTPUT
           else
             echo "image_exists=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Set image tag
-        id: set-image-tag
+      - name: If skip build or image exists, set image tag to latest remote
+        id: get-latest-image-tag
+        if: inputs.build == false || steps.check-image.outputs.image_exists == 'true'
         run: |
-          if [[ "${{ steps.check-image.outputs.image_exists }}" == "true" ]]; then
-            echo "image_tag=${{env.PLATFORM}}-${GITHUB_SHA::8}" >> $GITHUB_OUTPUT
-          else
-            LATEST_SHA=$(git rev-parse HEAD)
-            echo "image_tag=${{env.PLATFORM}}-${LATEST_SHA::8}" >> $GITHUB_OUTPUT
-          fi
+          LATEST_TAG=$(aws ecr describe-images --repository-name $ECR_REPOSITORY --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]' --output text)
+          echo "IMAGE_TAG=$LATEST_TAG" >> $GITHUB_ENV
+          echo "image_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
 
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
-        if: steps.check-image.outputs.image_exists == 'false'
+        if: steps.check-image.outputs.image_exists == 'false' || inputs.build == true
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ env.REPO_NAME }}-${{env.PLATFORM}}
           COMMAND: ${{ inputs.env }}
         run: |
-          docker build --build-arg COMMAND_TYPE=$COMMAND -t $ECR_REGISTRY/$ECR_REPOSITORY:${{ steps.set-image-tag.outputs.image_tag }} .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{ steps.set-image-tag.outputs.image_tag }}
+          docker build --build-arg COMMAND_TYPE=$COMMAND -t $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.IMAGE_TAG }} .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.IMAGE_TAG }}
 
       - uses: act10ns/slack@v1
         with:
@@ -94,40 +97,23 @@ jobs:
           webhook-url: ${{ secrets.SLACK_WEBHOOK }}
         if: always()
 
+    outputs:
+      image_tag: ${{ steps.get-latest-image-tag.outputs.image_tag || steps.get-image-tag.outputs.image_tag }}
+
   deploy:
     runs-on: ubuntu-latest
-    needs: build
+    needs: [configure-aws, build]
     if: always() && !cancelled()
     steps:
       - uses: actions/checkout@v4
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::${{secrets.ACCOUNT_ID_DEV}}:role/platform-github-action-role-${{env.PLATFORM}}
-          aws-region: ${{ env.REGION }}
-          role-duration-seconds: 1200
-
-      - name: get-name
+      - name: Get Latest Image ARN
+        id: get-image-arn
+        env:
+          IMAGE_TAG: ${{ needs.build.outputs.image_tag }}
+          ECR_REPOSITORY: ${{ env.REPO_NAME }}-${{env.PLATFORM}}
         run: |
-          echo "REPO_NAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV
-
-      - name: Get latest image tag
-        id: get-image
-        run: |
-          echo "REPO_NAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV
-          if [[ "${{ inputs.build }}" == "true" ]]; then
-            echo "IMAGE_TAG=${{ needs.build.outputs.image_tag }}" >> $GITHUB_ENV
-          else
-            # Get the latest image tag from ECR
-            REPO="${{ env.REPO_NAME }}-${{env.PLATFORM}}"
-            LATEST_TAG=$(aws ecr describe-images --repository-name $REPO --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]' --output text)
-            if [[ -z "$LATEST_TAG" ]]; then
-              echo "No existing images found and build is skipped. Cannot proceed."
-              exit 1
-            fi
-            echo "IMAGE_TAG=$LATEST_TAG" >> $GITHUB_ENV
-          fi
+          echo "IMAGE_ARN=$(aws ecr describe-images --repository-name $ECR_REPOSITORY --image-ids imageTag=$IMAGE_TAG --query 'images[0].imageId.imageDigest' --output text)" >> $GITHUB_ENV
 
       - name: Create Task Definition
         id: task-def
@@ -161,8 +147,8 @@ jobs:
 
           jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' task-definition-full.json > task-definition.json
 
-          # Update the command and image in the indexer-dev container
-          jq --arg cmd "$CMD" --arg img "${{ steps.login-ecr.outputs.registry }}/${{ env.REPO_NAME }}-${{env.PLATFORM}}:${{ env.IMAGE_TAG }}" '(.containerDefinitions[] | select(.name == "indexer-dev") | .command) = ["sh", "-c", $cmd] | (.containerDefinitions[] | select(.name == "indexer-dev") | .image) = $img' task-definition.json > updated-task-definition.json
+          # Update the command and image in the indexer-dev container using IMAGE_ARN
+          jq --arg cmd "$CMD" --arg img "${{ env.IMAGE_ARN }}" '(.containerDefinitions[] | select(.name == "indexer-dev") | .command) = ["sh", "-c", $cmd] | (.containerDefinitions[] | select(.name == "indexer-dev") | .image) = $img' task-definition.json > updated-task-definition.json
           mv updated-task-definition.json task-definition.json
 
           # Store the task definition ARN
@@ -177,6 +163,7 @@ jobs:
             --force-new-deployment
 
       - name: Wait for service stability
+        timeout-minutes: 10
         run: |
           aws ecs wait services-stable \
             --cluster ${{env.PLATFORM}}-services-cluster \
