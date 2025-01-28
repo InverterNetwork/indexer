@@ -183,7 +183,7 @@ jobs:
             --services ${{ env.REPO_NAME }}-${{env.PLATFORM}}
 
       - name: Slack Notification
-      - uses: act10ns/slack@v1
+        uses: act10ns/slack@v1
         with:
           status: ${{ job.status }}
           channel: 'n-platform-deployments'
