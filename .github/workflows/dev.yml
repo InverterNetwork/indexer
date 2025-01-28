@@ -13,7 +13,7 @@ on:
       build:
         description: 'Build new image'
         type: boolean
-        default: true
+        default: false
 env:
   REGION: eu-central-1
   PLATFORM: dev
@@ -37,14 +37,14 @@ jobs:
           aws-region: ${{ env.REGION }}
           role-duration-seconds: 3600
 
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
       - name: Check out code
         uses: actions/checkout@v4
         with:
           submodules: recursive
-
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
 
       - name: Get image tag
         id: get-image-tag
@@ -60,22 +60,25 @@ jobs:
           ECR_REPOSITORY: ${{ env.REPO_NAME }}-${{env.PLATFORM}}
         run: |
           if aws ecr describe-images --repository-name $ECR_REPOSITORY --image-ids imageTag=${{env.IMAGE_TAG}} 2>/dev/null; then
-            echo "image_exists=true" >> $GITHUB_OUTPUT
+            echo "IMAGE_EXISTS=true" >> $GITHUB_ENV
           else
-            echo "image_exists=false" >> $GITHUB_OUTPUT
+            echo "IMAGE_EXISTS=false" >> $GITHUB_ENV
           fi
 
       - name: If skip build or image exists, set image tag to latest remote
         id: get-latest-image-tag
-        if: inputs.build == false || steps.check-image.outputs.image_exists == 'true'
+        if: inputs.build == false || env.IMAGE_EXISTS == 'true'
         run: |
           LATEST_TAG=$(aws ecr describe-images --repository-name $ECR_REPOSITORY --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]' --output text)
-          echo "IMAGE_TAG=$LATEST_TAG" >> $GITHUB_ENV
-          echo "image_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+          # override image tag with latest tag if it exists
+          if [ -n "$LATEST_TAG" ]; then
+            echo "IMAGE_TAG=$LATEST_TAG" >> $GITHUB_ENV
+            echo "image_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+          fi
 
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
-        if: steps.check-image.outputs.image_exists == 'false' && inputs.build == true
+        if: env.IMAGE_EXISTS == 'false' && inputs.build == true
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ env.REPO_NAME }}-${{env.PLATFORM}}
@@ -112,19 +115,25 @@ jobs:
       - name: Get Latest Image ARN
         id: get-image-arn
         env:
-          IMAGE_TAG: ${{ steps.get-latest-image-tag.outputs.image_tag || needs.build.outputs.image_tag }}
+          IMAGE_TAG: ${{ needs.build.outputs.image_tag }}
           ECR_REPOSITORY: ${{ env.REPO_NAME }}-${{env.PLATFORM}}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
           # Get full image URI
           IMAGE_URI="$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          echo "Verifying image: $IMAGE_URI"
 
-          # Verify image exists
-          if ! aws ecr describe-images --repository-name $ECR_REPOSITORY --image-ids imageTag=$IMAGE_TAG >/dev/null 2>&1; then
-            echo "Error: Image tag $IMAGE_TAG not found in repository"
+          # Verify image exists with better error handling
+          if ! aws ecr describe-images \
+            --repository-name $ECR_REPOSITORY \
+            --image-ids imageTag=$IMAGE_TAG \
+            --query 'imageDetails[0].imageTags[0]' \
+            --output text >/dev/null 2>&1; then
+            echo "::error::Image verification failed: $IMAGE_TAG not found in repository $ECR_REPOSITORY"
             exit 1
           fi
 
+          echo "Image verification successful"
           echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
 
       - name: Create Task Definition
