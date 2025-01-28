@@ -76,7 +76,7 @@ jobs:
 
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
-        if: steps.check-image.outputs.image_exists == 'false' || inputs.build == true
+        if: steps.check-image.outputs.image_exists == 'false' && inputs.build == true
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ env.REPO_NAME }}-${{env.PLATFORM}}
@@ -113,10 +113,20 @@ jobs:
       - name: Get Latest Image ARN
         id: get-image-arn
         env:
-          IMAGE_TAG: ${{ needs.build.outputs.image_tag }}
+          IMAGE_TAG: ${{ steps.get-latest-image-tag.outputs.image_tag || needs.build.outputs.image_tag }}
           ECR_REPOSITORY: ${{ env.REPO_NAME }}-${{env.PLATFORM}}
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          echo "IMAGE_ARN=$(aws ecr describe-images --repository-name $ECR_REPOSITORY --image-ids imageTag=$IMAGE_TAG --query 'images[0].imageId.imageDigest' --output text)" >> $GITHUB_ENV
+          # Get full image URI
+          IMAGE_URI="$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+
+          # Verify image exists
+          if ! aws ecr describe-images --repository-name $ECR_REPOSITORY --image-ids imageTag=$IMAGE_TAG >/dev/null 2>&1; then
+            echo "Error: Image tag $IMAGE_TAG not found in repository"
+            exit 1
+          fi
+
+          echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
 
       - name: Create Task Definition
         id: task-def
@@ -150,8 +160,8 @@ jobs:
 
           jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' task-definition-full.json > task-definition.json
 
-          # Update the command and image in the indexer-dev container using IMAGE_ARN
-          jq --arg cmd "$CMD" --arg img "${{ env.IMAGE_ARN }}" '(.containerDefinitions[] | select(.name == "indexer-dev") | .command) = ["sh", "-c", $cmd] | (.containerDefinitions[] | select(.name == "indexer-dev") | .image) = $img' task-definition.json > updated-task-definition.json
+          # Update the command and image in the indexer-dev container using IMAGE_URI
+          jq --arg cmd "$CMD" --arg img "${{ env.IMAGE_URI }}" '(.containerDefinitions[] | select(.name == "indexer-dev") | .command) = ["sh", "-c", $cmd] | (.containerDefinitions[] | select(.name == "indexer-dev") | .image) = $img' task-definition.json > updated-task-definition.json
           mv updated-task-definition.json task-definition.json
 
           # Store the task definition ARN
