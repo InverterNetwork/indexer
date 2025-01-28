@@ -415,4 +415,38 @@ type ExternalPriceFundingManager {
   swaps: [Swap!]! @derivedFrom(field: "module_id")
   projectFees: [ProjectFee!]! @derivedFrom(field: "module_id")
   protocolFees: [ProtocolFee!]! @derivedFrom(field: "module_id")
+
+  redemptionAmount: BigInt!
+
+  redemptionOrders: [RedemptionOrder!]! @derivedFrom(field: "fundingManager")
+}
+
+type RedemptionOrder {
+  id: ID! 
+  chainId: Int!
+  redemptionTimestamp: BigInt!
+  executedTimestamp: BigInt
+
+  fundingManager: ExternalPriceFundingManager!
+  paymentOrderId: BigInt!
+  
+  seller: String!
+  recipient: String!
+  sellAmount: BigDecimal!
+  exchangeRate: BigDecimal!
+  collateralAmount: BigDecimal!
+  feePercentage: BigDecimal!
+  feeAmount: BigDecimal!
+  redemptionAmount: BigDecimal!
+  
+  collateralToken: Token!
+
+  status: RedemptionStatus!
+}
+
+enum RedemptionStatus {
+  PROCESSED,
+  CANCELLED,
+  PENDING,
+  FAILED
 }

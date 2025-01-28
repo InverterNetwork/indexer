@@ -56,6 +56,7 @@ FM_PC_ExternalPrice_Redeeming_v1.ModuleInitialized.handler(
       address: address,
       buyFee: 0n,
       sellFee: 0n,
+      redemptionAmount: 0n,
     })
   }
 )

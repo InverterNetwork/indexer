@@ -80,6 +80,8 @@ contracts:
       - event: ProjectCollateralFeeWithdrawn
       - event: ProtocolFeeMinted
       - event: ProtocolFeeTransferred
+      - event: RedemptionAmountUpdated
+      - event: RedemptionOrderCreated
 networks:
   - id: 11155420
     start_block: 16141643

@@ -57,6 +57,7 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensBought.handler(
 
         amountCOL,
         amountISS,
+        amountUSD,
 
         initiator: event.params.buyer,
         recipient: event.params.receiver,
@@ -139,6 +140,7 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensSold.handler(
 
         amountCOL,
         amountISS,
+        amountUSD,
 
         initiator: event.params.seller,
         recipient: event.params.receiver,
