@@ -68,6 +68,9 @@ jobs:
       - name: If skip build or image exists, set image tag to latest remote
         id: get-latest-image-tag
         if: inputs.build == false || env.IMAGE_EXISTS == 'true'
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ env.REPO_NAME }}-${{env.PLATFORM}}
         run: |
           LATEST_TAG=$(aws ecr describe-images --repository-name $ECR_REPOSITORY --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]' --output text)
           # override image tag with latest tag if it exists
@@ -83,7 +86,6 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ env.REPO_NAME }}-${{env.PLATFORM}}
           COMMAND: ${{ inputs.env }}
-        continue-on-error: true
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.IMAGE_TAG }} .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.IMAGE_TAG }}
