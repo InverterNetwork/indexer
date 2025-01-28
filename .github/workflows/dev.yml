@@ -24,8 +24,12 @@ permissions:
   contents: read
 
 jobs:
-  configure-aws:
+  build:
+    name: Build
+    if: inputs.build == true
     runs-on: ubuntu-latest
+    environment: development
+
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -34,14 +38,6 @@ jobs:
           aws-region: ${{ env.REGION }}
           role-duration-seconds: 3600
 
-  build:
-    name: Build
-    if: inputs.build == true
-    runs-on: ubuntu-latest
-    environment: development
-    needs: configure-aws
-
-    steps:
       - name: Check out code
         uses: actions/checkout@v4
         with:
@@ -90,21 +86,28 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.IMAGE_TAG }}
 
       - uses: act10ns/slack@v1
+        if: always()
         with:
           status: ${{ job.status }}
           channel: 'n-platform-deployments'
           config: .github/config/slack.yml
           webhook-url: ${{ secrets.SLACK_WEBHOOK }}
-        if: always()
 
     outputs:
       image_tag: ${{ steps.get-latest-image-tag.outputs.image_tag || steps.get-image-tag.outputs.image_tag }}
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [configure-aws, build]
+    needs: build
     if: always() && !cancelled()
     steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{secrets.ACCOUNT_ID_DEV}}:role/platform-github-action-role-${{env.PLATFORM}}
+          aws-region: ${{ env.REGION }}
+          role-duration-seconds: 3600
+
       - uses: actions/checkout@v4
 
       - name: Get Latest Image ARN
