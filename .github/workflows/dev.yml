@@ -161,8 +161,8 @@ jobs:
 
           jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' task-definition-full.json > task-definition.json
 
-          # Update the command in the indexer-dev container
-          jq --arg cmd "$CMD" '(.containerDefinitions[] | select(.name == "indexer-dev") | .command) = ["sh", "-c", $cmd]' task-definition.json > updated-task-definition.json
+          # Update the command and image in the indexer-dev container
+          jq --arg cmd "$CMD" --arg img "${{ steps.login-ecr.outputs.registry }}/${{ env.REPO_NAME }}-${{env.PLATFORM}}:${{ env.IMAGE_TAG }}" '(.containerDefinitions[] | select(.name == "indexer-dev") | .command) = ["sh", "-c", $cmd] | (.containerDefinitions[] | select(.name == "indexer-dev") | .image) = $img' task-definition.json > updated-task-definition.json
           mv updated-task-definition.json task-definition.json
 
           # Store the task definition ARN
