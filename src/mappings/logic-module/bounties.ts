@@ -1,4 +1,4 @@
-import { BigDecimal, LM_PC_Bounties_v1 } from 'generated'
+import { LM_PC_Bounties_v1 } from 'generated'
 import { hexToString } from 'viem'
 import { formatUnitsToBD } from '../../utils'
 

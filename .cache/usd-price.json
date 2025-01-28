@@ -1,10 +1,10 @@
 {
   "0x961bb3932a7efaa9adcc7409e1fea090479e8312-1101": {
-    "meta": { "ttl": 600000000, "createdAt": 1737494736583 },
+    "meta": { "ttl": 600000000, "createdAt": 1738094847498 },
     "content": "0"
   },
   "0x22b21beddef74fe62f031d2c5c8f7a9f8a4b304d-1101": {
-    "meta": { "ttl": 600000000, "createdAt": 1737494838549 },
-    "content": "0.452815383967254"
+    "meta": { "ttl": 600000000, "createdAt": 1738094915736 },
+    "content": "0.403212843521173"
   }
 }

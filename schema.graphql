@@ -34,6 +34,38 @@ type WorkflowModule {
   moduleType: WorkflowModuleType!
 }
 
+## ------------------------------------------------------------
+## AUTHORIZERS
+## ------------------------------------------------------------
+
+type AutRoles {
+  id: ID! # ${address}-${chainId}
+  chainId: Int!
+  address: String!
+
+  workflow: Workflow!
+
+  roles: [Role!]! @derivedFrom(field: "module_id")
+}
+
+enum RoleStatus {
+  GRANTED
+  REVOKED
+}
+
+type Role {
+  id: ID! # ${autRoles_id}-${role}
+  chainId: Int!
+
+  role: String!
+
+  initiator: String!
+  recipient: String!
+
+  module_id: ID! @index
+  status: RoleStatus!
+}
+
 type Token @entity {
   id: ID! # `${address}-${chainId}`
   chainId: Int!
