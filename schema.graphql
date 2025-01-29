@@ -395,3 +395,58 @@ type LinearVesting {
 
   status: VestingStatus!
 }
+
+## EXTERNAL PRICE FUNDING MANAGER ENTITIES
+## ------------------------------------------------------------
+
+type ExternalPriceFundingManager {
+  id: ID! # `${address}-${chainId}`
+  chainId: Int!
+  address: String!
+
+  workflow: Workflow!
+
+  issuanceToken: Token!
+  collateralToken: Token!
+
+  buyFee: BigInt!
+  sellFee: BigInt!
+
+  swaps: [Swap!]! @derivedFrom(field: "module_id")
+  projectFees: [ProjectFee!]! @derivedFrom(field: "module_id")
+  protocolFees: [ProtocolFee!]! @derivedFrom(field: "module_id")
+
+  redemptionAmount: BigInt!
+
+  redemptionOrders: [RedemptionOrder!]! @derivedFrom(field: "fundingManager")
+}
+
+type RedemptionOrder {
+  id: ID! 
+  chainId: Int!
+  redemptionTimestamp: Int!
+  executedTimestamp: Int
+
+  fundingManager: ExternalPriceFundingManager!
+  paymentOrderId: BigInt!
+  
+  seller: String!
+  receiver: String!
+  sellAmount: BigDecimal!
+  exchangeRate: BigDecimal!
+  
+  feePercentage: BigDecimal!
+  feeAmount: BigDecimal!
+  finalRedemptionAmount: BigDecimal!
+  
+  collateralToken: Token!
+
+  status: RedemptionStatus!
+}
+
+enum RedemptionStatus {
+  PROCESSED,
+  CANCELLED,
+  PENDING,
+  FAILED
+}
