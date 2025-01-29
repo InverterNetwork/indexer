@@ -99,7 +99,7 @@ export const updateRedemptionOrder = async ({
       seller: '',
       executedTimestamp: 0,
       redemptionTimestamp: 0,
-      status: 'PENDING',
+      state: 'PENDING',
 
       ...properties,
     } satisfies RedemptionOrder_t)

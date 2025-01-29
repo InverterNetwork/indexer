@@ -1,8 +1,4 @@
-import {
-  FM_PC_ExternalPrice_Redeeming_v1,
-  BigDecimal,
-  RedemptionStatus,
-} from 'generated'
+import { FM_PC_ExternalPrice_Redeeming_v1, BigDecimal } from 'generated'
 
 import {
   updateExternalPriceFundingManager,
@@ -15,7 +11,9 @@ FM_PC_ExternalPrice_Redeeming_v1.RedemptionAmountUpdated.handler(
       context,
       event,
       properties: {
-        redemptionAmount: event.params._openRedemptionAmount,
+        redemptionAmount: BigDecimal(
+          event.params._openRedemptionAmount.toString()
+        ),
       },
     })
   }
@@ -46,7 +44,7 @@ FM_PC_ExternalPrice_Redeeming_v1.RedemptionOrderCreated.handler(
         ),
         redemptionTimestamp: event.block.timestamp,
         executedTimestamp: 0,
-        status: 'PENDING',
+        state: 'PENDING',
       },
     })
   }
