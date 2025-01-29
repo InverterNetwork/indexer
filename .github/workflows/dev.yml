@@ -157,8 +157,10 @@ jobs:
 
           jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' task-definition-full.json > task-definition.json
 
-          # Update the command and image in the indexer-dev container using IMAGE_URI
+          # Update the command and image in the indexer-dev container using IMAGE_URI and CMD
           jq --arg cmd "$CMD" --arg img $IMAGE_URI '(.containerDefinitions[] | select(.name == "indexer-dev") | .command) = ["sh", "-c", $cmd] | (.containerDefinitions[] | select(.name == "indexer-dev") | .image) = $img' task-definition.json > updated-task-definition.json
+
+          # Update the task definition with the new file
           mv updated-task-definition.json task-definition.json
 
           # Store the task definition ARN

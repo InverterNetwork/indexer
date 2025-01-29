@@ -2941,5 +2941,14 @@
       "decimals": 18,
       "address": "0xec3A33D29D2dd4b3a467e8fD58b31d5d62B8Bb73"
     }
+  },
+  "0x2384c4ab2bd2584f04c1667a1c24d13726c515bf-1101": {
+    "meta": {},
+    "content": {
+      "name": "test citizen wallet token",
+      "symbol": "tCTZN",
+      "decimals": 18,
+      "address": "0x2384c4Ab2bd2584F04C1667A1c24d13726C515bF"
+    }
   }
 }

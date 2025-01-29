@@ -2,15 +2,14 @@ import { BondingCurve } from 'generated'
 
 import {
   createSwap,
-  CurveIntervalProperties,
+  BondingCurveIntervalProperties,
   getBalanceOf,
   getIssPriceFromCol,
   getQtyAndPrice,
-  getTotalSupply,
   IssuanceTokenIntervalProperties,
   updateBondingCurve,
-  updateCurveDayData,
-  updateCurveHourData,
+  updateBondingCurveDayData,
+  updateBondingCurveHourData,
   updateIssuanceTokenDayData,
   updateIssuanceTokenHourData,
   updateToken,
@@ -91,11 +90,12 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
       amountISS,
       amountCOL,
       amountUSD,
-    } satisfies IssuanceTokenIntervalProperties & CurveIntervalProperties,
+    } satisfies IssuanceTokenIntervalProperties &
+      BondingCurveIntervalProperties,
   }
 
-  await updateCurveDayData(updateTimeDataParams)
-  await updateCurveHourData(updateTimeDataParams)
+  await updateBondingCurveDayData(updateTimeDataParams)
+  await updateBondingCurveHourData(updateTimeDataParams)
 
   await updateIssuanceTokenHourData(updateTimeDataParams)
   await updateIssuanceTokenDayData(updateTimeDataParams)
@@ -180,11 +180,12 @@ BondingCurve.TokensSold.handler(async ({ event, context }) => {
       amountCOL,
       amountISS,
       amountUSD,
-    } satisfies IssuanceTokenIntervalProperties & CurveIntervalProperties,
+    } satisfies IssuanceTokenIntervalProperties &
+      BondingCurveIntervalProperties,
   }
 
-  await updateCurveDayData(updateTimeDataParams)
-  await updateCurveHourData(updateTimeDataParams)
+  await updateBondingCurveDayData(updateTimeDataParams)
+  await updateBondingCurveHourData(updateTimeDataParams)
 
   await updateIssuanceTokenHourData(updateTimeDataParams)
   await updateIssuanceTokenDayData(updateTimeDataParams)

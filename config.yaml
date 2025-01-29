@@ -19,6 +19,14 @@ contracts:
     handler: src/mappings/factory/orchestrator.ts
     events:
       - event: OrchestratorInitialized
+  - name: AUT_Roles_v1
+    abi_file_path: abis/AUT_Roles_v1.json
+    handler: src/mappings/authorizer/aut-roles.ts
+    events:
+      - event: ModuleInitialized
+      - event: RoleAdminChanged
+      - event: RoleGranted
+      - event: RoleRevoked
   - name: BondingCurve # renamed to solve postgres conflict due to length of name
     abi_file_path: abis/FM_BC_Restricted_Bancor_Redeeming_VirtualSupply_v1.json
     handler: src/mappings/funding-manager/bonding-curve/index.ts
@@ -92,6 +100,8 @@ networks:
         address: 0x535BdbC1D369d43fed8546024D273eE5274fFF65
       - name: Orchestrator_v1
         address:
+      - name: AUT_Roles_v1
+        address:
       - name: BondingCurve # renamed to solve postgres conflict due to length of name
         address:
       - name: PP_Streaming_v1
@@ -110,6 +120,8 @@ networks:
       - name: OrchestratorFactory_v1
         address: 0x535BdbC1D369d43fed8546024D273eE5274fFF65
       - name: Orchestrator_v1
+        address:
+      - name: AUT_Roles_v1
         address:
       - name: BondingCurve # renamed to solve postgres conflict due to length of name
         address:
@@ -130,6 +142,8 @@ networks:
         address: 0x6ecA5f791d9635e4a1874cCD95564F914fBCF73d
       - name: Orchestrator_v1
         address:
+      - name: AUT_Roles_v1
+        address:
       - name: BondingCurve # renamed to solve postgres conflict due to length of name
         address:
       - name: PP_Streaming_v1
@@ -148,6 +162,8 @@ networks:
       - name: OrchestratorFactory_v1
         address: 0x535BdbC1D369d43fed8546024D273eE5274fFF65
       - name: Orchestrator_v1
+        address:
+      - name: AUT_Roles_v1
         address:
       - name: BondingCurve # renamed to solve postgres conflict due to length of name
         address:

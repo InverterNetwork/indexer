@@ -7,9 +7,9 @@ import {
   IssuanceTokenIntervalProperties,
   createProtocolFee,
   createProjectFee,
-  CurveIntervalProperties,
-  updateCurveDayData,
-  updateCurveHourData,
+  BondingCurveIntervalProperties,
+  updateBondingCurveDayData,
+  updateBondingCurveHourData,
   formatUnitsToBD,
 } from '../../../utils'
 
@@ -88,14 +88,15 @@ BondingCurve.ProjectCollateralFeeWithdrawn.handler(
 
         projectFeeCOL,
         projectFeeUSD,
-      } satisfies IssuanceTokenIntervalProperties & CurveIntervalProperties,
+      } satisfies IssuanceTokenIntervalProperties &
+        BondingCurveIntervalProperties,
     }
 
     await updateIssuanceTokenHourData(updateTimeDataParams)
     await updateIssuanceTokenDayData(updateTimeDataParams)
 
-    await updateCurveDayData(updateTimeDataParams)
-    await updateCurveHourData(updateTimeDataParams)
+    await updateBondingCurveDayData(updateTimeDataParams)
+    await updateBondingCurveHourData(updateTimeDataParams)
   }
 )
 
@@ -160,11 +161,12 @@ BondingCurve.ProtocolFeeMinted.handler(async ({ event, context }) => {
 
       protocolFeeISS,
       protocolFeeUSD,
-    } satisfies IssuanceTokenIntervalProperties & CurveIntervalProperties,
+    } satisfies IssuanceTokenIntervalProperties &
+      BondingCurveIntervalProperties,
   }
 
-  await updateCurveDayData(updateTimeDataParams)
-  await updateCurveHourData(updateTimeDataParams)
+  await updateBondingCurveDayData(updateTimeDataParams)
+  await updateBondingCurveHourData(updateTimeDataParams)
 
   await updateIssuanceTokenHourData(updateTimeDataParams)
   await updateIssuanceTokenDayData(updateTimeDataParams)
@@ -215,11 +217,12 @@ BondingCurve.ProtocolFeeTransferred.handler(async ({ event, context }) => {
 
       protocolFeeCOL,
       protocolFeeUSD,
-    } satisfies IssuanceTokenIntervalProperties & CurveIntervalProperties,
+    } satisfies IssuanceTokenIntervalProperties &
+      BondingCurveIntervalProperties,
   }
 
-  await updateCurveDayData(updateTimeDataParams)
-  await updateCurveHourData(updateTimeDataParams)
+  await updateBondingCurveDayData(updateTimeDataParams)
+  await updateBondingCurveHourData(updateTimeDataParams)
 
   await updateIssuanceTokenHourData(updateTimeDataParams)
   await updateIssuanceTokenDayData(updateTimeDataParams)

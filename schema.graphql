@@ -4,6 +4,7 @@
 type Workflow {
   id: ID! # ${orchestrator}-${chainId}
   chainId: Int!
+  address: String!
 
   orchestrator: String!
   fundingManager: WorkflowModule!
@@ -34,11 +35,45 @@ type WorkflowModule {
   moduleType: WorkflowModuleType!
 }
 
+## ------------------------------------------------------------
+## AUTHORIZERS
+## ------------------------------------------------------------
+
+type AutRoles {
+  id: ID! # ${address}-${chainId}
+  chainId: Int!
+  address: String!
+
+  workflow: Workflow!
+
+  roles: [Role!]! @derivedFrom(field: "module_id")
+}
+
+enum RoleStatus {
+  GRANTED
+  REVOKED
+}
+
+type Role {
+  id: ID! # ${autRoles_id}-${role}
+  chainId: Int!
+
+  role: String
+  roleName: String
+  roleGen: String!
+
+  initiator: String!
+  recipient: String!
+
+  module_id: ID! @index
+  status: RoleStatus!
+}
+
 type Token @entity {
   id: ID! # `${address}-${chainId}`
   chainId: Int!
-
   address: String!
+
   decimals: Int!
   name: String!
   symbol: String!
@@ -56,6 +91,7 @@ type IssuanceTokenDayData @entity {
   id: ID! # `${token.address}-${chainId}-${dayID}`
   date: Int! # timestamp rounded to current day by dividing by 86400
   chainId: Int!
+  address: String!
 
   token_id: ID! @index
 
@@ -79,6 +115,7 @@ type IssuanceTokenHourData @entity {
   id: ID! # `${token.address}-${chainId}-${hourID}`
   periodStartUnix: Int! # unix timestamp for start of hour
   chainId: Int!
+  address: String!
 
   token_id: ID! @index
 
@@ -102,11 +139,12 @@ type IssuanceTokenHourData @entity {
 ## FUNDING MANAGER MARKET DATA
 ## ------------------------------------------------------------
 
-type CurveDayData @entity {
+type BondingCurveDayData @entity {
   id: ID! # `${bc.id}-${chainId}-${dayID}`
   module_id: ID! @index
   date: Int! # timestamp rounded to current day by dividing by 86400
   chainId: Int!
+  address: String!
 
   collateralToken: Token!
   issuanceToken: Token!
@@ -136,11 +174,12 @@ type CurveDayData @entity {
   closeUSD: BigDecimal!
 }
 
-type CurveHourData @entity {
+type BondingCurveHourData @entity {
   id: ID! # `${bc.id}-${chainId}-${hourID}`
   module_id: ID! @index
   periodStartUnix: Int! # unix timestamp for start of hour
   chainId: Int!
+  address: String!
 
   collateralToken: Token!
   issuanceToken: Token!
@@ -236,8 +275,9 @@ type BondingCurve {
   projectFees: [ProjectFee!]! @derivedFrom(field: "module_id")
   protocolFees: [ProtocolFee!]! @derivedFrom(field: "module_id")
 
-  curveDayData: [CurveDayData!]! @derivedFrom(field: "module_id")
-  curveHourData: [CurveHourData!]! @derivedFrom(field: "module_id")
+  bondingCurveDayData: [BondingCurveDayData!]! @derivedFrom(field: "module_id")
+  bondingCurveHourData: [BondingCurveHourData!]!
+    @derivedFrom(field: "module_id")
 
   issuanceTokenDayData: [IssuanceTokenDayData!]! @derivedFrom(field: "token_id")
   issuanceTokenHourData: [IssuanceTokenHourData!]!
@@ -286,8 +326,8 @@ type ProjectFee {
 type DepositVault {
   id: ID! # `${address}-${chainId}`
   chainId: Int!
-
   address: String!
+
   token: Token!
 
   workflow: Workflow!
@@ -331,6 +371,8 @@ type Transfer {
 type BountyModule {
   id: ID! # `${address}-${chainId}`
   chainId: Int!
+  address: String!
+
   workflow: Workflow!
   bounties: [Bounty!]! @derivedFrom(field: "bountyModule")
 }
@@ -367,6 +409,7 @@ type BountyContributor {
 type StreamingPaymentProcessor {
   id: ID! # StreamingPaymentProcessor address
   chainId: Int!
+  address: String!
 
   workflow: Workflow!
   vestings: [LinearVesting!]! @derivedFrom(field: "streamingPaymentProcessor")
