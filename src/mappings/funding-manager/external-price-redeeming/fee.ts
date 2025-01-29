@@ -2,7 +2,6 @@ import { BigDecimal, FM_PC_ExternalPrice_Redeeming_v1 } from 'generated'
 import { formatUnits } from 'viem'
 
 import {
-  updateBondingCurve,
   updateIssuanceTokenHourData,
   updateIssuanceTokenDayData,
   IssuanceTokenIntervalProperties,

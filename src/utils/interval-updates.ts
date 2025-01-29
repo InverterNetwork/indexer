@@ -1,7 +1,7 @@
 import {
   BigDecimal,
-  BondingCurveDayData,
-  BondingCurveHourData,
+  CurveDayData,
+  CurveHourData,
   eventLog,
   handlerContext,
   IssuanceTokenDayData,
@@ -20,7 +20,7 @@ import {
 // -----------------------------------------
 // TYPES
 // -----------------------------------------
-export type BondingCurveIntervalProperties = {
+export type CurveIntervalProperties = {
   id: string
   collateralToken_id: string
   issuanceToken_id: string
@@ -54,7 +54,7 @@ export type IssuanceTokenIntervalProperties = {
 }
 
 type IssuanceTokenIntervalData = IssuanceTokenDayData | IssuanceTokenHourData
-type BondingCurveIntervalData = BondingCurveDayData | BondingCurveHourData
+type BondingCurveIntervalData = CurveDayData | CurveHourData
 
 type IntervalType = 'hour' | 'day'
 
@@ -62,7 +62,7 @@ type Params<T extends 'curve' | 'issuance'> = {
   event: eventLog<any>
   context: handlerContext
   properties: {
-    curve: BondingCurveIntervalProperties
+    curve: CurveIntervalProperties
     issuance: IssuanceTokenIntervalProperties
   }[T]
 }
@@ -74,25 +74,19 @@ type Params<T extends 'curve' | 'issuance'> = {
 // CURVE
 // -----------------------------------------
 
-export function updateBondingCurveDayData({
-  context,
-  ...params
-}: Params<'curve'>) {
+export function updateCurveDayData({ context, ...params }: Params<'curve'>) {
   return handleBondingCurveIntervalData({
     ...params,
     intervalType: 'day',
-    store: context.BondingCurveDayData,
+    store: context.CurveDayData,
   })
 }
 
-export function updateBondingCurveHourData({
-  context,
-  ...params
-}: Params<'curve'>) {
+export function updateCurveHourData({ context, ...params }: Params<'curve'>) {
   return handleBondingCurveIntervalData({
     ...params,
     intervalType: 'hour',
-    store: context.BondingCurveHourData,
+    store: context.CurveHourData,
   })
 }
 

@@ -139,8 +139,8 @@ type IssuanceTokenHourData @entity {
 ## FUNDING MANAGER MARKET DATA
 ## ------------------------------------------------------------
 
-type BondingCurveDayData @entity {
-  id: ID! # `${bc.id}-${chainId}-${dayID}`
+type CurveDayData @entity {
+  id: ID! # `${fundingManager_id}-${chainId}-${dayID}`
   module_id: ID! @index
   date: Int! # timestamp rounded to current day by dividing by 86400
   chainId: Int!
@@ -174,8 +174,8 @@ type BondingCurveDayData @entity {
   closeUSD: BigDecimal!
 }
 
-type BondingCurveHourData @entity {
-  id: ID! # `${bc.id}-${chainId}-${hourID}`
+type CurveHourData @entity {
+  id: ID! # `${fundingManager_id}-${chainId}-${hourID}`
   module_id: ID! @index
   periodStartUnix: Int! # unix timestamp for start of hour
   chainId: Int!
@@ -275,9 +275,8 @@ type BondingCurve {
   projectFees: [ProjectFee!]! @derivedFrom(field: "module_id")
   protocolFees: [ProtocolFee!]! @derivedFrom(field: "module_id")
 
-  bondingCurveDayData: [BondingCurveDayData!]! @derivedFrom(field: "module_id")
-  bondingCurveHourData: [BondingCurveHourData!]!
-    @derivedFrom(field: "module_id")
+  curveDayData: [CurveDayData!]! @derivedFrom(field: "module_id")
+  curveHourData: [CurveHourData!]! @derivedFrom(field: "module_id")
 
   issuanceTokenDayData: [IssuanceTokenDayData!]! @derivedFrom(field: "token_id")
   issuanceTokenHourData: [IssuanceTokenHourData!]!
@@ -465,31 +464,31 @@ type ExternalPriceFundingManager {
 }
 
 type RedemptionOrder {
-  id: ID! 
+  id: ID!
   chainId: Int!
   redemptionTimestamp: Int!
   executedTimestamp: Int
 
   fundingManager: ExternalPriceFundingManager!
   paymentOrderId: BigInt!
-  
+
   seller: String!
   receiver: String!
   sellAmount: BigDecimal!
   exchangeRate: BigDecimal!
-  
+
   feePercentage: BigDecimal!
   feeAmount: BigDecimal!
   finalRedemptionAmount: BigDecimal!
-  
+
   collateralToken: Token!
 
   status: RedemptionStatus!
 }
 
 enum RedemptionStatus {
-  PROCESSED,
-  CANCELLED,
-  PENDING,
+  PROCESSED
+  CANCELLED
+  PENDING
   FAILED
 }
