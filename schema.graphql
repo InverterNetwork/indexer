@@ -59,6 +59,8 @@ type Role {
   chainId: Int!
 
   role: String!
+  roleName: String!
+  roleGen: String!
 
   initiator: String!
   recipient: String!

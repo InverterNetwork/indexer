@@ -23,7 +23,7 @@ AUT_Roles_v1.ModuleInitialized.handler(async ({ event, context }) => {
 AUT_Roles_v1.RoleGranted.handler(async ({ event, context }) => {
   const module_id = `${event.srcAddress}-${event.chainId}`
 
-  const role = event.params.role
+  const roleGen = event.params.role
   const recipient = event.params.account
   const initiator = event.params.sender
 
@@ -33,7 +33,7 @@ AUT_Roles_v1.RoleGranted.handler(async ({ event, context }) => {
     properties: {
       module_id,
       status: 'GRANTED',
-      role,
+      roleGen,
       recipient,
       initiator,
     },
@@ -42,7 +42,9 @@ AUT_Roles_v1.RoleGranted.handler(async ({ event, context }) => {
 
 AUT_Roles_v1.RoleRevoked.handler(async ({ event, context }) => {
   const module_id = `${event.srcAddress}-${event.chainId}`
-  const role = event.params.role
+  const roleGen = event.params.role
+
+  const recipient = event.params.account
 
   updateRole({
     event,
@@ -50,7 +52,8 @@ AUT_Roles_v1.RoleRevoked.handler(async ({ event, context }) => {
     properties: {
       module_id,
       status: 'REVOKED',
-      role,
+      roleGen,
+      recipient,
     },
   })
 })
