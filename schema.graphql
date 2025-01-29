@@ -431,13 +431,13 @@ type RedemptionOrder {
   paymentOrderId: BigInt!
   
   seller: String!
-  recipient: String!
+  receiver: String!
   sellAmount: BigDecimal!
   exchangeRate: BigDecimal!
-  collateralAmount: BigDecimal!
+  
   feePercentage: BigDecimal!
   feeAmount: BigDecimal!
-  redemptionAmount: BigDecimal!
+  finalRedemptionAmount: BigDecimal!
   
   collateralToken: Token!
 

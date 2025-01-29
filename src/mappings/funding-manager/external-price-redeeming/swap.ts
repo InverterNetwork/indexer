@@ -1,10 +1,12 @@
 import { FM_PC_ExternalPrice_Redeeming_v1 } from 'generated'
-
+import { updateExternalPriceFundingManager } from './update'
 import {
   createSwap,
   CurveIntervalProperties,
+  getBalanceOf,
   getIssPriceFromCol,
   getQtyAndPrice,
+  getTotalSupply,
   IssuanceTokenIntervalProperties,
   updateCurveDayData,
   updateCurveHourData,
@@ -97,6 +99,24 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensBought.handler(
 
     await updateIssuanceTokenHourData(updateTimeDataParams)
     await updateIssuanceTokenDayData(updateTimeDataParams)
+
+    // const reserveCOL = await getBalanceOf({
+    //   tokenAddress: collateralToken!.address,
+    //   address: bc!.address,
+    //   chainId: bc!.chainId,
+    //   decimals: collateralToken!.decimals,
+    // })
+
+    // const reserveUSD = reserveCOL.times(collateralToken!.priceUSD)
+
+    // await updateBondingCurve({
+    //   context,
+    //   event,
+    //   properties: {
+    //     reserveCOL,
+    //     reserveUSD,
+    //   },
+    // })
   }
 )
 
@@ -104,10 +124,10 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensBought.handler(
 FM_PC_ExternalPrice_Redeeming_v1.TokensSold.handler(
   async ({ event, context }) => {
     const id = `${event.srcAddress}-${event.chainId}`
-    const bc = await context.ExternalPriceFundingManager.get(id)
+    const bc = (await context.ExternalPriceFundingManager.get(id))!
 
-    const issuanceToken_id = bc!.issuanceToken_id!
-    const collateralToken_id = bc!.collateralToken_id!
+    const issuanceToken_id = bc.issuanceToken_id
+    const collateralToken_id = bc.collateralToken_id
 
     const issuanceToken = await context.Token.get(issuanceToken_id)
     const collateralToken = await context.Token.get(collateralToken_id)
@@ -181,5 +201,23 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensSold.handler(
       },
       triggerTotalSupply: true,
     })
+
+    // const reserveCOL = await getBalanceOf({
+    //   tokenAddress: collateralToken!.address,
+    //   address: bc.address,
+    //   chainId: bc.chainId,
+    //   decimals: collateralToken!.decimals,
+    // })
+
+    // const reserveUSD = reserveCOL.times(collateralToken!.priceUSD)
+
+    // await updateExternalPriceFundingManager({
+    //   context,
+    //   event,
+    //   properties: {
+    //     reserveCOL,
+    //     reserveUSD,
+    //   },
+    // })
   }
 )

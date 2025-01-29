@@ -1,10 +1,8 @@
 import { FM_PC_ExternalPrice_Redeeming_v1 } from 'generated'
 
-import {
-  deriveTokenAddress,
-  updateBondingCurve,
-  updateToken,
-} from '../../../utils'
+import { deriveTokenAddress, updateToken } from '../../../utils'
+
+import { updateExternalPriceFundingManager } from './update'
 
 import { ZERO_BD } from '../../../utils/constants'
 
@@ -18,7 +16,7 @@ FM_PC_ExternalPrice_Redeeming_v1.ModuleInitialized.handler(
     const { derivedAddress: collateralTokenAddress } = await deriveTokenAddress(
       {
         address,
-        chainId,
+        chainId: event.chainId,
         derivesTo: 'token',
       }
     )
@@ -30,11 +28,12 @@ FM_PC_ExternalPrice_Redeeming_v1.ModuleInitialized.handler(
       properties: {
         address: collateralTokenAddress,
       },
+      triggerTotalSupply: true,
     })
 
     const { derivedAddress: issuanceTokenAddress } = await deriveTokenAddress({
       address,
-      chainId,
+      chainId: event.chainId,
       derivesTo: 'issuance',
     })
 
@@ -45,18 +44,18 @@ FM_PC_ExternalPrice_Redeeming_v1.ModuleInitialized.handler(
       properties: {
         address: issuanceTokenAddress,
       },
+      triggerTotalSupply: true,
     })
 
-    context.ExternalPriceFundingManager.set({
-      id: id,
-      chainId,
-      workflow_id,
-      collateralToken_id,
-      issuanceToken_id,
-      address: address,
-      buyFee: 0n,
-      sellFee: 0n,
-      redemptionAmount: 0n,
+    await updateExternalPriceFundingManager({
+      event,
+      context,
+      properties: {
+        workflow_id,
+        collateralToken_id,
+        issuanceToken_id,
+        address: address,
+      },
     })
   }
 )

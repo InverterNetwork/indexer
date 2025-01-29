@@ -1,32 +1,6 @@
 [
   {
     "type": "function",
-    "name": "WHITELIST_ROLE",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "bytes32",
-        "internalType": "bytes32"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "type": "function",
-    "name": "WHITELIST_ROLE_ADMIN",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "bytes32",
-        "internalType": "bytes32"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "type": "function",
     "name": "amountPaid",
     "inputs": [
       {
@@ -237,6 +211,13 @@
   },
   {
     "type": "function",
+    "name": "executeRedemptionQueue",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
     "name": "getBuyFee",
     "inputs": [],
     "outputs": [
@@ -302,11 +283,11 @@
   },
   {
     "type": "function",
-    "name": "getMaxBuyFee",
+    "name": "getMaxProjectBuyFee",
     "inputs": [],
     "outputs": [
       {
-        "name": "maxBuyFee_",
+        "name": "maxProjectBuyFee_",
         "type": "uint256",
         "internalType": "uint256"
       }
@@ -367,6 +348,32 @@
   },
   {
     "type": "function",
+    "name": "getQueueExecutorRole",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "role_",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "stateMutability": "pure"
+  },
+  {
+    "type": "function",
+    "name": "getQueueExecutorRoleAdmin",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "role_",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "stateMutability": "pure"
+  },
+  {
+    "type": "function",
     "name": "getSellFee",
     "inputs": [],
     "outputs": [
@@ -403,6 +410,32 @@
       }
     ],
     "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getWhitelistRole",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "role_",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "stateMutability": "pure"
+  },
+  {
+    "type": "function",
+    "name": "getWhitelistRoleAdmin",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "role_",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "stateMutability": "pure"
   },
   {
     "type": "function",
@@ -962,6 +995,25 @@
   },
   {
     "type": "event",
+    "name": "DirectOperationsOnlyUpdated",
+    "inputs": [
+      {
+        "name": "currentIsDirectOperationFlag_",
+        "type": "bool",
+        "indexed": true,
+        "internalType": "bool"
+      },
+      {
+        "name": "newIsDirectOperationFlag_",
+        "type": "bool",
+        "indexed": true,
+        "internalType": "bool"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
     "name": "FlagsSet",
     "inputs": [
       {
@@ -1053,6 +1105,25 @@
             "internalType": "string"
           }
         ]
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "OracleUpdated",
+    "inputs": [
+      {
+        "name": "currentOracle_",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "newOracle_",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
       }
     ],
     "anonymous": false
@@ -1159,6 +1230,25 @@
   },
   {
     "type": "event",
+    "name": "ProjectTreasuryUpdated",
+    "inputs": [
+      {
+        "name": "currentProjectTreasury_",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "newProjectTreasury_",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
     "name": "ProtocolFeeMinted",
     "inputs": [
       {
@@ -1225,7 +1315,7 @@
     "name": "RedemptionOrderCreated",
     "inputs": [
       {
-        "name": "creator_",
+        "name": "paymentClient_",
         "type": "address",
         "indexed": true,
         "internalType": "address"
@@ -1261,12 +1351,6 @@
         "internalType": "uint256"
       },
       {
-        "name": "collateralAmount_",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
-      },
-      {
         "name": "feePercentage_",
         "type": "uint256",
         "indexed": false,
@@ -1279,7 +1363,7 @@
         "internalType": "uint256"
       },
       {
-        "name": "redemptionAmount_",
+        "name": "finalRedemptionAmount_",
         "type": "uint256",
         "indexed": false,
         "internalType": "uint256"
@@ -1289,12 +1373,6 @@
         "type": "address",
         "indexed": false,
         "internalType": "address"
-      },
-      {
-        "name": "redemptionTime_",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
       },
       {
         "name": "state_",
