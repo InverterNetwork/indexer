@@ -1,7 +1,7 @@
 import {
   BigDecimal,
-  CurveDayData,
-  CurveHourData,
+  BondingCurveDayData,
+  BondingCurveHourData,
   eventLog,
   handlerContext,
   IssuanceTokenDayData,
@@ -20,7 +20,7 @@ import {
 // -----------------------------------------
 // TYPES
 // -----------------------------------------
-export type CurveIntervalProperties = {
+export type BondingCurveIntervalProperties = {
   id: string
   collateralToken_id: string
   issuanceToken_id: string
@@ -54,7 +54,7 @@ export type IssuanceTokenIntervalProperties = {
 }
 
 type IssuanceTokenIntervalData = IssuanceTokenDayData | IssuanceTokenHourData
-type CurveIntervalData = CurveDayData | CurveHourData
+type BondingCurveIntervalData = BondingCurveDayData | BondingCurveHourData
 
 type IntervalType = 'hour' | 'day'
 
@@ -62,7 +62,7 @@ type Params<T extends 'curve' | 'issuance'> = {
   event: eventLog<any>
   context: handlerContext
   properties: {
-    curve: CurveIntervalProperties
+    curve: BondingCurveIntervalProperties
     issuance: IssuanceTokenIntervalProperties
   }[T]
 }
@@ -74,19 +74,25 @@ type Params<T extends 'curve' | 'issuance'> = {
 // CURVE
 // -----------------------------------------
 
-export function updateCurveDayData({ context, ...params }: Params<'curve'>) {
-  return handleCurveIntervalData({
+export function updateBondingCurveDayData({
+  context,
+  ...params
+}: Params<'curve'>) {
+  return handleBondingCurveIntervalData({
     ...params,
     intervalType: 'day',
-    store: context.CurveDayData,
+    store: context.BondingCurveDayData,
   })
 }
 
-export function updateCurveHourData({ context, ...params }: Params<'curve'>) {
-  return handleCurveIntervalData({
+export function updateBondingCurveHourData({
+  context,
+  ...params
+}: Params<'curve'>) {
+  return handleBondingCurveIntervalData({
     ...params,
     intervalType: 'hour',
-    store: context.CurveHourData,
+    store: context.BondingCurveHourData,
   })
 }
 
@@ -144,7 +150,7 @@ async function handleIssuanceTokenIntervalData<
 
     priceUSD,
   } = properties
-
+  const address = issuanceToken_id.split('-')[0]
   const intervalData = getIntervalData({ intervalType, timestamp })
 
   const intervalID = `${issuanceToken_id}-${intervalData.id}`
@@ -155,6 +161,7 @@ async function handleIssuanceTokenIntervalData<
     ({
       id: intervalID,
       chainId: event.chainId,
+      address,
 
       token_id: issuanceToken_id,
 
@@ -186,7 +193,9 @@ async function handleIssuanceTokenIntervalData<
 // CURVE INTERVAL DATA
 // -----------------------------------------
 
-async function handleCurveIntervalData<T extends CurveIntervalData>({
+async function handleBondingCurveIntervalData<
+  T extends BondingCurveIntervalData,
+>({
   event,
   properties,
   intervalType,
@@ -210,6 +219,7 @@ async function handleCurveIntervalData<T extends CurveIntervalData>({
   // Calculate interval-specific values
   const intervalData = getIntervalData({ intervalType, timestamp })
 
+  const address = id.split('-')[0]
   const intervalID = `${id}-${intervalData.id}`
   const nonNullPriceCOL = priceCOL || ZERO_BD
   const nonNullPriceUSD = priceUSD || ZERO_BD
@@ -220,6 +230,7 @@ async function handleCurveIntervalData<T extends CurveIntervalData>({
     ({
       id: intervalID,
       chainId: event.chainId,
+      address,
 
       collateralToken_id,
       issuanceToken_id,
@@ -249,7 +260,9 @@ async function handleCurveIntervalData<T extends CurveIntervalData>({
       highUSD: nonNullPriceUSD,
       lowUSD: nonNullPriceUSD,
       closeUSD: nonNullPriceUSD,
-    } satisfies Writable<Omit<CurveIntervalData, 'date' | 'periodStartUnix'>>)
+    } satisfies Writable<
+      Omit<BondingCurveIntervalData, 'date' | 'periodStartUnix'>
+    >)
 
   setStartTime({ data, intervalType, timestamp: intervalData.startTime })
   setOHLCVData({ data, properties })
@@ -278,7 +291,7 @@ function setOHLCVData({
   },
 }: {
   data:
-    | Writable<Omit<CurveIntervalData, 'date' | 'periodStartUnix'>>
+    | Writable<Omit<BondingCurveIntervalData, 'date' | 'periodStartUnix'>>
     | Writable<Omit<IssuanceTokenIntervalData, 'date' | 'periodStartUnix'>>
   properties: Partial<{
     priceCOL: BigDecimal

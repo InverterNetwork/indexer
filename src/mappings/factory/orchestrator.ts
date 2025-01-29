@@ -17,6 +17,7 @@ Orchestrator_v1.OrchestratorInitialized.handler(async ({ event, context }) => {
   context.Workflow.set({
     id,
     chainId: event.chainId,
+    address,
 
     orchestrator,
     fundingManager_id: event.params.fundingManager,
