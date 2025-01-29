@@ -20,11 +20,11 @@ export const updateRole = async ({
 
   prevData?: Role_t
 }) => {
-  const { chainId } = event
+  const { chainId, srcAddress } = event
   const module_id = properties.module_id
   const roleGen = properties.roleGen
   const recipient = properties.recipient
-  const id = `${recipient}-${roleGen}-${chainId}`
+  const id = `${srcAddress}-${recipient}-${roleGen}-${chainId}`
 
   const data =
     // PREVIOUS DATA
