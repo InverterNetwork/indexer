@@ -58,8 +58,8 @@ type Role {
   id: ID! # ${autRoles_id}-${role}
   chainId: Int!
 
-  role: String!
-  roleName: String!
+  role: String
+  roleName: String
   roleGen: String!
 
   initiator: String!

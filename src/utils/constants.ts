@@ -38,29 +38,36 @@ export const ONE_BD = BigDecimal('1')
 export const BI_18 = BigInt(18)
 
 export const knownRoleNames = [
+  'CURVE_INTERACTION_ROLE',
   'DEFAULT_ADMIN_ROLE',
   'CURVE_USER',
   'WHITELIST_ROLE',
-  'BURN_ADMIN_ROLE',
-  'BOUNTY_ISSUER_ROLE',
-  'CLAIMANT_ROLE',
-  'BOUNTY_ISSUER_ROLE',
+  'ISSUER',
+  'BOUNTY_ISSUER',
+  'CLAIMANT',
   'VERIFIER_ROLE',
+  'VERIFIER',
+  'CLAIMANT_ROLE',
   'PRICE_SETTER_ROLE',
   'ASSERTER_ROLE',
   'PAYMENT_PUSHER_ROLE',
+  'PAYMENT_PUSHER',
   'WHITELIST_ROLE',
 ]
 
 export const DEFAULT_ADMIN_ROLE =
   '0x0000000000000000000000000000000000000000000000000000000000000000'
+export const BURN_ADMIN_ROLE =
+  '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
 
 export const knownRoles = knownRoleNames.map((name) => ({
   name,
   hex:
     name === 'DEFAULT_ADMIN_ROLE'
       ? (DEFAULT_ADMIN_ROLE as string)
-      : (stringToHex(name, {
-          size: 32,
-        }) as string),
+      : name === 'BURN_ADMIN_ROLE'
+        ? (BURN_ADMIN_ROLE as string)
+        : (stringToHex(name, {
+            size: 32,
+          }) as string),
 }))

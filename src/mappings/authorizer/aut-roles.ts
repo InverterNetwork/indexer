@@ -42,9 +42,10 @@ AUT_Roles_v1.RoleGranted.handler(async ({ event, context }) => {
 
 AUT_Roles_v1.RoleRevoked.handler(async ({ event, context }) => {
   const module_id = `${event.srcAddress}-${event.chainId}`
-  const roleGen = event.params.role
 
+  const roleGen = event.params.role
   const recipient = event.params.account
+  const initiator = event.params.sender
 
   updateRole({
     event,
@@ -54,6 +55,7 @@ AUT_Roles_v1.RoleRevoked.handler(async ({ event, context }) => {
       status: 'REVOKED',
       roleGen,
       recipient,
+      initiator,
     },
   })
 })

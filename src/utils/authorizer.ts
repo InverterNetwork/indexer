@@ -2,7 +2,7 @@ import { eventLog, handlerContext } from 'generated'
 import { Role_t } from 'generated/src/db/Entities.gen'
 import { Writable } from 'type-fest'
 import { encodePacked, keccak256 } from 'viem'
-import { knownRoles } from './constants'
+import { BURN_ADMIN_ROLE, DEFAULT_ADMIN_ROLE, knownRoles } from './constants'
 
 export const updateRole = async ({
   event,
@@ -22,9 +22,9 @@ export const updateRole = async ({
 }) => {
   const { chainId } = event
   const module_id = properties.module_id
-  const roleGEN = properties.roleGen
+  const roleGen = properties.roleGen
   const recipient = properties.recipient
-  const id = `${chainId}-${roleGEN}-${recipient}`
+  const id = `${recipient}-${roleGen}-${chainId}`
 
   const data =
     // PREVIOUS DATA
@@ -37,43 +37,55 @@ export const updateRole = async ({
       id,
       chainId,
       module_id,
-    } satisfies Pick<Role_t, 'id' | 'chainId' | 'module_id'>)
+      recipient,
+    } satisfies Pick<Role_t, 'id' | 'chainId' | 'module_id' | 'recipient'>)
 
-  let derivedRole: {
-    role: string
-    roleName: string
-  } | null = null
+  let derivedRole:
+    | {
+        role: string
+        roleName: string
+      }
+    | {} = {}
 
-  if (!data.role || !data.roleName) {
-    const AutRoles = (await context.AutRoles.get(module_id))!
-    const possibleModuleAddresses = await getRoleBaringModuleAddress(
-      context,
-      AutRoles.workflow_id
-    )
+  if (roleGen === DEFAULT_ADMIN_ROLE) {
+    derivedRole = {
+      role: DEFAULT_ADMIN_ROLE,
+      roleName: 'DEFAULT_ADMIN_ROLE',
+    }
+  } else if (roleGen === BURN_ADMIN_ROLE) {
+    derivedRole = {
+      role: BURN_ADMIN_ROLE,
+      roleName: 'BURN_ADMIN_ROLE',
+    }
+  } else {
+    if (!data.role || !data.roleName) {
+      const AutRoles = (await context.AutRoles.get(module_id))!
+      const possibleModuleAddresses = await getRoleBaringModuleAddress(
+        context,
+        AutRoles.workflow_id
+      )
 
-    const derivedRoleResult = deriveRoleFromPossibleModuleAddresses(
-      possibleModuleAddresses,
-      roleGEN
-    )
+      const derivedRoleResult = deriveRoleFromPossibleModuleAddresses(
+        possibleModuleAddresses,
+        roleGen
+      )
 
-    if (derivedRoleResult) {
-      derivedRole = {
-        role: derivedRoleResult.hex,
-        roleName: derivedRoleResult.name,
+      if (derivedRoleResult) {
+        derivedRole = {
+          role: derivedRoleResult.hex,
+          roleName: derivedRoleResult.name,
+        }
       }
     }
   }
 
-  // If required fields are present, update the role
   const result = {
     ...data,
     ...properties,
     ...derivedRole,
   }
 
-  if (result.role && result.roleName) {
-    context.Role.set(result)
-  }
+  context.Role.set(result)
 }
 
 export const getRoleBaringModuleAddress = async (
