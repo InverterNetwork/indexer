@@ -424,8 +424,8 @@ type ExternalPriceFundingManager {
 type RedemptionOrder {
   id: ID! 
   chainId: Int!
-  redemptionTimestamp: BigInt!
-  executedTimestamp: BigInt
+  redemptionTimestamp: Int!
+  executedTimestamp: Int
 
   fundingManager: ExternalPriceFundingManager!
   paymentOrderId: BigInt!
