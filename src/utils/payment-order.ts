@@ -15,7 +15,7 @@ export const updatePaymentOrder = async ({
   properties: Partial<Omit<PaymentOrder_t, 'id'>>
   prevData?: PaymentOrder_t
 }) => {
-  const { chainId, srcAddress: address } = event
+  const { chainId } = event
 
   const client = properties.client
   const orderId = properties.orderId
@@ -46,7 +46,7 @@ export const updatePaymentOrder = async ({
       client,
 
       originChainId: chainId,
-      targetChainId: 0n,
+      targetChainId: 0,
 
       fundingManager_id: fundingManagerId,
 
@@ -56,7 +56,6 @@ export const updatePaymentOrder = async ({
       data: [],
       flags: '',
 
-      // paymentProcessor_id: undefined,
       paymentToken_id: properties.paymentToken_id!,
 
       timestamp: 0,
@@ -65,7 +64,13 @@ export const updatePaymentOrder = async ({
 
       state: 'PENDING',
 
-      isQueued: false,
+      orderType: 'PAYMENT',
+
+      exchangeRate: ZERO_BD,
+      feePercentage: ZERO_BD,
+      feeAmount: ZERO_BD,
+      finalRedemptionAmount: ZERO_BD,
+      seller: '',
 
       ...properties,
     } satisfies PaymentOrder_t)
