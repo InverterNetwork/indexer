@@ -31,6 +31,7 @@ export const updatePaymentOrder = async ({
   }
 
   const id = `${client}-${orderId}-${chainId}`
+  const fundingManagerId = `${client}-${chainId}`
 
   const data =
     // PREVIOUS DATA
@@ -47,17 +48,20 @@ export const updatePaymentOrder = async ({
       originChainId: chainId,
       targetChainId: 0n,
 
+      fundingManager_id: fundingManagerId,
+
       recipient: '',
       amount: ZERO_BD,
 
       data: [],
       flags: '',
 
-      paymentProcessor_id: undefined,
-      paymentToken: '',
+      // paymentProcessor_id: undefined,
+      paymentToken_id: properties.paymentToken_id!,
 
       timestamp: 0,
       executedTimestamp: 0,
+      executedBy: '',
 
       state: 'PENDING',
 

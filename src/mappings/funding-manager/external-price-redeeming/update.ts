@@ -44,7 +44,7 @@ export const updateExternalPriceFundingManager = async ({
       buyFee: 0n,
       sellFee: 0n,
 
-      redemptionAmount: 0n,
+      redemptionAmount: ZERO_BD,
 
       ...properties,
     } satisfies ExternalPriceFundingManager_t)

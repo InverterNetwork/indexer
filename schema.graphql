@@ -419,6 +419,8 @@ type ExternalPriceFundingManager {
   redemptionAmount: BigDecimal!
 
   redemptionOrders: [RedemptionOrder!]! @derivedFrom(field: "fundingManager")
+
+  paymentOrders: [PaymentOrder!]! @derivedFrom(field: "fundingManager")
 }
 
 type RedemptionOrder {
@@ -451,21 +453,6 @@ enum RedemptionState {
   FAILED
 }
 
-type PaymentProcessor {
-  id: ID! # `${address}-${chainId}`
-  chainId: Int!
-
-  workflow: Workflow!
-}
-
-type QueuePaymentProcessor {
-  id: ID! # `${address}-${chainId}`
-  chainId: Int!
-
-  paymentProcessor: PaymentProcessor!
-  queue: [QueuedOrder!]! @derivedFrom(field: "paymentProcessor")
-}
-
 type PaymentOrder {
   id: ID!
   client: String!
@@ -473,9 +460,11 @@ type PaymentOrder {
   originChainId: Int!
   targetChainId: BigInt!
 
+  fundingManager: ExternalPriceFundingManager!
+
   recipient: String!
   amount: BigDecimal!
-  paymentToken: String!
+  paymentToken: Token!
 
   flags: Bytes!
   data: [Bytes!]!
@@ -483,17 +472,7 @@ type PaymentOrder {
   state: RedemptionState!
   timestamp: Int!
   executedTimestamp: Int
+  executedBy: String
 
   isQueued: Boolean!
 }
-
-type QueuedOrder {
-  id: ID!
-  paymentProcessor: QueuePaymentProcessor!
-  order: PaymentOrder!
-  state: RedemptionState!
-  orderId: BigInt!
-  timestamp: BigInt!
-  client: String!
-}
-
