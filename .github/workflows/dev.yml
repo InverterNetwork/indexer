@@ -139,13 +139,13 @@ jobs:
               CMD="$MIGRATE_SETUP && $GRANT_PERMISSIONS && $RUN_INDEXER"
               ;;
             "MIGRATE")
-              CMD="$MIGRATE_UP && $RUN_INDEXER"
+              CMD="$MIGRATE_UP && $GRANT_PERMISSIONS && $RUN_INDEXER"
               ;;
             "FRESH")
-              CMD="$MIGRATE_DOWN && $MIGRATE_UP && $RUN_INDEXER"
+              CMD="$MIGRATE_DOWN && $MIGRATE_UP && $GRANT_PERMISSIONS && $RUN_INDEXER"
               ;;
             "UPDATE")
-              CMD="$RUN_INDEXER"
+              CMD="$GRANT_PERMISSIONS && $RUN_INDEXER"
               ;;
             *)
               echo "Invalid command type" && exit 1
