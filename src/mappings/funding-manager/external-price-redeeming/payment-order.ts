@@ -40,7 +40,7 @@ FM_PC_ExternalPrice_Redeeming_v1.PaymentOrderAdded.handler(
         orderId: BigInt(orderId),
         client: event.srcAddress,
         originChainId: event.chainId,
-        targetChainId: event.params.targetChainId,
+        targetChainId: Number(event.params.targetChainId),
         recipient: event.params.recipient,
         amount: BigDecimal(event.params.amount.toString()),
 

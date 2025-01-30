@@ -87,14 +87,12 @@ contracts:
     abi_file_path: abis/PP_Queue_v1.json
     handler: src/mappings/payment-processor/queue.ts
     events:
-      - event: ModuleInitialized
       - event: PaymentOrderQueued
       - event: PaymentOrderStateChanged
   - name: PP_Queue_ManualExecution_v1
     abi_file_path: abis/PP_Queue_ManualExecution_v1.json
     handler: src/mappings/payment-processor/queue-manual-execution.ts
     events:
-      - event: ModuleInitialized
       - event: PaymentOrderQueued
       - event: PaymentOrderStateChanged
 networks:

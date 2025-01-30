@@ -418,39 +418,7 @@ type ExternalPriceFundingManager {
 
   redemptionAmount: BigDecimal!
 
-  redemptionOrders: [RedemptionOrder!]! @derivedFrom(field: "fundingManager")
-
   paymentOrders: [PaymentOrder!]! @derivedFrom(field: "fundingManager")
-}
-
-type RedemptionOrder {
-  id: ID! 
-  chainId: Int!
-  redemptionTimestamp: Int!
-  executedTimestamp: Int
-
-  fundingManager: ExternalPriceFundingManager!
-  paymentOrderId: BigInt!
-  
-  seller: String!
-  receiver: String!
-  sellAmount: BigDecimal!
-  exchangeRate: BigDecimal!
-  
-  feePercentage: BigDecimal!
-  feeAmount: BigDecimal!
-  finalRedemptionAmount: BigDecimal!
-  
-  collateralToken: Token!
-
-  state: RedemptionState!
-}
-
-enum RedemptionState {
-  PROCESSED,
-  CANCELLED,
-  PENDING,
-  FAILED
 }
 
 type PaymentOrder {
@@ -458,7 +426,7 @@ type PaymentOrder {
   client: String!
   orderId: BigInt!
   originChainId: Int!
-  targetChainId: BigInt!
+  targetChainId: Int!
 
   fundingManager: ExternalPriceFundingManager!
 
@@ -474,5 +442,23 @@ type PaymentOrder {
   executedTimestamp: Int
   executedBy: String
 
-  isQueued: Boolean!
+  seller: String!
+  exchangeRate: BigDecimal!
+  feePercentage: BigDecimal!
+  feeAmount: BigDecimal!
+  finalRedemptionAmount: BigDecimal!
+
+  orderType: PaymentOrderType!
+}
+
+enum RedemptionState {
+  PROCESSED,
+  CANCELLED,
+  PENDING,
+  FAILED
+}
+
+enum PaymentOrderType {
+  PAYMENT,
+  QUEUED
 }
