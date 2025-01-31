@@ -4,7 +4,7 @@ import { updatePaymentOrder } from '../../utils'
 PP_Queue_ManualExecution_v1.PaymentOrderStateChanged.handler(
   async ({ event, context }) => {
     const orderId = event.params.orderId_
-    const oraclePriceFM_id = event.params.client_
+    const oraclePriceFM_id = `${event.chainId}-${event.params.client_}`
     const state = RedemptionState[event.params.state_]
     const isProcessed = state == 'PROCESSED'
 
@@ -25,7 +25,7 @@ PP_Queue_ManualExecution_v1.PaymentOrderStateChanged.handler(
 PP_Queue_ManualExecution_v1.PaymentOrderQueued.handler(
   async ({ event, context }) => {
     const orderId = event.params.orderId_
-    const oraclePriceFM_id = event.params.client_
+    const oraclePriceFM_id = `${event.chainId}-${event.params.client_}`
 
     await updatePaymentOrder({
       event,

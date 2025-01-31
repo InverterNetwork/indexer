@@ -14,6 +14,7 @@ FM_PC_ExternalPrice_Redeeming_v1.PaymentOrderAdded.handler(
 
     const address = event.srcAddress
     const chainId = event.chainId
+    const oraclePriceFM_id = `${chainId}-${event.srcAddress}`
 
     const orderId = event.params.data.at(0)!.toString()
 
@@ -38,7 +39,7 @@ FM_PC_ExternalPrice_Redeeming_v1.PaymentOrderAdded.handler(
       context,
       properties: {
         orderId: BigInt(orderId),
-        oraclePriceFM_id: event.srcAddress,
+        oraclePriceFM_id,
         originChainId: event.chainId,
         targetChainId: Number(event.params.targetChainId),
         recipient: event.params.recipient,

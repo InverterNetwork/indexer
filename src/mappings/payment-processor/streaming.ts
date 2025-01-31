@@ -29,7 +29,7 @@ PP_Streaming_v1.StreamingPaymentAdded.handler(async ({ event, context }) => {
 
   const id = `${streamingPaymentProcessor_id}-${event.params.streamId}`
 
-  const token_id = `${event.params.paymentToken}-${event.chainId}`
+  const token_id = `${event.chainId}-${event.params.paymentToken}`
   const token = await context.Token.get(token_id)
 
   const amount = formatUnitsToBD(event.params.amount, token?.decimals)

@@ -18,13 +18,13 @@ FM_PC_ExternalPrice_Redeeming_v1.RedemptionAmountUpdated.handler(
 
 FM_PC_ExternalPrice_Redeeming_v1.RedemptionOrderCreated.handler(
   async ({ event, context }) => {
-    const fundingManagerAddress = event.params.paymentClient_
+    const oraclePriceFM_id = `${event.chainId}-${event.params.paymentClient_}`
 
     await updatePaymentOrder({
       context,
       event,
       properties: {
-        oraclePriceFM_id: fundingManagerAddress,
+        oraclePriceFM_id,
         orderId: event.params.orderId_,
 
         seller: event.params.seller_,
