@@ -75,7 +75,7 @@ FM_DepositVault_v1.Deposit.handler(async ({ event, context }) => {
   context.Deposit.set({
     id: `${id}-${event.logIndex}`,
     depositVault_id: id,
-    blockTimestamp: event.block.timestamp,
+    timestamp: event.block.timestamp,
 
     amount,
     amountUSD,
@@ -115,7 +115,7 @@ FM_DepositVault_v1.TransferOrchestratorToken.handler(
     // Create transfer record
     context.Transfer.set({
       id: `${id}-${event.logIndex}`,
-      blockTimestamp: event.block.timestamp,
+      timestamp: event.block.timestamp,
       depositVault_id: id,
 
       amount,

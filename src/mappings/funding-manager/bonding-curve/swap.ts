@@ -45,10 +45,10 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
     context,
     event,
     properties: {
-      module_id: id,
+      fundingManager_id: id,
 
       swapType: 'BUY',
-      blockTimestamp: event.block.timestamp,
+      timestamp: event.block.timestamp,
 
       issuanceToken_id,
       collateralToken_id,
@@ -144,10 +144,10 @@ BondingCurve.TokensSold.handler(async ({ event, context }) => {
     context,
     event,
     properties: {
-      module_id: id,
+      fundingManager_id: id,
 
       swapType: 'SELL',
-      blockTimestamp: event.block.timestamp,
+      timestamp: event.block.timestamp,
 
       collateralToken_id,
       issuanceToken_id,

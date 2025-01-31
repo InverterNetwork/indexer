@@ -1,4 +1,4 @@
-import { ExternalPriceFundingManager_t } from 'generated/src/db/Entities.gen'
+import { OraclePriceFM_t } from 'generated/src/db/Entities.gen'
 
 import { eventLog, handlerContext } from 'generated'
 import { Writable } from 'type-fest'
@@ -12,8 +12,8 @@ export const updateExternalPriceFundingManager = async ({
 }: {
   event: eventLog<any>
   context: handlerContext
-  properties: Partial<Omit<ExternalPriceFundingManager_t, 'id'>>
-  prevData?: ExternalPriceFundingManager_t
+  properties: Partial<Omit<OraclePriceFM_t, 'id'>>
+  prevData?: OraclePriceFM_t
 }) => {
   const { chainId, srcAddress: address } = event
 
@@ -23,9 +23,7 @@ export const updateExternalPriceFundingManager = async ({
     // PREVIOUS DATA
     // --------------------------------------------------------------------------
     prevData ||
-    ((await context.ExternalPriceFundingManager.get(
-      id
-    )) as Writable<ExternalPriceFundingManager_t>) ||
+    ((await context.OraclePriceFM.get(id)) as Writable<OraclePriceFM_t>) ||
     // DEFAULT STATE
     // --------------------------------------------------------------------------
     ({
@@ -42,14 +40,15 @@ export const updateExternalPriceFundingManager = async ({
       buyFee: 0n,
       sellFee: 0n,
 
-      redemptionAmount: ZERO_BD,
+      pendingRedemptionCOL: ZERO_BD,
+      pendingRedemptionUSD: ZERO_BD,
 
       ...properties,
-    } satisfies ExternalPriceFundingManager_t)
+    } satisfies OraclePriceFM_t)
 
   // If required fields are present, update the bonding curve
   if (data.workflow_id && data.collateralToken_id && data.issuanceToken_id) {
-    context.ExternalPriceFundingManager.set({
+    context.OraclePriceFM.set({
       ...data,
       ...properties,
     })

@@ -2,7 +2,7 @@ import { eventLog, handlerContext } from 'generated'
 import { Writable } from 'type-fest'
 import { ZERO_BD } from './constants'
 import { formatUnitsToBD } from './base'
-import { PaymentOrder_t } from 'generated/src/db/Entities.gen'
+import { RedemptionPaymentOrder_t } from 'generated/src/db/Entities.gen'
 
 export const updatePaymentOrder = async ({
   event,
@@ -12,15 +12,15 @@ export const updatePaymentOrder = async ({
 }: {
   event: eventLog<any>
   context: handlerContext
-  properties: Partial<Omit<PaymentOrder_t, 'id'>>
-  prevData?: PaymentOrder_t
+  properties: Partial<Omit<RedemptionPaymentOrder_t, 'id'>>
+  prevData?: RedemptionPaymentOrder_t
 }) => {
   const { chainId } = event
 
-  const client = properties.client
+  const oraclePriceFM_id = properties.oraclePriceFM_id
   const orderId = properties.orderId
 
-  if (client === undefined) {
+  if (oraclePriceFM_id === undefined) {
     context.log.error(`Invalid payment order client`)
     return
   }
@@ -30,54 +30,59 @@ export const updatePaymentOrder = async ({
     return
   }
 
-  const id = `${client}-${orderId}-${chainId}`
-  const fundingManagerId = `${client}-${chainId}`
+  const id = `${oraclePriceFM_id}-${orderId}`
 
   const data =
     // PREVIOUS DATA
     // --------------------------------------------------------------------------
     prevData ||
-    ((await context.PaymentOrder.get(id)) as Writable<PaymentOrder_t>) ||
+    ((await context.RedemptionPaymentOrder.get(
+      id
+    )) as Writable<RedemptionPaymentOrder_t>) ||
     // DEFAULT STATE
     // --------------------------------------------------------------------------
     ({
       id,
+      chainId,
+
+      timestamp: 0,
+      executedTimestamp: 0,
+
       orderId,
-      client,
 
       originChainId: chainId,
       targetChainId: 0,
 
-      fundingManager_id: fundingManagerId,
-
-      recipient: '',
-      amount: ZERO_BD,
-
-      data: [],
-      flags: '',
-
-      paymentToken_id: properties.paymentToken_id!,
-
-      timestamp: 0,
-      executedTimestamp: 0,
-      executedBy: '',
-
+      orderType: 'PAYMENT',
       state: 'PENDING',
 
-      orderType: 'PAYMENT',
+      source: 'ISSUANCE',
+      token_id: properties.token_id!,
+
+      oraclePriceFM_id,
+
+      recipient: '',
+      seller: '',
+      executedBy: '',
 
       exchangeRate: ZERO_BD,
+
+      amount: ZERO_BD,
+      amountUSD: ZERO_BD,
+
+      fee: ZERO_BD,
+      feeUSD: ZERO_BD,
       feePercentage: ZERO_BD,
-      feeAmount: ZERO_BD,
-      finalRedemptionAmount: ZERO_BD,
-      seller: '',
+
+      flags: '',
+      data: [],
 
       ...properties,
-    } satisfies PaymentOrder_t)
+    } satisfies RedemptionPaymentOrder_t)
 
   // If required fields are present, update the bonding curve
   if (data.recipient && data.originChainId && data.amount) {
-    context.PaymentOrder.set({
+    context.RedemptionPaymentOrder.set({
       ...data,
       ...properties,
     })

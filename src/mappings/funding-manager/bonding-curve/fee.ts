@@ -68,7 +68,7 @@ BondingCurve.ProjectCollateralFeeWithdrawn.handler(
       properties: {
         module_id,
         token_id: collateralToken_id,
-        blockTimestamp: event.block.timestamp,
+        timestamp: event.block.timestamp,
 
         amount: projectFeeCOL,
         amountUSD: projectFeeUSD,
@@ -129,7 +129,7 @@ BondingCurve.ProtocolFeeMinted.handler(async ({ event, context }) => {
     properties: {
       source: 'ISSUANCE',
       module_id,
-      blockTimestamp: event.block.timestamp,
+      timestamp: event.block.timestamp,
 
       token_id: issuanceToken_id,
 
@@ -193,7 +193,7 @@ BondingCurve.ProtocolFeeTransferred.handler(async ({ event, context }) => {
     properties: {
       source: 'COLLATERAL',
       module_id,
-      blockTimestamp: event.block.timestamp,
+      timestamp: event.block.timestamp,
 
       token_id: collateralToken_id,
 

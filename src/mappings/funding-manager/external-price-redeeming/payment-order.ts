@@ -23,7 +23,7 @@ FM_PC_ExternalPrice_Redeeming_v1.PaymentOrderAdded.handler(
       derivesTo: 'token',
     })
 
-    const { id: paymentToken_id } = await updateToken({
+    const { id: token_id } = await updateToken({
       event,
       context,
       derivedType: 'token',
@@ -38,7 +38,7 @@ FM_PC_ExternalPrice_Redeeming_v1.PaymentOrderAdded.handler(
       context,
       properties: {
         orderId: BigInt(orderId),
-        client: event.srcAddress,
+        oraclePriceFM_id: event.srcAddress,
         originChainId: event.chainId,
         targetChainId: Number(event.params.targetChainId),
         recipient: event.params.recipient,
@@ -47,7 +47,7 @@ FM_PC_ExternalPrice_Redeeming_v1.PaymentOrderAdded.handler(
         data: event.params.data,
         flags: event.params.flags,
 
-        paymentToken_id: paymentToken_id,
+        token_id,
         timestamp: event.block.timestamp,
       },
     })

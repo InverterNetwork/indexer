@@ -229,7 +229,7 @@ async function handleBondingCurveIntervalData<
       collateralToken_id,
       issuanceToken_id,
 
-      module_id: id,
+      fundingManager_id: id,
 
       volumeCOL: ZERO_BD,
       volumeUSD: ZERO_BD,

@@ -37,7 +37,7 @@ PP_Streaming_v1.StreamingPaymentAdded.handler(async ({ event, context }) => {
   context.LinearVesting.set({
     id,
     chainId: event.chainId,
-    blockTimestamp: event.block.timestamp,
+    timestamp: event.block.timestamp,
     status: 'ACTIVE',
 
     token_id,

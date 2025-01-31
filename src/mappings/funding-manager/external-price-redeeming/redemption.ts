@@ -10,7 +10,7 @@ FM_PC_ExternalPrice_Redeeming_v1.RedemptionAmountUpdated.handler(
       context,
       event,
       properties: {
-        redemptionAmount: BigDecimal(
+        pendingRedemptionCOL: BigDecimal(
           event.params._openRedemptionAmount.toString()
         ),
       },
@@ -26,16 +26,14 @@ FM_PC_ExternalPrice_Redeeming_v1.RedemptionOrderCreated.handler(
       context,
       event,
       properties: {
-        client: fundingManagerAddress,
+        oraclePriceFM_id: fundingManagerAddress,
         orderId: event.params.orderId_,
 
         seller: event.params.seller_,
         exchangeRate: BigDecimal(event.params.exchangeRate_.toString()),
         feePercentage: BigDecimal(event.params.feePercentage_.toString()),
-        feeAmount: BigDecimal(event.params.feeAmount_.toString()),
-        finalRedemptionAmount: BigDecimal(
-          event.params.finalRedemptionAmount_.toString()
-        ),
+        fee: BigDecimal(event.params.feeAmount_.toString()),
+        amount: BigDecimal(event.params.finalRedemptionAmount_.toString()),
       },
     })
   }

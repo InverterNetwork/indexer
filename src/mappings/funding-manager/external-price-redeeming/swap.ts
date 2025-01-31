@@ -21,7 +21,7 @@ import {
 FM_PC_ExternalPrice_Redeeming_v1.TokensBought.handler(
   async ({ event, context }) => {
     const id = `${event.srcAddress}-${event.chainId}`
-    const bc = await context.ExternalPriceFundingManager.get(id)
+    const bc = await context.OraclePriceFM.get(id)
 
     const issuanceToken_id = bc!.issuanceToken_id!
     const collateralToken_id = bc!.collateralToken_id!
@@ -44,10 +44,10 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensBought.handler(
       context,
       event,
       properties: {
-        module_id: id,
+        fundingManager_id: id,
 
         swapType: 'BUY',
-        blockTimestamp: event.block.timestamp,
+        timestamp: event.block.timestamp,
 
         issuanceToken_id,
         collateralToken_id,
@@ -122,7 +122,7 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensBought.handler(
 FM_PC_ExternalPrice_Redeeming_v1.TokensSold.handler(
   async ({ event, context }) => {
     const id = `${event.srcAddress}-${event.chainId}`
-    const bc = (await context.ExternalPriceFundingManager.get(id))!
+    const bc = (await context.OraclePriceFM.get(id))!
 
     const issuanceToken_id = bc.issuanceToken_id
     const collateralToken_id = bc.collateralToken_id
@@ -145,10 +145,10 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensSold.handler(
       context,
       event,
       properties: {
-        module_id: id,
+        fundingManager_id: id,
 
         swapType: 'SELL',
-        blockTimestamp: event.block.timestamp,
+        timestamp: event.block.timestamp,
 
         collateralToken_id,
         issuanceToken_id,

@@ -52,7 +52,7 @@ FM_PC_ExternalPrice_Redeeming_v1.SellFeeUpdated.handler(
 FM_PC_ExternalPrice_Redeeming_v1.ProjectCollateralFeeWithdrawn.handler(
   async ({ event, context }) => {
     const id = `${event.srcAddress}-${event.chainId}`
-    const bc = (await context.ExternalPriceFundingManager.get(id))!
+    const bc = (await context.OraclePriceFM.get(id))!
 
     const module_id = bc.id
     const collateralToken_id = bc.collateralToken_id
@@ -71,7 +71,7 @@ FM_PC_ExternalPrice_Redeeming_v1.ProjectCollateralFeeWithdrawn.handler(
       properties: {
         module_id,
         token_id: collateralToken_id,
-        blockTimestamp: event.block.timestamp,
+        timestamp: event.block.timestamp,
 
         amount: projectFeeCOL,
         amountUSD: projectFeeUSD,
@@ -106,7 +106,7 @@ FM_PC_ExternalPrice_Redeeming_v1.ProjectCollateralFeeWithdrawn.handler(
 FM_PC_ExternalPrice_Redeeming_v1.ProtocolFeeMinted.handler(
   async ({ event, context }) => {
     const id = `${event.srcAddress}-${event.chainId}`
-    const bc = (await context.ExternalPriceFundingManager.get(id))!
+    const bc = (await context.OraclePriceFM.get(id))!
 
     const module_id = bc.id
     const collateralToken_id = bc.collateralToken_id
@@ -132,7 +132,7 @@ FM_PC_ExternalPrice_Redeeming_v1.ProtocolFeeMinted.handler(
       properties: {
         source: 'ISSUANCE',
         module_id,
-        blockTimestamp: event.block.timestamp,
+        timestamp: event.block.timestamp,
 
         token_id: issuanceToken_id,
 
@@ -178,7 +178,7 @@ FM_PC_ExternalPrice_Redeeming_v1.ProtocolFeeMinted.handler(
 FM_PC_ExternalPrice_Redeeming_v1.ProtocolFeeTransferred.handler(
   async ({ event, context }) => {
     const id = `${event.srcAddress}-${event.chainId}`
-    const bc = (await context.ExternalPriceFundingManager.get(id))!
+    const bc = (await context.OraclePriceFM.get(id))!
 
     const module_id = bc.id
     const collateralToken_id = bc.collateralToken_id
@@ -197,7 +197,7 @@ FM_PC_ExternalPrice_Redeeming_v1.ProtocolFeeTransferred.handler(
       properties: {
         source: 'COLLATERAL',
         module_id,
-        blockTimestamp: event.block.timestamp,
+        timestamp: event.block.timestamp,
 
         token_id: collateralToken_id,
 

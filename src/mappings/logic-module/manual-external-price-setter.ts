@@ -11,8 +11,10 @@ LM_ManualExternalPriceSetter_v1.ModuleInitialized.handler(
       workflow_id,
       chainId: event.chainId,
       address: event.srcAddress,
-      issuancePrice: ZERO_BD,
-      redemptionPrice: ZERO_BD,
+
+      priceISS: ZERO_BD,
+      priceCOL: ZERO_BD,
+      priceUSD: ZERO_BD,
     })
   }
 )
@@ -24,7 +26,7 @@ LM_ManualExternalPriceSetter_v1.IssuancePriceSet.handler(
 
     context.ExternalPriceSetter.set({
       ...entity!,
-      issuancePrice: BigDecimal(event.params.price_.toString()),
+      priceISS: BigDecimal(event.params.price_.toString()),
     })
   }
 )
@@ -36,7 +38,7 @@ LM_ManualExternalPriceSetter_v1.RedemptionPriceSet.handler(
 
     context.ExternalPriceSetter.set({
       ...entity!,
-      redemptionPrice: BigDecimal(event.params.price_.toString()),
+      priceCOL: BigDecimal(event.params.price_.toString()),
     })
   }
 )
