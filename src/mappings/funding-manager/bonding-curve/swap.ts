@@ -6,7 +6,6 @@ import {
   getBalanceOf,
   getIssPriceFromCol,
   getQtyAndPrice,
-  getTotalSupply,
   IssuanceTokenIntervalProperties,
   updateBondingCurve,
   updateCurveDayData,

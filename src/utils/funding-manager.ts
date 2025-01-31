@@ -9,6 +9,7 @@ import { eventLog, handlerContext } from 'generated'
 import { Writable } from 'type-fest'
 import { ZERO_BD } from './constants'
 import { formatUnitsToBD } from './base'
+import { MARKET_DEBUG } from './debug'
 
 export const getQtyAndPrice = (
   iss: bigint,
@@ -23,7 +24,14 @@ export const getQtyAndPrice = (
   const amountCOL = formatUnitsToBD(coll, cDecimals)
   const amountISS = formatUnitsToBD(iss, iDecimals)
 
-  const priceCOL = amountCOL.div(amountISS)
+  let priceCOL = amountCOL.div(amountISS)
+  if (priceCOL.isNaN()) priceCOL = ZERO_BD
+
+  if (amountCOL.isNaN() || amountISS.isNaN() || priceCOL.isNaN()) {
+    MARKET_DEBUG()(
+      `getQtyAndPrice has NaN -> amountCOL: ${amountCOL.toString()}, amountISS: ${amountISS.toString()}, priceCOL: ${priceCOL.toString()}`
+    )
+  }
 
   return { amountISS, amountCOL, priceCOL }
 }

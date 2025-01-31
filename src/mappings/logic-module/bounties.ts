@@ -1,15 +1,19 @@
-import { BigDecimal, LM_PC_Bounties_v1 } from 'generated'
+import { LM_PC_Bounties_v1 } from 'generated'
 import { hexToString } from 'viem'
 import { formatUnitsToBD } from '../../utils'
 
 // Module initialization handler
 LM_PC_Bounties_v1.ModuleInitialized.handler(async ({ event, context }) => {
-  const id = `${event.srcAddress}-${event.chainId}`
-  const workflow_id = `${event.params.parentOrchestrator}-${event.chainId}`
+  const address = event.srcAddress
+  const chainId = event.chainId
+  const id = `${address}-${chainId}`
+  const workflow_id = `${event.params.parentOrchestrator}-${chainId}`
 
   context.BountyModule.set({
     id,
-    chainId: event.chainId,
+    chainId,
+    address,
+
     workflow_id,
   })
 })

@@ -1,4 +1,4 @@
-import { BigDecimal, BondingCurve } from 'generated'
+import { BondingCurve } from 'generated'
 
 import {
   updateBondingCurve,
