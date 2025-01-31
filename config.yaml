@@ -36,8 +36,6 @@ contracts:
       - event: SellFeeUpdated
       - event: BuyReserveRatioSet
       - event: SellReserveRatioSet
-      - event: OrchestratorTokenSet
-      - event: IssuanceTokenSet
       - event: TokensBought
       - event: TokensSold
       - event: VirtualIssuanceSupplySet
@@ -81,8 +79,6 @@ contracts:
       - event: ModuleInitialized
       - event: BuyFeeUpdated
       - event: SellFeeUpdated
-      - event: OrchestratorTokenSet
-      - event: IssuanceTokenSet
       - event: TokensBought
       - event: TokensSold
       - event: ProjectCollateralFeeWithdrawn
