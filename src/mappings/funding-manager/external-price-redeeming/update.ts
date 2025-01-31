@@ -37,6 +37,7 @@ export const updateExternalPriceFundingManager = async ({
 
       issuanceToken_id: properties?.issuanceToken_id!,
       collateralToken_id: properties?.collateralToken_id!,
+      externalPriceSetter_id: properties?.externalPriceSetter_id!,
 
       buyFee: 0n,
       sellFee: 0n,

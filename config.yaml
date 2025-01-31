@@ -83,6 +83,7 @@ contracts:
       - event: RedemptionAmountUpdated
       - event: RedemptionOrderCreated
       - event: PaymentOrderAdded
+      - event: OracleUpdated
   - name: PP_Queue_v1
     abi_file_path: abis/PP_Queue_v1.json
     handler: src/mappings/payment-processor/queue.ts
@@ -95,6 +96,13 @@ contracts:
     events:
       - event: PaymentOrderQueued
       - event: PaymentOrderStateChanged
+  - name: LM_ManualExternalPriceSetter_v1
+    abi_file_path: abis/LM_ManualExternalPriceSetter_v1.json
+    handler: src/mappings/logic-module/manual-external-price-setter.ts
+    events:
+      - event: ModuleInitialized
+      - event: IssuancePriceSet
+      - event: RedemptionPriceSet
 networks:
   - id: 11155420
     start_block: 16141643
@@ -119,6 +127,8 @@ networks:
         address:
       - name: PP_Queue_ManualExecution_v1
         address:
+      - name: LM_ManualExternalPriceSetter_v1
+        address:
   - id: 84532
     start_block: 14158776
     contracts:
@@ -141,6 +151,8 @@ networks:
       - name: PP_Queue_v1
         address:
       - name: PP_Queue_ManualExecution_v1
+        address:
+      - name: LM_ManualExternalPriceSetter_v1
         address:
   - id: 1101
     start_block: 16657460
@@ -165,6 +177,8 @@ networks:
         address:
       - name: PP_Queue_ManualExecution_v1
         address:
+      - name: LM_ManualExternalPriceSetter_v1
+        address:
   - id: 11155111
     start_block: 6531547
     contracts:
@@ -187,4 +201,6 @@ networks:
       - name: PP_Queue_v1
         address:
       - name: PP_Queue_ManualExecution_v1
+        address:
+      - name: LM_ManualExternalPriceSetter_v1
         address:

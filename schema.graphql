@@ -419,6 +419,8 @@ type ExternalPriceFundingManager {
   redemptionAmount: BigDecimal!
 
   paymentOrders: [PaymentOrder!]! @derivedFrom(field: "fundingManager")
+
+  externalPriceSetter: ExternalPriceSetter
 }
 
 type PaymentOrder {
@@ -461,4 +463,15 @@ enum RedemptionState {
 enum PaymentOrderType {
   PAYMENT,
   QUEUED
+}
+
+type ExternalPriceSetter {
+  id: ID! # `${address}-${chainId}`
+  chainId: Int!
+  address: String!
+
+  workflow: Workflow!
+
+  issuancePrice: BigDecimal!
+  redemptionPrice: BigDecimal!
 }
