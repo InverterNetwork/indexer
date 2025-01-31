@@ -45,7 +45,7 @@ export async function updateToken({
 
   const client = getPublicClient(chainId)
 
-  const id = `${address}-${chainId}`
+  const id = `${chainId}-${address}`
   const currentEntity = await context.Token.get(id)
 
   let tokenDetails = {

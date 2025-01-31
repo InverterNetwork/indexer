@@ -21,7 +21,7 @@ LM_ManualExternalPriceSetter_v1.ModuleInitialized.handler(
 
 LM_ManualExternalPriceSetter_v1.IssuancePriceSet.handler(
   async ({ event, context }) => {
-    const id = `${event.srcAddress}-${event.chainId}`
+    const id = `${event.chainId}-${event.srcAddress}`
     const entity = await context.ExternalPriceSetter.get(id)
 
     const priceISS = BigDecimal(event.params.price_.toString())
@@ -35,7 +35,7 @@ LM_ManualExternalPriceSetter_v1.IssuancePriceSet.handler(
 
 LM_ManualExternalPriceSetter_v1.RedemptionPriceSet.handler(
   async ({ event, context }) => {
-    const id = `${event.srcAddress}-${event.chainId}`
+    const id = `${event.chainId}-${event.srcAddress}`
     const entity = await context.ExternalPriceSetter.get(id)
 
     const priceCOL = BigDecimal(event.params.price_.toString())

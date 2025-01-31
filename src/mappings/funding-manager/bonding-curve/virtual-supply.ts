@@ -1,6 +1,5 @@
 import {
   BondingCurve,
-  BigDecimal,
   handlerContext,
   BondingCurve_VirtualIssuanceSupplySet_event,
   BondingCurve_VirtualIssuanceAmountAdded_event,

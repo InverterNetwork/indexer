@@ -54,7 +54,7 @@ LM_PC_Bounties_v1.BountyAdded.handler(async ({ event, context }) => {
 
 // Updates bounty details
 LM_PC_Bounties_v1.BountyUpdated.handler(async ({ event, context }) => {
-  const id = `${event.srcAddress}-${event.chainId}`
+  const id = `${event.chainId}-${event.srcAddress}`
 
   const bountyId = `${id}-${event.params.bountyId}`
   const entity = await context.Bounty.get(bountyId)
@@ -67,7 +67,7 @@ LM_PC_Bounties_v1.BountyUpdated.handler(async ({ event, context }) => {
 
 // Marks a bounty as locked
 LM_PC_Bounties_v1.BountyLocked.handler(async ({ event, context }) => {
-  const id = `${event.srcAddress}-${event.chainId}`
+  const id = `${event.chainId}-${event.srcAddress}`
 
   const bountyId = `${id}-${event.params.bountyId}`
   const entity = await context.Bounty.get(bountyId)
@@ -114,7 +114,7 @@ LM_PC_Bounties_v1.ClaimAdded.handler(async ({ event, context }) => {
 // Updates the contributors for an existing claim
 LM_PC_Bounties_v1.ClaimContributorsUpdated.handler(
   async ({ event, context }) => {
-    const id = `${event.srcAddress}-${event.chainId}`
+    const id = `${event.chainId}-${event.srcAddress}`
 
     const claimId = `${id}-${event.params.claimId}`
     const claim = await context.BountyClaim.get(claimId)
@@ -160,7 +160,7 @@ LM_PC_Bounties_v1.ClaimContributorsUpdated.handler(
 
 // Updates claim details
 LM_PC_Bounties_v1.ClaimDetailsUpdated.handler(async ({ event, context }) => {
-  const id = `${event.srcAddress}-${event.chainId}`
+  const id = `${event.chainId}-${event.srcAddress}`
 
   const claimId = `${id}-${event.params.claimId}`
   const entity = await context.BountyClaim.get(claimId)
@@ -174,7 +174,7 @@ LM_PC_Bounties_v1.ClaimDetailsUpdated.handler(async ({ event, context }) => {
 
 // Marks a claim as verified/claimed
 LM_PC_Bounties_v1.ClaimVerified.handler(async ({ event, context }) => {
-  const id = `${event.srcAddress}-${event.chainId}`
+  const id = `${event.chainId}-${event.srcAddress}`
 
   const claimId = `${id}-${event.params.claimId}`
   const entity = await context.BountyClaim.get(claimId)
