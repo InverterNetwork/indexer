@@ -4,6 +4,7 @@ import path from 'path'
 import { formatUnits, keccak256 } from 'viem'
 import { moduleTitles, ZERO_BD } from './constants'
 import { BigDecimal } from 'generated'
+import { MARKET_DEBUG } from './debug'
 
 export function createDirIfNotExists(dir: string) {
   const fullPath = path.join(process.cwd(), dir)
@@ -38,5 +39,13 @@ export const formatUnitsToBD = (
 ) => {
   if (!decimals) return ZERO_BD
 
-  return BigDecimal(formatUnits(BigInt(value), decimals))
+  const result = BigDecimal(formatUnits(BigInt(value), decimals))
+
+  if (result.isNaN()) {
+    MARKET_DEBUG()(
+      `formatUnitsToBD is NaN -> value: ${value}, decimals: ${decimals}`
+    )
+  }
+
+  return result
 }
