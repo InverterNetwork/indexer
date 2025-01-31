@@ -50,7 +50,7 @@ FM_PC_ExternalPrice_Redeeming_v1.SellFeeUpdated.handler(
 
 FM_PC_ExternalPrice_Redeeming_v1.ProjectCollateralFeeWithdrawn.handler(
   async ({ event, context }) => {
-    const id = `${event.srcAddress}-${event.chainId}`
+    const id = `${event.chainId}-${event.srcAddress}`
     const bc = (await context.OraclePriceFM.get(id))!
 
     const module_id = bc.id
@@ -104,7 +104,7 @@ FM_PC_ExternalPrice_Redeeming_v1.ProjectCollateralFeeWithdrawn.handler(
 // ISSUANCE FEE
 FM_PC_ExternalPrice_Redeeming_v1.ProtocolFeeMinted.handler(
   async ({ event, context }) => {
-    const id = `${event.srcAddress}-${event.chainId}`
+    const id = `${event.chainId}-${event.srcAddress}`
     const bc = (await context.OraclePriceFM.get(id))!
 
     const module_id = bc.id
@@ -176,7 +176,7 @@ FM_PC_ExternalPrice_Redeeming_v1.ProtocolFeeMinted.handler(
 // COLLATERAL FEE
 FM_PC_ExternalPrice_Redeeming_v1.ProtocolFeeTransferred.handler(
   async ({ event, context }) => {
-    const id = `${event.srcAddress}-${event.chainId}`
+    const id = `${event.chainId}-${event.srcAddress}`
     const bc = (await context.OraclePriceFM.get(id))!
 
     const module_id = bc.id

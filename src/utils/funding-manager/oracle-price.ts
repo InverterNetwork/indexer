@@ -17,7 +17,7 @@ export const updateOraclePrice = async ({
 }) => {
   const { chainId, srcAddress: address } = event
 
-  const id = `${address}-${chainId}`
+  const id = `${chainId}-${address}`
 
   const data =
     // PREVIOUS DATA

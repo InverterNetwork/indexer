@@ -8,8 +8,8 @@ import { formatUnitsToBD } from '../../utils'
 PP_Streaming_v1.ModuleInitialized.handler(async ({ event, context }) => {
   const address = event.srcAddress
   const chainId = event.chainId
-  const id = `${address}-${chainId}`
-  const workflow_id = `${event.params.parentOrchestrator}-${chainId}`
+  const id = `${chainId}-${address}`
+  const workflow_id = `${chainId}-${event.params.parentOrchestrator}`
 
   context.StreamingPaymentProcessor.set({
     id,
@@ -25,7 +25,7 @@ PP_Streaming_v1.ModuleInitialized.handler(async ({ event, context }) => {
 // ============================================================================
 
 PP_Streaming_v1.StreamingPaymentAdded.handler(async ({ event, context }) => {
-  const streamingPaymentProcessor_id = `${event.srcAddress}-${event.chainId}`
+  const streamingPaymentProcessor_id = `${event.chainId}-${event.srcAddress}`
 
   const id = `${streamingPaymentProcessor_id}-${event.params.streamId}`
 

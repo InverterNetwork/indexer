@@ -12,7 +12,7 @@ import {
 
 BondingCurve.ModuleInitialized.handler(async ({ event, context }) => {
   const address = event.srcAddress
-  const workflow_id = `${event.params.parentOrchestrator}-${event.chainId}`
+  const workflow_id = `${event.chainId}-${event.params.parentOrchestrator}`
 
   const { derivedAddress: collateralTokenAddress } = await deriveTokenAddress({
     address,

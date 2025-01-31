@@ -6,8 +6,8 @@ import { formatUnitsToBD } from '../../utils'
 LM_PC_Bounties_v1.ModuleInitialized.handler(async ({ event, context }) => {
   const address = event.srcAddress
   const chainId = event.chainId
-  const id = `${address}-${chainId}`
-  const workflow_id = `${event.params.parentOrchestrator}-${chainId}`
+  const id = `${chainId}-${address}`
+  const workflow_id = `${chainId}-${event.params.parentOrchestrator}`
 
   context.BountyModule.set({
     id,
@@ -22,12 +22,10 @@ LM_PC_Bounties_v1.ModuleInitialized.handler(async ({ event, context }) => {
 
 // Creates a new bounty record
 LM_PC_Bounties_v1.BountyAdded.handler(async ({ event, context }) => {
-  const id = `${event.srcAddress}-${event.chainId}`
+  const moduleId = `${event.chainId}-${event.srcAddress}`
+  const bountyId = `${event.chainId}-${event.transaction}`
 
-  const bountyId = `${id}-${event.params.bountyId}`
-  const detail = event.params.details as `0x${string}`
-
-  const bountyModule = await context.BountyModule.get(id)
+  const bountyModule = await context.BountyModule.get(moduleId)
 
   if (!bountyModule) {
     context.log.error(`Could not find bounty module ${event.srcAddress}`)
@@ -49,7 +47,7 @@ LM_PC_Bounties_v1.BountyAdded.handler(async ({ event, context }) => {
     bountyModule_id: bountyModule!.id,
     minimumPayoutAmount,
     maximumPayoutAmount,
-    details: hexToString(detail),
+    details: hexToString(event.params.details as `0x${string}`),
     locked: false,
   })
 })
@@ -84,10 +82,9 @@ LM_PC_Bounties_v1.BountyLocked.handler(async ({ event, context }) => {
 
 // Creates a new claim and its associated contributors
 LM_PC_Bounties_v1.ClaimAdded.handler(async ({ event, context }) => {
-  const id = `${event.srcAddress}-${event.chainId}`
-
-  const bountyId = `${id}-${event.params.bountyId}`
-  const claimId = `${id}-${event.params.claimId}`
+  const moduleId = `${event.chainId}-${event.srcAddress}`
+  const bountyId = `${event.chainId}-${event.transaction}`
+  const claimId = `${moduleId}-${event.params.claimId}`
   const detail = event.params.details as `0x${string}`
 
   // Create the claim record
@@ -100,7 +97,7 @@ LM_PC_Bounties_v1.ClaimAdded.handler(async ({ event, context }) => {
 
   // Create contributor records for this claim
   event.params.contributors.forEach((element, index) => {
-    let contributorId = `${bountyId}-${event.params.claimId}-${index}`
+    const contributorId = `${bountyId}-${event.params.claimId}-${index}`
 
     // TODO: Fetch the token decimals
     const claimAmount = formatUnitsToBD(element[1], 18)

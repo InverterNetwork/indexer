@@ -12,19 +12,15 @@ export const updateRole = async ({
 }: {
   event: eventLog<any>
   context: handlerContext
-  properties: Partial<Omit<Role_t, 'chainId' | 'id' | 'role'>> & {
-    module_id: string
-    roleGen: string
-    recipient: string
-  }
-
+  properties: Partial<Omit<Role_t, 'chainId' | 'id' | 'role'>> &
+    Pick<Role_t, 'module_id' | 'roleGen' | 'recipient'>
   prevData?: Role_t
 }) => {
-  const { chainId, srcAddress } = event
+  const { chainId } = event
   const module_id = properties.module_id
   const roleGen = properties.roleGen
   const recipient = properties.recipient
-  const id = `${srcAddress}-${recipient}-${roleGen}-${chainId}`
+  const id = `${module_id}-${roleGen}-${recipient}`
 
   const data =
     // PREVIOUS DATA

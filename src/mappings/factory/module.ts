@@ -29,7 +29,7 @@ ModuleFactory_v1.MetadataRegistered.handler(async ({ event, context }) => {
 ModuleFactory_v1.ModuleCreated.handler(async ({ event, context }) => {
   const chainId = event.chainId
   const address = event.params.m.toString()
-  const id = `${address}-${chainId}`
+  const id = `${chainId}-${address}`
 
   const [majorVersion, , , url, name] = event.params.metadata
   const moduleType_id = getMetadataId(majorVersion, url, name)

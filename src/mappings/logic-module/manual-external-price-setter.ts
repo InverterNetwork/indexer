@@ -3,8 +3,8 @@ import { ZERO_BD } from '../../utils'
 
 LM_ManualExternalPriceSetter_v1.ModuleInitialized.handler(
   async ({ event, context }) => {
-    const id = `${event.srcAddress}-${event.chainId}`
-    const workflow_id = `${event.params.parentOrchestrator}-${event.chainId}`
+    const id = `${event.chainId}-${event.srcAddress}`
+    const workflow_id = `${event.chainId}-${event.params.parentOrchestrator}`
 
     context.ExternalPriceSetter.set({
       id,
@@ -24,9 +24,11 @@ LM_ManualExternalPriceSetter_v1.IssuancePriceSet.handler(
     const id = `${event.srcAddress}-${event.chainId}`
     const entity = await context.ExternalPriceSetter.get(id)
 
+    const priceISS = BigDecimal(event.params.price_.toString())
+
     context.ExternalPriceSetter.set({
       ...entity!,
-      priceISS: BigDecimal(event.params.price_.toString()),
+      priceISS,
     })
   }
 )
@@ -36,9 +38,11 @@ LM_ManualExternalPriceSetter_v1.RedemptionPriceSet.handler(
     const id = `${event.srcAddress}-${event.chainId}`
     const entity = await context.ExternalPriceSetter.get(id)
 
+    const priceCOL = BigDecimal(event.params.price_.toString())
+
     context.ExternalPriceSetter.set({
       ...entity!,
-      priceCOL: BigDecimal(event.params.price_.toString()),
+      priceCOL,
     })
   }
 )

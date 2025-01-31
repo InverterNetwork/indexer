@@ -12,8 +12,8 @@ import {
 
 FM_DepositVault_v1.ModuleInitialized.handler(async ({ event, context }) => {
   const address = event.srcAddress
-  const id = `${address}-${event.chainId}`
-  const workflow_id = `${event.params.parentOrchestrator}-${event.chainId}`
+  const id = `${event.chainId}-${address}`
+  const workflow_id = `${event.chainId}-${event.params.parentOrchestrator}`
 
   const { derivedAddress } = await deriveTokenAddress({
     address,
@@ -49,7 +49,7 @@ FM_DepositVault_v1.ModuleInitialized.handler(async ({ event, context }) => {
 // ============================================================================
 
 FM_DepositVault_v1.Deposit.handler(async ({ event, context }) => {
-  const id = `${event.srcAddress}-${event.chainId}`
+  const id = `${event.chainId}-${event.srcAddress}`
   const depositVault = (await context.DepositVault.get(id))!
 
   // Metadata
@@ -73,7 +73,7 @@ FM_DepositVault_v1.Deposit.handler(async ({ event, context }) => {
 
   // Create deposit record
   context.Deposit.set({
-    id: `${id}-${event.logIndex}`,
+    id: `${event.chainId}-${event.transaction}`,
     depositVault_id: id,
     timestamp: event.block.timestamp,
 
@@ -90,7 +90,7 @@ FM_DepositVault_v1.Deposit.handler(async ({ event, context }) => {
 
 FM_DepositVault_v1.TransferOrchestratorToken.handler(
   async ({ event, context }) => {
-    const id = `${event.srcAddress}-${event.chainId}`
+    const id = `${event.chainId}-${event.srcAddress}`
     const depositVault = (await context.DepositVault.get(id))!
 
     // Metadata
@@ -114,7 +114,7 @@ FM_DepositVault_v1.TransferOrchestratorToken.handler(
 
     // Create transfer record
     context.Transfer.set({
-      id: `${id}-${event.logIndex}`,
+      id: `${event.chainId}-${event.transaction}`,
       timestamp: event.block.timestamp,
       depositVault_id: id,
 

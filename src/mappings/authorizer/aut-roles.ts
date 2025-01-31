@@ -6,8 +6,8 @@ import { updateRole } from '../../utils/authorizer'
 // ============================================================================
 
 AUT_Roles_v1.ModuleInitialized.handler(async ({ event, context }) => {
-  const id = `${event.srcAddress}-${event.chainId}`
-  const workflow_id = `${event.params.parentOrchestrator}-${event.chainId}`
+  const id = `${event.chainId}-${event.srcAddress}`
+  const workflow_id = `${event.chainId}-${event.params.parentOrchestrator}`
 
   context.AutRoles.set({
     id,
@@ -21,7 +21,7 @@ AUT_Roles_v1.ModuleInitialized.handler(async ({ event, context }) => {
 // Grant / Revoke Role
 
 AUT_Roles_v1.RoleGranted.handler(async ({ event, context }) => {
-  const module_id = `${event.srcAddress}-${event.chainId}`
+  const module_id = `${event.chainId}-${event.srcAddress}`
 
   const roleGen = event.params.role
   const recipient = event.params.account
@@ -41,7 +41,7 @@ AUT_Roles_v1.RoleGranted.handler(async ({ event, context }) => {
 })
 
 AUT_Roles_v1.RoleRevoked.handler(async ({ event, context }) => {
-  const module_id = `${event.srcAddress}-${event.chainId}`
+  const module_id = `${event.chainId}-${event.srcAddress}`
 
   const roleGen = event.params.role
   const recipient = event.params.account

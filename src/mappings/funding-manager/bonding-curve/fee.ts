@@ -46,7 +46,7 @@ BondingCurve.SellFeeUpdated.handler(async ({ event, context }) => {
 
 BondingCurve.ProjectCollateralFeeWithdrawn.handler(
   async ({ event, context }) => {
-    const id = `${event.srcAddress}-${event.chainId}`
+    const id = `${event.chainId}-${event.srcAddress}`
     const bc = (await context.BondingCurve.get(id))!
 
     const module_id = bc.id
@@ -104,7 +104,7 @@ BondingCurve.ProjectCollateralFeeWithdrawn.handler(
 
 // ISSUANCE FEE
 BondingCurve.ProtocolFeeMinted.handler(async ({ event, context }) => {
-  const id = `${event.srcAddress}-${event.chainId}`
+  const id = `${event.chainId}-${event.srcAddress}`
   const bc = (await context.BondingCurve.get(id))!
 
   const module_id = bc.id
@@ -172,7 +172,7 @@ BondingCurve.ProtocolFeeMinted.handler(async ({ event, context }) => {
 
 // COLLATERAL FEE
 BondingCurve.ProtocolFeeTransferred.handler(async ({ event, context }) => {
-  const id = `${event.srcAddress}-${event.chainId}`
+  const id = `${event.chainId}-${event.srcAddress}`
   const bc = (await context.BondingCurve.get(id))!
 
   const module_id = bc.id

@@ -21,7 +21,7 @@ import {
 
 // Buy Operations
 BondingCurve.TokensBought.handler(async ({ event, context }) => {
-  const id = `${event.srcAddress}-${event.chainId}`
+  const id = `${event.chainId}-${event.srcAddress}`
   const bc = await context.BondingCurve.get(id)
 
   const issuanceToken_id = bc!.issuanceToken_id!
@@ -120,7 +120,7 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
 
 // Sell Operations
 BondingCurve.TokensSold.handler(async ({ event, context }) => {
-  const id = `${event.srcAddress}-${event.chainId}`
+  const id = `${event.chainId}-${event.srcAddress}`
   const bc = (await context.BondingCurve.get(id))!
 
   const issuanceToken_id = bc.issuanceToken_id

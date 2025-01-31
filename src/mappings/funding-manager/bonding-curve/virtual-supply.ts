@@ -35,7 +35,7 @@ const handleVirtualIssuanceSupply = async ({
 
   context: handlerContext
 }) => {
-  const id = `${event.srcAddress}-${event.chainId}`
+  const id = `${event.chainId}-${event.srcAddress}`
   const bc = await context.BondingCurve.get(id)
 
   const issuanceToken_id = bc!.issuanceToken_id
@@ -82,7 +82,7 @@ const handleVirtualCollateralSupply = async ({
 
   context: handlerContext
 }) => {
-  const id = `${event.srcAddress}-${event.chainId}`
+  const id = `${event.chainId}-${event.srcAddress}`
   const bc = await context.BondingCurve.get(id)
 
   const collateralToken_id = bc!.collateralToken_id
