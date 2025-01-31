@@ -458,37 +458,62 @@ type ExternalPriceFundingManager {
   projectFees: [ProjectFee!]! @derivedFrom(field: "module_id")
   protocolFees: [ProtocolFee!]! @derivedFrom(field: "module_id")
 
-  redemptionAmount: BigInt!
+  redemptionAmount: BigDecimal!
 
-  redemptionOrders: [RedemptionOrder!]! @derivedFrom(field: "fundingManager")
+  paymentOrders: [PaymentOrder!]! @derivedFrom(field: "fundingManager")
+
+  externalPriceSetter: ExternalPriceSetter
 }
 
-type RedemptionOrder {
+type PaymentOrder {
   id: ID!
-  chainId: Int!
-  redemptionTimestamp: Int!
-  executedTimestamp: Int
+  client: String!
+  orderId: BigInt!
+  originChainId: Int!
+  targetChainId: Int!
 
   fundingManager: ExternalPriceFundingManager!
-  paymentOrderId: BigInt!
+
+  recipient: String!
+  amount: BigDecimal!
+  paymentToken: Token!
+
+  flags: Bytes!
+  data: [Bytes!]!
+
+  state: RedemptionState!
+  timestamp: Int!
+  executedTimestamp: Int
+  executedBy: String
 
   seller: String!
-  receiver: String!
-  sellAmount: BigDecimal!
   exchangeRate: BigDecimal!
-
   feePercentage: BigDecimal!
   feeAmount: BigDecimal!
   finalRedemptionAmount: BigDecimal!
 
-  collateralToken: Token!
-
-  status: RedemptionStatus!
+  orderType: PaymentOrderType!
 }
 
-enum RedemptionStatus {
-  PROCESSED
-  CANCELLED
-  PENDING
+enum RedemptionState {
+  PROCESSED,
+  CANCELLED,
+  PENDING,
   FAILED
+}
+
+enum PaymentOrderType {
+  PAYMENT,
+  QUEUED
+}
+
+type ExternalPriceSetter {
+  id: ID! # `${address}-${chainId}`
+  chainId: Int!
+  address: String!
+
+  workflow: Workflow!
+
+  issuancePrice: BigDecimal!
+  redemptionPrice: BigDecimal!
 }
