@@ -1,12 +1,10 @@
 import { FM_PC_ExternalPrice_Redeeming_v1, BigDecimal } from 'generated'
 
-import { updateExternalPriceFundingManager } from './update'
-
-import { updatePaymentOrder } from '../../../utils'
+import { updateOraclePrice, updatePaymentOrder } from '../../../utils'
 
 FM_PC_ExternalPrice_Redeeming_v1.RedemptionAmountUpdated.handler(
   async ({ event, context }) => {
-    await updateExternalPriceFundingManager({
+    await updateOraclePrice({
       context,
       event,
       properties: {

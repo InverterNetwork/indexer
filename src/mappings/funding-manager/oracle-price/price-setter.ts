@@ -1,12 +1,12 @@
 import { FM_PC_ExternalPrice_Redeeming_v1 } from 'generated'
-import { updateExternalPriceFundingManager } from './update'
+import { updateOraclePrice } from '../../../utils'
 
 FM_PC_ExternalPrice_Redeeming_v1.OracleUpdated.handler(
   async ({ event, context }) => {
     const newPriceSetter = event.params.newOracle_
     const priceSetterId = `${newPriceSetter}-${event.chainId}`
 
-    await updateExternalPriceFundingManager({
+    await updateOraclePrice({
       context,
       event,
       properties: {

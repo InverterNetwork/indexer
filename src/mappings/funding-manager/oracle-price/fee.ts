@@ -10,9 +10,8 @@ import {
   CurveIntervalProperties,
   updateCurveDayData,
   updateCurveHourData,
+  updateOraclePrice,
 } from '../../../utils'
-
-import { updateExternalPriceFundingManager } from './update'
 
 // ============================================================================
 // Fee Configuration Handlers
@@ -20,7 +19,7 @@ import { updateExternalPriceFundingManager } from './update'
 
 FM_PC_ExternalPrice_Redeeming_v1.BuyFeeUpdated.handler(
   async ({ event, context }) => {
-    await updateExternalPriceFundingManager({
+    await updateOraclePrice({
       context,
       event,
       properties: {
@@ -32,7 +31,7 @@ FM_PC_ExternalPrice_Redeeming_v1.BuyFeeUpdated.handler(
 
 FM_PC_ExternalPrice_Redeeming_v1.SellFeeUpdated.handler(
   async ({ event, context }) => {
-    await updateExternalPriceFundingManager({
+    await updateOraclePrice({
       context,
       event,
       properties: {

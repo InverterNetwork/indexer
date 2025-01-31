@@ -1,5 +1,4 @@
 import { FM_PC_ExternalPrice_Redeeming_v1 } from 'generated'
-import { updateExternalPriceFundingManager } from './update'
 import {
   createSwap,
   CurveIntervalProperties,
@@ -11,6 +10,8 @@ import {
   updateIssuanceTokenDayData,
   updateIssuanceTokenHourData,
   updateToken,
+  updateOraclePrice,
+  getBalanceOf,
 } from '../../../utils'
 
 // ============================================================================
@@ -98,23 +99,23 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensBought.handler(
     await updateIssuanceTokenHourData(updateTimeDataParams)
     await updateIssuanceTokenDayData(updateTimeDataParams)
 
-    // const reserveCOL = await getBalanceOf({
-    //   tokenAddress: collateralToken!.address,
-    //   address: bc!.address,
-    //   chainId: bc!.chainId,
-    //   decimals: collateralToken!.decimals,
-    // })
+    const reserveCOL = await getBalanceOf({
+      tokenAddress: collateralToken!.address,
+      address: bc!.address,
+      chainId: bc!.chainId,
+      decimals: collateralToken!.decimals,
+    })
 
-    // const reserveUSD = reserveCOL.times(collateralToken!.priceUSD)
+    const reserveUSD = reserveCOL.times(collateralToken!.priceUSD)
 
-    // await updateBondingCurve({
-    //   context,
-    //   event,
-    //   properties: {
-    //     reserveCOL,
-    //     reserveUSD,
-    //   },
-    // })
+    await updateOraclePrice({
+      context,
+      event,
+      properties: {
+        reserveCOL,
+        reserveUSD,
+      },
+    })
   }
 )
 
@@ -200,22 +201,22 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensSold.handler(
       triggerTotalSupply: true,
     })
 
-    // const reserveCOL = await getBalanceOf({
-    //   tokenAddress: collateralToken!.address,
-    //   address: bc.address,
-    //   chainId: bc.chainId,
-    //   decimals: collateralToken!.decimals,
-    // })
+    const reserveCOL = await getBalanceOf({
+      tokenAddress: collateralToken!.address,
+      address: bc.address,
+      chainId: bc.chainId,
+      decimals: collateralToken!.decimals,
+    })
 
-    // const reserveUSD = reserveCOL.times(collateralToken!.priceUSD)
+    const reserveUSD = reserveCOL.times(collateralToken!.priceUSD)
 
-    // await updateExternalPriceFundingManager({
-    //   context,
-    //   event,
-    //   properties: {
-    //     reserveCOL,
-    //     reserveUSD,
-    //   },
-    // })
+    await updateOraclePrice({
+      context,
+      event,
+      properties: {
+        reserveCOL,
+        reserveUSD,
+      },
+    })
   }
 )

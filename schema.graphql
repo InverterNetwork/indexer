@@ -263,6 +263,8 @@ type OraclePriceFM {
 
   workflow: Workflow!
 
+  externalPriceSetter: ExternalPriceSetter
+
   issuanceToken: Token!
   collateralToken: Token!
 
@@ -277,7 +279,8 @@ type OraclePriceFM {
   pendingRedemptionCOL: BigDecimal!
   pendingRedemptionUSD: BigDecimal!
 
-  externalPriceSetter: ExternalPriceSetter
+  reserveCOL: BigDecimal!
+  reserveUSD: BigDecimal!
 }
 
 type RedemptionPaymentOrder {

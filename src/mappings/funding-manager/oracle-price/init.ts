@@ -1,8 +1,10 @@
 import { FM_PC_ExternalPrice_Redeeming_v1 } from 'generated'
 
-import { deriveTokenAddress, updateToken } from '../../../utils'
-
-import { updateExternalPriceFundingManager } from './update'
+import {
+  deriveTokenAddress,
+  updateToken,
+  updateOraclePrice,
+} from '../../../utils'
 
 FM_PC_ExternalPrice_Redeeming_v1.ModuleInitialized.handler(
   async ({ event, context }) => {
@@ -43,7 +45,7 @@ FM_PC_ExternalPrice_Redeeming_v1.ModuleInitialized.handler(
       triggerTotalSupply: true,
     })
 
-    await updateExternalPriceFundingManager({
+    await updateOraclePrice({
       event,
       context,
       properties: {
