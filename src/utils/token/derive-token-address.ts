@@ -3,6 +3,7 @@ import { getPublicClient } from '../rpc'
 import { CacheContainer } from 'node-ts-cache'
 import { NodeFsStorage } from 'node-ts-cache-storage-node-fs'
 import { createDirIfNotExists } from '../base'
+import { TOKEN_DEBUG } from '../debug'
 
 const longTermCacheDir = createDirIfNotExists('.cache')
 
@@ -24,8 +25,14 @@ export async function deriveTokenAddress({
   derivedAddress: string
   derivedType: 'issuance' | 'token' | null
 }> {
+  // VARIABLES
+  // --------------------------------------------------------------------------
+
   let tokenAddress = address as `0x${string}`
   let derivedType = derivesTo
+
+  // CONSTANTS
+  // --------------------------------------------------------------------------
 
   const issuanceTokenAbi = [
     parseAbiItem('function issuanceToken() view returns (address)'),
@@ -34,6 +41,9 @@ export async function deriveTokenAddress({
     parseAbiItem('function getIssuanceToken() view returns (address)'),
   ]
   const tokenAbi = [parseAbiItem('function token() view returns (address)')]
+
+  // HANDLERS
+  // --------------------------------------------------------------------------
 
   const handleToken = async () => {
     const cacheKey = `${address.toLowerCase()}-${chainId}-token`
@@ -69,38 +79,28 @@ export async function deriveTokenAddress({
     }
 
     const result = await (async () => {
+      let possibleWrappedIssuanceToken = address as `0x${string}`
+
+      // Try to get issuance token from the funding manager
+      possibleWrappedIssuanceToken = await client.readContract({
+        address: address as `0x${string}`,
+        abi: getIssuanceTokenAbi,
+        functionName: 'getIssuanceToken',
+      })
+
       try {
-        // 1. Try to get issuance token from wrapped token, if it exists return it else throw and continue
-        return await client.readContract({
-          address: address as `0x${string}`,
+        // Try to unwrap the issuance token
+        possibleWrappedIssuanceToken = await client.readContract({
+          address: possibleWrappedIssuanceToken as `0x${string}`,
           abi: issuanceTokenAbi,
           functionName: 'issuanceToken',
         })
-      } catch {
-        let fmIssuanceToken: `0x${string}` | null = null
-
-        try {
-          // 2. Try to get issuance token from the funding manager, set it if it exists else throw and continue
-          fmIssuanceToken = await client.readContract({
-            address: address as `0x${string}`,
-            abi: getIssuanceTokenAbi,
-            functionName: 'getIssuanceToken',
-          })
-        } catch {}
-
-        try {
-          // 3. If fmIssuanceToken exists, try to unwrap it
-          if (fmIssuanceToken)
-            fmIssuanceToken = await client.readContract({
-              address: fmIssuanceToken,
-              abi: issuanceTokenAbi,
-              functionName: 'issuanceToken',
-            })
-        } catch {}
-
-        // 4. Return the fmIssuanceToken if it exists, else return the address
-        return (fmIssuanceToken ?? address) as `0x${string}`
+      } catch (error) {
+        TOKEN_DEBUG()(`Try unwrapping issuance token failed`)
       }
+
+      // Return the fmIssuanceToken if it exists, else return the address
+      return possibleWrappedIssuanceToken
     })()
 
     await longTermDerivedTokenAddressesCache.setItem(cacheKey, result, {
@@ -109,6 +109,9 @@ export async function deriveTokenAddress({
 
     return result
   }
+
+  // EXECUTE
+  // --------------------------------------------------------------------------
 
   if (!!derivesTo) {
     try {
@@ -120,19 +123,34 @@ export async function deriveTokenAddress({
           tokenAddress = await handleToken()
           break
       }
-    } catch {}
-  } else {
-    try {
-      tokenAddress = await handleToken()
-      derivedType = 'token'
-    } catch {
-      try {
-        tokenAddress = await handleIssuance()
-        derivedType = 'issuance'
-      } catch {}
+    } catch (error: any) {
+      TOKEN_DEBUG()(
+        `Failed to derive @ derivesTo: ${derivesTo}, chainId: ${chainId}, address: ${address}`,
+        error?.message ?? error?.cause ?? error
+      )
     }
   }
 
+  if (!derivesTo) {
+    try {
+      tokenAddress = await handleToken()
+      derivedType = 'token'
+    } catch (error) {
+      TOKEN_DEBUG()(`@ auto-derive collateral token address failed`, error)
+      try {
+        tokenAddress = await handleIssuance()
+        derivedType = 'issuance'
+      } catch (error) {
+        TOKEN_DEBUG()(
+          `Failed to derive @ auto-derive collateral & issuance token address: chainId: ${chainId}, address: ${address}`,
+          error
+        )
+      }
+    }
+  }
+
+  // RETURN
+  // --------------------------------------------------------------------------
   return {
     derivedAddress: tokenAddress,
     derivedType: derivedType ?? null,

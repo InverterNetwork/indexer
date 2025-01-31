@@ -98,123 +98,6 @@
       "address": "0x90839Bc6864eE6bE350588b1Ed1B43eB2Ff24FeD"
     }
   },
-  "0xd035db02f9a6b16519de6f9148b53035b3d6c59b-1101": {
-    "meta": {},
-    "content": {
-      "name": "AMN Token",
-      "symbol": "AMN",
-      "decimals": 18,
-      "address": "0xD035DB02f9A6B16519De6F9148b53035b3D6c59B"
-    }
-  },
-  "0x701528c4fc6d91373e145c050c15e4922c0b7b51-1101": {
-    "meta": {},
-    "content": {
-      "name": "Druid Token",
-      "symbol": "DRUID",
-      "decimals": 18,
-      "address": "0x701528c4fc6D91373e145c050c15e4922c0b7B51"
-    }
-  },
-  "0x9b93b739c2e867dede2244f020f5e0c71430c691-1101": {
-    "meta": {},
-    "content": {
-      "name": "AMN Token",
-      "symbol": "AMN",
-      "decimals": 18,
-      "address": "0x9b93B739c2e867dEDe2244f020F5E0C71430C691"
-    }
-  },
-  "0xbd5fe46cee76a7dcdc927661c43efaeb75b1a559-1101": {
-    "meta": {},
-    "content": {
-      "name": "SpaceMonk",
-      "symbol": "SPC",
-      "decimals": 18,
-      "address": "0xBD5fE46cEE76a7DCDc927661c43EfAeb75b1a559"
-    }
-  },
-  "0x67857d7a6518f77f0217f8c3dd9109bc644a21bb-1101": {
-    "meta": {},
-    "content": {
-      "name": "Ali Qacc test",
-      "symbol": "ALIE",
-      "decimals": 18,
-      "address": "0x67857d7a6518F77f0217F8C3DD9109bC644a21Bb"
-    }
-  },
-  "0x0af51e6f8d18c06a25dffb0dd9169302692aafad-1101": {
-    "meta": {},
-    "content": {
-      "name": "Cherik",
-      "symbol": "CHK",
-      "decimals": 18,
-      "address": "0x0Af51e6f8D18c06a25dfFb0Dd9169302692aAfAD"
-    }
-  },
-  "0x5e0aacdd09f09ae37298a9ba45532f4c4096dfc5-1101": {
-    "meta": {},
-    "content": {
-      "name": "WGMI",
-      "symbol": "WGMI",
-      "decimals": 18,
-      "address": "0x5e0aAcDd09F09ae37298a9Ba45532f4C4096dFc5"
-    }
-  },
-  "0x5fce0a639865920d27ff7bf1600b39464645ff71-1101": {
-    "meta": {},
-    "content": {
-      "name": "SpaceMonk",
-      "symbol": "SPC",
-      "decimals": 18,
-      "address": "0x5FcE0A639865920d27ff7Bf1600b39464645fF71"
-    }
-  },
-  "0xe304af65ab52b60a88134f18e361a70e22c6cc21-1101": {
-    "meta": {},
-    "content": {
-      "name": "Druid Token",
-      "symbol": "DRUID",
-      "decimals": 18,
-      "address": "0xe304aF65aB52b60a88134F18e361a70E22c6CC21"
-    }
-  },
-  "0x8cb0ec0f9fb3fd056d9839d2a000fec2dba7163d-1101": {
-    "meta": {},
-    "content": {
-      "name": "WGMI",
-      "symbol": "WGMI",
-      "decimals": 18,
-      "address": "0x8Cb0eC0f9fB3fd056D9839d2A000FEC2dBA7163D"
-    }
-  },
-  "0x1f151a877a5f6581375e44f71841bc47da59537f-1101": {
-    "meta": {},
-    "content": {
-      "name": "Ali Qacc test",
-      "symbol": "ALI",
-      "decimals": 18,
-      "address": "0x1f151A877A5f6581375e44F71841bc47dA59537f"
-    }
-  },
-  "0x3fe9b6184d31d8a49c0e7dbc4b7bb06f44f3e59a-1101": {
-    "meta": {},
-    "content": {
-      "name": "Groovey Gurves",
-      "symbol": "GG",
-      "decimals": 18,
-      "address": "0x3fE9b6184D31d8a49c0e7DBC4B7Bb06f44f3e59A"
-    }
-  },
-  "0x0ca6f528a1a0979ef3ecda17a8bf3807f99881d7-1101": {
-    "meta": {},
-    "content": {
-      "name": "AMN Token",
-      "symbol": "AMN",
-      "decimals": 18,
-      "address": "0x0ca6f528a1a0979ef3Ecda17A8bf3807F99881D7"
-    }
-  },
   "0xd5018fa63924d1be2c2c42abdc24bd754499f97c-11155420": {
     "meta": {},
     "content": {
@@ -863,6 +746,906 @@
       "address": "0x084f7f3B661CD48d2274fF198e3aB84C4206f6A5"
     }
   },
+  "0x7257676c12fcc98c28378faa1030b02ebdd95bd0-11155420": {
+    "meta": {},
+    "content": {
+      "name": "CowJump",
+      "symbol": "COWJD",
+      "decimals": 18,
+      "address": "0x7257676c12fcC98c28378FAA1030b02EbDD95bD0"
+    }
+  },
+  "0x865c81bb5a4ef688349c1711d245b9757e748b83-11155420": {
+    "meta": {},
+    "content": {
+      "name": "MG Token",
+      "symbol": "MGT",
+      "decimals": 18,
+      "address": "0x865c81bB5A4EF688349C1711d245b9757e748B83"
+    }
+  },
+  "0x1c305ff777969e183d2ee33fb2dc7d68b3c0a338-11155420": {
+    "meta": {},
+    "content": {
+      "name": "MG Token",
+      "symbol": "MGT",
+      "decimals": 18,
+      "address": "0x1c305Ff777969E183d2EE33Fb2Dc7D68B3C0a338"
+    }
+  },
+  "0x0b20f4d2044d2c8be0d681d8f317823733f326c5-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Feline",
+      "symbol": "CATS",
+      "decimals": 18,
+      "address": "0x0B20f4d2044d2c8bE0d681d8F317823733f326c5"
+    }
+  },
+  "0x1892b35efeb71712caea14f72027226ef4e78b4b-11155420": {
+    "meta": {},
+    "content": {
+      "name": "CatIce",
+      "symbol": "CICE",
+      "decimals": 18,
+      "address": "0x1892B35efeB71712CAeA14F72027226Ef4e78B4B"
+    }
+  },
+  "0x4a9c00ca8fd27a75de45b169e1e3da51930eef24-11155420": {
+    "meta": {},
+    "content": {
+      "name": "BBB Name",
+      "symbol": "BBB",
+      "decimals": 18,
+      "address": "0x4A9C00cA8Fd27a75De45b169E1E3DA51930eef24"
+    }
+  },
+  "0xf250037f6249f8320deee6825ba2bce2715daf3d-11155420": {
+    "meta": {},
+    "content": {
+      "name": "AAA Name",
+      "symbol": "AAA",
+      "decimals": 18,
+      "address": "0xF250037f6249f8320DeeE6825bA2bCE2715daF3d"
+    }
+  },
+  "0x8c8077b9f82358c1eeb82bdf728685dfad402552-11155420": {
+    "meta": {},
+    "content": {
+      "name": "AAA Name",
+      "symbol": "AAA",
+      "decimals": 18,
+      "address": "0x8C8077B9f82358c1Eeb82bDf728685DfAD402552"
+    }
+  },
+  "0x65e16469aa1a636165681190448bde4efbc70cac-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Ben's Token",
+      "symbol": "BFT",
+      "decimals": 18,
+      "address": "0x65e16469Aa1A636165681190448BDe4Efbc70CAc"
+    }
+  },
+  "0x401ebcd5f705d45d6cb79a8019b970178fbfc50e-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Inverter",
+      "symbol": "INV",
+      "decimals": 18,
+      "address": "0x401EBcd5F705D45D6cb79A8019B970178fBFc50E"
+    }
+  },
+  "0xd035db02f9a6b16519de6f9148b53035b3d6c59b-1101": {
+    "meta": {},
+    "content": {
+      "name": "AMN Token",
+      "symbol": "AMN",
+      "decimals": 18,
+      "address": "0xD035DB02f9A6B16519De6F9148b53035b3D6c59B"
+    }
+  },
+  "0x701528c4fc6d91373e145c050c15e4922c0b7b51-1101": {
+    "meta": {},
+    "content": {
+      "name": "Druid Token",
+      "symbol": "DRUID",
+      "decimals": 18,
+      "address": "0x701528c4fc6D91373e145c050c15e4922c0b7B51"
+    }
+  },
+  "0x9b93b739c2e867dede2244f020f5e0c71430c691-1101": {
+    "meta": {},
+    "content": {
+      "name": "AMN Token",
+      "symbol": "AMN",
+      "decimals": 18,
+      "address": "0x9b93B739c2e867dEDe2244f020F5E0C71430C691"
+    }
+  },
+  "0xbd5fe46cee76a7dcdc927661c43efaeb75b1a559-1101": {
+    "meta": {},
+    "content": {
+      "name": "SpaceMonk",
+      "symbol": "SPC",
+      "decimals": 18,
+      "address": "0xBD5fE46cEE76a7DCDc927661c43EfAeb75b1a559"
+    }
+  },
+  "0x67857d7a6518f77f0217f8c3dd9109bc644a21bb-1101": {
+    "meta": {},
+    "content": {
+      "name": "Ali Qacc test",
+      "symbol": "ALIE",
+      "decimals": 18,
+      "address": "0x67857d7a6518F77f0217F8C3DD9109bC644a21Bb"
+    }
+  },
+  "0x0af51e6f8d18c06a25dffb0dd9169302692aafad-1101": {
+    "meta": {},
+    "content": {
+      "name": "Cherik",
+      "symbol": "CHK",
+      "decimals": 18,
+      "address": "0x0Af51e6f8D18c06a25dfFb0Dd9169302692aAfAD"
+    }
+  },
+  "0x5e0aacdd09f09ae37298a9ba45532f4c4096dfc5-1101": {
+    "meta": {},
+    "content": {
+      "name": "WGMI",
+      "symbol": "WGMI",
+      "decimals": 18,
+      "address": "0x5e0aAcDd09F09ae37298a9Ba45532f4C4096dFc5"
+    }
+  },
+  "0x5fce0a639865920d27ff7bf1600b39464645ff71-1101": {
+    "meta": {},
+    "content": {
+      "name": "SpaceMonk",
+      "symbol": "SPC",
+      "decimals": 18,
+      "address": "0x5FcE0A639865920d27ff7Bf1600b39464645fF71"
+    }
+  },
+  "0xe304af65ab52b60a88134f18e361a70e22c6cc21-1101": {
+    "meta": {},
+    "content": {
+      "name": "Druid Token",
+      "symbol": "DRUID",
+      "decimals": 18,
+      "address": "0xe304aF65aB52b60a88134F18e361a70E22c6CC21"
+    }
+  },
+  "0x8cb0ec0f9fb3fd056d9839d2a000fec2dba7163d-1101": {
+    "meta": {},
+    "content": {
+      "name": "WGMI",
+      "symbol": "WGMI",
+      "decimals": 18,
+      "address": "0x8Cb0eC0f9fB3fd056D9839d2A000FEC2dBA7163D"
+    }
+  },
+  "0x1f151a877a5f6581375e44f71841bc47da59537f-1101": {
+    "meta": {},
+    "content": {
+      "name": "Ali Qacc test",
+      "symbol": "ALI",
+      "decimals": 18,
+      "address": "0x1f151A877A5f6581375e44F71841bc47dA59537f"
+    }
+  },
+  "0x3fe9b6184d31d8a49c0e7dbc4b7bb06f44f3e59a-1101": {
+    "meta": {},
+    "content": {
+      "name": "Groovey Gurves",
+      "symbol": "GG",
+      "decimals": 18,
+      "address": "0x3fE9b6184D31d8a49c0e7DBC4B7Bb06f44f3e59A"
+    }
+  },
+  "0x0ca6f528a1a0979ef3ecda17a8bf3807f99881d7-1101": {
+    "meta": {},
+    "content": {
+      "name": "AMN Token",
+      "symbol": "AMN",
+      "decimals": 18,
+      "address": "0x0ca6f528a1a0979ef3Ecda17A8bf3807F99881D7"
+    }
+  },
+  "0x368cedbe8e8023b2ff208679c550043db8aa9d70-1101": {
+    "meta": {},
+    "content": {
+      "name": "AAA Name",
+      "symbol": "AAA",
+      "decimals": 18,
+      "address": "0x368CEDbe8E8023B2FF208679C550043dB8aA9d70"
+    }
+  },
+  "0x9c5b5fbeac8f3acc97422e4daf43696e415e25ba-1101": {
+    "meta": {},
+    "content": {
+      "name": "AAA Name",
+      "symbol": "AAA",
+      "decimals": 18,
+      "address": "0x9c5B5FbEac8F3acc97422e4daF43696e415e25bA"
+    }
+  },
+  "0x9416e16c4d3763ed2315b318c7f879590ab7e98d-1101": {
+    "meta": {},
+    "content": {
+      "name": "TAKA",
+      "symbol": "TAKA",
+      "decimals": 18,
+      "address": "0x9416E16C4D3763ed2315B318c7F879590ab7e98D"
+    }
+  },
+  "0x11f2b867f19634fc5aa2956bf5cacae96c6c2da1-1101": {
+    "meta": {},
+    "content": {
+      "name": "Citizen Wallet",
+      "symbol": "TCTZN",
+      "decimals": 18,
+      "address": "0x11F2B867f19634fC5aA2956bf5caCAE96c6c2Da1"
+    }
+  },
+  "0xa503f727b0657fb7e27cc62d3df29922ad8b8850-1101": {
+    "meta": {},
+    "content": {
+      "name": "Ancient Beast",
+      "symbol": "TBEAS",
+      "decimals": 18,
+      "address": "0xa503F727b0657Fb7e27Cc62d3df29922AD8b8850"
+    }
+  },
+  "0x18a57acab8f778e79f2b84bc6a5ad374192f1aa7-1101": {
+    "meta": {},
+    "content": {
+      "name": "TGRIE",
+      "symbol": "TGRIE",
+      "decimals": 18,
+      "address": "0x18A57acAb8f778e79F2B84bc6A5aD374192f1aa7"
+    }
+  },
+  "0xd574c1fd9d8d11513d8b4cac9552ee6448e94776-1101": {
+    "meta": {},
+    "content": {
+      "name": "Citizen",
+      "symbol": "TCTZN",
+      "decimals": 18,
+      "address": "0xd574C1fD9d8d11513D8b4CaC9552ee6448e94776"
+    }
+  },
+  "0x20e29b314ece745fdc8530ccb388901f8fe0257c-1101": {
+    "meta": {},
+    "content": {
+      "name": "Citizen",
+      "symbol": "TCTZN",
+      "decimals": 18,
+      "address": "0x20e29B314eCE745fDc8530ccb388901F8FE0257C"
+    }
+  },
+  "0x21856f8e448f381d98f23c4561db9826a60b17f9-1101": {
+    "meta": {},
+    "content": {
+      "name": "WGMI",
+      "symbol": "WGMI",
+      "decimals": 18,
+      "address": "0x21856F8E448f381d98F23c4561DB9826a60b17F9"
+    }
+  },
+  "0x22b21beddef74fe62f031d2c5c8f7a9f8a4b304d-1101": {
+    "meta": {},
+    "content": {
+      "name": "Polygon Ecosystem Token",
+      "symbol": "POL",
+      "decimals": 18,
+      "address": "0x22B21BedDef74FE62F031D2c5c8F7a9F8a4b304D"
+    }
+  },
+  "0xc530b75465ce3c6286e718110a7b2e2b64bdc860-1101": {
+    "meta": {},
+    "content": {
+      "name": "x23.ai",
+      "symbol": "X23",
+      "decimals": 18,
+      "address": "0xc530B75465Ce3c6286e718110A7B2e2B64Bdc860"
+    }
+  },
+  "0xa3dd6163b5742b0d8cb7d79cb5dfe3f81f8f8fc4-1101": {
+    "meta": {},
+    "content": {
+      "name": "AKA",
+      "symbol": "AKA",
+      "decimals": 18,
+      "address": "0xA3dd6163B5742B0D8Cb7d79CB5DFE3F81F8F8fC4"
+    }
+  },
+  "0x0d9b0790e97e3426c161580df4ee853e4a7c4607-1101": {
+    "meta": {},
+    "content": {
+      "name": "Citizen Wallet",
+      "symbol": "CTZN",
+      "decimals": 18,
+      "address": "0x0D9B0790E97e3426C161580dF4Ee853E4A7C4607"
+    }
+  },
+  "0x5fdaf637aed59b2e6d384d9e84d8ac5cf03c6697-1101": {
+    "meta": {},
+    "content": {
+      "name": "Melodex",
+      "symbol": "MELS",
+      "decimals": 18,
+      "address": "0x5FDAF637Aed59B2e6d384d9e84D8ac5cF03c6697"
+    }
+  },
+  "0xfafb870f1918827fe57ca4b891124606eaa7e6bd-1101": {
+    "meta": {},
+    "content": {
+      "name": "The Grand Timeline",
+      "symbol": "GRNDT",
+      "decimals": 18,
+      "address": "0xfAFB870F1918827fe57Ca4b891124606EaA7e6bd"
+    }
+  },
+  "0x4191f84f66e0b7cc10370ff47a0e2168e35b9bdf-1101": {
+    "meta": {},
+    "content": {
+      "name": "BEAST",
+      "symbol": "BEAST",
+      "decimals": 18,
+      "address": "0x4191F84f66e0B7CC10370Ff47a0E2168E35b9Bdf"
+    }
+  },
+  "0x0b7a46e1af45e1eaadeed34b55b6fc00a85c7c68-1101": {
+    "meta": {},
+    "content": {
+      "name": "Prismo Technology",
+      "symbol": "PRSM",
+      "decimals": 18,
+      "address": "0x0b7a46E1af45E1EaadEeD34B55b6FC00A85c7c68"
+    }
+  },
+  "0xabd9cb2835ebdf023fd168902bf4d2114c3371c0-1101": {
+    "meta": {},
+    "content": {
+      "name": "SPC Token",
+      "symbol": "SPC",
+      "decimals": 18,
+      "address": "0xaBd9cb2835EBdF023Fd168902bF4d2114C3371c0"
+    }
+  },
+  "0x35fdbc6fbc2ad85edf14c4ab81827c29934f1eb0-1101": {
+    "meta": {},
+    "content": {
+      "name": "TBEAS",
+      "symbol": "TBEAS",
+      "decimals": 18,
+      "address": "0x35FdbC6FBC2aD85EdF14c4ab81827C29934F1eB0"
+    }
+  },
+  "0xa1a78ac9884adc9d04d59b2b743f1ec709618e55-1101": {
+    "meta": {},
+    "content": {
+      "name": "Alpha Chad",
+      "symbol": "ACHAD",
+      "decimals": 18,
+      "address": "0xA1a78aC9884aDc9d04d59b2b743f1eC709618e55"
+    }
+  },
+  "0xe2f7a268fd6ae6fd9ccd52419183b937c4d855f4-1101": {
+    "meta": {},
+    "content": {
+      "name": "Druid Token",
+      "symbol": "DRUID",
+      "decimals": 18,
+      "address": "0xE2F7A268FD6ae6fD9Ccd52419183b937C4D855F4"
+    }
+  },
+  "0xd37979ecaa6f1bdbe571e15b26e465303a3d7759-1101": {
+    "meta": {},
+    "content": {
+      "name": "TGRIE",
+      "symbol": "TGRIE",
+      "decimals": 18,
+      "address": "0xD37979Ecaa6F1BDBE571e15B26E465303a3D7759"
+    }
+  },
+  "0x29f92c0c2245514b5077aff70ddc7a2b39a9c4ea-1101": {
+    "meta": {},
+    "content": {
+      "name": "TBEAS",
+      "symbol": "TBEAS",
+      "decimals": 18,
+      "address": "0x29F92C0C2245514b5077Aff70DDc7A2B39a9c4EA"
+    }
+  },
+  "0x77262172040b8d02d7aa5c1a0cd8291cb9e8a882-1101": {
+    "meta": {},
+    "content": {
+      "name": "Ali Test Price",
+      "symbol": "ATP",
+      "decimals": 18,
+      "address": "0x77262172040B8D02d7aa5c1a0CD8291CB9E8A882"
+    }
+  },
+  "0x53104cd01fa6a7523bcde499dbbd2008d5102380-1101": {
+    "meta": {},
+    "content": {
+      "name": "TGRIE",
+      "symbol": "TGRIE",
+      "decimals": 18,
+      "address": "0x53104cd01Fa6a7523BcdE499dbBd2008d5102380"
+    }
+  },
+  "0x5f930dfa01ca180bf22874ea3b46956f467f3373-1101": {
+    "meta": {},
+    "content": {
+      "name": "TGRIE",
+      "symbol": "TGRIE",
+      "decimals": 18,
+      "address": "0x5F930Dfa01cA180BF22874EA3B46956F467F3373"
+    }
+  },
+  "0x97f2545bf007465ae2a3c2c6dca1d2644267d5ee-1101": {
+    "meta": {},
+    "content": {
+      "name": "Ali Test Qacc",
+      "symbol": "ATQ",
+      "decimals": 18,
+      "address": "0x97f2545bf007465Ae2a3C2c6DcA1d2644267d5EE"
+    }
+  },
+  "0x4c97cc9382f84875b6d1f974357a23571813766d-1101": {
+    "meta": {},
+    "content": {
+      "name": "AMN Token",
+      "symbol": "AMN",
+      "decimals": 18,
+      "address": "0x4C97CC9382F84875b6d1F974357a23571813766D"
+    }
+  },
+  "0x4f4d60aa252eb0816a281b31a932e47c8072bdd5-1101": {
+    "meta": {},
+    "content": {
+      "name": "AMN Token",
+      "symbol": "AMN",
+      "decimals": 18,
+      "address": "0x4F4D60aa252EB0816a281B31A932e47c8072BDd5"
+    }
+  },
+  "0xca4c6bb0d2d75e4f93a5892aed1739b69a02e0d7-1101": {
+    "meta": {},
+    "content": {
+      "name": "TGRIE",
+      "symbol": "TGRIE",
+      "decimals": 18,
+      "address": "0xCA4C6bb0d2d75E4f93A5892AeD1739b69A02e0d7"
+    }
+  },
+  "0x07ff3aff9af6c60cb62ce0bb66ffe10119a74be7-1101": {
+    "meta": {},
+    "content": {
+      "name": "Druid Game",
+      "symbol": "DRUID",
+      "decimals": 18,
+      "address": "0x07FF3aff9af6c60CB62ce0Bb66Ffe10119A74bE7"
+    }
+  },
+  "0xc1c96d25cd23ae150c5e4ca23b5036246956d899-1101": {
+    "meta": {},
+    "content": {
+      "name": "Ali Dress Rehearsal Test",
+      "symbol": "ADRT",
+      "decimals": 18,
+      "address": "0xC1c96D25cd23aE150c5E4CA23b5036246956d899"
+    }
+  },
+  "0x56d24dc993260f760a468bacf7c7ff3a80e6e038-1101": {
+    "meta": {},
+    "content": {
+      "name": "Pairwise Gurve",
+      "symbol": "PWG",
+      "decimals": 18,
+      "address": "0x56D24dc993260F760a468BAcF7c7FF3a80e6E038"
+    }
+  },
+  "0xc9aeac17e25c4bd92af3618edd2aebc9975ad85f-1101": {
+    "meta": {},
+    "content": {
+      "name": "Taka",
+      "symbol": "Taka",
+      "decimals": 18,
+      "address": "0xC9aEaC17e25c4BD92aF3618EdD2aeBc9975ad85F"
+    }
+  },
+  "0x065775c7ab4e60ad1776a30dcfb15325d231ce4f-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Inverter USD",
+      "symbol": "iUSD",
+      "decimals": 18,
+      "address": "0x065775C7aB4E60ad1776A30DCfB15325d231Ce4F"
+    }
+  },
+  "0x7e273acbdf4b6acb99dc1a3d3801e796e485a291-11155111": {
+    "meta": {},
+    "content": {
+      "name": "TEST ISSUANCE",
+      "symbol": "ISS",
+      "decimals": 18,
+      "address": "0x7E273aCbDF4b6Acb99dc1a3d3801E796E485a291"
+    }
+  },
+  "0x47511ab3ae522a4e58ce58024b1e6cc229be6e54-1101": {
+    "meta": {},
+    "content": {
+      "name": "Druid Game",
+      "symbol": "DRUID",
+      "decimals": 18,
+      "address": "0x47511ab3AE522A4e58Ce58024B1E6cc229BE6e54"
+    }
+  },
+  "0x692a4ee2b1465f26501e12f02ad56ee9522552a4-11155111": {
+    "meta": {},
+    "content": {
+      "name": "JIM AIGent",
+      "symbol": "JIM",
+      "decimals": 18,
+      "address": "0x692a4EE2B1465f26501e12f02ad56ee9522552a4"
+    }
+  },
+  "0x65874813c8afd47884fb7a4a08e0078209ac1644-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Artsy Token",
+      "symbol": "ARTSY",
+      "decimals": 18,
+      "address": "0x65874813C8AFD47884Fb7A4a08e0078209ac1644"
+    }
+  },
+  "0x6ea0c0c38ec2aca838f3b5be5248228b82060f26-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Cre8ive Token",
+      "symbol": "CRE8",
+      "decimals": 18,
+      "address": "0x6Ea0c0c38eC2AcA838f3B5Be5248228B82060F26"
+    }
+  },
+  "0x00f7506cbdb5dbcfe035ff2e27cb6a1a85f2439d-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Dreamscape Token",
+      "symbol": "DREAM",
+      "decimals": 18,
+      "address": "0x00F7506CBdb5DBcFE035FF2e27cB6A1a85f2439D"
+    }
+  },
+  "0x3b0767a1d91d2fd9c0570c4cf6b8766b6256f828-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Existence Token",
+      "symbol": "EXIST",
+      "decimals": 18,
+      "address": "0x3B0767a1D91D2Fd9c0570c4Cf6b8766b6256F828"
+    }
+  },
+  "0xd455fe986aaf952086ba9581b9ba11146e8e7fb6-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Cre8ive Token",
+      "symbol": "CRE8",
+      "decimals": 18,
+      "address": "0xD455fE986aaF952086BA9581b9Ba11146E8e7fb6"
+    }
+  },
+  "0x3816d2149cd1e376455d42b5da35877313c2f044-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Freedom Token",
+      "symbol": "FREEDOM",
+      "decimals": 18,
+      "address": "0x3816D2149Cd1E376455d42B5da35877313c2f044"
+    }
+  },
+  "0xb0159db169831a2ff1defc122a5484b58a28cbea-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Dreamscape Token",
+      "symbol": "DREAM",
+      "decimals": 18,
+      "address": "0xb0159DB169831A2Ff1DeFC122A5484B58A28cBeA"
+    }
+  },
+  "0xed5fa40b382b32fca2dc851f5d3f8a56a9396dd8-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Existence Token",
+      "symbol": "EXIST",
+      "decimals": 18,
+      "address": "0xed5Fa40b382B32FcA2Dc851f5d3f8A56A9396Dd8"
+    }
+  },
+  "0x1d61d856e89bbca52054c94360538d4c74feeaae-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Cre8ive Token",
+      "symbol": "CRE8",
+      "decimals": 18,
+      "address": "0x1D61D856E89BBca52054c94360538d4C74FeeAae"
+    }
+  },
+  "0xbd45cec9674151c62aa99f2b21bf63ef8933da84-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Freedom Token",
+      "symbol": "FREEDOM",
+      "decimals": 18,
+      "address": "0xBD45cEC9674151c62Aa99f2B21Bf63Ef8933Da84"
+    }
+  },
+  "0x3034631f2f5fc20bfdf9c9331a76477b05052b04-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Existence Token",
+      "symbol": "EXIST",
+      "decimals": 18,
+      "address": "0x3034631f2F5fC20bFDf9c9331A76477B05052B04"
+    }
+  },
+  "0x5b4793ffd36af9dc3ebd097496074ca236a9f502-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Existence Token",
+      "symbol": "EXIST",
+      "decimals": 18,
+      "address": "0x5b4793ffd36AF9Dc3ebd097496074CA236a9f502"
+    }
+  },
+  "0xb75960ce1de2f5eb96b7f21f2b7f848d10f2d4b1-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Freedom Token",
+      "symbol": "FREEDOM",
+      "decimals": 18,
+      "address": "0xb75960cE1De2F5eb96b7f21F2b7f848D10F2D4b1"
+    }
+  },
+  "0x3fa3b4d4b81bab7e8a2958f94d675c6e03bbb4cd-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Freedom Token",
+      "symbol": "FREEDOM",
+      "decimals": 18,
+      "address": "0x3Fa3B4D4b81bab7e8A2958f94d675C6e03BBB4cd"
+    }
+  },
+  "0x3883b5436849b695527ac2e71c041cf1b68bcf5f-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Existence Token",
+      "symbol": "EXIST",
+      "decimals": 18,
+      "address": "0x3883b5436849B695527Ac2E71c041cF1B68BCf5F"
+    }
+  },
+  "0x986e5cb66e6b93d2fc2a45cf8f16eeb0ba3d5671-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Existence Token",
+      "symbol": "EXIST",
+      "decimals": 18,
+      "address": "0x986E5cb66e6b93d2fc2A45cf8F16eeb0BA3D5671"
+    }
+  },
+  "0xdf9dc2fc0b13b4eb4e668f17aa40b0bd3dfdd47d-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Imagine Token",
+      "symbol": "IMAGINE",
+      "decimals": 18,
+      "address": "0xdf9DC2fC0B13b4EB4E668F17aA40B0BD3DfDd47d"
+    }
+  },
+  "0x92220d2a1bc91e540e343e30b87fff74dc13c936-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Horizon Token",
+      "symbol": "HORIZON",
+      "decimals": 18,
+      "address": "0x92220d2a1BC91e540E343E30B87ffF74dc13C936"
+    }
+  },
+  "0xbb4326c2e1a6be37e9bad74f286399dc6ad19c72-11155111": {
+    "meta": {},
+    "content": {
+      "name": "collateral token",
+      "symbol": "ct",
+      "decimals": 18,
+      "address": "0xbb4326c2e1A6Be37E9bAd74F286399Dc6AD19c72"
+    }
+  },
+  "0x18c02b72284041e5c5cee822bc1e267b979a7de4-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Issuancccce",
+      "symbol": "IT",
+      "decimals": 18,
+      "address": "0x18C02b72284041e5C5Cee822Bc1E267B979A7DE4"
+    }
+  },
+  "0xd72dfb3a9c35d60b4446c1356d233f5b9c180c0c-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Wish Token",
+      "symbol": "WISH",
+      "decimals": 18,
+      "address": "0xd72DfB3a9c35D60b4446C1356D233f5B9C180C0c"
+    }
+  },
+  "0x2543493c4f8eee50b614b4b0f8708852c20ea337-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Dreamscape Token",
+      "symbol": "DREAM",
+      "decimals": 18,
+      "address": "0x2543493c4f8EEe50B614b4b0F8708852c20EA337"
+    }
+  },
+  "0x474845511d9179525cecb5c381ca3396e7bbd9e9-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Inspiration Token",
+      "symbol": "INSPIRE",
+      "decimals": 18,
+      "address": "0x474845511d9179525CECB5C381ca3396E7bbD9E9"
+    }
+  },
+  "0xe8ffc1232d2273ae7090f6748c9836fd97d7d36a-11155111": {
+    "meta": {},
+    "content": {
+      "name": "JIM AIGent",
+      "symbol": "JIM",
+      "decimals": 18,
+      "address": "0xe8FfC1232D2273aE7090F6748c9836fD97d7D36a"
+    }
+  },
+  "0x96da5be1097292ae307105fd9bdd9aee350b643d-11155111": {
+    "meta": {},
+    "content": {
+      "name": "JIM AIGent",
+      "symbol": "JIM",
+      "decimals": 18,
+      "address": "0x96Da5BE1097292aE307105Fd9bDD9aeE350b643D"
+    }
+  },
+  "0x0ebe1074df7c1a3050c35cfe745de4e3a1479d03-11155111": {
+    "meta": {},
+    "content": {
+      "name": "JIM AIGent",
+      "symbol": "JIM",
+      "decimals": 18,
+      "address": "0x0eBe1074df7C1A3050c35cfe745de4E3a1479D03"
+    }
+  },
+  "0x9d282b2743f4295ffd1b691e6f42ef777501ba26-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Explore Token",
+      "symbol": "EXPLORE",
+      "decimals": 18,
+      "address": "0x9d282b2743f4295FFd1B691e6F42eF777501ba26"
+    }
+  },
+  "0x07ba6262ca10979ddefc636659083d2ca11b4644-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Nomad Token",
+      "symbol": "NOMAD",
+      "decimals": 18,
+      "address": "0x07ba6262ca10979ddeFC636659083d2Ca11B4644"
+    }
+  },
+  "0x9830e39eed5d265f1e25a0337d0668a94af3e3c6-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Explore Token",
+      "symbol": "EXPLORE",
+      "decimals": 18,
+      "address": "0x9830e39EEd5d265f1E25A0337D0668A94Af3e3c6"
+    }
+  },
+  "0x75bdab7cd767c243a185931be70b2f23493720ed-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Voyage Token",
+      "symbol": "VOYAGE",
+      "decimals": 18,
+      "address": "0x75BdaB7cd767c243a185931bE70B2f23493720eD"
+    }
+  },
+  "0xae772151a1c174ba2f85a48674ce18258315debe-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Abundance Token",
+      "symbol": "ABUNDANCE",
+      "decimals": 18,
+      "address": "0xae772151A1C174Ba2f85a48674ce18258315dEBE"
+    }
+  },
+  "0x66a4182eeacdc0d78bd00d7d0b530c38d7aaef69-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Explorer Token",
+      "symbol": "EXPLORER",
+      "decimals": 18,
+      "address": "0x66A4182eEAcDc0D78bd00d7d0B530c38d7AAEF69"
+    }
+  },
+  "0x21f03543e86c63e5a96c482fb2973c719301f0ac-11155111": {
+    "meta": {},
+    "content": {
+      "name": "ExploreX Token",
+      "symbol": "EXPLOREX",
+      "decimals": 18,
+      "address": "0x21f03543E86c63E5A96C482Fb2973C719301F0Ac"
+    }
+  },
+  "0x4b90f384bd07da42fa67f711f2cfda8ea430e68c-11155111": {
+    "meta": {},
+    "content": {
+      "name": "JIM AIGent",
+      "symbol": "JIM",
+      "decimals": 18,
+      "address": "0x4B90F384Bd07dA42fa67f711f2CFdA8EA430e68c"
+    }
+  },
+  "0xeb55653fc859dc6e202e814606a94b0c7ee57da6-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Navigator Token",
+      "symbol": "NAVIGATOR",
+      "decimals": 18,
+      "address": "0xeb55653fC859Dc6e202e814606a94B0C7EE57Da6"
+    }
+  },
+  "0xc56acac6072f49936b74199b8016eb63fdb72065-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Seeker Token",
+      "symbol": "SEEKER",
+      "decimals": 18,
+      "address": "0xc56aCAC6072f49936B74199b8016Eb63fDb72065"
+    }
+  },
+  "0x9aa8a180bf4c41ef12eadf2e9d34e465696d5dd3-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Haven Token",
+      "symbol": "HAVEN",
+      "decimals": 18,
+      "address": "0x9aA8A180bF4c41Ef12eaDF2e9D34e465696D5dd3"
+    }
+  },
+  "0x4e8a32700efe9c16e127b5850fbe3825f3f670cb-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Dreamscape Token",
+      "symbol": "DREAMSCAPE",
+      "decimals": 18,
+      "address": "0x4E8a32700eFe9C16E127b5850fBE3825F3f670cb"
+    }
+  },
+  "0xb637ce56afdb659ab7f85d1293e20ce661445db4-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Inverter USD",
+      "symbol": "iUSD",
+      "decimals": 18,
+      "address": "0xB637cE56AFDb659AB7f85d1293e20cE661445db4"
+    }
+  },
   "0x8e7e7d5aa8b3c04b77dd6e74d8ebc199ea4a2dec-84532": {
     "meta": {},
     "content": {
@@ -1088,87 +1871,6 @@
       "address": "0xb4D2c2c57b8c871C16454566CEea2729C352F95E"
     }
   },
-  "0x7257676c12fcc98c28378faa1030b02ebdd95bd0-11155420": {
-    "meta": {},
-    "content": {
-      "name": "CowJump",
-      "symbol": "COWJD",
-      "decimals": 18,
-      "address": "0x7257676c12fcC98c28378FAA1030b02EbDD95bD0"
-    }
-  },
-  "0x865c81bb5a4ef688349c1711d245b9757e748b83-11155420": {
-    "meta": {},
-    "content": {
-      "name": "MG Token",
-      "symbol": "MGT",
-      "decimals": 18,
-      "address": "0x865c81bB5A4EF688349C1711d245b9757e748B83"
-    }
-  },
-  "0x1c305ff777969e183d2ee33fb2dc7d68b3c0a338-11155420": {
-    "meta": {},
-    "content": {
-      "name": "MG Token",
-      "symbol": "MGT",
-      "decimals": 18,
-      "address": "0x1c305Ff777969E183d2EE33Fb2Dc7D68B3C0a338"
-    }
-  },
-  "0x0b20f4d2044d2c8be0d681d8f317823733f326c5-11155420": {
-    "meta": {},
-    "content": {
-      "name": "Feline",
-      "symbol": "CATS",
-      "decimals": 18,
-      "address": "0x0B20f4d2044d2c8bE0d681d8F317823733f326c5"
-    }
-  },
-  "0x1892b35efeb71712caea14f72027226ef4e78b4b-11155420": {
-    "meta": {},
-    "content": {
-      "name": "CatIce",
-      "symbol": "CICE",
-      "decimals": 18,
-      "address": "0x1892B35efeB71712CAeA14F72027226Ef4e78B4B"
-    }
-  },
-  "0x4a9c00ca8fd27a75de45b169e1e3da51930eef24-11155420": {
-    "meta": {},
-    "content": {
-      "name": "BBB Name",
-      "symbol": "BBB",
-      "decimals": 18,
-      "address": "0x4A9C00cA8Fd27a75De45b169E1E3DA51930eef24"
-    }
-  },
-  "0xf250037f6249f8320deee6825ba2bce2715daf3d-11155420": {
-    "meta": {},
-    "content": {
-      "name": "AAA Name",
-      "symbol": "AAA",
-      "decimals": 18,
-      "address": "0xF250037f6249f8320DeeE6825bA2bCE2715daF3d"
-    }
-  },
-  "0x8c8077b9f82358c1eeb82bdf728685dfad402552-11155420": {
-    "meta": {},
-    "content": {
-      "name": "AAA Name",
-      "symbol": "AAA",
-      "decimals": 18,
-      "address": "0x8C8077B9f82358c1Eeb82bDf728685DfAD402552"
-    }
-  },
-  "0x65e16469aa1a636165681190448bde4efbc70cac-11155420": {
-    "meta": {},
-    "content": {
-      "name": "Ben's Token",
-      "symbol": "BFT",
-      "decimals": 18,
-      "address": "0x65e16469Aa1A636165681190448BDe4Efbc70CAc"
-    }
-  },
   "0x0cf250df6de7d4f7938eb5d9c9f81a408fded705-84532": {
     "meta": {},
     "content": {
@@ -1320,15 +2022,6 @@
       "symbol": "AAA",
       "decimals": 18,
       "address": "0xFEa77dEe3B29809028Af97C196dACbE8CaA2A2f9"
-    }
-  },
-  "0x401ebcd5f705d45d6cb79a8019b970178fbfc50e-11155420": {
-    "meta": {},
-    "content": {
-      "name": "Inverter",
-      "symbol": "INV",
-      "decimals": 18,
-      "address": "0x401EBcd5F705D45D6cb79A8019B970178fBFc50E"
     }
   },
   "0xa93991ef15ae8b3762904e17449f3c1005507eb6-11155420": {
@@ -1671,114 +2364,6 @@
       "symbol": "ABC",
       "decimals": 18,
       "address": "0x532A5B5C1742F2f0749B06946861ebc6EC6718E5"
-    }
-  },
-  "0x3ed0334f66c1df00a84141cabd25544c8b97e527-11155420": {
-    "meta": {},
-    "content": {
-      "name": "MeowMoon",
-      "symbol": "CATM",
-      "decimals": 18,
-      "address": "0x3ED0334f66c1df00a84141CAbd25544c8b97E527"
-    }
-  },
-  "0x6dd1ef0630ed75d1f6296af1bac11ab4b8cc5c05-11155420": {
-    "meta": {},
-    "content": {
-      "name": "MGT",
-      "symbol": "MGT",
-      "decimals": 18,
-      "address": "0x6dd1ef0630ed75d1f6296Af1Bac11ab4B8cc5C05"
-    }
-  },
-  "0x5ec8c231106622aa88c33223803140d34a958c5e-11155420": {
-    "meta": {},
-    "content": {
-      "name": "XISD",
-      "symbol": "XISD",
-      "decimals": 18,
-      "address": "0x5ec8C231106622AA88C33223803140d34a958C5E"
-    }
-  },
-  "0x79b072ef2a07d57ed3c26c020c7421b45b650c86-11155420": {
-    "meta": {},
-    "content": {
-      "name": "Rare Earth",
-      "symbol": "RE",
-      "decimals": 18,
-      "address": "0x79B072eF2A07d57eD3C26C020c7421B45b650c86"
-    }
-  },
-  "0x337499939440eaae906b13c5ef140f0c61e36e85-11155420": {
-    "meta": {},
-    "content": {
-      "name": "Token Agency Partnership",
-      "symbol": "TAP",
-      "decimals": 18,
-      "address": "0x337499939440EaAe906b13c5EF140f0C61E36e85"
-    }
-  },
-  "0x368cedbe8e8023b2ff208679c550043db8aa9d70-1101": {
-    "meta": {},
-    "content": {
-      "name": "AAA Name",
-      "symbol": "AAA",
-      "decimals": 18,
-      "address": "0x368CEDbe8E8023B2FF208679C550043dB8aA9d70"
-    }
-  },
-  "0x9c5b5fbeac8f3acc97422e4daf43696e415e25ba-1101": {
-    "meta": {},
-    "content": {
-      "name": "AAA Name",
-      "symbol": "AAA",
-      "decimals": 18,
-      "address": "0x9c5B5FbEac8F3acc97422e4daF43696e415e25bA"
-    }
-  },
-  "0x9416e16c4d3763ed2315b318c7f879590ab7e98d-1101": {
-    "meta": {},
-    "content": {
-      "name": "TAKA",
-      "symbol": "TAKA",
-      "decimals": 18,
-      "address": "0x9416E16C4D3763ed2315B318c7F879590ab7e98D"
-    }
-  },
-  "0x11f2b867f19634fc5aa2956bf5cacae96c6c2da1-1101": {
-    "meta": {},
-    "content": {
-      "name": "Citizen Wallet",
-      "symbol": "TCTZN",
-      "decimals": 18,
-      "address": "0x11F2B867f19634fC5aA2956bf5caCAE96c6c2Da1"
-    }
-  },
-  "0xa503f727b0657fb7e27cc62d3df29922ad8b8850-1101": {
-    "meta": {},
-    "content": {
-      "name": "Ancient Beast",
-      "symbol": "TBEAS",
-      "decimals": 18,
-      "address": "0xa503F727b0657Fb7e27Cc62d3df29922AD8b8850"
-    }
-  },
-  "0x18a57acab8f778e79f2b84bc6a5ad374192f1aa7-1101": {
-    "meta": {},
-    "content": {
-      "name": "TGRIE",
-      "symbol": "TGRIE",
-      "decimals": 18,
-      "address": "0x18A57acAb8f778e79F2B84bc6A5aD374192f1aa7"
-    }
-  },
-  "0x0fe4e3b37214426f0888fb3d87b31194f6fafacf-11155420": {
-    "meta": {},
-    "content": {
-      "name": "JIM Token",
-      "symbol": "JIM",
-      "decimals": 18,
-      "address": "0x0FE4E3b37214426F0888fB3D87B31194F6faFacf"
     }
   },
   "0xc14a5b08b1ed41de71fa57f966af142c0b99e979-84532": {
@@ -2141,6 +2726,15 @@
       "address": "0xF1d6880E6644c0Ec8bBeB4978fEa44c15f867625"
     }
   },
+  "0x3ed0334f66c1df00a84141cabd25544c8b97e527-11155420": {
+    "meta": {},
+    "content": {
+      "name": "MeowMoon",
+      "symbol": "CATM",
+      "decimals": 18,
+      "address": "0x3ED0334f66c1df00a84141CAbd25544c8b97E527"
+    }
+  },
   "0x69af76404dda80af911122f45bd398ef349606ab-84532": {
     "meta": {},
     "content": {
@@ -2204,6 +2798,33 @@
       "address": "0xF062a1aC33F4aeDfD480d402d03d9C886E534C68"
     }
   },
+  "0x6dd1ef0630ed75d1f6296af1bac11ab4b8cc5c05-11155420": {
+    "meta": {},
+    "content": {
+      "name": "MGT",
+      "symbol": "MGT",
+      "decimals": 18,
+      "address": "0x6dd1ef0630ed75d1f6296Af1Bac11ab4B8cc5C05"
+    }
+  },
+  "0x5ec8c231106622aa88c33223803140d34a958c5e-11155420": {
+    "meta": {},
+    "content": {
+      "name": "XISD",
+      "symbol": "XISD",
+      "decimals": 18,
+      "address": "0x5ec8C231106622AA88C33223803140d34a958C5E"
+    }
+  },
+  "0x79b072ef2a07d57ed3c26c020c7421b45b650c86-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Rare Earth",
+      "symbol": "RE",
+      "decimals": 18,
+      "address": "0x79B072eF2A07d57eD3C26C020c7421B45b650c86"
+    }
+  },
   "0x76b750db7a711a0e688125c580a429b98c1d8c93-84532": {
     "meta": {},
     "content": {
@@ -2222,6 +2843,15 @@
       "address": "0xF16b674757969b2c68Ae6A56D7B65967D6e0Ab7c"
     }
   },
+  "0x337499939440eaae906b13c5ef140f0c61e36e85-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Token Agency Partnership",
+      "symbol": "TAP",
+      "decimals": 18,
+      "address": "0x337499939440EaAe906b13c5EF140f0C61E36e85"
+    }
+  },
   "0x6f852749135ed0ef70f58d53b226c424fa663841-84532": {
     "meta": {},
     "content": {
@@ -2229,6 +2859,15 @@
       "symbol": "ho",
       "decimals": 18,
       "address": "0x6f852749135Ed0Ef70f58d53b226C424fa663841"
+    }
+  },
+  "0x0fe4e3b37214426f0888fb3d87b31194f6fafacf-11155420": {
+    "meta": {},
+    "content": {
+      "name": "JIM Token",
+      "symbol": "JIM",
+      "decimals": 18,
+      "address": "0x0FE4E3b37214426F0888fB3D87B31194F6faFacf"
     }
   },
   "0x65874813c8afd47884fb7a4a08e0078209ac1644-11155420": {
@@ -2330,15 +2969,6 @@
       "address": "0x5307fB70D65f0000E127AE7D32D9EDAbb4D3a02b"
     }
   },
-  "0xd574c1fd9d8d11513d8b4cac9552ee6448e94776-1101": {
-    "meta": {},
-    "content": {
-      "name": "Citizen",
-      "symbol": "TCTZN",
-      "decimals": 18,
-      "address": "0xd574C1fD9d8d11513D8b4CaC9552ee6448e94776"
-    }
-  },
   "0xc9fcd6e9c183cb70c91b8dc0359fcd5032955fe3-84532": {
     "meta": {},
     "content": {
@@ -2346,87 +2976,6 @@
       "symbol": "ABC",
       "decimals": 18,
       "address": "0xc9fCD6E9c183cB70C91b8DC0359fCD5032955Fe3"
-    }
-  },
-  "0x20e29b314ece745fdc8530ccb388901f8fe0257c-1101": {
-    "meta": {},
-    "content": {
-      "name": "Citizen",
-      "symbol": "TCTZN",
-      "decimals": 18,
-      "address": "0x20e29B314eCE745fDc8530ccb388901F8FE0257C"
-    }
-  },
-  "0x21856f8e448f381d98f23c4561db9826a60b17f9-1101": {
-    "meta": {},
-    "content": {
-      "name": "WGMI",
-      "symbol": "WGMI",
-      "decimals": 18,
-      "address": "0x21856F8E448f381d98F23c4561DB9826a60b17F9"
-    }
-  },
-  "0x22b21beddef74fe62f031d2c5c8f7a9f8a4b304d-1101": {
-    "meta": {},
-    "content": {
-      "name": "Polygon Ecosystem Token",
-      "symbol": "POL",
-      "decimals": 18,
-      "address": "0x22B21BedDef74FE62F031D2c5c8F7a9F8a4b304D"
-    }
-  },
-  "0xc530b75465ce3c6286e718110a7b2e2b64bdc860-1101": {
-    "meta": {},
-    "content": {
-      "name": "x23.ai",
-      "symbol": "X23",
-      "decimals": 18,
-      "address": "0xc530B75465Ce3c6286e718110A7B2e2B64Bdc860"
-    }
-  },
-  "0xa3dd6163b5742b0d8cb7d79cb5dfe3f81f8f8fc4-1101": {
-    "meta": {},
-    "content": {
-      "name": "AKA",
-      "symbol": "AKA",
-      "decimals": 18,
-      "address": "0xA3dd6163B5742B0D8Cb7d79CB5DFE3F81F8F8fC4"
-    }
-  },
-  "0x0d9b0790e97e3426c161580df4ee853e4a7c4607-1101": {
-    "meta": {},
-    "content": {
-      "name": "Citizen Wallet",
-      "symbol": "CTZN",
-      "decimals": 18,
-      "address": "0x0D9B0790E97e3426C161580dF4Ee853E4A7C4607"
-    }
-  },
-  "0x5fdaf637aed59b2e6d384d9e84d8ac5cf03c6697-1101": {
-    "meta": {},
-    "content": {
-      "name": "Melodex",
-      "symbol": "MELS",
-      "decimals": 18,
-      "address": "0x5FDAF637Aed59B2e6d384d9e84D8ac5cF03c6697"
-    }
-  },
-  "0xfafb870f1918827fe57ca4b891124606eaa7e6bd-1101": {
-    "meta": {},
-    "content": {
-      "name": "The Grand Timeline",
-      "symbol": "GRNDT",
-      "decimals": 18,
-      "address": "0xfAFB870F1918827fe57Ca4b891124606EaA7e6bd"
-    }
-  },
-  "0x4191f84f66e0b7cc10370ff47a0e2168e35b9bdf-1101": {
-    "meta": {},
-    "content": {
-      "name": "BEAST",
-      "symbol": "BEAST",
-      "decimals": 18,
-      "address": "0x4191F84f66e0B7CC10370Ff47a0E2168E35b9Bdf"
     }
   },
   "0x62d5a922d2f28afd2f8c0a4b07fcd04668db1e27-11155420": {
@@ -2456,123 +3005,6 @@
       "address": "0x768065985B2782E52c3F935a0A548F007c970DA0"
     }
   },
-  "0x0b7a46e1af45e1eaadeed34b55b6fc00a85c7c68-1101": {
-    "meta": {},
-    "content": {
-      "name": "Prismo Technology",
-      "symbol": "PRSM",
-      "decimals": 18,
-      "address": "0x0b7a46E1af45E1EaadEeD34B55b6FC00A85c7c68"
-    }
-  },
-  "0xabd9cb2835ebdf023fd168902bf4d2114c3371c0-1101": {
-    "meta": {},
-    "content": {
-      "name": "SPC Token",
-      "symbol": "SPC",
-      "decimals": 18,
-      "address": "0xaBd9cb2835EBdF023Fd168902bF4d2114C3371c0"
-    }
-  },
-  "0x35fdbc6fbc2ad85edf14c4ab81827c29934f1eb0-1101": {
-    "meta": {},
-    "content": {
-      "name": "TBEAS",
-      "symbol": "TBEAS",
-      "decimals": 18,
-      "address": "0x35FdbC6FBC2aD85EdF14c4ab81827C29934F1eB0"
-    }
-  },
-  "0xa1a78ac9884adc9d04d59b2b743f1ec709618e55-1101": {
-    "meta": {},
-    "content": {
-      "name": "Alpha Chad",
-      "symbol": "ACHAD",
-      "decimals": 18,
-      "address": "0xA1a78aC9884aDc9d04d59b2b743f1eC709618e55"
-    }
-  },
-  "0xe2f7a268fd6ae6fd9ccd52419183b937c4d855f4-1101": {
-    "meta": {},
-    "content": {
-      "name": "Druid Token",
-      "symbol": "DRUID",
-      "decimals": 18,
-      "address": "0xE2F7A268FD6ae6fD9Ccd52419183b937C4D855F4"
-    }
-  },
-  "0xd37979ecaa6f1bdbe571e15b26e465303a3d7759-1101": {
-    "meta": {},
-    "content": {
-      "name": "TGRIE",
-      "symbol": "TGRIE",
-      "decimals": 18,
-      "address": "0xD37979Ecaa6F1BDBE571e15B26E465303a3D7759"
-    }
-  },
-  "0x29f92c0c2245514b5077aff70ddc7a2b39a9c4ea-1101": {
-    "meta": {},
-    "content": {
-      "name": "TBEAS",
-      "symbol": "TBEAS",
-      "decimals": 18,
-      "address": "0x29F92C0C2245514b5077Aff70DDc7A2B39a9c4EA"
-    }
-  },
-  "0x77262172040b8d02d7aa5c1a0cd8291cb9e8a882-1101": {
-    "meta": {},
-    "content": {
-      "name": "Ali Test Price",
-      "symbol": "ATP",
-      "decimals": 18,
-      "address": "0x77262172040B8D02d7aa5c1a0CD8291CB9E8A882"
-    }
-  },
-  "0x53104cd01fa6a7523bcde499dbbd2008d5102380-1101": {
-    "meta": {},
-    "content": {
-      "name": "TGRIE",
-      "symbol": "TGRIE",
-      "decimals": 18,
-      "address": "0x53104cd01Fa6a7523BcdE499dbBd2008d5102380"
-    }
-  },
-  "0x5f930dfa01ca180bf22874ea3b46956f467f3373-1101": {
-    "meta": {},
-    "content": {
-      "name": "TGRIE",
-      "symbol": "TGRIE",
-      "decimals": 18,
-      "address": "0x5F930Dfa01cA180BF22874EA3B46956F467F3373"
-    }
-  },
-  "0x97f2545bf007465ae2a3c2c6dca1d2644267d5ee-1101": {
-    "meta": {},
-    "content": {
-      "name": "Ali Test Qacc",
-      "symbol": "ATQ",
-      "decimals": 18,
-      "address": "0x97f2545bf007465Ae2a3C2c6DcA1d2644267d5EE"
-    }
-  },
-  "0x4c97cc9382f84875b6d1f974357a23571813766d-1101": {
-    "meta": {},
-    "content": {
-      "name": "AMN Token",
-      "symbol": "AMN",
-      "decimals": 18,
-      "address": "0x4C97CC9382F84875b6d1F974357a23571813766D"
-    }
-  },
-  "0x4f4d60aa252eb0816a281b31a932e47c8072bdd5-1101": {
-    "meta": {},
-    "content": {
-      "name": "AMN Token",
-      "symbol": "AMN",
-      "decimals": 18,
-      "address": "0x4F4D60aa252EB0816a281B31A932e47c8072BDd5"
-    }
-  },
   "0x7c5688a580e978c7c8400fc2532b5b88ad9ab92a-11155420": {
     "meta": {},
     "content": {
@@ -2580,60 +3012,6 @@
       "symbol": "TEN",
       "decimals": 18,
       "address": "0x7c5688A580e978c7C8400fC2532B5b88AD9aB92A"
-    }
-  },
-  "0xca4c6bb0d2d75e4f93a5892aed1739b69a02e0d7-1101": {
-    "meta": {},
-    "content": {
-      "name": "TGRIE",
-      "symbol": "TGRIE",
-      "decimals": 18,
-      "address": "0xCA4C6bb0d2d75E4f93A5892AeD1739b69A02e0d7"
-    }
-  },
-  "0x07ff3aff9af6c60cb62ce0bb66ffe10119a74be7-1101": {
-    "meta": {},
-    "content": {
-      "name": "Druid Game",
-      "symbol": "DRUID",
-      "decimals": 18,
-      "address": "0x07FF3aff9af6c60CB62ce0Bb66Ffe10119A74bE7"
-    }
-  },
-  "0xc1c96d25cd23ae150c5e4ca23b5036246956d899-1101": {
-    "meta": {},
-    "content": {
-      "name": "Ali Dress Rehearsal Test",
-      "symbol": "ADRT",
-      "decimals": 18,
-      "address": "0xC1c96D25cd23aE150c5E4CA23b5036246956d899"
-    }
-  },
-  "0x56d24dc993260f760a468bacf7c7ff3a80e6e038-1101": {
-    "meta": {},
-    "content": {
-      "name": "Pairwise Gurve",
-      "symbol": "PWG",
-      "decimals": 18,
-      "address": "0x56D24dc993260F760a468BAcF7c7FF3a80e6E038"
-    }
-  },
-  "0xc9aeac17e25c4bd92af3618edd2aebc9975ad85f-1101": {
-    "meta": {},
-    "content": {
-      "name": "Taka",
-      "symbol": "Taka",
-      "decimals": 18,
-      "address": "0xC9aEaC17e25c4BD92aF3618EdD2aeBc9975ad85F"
-    }
-  },
-  "0x47511ab3ae522a4e58ce58024b1e6cc229be6e54-1101": {
-    "meta": {},
-    "content": {
-      "name": "Druid Game",
-      "symbol": "DRUID",
-      "decimals": 18,
-      "address": "0x47511ab3AE522A4e58Ce58024B1E6cc229BE6e54"
     }
   },
   "0xb3b49ba96f4d092127a232ed6a35a71b62c2a698-1101": {
@@ -2852,6 +3230,15 @@
       "address": "0x498Fc802bE78322fAd30C6fbf511E947Aa28B418"
     }
   },
+  "0x7b31538dd35c1c98a4d82b8f14f428a0668a6b6e-11155111": {
+    "meta": {},
+    "content": {
+      "name": "TEST USP",
+      "symbol": "T_USP",
+      "decimals": 18,
+      "address": "0x7b31538DD35C1c98A4d82b8f14F428a0668A6b6e"
+    }
+  },
   "0xc5adde31bb41bf5f723e7a4863f578af9656c57e-84532": {
     "meta": {},
     "content": {
@@ -2888,6 +3275,33 @@
       "address": "0x7934787069183e387207bC84aB6b156e03c4E947"
     }
   },
+  "0x469b952c0730f002dd1cbb2f2f237df029ec5878-11155111": {
+    "meta": {},
+    "content": {
+      "name": "T-USP",
+      "symbol": "TEST USP",
+      "decimals": 18,
+      "address": "0x469B952c0730f002Dd1Cbb2f2f237Df029EC5878"
+    }
+  },
+  "0x808ba53f25a7642415b888a5b55599f2a5d5315c-11155111": {
+    "meta": {},
+    "content": {
+      "name": "TEST TOKEN 1",
+      "symbol": "TT-1",
+      "decimals": 18,
+      "address": "0x808bA53f25A7642415B888a5B55599F2a5d5315c"
+    }
+  },
+  "0x55b54a2557eb98eaf2d644b83e5d414775ed9e45-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Test USP Yield Optimized Stablecoin",
+      "symbol": "T-USP",
+      "decimals": 18,
+      "address": "0x55b54a2557Eb98eAf2d644b83e5d414775eD9e45"
+    }
+  },
   "0x4ecfff514f949464364c250e38819f737aa199d0-84532": {
     "meta": {},
     "content": {
@@ -2913,6 +3327,24 @@
       "symbol": "ABC",
       "decimals": 18,
       "address": "0xACC2706E8D74709F5A37A46235D012092A2a72F3"
+    }
+  },
+  "0x5eb14c2e7d0cd925327d74ae4ce3fc692ff8abef-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Bloom Mock Token",
+      "symbol": "BLOOM",
+      "decimals": 18,
+      "address": "0x5eb14c2e7D0cD925327d74ae4ce3fC692ff8ABEF"
+    }
+  },
+  "0x35288f1997d1f27aad51225a182ef7488d7e9d85-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Test USP Yield Optimized Stablecoin 1",
+      "symbol": "T-USP1",
+      "decimals": 18,
+      "address": "0x35288F1997d1F27aaD51225A182eF7488D7E9D85"
     }
   },
   "0x23e2ad6f04ff3d152f08333bb30a5ca5324675ef-1101": {
@@ -2949,6 +3381,24 @@
       "symbol": "tCTZN",
       "decimals": 18,
       "address": "0x2384c4Ab2bd2584F04C1667A1c24d13726C515bF"
+    }
+  },
+  "0x74a1f31a1516f3e0a3a0392ccdb2c617bac9f952-11155111": {
+    "meta": {},
+    "content": {
+      "name": "MG Token",
+      "symbol": "MG",
+      "decimals": 18,
+      "address": "0x74a1F31a1516F3E0a3A0392CcdB2c617BAc9f952"
+    }
+  },
+  "0xce4a8537ab2b2dbe2cdda6070959ce5fc62c69f3-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Dark Fund",
+      "symbol": "dFND",
+      "decimals": 18,
+      "address": "0xce4a8537Ab2b2dbE2CDDa6070959cE5fC62c69F3"
     }
   }
 }

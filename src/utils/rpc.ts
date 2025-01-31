@@ -8,6 +8,7 @@ import {
   gnosisChiado,
   polygonZkEvm,
   polygonZkEvmCardona,
+  sepolia,
 } from 'viem/chains'
 
 export const getERC20Contract = (address: Address) => ({
@@ -26,6 +27,7 @@ export const chains = [
   gnosisChiado,
   polygonZkEvm,
   polygonZkEvmCardona,
+  sepolia,
 ]
 
 export const publicClients = chains.map((chain) =>

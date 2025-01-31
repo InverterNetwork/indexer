@@ -4,13 +4,9 @@ import { deriveTokenAddress, updateToken } from '../../../utils'
 
 import { updateExternalPriceFundingManager } from './update'
 
-import { ZERO_BD } from '../../../utils/constants'
-
 FM_PC_ExternalPrice_Redeeming_v1.ModuleInitialized.handler(
   async ({ event, context }) => {
     const address = event.srcAddress
-    const chainId = event.chainId
-    const id = `${address}-${chainId}`
     const workflow_id = `${event.params.parentOrchestrator}-${event.chainId}`
 
     const { derivedAddress: collateralTokenAddress } = await deriveTokenAddress(

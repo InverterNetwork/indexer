@@ -3,10 +3,8 @@ import { updateExternalPriceFundingManager } from './update'
 import {
   createSwap,
   CurveIntervalProperties,
-  getBalanceOf,
   getIssPriceFromCol,
   getQtyAndPrice,
-  getTotalSupply,
   IssuanceTokenIntervalProperties,
   updateCurveDayData,
   updateCurveHourData,
