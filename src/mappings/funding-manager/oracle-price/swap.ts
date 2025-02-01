@@ -124,10 +124,10 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensBought.handler(
 FM_PC_ExternalPrice_Redeeming_v1.TokensSold.handler(
   async ({ event, context }) => {
     const id = `${event.chainId}-${event.srcAddress}`
-    const bc = (await context.OraclePriceFM.get(id))!
+    const op = (await context.OraclePriceFM.get(id))!
 
-    const issuanceToken_id = bc.issuanceToken_id
-    const collateralToken_id = bc.collateralToken_id
+    const issuanceToken_id = op.issuanceToken_id
+    const collateralToken_id = op.collateralToken_id
 
     const issuanceToken = await context.Token.get(issuanceToken_id)
     const collateralToken = await context.Token.get(collateralToken_id)
@@ -204,8 +204,8 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensSold.handler(
 
     const reserveCOL = await getBalanceOf({
       tokenAddress: collateralToken!.address,
-      address: bc.address,
-      chainId: bc.chainId,
+      address: op.address,
+      chainId: op.chainId,
       decimals: collateralToken!.decimals,
     })
 
@@ -214,7 +214,7 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensSold.handler(
     await updateOraclePrice({
       context,
       event,
-      prevData: bc,
+      prevData: op,
       properties: {
         reserveCOL,
         reserveUSD,

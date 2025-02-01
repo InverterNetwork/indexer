@@ -1,10 +1,10 @@
 import { eventLog, handlerContext } from 'generated'
 import { Writable } from 'type-fest'
 import { ZERO_BD } from './constants'
-import { formatUnitsToBD } from './base'
 import { RedemptionPaymentOrder_t } from 'generated/src/db/Entities.gen'
+import { SourceTokenType_t } from 'generated/src/db/Enums.gen'
 
-export const updatePaymentOrder = async ({
+export const updateRedemptionPaymentOrder = async ({
   event,
   context,
   properties,
@@ -12,24 +12,14 @@ export const updatePaymentOrder = async ({
 }: {
   event: eventLog<any>
   context: handlerContext
-  properties: Partial<Omit<RedemptionPaymentOrder_t, 'id'>>
+  properties: Partial<Omit<RedemptionPaymentOrder_t, 'id' | 'chainId'>> &
+    Pick<RedemptionPaymentOrder_t, 'oraclePriceFM_id' | 'orderId'>
   prevData?: RedemptionPaymentOrder_t
 }) => {
   const { chainId } = event
 
   const oraclePriceFM_id = properties.oraclePriceFM_id
   const orderId = properties.orderId
-
-  if (oraclePriceFM_id === undefined) {
-    context.log.error(`Invalid payment order client`)
-    return
-  }
-
-  if (orderId === undefined) {
-    context.log.error(`Invalid payment order ID`)
-    return
-  }
-
   const id = `${oraclePriceFM_id}-${orderId}`
 
   const data =
@@ -56,7 +46,7 @@ export const updatePaymentOrder = async ({
       orderType: 'PAYMENT',
       state: 'PENDING',
 
-      source: 'ISSUANCE',
+      source: '' as SourceTokenType_t,
       token_id: properties.token_id!,
 
       oraclePriceFM_id,
@@ -76,15 +66,18 @@ export const updatePaymentOrder = async ({
 
       flags: '',
       data: [],
-
-      ...properties,
     } satisfies RedemptionPaymentOrder_t)
 
-  // If required fields are present, update the bonding curve
-  if (data.recipient && data.originChainId && data.amount) {
-    context.RedemptionPaymentOrder.set({
-      ...data,
-      ...properties,
-    })
+  if (!data.source) {
+    console.error(`Invalid source for payment order ${id}`)
+    return
   }
+
+  // Set the payment order
+  context.RedemptionPaymentOrder.set({
+    ...data,
+    ...properties,
+  })
+
+  return data
 }

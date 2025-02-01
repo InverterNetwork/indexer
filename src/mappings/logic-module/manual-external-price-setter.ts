@@ -1,5 +1,5 @@
 import { LM_ManualExternalPriceSetter_v1, BigDecimal } from 'generated'
-import { ZERO_BD } from '../../utils'
+import { formatUnitsToBD, ZERO_BD } from '../../utils'
 
 LM_ManualExternalPriceSetter_v1.ModuleInitialized.handler(
   async ({ event, context }) => {
@@ -36,13 +36,28 @@ LM_ManualExternalPriceSetter_v1.IssuancePriceSet.handler(
 LM_ManualExternalPriceSetter_v1.RedemptionPriceSet.handler(
   async ({ event, context }) => {
     const id = `${event.chainId}-${event.srcAddress}`
-    const entity = await context.ExternalPriceSetter.get(id)
+    const entity = (await context.ExternalPriceSetter.get(id))!
 
-    const priceCOL = BigDecimal(event.params.price_.toString())
+    const workflow_id = entity.workflow_id
+    const workflow = (await context.Workflow.get(workflow_id))!
+    const oraclePriceFM = (await context.OraclePriceFM.get(
+      `${event.chainId}-${workflow.fundingManager_id}`
+    ))!
+
+    const collateralToken = (await context.Token.get(
+      `${event.chainId}-${oraclePriceFM.collateralToken_id}`
+    ))!
+
+    const priceCOL = formatUnitsToBD(
+      event.params.price_,
+      collateralToken.decimals
+    )
+    const priceUSD = priceCOL.times(collateralToken.priceUSD)
 
     context.ExternalPriceSetter.set({
       ...entity!,
       priceCOL,
+      priceUSD,
     })
   }
 )

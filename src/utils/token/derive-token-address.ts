@@ -4,6 +4,7 @@ import { CacheContainer } from 'node-ts-cache'
 import { NodeFsStorage } from 'node-ts-cache-storage-node-fs'
 import { createDirIfNotExists } from '../base'
 import { TOKEN_DEBUG } from '../debug'
+import { SourceTokenType_t } from 'generated/src/db/Enums.gen'
 
 const longTermCacheDir = createDirIfNotExists('.cache')
 
@@ -155,4 +156,36 @@ export async function deriveTokenAddress({
     derivedAddress: tokenAddress,
     derivedType: derivedType ?? null,
   }
+}
+
+export async function deriveSourceTokenType({
+  address,
+  chainId,
+}: {
+  address: string
+  chainId: number
+}): Promise<SourceTokenType_t> {
+  let sourceType: SourceTokenType_t = 'ISSUANCE'
+
+  const collateralTokenCacheKey = `${address.toLowerCase()}-${chainId}-token`
+  const issuanceTokenCacheKey = `${address.toLowerCase()}-${chainId}-issuance`
+
+  const cachedCollateralToken =
+    await longTermDerivedTokenAddressesCache.getItem<`0x${string}`>(
+      collateralTokenCacheKey
+    )
+  const cachedIssuanceToken =
+    await longTermDerivedTokenAddressesCache.getItem<`0x${string}`>(
+      issuanceTokenCacheKey
+    )
+
+  if (cachedCollateralToken) {
+    sourceType = 'COLLATERAL'
+  }
+
+  if (cachedIssuanceToken) {
+    sourceType = 'ISSUANCE'
+  }
+
+  return sourceType
 }

@@ -1,8 +1,8 @@
 import { FM_PC_ExternalPrice_Redeeming_v1, BigDecimal } from 'generated'
 import {
-  deriveTokenAddress,
-  updatePaymentOrder,
-  updateToken,
+  deriveSourceTokenType,
+  formatUnitsToBD,
+  updateRedemptionPaymentOrder,
 } from '../../../utils'
 
 FM_PC_ExternalPrice_Redeeming_v1.PaymentOrderAdded.handler(
@@ -14,36 +14,40 @@ FM_PC_ExternalPrice_Redeeming_v1.PaymentOrderAdded.handler(
 
     const address = event.srcAddress
     const chainId = event.chainId
-    const oraclePriceFM_id = `${chainId}-${event.srcAddress}`
+    const oraclePriceFM_id = `${chainId}-${address}`
 
     const orderId = event.params.data.at(0)!.toString()
+    const paymentTokenAddress = event.params.token
+    const token_id = `${chainId}-${paymentTokenAddress}`
 
-    const { derivedAddress: paymentTokenAddress } = await deriveTokenAddress({
-      address,
+    const token = (await context.Token.get(token_id))!
+
+    const source = await deriveSourceTokenType({
+      address: paymentTokenAddress,
       chainId,
-      derivesTo: 'token',
     })
 
-    const { id: token_id } = await updateToken({
-      event,
-      context,
-      derivedType: 'token',
-      properties: {
-        address: paymentTokenAddress,
-      },
-      triggerTotalSupply: true,
-    })
+    const amount = formatUnitsToBD(
+      event.params.amount.toString(),
+      token.decimals
+    )
 
-    await updatePaymentOrder({
+    const amountUSD = amount.times(token.priceUSD)
+
+    await updateRedemptionPaymentOrder({
       event,
       context,
       properties: {
         orderId: BigInt(orderId),
         oraclePriceFM_id,
+        source,
+
         originChainId: event.chainId,
         targetChainId: Number(event.params.targetChainId),
         recipient: event.params.recipient,
-        amount: BigDecimal(event.params.amount.toString()),
+
+        amount,
+        amountUSD,
 
         data: event.params.data,
         flags: event.params.flags,
