@@ -46,7 +46,7 @@ export const updateRedemptionPaymentOrder = async ({
       orderType: 'PAYMENT',
       state: 'PENDING',
 
-      source: '' as SourceTokenType_t,
+      source: properties?.source ?? ('' as SourceTokenType_t),
       token_id: properties.token_id!,
 
       oraclePriceFM_id,

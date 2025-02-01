@@ -93,6 +93,8 @@ type Workflow {
   chainId: Int!
   address: String!
 
+  token: Token!
+
   orchestrator: String!
   fundingManager: WorkflowModule!
   authorizer: WorkflowModule!
@@ -332,6 +334,9 @@ type ExternalPriceSetter {
   address: String!
 
   workflow: Workflow!
+
+  issuanceToken: Token!
+  collateralToken: Token!
 
   priceISS: BigDecimal!
   priceCOL: BigDecimal!

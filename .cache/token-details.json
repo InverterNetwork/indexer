@@ -3400,5 +3400,23 @@
       "decimals": 18,
       "address": "0xce4a8537Ab2b2dbE2CDDa6070959cE5fC62c69F3"
     }
+  },
+  "0x751754194a06a11ab082fb76b5baa291d1099fd3-11155111": {
+    "meta": {},
+    "content": {
+      "name": "BlackList Token",
+      "symbol": "BLK",
+      "decimals": 18,
+      "address": "0x751754194a06a11Ab082FB76B5bAA291D1099fd3"
+    }
+  },
+  "0xf4855d40768b13238007eb7656c2731d616a17af-11155111": {
+    "meta": {},
+    "content": {
+      "name": "unknown",
+      "symbol": "unknown",
+      "decimals": 0,
+      "address": "0xf4855d40768B13238007Eb7656C2731d616a17af"
+    }
   }
 }
