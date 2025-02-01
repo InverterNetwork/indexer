@@ -91,8 +91,8 @@ export const getRoleBaringModuleAddress = async (
   const workflow = (await context.Workflow.get(workflow_id))!
 
   const possibleModuleAddresses = [
-    workflow.fundingManager_id.split('-')[0],
-    workflow.paymentProcessor_id.split('-')[0],
+    workflow.fundingManager_id.split('-')[1],
+    workflow.paymentProcessor_id.split('-')[1],
     ...(workflow.optionalModules ?? []),
   ]
 

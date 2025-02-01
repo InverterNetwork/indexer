@@ -1,8 +1,8 @@
 import { FM_DepositVault_v1 } from 'generated'
 import {
   deriveTokenAddress,
-  formatUnitsToBD,
   updateToken,
+  formatUnitsToBD,
   ZERO_BD,
 } from '../../utils'
 
@@ -15,7 +15,7 @@ FM_DepositVault_v1.ModuleInitialized.handler(async ({ event, context }) => {
   const id = `${event.chainId}-${address}`
   const workflow_id = `${event.chainId}-${event.params.parentOrchestrator}`
 
-  const { derivedAddress } = await deriveTokenAddress({
+  const { derivedAddress: tokenAddress } = await deriveTokenAddress({
     address,
     chainId: event.chainId,
     derivesTo: 'token',
@@ -26,7 +26,7 @@ FM_DepositVault_v1.ModuleInitialized.handler(async ({ event, context }) => {
     context,
     derivedType: 'token',
     properties: {
-      address: derivedAddress,
+      address: tokenAddress,
     },
     triggerTotalSupply: true,
   })

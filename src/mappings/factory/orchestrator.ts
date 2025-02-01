@@ -14,15 +14,19 @@ Orchestrator_v1.OrchestratorInitialized.handler(async ({ event, context }) => {
 
   const orchestrator = event.params.orchestratorId_.toString()
 
+  const fundingManager_id = `${event.chainId}-${event.params.fundingManager}`
+  const authorizer_id = `${event.chainId}-${event.params.authorizer}`
+  const paymentProcessor_id = `${event.chainId}-${event.params.paymentProcessor}`
+
   context.Workflow.set({
     id,
     chainId: event.chainId,
     address,
 
     orchestrator,
-    fundingManager_id: event.params.fundingManager,
-    authorizer_id: event.params.authorizer,
-    paymentProcessor_id: event.params.paymentProcessor,
+    fundingManager_id,
+    authorizer_id,
+    paymentProcessor_id,
     optionalModules: event.params.modules,
   })
 })

@@ -54,8 +54,8 @@ FM_PC_ExternalPrice_Redeeming_v1.RedemptionOrderCreated.handler(
         source: 'COLLATERAL',
 
         seller: event.params.seller_,
-        exchangeRate: BigDecimal(event.params.exchangeRate_.toString()),
-        feePercentage: BigDecimal(event.params.feePercentage_.toString()),
+        exchangeRate: event.params.exchangeRate_,
+        feePercentage: event.params.feePercentage_,
 
         amount,
         amountUSD,

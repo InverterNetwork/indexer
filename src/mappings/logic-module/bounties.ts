@@ -1,18 +1,38 @@
 import { LM_PC_Bounties_v1 } from 'generated'
 import { hexToString } from 'viem'
-import { formatUnitsToBD } from '../../utils'
+import { deriveTokenAddress, updateToken, formatUnitsToBD } from '../../utils'
 
 // Module initialization handler
 LM_PC_Bounties_v1.ModuleInitialized.handler(async ({ event, context }) => {
   const address = event.srcAddress
   const chainId = event.chainId
+
   const id = `${chainId}-${address}`
+
   const workflow_id = `${chainId}-${event.params.parentOrchestrator}`
+  const workflow = (await context.Workflow.get(workflow_id))!
+
+  const { derivedAddress: tokenAddress } = await deriveTokenAddress({
+    address: workflow.fundingManager_id.split('-')[1],
+    chainId: event.chainId,
+    derivesTo: 'token',
+  })
+
+  const { id: token_id } = await updateToken({
+    event,
+    context,
+    derivedType: 'token',
+    properties: {
+      address: tokenAddress,
+    },
+  })
 
   context.BountyModule.set({
     id,
     chainId,
     address,
+
+    token_id,
 
     workflow_id,
   })
@@ -23,30 +43,33 @@ LM_PC_Bounties_v1.ModuleInitialized.handler(async ({ event, context }) => {
 // Creates a new bounty record
 LM_PC_Bounties_v1.BountyAdded.handler(async ({ event, context }) => {
   const moduleId = `${event.chainId}-${event.srcAddress}`
-  const bountyId = `${event.chainId}-${event.transaction}`
+  const id = `${moduleId}-${event.params.bountyId}`
 
-  const bountyModule = await context.BountyModule.get(moduleId)
+  const bountyModule = (await context.BountyModule.get(moduleId))!
+  const token = (await context.Token.get(bountyModule.token_id))!
 
-  if (!bountyModule) {
-    context.log.error(`Could not find bounty module ${event.srcAddress}`)
-    return
-  }
-
-  // TODO: Fetch the token decimals
   const minimumPayoutAmount = formatUnitsToBD(
     event.params.minimumPayoutAmount,
-    18
+    token.decimals
   )
+  const minimumPayoutAmountUSD = minimumPayoutAmount.times(token.priceUSD)
+
   const maximumPayoutAmount = formatUnitsToBD(
     event.params.maximumPayoutAmount,
-    18
+    token.decimals
   )
+  const maximumPayoutAmountUSD = maximumPayoutAmount.times(token.priceUSD)
 
   context.Bounty.set({
-    id: bountyId,
+    id,
     bountyModule_id: bountyModule!.id,
+
     minimumPayoutAmount,
     maximumPayoutAmount,
+
+    minimumPayoutAmountUSD,
+    maximumPayoutAmountUSD,
+
     details: hexToString(event.params.details as `0x${string}`),
     locked: false,
   })
@@ -54,10 +77,10 @@ LM_PC_Bounties_v1.BountyAdded.handler(async ({ event, context }) => {
 
 // Updates bounty details
 LM_PC_Bounties_v1.BountyUpdated.handler(async ({ event, context }) => {
-  const id = `${event.chainId}-${event.srcAddress}`
+  const moduleId = `${event.chainId}-${event.srcAddress}`
+  const id = `${moduleId}-${event.params.bountyId}`
 
-  const bountyId = `${id}-${event.params.bountyId}`
-  const entity = await context.Bounty.get(bountyId)
+  const entity = await context.Bounty.get(id)
 
   context.Bounty.set({
     ...entity!,
@@ -67,10 +90,10 @@ LM_PC_Bounties_v1.BountyUpdated.handler(async ({ event, context }) => {
 
 // Marks a bounty as locked
 LM_PC_Bounties_v1.BountyLocked.handler(async ({ event, context }) => {
-  const id = `${event.chainId}-${event.srcAddress}`
+  const moduleId = `${event.chainId}-${event.srcAddress}`
+  const id = `${moduleId}-${event.params.bountyId}`
 
-  const bountyId = `${id}-${event.params.bountyId}`
-  const entity = await context.Bounty.get(bountyId)
+  const entity = await context.Bounty.get(id)
 
   context.Bounty.set({
     ...entity!,
@@ -83,13 +106,17 @@ LM_PC_Bounties_v1.BountyLocked.handler(async ({ event, context }) => {
 // Creates a new claim and its associated contributors
 LM_PC_Bounties_v1.ClaimAdded.handler(async ({ event, context }) => {
   const moduleId = `${event.chainId}-${event.srcAddress}`
-  const bountyId = `${event.chainId}-${event.transaction}`
-  const claimId = `${moduleId}-${event.params.claimId}`
+  const bountyId = `${moduleId}-${event.params.bountyId}`
+  const id = `${moduleId}-${event.params.claimId}`
+
   const detail = event.params.details as `0x${string}`
+
+  const bountyModule = (await context.BountyModule.get(moduleId))!
+  const token = (await context.Token.get(bountyModule.token_id))!
 
   // Create the claim record
   context.BountyClaim.set({
-    id: claimId,
+    id,
     bounty_id: bountyId,
     details: hexToString(detail),
     claimed: false,
@@ -97,16 +124,18 @@ LM_PC_Bounties_v1.ClaimAdded.handler(async ({ event, context }) => {
 
   // Create contributor records for this claim
   event.params.contributors.forEach((element, index) => {
-    const contributorId = `${bountyId}-${event.params.claimId}-${index}`
+    const contributorId = `${id}-${index}`
 
-    // TODO: Fetch the token decimals
-    const claimAmount = formatUnitsToBD(element[1], 18)
+    const claimAmount = formatUnitsToBD(element[1], token.decimals)
+    const claimAmountUSD = claimAmount.times(token.priceUSD)
 
     context.BountyContributor.set({
       id: contributorId,
-      bountyClaim_id: claimId,
+      bountyClaim_id: id,
       address: element[0],
+
       claimAmount,
+      claimAmountUSD,
     })
   })
 })
@@ -114,23 +143,17 @@ LM_PC_Bounties_v1.ClaimAdded.handler(async ({ event, context }) => {
 // Updates the contributors for an existing claim
 LM_PC_Bounties_v1.ClaimContributorsUpdated.handler(
   async ({ event, context }) => {
-    const id = `${event.chainId}-${event.srcAddress}`
+    const moduleId = `${event.chainId}-${event.srcAddress}`
+    const id = `${moduleId}-${event.params.claimId}`
 
-    const claimId = `${id}-${event.params.claimId}`
-    const claim = await context.BountyClaim.get(claimId)
-
-    if (!claim) {
-      context.log.error(`Could not find claim ${event.params.claimId}`)
-      return
-    }
-
-    const bountyId = `${claim.bounty_id.toString()}`
+    const bountyModule = (await context.BountyModule.get(moduleId))!
+    const token = (await context.Token.get(bountyModule.token_id))!
 
     // Remove all existing contributors for this claim
     let loop = true
     let index = 0
     while (loop) {
-      let contributorId = `${bountyId}-${event.params.claimId.toString()}-${index}`
+      let contributorId = `${id}-${index}`
 
       let contributor = await context.BountyContributor.get(contributorId)
       if (contributor) {
@@ -143,16 +166,17 @@ LM_PC_Bounties_v1.ClaimContributorsUpdated.handler(
 
     // Add the updated list of contributors
     event.params.contributors.forEach((element, index) => {
-      let contributorId = `${bountyId}-${event.params.claimId.toString()}-${index}`
+      let contributorId = `${id}-${index}`
 
-      // TODO: Fetch the token decimals
-      const claimAmount = formatUnitsToBD(element[1], 18)
+      const claimAmount = formatUnitsToBD(element[1], token.decimals)
+      const claimAmountUSD = claimAmount.times(token.priceUSD)
 
       context.BountyContributor.set({
         id: contributorId,
-        bountyClaim_id: claimId,
+        bountyClaim_id: id,
         address: element[0],
         claimAmount,
+        claimAmountUSD,
       })
     })
   }
@@ -160,10 +184,10 @@ LM_PC_Bounties_v1.ClaimContributorsUpdated.handler(
 
 // Updates claim details
 LM_PC_Bounties_v1.ClaimDetailsUpdated.handler(async ({ event, context }) => {
-  const id = `${event.chainId}-${event.srcAddress}`
+  const moduleId = `${event.chainId}-${event.srcAddress}`
+  const id = `${moduleId}-${event.params.claimId}`
 
-  const claimId = `${id}-${event.params.claimId}`
-  const entity = await context.BountyClaim.get(claimId)
+  const entity = await context.BountyClaim.get(id)
   const detail = event.params.details as `0x${string}`
 
   context.BountyClaim.set({
@@ -174,10 +198,10 @@ LM_PC_Bounties_v1.ClaimDetailsUpdated.handler(async ({ event, context }) => {
 
 // Marks a claim as verified/claimed
 LM_PC_Bounties_v1.ClaimVerified.handler(async ({ event, context }) => {
-  const id = `${event.chainId}-${event.srcAddress}`
+  const moduleId = `${event.chainId}-${event.srcAddress}`
+  const id = `${moduleId}-${event.params.claimId}`
 
-  const claimId = `${id}-${event.params.claimId}`
-  const entity = await context.BountyClaim.get(claimId)
+  const entity = await context.BountyClaim.get(id)
 
   context.BountyClaim.set({
     ...entity!,

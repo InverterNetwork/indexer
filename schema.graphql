@@ -307,7 +307,8 @@ type RedemptionPaymentOrder {
   seller: String!
   executedBy: String
 
-  exchangeRate: BigDecimal!
+  exchangeRate: BigInt!
+  feePercentage: BigInt!
 
   amount: BigDecimal!
   amountUSD: BigDecimal!
@@ -315,7 +316,6 @@ type RedemptionPaymentOrder {
   # TODO: Investigate if we can use ProtocolFee & ProjectFee entities
   fee: BigDecimal!
   feeUSD: BigDecimal!
-  feePercentage: BigDecimal!
 
   flags: Bytes!
   data: [Bytes!]!
@@ -344,22 +344,29 @@ type BountyModule {
   chainId: Int!
   address: String!
 
+  token: Token!
+
   workflow: Workflow!
   bounties: [Bounty!]! @derivedFrom(field: "bountyModule")
 }
 
 type Bounty {
-  id: ID! # `${chainId}-${event.transaction}`
+  id: ID! # `${moduleId}-${event.params.bountyId}`
   bountyModule: BountyModule!
+
   minimumPayoutAmount: BigDecimal!
   maximumPayoutAmount: BigDecimal!
+
+  minimumPayoutAmountUSD: BigDecimal!
+  maximumPayoutAmountUSD: BigDecimal!
+
   details: String!
   locked: Boolean
   claims: [BountyClaim!]! @derivedFrom(field: "bounty")
 }
 
 type BountyClaim {
-  id: ID! # `${bountyModule_id}-${claimId}`
+  id: ID! # `${moduleId}-${event.params.claimId}`
   bounty: Bounty!
   details: String!
   claimed: Boolean
@@ -367,11 +374,13 @@ type BountyClaim {
 }
 
 type BountyContributor {
-  id: ID! # `${bounty_id}-${event.params.claimId}-${event.logIndex}`
+  id: ID! # `${moduleId}-${event.params.claimId}-${contributorIndex}`
   address: String!
 
   bountyClaim: BountyClaim!
+
   claimAmount: BigDecimal!
+  claimAmountUSD: BigDecimal!
 }
 
 # Streaming Payments

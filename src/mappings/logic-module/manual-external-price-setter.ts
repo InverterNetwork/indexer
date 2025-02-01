@@ -41,7 +41,7 @@ LM_ManualExternalPriceSetter_v1.RedemptionPriceSet.handler(
     const workflow_id = entity.workflow_id
     const workflow = (await context.Workflow.get(workflow_id))!
     const oraclePriceFM = (await context.OraclePriceFM.get(
-      `${event.chainId}-${workflow.fundingManager_id}`
+      workflow.fundingManager_id
     ))!
 
     const collateralToken = (await context.Token.get(

@@ -55,14 +55,14 @@ export const updateRedemptionPaymentOrder = async ({
       seller: '',
       executedBy: '',
 
-      exchangeRate: ZERO_BD,
+      exchangeRate: 0n,
+      feePercentage: 0n,
 
       amount: ZERO_BD,
       amountUSD: ZERO_BD,
 
       fee: ZERO_BD,
       feeUSD: ZERO_BD,
-      feePercentage: ZERO_BD,
 
       flags: '',
       data: [],
