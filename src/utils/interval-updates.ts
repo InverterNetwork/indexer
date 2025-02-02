@@ -144,7 +144,7 @@ async function handleIssuanceTokenIntervalData<
 
     priceUSD,
   } = properties
-  const address = issuanceToken_id.split('-')[0]
+  const address = issuanceToken_id.split('-')[1]
   const intervalData = getIntervalData({ intervalType, timestamp })
 
   const intervalID = `${issuanceToken_id}-${intervalData.id}`
@@ -213,7 +213,7 @@ async function handleBondingCurveIntervalData<
   // Calculate interval-specific values
   const intervalData = getIntervalData({ intervalType, timestamp })
 
-  const address = id.split('-')[0]
+  const address = id.split('-')[1]
   const intervalID = `${id}-${intervalData.id}`
   const nonNullPriceCOL = priceCOL || ZERO_BD
   const nonNullPriceUSD = priceUSD || ZERO_BD
