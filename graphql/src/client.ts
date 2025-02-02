@@ -5,23 +5,18 @@ import {
   subscriptionExchange,
 } from '@urql/core'
 import { DEFAULT_GRAPHQL_URL } from './constants'
-import { createClient as createWSClient } from 'graphql-ws'
+import { SubscriptionClient } from 'subscriptions-transport-ws'
 
 export class Client {
   private static instance: UrqlClient | null = null
   private static currentUrl: string = DEFAULT_GRAPHQL_URL
   private static prevUrl: string = DEFAULT_GRAPHQL_URL
-  private static wsClient: any = null
 
   private constructor() {}
 
   private static createClient(url: string): UrqlClient {
     const websocketUrl = url.replace('https', 'wss')
-
-    this.wsClient = createWSClient({
-      url: websocketUrl,
-      retryAttempts: 5,
-    })
+    const subscriptionClient = new SubscriptionClient(websocketUrl, {})
 
     return new UrqlClient({
       url: url,
@@ -29,7 +24,8 @@ export class Client {
         cacheExchange,
         fetchExchange,
         subscriptionExchange({
-          forwardSubscription: (operation) => this.wsClient.request(operation),
+          forwardSubscription: (operation) =>
+            subscriptionClient.request(operation),
         }),
       ],
     })

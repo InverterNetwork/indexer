@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@urql/core": "^5.1.0",
-    "graphql-ws": "^6.0.3",
+    "subscriptions-transport-ws": "^0.11.0",
     "uuid": "^11.0.5",
     "wonka": "6.3.4"
   },
