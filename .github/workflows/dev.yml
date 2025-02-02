@@ -6,10 +6,10 @@ on:
         description: 'Please select your command'
         type: choice
         options:
-          - UPDATE
-          - MIGRATE
-          - FRESH
-          - SETUP
+          - SCHEMA_CHANGED
+          - JUST_INDEX
+          - MIGRATE_UP
+          - MIGRATE_DOWN_UP
       build:
         description: 'Build new image'
         type: boolean
@@ -135,16 +135,16 @@ jobs:
           RUN_INDEXER='TUI_OFF=true pnpm ts-node generated/src/Index.bs.js'
 
           case "${{ inputs.env }}" in
-            "SETUP")
+            "SCHEMA_CHANGED")
               CMD="$MIGRATE_SETUP && $GRANT_PERMISSIONS && $RUN_INDEXER"
               ;;
-            "MIGRATE")
+            "MIGRATE_UP")
               CMD="$MIGRATE_UP && $GRANT_PERMISSIONS && $RUN_INDEXER"
               ;;
-            "FRESH")
+            "MIGRATE_DOWN_UP")
               CMD="$MIGRATE_DOWN && $MIGRATE_UP && $GRANT_PERMISSIONS && $RUN_INDEXER"
               ;;
-            "UPDATE")
+            "JUST_INDEX")
               CMD="$GRANT_PERMISSIONS && $RUN_INDEXER"
               ;;
             *)
