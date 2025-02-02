@@ -300,7 +300,6 @@ type RedemptionPaymentOrder {
   orderType: PaymentOrderType!
   state: RedemptionState!
 
-  source: SourceTokenType!
   token: Token!
 
   oraclePriceFM: OraclePriceFM!
@@ -309,9 +308,9 @@ type RedemptionPaymentOrder {
   seller: String!
   executedBy: String
 
-  exchangeRate: BigInt!
   feePercentage: BigInt!
 
+  exchangeRate: BigDecimal!
   amount: BigDecimal!
   amountUSD: BigDecimal!
 

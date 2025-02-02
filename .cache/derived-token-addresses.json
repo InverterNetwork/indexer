@@ -3226,5 +3226,13 @@
   "0xa6b39e567de9cbea13ffa89f6b615f8fa77fc24a-11155111-issuance": {
     "meta": {},
     "content": "0x751754194a06a11Ab082FB76B5bAA291D1099fd3"
+  },
+  "0x2f025a70a59e66192b3b9b265943ce782d5b8be5-11155111-token": {
+    "meta": {},
+    "content": "0xB637cE56AFDb659AB7f85d1293e20cE661445db4"
+  },
+  "0x2f025a70a59e66192b3b9b265943ce782d5b8be5-11155111-issuance": {
+    "meta": {},
+    "content": "0xfF75ABDc7A29739C095314D4AA30E0eFbc1F80F1"
   }
 }

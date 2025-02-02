@@ -22,15 +22,7 @@ FM_PC_ExternalPrice_Redeeming_v1.PaymentOrderAdded.handler(
 
     const token = (await context.Token.get(token_id))!
 
-    const source = await deriveSourceTokenType({
-      address: paymentTokenAddress,
-      chainId,
-    })
-
-    const amount = formatUnitsToBD(
-      event.params.amount.toString(),
-      token.decimals
-    )
+    const amount = formatUnitsToBD(event.params.amount, token.decimals)
 
     const amountUSD = amount.times(token.priceUSD)
 
@@ -40,7 +32,6 @@ FM_PC_ExternalPrice_Redeeming_v1.PaymentOrderAdded.handler(
       properties: {
         orderId: BigInt(orderId),
         oraclePriceFM_id,
-        source,
 
         originChainId: event.chainId,
         targetChainId: Number(event.params.targetChainId),

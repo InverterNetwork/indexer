@@ -28,16 +28,17 @@ PP_Queue_ManualExecution_v1.PaymentOrderStateChanged.handler(
 
 PP_Queue_ManualExecution_v1.PaymentOrderQueued.handler(
   async ({ event, context }) => {
+    const chainId = event.chainId
     const orderId = event.params.orderId_
-    const oraclePriceFM_id = `${event.chainId}-${event.params.client_}`
+    const oraclePriceFM_id = `${chainId}-${event.params.client_}`
 
     const token = (await context.Token.get(
-      `${event.chainId}-${event.params.token_}`
+      `${chainId}-${event.params.token_}`
     ))!
 
     const source = await deriveSourceTokenType({
       address: token.address,
-      chainId: token.chainId,
+      chainId: chainId,
     })
 
     const amount = formatUnitsToBD(event.params.amount_, token.decimals)
@@ -51,7 +52,6 @@ PP_Queue_ManualExecution_v1.PaymentOrderQueued.handler(
         oraclePriceFM_id,
 
         orderType: 'QUEUED',
-        source,
 
         amount,
         amountUSD,

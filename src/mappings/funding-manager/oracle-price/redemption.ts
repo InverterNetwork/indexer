@@ -1,10 +1,53 @@
-import { FM_PC_ExternalPrice_Redeeming_v1, BigDecimal } from 'generated'
+import { FM_PC_ExternalPrice_Redeeming_v1 } from 'generated'
 
 import {
   formatUnitsToBD,
   updateOraclePrice,
   updateRedemptionPaymentOrder,
 } from '../../../utils'
+
+FM_PC_ExternalPrice_Redeeming_v1.RedemptionOrderCreated.handler(
+  async ({ event, context }) => {
+    const chainId = event.chainId
+    const address = event.srcAddress
+    const oraclePriceFM_id = `${chainId}-${address}`
+    const token_id = `${chainId}-${event.params.collateralToken_}`
+
+    const token = (await context.Token.get(token_id))!
+
+    const amount = formatUnitsToBD(
+      event.params.finalRedemptionAmount_,
+      token.decimals
+    )
+    const amountUSD = amount.times(token.priceUSD)
+
+    const fee = formatUnitsToBD(event.params.feeAmount_, token.decimals)
+    const feeUSD = fee.times(token.priceUSD)
+    const exchangeRate = formatUnitsToBD(
+      event.params.exchangeRate_,
+      token.decimals
+    )
+
+    await updateRedemptionPaymentOrder({
+      context,
+      event,
+      properties: {
+        oraclePriceFM_id,
+        orderId: event.params.orderId_,
+
+        seller: event.params.seller_,
+        exchangeRate,
+        feePercentage: event.params.feePercentage_,
+
+        amount,
+        amountUSD,
+
+        fee,
+        feeUSD,
+      },
+    })
+  }
+)
 
 FM_PC_ExternalPrice_Redeeming_v1.RedemptionAmountUpdated.handler(
   async ({ event, context }) => {
@@ -24,44 +67,6 @@ FM_PC_ExternalPrice_Redeeming_v1.RedemptionAmountUpdated.handler(
       properties: {
         pendingRedemptionCOL,
         pendingRedemptionUSD,
-      },
-    })
-  }
-)
-
-FM_PC_ExternalPrice_Redeeming_v1.RedemptionOrderCreated.handler(
-  async ({ event, context }) => {
-    const oraclePriceFM_id = `${event.chainId}-${event.params.paymentClient_}`
-    const token_id = `${event.chainId}-${event.params.collateralToken_}`
-
-    const token = (await context.Token.get(token_id))!
-
-    const amount = formatUnitsToBD(
-      event.params.finalRedemptionAmount_,
-      token.decimals
-    )
-    const amountUSD = amount.times(token.priceUSD)
-
-    const fee = formatUnitsToBD(event.params.feeAmount_, token.decimals)
-    const feeUSD = fee.times(token.priceUSD)
-
-    await updateRedemptionPaymentOrder({
-      context,
-      event,
-      properties: {
-        oraclePriceFM_id,
-        orderId: event.params.orderId_,
-        source: 'COLLATERAL',
-
-        seller: event.params.seller_,
-        exchangeRate: event.params.exchangeRate_,
-        feePercentage: event.params.feePercentage_,
-
-        amount,
-        amountUSD,
-
-        fee,
-        feeUSD,
       },
     })
   }

@@ -3418,5 +3418,14 @@
       "decimals": 0,
       "address": "0xf4855d40768B13238007Eb7656C2731d616a17af"
     }
+  },
+  "0xff75abdc7a29739c095314d4aa30e0efbc1f80f1-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Test USP Yield Optimized Stablecoin",
+      "symbol": "T-USP",
+      "decimals": 18,
+      "address": "0xfF75ABDc7A29739C095314D4AA30E0eFbc1F80F1"
+    }
   }
 }
