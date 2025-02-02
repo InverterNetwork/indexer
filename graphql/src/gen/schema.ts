@@ -9,14 +9,39 @@ export type Scalars = {
   Int: number
   String: string
   contract_type: any
-  feesource: any
   jsonb: any
   numeric: any
+  paymentordertype: any
+  redemptionstate: any
+  rolestatus: any
+  sourcetokentype: any
   swaptype: any
   timestamp: any
   timestamptz: any
   vestingstatus: any
 }
+
+/** columns and relationships of "AutRoles" */
+export interface AutRoles {
+  address: Scalars['String']
+  chainId: Scalars['Int']
+  db_write_timestamp: Scalars['timestamp'] | null
+  id: Scalars['String']
+  /** An array relationship */
+  roles: Role[]
+  /** An object relationship */
+  workflow: Workflow | null
+  workflow_id: Scalars['String']
+  __typename: 'AutRoles'
+}
+
+/** select columns of table "AutRoles" */
+export type AutRoles_select_column =
+  | 'address'
+  | 'chainId'
+  | 'db_write_timestamp'
+  | 'id'
+  | 'workflow_id'
 
 /** columns and relationships of "BondingCurve" */
 export interface BondingCurve {
@@ -281,7 +306,9 @@ export interface Bounty {
   id: Scalars['String']
   locked: Scalars['Boolean'] | null
   maximumPayoutAmount: Scalars['numeric']
+  maximumPayoutAmountUSD: Scalars['numeric']
   minimumPayoutAmount: Scalars['numeric']
+  minimumPayoutAmountUSD: Scalars['numeric']
   __typename: 'Bounty'
 }
 
@@ -355,6 +382,7 @@ export interface BountyContributor {
   bountyClaim: BountyClaim | null
   bountyClaim_id: Scalars['String']
   claimAmount: Scalars['numeric']
+  claimAmountUSD: Scalars['numeric']
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String']
   __typename: 'BountyContributor'
@@ -365,11 +393,13 @@ export type BountyContributor_select_column =
   | 'address'
   | 'bountyClaim_id'
   | 'claimAmount'
+  | 'claimAmountUSD'
   | 'db_write_timestamp'
   | 'id'
 
 /** columns and relationships of "BountyModule" */
 export interface BountyModule {
+  address: Scalars['String']
   /** An array relationship */
   bounties: Bounty[]
   /** An aggregate relationship */
@@ -378,6 +408,9 @@ export interface BountyModule {
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String']
   /** An object relationship */
+  token: Token | null
+  token_id: Scalars['String']
+  /** An object relationship */
   workflow: Workflow | null
   workflow_id: Scalars['String']
   __typename: 'BountyModule'
@@ -385,9 +418,11 @@ export interface BountyModule {
 
 /** select columns of table "BountyModule" */
 export type BountyModule_select_column =
+  | 'address'
   | 'chainId'
   | 'db_write_timestamp'
   | 'id'
+  | 'token_id'
   | 'workflow_id'
 
 /** aggregated selection of "Bounty" */
@@ -416,7 +451,9 @@ export interface Bounty_aggregate_fields {
 /** aggregate avg on columns */
 export interface Bounty_avg_fields {
   maximumPayoutAmount: Scalars['Float'] | null
+  maximumPayoutAmountUSD: Scalars['Float'] | null
   minimumPayoutAmount: Scalars['Float'] | null
+  minimumPayoutAmountUSD: Scalars['Float'] | null
   __typename: 'Bounty_avg_fields'
 }
 
@@ -427,7 +464,9 @@ export interface Bounty_max_fields {
   details: Scalars['String'] | null
   id: Scalars['String'] | null
   maximumPayoutAmount: Scalars['numeric'] | null
+  maximumPayoutAmountUSD: Scalars['numeric'] | null
   minimumPayoutAmount: Scalars['numeric'] | null
+  minimumPayoutAmountUSD: Scalars['numeric'] | null
   __typename: 'Bounty_max_fields'
 }
 
@@ -438,7 +477,9 @@ export interface Bounty_min_fields {
   details: Scalars['String'] | null
   id: Scalars['String'] | null
   maximumPayoutAmount: Scalars['numeric'] | null
+  maximumPayoutAmountUSD: Scalars['numeric'] | null
   minimumPayoutAmount: Scalars['numeric'] | null
+  minimumPayoutAmountUSD: Scalars['numeric'] | null
   __typename: 'Bounty_min_fields'
 }
 
@@ -450,7 +491,9 @@ export type Bounty_select_column =
   | 'id'
   | 'locked'
   | 'maximumPayoutAmount'
+  | 'maximumPayoutAmountUSD'
   | 'minimumPayoutAmount'
+  | 'minimumPayoutAmountUSD'
 
 /** select "Bounty_aggregate_bool_exp_bool_and_arguments_columns" columns of table "Bounty" */
 export type Bounty_select_column_Bounty_aggregate_bool_exp_bool_and_arguments_columns =
@@ -463,54 +506,69 @@ export type Bounty_select_column_Bounty_aggregate_bool_exp_bool_or_arguments_col
 /** aggregate stddev on columns */
 export interface Bounty_stddev_fields {
   maximumPayoutAmount: Scalars['Float'] | null
+  maximumPayoutAmountUSD: Scalars['Float'] | null
   minimumPayoutAmount: Scalars['Float'] | null
+  minimumPayoutAmountUSD: Scalars['Float'] | null
   __typename: 'Bounty_stddev_fields'
 }
 
 /** aggregate stddev_pop on columns */
 export interface Bounty_stddev_pop_fields {
   maximumPayoutAmount: Scalars['Float'] | null
+  maximumPayoutAmountUSD: Scalars['Float'] | null
   minimumPayoutAmount: Scalars['Float'] | null
+  minimumPayoutAmountUSD: Scalars['Float'] | null
   __typename: 'Bounty_stddev_pop_fields'
 }
 
 /** aggregate stddev_samp on columns */
 export interface Bounty_stddev_samp_fields {
   maximumPayoutAmount: Scalars['Float'] | null
+  maximumPayoutAmountUSD: Scalars['Float'] | null
   minimumPayoutAmount: Scalars['Float'] | null
+  minimumPayoutAmountUSD: Scalars['Float'] | null
   __typename: 'Bounty_stddev_samp_fields'
 }
 
 /** aggregate sum on columns */
 export interface Bounty_sum_fields {
   maximumPayoutAmount: Scalars['numeric'] | null
+  maximumPayoutAmountUSD: Scalars['numeric'] | null
   minimumPayoutAmount: Scalars['numeric'] | null
+  minimumPayoutAmountUSD: Scalars['numeric'] | null
   __typename: 'Bounty_sum_fields'
 }
 
 /** aggregate var_pop on columns */
 export interface Bounty_var_pop_fields {
   maximumPayoutAmount: Scalars['Float'] | null
+  maximumPayoutAmountUSD: Scalars['Float'] | null
   minimumPayoutAmount: Scalars['Float'] | null
+  minimumPayoutAmountUSD: Scalars['Float'] | null
   __typename: 'Bounty_var_pop_fields'
 }
 
 /** aggregate var_samp on columns */
 export interface Bounty_var_samp_fields {
   maximumPayoutAmount: Scalars['Float'] | null
+  maximumPayoutAmountUSD: Scalars['Float'] | null
   minimumPayoutAmount: Scalars['Float'] | null
+  minimumPayoutAmountUSD: Scalars['Float'] | null
   __typename: 'Bounty_var_samp_fields'
 }
 
 /** aggregate variance on columns */
 export interface Bounty_variance_fields {
   maximumPayoutAmount: Scalars['Float'] | null
+  maximumPayoutAmountUSD: Scalars['Float'] | null
   minimumPayoutAmount: Scalars['Float'] | null
+  minimumPayoutAmountUSD: Scalars['Float'] | null
   __typename: 'Bounty_variance_fields'
 }
 
 /** columns and relationships of "CurveDayData" */
 export interface CurveDayData {
+  address: Scalars['String']
   chainId: Scalars['Int']
   closeCOL: Scalars['numeric']
   closeUSD: Scalars['numeric']
@@ -519,6 +577,7 @@ export interface CurveDayData {
   collateralToken_id: Scalars['String']
   date: Scalars['Int']
   db_write_timestamp: Scalars['timestamp'] | null
+  fundingManager_id: Scalars['String']
   highCOL: Scalars['numeric']
   highUSD: Scalars['numeric']
   id: Scalars['String']
@@ -527,7 +586,6 @@ export interface CurveDayData {
   issuanceToken_id: Scalars['String']
   lowCOL: Scalars['numeric']
   lowUSD: Scalars['numeric']
-  module_id: Scalars['String']
   openCOL: Scalars['numeric']
   openUSD: Scalars['numeric']
   priceCOL: Scalars['numeric']
@@ -593,19 +651,20 @@ export interface CurveDayData_avg_fields {
 
 /** aggregate max on columns */
 export interface CurveDayData_max_fields {
+  address: Scalars['String'] | null
   chainId: Scalars['Int'] | null
   closeCOL: Scalars['numeric'] | null
   closeUSD: Scalars['numeric'] | null
   collateralToken_id: Scalars['String'] | null
   date: Scalars['Int'] | null
   db_write_timestamp: Scalars['timestamp'] | null
+  fundingManager_id: Scalars['String'] | null
   highCOL: Scalars['numeric'] | null
   highUSD: Scalars['numeric'] | null
   id: Scalars['String'] | null
   issuanceToken_id: Scalars['String'] | null
   lowCOL: Scalars['numeric'] | null
   lowUSD: Scalars['numeric'] | null
-  module_id: Scalars['String'] | null
   openCOL: Scalars['numeric'] | null
   openUSD: Scalars['numeric'] | null
   priceCOL: Scalars['numeric'] | null
@@ -623,19 +682,20 @@ export interface CurveDayData_max_fields {
 
 /** aggregate min on columns */
 export interface CurveDayData_min_fields {
+  address: Scalars['String'] | null
   chainId: Scalars['Int'] | null
   closeCOL: Scalars['numeric'] | null
   closeUSD: Scalars['numeric'] | null
   collateralToken_id: Scalars['String'] | null
   date: Scalars['Int'] | null
   db_write_timestamp: Scalars['timestamp'] | null
+  fundingManager_id: Scalars['String'] | null
   highCOL: Scalars['numeric'] | null
   highUSD: Scalars['numeric'] | null
   id: Scalars['String'] | null
   issuanceToken_id: Scalars['String'] | null
   lowCOL: Scalars['numeric'] | null
   lowUSD: Scalars['numeric'] | null
-  module_id: Scalars['String'] | null
   openCOL: Scalars['numeric'] | null
   openUSD: Scalars['numeric'] | null
   priceCOL: Scalars['numeric'] | null
@@ -653,19 +713,20 @@ export interface CurveDayData_min_fields {
 
 /** select columns of table "CurveDayData" */
 export type CurveDayData_select_column =
+  | 'address'
   | 'chainId'
   | 'closeCOL'
   | 'closeUSD'
   | 'collateralToken_id'
   | 'date'
   | 'db_write_timestamp'
+  | 'fundingManager_id'
   | 'highCOL'
   | 'highUSD'
   | 'id'
   | 'issuanceToken_id'
   | 'lowCOL'
   | 'lowUSD'
-  | 'module_id'
   | 'openCOL'
   | 'openUSD'
   | 'priceCOL'
@@ -856,6 +917,7 @@ export interface CurveDayData_variance_fields {
 
 /** columns and relationships of "CurveHourData" */
 export interface CurveHourData {
+  address: Scalars['String']
   chainId: Scalars['Int']
   closeCOL: Scalars['numeric']
   closeUSD: Scalars['numeric']
@@ -863,6 +925,7 @@ export interface CurveHourData {
   collateralToken: Token | null
   collateralToken_id: Scalars['String']
   db_write_timestamp: Scalars['timestamp'] | null
+  fundingManager_id: Scalars['String']
   highCOL: Scalars['numeric']
   highUSD: Scalars['numeric']
   id: Scalars['String']
@@ -871,7 +934,6 @@ export interface CurveHourData {
   issuanceToken_id: Scalars['String']
   lowCOL: Scalars['numeric']
   lowUSD: Scalars['numeric']
-  module_id: Scalars['String']
   openCOL: Scalars['numeric']
   openUSD: Scalars['numeric']
   periodStartUnix: Scalars['Int']
@@ -938,18 +1000,19 @@ export interface CurveHourData_avg_fields {
 
 /** aggregate max on columns */
 export interface CurveHourData_max_fields {
+  address: Scalars['String'] | null
   chainId: Scalars['Int'] | null
   closeCOL: Scalars['numeric'] | null
   closeUSD: Scalars['numeric'] | null
   collateralToken_id: Scalars['String'] | null
   db_write_timestamp: Scalars['timestamp'] | null
+  fundingManager_id: Scalars['String'] | null
   highCOL: Scalars['numeric'] | null
   highUSD: Scalars['numeric'] | null
   id: Scalars['String'] | null
   issuanceToken_id: Scalars['String'] | null
   lowCOL: Scalars['numeric'] | null
   lowUSD: Scalars['numeric'] | null
-  module_id: Scalars['String'] | null
   openCOL: Scalars['numeric'] | null
   openUSD: Scalars['numeric'] | null
   periodStartUnix: Scalars['Int'] | null
@@ -968,18 +1031,19 @@ export interface CurveHourData_max_fields {
 
 /** aggregate min on columns */
 export interface CurveHourData_min_fields {
+  address: Scalars['String'] | null
   chainId: Scalars['Int'] | null
   closeCOL: Scalars['numeric'] | null
   closeUSD: Scalars['numeric'] | null
   collateralToken_id: Scalars['String'] | null
   db_write_timestamp: Scalars['timestamp'] | null
+  fundingManager_id: Scalars['String'] | null
   highCOL: Scalars['numeric'] | null
   highUSD: Scalars['numeric'] | null
   id: Scalars['String'] | null
   issuanceToken_id: Scalars['String'] | null
   lowCOL: Scalars['numeric'] | null
   lowUSD: Scalars['numeric'] | null
-  module_id: Scalars['String'] | null
   openCOL: Scalars['numeric'] | null
   openUSD: Scalars['numeric'] | null
   periodStartUnix: Scalars['Int'] | null
@@ -998,18 +1062,19 @@ export interface CurveHourData_min_fields {
 
 /** select columns of table "CurveHourData" */
 export type CurveHourData_select_column =
+  | 'address'
   | 'chainId'
   | 'closeCOL'
   | 'closeUSD'
   | 'collateralToken_id'
   | 'db_write_timestamp'
+  | 'fundingManager_id'
   | 'highCOL'
   | 'highUSD'
   | 'id'
   | 'issuanceToken_id'
   | 'lowCOL'
   | 'lowUSD'
-  | 'module_id'
   | 'openCOL'
   | 'openUSD'
   | 'periodStartUnix'
@@ -1203,13 +1268,13 @@ export interface CurveHourData_variance_fields {
 export interface Deposit {
   amount: Scalars['numeric']
   amountUSD: Scalars['numeric']
-  blockTimestamp: Scalars['Int']
   db_write_timestamp: Scalars['timestamp'] | null
   /** An object relationship */
   depositVault: DepositVault | null
   depositVault_id: Scalars['String']
   depositor: Scalars['String']
   id: Scalars['String']
+  timestamp: Scalars['Int']
   __typename: 'Deposit'
 }
 
@@ -1389,7 +1454,7 @@ export interface Deposit_aggregate_fields {
 export interface Deposit_avg_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'Deposit_avg_fields'
 }
 
@@ -1397,11 +1462,11 @@ export interface Deposit_avg_fields {
 export interface Deposit_max_fields {
   amount: Scalars['numeric'] | null
   amountUSD: Scalars['numeric'] | null
-  blockTimestamp: Scalars['Int'] | null
   db_write_timestamp: Scalars['timestamp'] | null
   depositVault_id: Scalars['String'] | null
   depositor: Scalars['String'] | null
   id: Scalars['String'] | null
+  timestamp: Scalars['Int'] | null
   __typename: 'Deposit_max_fields'
 }
 
@@ -1409,11 +1474,11 @@ export interface Deposit_max_fields {
 export interface Deposit_min_fields {
   amount: Scalars['numeric'] | null
   amountUSD: Scalars['numeric'] | null
-  blockTimestamp: Scalars['Int'] | null
   db_write_timestamp: Scalars['timestamp'] | null
   depositVault_id: Scalars['String'] | null
   depositor: Scalars['String'] | null
   id: Scalars['String'] | null
+  timestamp: Scalars['Int'] | null
   __typename: 'Deposit_min_fields'
 }
 
@@ -1421,17 +1486,17 @@ export interface Deposit_min_fields {
 export type Deposit_select_column =
   | 'amount'
   | 'amountUSD'
-  | 'blockTimestamp'
   | 'db_write_timestamp'
   | 'depositVault_id'
   | 'depositor'
   | 'id'
+  | 'timestamp'
 
 /** aggregate stddev on columns */
 export interface Deposit_stddev_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'Deposit_stddev_fields'
 }
 
@@ -1439,7 +1504,7 @@ export interface Deposit_stddev_fields {
 export interface Deposit_stddev_pop_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'Deposit_stddev_pop_fields'
 }
 
@@ -1447,7 +1512,7 @@ export interface Deposit_stddev_pop_fields {
 export interface Deposit_stddev_samp_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'Deposit_stddev_samp_fields'
 }
 
@@ -1455,7 +1520,7 @@ export interface Deposit_stddev_samp_fields {
 export interface Deposit_sum_fields {
   amount: Scalars['numeric'] | null
   amountUSD: Scalars['numeric'] | null
-  blockTimestamp: Scalars['Int'] | null
+  timestamp: Scalars['Int'] | null
   __typename: 'Deposit_sum_fields'
 }
 
@@ -1463,7 +1528,7 @@ export interface Deposit_sum_fields {
 export interface Deposit_var_pop_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'Deposit_var_pop_fields'
 }
 
@@ -1471,7 +1536,7 @@ export interface Deposit_var_pop_fields {
 export interface Deposit_var_samp_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'Deposit_var_samp_fields'
 }
 
@@ -1479,12 +1544,47 @@ export interface Deposit_var_samp_fields {
 export interface Deposit_variance_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'Deposit_variance_fields'
 }
 
+/** columns and relationships of "ExternalPriceSetter" */
+export interface ExternalPriceSetter {
+  address: Scalars['String']
+  chainId: Scalars['Int']
+  /** An object relationship */
+  collateralToken: Token | null
+  collateralToken_id: Scalars['String']
+  db_write_timestamp: Scalars['timestamp'] | null
+  id: Scalars['String']
+  /** An object relationship */
+  issuanceToken: Token | null
+  issuanceToken_id: Scalars['String']
+  priceCOL: Scalars['numeric']
+  priceISS: Scalars['numeric']
+  priceUSD: Scalars['numeric']
+  /** An object relationship */
+  workflow: Workflow | null
+  workflow_id: Scalars['String']
+  __typename: 'ExternalPriceSetter'
+}
+
+/** select columns of table "ExternalPriceSetter" */
+export type ExternalPriceSetter_select_column =
+  | 'address'
+  | 'chainId'
+  | 'collateralToken_id'
+  | 'db_write_timestamp'
+  | 'id'
+  | 'issuanceToken_id'
+  | 'priceCOL'
+  | 'priceISS'
+  | 'priceUSD'
+  | 'workflow_id'
+
 /** columns and relationships of "IssuanceTokenDayData" */
 export interface IssuanceTokenDayData {
+  address: Scalars['String']
   chainId: Scalars['Int']
   closeUSD: Scalars['numeric']
   date: Scalars['Int']
@@ -1545,6 +1645,7 @@ export interface IssuanceTokenDayData_avg_fields {
 
 /** aggregate max on columns */
 export interface IssuanceTokenDayData_max_fields {
+  address: Scalars['String'] | null
   chainId: Scalars['Int'] | null
   closeUSD: Scalars['numeric'] | null
   date: Scalars['Int'] | null
@@ -1565,6 +1666,7 @@ export interface IssuanceTokenDayData_max_fields {
 
 /** aggregate min on columns */
 export interface IssuanceTokenDayData_min_fields {
+  address: Scalars['String'] | null
   chainId: Scalars['Int'] | null
   closeUSD: Scalars['numeric'] | null
   date: Scalars['Int'] | null
@@ -1585,6 +1687,7 @@ export interface IssuanceTokenDayData_min_fields {
 
 /** select columns of table "IssuanceTokenDayData" */
 export type IssuanceTokenDayData_select_column =
+  | 'address'
   | 'chainId'
   | 'closeUSD'
   | 'date'
@@ -1722,6 +1825,7 @@ export interface IssuanceTokenDayData_variance_fields {
 
 /** columns and relationships of "IssuanceTokenHourData" */
 export interface IssuanceTokenHourData {
+  address: Scalars['String']
   chainId: Scalars['Int']
   closeUSD: Scalars['numeric']
   db_write_timestamp: Scalars['timestamp'] | null
@@ -1782,6 +1886,7 @@ export interface IssuanceTokenHourData_avg_fields {
 
 /** aggregate max on columns */
 export interface IssuanceTokenHourData_max_fields {
+  address: Scalars['String'] | null
   chainId: Scalars['Int'] | null
   closeUSD: Scalars['numeric'] | null
   db_write_timestamp: Scalars['timestamp'] | null
@@ -1802,6 +1907,7 @@ export interface IssuanceTokenHourData_max_fields {
 
 /** aggregate min on columns */
 export interface IssuanceTokenHourData_min_fields {
+  address: Scalars['String'] | null
   chainId: Scalars['Int'] | null
   closeUSD: Scalars['numeric'] | null
   db_write_timestamp: Scalars['timestamp'] | null
@@ -1822,6 +1928,7 @@ export interface IssuanceTokenHourData_min_fields {
 
 /** select columns of table "IssuanceTokenHourData" */
 export type IssuanceTokenHourData_select_column =
+  | 'address'
   | 'chainId'
   | 'closeUSD'
   | 'db_write_timestamp'
@@ -1960,7 +2067,6 @@ export interface IssuanceTokenHourData_variance_fields {
 /** columns and relationships of "LinearVesting" */
 export interface LinearVesting {
   amount: Scalars['numeric']
-  blockTimestamp: Scalars['Int']
   chainId: Scalars['Int']
   cliff: Scalars['numeric']
   db_write_timestamp: Scalars['timestamp'] | null
@@ -1972,6 +2078,7 @@ export interface LinearVesting {
   /** An object relationship */
   streamingPaymentProcessor: StreamingPaymentProcessor | null
   streamingPaymentProcessor_id: Scalars['String']
+  timestamp: Scalars['Int']
   /** An object relationship */
   token: Token | null
   token_id: Scalars['String']
@@ -1981,7 +2088,6 @@ export interface LinearVesting {
 /** select columns of table "LinearVesting" */
 export type LinearVesting_select_column =
   | 'amount'
-  | 'blockTimestamp'
   | 'chainId'
   | 'cliff'
   | 'db_write_timestamp'
@@ -1991,18 +2097,234 @@ export type LinearVesting_select_column =
   | 'start'
   | 'status'
   | 'streamingPaymentProcessor_id'
+  | 'timestamp'
   | 'token_id'
+
+/** columns and relationships of "OraclePriceFM" */
+export interface OraclePriceFM {
+  address: Scalars['String']
+  buyFee: Scalars['numeric']
+  chainId: Scalars['Int']
+  /** An object relationship */
+  collateralToken: Token | null
+  collateralToken_id: Scalars['String']
+  db_write_timestamp: Scalars['timestamp'] | null
+  /** An object relationship */
+  externalPriceSetter: ExternalPriceSetter | null
+  externalPriceSetter_id: Scalars['String'] | null
+  id: Scalars['String']
+  /** An object relationship */
+  issuanceToken: Token | null
+  issuanceToken_id: Scalars['String']
+  /** An array relationship */
+  paymentOrders: RedemptionPaymentOrder[]
+  /** An aggregate relationship */
+  paymentOrders_aggregate: RedemptionPaymentOrder_aggregate
+  pendingRedemptionCOL: Scalars['numeric']
+  pendingRedemptionUSD: Scalars['numeric']
+  /** An array relationship */
+  projectFees: ProjectFee[]
+  /** An aggregate relationship */
+  projectFees_aggregate: ProjectFee_aggregate
+  /** An array relationship */
+  protocolFees: ProtocolFee[]
+  /** An aggregate relationship */
+  protocolFees_aggregate: ProtocolFee_aggregate
+  reserveCOL: Scalars['numeric']
+  reserveUSD: Scalars['numeric']
+  sellFee: Scalars['numeric']
+  /** An array relationship */
+  swaps: Swap[]
+  /** An object relationship */
+  workflow: Workflow | null
+  workflow_id: Scalars['String']
+  __typename: 'OraclePriceFM'
+}
+
+/** aggregated selection of "OraclePriceFM" */
+export interface OraclePriceFM_aggregate {
+  aggregate: OraclePriceFM_aggregate_fields | null
+  nodes: OraclePriceFM[]
+  __typename: 'OraclePriceFM_aggregate'
+}
+
+/** aggregate fields of "OraclePriceFM" */
+export interface OraclePriceFM_aggregate_fields {
+  avg: OraclePriceFM_avg_fields | null
+  count: Scalars['Int']
+  max: OraclePriceFM_max_fields | null
+  min: OraclePriceFM_min_fields | null
+  stddev: OraclePriceFM_stddev_fields | null
+  stddev_pop: OraclePriceFM_stddev_pop_fields | null
+  stddev_samp: OraclePriceFM_stddev_samp_fields | null
+  sum: OraclePriceFM_sum_fields | null
+  var_pop: OraclePriceFM_var_pop_fields | null
+  var_samp: OraclePriceFM_var_samp_fields | null
+  variance: OraclePriceFM_variance_fields | null
+  __typename: 'OraclePriceFM_aggregate_fields'
+}
+
+/** aggregate avg on columns */
+export interface OraclePriceFM_avg_fields {
+  buyFee: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  pendingRedemptionCOL: Scalars['Float'] | null
+  pendingRedemptionUSD: Scalars['Float'] | null
+  reserveCOL: Scalars['Float'] | null
+  reserveUSD: Scalars['Float'] | null
+  sellFee: Scalars['Float'] | null
+  __typename: 'OraclePriceFM_avg_fields'
+}
+
+/** aggregate max on columns */
+export interface OraclePriceFM_max_fields {
+  address: Scalars['String'] | null
+  buyFee: Scalars['numeric'] | null
+  chainId: Scalars['Int'] | null
+  collateralToken_id: Scalars['String'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  externalPriceSetter_id: Scalars['String'] | null
+  id: Scalars['String'] | null
+  issuanceToken_id: Scalars['String'] | null
+  pendingRedemptionCOL: Scalars['numeric'] | null
+  pendingRedemptionUSD: Scalars['numeric'] | null
+  reserveCOL: Scalars['numeric'] | null
+  reserveUSD: Scalars['numeric'] | null
+  sellFee: Scalars['numeric'] | null
+  workflow_id: Scalars['String'] | null
+  __typename: 'OraclePriceFM_max_fields'
+}
+
+/** aggregate min on columns */
+export interface OraclePriceFM_min_fields {
+  address: Scalars['String'] | null
+  buyFee: Scalars['numeric'] | null
+  chainId: Scalars['Int'] | null
+  collateralToken_id: Scalars['String'] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  externalPriceSetter_id: Scalars['String'] | null
+  id: Scalars['String'] | null
+  issuanceToken_id: Scalars['String'] | null
+  pendingRedemptionCOL: Scalars['numeric'] | null
+  pendingRedemptionUSD: Scalars['numeric'] | null
+  reserveCOL: Scalars['numeric'] | null
+  reserveUSD: Scalars['numeric'] | null
+  sellFee: Scalars['numeric'] | null
+  workflow_id: Scalars['String'] | null
+  __typename: 'OraclePriceFM_min_fields'
+}
+
+/** select columns of table "OraclePriceFM" */
+export type OraclePriceFM_select_column =
+  | 'address'
+  | 'buyFee'
+  | 'chainId'
+  | 'collateralToken_id'
+  | 'db_write_timestamp'
+  | 'externalPriceSetter_id'
+  | 'id'
+  | 'issuanceToken_id'
+  | 'pendingRedemptionCOL'
+  | 'pendingRedemptionUSD'
+  | 'reserveCOL'
+  | 'reserveUSD'
+  | 'sellFee'
+  | 'workflow_id'
+
+/** aggregate stddev on columns */
+export interface OraclePriceFM_stddev_fields {
+  buyFee: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  pendingRedemptionCOL: Scalars['Float'] | null
+  pendingRedemptionUSD: Scalars['Float'] | null
+  reserveCOL: Scalars['Float'] | null
+  reserveUSD: Scalars['Float'] | null
+  sellFee: Scalars['Float'] | null
+  __typename: 'OraclePriceFM_stddev_fields'
+}
+
+/** aggregate stddev_pop on columns */
+export interface OraclePriceFM_stddev_pop_fields {
+  buyFee: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  pendingRedemptionCOL: Scalars['Float'] | null
+  pendingRedemptionUSD: Scalars['Float'] | null
+  reserveCOL: Scalars['Float'] | null
+  reserveUSD: Scalars['Float'] | null
+  sellFee: Scalars['Float'] | null
+  __typename: 'OraclePriceFM_stddev_pop_fields'
+}
+
+/** aggregate stddev_samp on columns */
+export interface OraclePriceFM_stddev_samp_fields {
+  buyFee: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  pendingRedemptionCOL: Scalars['Float'] | null
+  pendingRedemptionUSD: Scalars['Float'] | null
+  reserveCOL: Scalars['Float'] | null
+  reserveUSD: Scalars['Float'] | null
+  sellFee: Scalars['Float'] | null
+  __typename: 'OraclePriceFM_stddev_samp_fields'
+}
+
+/** aggregate sum on columns */
+export interface OraclePriceFM_sum_fields {
+  buyFee: Scalars['numeric'] | null
+  chainId: Scalars['Int'] | null
+  pendingRedemptionCOL: Scalars['numeric'] | null
+  pendingRedemptionUSD: Scalars['numeric'] | null
+  reserveCOL: Scalars['numeric'] | null
+  reserveUSD: Scalars['numeric'] | null
+  sellFee: Scalars['numeric'] | null
+  __typename: 'OraclePriceFM_sum_fields'
+}
+
+/** aggregate var_pop on columns */
+export interface OraclePriceFM_var_pop_fields {
+  buyFee: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  pendingRedemptionCOL: Scalars['Float'] | null
+  pendingRedemptionUSD: Scalars['Float'] | null
+  reserveCOL: Scalars['Float'] | null
+  reserveUSD: Scalars['Float'] | null
+  sellFee: Scalars['Float'] | null
+  __typename: 'OraclePriceFM_var_pop_fields'
+}
+
+/** aggregate var_samp on columns */
+export interface OraclePriceFM_var_samp_fields {
+  buyFee: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  pendingRedemptionCOL: Scalars['Float'] | null
+  pendingRedemptionUSD: Scalars['Float'] | null
+  reserveCOL: Scalars['Float'] | null
+  reserveUSD: Scalars['Float'] | null
+  sellFee: Scalars['Float'] | null
+  __typename: 'OraclePriceFM_var_samp_fields'
+}
+
+/** aggregate variance on columns */
+export interface OraclePriceFM_variance_fields {
+  buyFee: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  pendingRedemptionCOL: Scalars['Float'] | null
+  pendingRedemptionUSD: Scalars['Float'] | null
+  reserveCOL: Scalars['Float'] | null
+  reserveUSD: Scalars['Float'] | null
+  sellFee: Scalars['Float'] | null
+  __typename: 'OraclePriceFM_variance_fields'
+}
 
 /** columns and relationships of "ProjectFee" */
 export interface ProjectFee {
   amount: Scalars['numeric']
   amountUSD: Scalars['numeric']
-  blockTimestamp: Scalars['Int']
   chainId: Scalars['Int']
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String']
   module_id: Scalars['String']
   recipient: Scalars['String']
+  timestamp: Scalars['Int']
   /** An object relationship */
   token: Token | null
   token_id: Scalars['String']
@@ -2036,8 +2358,8 @@ export interface ProjectFee_aggregate_fields {
 export interface ProjectFee_avg_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'ProjectFee_avg_fields'
 }
 
@@ -2045,12 +2367,12 @@ export interface ProjectFee_avg_fields {
 export interface ProjectFee_max_fields {
   amount: Scalars['numeric'] | null
   amountUSD: Scalars['numeric'] | null
-  blockTimestamp: Scalars['Int'] | null
   chainId: Scalars['Int'] | null
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String'] | null
   module_id: Scalars['String'] | null
   recipient: Scalars['String'] | null
+  timestamp: Scalars['Int'] | null
   token_id: Scalars['String'] | null
   __typename: 'ProjectFee_max_fields'
 }
@@ -2059,12 +2381,12 @@ export interface ProjectFee_max_fields {
 export interface ProjectFee_min_fields {
   amount: Scalars['numeric'] | null
   amountUSD: Scalars['numeric'] | null
-  blockTimestamp: Scalars['Int'] | null
   chainId: Scalars['Int'] | null
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String'] | null
   module_id: Scalars['String'] | null
   recipient: Scalars['String'] | null
+  timestamp: Scalars['Int'] | null
   token_id: Scalars['String'] | null
   __typename: 'ProjectFee_min_fields'
 }
@@ -2073,20 +2395,20 @@ export interface ProjectFee_min_fields {
 export type ProjectFee_select_column =
   | 'amount'
   | 'amountUSD'
-  | 'blockTimestamp'
   | 'chainId'
   | 'db_write_timestamp'
   | 'id'
   | 'module_id'
   | 'recipient'
+  | 'timestamp'
   | 'token_id'
 
 /** aggregate stddev on columns */
 export interface ProjectFee_stddev_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'ProjectFee_stddev_fields'
 }
 
@@ -2094,8 +2416,8 @@ export interface ProjectFee_stddev_fields {
 export interface ProjectFee_stddev_pop_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'ProjectFee_stddev_pop_fields'
 }
 
@@ -2103,8 +2425,8 @@ export interface ProjectFee_stddev_pop_fields {
 export interface ProjectFee_stddev_samp_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'ProjectFee_stddev_samp_fields'
 }
 
@@ -2112,8 +2434,8 @@ export interface ProjectFee_stddev_samp_fields {
 export interface ProjectFee_sum_fields {
   amount: Scalars['numeric'] | null
   amountUSD: Scalars['numeric'] | null
-  blockTimestamp: Scalars['Int'] | null
   chainId: Scalars['Int'] | null
+  timestamp: Scalars['Int'] | null
   __typename: 'ProjectFee_sum_fields'
 }
 
@@ -2121,8 +2443,8 @@ export interface ProjectFee_sum_fields {
 export interface ProjectFee_var_pop_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'ProjectFee_var_pop_fields'
 }
 
@@ -2130,8 +2452,8 @@ export interface ProjectFee_var_pop_fields {
 export interface ProjectFee_var_samp_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'ProjectFee_var_samp_fields'
 }
 
@@ -2139,8 +2461,8 @@ export interface ProjectFee_var_samp_fields {
 export interface ProjectFee_variance_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'ProjectFee_variance_fields'
 }
 
@@ -2148,12 +2470,12 @@ export interface ProjectFee_variance_fields {
 export interface ProtocolFee {
   amount: Scalars['numeric']
   amountUSD: Scalars['numeric']
-  blockTimestamp: Scalars['Int']
   chainId: Scalars['Int']
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String']
   module_id: Scalars['String']
-  source: Scalars['feesource']
+  source: Scalars['sourcetokentype']
+  timestamp: Scalars['Int']
   /** An object relationship */
   token: Token | null
   token_id: Scalars['String']
@@ -2188,8 +2510,8 @@ export interface ProtocolFee_aggregate_fields {
 export interface ProtocolFee_avg_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'ProtocolFee_avg_fields'
 }
 
@@ -2197,12 +2519,12 @@ export interface ProtocolFee_avg_fields {
 export interface ProtocolFee_max_fields {
   amount: Scalars['numeric'] | null
   amountUSD: Scalars['numeric'] | null
-  blockTimestamp: Scalars['Int'] | null
   chainId: Scalars['Int'] | null
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String'] | null
   module_id: Scalars['String'] | null
-  source: Scalars['feesource'] | null
+  source: Scalars['sourcetokentype'] | null
+  timestamp: Scalars['Int'] | null
   token_id: Scalars['String'] | null
   treasury: Scalars['String'] | null
   __typename: 'ProtocolFee_max_fields'
@@ -2212,12 +2534,12 @@ export interface ProtocolFee_max_fields {
 export interface ProtocolFee_min_fields {
   amount: Scalars['numeric'] | null
   amountUSD: Scalars['numeric'] | null
-  blockTimestamp: Scalars['Int'] | null
   chainId: Scalars['Int'] | null
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String'] | null
   module_id: Scalars['String'] | null
-  source: Scalars['feesource'] | null
+  source: Scalars['sourcetokentype'] | null
+  timestamp: Scalars['Int'] | null
   token_id: Scalars['String'] | null
   treasury: Scalars['String'] | null
   __typename: 'ProtocolFee_min_fields'
@@ -2227,12 +2549,12 @@ export interface ProtocolFee_min_fields {
 export type ProtocolFee_select_column =
   | 'amount'
   | 'amountUSD'
-  | 'blockTimestamp'
   | 'chainId'
   | 'db_write_timestamp'
   | 'id'
   | 'module_id'
   | 'source'
+  | 'timestamp'
   | 'token_id'
   | 'treasury'
 
@@ -2240,8 +2562,8 @@ export type ProtocolFee_select_column =
 export interface ProtocolFee_stddev_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'ProtocolFee_stddev_fields'
 }
 
@@ -2249,8 +2571,8 @@ export interface ProtocolFee_stddev_fields {
 export interface ProtocolFee_stddev_pop_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'ProtocolFee_stddev_pop_fields'
 }
 
@@ -2258,8 +2580,8 @@ export interface ProtocolFee_stddev_pop_fields {
 export interface ProtocolFee_stddev_samp_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'ProtocolFee_stddev_samp_fields'
 }
 
@@ -2267,8 +2589,8 @@ export interface ProtocolFee_stddev_samp_fields {
 export interface ProtocolFee_sum_fields {
   amount: Scalars['numeric'] | null
   amountUSD: Scalars['numeric'] | null
-  blockTimestamp: Scalars['Int'] | null
   chainId: Scalars['Int'] | null
+  timestamp: Scalars['Int'] | null
   __typename: 'ProtocolFee_sum_fields'
 }
 
@@ -2276,8 +2598,8 @@ export interface ProtocolFee_sum_fields {
 export interface ProtocolFee_var_pop_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'ProtocolFee_var_pop_fields'
 }
 
@@ -2285,8 +2607,8 @@ export interface ProtocolFee_var_pop_fields {
 export interface ProtocolFee_var_samp_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'ProtocolFee_var_samp_fields'
 }
 
@@ -2294,13 +2616,315 @@ export interface ProtocolFee_var_samp_fields {
 export interface ProtocolFee_variance_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'ProtocolFee_variance_fields'
 }
 
+/** columns and relationships of "RedemptionPaymentOrder" */
+export interface RedemptionPaymentOrder {
+  amount: Scalars['numeric']
+  amountUSD: Scalars['numeric']
+  chainId: Scalars['Int']
+  data: Scalars['String'][]
+  db_write_timestamp: Scalars['timestamp'] | null
+  exchangeRate: Scalars['numeric']
+  executedBy: Scalars['String'] | null
+  executedTimestamp: Scalars['Int'] | null
+  fee: Scalars['numeric']
+  feePercentage: Scalars['numeric']
+  feeUSD: Scalars['numeric']
+  flags: Scalars['String']
+  id: Scalars['String']
+  /** An object relationship */
+  oraclePriceFM: OraclePriceFM | null
+  oraclePriceFM_id: Scalars['String']
+  orderId: Scalars['numeric']
+  orderType: Scalars['paymentordertype']
+  originChainId: Scalars['Int']
+  recipient: Scalars['String']
+  seller: Scalars['String']
+  state: Scalars['redemptionstate']
+  targetChainId: Scalars['Int']
+  timestamp: Scalars['Int']
+  /** An object relationship */
+  token: Token | null
+  token_id: Scalars['String']
+  __typename: 'RedemptionPaymentOrder'
+}
+
+/** aggregated selection of "RedemptionPaymentOrder" */
+export interface RedemptionPaymentOrder_aggregate {
+  aggregate: RedemptionPaymentOrder_aggregate_fields | null
+  nodes: RedemptionPaymentOrder[]
+  __typename: 'RedemptionPaymentOrder_aggregate'
+}
+
+/** aggregate fields of "RedemptionPaymentOrder" */
+export interface RedemptionPaymentOrder_aggregate_fields {
+  avg: RedemptionPaymentOrder_avg_fields | null
+  count: Scalars['Int']
+  max: RedemptionPaymentOrder_max_fields | null
+  min: RedemptionPaymentOrder_min_fields | null
+  stddev: RedemptionPaymentOrder_stddev_fields | null
+  stddev_pop: RedemptionPaymentOrder_stddev_pop_fields | null
+  stddev_samp: RedemptionPaymentOrder_stddev_samp_fields | null
+  sum: RedemptionPaymentOrder_sum_fields | null
+  var_pop: RedemptionPaymentOrder_var_pop_fields | null
+  var_samp: RedemptionPaymentOrder_var_samp_fields | null
+  variance: RedemptionPaymentOrder_variance_fields | null
+  __typename: 'RedemptionPaymentOrder_aggregate_fields'
+}
+
+/** aggregate avg on columns */
+export interface RedemptionPaymentOrder_avg_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  exchangeRate: Scalars['Float'] | null
+  executedTimestamp: Scalars['Float'] | null
+  fee: Scalars['Float'] | null
+  feePercentage: Scalars['Float'] | null
+  feeUSD: Scalars['Float'] | null
+  orderId: Scalars['Float'] | null
+  originChainId: Scalars['Float'] | null
+  targetChainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
+  __typename: 'RedemptionPaymentOrder_avg_fields'
+}
+
+/** aggregate max on columns */
+export interface RedemptionPaymentOrder_max_fields {
+  amount: Scalars['numeric'] | null
+  amountUSD: Scalars['numeric'] | null
+  chainId: Scalars['Int'] | null
+  data: Scalars['String'][] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  exchangeRate: Scalars['numeric'] | null
+  executedBy: Scalars['String'] | null
+  executedTimestamp: Scalars['Int'] | null
+  fee: Scalars['numeric'] | null
+  feePercentage: Scalars['numeric'] | null
+  feeUSD: Scalars['numeric'] | null
+  flags: Scalars['String'] | null
+  id: Scalars['String'] | null
+  oraclePriceFM_id: Scalars['String'] | null
+  orderId: Scalars['numeric'] | null
+  orderType: Scalars['paymentordertype'] | null
+  originChainId: Scalars['Int'] | null
+  recipient: Scalars['String'] | null
+  seller: Scalars['String'] | null
+  state: Scalars['redemptionstate'] | null
+  targetChainId: Scalars['Int'] | null
+  timestamp: Scalars['Int'] | null
+  token_id: Scalars['String'] | null
+  __typename: 'RedemptionPaymentOrder_max_fields'
+}
+
+/** aggregate min on columns */
+export interface RedemptionPaymentOrder_min_fields {
+  amount: Scalars['numeric'] | null
+  amountUSD: Scalars['numeric'] | null
+  chainId: Scalars['Int'] | null
+  data: Scalars['String'][] | null
+  db_write_timestamp: Scalars['timestamp'] | null
+  exchangeRate: Scalars['numeric'] | null
+  executedBy: Scalars['String'] | null
+  executedTimestamp: Scalars['Int'] | null
+  fee: Scalars['numeric'] | null
+  feePercentage: Scalars['numeric'] | null
+  feeUSD: Scalars['numeric'] | null
+  flags: Scalars['String'] | null
+  id: Scalars['String'] | null
+  oraclePriceFM_id: Scalars['String'] | null
+  orderId: Scalars['numeric'] | null
+  orderType: Scalars['paymentordertype'] | null
+  originChainId: Scalars['Int'] | null
+  recipient: Scalars['String'] | null
+  seller: Scalars['String'] | null
+  state: Scalars['redemptionstate'] | null
+  targetChainId: Scalars['Int'] | null
+  timestamp: Scalars['Int'] | null
+  token_id: Scalars['String'] | null
+  __typename: 'RedemptionPaymentOrder_min_fields'
+}
+
+/** select columns of table "RedemptionPaymentOrder" */
+export type RedemptionPaymentOrder_select_column =
+  | 'amount'
+  | 'amountUSD'
+  | 'chainId'
+  | 'data'
+  | 'db_write_timestamp'
+  | 'exchangeRate'
+  | 'executedBy'
+  | 'executedTimestamp'
+  | 'fee'
+  | 'feePercentage'
+  | 'feeUSD'
+  | 'flags'
+  | 'id'
+  | 'oraclePriceFM_id'
+  | 'orderId'
+  | 'orderType'
+  | 'originChainId'
+  | 'recipient'
+  | 'seller'
+  | 'state'
+  | 'targetChainId'
+  | 'timestamp'
+  | 'token_id'
+
+/** aggregate stddev on columns */
+export interface RedemptionPaymentOrder_stddev_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  exchangeRate: Scalars['Float'] | null
+  executedTimestamp: Scalars['Float'] | null
+  fee: Scalars['Float'] | null
+  feePercentage: Scalars['Float'] | null
+  feeUSD: Scalars['Float'] | null
+  orderId: Scalars['Float'] | null
+  originChainId: Scalars['Float'] | null
+  targetChainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
+  __typename: 'RedemptionPaymentOrder_stddev_fields'
+}
+
+/** aggregate stddev_pop on columns */
+export interface RedemptionPaymentOrder_stddev_pop_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  exchangeRate: Scalars['Float'] | null
+  executedTimestamp: Scalars['Float'] | null
+  fee: Scalars['Float'] | null
+  feePercentage: Scalars['Float'] | null
+  feeUSD: Scalars['Float'] | null
+  orderId: Scalars['Float'] | null
+  originChainId: Scalars['Float'] | null
+  targetChainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
+  __typename: 'RedemptionPaymentOrder_stddev_pop_fields'
+}
+
+/** aggregate stddev_samp on columns */
+export interface RedemptionPaymentOrder_stddev_samp_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  exchangeRate: Scalars['Float'] | null
+  executedTimestamp: Scalars['Float'] | null
+  fee: Scalars['Float'] | null
+  feePercentage: Scalars['Float'] | null
+  feeUSD: Scalars['Float'] | null
+  orderId: Scalars['Float'] | null
+  originChainId: Scalars['Float'] | null
+  targetChainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
+  __typename: 'RedemptionPaymentOrder_stddev_samp_fields'
+}
+
+/** aggregate sum on columns */
+export interface RedemptionPaymentOrder_sum_fields {
+  amount: Scalars['numeric'] | null
+  amountUSD: Scalars['numeric'] | null
+  chainId: Scalars['Int'] | null
+  exchangeRate: Scalars['numeric'] | null
+  executedTimestamp: Scalars['Int'] | null
+  fee: Scalars['numeric'] | null
+  feePercentage: Scalars['numeric'] | null
+  feeUSD: Scalars['numeric'] | null
+  orderId: Scalars['numeric'] | null
+  originChainId: Scalars['Int'] | null
+  targetChainId: Scalars['Int'] | null
+  timestamp: Scalars['Int'] | null
+  __typename: 'RedemptionPaymentOrder_sum_fields'
+}
+
+/** aggregate var_pop on columns */
+export interface RedemptionPaymentOrder_var_pop_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  exchangeRate: Scalars['Float'] | null
+  executedTimestamp: Scalars['Float'] | null
+  fee: Scalars['Float'] | null
+  feePercentage: Scalars['Float'] | null
+  feeUSD: Scalars['Float'] | null
+  orderId: Scalars['Float'] | null
+  originChainId: Scalars['Float'] | null
+  targetChainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
+  __typename: 'RedemptionPaymentOrder_var_pop_fields'
+}
+
+/** aggregate var_samp on columns */
+export interface RedemptionPaymentOrder_var_samp_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  exchangeRate: Scalars['Float'] | null
+  executedTimestamp: Scalars['Float'] | null
+  fee: Scalars['Float'] | null
+  feePercentage: Scalars['Float'] | null
+  feeUSD: Scalars['Float'] | null
+  orderId: Scalars['Float'] | null
+  originChainId: Scalars['Float'] | null
+  targetChainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
+  __typename: 'RedemptionPaymentOrder_var_samp_fields'
+}
+
+/** aggregate variance on columns */
+export interface RedemptionPaymentOrder_variance_fields {
+  amount: Scalars['Float'] | null
+  amountUSD: Scalars['Float'] | null
+  chainId: Scalars['Float'] | null
+  exchangeRate: Scalars['Float'] | null
+  executedTimestamp: Scalars['Float'] | null
+  fee: Scalars['Float'] | null
+  feePercentage: Scalars['Float'] | null
+  feeUSD: Scalars['Float'] | null
+  orderId: Scalars['Float'] | null
+  originChainId: Scalars['Float'] | null
+  targetChainId: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
+  __typename: 'RedemptionPaymentOrder_variance_fields'
+}
+
+/** columns and relationships of "Role" */
+export interface Role {
+  chainId: Scalars['Int']
+  db_write_timestamp: Scalars['timestamp'] | null
+  id: Scalars['String']
+  initiator: Scalars['String']
+  module_id: Scalars['String']
+  recipient: Scalars['String']
+  role: Scalars['String'] | null
+  roleGen: Scalars['String']
+  roleName: Scalars['String'] | null
+  status: Scalars['rolestatus']
+  __typename: 'Role'
+}
+
+/** select columns of table "Role" */
+export type Role_select_column =
+  | 'chainId'
+  | 'db_write_timestamp'
+  | 'id'
+  | 'initiator'
+  | 'module_id'
+  | 'recipient'
+  | 'role'
+  | 'roleGen'
+  | 'roleName'
+  | 'status'
+
 /** columns and relationships of "StreamingPaymentProcessor" */
 export interface StreamingPaymentProcessor {
+  address: Scalars['String']
   chainId: Scalars['Int']
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String']
@@ -2314,6 +2938,7 @@ export interface StreamingPaymentProcessor {
 
 /** select columns of table "StreamingPaymentProcessor" */
 export type StreamingPaymentProcessor_select_column =
+  | 'address'
   | 'chainId'
   | 'db_write_timestamp'
   | 'id'
@@ -2324,22 +2949,22 @@ export interface Swap {
   amountCOL: Scalars['numeric']
   amountISS: Scalars['numeric']
   amountUSD: Scalars['numeric']
-  blockTimestamp: Scalars['Int']
   chainId: Scalars['Int']
   /** An object relationship */
   collateralToken: Token | null
   collateralToken_id: Scalars['String']
   db_write_timestamp: Scalars['timestamp'] | null
+  fundingManager_id: Scalars['String']
   id: Scalars['String']
   initiator: Scalars['String']
   /** An object relationship */
   issuanceToken: Token | null
   issuanceToken_id: Scalars['String']
-  module_id: Scalars['String']
   priceCOL: Scalars['numeric']
   priceUSD: Scalars['numeric']
   recipient: Scalars['String']
   swapType: Scalars['swaptype']
+  timestamp: Scalars['Int']
   __typename: 'Swap'
 }
 
@@ -2348,18 +2973,18 @@ export type Swap_select_column =
   | 'amountCOL'
   | 'amountISS'
   | 'amountUSD'
-  | 'blockTimestamp'
   | 'chainId'
   | 'collateralToken_id'
   | 'db_write_timestamp'
+  | 'fundingManager_id'
   | 'id'
   | 'initiator'
   | 'issuanceToken_id'
-  | 'module_id'
   | 'priceCOL'
   | 'priceUSD'
   | 'recipient'
   | 'swapType'
+  | 'timestamp'
 
 /** columns and relationships of "Token" */
 export interface Token {
@@ -2514,13 +3139,13 @@ export interface Token_variance_fields {
 export interface Transfer {
   amount: Scalars['numeric']
   amountUSD: Scalars['numeric']
-  blockTimestamp: Scalars['Int']
   db_write_timestamp: Scalars['timestamp'] | null
   /** An object relationship */
   depositVault: DepositVault | null
   depositVault_id: Scalars['String']
   id: Scalars['String']
   recipient: Scalars['String']
+  timestamp: Scalars['Int']
   __typename: 'Transfer'
 }
 
@@ -2551,7 +3176,7 @@ export interface Transfer_aggregate_fields {
 export interface Transfer_avg_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'Transfer_avg_fields'
 }
 
@@ -2559,11 +3184,11 @@ export interface Transfer_avg_fields {
 export interface Transfer_max_fields {
   amount: Scalars['numeric'] | null
   amountUSD: Scalars['numeric'] | null
-  blockTimestamp: Scalars['Int'] | null
   db_write_timestamp: Scalars['timestamp'] | null
   depositVault_id: Scalars['String'] | null
   id: Scalars['String'] | null
   recipient: Scalars['String'] | null
+  timestamp: Scalars['Int'] | null
   __typename: 'Transfer_max_fields'
 }
 
@@ -2571,11 +3196,11 @@ export interface Transfer_max_fields {
 export interface Transfer_min_fields {
   amount: Scalars['numeric'] | null
   amountUSD: Scalars['numeric'] | null
-  blockTimestamp: Scalars['Int'] | null
   db_write_timestamp: Scalars['timestamp'] | null
   depositVault_id: Scalars['String'] | null
   id: Scalars['String'] | null
   recipient: Scalars['String'] | null
+  timestamp: Scalars['Int'] | null
   __typename: 'Transfer_min_fields'
 }
 
@@ -2583,17 +3208,17 @@ export interface Transfer_min_fields {
 export type Transfer_select_column =
   | 'amount'
   | 'amountUSD'
-  | 'blockTimestamp'
   | 'db_write_timestamp'
   | 'depositVault_id'
   | 'id'
   | 'recipient'
+  | 'timestamp'
 
 /** aggregate stddev on columns */
 export interface Transfer_stddev_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'Transfer_stddev_fields'
 }
 
@@ -2601,7 +3226,7 @@ export interface Transfer_stddev_fields {
 export interface Transfer_stddev_pop_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'Transfer_stddev_pop_fields'
 }
 
@@ -2609,7 +3234,7 @@ export interface Transfer_stddev_pop_fields {
 export interface Transfer_stddev_samp_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'Transfer_stddev_samp_fields'
 }
 
@@ -2617,7 +3242,7 @@ export interface Transfer_stddev_samp_fields {
 export interface Transfer_sum_fields {
   amount: Scalars['numeric'] | null
   amountUSD: Scalars['numeric'] | null
-  blockTimestamp: Scalars['Int'] | null
+  timestamp: Scalars['Int'] | null
   __typename: 'Transfer_sum_fields'
 }
 
@@ -2625,7 +3250,7 @@ export interface Transfer_sum_fields {
 export interface Transfer_var_pop_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'Transfer_var_pop_fields'
 }
 
@@ -2633,7 +3258,7 @@ export interface Transfer_var_pop_fields {
 export interface Transfer_var_samp_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'Transfer_var_samp_fields'
 }
 
@@ -2641,12 +3266,13 @@ export interface Transfer_var_samp_fields {
 export interface Transfer_variance_fields {
   amount: Scalars['Float'] | null
   amountUSD: Scalars['Float'] | null
-  blockTimestamp: Scalars['Float'] | null
+  timestamp: Scalars['Float'] | null
   __typename: 'Transfer_variance_fields'
 }
 
 /** columns and relationships of "Workflow" */
 export interface Workflow {
+  address: Scalars['String']
   /** An object relationship */
   authorizer: WorkflowModule | null
   authorizer_id: Scalars['String']
@@ -2661,6 +3287,9 @@ export interface Workflow {
   /** An object relationship */
   paymentProcessor: WorkflowModule | null
   paymentProcessor_id: Scalars['String']
+  /** An object relationship */
+  token: Token | null
+  token_id: Scalars['String']
   __typename: 'Workflow'
 }
 
@@ -2714,6 +3343,7 @@ export type WorkflowModule_select_column =
 
 /** select columns of table "Workflow" */
 export type Workflow_select_column =
+  | 'address'
   | 'authorizer_id'
   | 'chainId'
   | 'db_write_timestamp'
@@ -2722,6 +3352,7 @@ export type Workflow_select_column =
   | 'optionalModules'
   | 'orchestrator'
   | 'paymentProcessor_id'
+  | 'token_id'
 
 /** columns and relationships of "chain_metadata" */
 export interface chain_metadata {
@@ -2850,6 +3481,10 @@ export type persisted_state_select_column =
   | 'schema_hash'
 
 export interface query_root {
+  /** fetch data from the table: "AutRoles" */
+  AutRoles: AutRoles[]
+  /** fetch data from the table: "AutRoles" using primary key columns */
+  AutRoles_by_pk: AutRoles | null
   /** fetch data from the table: "BondingCurve" */
   BondingCurve: BondingCurve[]
   /** fetch aggregated fields from the table: "BondingCurve" */
@@ -2900,6 +3535,10 @@ export interface query_root {
   Deposit_aggregate: Deposit_aggregate
   /** fetch data from the table: "Deposit" using primary key columns */
   Deposit_by_pk: Deposit | null
+  /** fetch data from the table: "ExternalPriceSetter" */
+  ExternalPriceSetter: ExternalPriceSetter[]
+  /** fetch data from the table: "ExternalPriceSetter" using primary key columns */
+  ExternalPriceSetter_by_pk: ExternalPriceSetter | null
   /** fetch data from the table: "IssuanceTokenDayData" */
   IssuanceTokenDayData: IssuanceTokenDayData[]
   /** fetch aggregated fields from the table: "IssuanceTokenDayData" */
@@ -2916,6 +3555,12 @@ export interface query_root {
   LinearVesting: LinearVesting[]
   /** fetch data from the table: "LinearVesting" using primary key columns */
   LinearVesting_by_pk: LinearVesting | null
+  /** fetch data from the table: "OraclePriceFM" */
+  OraclePriceFM: OraclePriceFM[]
+  /** fetch aggregated fields from the table: "OraclePriceFM" */
+  OraclePriceFM_aggregate: OraclePriceFM_aggregate
+  /** fetch data from the table: "OraclePriceFM" using primary key columns */
+  OraclePriceFM_by_pk: OraclePriceFM | null
   /** fetch data from the table: "ProjectFee" */
   ProjectFee: ProjectFee[]
   /** fetch aggregated fields from the table: "ProjectFee" */
@@ -2928,6 +3573,16 @@ export interface query_root {
   ProtocolFee_aggregate: ProtocolFee_aggregate
   /** fetch data from the table: "ProtocolFee" using primary key columns */
   ProtocolFee_by_pk: ProtocolFee | null
+  /** fetch data from the table: "RedemptionPaymentOrder" */
+  RedemptionPaymentOrder: RedemptionPaymentOrder[]
+  /** fetch aggregated fields from the table: "RedemptionPaymentOrder" */
+  RedemptionPaymentOrder_aggregate: RedemptionPaymentOrder_aggregate
+  /** fetch data from the table: "RedemptionPaymentOrder" using primary key columns */
+  RedemptionPaymentOrder_by_pk: RedemptionPaymentOrder | null
+  /** fetch data from the table: "Role" */
+  Role: Role[]
+  /** fetch data from the table: "Role" using primary key columns */
+  Role_by_pk: Role | null
   /** fetch data from the table: "StreamingPaymentProcessor" */
   StreamingPaymentProcessor: StreamingPaymentProcessor[]
   /** fetch data from the table: "StreamingPaymentProcessor" using primary key columns */
@@ -3024,6 +3679,12 @@ export type raw_events_select_column =
   | 'transaction_fields'
 
 export interface subscription_root {
+  /** fetch data from the table: "AutRoles" */
+  AutRoles: AutRoles[]
+  /** fetch data from the table: "AutRoles" using primary key columns */
+  AutRoles_by_pk: AutRoles | null
+  /** fetch data from the table in a streaming manner: "AutRoles" */
+  AutRoles_stream: AutRoles[]
   /** fetch data from the table: "BondingCurve" */
   BondingCurve: BondingCurve[]
   /** fetch aggregated fields from the table: "BondingCurve" */
@@ -3092,6 +3753,12 @@ export interface subscription_root {
   Deposit_by_pk: Deposit | null
   /** fetch data from the table in a streaming manner: "Deposit" */
   Deposit_stream: Deposit[]
+  /** fetch data from the table: "ExternalPriceSetter" */
+  ExternalPriceSetter: ExternalPriceSetter[]
+  /** fetch data from the table: "ExternalPriceSetter" using primary key columns */
+  ExternalPriceSetter_by_pk: ExternalPriceSetter | null
+  /** fetch data from the table in a streaming manner: "ExternalPriceSetter" */
+  ExternalPriceSetter_stream: ExternalPriceSetter[]
   /** fetch data from the table: "IssuanceTokenDayData" */
   IssuanceTokenDayData: IssuanceTokenDayData[]
   /** fetch aggregated fields from the table: "IssuanceTokenDayData" */
@@ -3114,6 +3781,14 @@ export interface subscription_root {
   LinearVesting_by_pk: LinearVesting | null
   /** fetch data from the table in a streaming manner: "LinearVesting" */
   LinearVesting_stream: LinearVesting[]
+  /** fetch data from the table: "OraclePriceFM" */
+  OraclePriceFM: OraclePriceFM[]
+  /** fetch aggregated fields from the table: "OraclePriceFM" */
+  OraclePriceFM_aggregate: OraclePriceFM_aggregate
+  /** fetch data from the table: "OraclePriceFM" using primary key columns */
+  OraclePriceFM_by_pk: OraclePriceFM | null
+  /** fetch data from the table in a streaming manner: "OraclePriceFM" */
+  OraclePriceFM_stream: OraclePriceFM[]
   /** fetch data from the table: "ProjectFee" */
   ProjectFee: ProjectFee[]
   /** fetch aggregated fields from the table: "ProjectFee" */
@@ -3130,6 +3805,20 @@ export interface subscription_root {
   ProtocolFee_by_pk: ProtocolFee | null
   /** fetch data from the table in a streaming manner: "ProtocolFee" */
   ProtocolFee_stream: ProtocolFee[]
+  /** fetch data from the table: "RedemptionPaymentOrder" */
+  RedemptionPaymentOrder: RedemptionPaymentOrder[]
+  /** fetch aggregated fields from the table: "RedemptionPaymentOrder" */
+  RedemptionPaymentOrder_aggregate: RedemptionPaymentOrder_aggregate
+  /** fetch data from the table: "RedemptionPaymentOrder" using primary key columns */
+  RedemptionPaymentOrder_by_pk: RedemptionPaymentOrder | null
+  /** fetch data from the table in a streaming manner: "RedemptionPaymentOrder" */
+  RedemptionPaymentOrder_stream: RedemptionPaymentOrder[]
+  /** fetch data from the table: "Role" */
+  Role: Role[]
+  /** fetch data from the table: "Role" using primary key columns */
+  Role_by_pk: Role | null
+  /** fetch data from the table in a streaming manner: "Role" */
+  Role_stream: Role[]
   /** fetch data from the table: "StreamingPaymentProcessor" */
   StreamingPaymentProcessor: StreamingPaymentProcessor[]
   /** fetch data from the table: "StreamingPaymentProcessor" using primary key columns */
@@ -3217,6 +3906,76 @@ export interface subscription_root {
 
 export type Query = query_root
 export type Subscription = subscription_root
+
+/** columns and relationships of "AutRoles" */
+export interface AutRolesGenqlSelection {
+  address?: boolean | number
+  chainId?: boolean | number
+  db_write_timestamp?: boolean | number
+  id?: boolean | number
+  /** An array relationship */
+  roles?: RoleGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: Role_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: Role_order_by[] | null
+      /** filter the rows returned */
+      where?: Role_bool_exp | null
+    }
+  }
+  /** An object relationship */
+  workflow?: WorkflowGenqlSelection
+  workflow_id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** Boolean expression to filter rows from the table "AutRoles". All fields are combined with a logical 'AND'. */
+export interface AutRoles_bool_exp {
+  _and?: AutRoles_bool_exp[] | null
+  _not?: AutRoles_bool_exp | null
+  _or?: AutRoles_bool_exp[] | null
+  address?: String_comparison_exp | null
+  chainId?: Int_comparison_exp | null
+  db_write_timestamp?: timestamp_comparison_exp | null
+  id?: String_comparison_exp | null
+  roles?: Role_bool_exp | null
+  workflow?: Workflow_bool_exp | null
+  workflow_id?: String_comparison_exp | null
+}
+
+/** Ordering options when selecting data from "AutRoles". */
+export interface AutRoles_order_by {
+  address?: order_by | null
+  chainId?: order_by | null
+  db_write_timestamp?: order_by | null
+  id?: order_by | null
+  roles_aggregate?: Role_aggregate_order_by | null
+  workflow?: Workflow_order_by | null
+  workflow_id?: order_by | null
+}
+
+/** Streaming cursor of the table "AutRoles" */
+export interface AutRoles_stream_cursor_input {
+  /** Stream column input with initial value */
+  initial_value: AutRoles_stream_cursor_value_input
+  /** cursor ordering */
+  ordering?: cursor_ordering | null
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface AutRoles_stream_cursor_value_input {
+  address?: Scalars['String'] | null
+  chainId?: Scalars['Int'] | null
+  db_write_timestamp?: Scalars['timestamp'] | null
+  id?: Scalars['String'] | null
+  workflow_id?: Scalars['String'] | null
+}
 
 /** columns and relationships of "BondingCurve" */
 export interface BondingCurveGenqlSelection {
@@ -3788,7 +4547,9 @@ export interface BountyGenqlSelection {
   id?: boolean | number
   locked?: boolean | number
   maximumPayoutAmount?: boolean | number
+  maximumPayoutAmountUSD?: boolean | number
   minimumPayoutAmount?: boolean | number
+  minimumPayoutAmountUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -3965,6 +4726,7 @@ export interface BountyContributorGenqlSelection {
   bountyClaim?: BountyClaimGenqlSelection
   bountyClaim_id?: boolean | number
   claimAmount?: boolean | number
+  claimAmountUSD?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
   __typename?: boolean | number
@@ -3989,6 +4751,7 @@ export interface BountyContributor_aggregate_order_by {
 /** order by avg() on columns of table "BountyContributor" */
 export interface BountyContributor_avg_order_by {
   claimAmount?: order_by | null
+  claimAmountUSD?: order_by | null
 }
 
 /** Boolean expression to filter rows from the table "BountyContributor". All fields are combined with a logical 'AND'. */
@@ -4000,6 +4763,7 @@ export interface BountyContributor_bool_exp {
   bountyClaim?: BountyClaim_bool_exp | null
   bountyClaim_id?: String_comparison_exp | null
   claimAmount?: numeric_comparison_exp | null
+  claimAmountUSD?: numeric_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   id?: String_comparison_exp | null
 }
@@ -4009,6 +4773,7 @@ export interface BountyContributor_max_order_by {
   address?: order_by | null
   bountyClaim_id?: order_by | null
   claimAmount?: order_by | null
+  claimAmountUSD?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
 }
@@ -4018,6 +4783,7 @@ export interface BountyContributor_min_order_by {
   address?: order_by | null
   bountyClaim_id?: order_by | null
   claimAmount?: order_by | null
+  claimAmountUSD?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
 }
@@ -4028,6 +4794,7 @@ export interface BountyContributor_order_by {
   bountyClaim?: BountyClaim_order_by | null
   bountyClaim_id?: order_by | null
   claimAmount?: order_by | null
+  claimAmountUSD?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
 }
@@ -4035,16 +4802,19 @@ export interface BountyContributor_order_by {
 /** order by stddev() on columns of table "BountyContributor" */
 export interface BountyContributor_stddev_order_by {
   claimAmount?: order_by | null
+  claimAmountUSD?: order_by | null
 }
 
 /** order by stddev_pop() on columns of table "BountyContributor" */
 export interface BountyContributor_stddev_pop_order_by {
   claimAmount?: order_by | null
+  claimAmountUSD?: order_by | null
 }
 
 /** order by stddev_samp() on columns of table "BountyContributor" */
 export interface BountyContributor_stddev_samp_order_by {
   claimAmount?: order_by | null
+  claimAmountUSD?: order_by | null
 }
 
 /** Streaming cursor of the table "BountyContributor" */
@@ -4060,6 +4830,7 @@ export interface BountyContributor_stream_cursor_value_input {
   address?: Scalars['String'] | null
   bountyClaim_id?: Scalars['String'] | null
   claimAmount?: Scalars['numeric'] | null
+  claimAmountUSD?: Scalars['numeric'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
 }
@@ -4067,25 +4838,30 @@ export interface BountyContributor_stream_cursor_value_input {
 /** order by sum() on columns of table "BountyContributor" */
 export interface BountyContributor_sum_order_by {
   claimAmount?: order_by | null
+  claimAmountUSD?: order_by | null
 }
 
 /** order by var_pop() on columns of table "BountyContributor" */
 export interface BountyContributor_var_pop_order_by {
   claimAmount?: order_by | null
+  claimAmountUSD?: order_by | null
 }
 
 /** order by var_samp() on columns of table "BountyContributor" */
 export interface BountyContributor_var_samp_order_by {
   claimAmount?: order_by | null
+  claimAmountUSD?: order_by | null
 }
 
 /** order by variance() on columns of table "BountyContributor" */
 export interface BountyContributor_variance_order_by {
   claimAmount?: order_by | null
+  claimAmountUSD?: order_by | null
 }
 
 /** columns and relationships of "BountyModule" */
 export interface BountyModuleGenqlSelection {
+  address?: boolean | number
   /** An array relationship */
   bounties?: BountyGenqlSelection & {
     __args?: {
@@ -4120,6 +4896,9 @@ export interface BountyModuleGenqlSelection {
   db_write_timestamp?: boolean | number
   id?: boolean | number
   /** An object relationship */
+  token?: TokenGenqlSelection
+  token_id?: boolean | number
+  /** An object relationship */
   workflow?: WorkflowGenqlSelection
   workflow_id?: boolean | number
   __typename?: boolean | number
@@ -4131,21 +4910,27 @@ export interface BountyModule_bool_exp {
   _and?: BountyModule_bool_exp[] | null
   _not?: BountyModule_bool_exp | null
   _or?: BountyModule_bool_exp[] | null
+  address?: String_comparison_exp | null
   bounties?: Bounty_bool_exp | null
   bounties_aggregate?: Bounty_aggregate_bool_exp | null
   chainId?: Int_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   id?: String_comparison_exp | null
+  token?: Token_bool_exp | null
+  token_id?: String_comparison_exp | null
   workflow?: Workflow_bool_exp | null
   workflow_id?: String_comparison_exp | null
 }
 
 /** Ordering options when selecting data from "BountyModule". */
 export interface BountyModule_order_by {
+  address?: order_by | null
   bounties_aggregate?: Bounty_aggregate_order_by | null
   chainId?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
+  token?: Token_order_by | null
+  token_id?: order_by | null
   workflow?: Workflow_order_by | null
   workflow_id?: order_by | null
 }
@@ -4160,9 +4945,11 @@ export interface BountyModule_stream_cursor_input {
 
 /** Initial value of the column from where the streaming should start */
 export interface BountyModule_stream_cursor_value_input {
+  address?: Scalars['String'] | null
   chainId?: Scalars['Int'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
+  token_id?: Scalars['String'] | null
   workflow_id?: Scalars['String'] | null
 }
 
@@ -4244,7 +5031,9 @@ export interface Bounty_aggregate_order_by {
 /** aggregate avg on columns */
 export interface Bounty_avg_fieldsGenqlSelection {
   maximumPayoutAmount?: boolean | number
+  maximumPayoutAmountUSD?: boolean | number
   minimumPayoutAmount?: boolean | number
+  minimumPayoutAmountUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -4252,7 +5041,9 @@ export interface Bounty_avg_fieldsGenqlSelection {
 /** order by avg() on columns of table "Bounty" */
 export interface Bounty_avg_order_by {
   maximumPayoutAmount?: order_by | null
+  maximumPayoutAmountUSD?: order_by | null
   minimumPayoutAmount?: order_by | null
+  minimumPayoutAmountUSD?: order_by | null
 }
 
 /** Boolean expression to filter rows from the table "Bounty". All fields are combined with a logical 'AND'. */
@@ -4269,7 +5060,9 @@ export interface Bounty_bool_exp {
   id?: String_comparison_exp | null
   locked?: Boolean_comparison_exp | null
   maximumPayoutAmount?: numeric_comparison_exp | null
+  maximumPayoutAmountUSD?: numeric_comparison_exp | null
   minimumPayoutAmount?: numeric_comparison_exp | null
+  minimumPayoutAmountUSD?: numeric_comparison_exp | null
 }
 
 /** aggregate max on columns */
@@ -4279,7 +5072,9 @@ export interface Bounty_max_fieldsGenqlSelection {
   details?: boolean | number
   id?: boolean | number
   maximumPayoutAmount?: boolean | number
+  maximumPayoutAmountUSD?: boolean | number
   minimumPayoutAmount?: boolean | number
+  minimumPayoutAmountUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -4291,7 +5086,9 @@ export interface Bounty_max_order_by {
   details?: order_by | null
   id?: order_by | null
   maximumPayoutAmount?: order_by | null
+  maximumPayoutAmountUSD?: order_by | null
   minimumPayoutAmount?: order_by | null
+  minimumPayoutAmountUSD?: order_by | null
 }
 
 /** aggregate min on columns */
@@ -4301,7 +5098,9 @@ export interface Bounty_min_fieldsGenqlSelection {
   details?: boolean | number
   id?: boolean | number
   maximumPayoutAmount?: boolean | number
+  maximumPayoutAmountUSD?: boolean | number
   minimumPayoutAmount?: boolean | number
+  minimumPayoutAmountUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -4313,7 +5112,9 @@ export interface Bounty_min_order_by {
   details?: order_by | null
   id?: order_by | null
   maximumPayoutAmount?: order_by | null
+  maximumPayoutAmountUSD?: order_by | null
   minimumPayoutAmount?: order_by | null
+  minimumPayoutAmountUSD?: order_by | null
 }
 
 /** Ordering options when selecting data from "Bounty". */
@@ -4326,13 +5127,17 @@ export interface Bounty_order_by {
   id?: order_by | null
   locked?: order_by | null
   maximumPayoutAmount?: order_by | null
+  maximumPayoutAmountUSD?: order_by | null
   minimumPayoutAmount?: order_by | null
+  minimumPayoutAmountUSD?: order_by | null
 }
 
 /** aggregate stddev on columns */
 export interface Bounty_stddev_fieldsGenqlSelection {
   maximumPayoutAmount?: boolean | number
+  maximumPayoutAmountUSD?: boolean | number
   minimumPayoutAmount?: boolean | number
+  minimumPayoutAmountUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -4340,13 +5145,17 @@ export interface Bounty_stddev_fieldsGenqlSelection {
 /** order by stddev() on columns of table "Bounty" */
 export interface Bounty_stddev_order_by {
   maximumPayoutAmount?: order_by | null
+  maximumPayoutAmountUSD?: order_by | null
   minimumPayoutAmount?: order_by | null
+  minimumPayoutAmountUSD?: order_by | null
 }
 
 /** aggregate stddev_pop on columns */
 export interface Bounty_stddev_pop_fieldsGenqlSelection {
   maximumPayoutAmount?: boolean | number
+  maximumPayoutAmountUSD?: boolean | number
   minimumPayoutAmount?: boolean | number
+  minimumPayoutAmountUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -4354,13 +5163,17 @@ export interface Bounty_stddev_pop_fieldsGenqlSelection {
 /** order by stddev_pop() on columns of table "Bounty" */
 export interface Bounty_stddev_pop_order_by {
   maximumPayoutAmount?: order_by | null
+  maximumPayoutAmountUSD?: order_by | null
   minimumPayoutAmount?: order_by | null
+  minimumPayoutAmountUSD?: order_by | null
 }
 
 /** aggregate stddev_samp on columns */
 export interface Bounty_stddev_samp_fieldsGenqlSelection {
   maximumPayoutAmount?: boolean | number
+  maximumPayoutAmountUSD?: boolean | number
   minimumPayoutAmount?: boolean | number
+  minimumPayoutAmountUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -4368,7 +5181,9 @@ export interface Bounty_stddev_samp_fieldsGenqlSelection {
 /** order by stddev_samp() on columns of table "Bounty" */
 export interface Bounty_stddev_samp_order_by {
   maximumPayoutAmount?: order_by | null
+  maximumPayoutAmountUSD?: order_by | null
   minimumPayoutAmount?: order_by | null
+  minimumPayoutAmountUSD?: order_by | null
 }
 
 /** Streaming cursor of the table "Bounty" */
@@ -4387,13 +5202,17 @@ export interface Bounty_stream_cursor_value_input {
   id?: Scalars['String'] | null
   locked?: Scalars['Boolean'] | null
   maximumPayoutAmount?: Scalars['numeric'] | null
+  maximumPayoutAmountUSD?: Scalars['numeric'] | null
   minimumPayoutAmount?: Scalars['numeric'] | null
+  minimumPayoutAmountUSD?: Scalars['numeric'] | null
 }
 
 /** aggregate sum on columns */
 export interface Bounty_sum_fieldsGenqlSelection {
   maximumPayoutAmount?: boolean | number
+  maximumPayoutAmountUSD?: boolean | number
   minimumPayoutAmount?: boolean | number
+  minimumPayoutAmountUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -4401,13 +5220,17 @@ export interface Bounty_sum_fieldsGenqlSelection {
 /** order by sum() on columns of table "Bounty" */
 export interface Bounty_sum_order_by {
   maximumPayoutAmount?: order_by | null
+  maximumPayoutAmountUSD?: order_by | null
   minimumPayoutAmount?: order_by | null
+  minimumPayoutAmountUSD?: order_by | null
 }
 
 /** aggregate var_pop on columns */
 export interface Bounty_var_pop_fieldsGenqlSelection {
   maximumPayoutAmount?: boolean | number
+  maximumPayoutAmountUSD?: boolean | number
   minimumPayoutAmount?: boolean | number
+  minimumPayoutAmountUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -4415,13 +5238,17 @@ export interface Bounty_var_pop_fieldsGenqlSelection {
 /** order by var_pop() on columns of table "Bounty" */
 export interface Bounty_var_pop_order_by {
   maximumPayoutAmount?: order_by | null
+  maximumPayoutAmountUSD?: order_by | null
   minimumPayoutAmount?: order_by | null
+  minimumPayoutAmountUSD?: order_by | null
 }
 
 /** aggregate var_samp on columns */
 export interface Bounty_var_samp_fieldsGenqlSelection {
   maximumPayoutAmount?: boolean | number
+  maximumPayoutAmountUSD?: boolean | number
   minimumPayoutAmount?: boolean | number
+  minimumPayoutAmountUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -4429,13 +5256,17 @@ export interface Bounty_var_samp_fieldsGenqlSelection {
 /** order by var_samp() on columns of table "Bounty" */
 export interface Bounty_var_samp_order_by {
   maximumPayoutAmount?: order_by | null
+  maximumPayoutAmountUSD?: order_by | null
   minimumPayoutAmount?: order_by | null
+  minimumPayoutAmountUSD?: order_by | null
 }
 
 /** aggregate variance on columns */
 export interface Bounty_variance_fieldsGenqlSelection {
   maximumPayoutAmount?: boolean | number
+  maximumPayoutAmountUSD?: boolean | number
   minimumPayoutAmount?: boolean | number
+  minimumPayoutAmountUSD?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -4443,11 +5274,14 @@ export interface Bounty_variance_fieldsGenqlSelection {
 /** order by variance() on columns of table "Bounty" */
 export interface Bounty_variance_order_by {
   maximumPayoutAmount?: order_by | null
+  maximumPayoutAmountUSD?: order_by | null
   minimumPayoutAmount?: order_by | null
+  minimumPayoutAmountUSD?: order_by | null
 }
 
 /** columns and relationships of "CurveDayData" */
 export interface CurveDayDataGenqlSelection {
+  address?: boolean | number
   chainId?: boolean | number
   closeCOL?: boolean | number
   closeUSD?: boolean | number
@@ -4456,6 +5290,7 @@ export interface CurveDayDataGenqlSelection {
   collateralToken_id?: boolean | number
   date?: boolean | number
   db_write_timestamp?: boolean | number
+  fundingManager_id?: boolean | number
   highCOL?: boolean | number
   highUSD?: boolean | number
   id?: boolean | number
@@ -4464,7 +5299,6 @@ export interface CurveDayDataGenqlSelection {
   issuanceToken_id?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
-  module_id?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   priceCOL?: boolean | number
@@ -4595,6 +5429,7 @@ export interface CurveDayData_bool_exp {
   _and?: CurveDayData_bool_exp[] | null
   _not?: CurveDayData_bool_exp | null
   _or?: CurveDayData_bool_exp[] | null
+  address?: String_comparison_exp | null
   chainId?: Int_comparison_exp | null
   closeCOL?: numeric_comparison_exp | null
   closeUSD?: numeric_comparison_exp | null
@@ -4602,6 +5437,7 @@ export interface CurveDayData_bool_exp {
   collateralToken_id?: String_comparison_exp | null
   date?: Int_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
+  fundingManager_id?: String_comparison_exp | null
   highCOL?: numeric_comparison_exp | null
   highUSD?: numeric_comparison_exp | null
   id?: String_comparison_exp | null
@@ -4609,7 +5445,6 @@ export interface CurveDayData_bool_exp {
   issuanceToken_id?: String_comparison_exp | null
   lowCOL?: numeric_comparison_exp | null
   lowUSD?: numeric_comparison_exp | null
-  module_id?: String_comparison_exp | null
   openCOL?: numeric_comparison_exp | null
   openUSD?: numeric_comparison_exp | null
   priceCOL?: numeric_comparison_exp | null
@@ -4626,19 +5461,20 @@ export interface CurveDayData_bool_exp {
 
 /** aggregate max on columns */
 export interface CurveDayData_max_fieldsGenqlSelection {
+  address?: boolean | number
   chainId?: boolean | number
   closeCOL?: boolean | number
   closeUSD?: boolean | number
   collateralToken_id?: boolean | number
   date?: boolean | number
   db_write_timestamp?: boolean | number
+  fundingManager_id?: boolean | number
   highCOL?: boolean | number
   highUSD?: boolean | number
   id?: boolean | number
   issuanceToken_id?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
-  module_id?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   priceCOL?: boolean | number
@@ -4657,19 +5493,20 @@ export interface CurveDayData_max_fieldsGenqlSelection {
 
 /** order by max() on columns of table "CurveDayData" */
 export interface CurveDayData_max_order_by {
+  address?: order_by | null
   chainId?: order_by | null
   closeCOL?: order_by | null
   closeUSD?: order_by | null
   collateralToken_id?: order_by | null
   date?: order_by | null
   db_write_timestamp?: order_by | null
+  fundingManager_id?: order_by | null
   highCOL?: order_by | null
   highUSD?: order_by | null
   id?: order_by | null
   issuanceToken_id?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
-  module_id?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   priceCOL?: order_by | null
@@ -4686,19 +5523,20 @@ export interface CurveDayData_max_order_by {
 
 /** aggregate min on columns */
 export interface CurveDayData_min_fieldsGenqlSelection {
+  address?: boolean | number
   chainId?: boolean | number
   closeCOL?: boolean | number
   closeUSD?: boolean | number
   collateralToken_id?: boolean | number
   date?: boolean | number
   db_write_timestamp?: boolean | number
+  fundingManager_id?: boolean | number
   highCOL?: boolean | number
   highUSD?: boolean | number
   id?: boolean | number
   issuanceToken_id?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
-  module_id?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   priceCOL?: boolean | number
@@ -4717,19 +5555,20 @@ export interface CurveDayData_min_fieldsGenqlSelection {
 
 /** order by min() on columns of table "CurveDayData" */
 export interface CurveDayData_min_order_by {
+  address?: order_by | null
   chainId?: order_by | null
   closeCOL?: order_by | null
   closeUSD?: order_by | null
   collateralToken_id?: order_by | null
   date?: order_by | null
   db_write_timestamp?: order_by | null
+  fundingManager_id?: order_by | null
   highCOL?: order_by | null
   highUSD?: order_by | null
   id?: order_by | null
   issuanceToken_id?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
-  module_id?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   priceCOL?: order_by | null
@@ -4746,6 +5585,7 @@ export interface CurveDayData_min_order_by {
 
 /** Ordering options when selecting data from "CurveDayData". */
 export interface CurveDayData_order_by {
+  address?: order_by | null
   chainId?: order_by | null
   closeCOL?: order_by | null
   closeUSD?: order_by | null
@@ -4753,6 +5593,7 @@ export interface CurveDayData_order_by {
   collateralToken_id?: order_by | null
   date?: order_by | null
   db_write_timestamp?: order_by | null
+  fundingManager_id?: order_by | null
   highCOL?: order_by | null
   highUSD?: order_by | null
   id?: order_by | null
@@ -4760,7 +5601,6 @@ export interface CurveDayData_order_by {
   issuanceToken_id?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
-  module_id?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   priceCOL?: order_by | null
@@ -4935,19 +5775,20 @@ export interface CurveDayData_stream_cursor_input {
 
 /** Initial value of the column from where the streaming should start */
 export interface CurveDayData_stream_cursor_value_input {
+  address?: Scalars['String'] | null
   chainId?: Scalars['Int'] | null
   closeCOL?: Scalars['numeric'] | null
   closeUSD?: Scalars['numeric'] | null
   collateralToken_id?: Scalars['String'] | null
   date?: Scalars['Int'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
+  fundingManager_id?: Scalars['String'] | null
   highCOL?: Scalars['numeric'] | null
   highUSD?: Scalars['numeric'] | null
   id?: Scalars['String'] | null
   issuanceToken_id?: Scalars['String'] | null
   lowCOL?: Scalars['numeric'] | null
   lowUSD?: Scalars['numeric'] | null
-  module_id?: Scalars['String'] | null
   openCOL?: Scalars['numeric'] | null
   openUSD?: Scalars['numeric'] | null
   priceCOL?: Scalars['numeric'] | null
@@ -5164,6 +6005,7 @@ export interface CurveDayData_variance_order_by {
 
 /** columns and relationships of "CurveHourData" */
 export interface CurveHourDataGenqlSelection {
+  address?: boolean | number
   chainId?: boolean | number
   closeCOL?: boolean | number
   closeUSD?: boolean | number
@@ -5171,6 +6013,7 @@ export interface CurveHourDataGenqlSelection {
   collateralToken?: TokenGenqlSelection
   collateralToken_id?: boolean | number
   db_write_timestamp?: boolean | number
+  fundingManager_id?: boolean | number
   highCOL?: boolean | number
   highUSD?: boolean | number
   id?: boolean | number
@@ -5179,7 +6022,6 @@ export interface CurveHourDataGenqlSelection {
   issuanceToken_id?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
-  module_id?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
@@ -5311,12 +6153,14 @@ export interface CurveHourData_bool_exp {
   _and?: CurveHourData_bool_exp[] | null
   _not?: CurveHourData_bool_exp | null
   _or?: CurveHourData_bool_exp[] | null
+  address?: String_comparison_exp | null
   chainId?: Int_comparison_exp | null
   closeCOL?: numeric_comparison_exp | null
   closeUSD?: numeric_comparison_exp | null
   collateralToken?: Token_bool_exp | null
   collateralToken_id?: String_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
+  fundingManager_id?: String_comparison_exp | null
   highCOL?: numeric_comparison_exp | null
   highUSD?: numeric_comparison_exp | null
   id?: String_comparison_exp | null
@@ -5324,7 +6168,6 @@ export interface CurveHourData_bool_exp {
   issuanceToken_id?: String_comparison_exp | null
   lowCOL?: numeric_comparison_exp | null
   lowUSD?: numeric_comparison_exp | null
-  module_id?: String_comparison_exp | null
   openCOL?: numeric_comparison_exp | null
   openUSD?: numeric_comparison_exp | null
   periodStartUnix?: Int_comparison_exp | null
@@ -5342,18 +6185,19 @@ export interface CurveHourData_bool_exp {
 
 /** aggregate max on columns */
 export interface CurveHourData_max_fieldsGenqlSelection {
+  address?: boolean | number
   chainId?: boolean | number
   closeCOL?: boolean | number
   closeUSD?: boolean | number
   collateralToken_id?: boolean | number
   db_write_timestamp?: boolean | number
+  fundingManager_id?: boolean | number
   highCOL?: boolean | number
   highUSD?: boolean | number
   id?: boolean | number
   issuanceToken_id?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
-  module_id?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
@@ -5373,18 +6217,19 @@ export interface CurveHourData_max_fieldsGenqlSelection {
 
 /** order by max() on columns of table "CurveHourData" */
 export interface CurveHourData_max_order_by {
+  address?: order_by | null
   chainId?: order_by | null
   closeCOL?: order_by | null
   closeUSD?: order_by | null
   collateralToken_id?: order_by | null
   db_write_timestamp?: order_by | null
+  fundingManager_id?: order_by | null
   highCOL?: order_by | null
   highUSD?: order_by | null
   id?: order_by | null
   issuanceToken_id?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
-  module_id?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
@@ -5402,18 +6247,19 @@ export interface CurveHourData_max_order_by {
 
 /** aggregate min on columns */
 export interface CurveHourData_min_fieldsGenqlSelection {
+  address?: boolean | number
   chainId?: boolean | number
   closeCOL?: boolean | number
   closeUSD?: boolean | number
   collateralToken_id?: boolean | number
   db_write_timestamp?: boolean | number
+  fundingManager_id?: boolean | number
   highCOL?: boolean | number
   highUSD?: boolean | number
   id?: boolean | number
   issuanceToken_id?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
-  module_id?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
@@ -5433,18 +6279,19 @@ export interface CurveHourData_min_fieldsGenqlSelection {
 
 /** order by min() on columns of table "CurveHourData" */
 export interface CurveHourData_min_order_by {
+  address?: order_by | null
   chainId?: order_by | null
   closeCOL?: order_by | null
   closeUSD?: order_by | null
   collateralToken_id?: order_by | null
   db_write_timestamp?: order_by | null
+  fundingManager_id?: order_by | null
   highCOL?: order_by | null
   highUSD?: order_by | null
   id?: order_by | null
   issuanceToken_id?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
-  module_id?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
@@ -5462,12 +6309,14 @@ export interface CurveHourData_min_order_by {
 
 /** Ordering options when selecting data from "CurveHourData". */
 export interface CurveHourData_order_by {
+  address?: order_by | null
   chainId?: order_by | null
   closeCOL?: order_by | null
   closeUSD?: order_by | null
   collateralToken?: Token_order_by | null
   collateralToken_id?: order_by | null
   db_write_timestamp?: order_by | null
+  fundingManager_id?: order_by | null
   highCOL?: order_by | null
   highUSD?: order_by | null
   id?: order_by | null
@@ -5475,7 +6324,6 @@ export interface CurveHourData_order_by {
   issuanceToken_id?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
-  module_id?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
@@ -5651,18 +6499,19 @@ export interface CurveHourData_stream_cursor_input {
 
 /** Initial value of the column from where the streaming should start */
 export interface CurveHourData_stream_cursor_value_input {
+  address?: Scalars['String'] | null
   chainId?: Scalars['Int'] | null
   closeCOL?: Scalars['numeric'] | null
   closeUSD?: Scalars['numeric'] | null
   collateralToken_id?: Scalars['String'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
+  fundingManager_id?: Scalars['String'] | null
   highCOL?: Scalars['numeric'] | null
   highUSD?: Scalars['numeric'] | null
   id?: Scalars['String'] | null
   issuanceToken_id?: Scalars['String'] | null
   lowCOL?: Scalars['numeric'] | null
   lowUSD?: Scalars['numeric'] | null
-  module_id?: Scalars['String'] | null
   openCOL?: Scalars['numeric'] | null
   openUSD?: Scalars['numeric'] | null
   periodStartUnix?: Scalars['Int'] | null
@@ -5882,13 +6731,13 @@ export interface CurveHourData_variance_order_by {
 export interface DepositGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   db_write_timestamp?: boolean | number
   /** An object relationship */
   depositVault?: DepositVaultGenqlSelection
   depositVault_id?: boolean | number
   depositor?: boolean | number
   id?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -6224,7 +7073,7 @@ export interface Deposit_aggregate_order_by {
 export interface Deposit_avg_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -6233,7 +7082,7 @@ export interface Deposit_avg_fieldsGenqlSelection {
 export interface Deposit_avg_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** Boolean expression to filter rows from the table "Deposit". All fields are combined with a logical 'AND'. */
@@ -6243,23 +7092,23 @@ export interface Deposit_bool_exp {
   _or?: Deposit_bool_exp[] | null
   amount?: numeric_comparison_exp | null
   amountUSD?: numeric_comparison_exp | null
-  blockTimestamp?: Int_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   depositVault?: DepositVault_bool_exp | null
   depositVault_id?: String_comparison_exp | null
   depositor?: String_comparison_exp | null
   id?: String_comparison_exp | null
+  timestamp?: Int_comparison_exp | null
 }
 
 /** aggregate max on columns */
 export interface Deposit_max_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   db_write_timestamp?: boolean | number
   depositVault_id?: boolean | number
   depositor?: boolean | number
   id?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -6268,22 +7117,22 @@ export interface Deposit_max_fieldsGenqlSelection {
 export interface Deposit_max_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   db_write_timestamp?: order_by | null
   depositVault_id?: order_by | null
   depositor?: order_by | null
   id?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate min on columns */
 export interface Deposit_min_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   db_write_timestamp?: boolean | number
   depositVault_id?: boolean | number
   depositor?: boolean | number
   id?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -6292,30 +7141,30 @@ export interface Deposit_min_fieldsGenqlSelection {
 export interface Deposit_min_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   db_write_timestamp?: order_by | null
   depositVault_id?: order_by | null
   depositor?: order_by | null
   id?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** Ordering options when selecting data from "Deposit". */
 export interface Deposit_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   db_write_timestamp?: order_by | null
   depositVault?: DepositVault_order_by | null
   depositVault_id?: order_by | null
   depositor?: order_by | null
   id?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate stddev on columns */
 export interface Deposit_stddev_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -6324,14 +7173,14 @@ export interface Deposit_stddev_fieldsGenqlSelection {
 export interface Deposit_stddev_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate stddev_pop on columns */
 export interface Deposit_stddev_pop_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -6340,14 +7189,14 @@ export interface Deposit_stddev_pop_fieldsGenqlSelection {
 export interface Deposit_stddev_pop_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate stddev_samp on columns */
 export interface Deposit_stddev_samp_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -6356,7 +7205,7 @@ export interface Deposit_stddev_samp_fieldsGenqlSelection {
 export interface Deposit_stddev_samp_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** Streaming cursor of the table "Deposit" */
@@ -6371,18 +7220,18 @@ export interface Deposit_stream_cursor_input {
 export interface Deposit_stream_cursor_value_input {
   amount?: Scalars['numeric'] | null
   amountUSD?: Scalars['numeric'] | null
-  blockTimestamp?: Scalars['Int'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   depositVault_id?: Scalars['String'] | null
   depositor?: Scalars['String'] | null
   id?: Scalars['String'] | null
+  timestamp?: Scalars['Int'] | null
 }
 
 /** aggregate sum on columns */
 export interface Deposit_sum_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -6391,14 +7240,14 @@ export interface Deposit_sum_fieldsGenqlSelection {
 export interface Deposit_sum_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate var_pop on columns */
 export interface Deposit_var_pop_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -6407,14 +7256,14 @@ export interface Deposit_var_pop_fieldsGenqlSelection {
 export interface Deposit_var_pop_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate var_samp on columns */
 export interface Deposit_var_samp_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -6423,14 +7272,14 @@ export interface Deposit_var_samp_fieldsGenqlSelection {
 export interface Deposit_var_samp_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate variance on columns */
 export interface Deposit_variance_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -6439,7 +7288,88 @@ export interface Deposit_variance_fieldsGenqlSelection {
 export interface Deposit_variance_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** columns and relationships of "ExternalPriceSetter" */
+export interface ExternalPriceSetterGenqlSelection {
+  address?: boolean | number
+  chainId?: boolean | number
+  /** An object relationship */
+  collateralToken?: TokenGenqlSelection
+  collateralToken_id?: boolean | number
+  db_write_timestamp?: boolean | number
+  id?: boolean | number
+  /** An object relationship */
+  issuanceToken?: TokenGenqlSelection
+  issuanceToken_id?: boolean | number
+  priceCOL?: boolean | number
+  priceISS?: boolean | number
+  priceUSD?: boolean | number
+  /** An object relationship */
+  workflow?: WorkflowGenqlSelection
+  workflow_id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** Boolean expression to filter rows from the table "ExternalPriceSetter". All fields are combined with a logical 'AND'. */
+export interface ExternalPriceSetter_bool_exp {
+  _and?: ExternalPriceSetter_bool_exp[] | null
+  _not?: ExternalPriceSetter_bool_exp | null
+  _or?: ExternalPriceSetter_bool_exp[] | null
+  address?: String_comparison_exp | null
+  chainId?: Int_comparison_exp | null
+  collateralToken?: Token_bool_exp | null
+  collateralToken_id?: String_comparison_exp | null
+  db_write_timestamp?: timestamp_comparison_exp | null
+  id?: String_comparison_exp | null
+  issuanceToken?: Token_bool_exp | null
+  issuanceToken_id?: String_comparison_exp | null
+  priceCOL?: numeric_comparison_exp | null
+  priceISS?: numeric_comparison_exp | null
+  priceUSD?: numeric_comparison_exp | null
+  workflow?: Workflow_bool_exp | null
+  workflow_id?: String_comparison_exp | null
+}
+
+/** Ordering options when selecting data from "ExternalPriceSetter". */
+export interface ExternalPriceSetter_order_by {
+  address?: order_by | null
+  chainId?: order_by | null
+  collateralToken?: Token_order_by | null
+  collateralToken_id?: order_by | null
+  db_write_timestamp?: order_by | null
+  id?: order_by | null
+  issuanceToken?: Token_order_by | null
+  issuanceToken_id?: order_by | null
+  priceCOL?: order_by | null
+  priceISS?: order_by | null
+  priceUSD?: order_by | null
+  workflow?: Workflow_order_by | null
+  workflow_id?: order_by | null
+}
+
+/** Streaming cursor of the table "ExternalPriceSetter" */
+export interface ExternalPriceSetter_stream_cursor_input {
+  /** Stream column input with initial value */
+  initial_value: ExternalPriceSetter_stream_cursor_value_input
+  /** cursor ordering */
+  ordering?: cursor_ordering | null
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface ExternalPriceSetter_stream_cursor_value_input {
+  address?: Scalars['String'] | null
+  chainId?: Scalars['Int'] | null
+  collateralToken_id?: Scalars['String'] | null
+  db_write_timestamp?: Scalars['timestamp'] | null
+  id?: Scalars['String'] | null
+  issuanceToken_id?: Scalars['String'] | null
+  priceCOL?: Scalars['numeric'] | null
+  priceISS?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
+  workflow_id?: Scalars['String'] | null
 }
 
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
@@ -6457,6 +7387,7 @@ export interface Int_comparison_exp {
 
 /** columns and relationships of "IssuanceTokenDayData" */
 export interface IssuanceTokenDayDataGenqlSelection {
+  address?: boolean | number
   chainId?: boolean | number
   closeUSD?: boolean | number
   date?: boolean | number
@@ -6574,6 +7505,7 @@ export interface IssuanceTokenDayData_bool_exp {
   _and?: IssuanceTokenDayData_bool_exp[] | null
   _not?: IssuanceTokenDayData_bool_exp | null
   _or?: IssuanceTokenDayData_bool_exp[] | null
+  address?: String_comparison_exp | null
   chainId?: Int_comparison_exp | null
   closeUSD?: numeric_comparison_exp | null
   date?: Int_comparison_exp | null
@@ -6593,6 +7525,7 @@ export interface IssuanceTokenDayData_bool_exp {
 
 /** aggregate max on columns */
 export interface IssuanceTokenDayData_max_fieldsGenqlSelection {
+  address?: boolean | number
   chainId?: boolean | number
   closeUSD?: boolean | number
   date?: boolean | number
@@ -6614,6 +7547,7 @@ export interface IssuanceTokenDayData_max_fieldsGenqlSelection {
 
 /** order by max() on columns of table "IssuanceTokenDayData" */
 export interface IssuanceTokenDayData_max_order_by {
+  address?: order_by | null
   chainId?: order_by | null
   closeUSD?: order_by | null
   date?: order_by | null
@@ -6633,6 +7567,7 @@ export interface IssuanceTokenDayData_max_order_by {
 
 /** aggregate min on columns */
 export interface IssuanceTokenDayData_min_fieldsGenqlSelection {
+  address?: boolean | number
   chainId?: boolean | number
   closeUSD?: boolean | number
   date?: boolean | number
@@ -6654,6 +7589,7 @@ export interface IssuanceTokenDayData_min_fieldsGenqlSelection {
 
 /** order by min() on columns of table "IssuanceTokenDayData" */
 export interface IssuanceTokenDayData_min_order_by {
+  address?: order_by | null
   chainId?: order_by | null
   closeUSD?: order_by | null
   date?: order_by | null
@@ -6673,6 +7609,7 @@ export interface IssuanceTokenDayData_min_order_by {
 
 /** Ordering options when selecting data from "IssuanceTokenDayData". */
 export interface IssuanceTokenDayData_order_by {
+  address?: order_by | null
   chainId?: order_by | null
   closeUSD?: order_by | null
   date?: order_by | null
@@ -6802,6 +7739,7 @@ export interface IssuanceTokenDayData_stream_cursor_input {
 
 /** Initial value of the column from where the streaming should start */
 export interface IssuanceTokenDayData_stream_cursor_value_input {
+  address?: Scalars['String'] | null
   chainId?: Scalars['Int'] | null
   closeUSD?: Scalars['numeric'] | null
   date?: Scalars['Int'] | null
@@ -6957,6 +7895,7 @@ export interface IssuanceTokenDayData_variance_order_by {
 
 /** columns and relationships of "IssuanceTokenHourData" */
 export interface IssuanceTokenHourDataGenqlSelection {
+  address?: boolean | number
   chainId?: boolean | number
   closeUSD?: boolean | number
   db_write_timestamp?: boolean | number
@@ -7074,6 +8013,7 @@ export interface IssuanceTokenHourData_bool_exp {
   _and?: IssuanceTokenHourData_bool_exp[] | null
   _not?: IssuanceTokenHourData_bool_exp | null
   _or?: IssuanceTokenHourData_bool_exp[] | null
+  address?: String_comparison_exp | null
   chainId?: Int_comparison_exp | null
   closeUSD?: numeric_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
@@ -7093,6 +8033,7 @@ export interface IssuanceTokenHourData_bool_exp {
 
 /** aggregate max on columns */
 export interface IssuanceTokenHourData_max_fieldsGenqlSelection {
+  address?: boolean | number
   chainId?: boolean | number
   closeUSD?: boolean | number
   db_write_timestamp?: boolean | number
@@ -7114,6 +8055,7 @@ export interface IssuanceTokenHourData_max_fieldsGenqlSelection {
 
 /** order by max() on columns of table "IssuanceTokenHourData" */
 export interface IssuanceTokenHourData_max_order_by {
+  address?: order_by | null
   chainId?: order_by | null
   closeUSD?: order_by | null
   db_write_timestamp?: order_by | null
@@ -7133,6 +8075,7 @@ export interface IssuanceTokenHourData_max_order_by {
 
 /** aggregate min on columns */
 export interface IssuanceTokenHourData_min_fieldsGenqlSelection {
+  address?: boolean | number
   chainId?: boolean | number
   closeUSD?: boolean | number
   db_write_timestamp?: boolean | number
@@ -7154,6 +8097,7 @@ export interface IssuanceTokenHourData_min_fieldsGenqlSelection {
 
 /** order by min() on columns of table "IssuanceTokenHourData" */
 export interface IssuanceTokenHourData_min_order_by {
+  address?: order_by | null
   chainId?: order_by | null
   closeUSD?: order_by | null
   db_write_timestamp?: order_by | null
@@ -7173,6 +8117,7 @@ export interface IssuanceTokenHourData_min_order_by {
 
 /** Ordering options when selecting data from "IssuanceTokenHourData". */
 export interface IssuanceTokenHourData_order_by {
+  address?: order_by | null
   chainId?: order_by | null
   closeUSD?: order_by | null
   db_write_timestamp?: order_by | null
@@ -7302,6 +8247,7 @@ export interface IssuanceTokenHourData_stream_cursor_input {
 
 /** Initial value of the column from where the streaming should start */
 export interface IssuanceTokenHourData_stream_cursor_value_input {
+  address?: Scalars['String'] | null
   chainId?: Scalars['Int'] | null
   closeUSD?: Scalars['numeric'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
@@ -7458,7 +8404,6 @@ export interface IssuanceTokenHourData_variance_order_by {
 /** columns and relationships of "LinearVesting" */
 export interface LinearVestingGenqlSelection {
   amount?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
   cliff?: boolean | number
   db_write_timestamp?: boolean | number
@@ -7470,6 +8415,7 @@ export interface LinearVestingGenqlSelection {
   /** An object relationship */
   streamingPaymentProcessor?: StreamingPaymentProcessorGenqlSelection
   streamingPaymentProcessor_id?: boolean | number
+  timestamp?: boolean | number
   /** An object relationship */
   token?: TokenGenqlSelection
   token_id?: boolean | number
@@ -7495,11 +8441,11 @@ export interface LinearVesting_aggregate_order_by {
 /** order by avg() on columns of table "LinearVesting" */
 export interface LinearVesting_avg_order_by {
   amount?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
   end?: order_by | null
   start?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** Boolean expression to filter rows from the table "LinearVesting". All fields are combined with a logical 'AND'. */
@@ -7508,7 +8454,6 @@ export interface LinearVesting_bool_exp {
   _not?: LinearVesting_bool_exp | null
   _or?: LinearVesting_bool_exp[] | null
   amount?: numeric_comparison_exp | null
-  blockTimestamp?: Int_comparison_exp | null
   chainId?: Int_comparison_exp | null
   cliff?: numeric_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
@@ -7519,6 +8464,7 @@ export interface LinearVesting_bool_exp {
   status?: vestingstatus_comparison_exp | null
   streamingPaymentProcessor?: StreamingPaymentProcessor_bool_exp | null
   streamingPaymentProcessor_id?: String_comparison_exp | null
+  timestamp?: Int_comparison_exp | null
   token?: Token_bool_exp | null
   token_id?: String_comparison_exp | null
 }
@@ -7526,7 +8472,6 @@ export interface LinearVesting_bool_exp {
 /** order by max() on columns of table "LinearVesting" */
 export interface LinearVesting_max_order_by {
   amount?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
   db_write_timestamp?: order_by | null
@@ -7536,13 +8481,13 @@ export interface LinearVesting_max_order_by {
   start?: order_by | null
   status?: order_by | null
   streamingPaymentProcessor_id?: order_by | null
+  timestamp?: order_by | null
   token_id?: order_by | null
 }
 
 /** order by min() on columns of table "LinearVesting" */
 export interface LinearVesting_min_order_by {
   amount?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
   db_write_timestamp?: order_by | null
@@ -7552,13 +8497,13 @@ export interface LinearVesting_min_order_by {
   start?: order_by | null
   status?: order_by | null
   streamingPaymentProcessor_id?: order_by | null
+  timestamp?: order_by | null
   token_id?: order_by | null
 }
 
 /** Ordering options when selecting data from "LinearVesting". */
 export interface LinearVesting_order_by {
   amount?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
   db_write_timestamp?: order_by | null
@@ -7569,6 +8514,7 @@ export interface LinearVesting_order_by {
   status?: order_by | null
   streamingPaymentProcessor?: StreamingPaymentProcessor_order_by | null
   streamingPaymentProcessor_id?: order_by | null
+  timestamp?: order_by | null
   token?: Token_order_by | null
   token_id?: order_by | null
 }
@@ -7576,31 +8522,31 @@ export interface LinearVesting_order_by {
 /** order by stddev() on columns of table "LinearVesting" */
 export interface LinearVesting_stddev_order_by {
   amount?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
   end?: order_by | null
   start?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** order by stddev_pop() on columns of table "LinearVesting" */
 export interface LinearVesting_stddev_pop_order_by {
   amount?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
   end?: order_by | null
   start?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** order by stddev_samp() on columns of table "LinearVesting" */
 export interface LinearVesting_stddev_samp_order_by {
   amount?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
   end?: order_by | null
   start?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** Streaming cursor of the table "LinearVesting" */
@@ -7614,7 +8560,6 @@ export interface LinearVesting_stream_cursor_input {
 /** Initial value of the column from where the streaming should start */
 export interface LinearVesting_stream_cursor_value_input {
   amount?: Scalars['numeric'] | null
-  blockTimestamp?: Scalars['Int'] | null
   chainId?: Scalars['Int'] | null
   cliff?: Scalars['numeric'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
@@ -7624,59 +8569,454 @@ export interface LinearVesting_stream_cursor_value_input {
   start?: Scalars['numeric'] | null
   status?: Scalars['vestingstatus'] | null
   streamingPaymentProcessor_id?: Scalars['String'] | null
+  timestamp?: Scalars['Int'] | null
   token_id?: Scalars['String'] | null
 }
 
 /** order by sum() on columns of table "LinearVesting" */
 export interface LinearVesting_sum_order_by {
   amount?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
   end?: order_by | null
   start?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** order by var_pop() on columns of table "LinearVesting" */
 export interface LinearVesting_var_pop_order_by {
   amount?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
   end?: order_by | null
   start?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** order by var_samp() on columns of table "LinearVesting" */
 export interface LinearVesting_var_samp_order_by {
   amount?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
   end?: order_by | null
   start?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** order by variance() on columns of table "LinearVesting" */
 export interface LinearVesting_variance_order_by {
   amount?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   cliff?: order_by | null
   end?: order_by | null
   start?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** columns and relationships of "OraclePriceFM" */
+export interface OraclePriceFMGenqlSelection {
+  address?: boolean | number
+  buyFee?: boolean | number
+  chainId?: boolean | number
+  /** An object relationship */
+  collateralToken?: TokenGenqlSelection
+  collateralToken_id?: boolean | number
+  db_write_timestamp?: boolean | number
+  /** An object relationship */
+  externalPriceSetter?: ExternalPriceSetterGenqlSelection
+  externalPriceSetter_id?: boolean | number
+  id?: boolean | number
+  /** An object relationship */
+  issuanceToken?: TokenGenqlSelection
+  issuanceToken_id?: boolean | number
+  /** An array relationship */
+  paymentOrders?: RedemptionPaymentOrderGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: RedemptionPaymentOrder_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: RedemptionPaymentOrder_order_by[] | null
+      /** filter the rows returned */
+      where?: RedemptionPaymentOrder_bool_exp | null
+    }
+  }
+  /** An aggregate relationship */
+  paymentOrders_aggregate?: RedemptionPaymentOrder_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: RedemptionPaymentOrder_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: RedemptionPaymentOrder_order_by[] | null
+      /** filter the rows returned */
+      where?: RedemptionPaymentOrder_bool_exp | null
+    }
+  }
+  pendingRedemptionCOL?: boolean | number
+  pendingRedemptionUSD?: boolean | number
+  /** An array relationship */
+  projectFees?: ProjectFeeGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: ProjectFee_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: ProjectFee_order_by[] | null
+      /** filter the rows returned */
+      where?: ProjectFee_bool_exp | null
+    }
+  }
+  /** An aggregate relationship */
+  projectFees_aggregate?: ProjectFee_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: ProjectFee_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: ProjectFee_order_by[] | null
+      /** filter the rows returned */
+      where?: ProjectFee_bool_exp | null
+    }
+  }
+  /** An array relationship */
+  protocolFees?: ProtocolFeeGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: ProtocolFee_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: ProtocolFee_order_by[] | null
+      /** filter the rows returned */
+      where?: ProtocolFee_bool_exp | null
+    }
+  }
+  /** An aggregate relationship */
+  protocolFees_aggregate?: ProtocolFee_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: ProtocolFee_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: ProtocolFee_order_by[] | null
+      /** filter the rows returned */
+      where?: ProtocolFee_bool_exp | null
+    }
+  }
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  /** An array relationship */
+  swaps?: SwapGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: Swap_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: Swap_order_by[] | null
+      /** filter the rows returned */
+      where?: Swap_bool_exp | null
+    }
+  }
+  /** An object relationship */
+  workflow?: WorkflowGenqlSelection
+  workflow_id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregated selection of "OraclePriceFM" */
+export interface OraclePriceFM_aggregateGenqlSelection {
+  aggregate?: OraclePriceFM_aggregate_fieldsGenqlSelection
+  nodes?: OraclePriceFMGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate fields of "OraclePriceFM" */
+export interface OraclePriceFM_aggregate_fieldsGenqlSelection {
+  avg?: OraclePriceFM_avg_fieldsGenqlSelection
+  count?:
+    | {
+        __args: {
+          columns?: OraclePriceFM_select_column[] | null
+          distinct?: Scalars['Boolean'] | null
+        }
+      }
+    | boolean
+    | number
+  max?: OraclePriceFM_max_fieldsGenqlSelection
+  min?: OraclePriceFM_min_fieldsGenqlSelection
+  stddev?: OraclePriceFM_stddev_fieldsGenqlSelection
+  stddev_pop?: OraclePriceFM_stddev_pop_fieldsGenqlSelection
+  stddev_samp?: OraclePriceFM_stddev_samp_fieldsGenqlSelection
+  sum?: OraclePriceFM_sum_fieldsGenqlSelection
+  var_pop?: OraclePriceFM_var_pop_fieldsGenqlSelection
+  var_samp?: OraclePriceFM_var_samp_fieldsGenqlSelection
+  variance?: OraclePriceFM_variance_fieldsGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate avg on columns */
+export interface OraclePriceFM_avg_fieldsGenqlSelection {
+  buyFee?: boolean | number
+  chainId?: boolean | number
+  pendingRedemptionCOL?: boolean | number
+  pendingRedemptionUSD?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** Boolean expression to filter rows from the table "OraclePriceFM". All fields are combined with a logical 'AND'. */
+export interface OraclePriceFM_bool_exp {
+  _and?: OraclePriceFM_bool_exp[] | null
+  _not?: OraclePriceFM_bool_exp | null
+  _or?: OraclePriceFM_bool_exp[] | null
+  address?: String_comparison_exp | null
+  buyFee?: numeric_comparison_exp | null
+  chainId?: Int_comparison_exp | null
+  collateralToken?: Token_bool_exp | null
+  collateralToken_id?: String_comparison_exp | null
+  db_write_timestamp?: timestamp_comparison_exp | null
+  externalPriceSetter?: ExternalPriceSetter_bool_exp | null
+  externalPriceSetter_id?: String_comparison_exp | null
+  id?: String_comparison_exp | null
+  issuanceToken?: Token_bool_exp | null
+  issuanceToken_id?: String_comparison_exp | null
+  paymentOrders?: RedemptionPaymentOrder_bool_exp | null
+  paymentOrders_aggregate?: RedemptionPaymentOrder_aggregate_bool_exp | null
+  pendingRedemptionCOL?: numeric_comparison_exp | null
+  pendingRedemptionUSD?: numeric_comparison_exp | null
+  projectFees?: ProjectFee_bool_exp | null
+  projectFees_aggregate?: ProjectFee_aggregate_bool_exp | null
+  protocolFees?: ProtocolFee_bool_exp | null
+  protocolFees_aggregate?: ProtocolFee_aggregate_bool_exp | null
+  reserveCOL?: numeric_comparison_exp | null
+  reserveUSD?: numeric_comparison_exp | null
+  sellFee?: numeric_comparison_exp | null
+  swaps?: Swap_bool_exp | null
+  workflow?: Workflow_bool_exp | null
+  workflow_id?: String_comparison_exp | null
+}
+
+/** aggregate max on columns */
+export interface OraclePriceFM_max_fieldsGenqlSelection {
+  address?: boolean | number
+  buyFee?: boolean | number
+  chainId?: boolean | number
+  collateralToken_id?: boolean | number
+  db_write_timestamp?: boolean | number
+  externalPriceSetter_id?: boolean | number
+  id?: boolean | number
+  issuanceToken_id?: boolean | number
+  pendingRedemptionCOL?: boolean | number
+  pendingRedemptionUSD?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  workflow_id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate min on columns */
+export interface OraclePriceFM_min_fieldsGenqlSelection {
+  address?: boolean | number
+  buyFee?: boolean | number
+  chainId?: boolean | number
+  collateralToken_id?: boolean | number
+  db_write_timestamp?: boolean | number
+  externalPriceSetter_id?: boolean | number
+  id?: boolean | number
+  issuanceToken_id?: boolean | number
+  pendingRedemptionCOL?: boolean | number
+  pendingRedemptionUSD?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  workflow_id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** Ordering options when selecting data from "OraclePriceFM". */
+export interface OraclePriceFM_order_by {
+  address?: order_by | null
+  buyFee?: order_by | null
+  chainId?: order_by | null
+  collateralToken?: Token_order_by | null
+  collateralToken_id?: order_by | null
+  db_write_timestamp?: order_by | null
+  externalPriceSetter?: ExternalPriceSetter_order_by | null
+  externalPriceSetter_id?: order_by | null
+  id?: order_by | null
+  issuanceToken?: Token_order_by | null
+  issuanceToken_id?: order_by | null
+  paymentOrders_aggregate?: RedemptionPaymentOrder_aggregate_order_by | null
+  pendingRedemptionCOL?: order_by | null
+  pendingRedemptionUSD?: order_by | null
+  projectFees_aggregate?: ProjectFee_aggregate_order_by | null
+  protocolFees_aggregate?: ProtocolFee_aggregate_order_by | null
+  reserveCOL?: order_by | null
+  reserveUSD?: order_by | null
+  sellFee?: order_by | null
+  swaps_aggregate?: Swap_aggregate_order_by | null
+  workflow?: Workflow_order_by | null
+  workflow_id?: order_by | null
+}
+
+/** aggregate stddev on columns */
+export interface OraclePriceFM_stddev_fieldsGenqlSelection {
+  buyFee?: boolean | number
+  chainId?: boolean | number
+  pendingRedemptionCOL?: boolean | number
+  pendingRedemptionUSD?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate stddev_pop on columns */
+export interface OraclePriceFM_stddev_pop_fieldsGenqlSelection {
+  buyFee?: boolean | number
+  chainId?: boolean | number
+  pendingRedemptionCOL?: boolean | number
+  pendingRedemptionUSD?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate stddev_samp on columns */
+export interface OraclePriceFM_stddev_samp_fieldsGenqlSelection {
+  buyFee?: boolean | number
+  chainId?: boolean | number
+  pendingRedemptionCOL?: boolean | number
+  pendingRedemptionUSD?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** Streaming cursor of the table "OraclePriceFM" */
+export interface OraclePriceFM_stream_cursor_input {
+  /** Stream column input with initial value */
+  initial_value: OraclePriceFM_stream_cursor_value_input
+  /** cursor ordering */
+  ordering?: cursor_ordering | null
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface OraclePriceFM_stream_cursor_value_input {
+  address?: Scalars['String'] | null
+  buyFee?: Scalars['numeric'] | null
+  chainId?: Scalars['Int'] | null
+  collateralToken_id?: Scalars['String'] | null
+  db_write_timestamp?: Scalars['timestamp'] | null
+  externalPriceSetter_id?: Scalars['String'] | null
+  id?: Scalars['String'] | null
+  issuanceToken_id?: Scalars['String'] | null
+  pendingRedemptionCOL?: Scalars['numeric'] | null
+  pendingRedemptionUSD?: Scalars['numeric'] | null
+  reserveCOL?: Scalars['numeric'] | null
+  reserveUSD?: Scalars['numeric'] | null
+  sellFee?: Scalars['numeric'] | null
+  workflow_id?: Scalars['String'] | null
+}
+
+/** aggregate sum on columns */
+export interface OraclePriceFM_sum_fieldsGenqlSelection {
+  buyFee?: boolean | number
+  chainId?: boolean | number
+  pendingRedemptionCOL?: boolean | number
+  pendingRedemptionUSD?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate var_pop on columns */
+export interface OraclePriceFM_var_pop_fieldsGenqlSelection {
+  buyFee?: boolean | number
+  chainId?: boolean | number
+  pendingRedemptionCOL?: boolean | number
+  pendingRedemptionUSD?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate var_samp on columns */
+export interface OraclePriceFM_var_samp_fieldsGenqlSelection {
+  buyFee?: boolean | number
+  chainId?: boolean | number
+  pendingRedemptionCOL?: boolean | number
+  pendingRedemptionUSD?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregate variance on columns */
+export interface OraclePriceFM_variance_fieldsGenqlSelection {
+  buyFee?: boolean | number
+  chainId?: boolean | number
+  pendingRedemptionCOL?: boolean | number
+  pendingRedemptionUSD?: boolean | number
+  reserveCOL?: boolean | number
+  reserveUSD?: boolean | number
+  sellFee?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
 }
 
 /** columns and relationships of "ProjectFee" */
 export interface ProjectFeeGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
   module_id?: boolean | number
   recipient?: boolean | number
+  timestamp?: boolean | number
   /** An object relationship */
   token?: TokenGenqlSelection
   token_id?: boolean | number
@@ -7747,8 +9087,8 @@ export interface ProjectFee_aggregate_order_by {
 export interface ProjectFee_avg_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -7757,8 +9097,8 @@ export interface ProjectFee_avg_fieldsGenqlSelection {
 export interface ProjectFee_avg_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** Boolean expression to filter rows from the table "ProjectFee". All fields are combined with a logical 'AND'. */
@@ -7768,12 +9108,12 @@ export interface ProjectFee_bool_exp {
   _or?: ProjectFee_bool_exp[] | null
   amount?: numeric_comparison_exp | null
   amountUSD?: numeric_comparison_exp | null
-  blockTimestamp?: Int_comparison_exp | null
   chainId?: Int_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   id?: String_comparison_exp | null
   module_id?: String_comparison_exp | null
   recipient?: String_comparison_exp | null
+  timestamp?: Int_comparison_exp | null
   token?: Token_bool_exp | null
   token_id?: String_comparison_exp | null
 }
@@ -7782,12 +9122,12 @@ export interface ProjectFee_bool_exp {
 export interface ProjectFee_max_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
   module_id?: boolean | number
   recipient?: boolean | number
+  timestamp?: boolean | number
   token_id?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -7797,12 +9137,12 @@ export interface ProjectFee_max_fieldsGenqlSelection {
 export interface ProjectFee_max_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
   module_id?: order_by | null
   recipient?: order_by | null
+  timestamp?: order_by | null
   token_id?: order_by | null
 }
 
@@ -7810,12 +9150,12 @@ export interface ProjectFee_max_order_by {
 export interface ProjectFee_min_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
   module_id?: boolean | number
   recipient?: boolean | number
+  timestamp?: boolean | number
   token_id?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -7825,12 +9165,12 @@ export interface ProjectFee_min_fieldsGenqlSelection {
 export interface ProjectFee_min_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
   module_id?: order_by | null
   recipient?: order_by | null
+  timestamp?: order_by | null
   token_id?: order_by | null
 }
 
@@ -7838,12 +9178,12 @@ export interface ProjectFee_min_order_by {
 export interface ProjectFee_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
   module_id?: order_by | null
   recipient?: order_by | null
+  timestamp?: order_by | null
   token?: Token_order_by | null
   token_id?: order_by | null
 }
@@ -7852,8 +9192,8 @@ export interface ProjectFee_order_by {
 export interface ProjectFee_stddev_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -7862,16 +9202,16 @@ export interface ProjectFee_stddev_fieldsGenqlSelection {
 export interface ProjectFee_stddev_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate stddev_pop on columns */
 export interface ProjectFee_stddev_pop_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -7880,16 +9220,16 @@ export interface ProjectFee_stddev_pop_fieldsGenqlSelection {
 export interface ProjectFee_stddev_pop_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate stddev_samp on columns */
 export interface ProjectFee_stddev_samp_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -7898,8 +9238,8 @@ export interface ProjectFee_stddev_samp_fieldsGenqlSelection {
 export interface ProjectFee_stddev_samp_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** Streaming cursor of the table "ProjectFee" */
@@ -7914,12 +9254,12 @@ export interface ProjectFee_stream_cursor_input {
 export interface ProjectFee_stream_cursor_value_input {
   amount?: Scalars['numeric'] | null
   amountUSD?: Scalars['numeric'] | null
-  blockTimestamp?: Scalars['Int'] | null
   chainId?: Scalars['Int'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
   module_id?: Scalars['String'] | null
   recipient?: Scalars['String'] | null
+  timestamp?: Scalars['Int'] | null
   token_id?: Scalars['String'] | null
 }
 
@@ -7927,8 +9267,8 @@ export interface ProjectFee_stream_cursor_value_input {
 export interface ProjectFee_sum_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -7937,16 +9277,16 @@ export interface ProjectFee_sum_fieldsGenqlSelection {
 export interface ProjectFee_sum_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate var_pop on columns */
 export interface ProjectFee_var_pop_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -7955,16 +9295,16 @@ export interface ProjectFee_var_pop_fieldsGenqlSelection {
 export interface ProjectFee_var_pop_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate var_samp on columns */
 export interface ProjectFee_var_samp_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -7973,16 +9313,16 @@ export interface ProjectFee_var_samp_fieldsGenqlSelection {
 export interface ProjectFee_var_samp_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate variance on columns */
 export interface ProjectFee_variance_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -7991,20 +9331,20 @@ export interface ProjectFee_variance_fieldsGenqlSelection {
 export interface ProjectFee_variance_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** columns and relationships of "ProtocolFee" */
 export interface ProtocolFeeGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
   module_id?: boolean | number
   source?: boolean | number
+  timestamp?: boolean | number
   /** An object relationship */
   token?: TokenGenqlSelection
   token_id?: boolean | number
@@ -8076,8 +9416,8 @@ export interface ProtocolFee_aggregate_order_by {
 export interface ProtocolFee_avg_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -8086,8 +9426,8 @@ export interface ProtocolFee_avg_fieldsGenqlSelection {
 export interface ProtocolFee_avg_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** Boolean expression to filter rows from the table "ProtocolFee". All fields are combined with a logical 'AND'. */
@@ -8097,12 +9437,12 @@ export interface ProtocolFee_bool_exp {
   _or?: ProtocolFee_bool_exp[] | null
   amount?: numeric_comparison_exp | null
   amountUSD?: numeric_comparison_exp | null
-  blockTimestamp?: Int_comparison_exp | null
   chainId?: Int_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   id?: String_comparison_exp | null
   module_id?: String_comparison_exp | null
-  source?: feesource_comparison_exp | null
+  source?: sourcetokentype_comparison_exp | null
+  timestamp?: Int_comparison_exp | null
   token?: Token_bool_exp | null
   token_id?: String_comparison_exp | null
   treasury?: String_comparison_exp | null
@@ -8112,12 +9452,12 @@ export interface ProtocolFee_bool_exp {
 export interface ProtocolFee_max_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
   module_id?: boolean | number
   source?: boolean | number
+  timestamp?: boolean | number
   token_id?: boolean | number
   treasury?: boolean | number
   __typename?: boolean | number
@@ -8128,12 +9468,12 @@ export interface ProtocolFee_max_fieldsGenqlSelection {
 export interface ProtocolFee_max_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
   module_id?: order_by | null
   source?: order_by | null
+  timestamp?: order_by | null
   token_id?: order_by | null
   treasury?: order_by | null
 }
@@ -8142,12 +9482,12 @@ export interface ProtocolFee_max_order_by {
 export interface ProtocolFee_min_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
   module_id?: boolean | number
   source?: boolean | number
+  timestamp?: boolean | number
   token_id?: boolean | number
   treasury?: boolean | number
   __typename?: boolean | number
@@ -8158,12 +9498,12 @@ export interface ProtocolFee_min_fieldsGenqlSelection {
 export interface ProtocolFee_min_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
   module_id?: order_by | null
   source?: order_by | null
+  timestamp?: order_by | null
   token_id?: order_by | null
   treasury?: order_by | null
 }
@@ -8172,12 +9512,12 @@ export interface ProtocolFee_min_order_by {
 export interface ProtocolFee_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
   module_id?: order_by | null
   source?: order_by | null
+  timestamp?: order_by | null
   token?: Token_order_by | null
   token_id?: order_by | null
   treasury?: order_by | null
@@ -8187,8 +9527,8 @@ export interface ProtocolFee_order_by {
 export interface ProtocolFee_stddev_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -8197,16 +9537,16 @@ export interface ProtocolFee_stddev_fieldsGenqlSelection {
 export interface ProtocolFee_stddev_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate stddev_pop on columns */
 export interface ProtocolFee_stddev_pop_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -8215,16 +9555,16 @@ export interface ProtocolFee_stddev_pop_fieldsGenqlSelection {
 export interface ProtocolFee_stddev_pop_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate stddev_samp on columns */
 export interface ProtocolFee_stddev_samp_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -8233,8 +9573,8 @@ export interface ProtocolFee_stddev_samp_fieldsGenqlSelection {
 export interface ProtocolFee_stddev_samp_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** Streaming cursor of the table "ProtocolFee" */
@@ -8249,12 +9589,12 @@ export interface ProtocolFee_stream_cursor_input {
 export interface ProtocolFee_stream_cursor_value_input {
   amount?: Scalars['numeric'] | null
   amountUSD?: Scalars['numeric'] | null
-  blockTimestamp?: Scalars['Int'] | null
   chainId?: Scalars['Int'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
   module_id?: Scalars['String'] | null
-  source?: Scalars['feesource'] | null
+  source?: Scalars['sourcetokentype'] | null
+  timestamp?: Scalars['Int'] | null
   token_id?: Scalars['String'] | null
   treasury?: Scalars['String'] | null
 }
@@ -8263,8 +9603,8 @@ export interface ProtocolFee_stream_cursor_value_input {
 export interface ProtocolFee_sum_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -8273,16 +9613,16 @@ export interface ProtocolFee_sum_fieldsGenqlSelection {
 export interface ProtocolFee_sum_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate var_pop on columns */
 export interface ProtocolFee_var_pop_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -8291,16 +9631,16 @@ export interface ProtocolFee_var_pop_fieldsGenqlSelection {
 export interface ProtocolFee_var_pop_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate var_samp on columns */
 export interface ProtocolFee_var_samp_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -8309,16 +9649,16 @@ export interface ProtocolFee_var_samp_fieldsGenqlSelection {
 export interface ProtocolFee_var_samp_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate variance on columns */
 export interface ProtocolFee_variance_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -8327,12 +9667,737 @@ export interface ProtocolFee_variance_fieldsGenqlSelection {
 export interface ProtocolFee_variance_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
+  chainId?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** columns and relationships of "RedemptionPaymentOrder" */
+export interface RedemptionPaymentOrderGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  chainId?: boolean | number
+  data?: boolean | number
+  db_write_timestamp?: boolean | number
+  exchangeRate?: boolean | number
+  executedBy?: boolean | number
+  executedTimestamp?: boolean | number
+  fee?: boolean | number
+  feePercentage?: boolean | number
+  feeUSD?: boolean | number
+  flags?: boolean | number
+  id?: boolean | number
+  /** An object relationship */
+  oraclePriceFM?: OraclePriceFMGenqlSelection
+  oraclePriceFM_id?: boolean | number
+  orderId?: boolean | number
+  orderType?: boolean | number
+  originChainId?: boolean | number
+  recipient?: boolean | number
+  seller?: boolean | number
+  state?: boolean | number
+  targetChainId?: boolean | number
+  timestamp?: boolean | number
+  /** An object relationship */
+  token?: TokenGenqlSelection
+  token_id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** aggregated selection of "RedemptionPaymentOrder" */
+export interface RedemptionPaymentOrder_aggregateGenqlSelection {
+  aggregate?: RedemptionPaymentOrder_aggregate_fieldsGenqlSelection
+  nodes?: RedemptionPaymentOrderGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+export interface RedemptionPaymentOrder_aggregate_bool_exp {
+  count?: RedemptionPaymentOrder_aggregate_bool_exp_count | null
+}
+
+export interface RedemptionPaymentOrder_aggregate_bool_exp_count {
+  arguments?: RedemptionPaymentOrder_select_column[] | null
+  distinct?: Scalars['Boolean'] | null
+  filter?: RedemptionPaymentOrder_bool_exp | null
+  predicate: Int_comparison_exp
+}
+
+/** aggregate fields of "RedemptionPaymentOrder" */
+export interface RedemptionPaymentOrder_aggregate_fieldsGenqlSelection {
+  avg?: RedemptionPaymentOrder_avg_fieldsGenqlSelection
+  count?:
+    | {
+        __args: {
+          columns?: RedemptionPaymentOrder_select_column[] | null
+          distinct?: Scalars['Boolean'] | null
+        }
+      }
+    | boolean
+    | number
+  max?: RedemptionPaymentOrder_max_fieldsGenqlSelection
+  min?: RedemptionPaymentOrder_min_fieldsGenqlSelection
+  stddev?: RedemptionPaymentOrder_stddev_fieldsGenqlSelection
+  stddev_pop?: RedemptionPaymentOrder_stddev_pop_fieldsGenqlSelection
+  stddev_samp?: RedemptionPaymentOrder_stddev_samp_fieldsGenqlSelection
+  sum?: RedemptionPaymentOrder_sum_fieldsGenqlSelection
+  var_pop?: RedemptionPaymentOrder_var_pop_fieldsGenqlSelection
+  var_samp?: RedemptionPaymentOrder_var_samp_fieldsGenqlSelection
+  variance?: RedemptionPaymentOrder_variance_fieldsGenqlSelection
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by aggregate values of table "RedemptionPaymentOrder" */
+export interface RedemptionPaymentOrder_aggregate_order_by {
+  avg?: RedemptionPaymentOrder_avg_order_by | null
+  count?: order_by | null
+  max?: RedemptionPaymentOrder_max_order_by | null
+  min?: RedemptionPaymentOrder_min_order_by | null
+  stddev?: RedemptionPaymentOrder_stddev_order_by | null
+  stddev_pop?: RedemptionPaymentOrder_stddev_pop_order_by | null
+  stddev_samp?: RedemptionPaymentOrder_stddev_samp_order_by | null
+  sum?: RedemptionPaymentOrder_sum_order_by | null
+  var_pop?: RedemptionPaymentOrder_var_pop_order_by | null
+  var_samp?: RedemptionPaymentOrder_var_samp_order_by | null
+  variance?: RedemptionPaymentOrder_variance_order_by | null
+}
+
+/** aggregate avg on columns */
+export interface RedemptionPaymentOrder_avg_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  chainId?: boolean | number
+  exchangeRate?: boolean | number
+  executedTimestamp?: boolean | number
+  fee?: boolean | number
+  feePercentage?: boolean | number
+  feeUSD?: boolean | number
+  orderId?: boolean | number
+  originChainId?: boolean | number
+  targetChainId?: boolean | number
+  timestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by avg() on columns of table "RedemptionPaymentOrder" */
+export interface RedemptionPaymentOrder_avg_order_by {
+  amount?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  exchangeRate?: order_by | null
+  executedTimestamp?: order_by | null
+  fee?: order_by | null
+  feePercentage?: order_by | null
+  feeUSD?: order_by | null
+  orderId?: order_by | null
+  originChainId?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** Boolean expression to filter rows from the table "RedemptionPaymentOrder". All fields are combined with a logical 'AND'. */
+export interface RedemptionPaymentOrder_bool_exp {
+  _and?: RedemptionPaymentOrder_bool_exp[] | null
+  _not?: RedemptionPaymentOrder_bool_exp | null
+  _or?: RedemptionPaymentOrder_bool_exp[] | null
+  amount?: numeric_comparison_exp | null
+  amountUSD?: numeric_comparison_exp | null
+  chainId?: Int_comparison_exp | null
+  data?: String_array_comparison_exp | null
+  db_write_timestamp?: timestamp_comparison_exp | null
+  exchangeRate?: numeric_comparison_exp | null
+  executedBy?: String_comparison_exp | null
+  executedTimestamp?: Int_comparison_exp | null
+  fee?: numeric_comparison_exp | null
+  feePercentage?: numeric_comparison_exp | null
+  feeUSD?: numeric_comparison_exp | null
+  flags?: String_comparison_exp | null
+  id?: String_comparison_exp | null
+  oraclePriceFM?: OraclePriceFM_bool_exp | null
+  oraclePriceFM_id?: String_comparison_exp | null
+  orderId?: numeric_comparison_exp | null
+  orderType?: paymentordertype_comparison_exp | null
+  originChainId?: Int_comparison_exp | null
+  recipient?: String_comparison_exp | null
+  seller?: String_comparison_exp | null
+  state?: redemptionstate_comparison_exp | null
+  targetChainId?: Int_comparison_exp | null
+  timestamp?: Int_comparison_exp | null
+  token?: Token_bool_exp | null
+  token_id?: String_comparison_exp | null
+}
+
+/** aggregate max on columns */
+export interface RedemptionPaymentOrder_max_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  chainId?: boolean | number
+  data?: boolean | number
+  db_write_timestamp?: boolean | number
+  exchangeRate?: boolean | number
+  executedBy?: boolean | number
+  executedTimestamp?: boolean | number
+  fee?: boolean | number
+  feePercentage?: boolean | number
+  feeUSD?: boolean | number
+  flags?: boolean | number
+  id?: boolean | number
+  oraclePriceFM_id?: boolean | number
+  orderId?: boolean | number
+  orderType?: boolean | number
+  originChainId?: boolean | number
+  recipient?: boolean | number
+  seller?: boolean | number
+  state?: boolean | number
+  targetChainId?: boolean | number
+  timestamp?: boolean | number
+  token_id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by max() on columns of table "RedemptionPaymentOrder" */
+export interface RedemptionPaymentOrder_max_order_by {
+  amount?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  data?: order_by | null
+  db_write_timestamp?: order_by | null
+  exchangeRate?: order_by | null
+  executedBy?: order_by | null
+  executedTimestamp?: order_by | null
+  fee?: order_by | null
+  feePercentage?: order_by | null
+  feeUSD?: order_by | null
+  flags?: order_by | null
+  id?: order_by | null
+  oraclePriceFM_id?: order_by | null
+  orderId?: order_by | null
+  orderType?: order_by | null
+  originChainId?: order_by | null
+  recipient?: order_by | null
+  seller?: order_by | null
+  state?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+  token_id?: order_by | null
+}
+
+/** aggregate min on columns */
+export interface RedemptionPaymentOrder_min_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  chainId?: boolean | number
+  data?: boolean | number
+  db_write_timestamp?: boolean | number
+  exchangeRate?: boolean | number
+  executedBy?: boolean | number
+  executedTimestamp?: boolean | number
+  fee?: boolean | number
+  feePercentage?: boolean | number
+  feeUSD?: boolean | number
+  flags?: boolean | number
+  id?: boolean | number
+  oraclePriceFM_id?: boolean | number
+  orderId?: boolean | number
+  orderType?: boolean | number
+  originChainId?: boolean | number
+  recipient?: boolean | number
+  seller?: boolean | number
+  state?: boolean | number
+  targetChainId?: boolean | number
+  timestamp?: boolean | number
+  token_id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by min() on columns of table "RedemptionPaymentOrder" */
+export interface RedemptionPaymentOrder_min_order_by {
+  amount?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  data?: order_by | null
+  db_write_timestamp?: order_by | null
+  exchangeRate?: order_by | null
+  executedBy?: order_by | null
+  executedTimestamp?: order_by | null
+  fee?: order_by | null
+  feePercentage?: order_by | null
+  feeUSD?: order_by | null
+  flags?: order_by | null
+  id?: order_by | null
+  oraclePriceFM_id?: order_by | null
+  orderId?: order_by | null
+  orderType?: order_by | null
+  originChainId?: order_by | null
+  recipient?: order_by | null
+  seller?: order_by | null
+  state?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+  token_id?: order_by | null
+}
+
+/** Ordering options when selecting data from "RedemptionPaymentOrder". */
+export interface RedemptionPaymentOrder_order_by {
+  amount?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  data?: order_by | null
+  db_write_timestamp?: order_by | null
+  exchangeRate?: order_by | null
+  executedBy?: order_by | null
+  executedTimestamp?: order_by | null
+  fee?: order_by | null
+  feePercentage?: order_by | null
+  feeUSD?: order_by | null
+  flags?: order_by | null
+  id?: order_by | null
+  oraclePriceFM?: OraclePriceFM_order_by | null
+  oraclePriceFM_id?: order_by | null
+  orderId?: order_by | null
+  orderType?: order_by | null
+  originChainId?: order_by | null
+  recipient?: order_by | null
+  seller?: order_by | null
+  state?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+  token?: Token_order_by | null
+  token_id?: order_by | null
+}
+
+/** aggregate stddev on columns */
+export interface RedemptionPaymentOrder_stddev_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  chainId?: boolean | number
+  exchangeRate?: boolean | number
+  executedTimestamp?: boolean | number
+  fee?: boolean | number
+  feePercentage?: boolean | number
+  feeUSD?: boolean | number
+  orderId?: boolean | number
+  originChainId?: boolean | number
+  targetChainId?: boolean | number
+  timestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by stddev() on columns of table "RedemptionPaymentOrder" */
+export interface RedemptionPaymentOrder_stddev_order_by {
+  amount?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  exchangeRate?: order_by | null
+  executedTimestamp?: order_by | null
+  fee?: order_by | null
+  feePercentage?: order_by | null
+  feeUSD?: order_by | null
+  orderId?: order_by | null
+  originChainId?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** aggregate stddev_pop on columns */
+export interface RedemptionPaymentOrder_stddev_pop_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  chainId?: boolean | number
+  exchangeRate?: boolean | number
+  executedTimestamp?: boolean | number
+  fee?: boolean | number
+  feePercentage?: boolean | number
+  feeUSD?: boolean | number
+  orderId?: boolean | number
+  originChainId?: boolean | number
+  targetChainId?: boolean | number
+  timestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by stddev_pop() on columns of table "RedemptionPaymentOrder" */
+export interface RedemptionPaymentOrder_stddev_pop_order_by {
+  amount?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  exchangeRate?: order_by | null
+  executedTimestamp?: order_by | null
+  fee?: order_by | null
+  feePercentage?: order_by | null
+  feeUSD?: order_by | null
+  orderId?: order_by | null
+  originChainId?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** aggregate stddev_samp on columns */
+export interface RedemptionPaymentOrder_stddev_samp_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  chainId?: boolean | number
+  exchangeRate?: boolean | number
+  executedTimestamp?: boolean | number
+  fee?: boolean | number
+  feePercentage?: boolean | number
+  feeUSD?: boolean | number
+  orderId?: boolean | number
+  originChainId?: boolean | number
+  targetChainId?: boolean | number
+  timestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by stddev_samp() on columns of table "RedemptionPaymentOrder" */
+export interface RedemptionPaymentOrder_stddev_samp_order_by {
+  amount?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  exchangeRate?: order_by | null
+  executedTimestamp?: order_by | null
+  fee?: order_by | null
+  feePercentage?: order_by | null
+  feeUSD?: order_by | null
+  orderId?: order_by | null
+  originChainId?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** Streaming cursor of the table "RedemptionPaymentOrder" */
+export interface RedemptionPaymentOrder_stream_cursor_input {
+  /** Stream column input with initial value */
+  initial_value: RedemptionPaymentOrder_stream_cursor_value_input
+  /** cursor ordering */
+  ordering?: cursor_ordering | null
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface RedemptionPaymentOrder_stream_cursor_value_input {
+  amount?: Scalars['numeric'] | null
+  amountUSD?: Scalars['numeric'] | null
+  chainId?: Scalars['Int'] | null
+  data?: Scalars['String'][] | null
+  db_write_timestamp?: Scalars['timestamp'] | null
+  exchangeRate?: Scalars['numeric'] | null
+  executedBy?: Scalars['String'] | null
+  executedTimestamp?: Scalars['Int'] | null
+  fee?: Scalars['numeric'] | null
+  feePercentage?: Scalars['numeric'] | null
+  feeUSD?: Scalars['numeric'] | null
+  flags?: Scalars['String'] | null
+  id?: Scalars['String'] | null
+  oraclePriceFM_id?: Scalars['String'] | null
+  orderId?: Scalars['numeric'] | null
+  orderType?: Scalars['paymentordertype'] | null
+  originChainId?: Scalars['Int'] | null
+  recipient?: Scalars['String'] | null
+  seller?: Scalars['String'] | null
+  state?: Scalars['redemptionstate'] | null
+  targetChainId?: Scalars['Int'] | null
+  timestamp?: Scalars['Int'] | null
+  token_id?: Scalars['String'] | null
+}
+
+/** aggregate sum on columns */
+export interface RedemptionPaymentOrder_sum_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  chainId?: boolean | number
+  exchangeRate?: boolean | number
+  executedTimestamp?: boolean | number
+  fee?: boolean | number
+  feePercentage?: boolean | number
+  feeUSD?: boolean | number
+  orderId?: boolean | number
+  originChainId?: boolean | number
+  targetChainId?: boolean | number
+  timestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by sum() on columns of table "RedemptionPaymentOrder" */
+export interface RedemptionPaymentOrder_sum_order_by {
+  amount?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  exchangeRate?: order_by | null
+  executedTimestamp?: order_by | null
+  fee?: order_by | null
+  feePercentage?: order_by | null
+  feeUSD?: order_by | null
+  orderId?: order_by | null
+  originChainId?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** aggregate var_pop on columns */
+export interface RedemptionPaymentOrder_var_pop_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  chainId?: boolean | number
+  exchangeRate?: boolean | number
+  executedTimestamp?: boolean | number
+  fee?: boolean | number
+  feePercentage?: boolean | number
+  feeUSD?: boolean | number
+  orderId?: boolean | number
+  originChainId?: boolean | number
+  targetChainId?: boolean | number
+  timestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by var_pop() on columns of table "RedemptionPaymentOrder" */
+export interface RedemptionPaymentOrder_var_pop_order_by {
+  amount?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  exchangeRate?: order_by | null
+  executedTimestamp?: order_by | null
+  fee?: order_by | null
+  feePercentage?: order_by | null
+  feeUSD?: order_by | null
+  orderId?: order_by | null
+  originChainId?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** aggregate var_samp on columns */
+export interface RedemptionPaymentOrder_var_samp_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  chainId?: boolean | number
+  exchangeRate?: boolean | number
+  executedTimestamp?: boolean | number
+  fee?: boolean | number
+  feePercentage?: boolean | number
+  feeUSD?: boolean | number
+  orderId?: boolean | number
+  originChainId?: boolean | number
+  targetChainId?: boolean | number
+  timestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by var_samp() on columns of table "RedemptionPaymentOrder" */
+export interface RedemptionPaymentOrder_var_samp_order_by {
+  amount?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  exchangeRate?: order_by | null
+  executedTimestamp?: order_by | null
+  fee?: order_by | null
+  feePercentage?: order_by | null
+  feeUSD?: order_by | null
+  orderId?: order_by | null
+  originChainId?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** aggregate variance on columns */
+export interface RedemptionPaymentOrder_variance_fieldsGenqlSelection {
+  amount?: boolean | number
+  amountUSD?: boolean | number
+  chainId?: boolean | number
+  exchangeRate?: boolean | number
+  executedTimestamp?: boolean | number
+  fee?: boolean | number
+  feePercentage?: boolean | number
+  feeUSD?: boolean | number
+  orderId?: boolean | number
+  originChainId?: boolean | number
+  targetChainId?: boolean | number
+  timestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by variance() on columns of table "RedemptionPaymentOrder" */
+export interface RedemptionPaymentOrder_variance_order_by {
+  amount?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  exchangeRate?: order_by | null
+  executedTimestamp?: order_by | null
+  fee?: order_by | null
+  feePercentage?: order_by | null
+  feeUSD?: order_by | null
+  orderId?: order_by | null
+  originChainId?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** columns and relationships of "Role" */
+export interface RoleGenqlSelection {
+  chainId?: boolean | number
+  db_write_timestamp?: boolean | number
+  id?: boolean | number
+  initiator?: boolean | number
+  module_id?: boolean | number
+  recipient?: boolean | number
+  role?: boolean | number
+  roleGen?: boolean | number
+  roleName?: boolean | number
+  status?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by aggregate values of table "Role" */
+export interface Role_aggregate_order_by {
+  avg?: Role_avg_order_by | null
+  count?: order_by | null
+  max?: Role_max_order_by | null
+  min?: Role_min_order_by | null
+  stddev?: Role_stddev_order_by | null
+  stddev_pop?: Role_stddev_pop_order_by | null
+  stddev_samp?: Role_stddev_samp_order_by | null
+  sum?: Role_sum_order_by | null
+  var_pop?: Role_var_pop_order_by | null
+  var_samp?: Role_var_samp_order_by | null
+  variance?: Role_variance_order_by | null
+}
+
+/** order by avg() on columns of table "Role" */
+export interface Role_avg_order_by {
+  chainId?: order_by | null
+}
+
+/** Boolean expression to filter rows from the table "Role". All fields are combined with a logical 'AND'. */
+export interface Role_bool_exp {
+  _and?: Role_bool_exp[] | null
+  _not?: Role_bool_exp | null
+  _or?: Role_bool_exp[] | null
+  chainId?: Int_comparison_exp | null
+  db_write_timestamp?: timestamp_comparison_exp | null
+  id?: String_comparison_exp | null
+  initiator?: String_comparison_exp | null
+  module_id?: String_comparison_exp | null
+  recipient?: String_comparison_exp | null
+  role?: String_comparison_exp | null
+  roleGen?: String_comparison_exp | null
+  roleName?: String_comparison_exp | null
+  status?: rolestatus_comparison_exp | null
+}
+
+/** order by max() on columns of table "Role" */
+export interface Role_max_order_by {
+  chainId?: order_by | null
+  db_write_timestamp?: order_by | null
+  id?: order_by | null
+  initiator?: order_by | null
+  module_id?: order_by | null
+  recipient?: order_by | null
+  role?: order_by | null
+  roleGen?: order_by | null
+  roleName?: order_by | null
+  status?: order_by | null
+}
+
+/** order by min() on columns of table "Role" */
+export interface Role_min_order_by {
+  chainId?: order_by | null
+  db_write_timestamp?: order_by | null
+  id?: order_by | null
+  initiator?: order_by | null
+  module_id?: order_by | null
+  recipient?: order_by | null
+  role?: order_by | null
+  roleGen?: order_by | null
+  roleName?: order_by | null
+  status?: order_by | null
+}
+
+/** Ordering options when selecting data from "Role". */
+export interface Role_order_by {
+  chainId?: order_by | null
+  db_write_timestamp?: order_by | null
+  id?: order_by | null
+  initiator?: order_by | null
+  module_id?: order_by | null
+  recipient?: order_by | null
+  role?: order_by | null
+  roleGen?: order_by | null
+  roleName?: order_by | null
+  status?: order_by | null
+}
+
+/** order by stddev() on columns of table "Role" */
+export interface Role_stddev_order_by {
+  chainId?: order_by | null
+}
+
+/** order by stddev_pop() on columns of table "Role" */
+export interface Role_stddev_pop_order_by {
+  chainId?: order_by | null
+}
+
+/** order by stddev_samp() on columns of table "Role" */
+export interface Role_stddev_samp_order_by {
+  chainId?: order_by | null
+}
+
+/** Streaming cursor of the table "Role" */
+export interface Role_stream_cursor_input {
+  /** Stream column input with initial value */
+  initial_value: Role_stream_cursor_value_input
+  /** cursor ordering */
+  ordering?: cursor_ordering | null
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface Role_stream_cursor_value_input {
+  chainId?: Scalars['Int'] | null
+  db_write_timestamp?: Scalars['timestamp'] | null
+  id?: Scalars['String'] | null
+  initiator?: Scalars['String'] | null
+  module_id?: Scalars['String'] | null
+  recipient?: Scalars['String'] | null
+  role?: Scalars['String'] | null
+  roleGen?: Scalars['String'] | null
+  roleName?: Scalars['String'] | null
+  status?: Scalars['rolestatus'] | null
+}
+
+/** order by sum() on columns of table "Role" */
+export interface Role_sum_order_by {
+  chainId?: order_by | null
+}
+
+/** order by var_pop() on columns of table "Role" */
+export interface Role_var_pop_order_by {
+  chainId?: order_by | null
+}
+
+/** order by var_samp() on columns of table "Role" */
+export interface Role_var_samp_order_by {
+  chainId?: order_by | null
+}
+
+/** order by variance() on columns of table "Role" */
+export interface Role_variance_order_by {
   chainId?: order_by | null
 }
 
 /** columns and relationships of "StreamingPaymentProcessor" */
 export interface StreamingPaymentProcessorGenqlSelection {
+  address?: boolean | number
   chainId?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
@@ -8363,6 +10428,7 @@ export interface StreamingPaymentProcessor_bool_exp {
   _and?: StreamingPaymentProcessor_bool_exp[] | null
   _not?: StreamingPaymentProcessor_bool_exp | null
   _or?: StreamingPaymentProcessor_bool_exp[] | null
+  address?: String_comparison_exp | null
   chainId?: Int_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   id?: String_comparison_exp | null
@@ -8373,6 +10439,7 @@ export interface StreamingPaymentProcessor_bool_exp {
 
 /** Ordering options when selecting data from "StreamingPaymentProcessor". */
 export interface StreamingPaymentProcessor_order_by {
+  address?: order_by | null
   chainId?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
@@ -8391,6 +10458,7 @@ export interface StreamingPaymentProcessor_stream_cursor_input {
 
 /** Initial value of the column from where the streaming should start */
 export interface StreamingPaymentProcessor_stream_cursor_value_input {
+  address?: Scalars['String'] | null
   chainId?: Scalars['Int'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
@@ -8452,22 +10520,22 @@ export interface SwapGenqlSelection {
   amountCOL?: boolean | number
   amountISS?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   chainId?: boolean | number
   /** An object relationship */
   collateralToken?: TokenGenqlSelection
   collateralToken_id?: boolean | number
   db_write_timestamp?: boolean | number
+  fundingManager_id?: boolean | number
   id?: boolean | number
   initiator?: boolean | number
   /** An object relationship */
   issuanceToken?: TokenGenqlSelection
   issuanceToken_id?: boolean | number
-  module_id?: boolean | number
   priceCOL?: boolean | number
   priceUSD?: boolean | number
   recipient?: boolean | number
   swapType?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -8492,10 +10560,10 @@ export interface Swap_avg_order_by {
   amountCOL?: order_by | null
   amountISS?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   priceCOL?: order_by | null
   priceUSD?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** Boolean expression to filter rows from the table "Swap". All fields are combined with a logical 'AND'. */
@@ -8506,20 +10574,20 @@ export interface Swap_bool_exp {
   amountCOL?: numeric_comparison_exp | null
   amountISS?: numeric_comparison_exp | null
   amountUSD?: numeric_comparison_exp | null
-  blockTimestamp?: Int_comparison_exp | null
   chainId?: Int_comparison_exp | null
   collateralToken?: Token_bool_exp | null
   collateralToken_id?: String_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
+  fundingManager_id?: String_comparison_exp | null
   id?: String_comparison_exp | null
   initiator?: String_comparison_exp | null
   issuanceToken?: Token_bool_exp | null
   issuanceToken_id?: String_comparison_exp | null
-  module_id?: String_comparison_exp | null
   priceCOL?: numeric_comparison_exp | null
   priceUSD?: numeric_comparison_exp | null
   recipient?: String_comparison_exp | null
   swapType?: swaptype_comparison_exp | null
+  timestamp?: Int_comparison_exp | null
 }
 
 /** order by max() on columns of table "Swap" */
@@ -8527,18 +10595,18 @@ export interface Swap_max_order_by {
   amountCOL?: order_by | null
   amountISS?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   collateralToken_id?: order_by | null
   db_write_timestamp?: order_by | null
+  fundingManager_id?: order_by | null
   id?: order_by | null
   initiator?: order_by | null
   issuanceToken_id?: order_by | null
-  module_id?: order_by | null
   priceCOL?: order_by | null
   priceUSD?: order_by | null
   recipient?: order_by | null
   swapType?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** order by min() on columns of table "Swap" */
@@ -8546,18 +10614,18 @@ export interface Swap_min_order_by {
   amountCOL?: order_by | null
   amountISS?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   collateralToken_id?: order_by | null
   db_write_timestamp?: order_by | null
+  fundingManager_id?: order_by | null
   id?: order_by | null
   initiator?: order_by | null
   issuanceToken_id?: order_by | null
-  module_id?: order_by | null
   priceCOL?: order_by | null
   priceUSD?: order_by | null
   recipient?: order_by | null
   swapType?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** Ordering options when selecting data from "Swap". */
@@ -8565,20 +10633,20 @@ export interface Swap_order_by {
   amountCOL?: order_by | null
   amountISS?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   collateralToken?: Token_order_by | null
   collateralToken_id?: order_by | null
   db_write_timestamp?: order_by | null
+  fundingManager_id?: order_by | null
   id?: order_by | null
   initiator?: order_by | null
   issuanceToken?: Token_order_by | null
   issuanceToken_id?: order_by | null
-  module_id?: order_by | null
   priceCOL?: order_by | null
   priceUSD?: order_by | null
   recipient?: order_by | null
   swapType?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** order by stddev() on columns of table "Swap" */
@@ -8586,10 +10654,10 @@ export interface Swap_stddev_order_by {
   amountCOL?: order_by | null
   amountISS?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   priceCOL?: order_by | null
   priceUSD?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** order by stddev_pop() on columns of table "Swap" */
@@ -8597,10 +10665,10 @@ export interface Swap_stddev_pop_order_by {
   amountCOL?: order_by | null
   amountISS?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   priceCOL?: order_by | null
   priceUSD?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** order by stddev_samp() on columns of table "Swap" */
@@ -8608,10 +10676,10 @@ export interface Swap_stddev_samp_order_by {
   amountCOL?: order_by | null
   amountISS?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   priceCOL?: order_by | null
   priceUSD?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** Streaming cursor of the table "Swap" */
@@ -8627,18 +10695,18 @@ export interface Swap_stream_cursor_value_input {
   amountCOL?: Scalars['numeric'] | null
   amountISS?: Scalars['numeric'] | null
   amountUSD?: Scalars['numeric'] | null
-  blockTimestamp?: Scalars['Int'] | null
   chainId?: Scalars['Int'] | null
   collateralToken_id?: Scalars['String'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
+  fundingManager_id?: Scalars['String'] | null
   id?: Scalars['String'] | null
   initiator?: Scalars['String'] | null
   issuanceToken_id?: Scalars['String'] | null
-  module_id?: Scalars['String'] | null
   priceCOL?: Scalars['numeric'] | null
   priceUSD?: Scalars['numeric'] | null
   recipient?: Scalars['String'] | null
   swapType?: Scalars['swaptype'] | null
+  timestamp?: Scalars['Int'] | null
 }
 
 /** order by sum() on columns of table "Swap" */
@@ -8646,10 +10714,10 @@ export interface Swap_sum_order_by {
   amountCOL?: order_by | null
   amountISS?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   priceCOL?: order_by | null
   priceUSD?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** order by var_pop() on columns of table "Swap" */
@@ -8657,10 +10725,10 @@ export interface Swap_var_pop_order_by {
   amountCOL?: order_by | null
   amountISS?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   priceCOL?: order_by | null
   priceUSD?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** order by var_samp() on columns of table "Swap" */
@@ -8668,10 +10736,10 @@ export interface Swap_var_samp_order_by {
   amountCOL?: order_by | null
   amountISS?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   priceCOL?: order_by | null
   priceUSD?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** order by variance() on columns of table "Swap" */
@@ -8679,10 +10747,10 @@ export interface Swap_variance_order_by {
   amountCOL?: order_by | null
   amountISS?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   chainId?: order_by | null
   priceCOL?: order_by | null
   priceUSD?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** columns and relationships of "Token" */
@@ -8897,13 +10965,13 @@ export interface Token_variance_fieldsGenqlSelection {
 export interface TransferGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   db_write_timestamp?: boolean | number
   /** An object relationship */
   depositVault?: DepositVaultGenqlSelection
   depositVault_id?: boolean | number
   id?: boolean | number
   recipient?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -8971,7 +11039,7 @@ export interface Transfer_aggregate_order_by {
 export interface Transfer_avg_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -8980,7 +11048,7 @@ export interface Transfer_avg_fieldsGenqlSelection {
 export interface Transfer_avg_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** Boolean expression to filter rows from the table "Transfer". All fields are combined with a logical 'AND'. */
@@ -8990,23 +11058,23 @@ export interface Transfer_bool_exp {
   _or?: Transfer_bool_exp[] | null
   amount?: numeric_comparison_exp | null
   amountUSD?: numeric_comparison_exp | null
-  blockTimestamp?: Int_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   depositVault?: DepositVault_bool_exp | null
   depositVault_id?: String_comparison_exp | null
   id?: String_comparison_exp | null
   recipient?: String_comparison_exp | null
+  timestamp?: Int_comparison_exp | null
 }
 
 /** aggregate max on columns */
 export interface Transfer_max_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   db_write_timestamp?: boolean | number
   depositVault_id?: boolean | number
   id?: boolean | number
   recipient?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -9015,22 +11083,22 @@ export interface Transfer_max_fieldsGenqlSelection {
 export interface Transfer_max_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   db_write_timestamp?: order_by | null
   depositVault_id?: order_by | null
   id?: order_by | null
   recipient?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate min on columns */
 export interface Transfer_min_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
   db_write_timestamp?: boolean | number
   depositVault_id?: boolean | number
   id?: boolean | number
   recipient?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -9039,30 +11107,30 @@ export interface Transfer_min_fieldsGenqlSelection {
 export interface Transfer_min_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   db_write_timestamp?: order_by | null
   depositVault_id?: order_by | null
   id?: order_by | null
   recipient?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** Ordering options when selecting data from "Transfer". */
 export interface Transfer_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
   db_write_timestamp?: order_by | null
   depositVault?: DepositVault_order_by | null
   depositVault_id?: order_by | null
   id?: order_by | null
   recipient?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate stddev on columns */
 export interface Transfer_stddev_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -9071,14 +11139,14 @@ export interface Transfer_stddev_fieldsGenqlSelection {
 export interface Transfer_stddev_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate stddev_pop on columns */
 export interface Transfer_stddev_pop_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -9087,14 +11155,14 @@ export interface Transfer_stddev_pop_fieldsGenqlSelection {
 export interface Transfer_stddev_pop_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate stddev_samp on columns */
 export interface Transfer_stddev_samp_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -9103,7 +11171,7 @@ export interface Transfer_stddev_samp_fieldsGenqlSelection {
 export interface Transfer_stddev_samp_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** Streaming cursor of the table "Transfer" */
@@ -9118,18 +11186,18 @@ export interface Transfer_stream_cursor_input {
 export interface Transfer_stream_cursor_value_input {
   amount?: Scalars['numeric'] | null
   amountUSD?: Scalars['numeric'] | null
-  blockTimestamp?: Scalars['Int'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   depositVault_id?: Scalars['String'] | null
   id?: Scalars['String'] | null
   recipient?: Scalars['String'] | null
+  timestamp?: Scalars['Int'] | null
 }
 
 /** aggregate sum on columns */
 export interface Transfer_sum_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -9138,14 +11206,14 @@ export interface Transfer_sum_fieldsGenqlSelection {
 export interface Transfer_sum_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate var_pop on columns */
 export interface Transfer_var_pop_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -9154,14 +11222,14 @@ export interface Transfer_var_pop_fieldsGenqlSelection {
 export interface Transfer_var_pop_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate var_samp on columns */
 export interface Transfer_var_samp_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -9170,14 +11238,14 @@ export interface Transfer_var_samp_fieldsGenqlSelection {
 export interface Transfer_var_samp_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** aggregate variance on columns */
 export interface Transfer_variance_fieldsGenqlSelection {
   amount?: boolean | number
   amountUSD?: boolean | number
-  blockTimestamp?: boolean | number
+  timestamp?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -9186,11 +11254,12 @@ export interface Transfer_variance_fieldsGenqlSelection {
 export interface Transfer_variance_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
-  blockTimestamp?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** columns and relationships of "Workflow" */
 export interface WorkflowGenqlSelection {
+  address?: boolean | number
   /** An object relationship */
   authorizer?: WorkflowModuleGenqlSelection
   authorizer_id?: boolean | number
@@ -9205,6 +11274,9 @@ export interface WorkflowGenqlSelection {
   /** An object relationship */
   paymentProcessor?: WorkflowModuleGenqlSelection
   paymentProcessor_id?: boolean | number
+  /** An object relationship */
+  token?: TokenGenqlSelection
+  token_id?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -9336,6 +11408,7 @@ export interface Workflow_bool_exp {
   _and?: Workflow_bool_exp[] | null
   _not?: Workflow_bool_exp | null
   _or?: Workflow_bool_exp[] | null
+  address?: String_comparison_exp | null
   authorizer?: WorkflowModule_bool_exp | null
   authorizer_id?: String_comparison_exp | null
   chainId?: Int_comparison_exp | null
@@ -9347,10 +11420,13 @@ export interface Workflow_bool_exp {
   orchestrator?: String_comparison_exp | null
   paymentProcessor?: WorkflowModule_bool_exp | null
   paymentProcessor_id?: String_comparison_exp | null
+  token?: Token_bool_exp | null
+  token_id?: String_comparison_exp | null
 }
 
 /** Ordering options when selecting data from "Workflow". */
 export interface Workflow_order_by {
+  address?: order_by | null
   authorizer?: WorkflowModule_order_by | null
   authorizer_id?: order_by | null
   chainId?: order_by | null
@@ -9362,6 +11438,8 @@ export interface Workflow_order_by {
   orchestrator?: order_by | null
   paymentProcessor?: WorkflowModule_order_by | null
   paymentProcessor_id?: order_by | null
+  token?: Token_order_by | null
+  token_id?: order_by | null
 }
 
 /** Streaming cursor of the table "Workflow" */
@@ -9374,6 +11452,7 @@ export interface Workflow_stream_cursor_input {
 
 /** Initial value of the column from where the streaming should start */
 export interface Workflow_stream_cursor_value_input {
+  address?: Scalars['String'] | null
   authorizer_id?: Scalars['String'] | null
   chainId?: Scalars['Int'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
@@ -9382,6 +11461,7 @@ export interface Workflow_stream_cursor_value_input {
   optionalModules?: Scalars['String'][] | null
   orchestrator?: Scalars['String'] | null
   paymentProcessor_id?: Scalars['String'] | null
+  token_id?: Scalars['String'] | null
 }
 
 /** columns and relationships of "chain_metadata" */
@@ -9637,19 +11717,6 @@ export interface event_sync_state_stream_cursor_value_input {
   log_index?: Scalars['Int'] | null
 }
 
-/** Boolean expression to compare columns of type "feesource". All fields are combined with logical 'AND'. */
-export interface feesource_comparison_exp {
-  _eq?: Scalars['feesource'] | null
-  _gt?: Scalars['feesource'] | null
-  _gte?: Scalars['feesource'] | null
-  _in?: Scalars['feesource'][] | null
-  _is_null?: Scalars['Boolean'] | null
-  _lt?: Scalars['feesource'] | null
-  _lte?: Scalars['feesource'] | null
-  _neq?: Scalars['feesource'] | null
-  _nin?: Scalars['feesource'][] | null
-}
-
 export interface jsonb_cast_exp {
   String?: String_comparison_exp | null
 }
@@ -9689,6 +11756,19 @@ export interface numeric_comparison_exp {
   _lte?: Scalars['numeric'] | null
   _neq?: Scalars['numeric'] | null
   _nin?: Scalars['numeric'][] | null
+}
+
+/** Boolean expression to compare columns of type "paymentordertype". All fields are combined with logical 'AND'. */
+export interface paymentordertype_comparison_exp {
+  _eq?: Scalars['paymentordertype'] | null
+  _gt?: Scalars['paymentordertype'] | null
+  _gte?: Scalars['paymentordertype'] | null
+  _in?: Scalars['paymentordertype'][] | null
+  _is_null?: Scalars['Boolean'] | null
+  _lt?: Scalars['paymentordertype'] | null
+  _lte?: Scalars['paymentordertype'] | null
+  _neq?: Scalars['paymentordertype'] | null
+  _nin?: Scalars['paymentordertype'][] | null
 }
 
 /** columns and relationships of "persisted_state" */
@@ -9745,6 +11825,25 @@ export interface persisted_state_stream_cursor_value_input {
 }
 
 export interface query_rootGenqlSelection {
+  /** fetch data from the table: "AutRoles" */
+  AutRoles?: AutRolesGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: AutRoles_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: AutRoles_order_by[] | null
+      /** filter the rows returned */
+      where?: AutRoles_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "AutRoles" using primary key columns */
+  AutRoles_by_pk?: AutRolesGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
   /** fetch data from the table: "BondingCurve" */
   BondingCurve?: BondingCurveGenqlSelection & {
     __args?: {
@@ -10017,6 +12116,25 @@ export interface query_rootGenqlSelection {
   }
   /** fetch data from the table: "Deposit" using primary key columns */
   Deposit_by_pk?: DepositGenqlSelection & { __args: { id: Scalars['String'] } }
+  /** fetch data from the table: "ExternalPriceSetter" */
+  ExternalPriceSetter?: ExternalPriceSetterGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: ExternalPriceSetter_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: ExternalPriceSetter_order_by[] | null
+      /** filter the rows returned */
+      where?: ExternalPriceSetter_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "ExternalPriceSetter" using primary key columns */
+  ExternalPriceSetter_by_pk?: ExternalPriceSetterGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
   /** fetch data from the table: "IssuanceTokenDayData" */
   IssuanceTokenDayData?: IssuanceTokenDayDataGenqlSelection & {
     __args?: {
@@ -10104,6 +12222,40 @@ export interface query_rootGenqlSelection {
   LinearVesting_by_pk?: LinearVestingGenqlSelection & {
     __args: { id: Scalars['String'] }
   }
+  /** fetch data from the table: "OraclePriceFM" */
+  OraclePriceFM?: OraclePriceFMGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: OraclePriceFM_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: OraclePriceFM_order_by[] | null
+      /** filter the rows returned */
+      where?: OraclePriceFM_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "OraclePriceFM" */
+  OraclePriceFM_aggregate?: OraclePriceFM_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: OraclePriceFM_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: OraclePriceFM_order_by[] | null
+      /** filter the rows returned */
+      where?: OraclePriceFM_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "OraclePriceFM" using primary key columns */
+  OraclePriceFM_by_pk?: OraclePriceFMGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
   /** fetch data from the table: "ProjectFee" */
   ProjectFee?: ProjectFeeGenqlSelection & {
     __args?: {
@@ -10172,6 +12324,57 @@ export interface query_rootGenqlSelection {
   ProtocolFee_by_pk?: ProtocolFeeGenqlSelection & {
     __args: { id: Scalars['String'] }
   }
+  /** fetch data from the table: "RedemptionPaymentOrder" */
+  RedemptionPaymentOrder?: RedemptionPaymentOrderGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: RedemptionPaymentOrder_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: RedemptionPaymentOrder_order_by[] | null
+      /** filter the rows returned */
+      where?: RedemptionPaymentOrder_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "RedemptionPaymentOrder" */
+  RedemptionPaymentOrder_aggregate?: RedemptionPaymentOrder_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: RedemptionPaymentOrder_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: RedemptionPaymentOrder_order_by[] | null
+      /** filter the rows returned */
+      where?: RedemptionPaymentOrder_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "RedemptionPaymentOrder" using primary key columns */
+  RedemptionPaymentOrder_by_pk?: RedemptionPaymentOrderGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table: "Role" */
+  Role?: RoleGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: Role_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: Role_order_by[] | null
+      /** filter the rows returned */
+      where?: Role_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "Role" using primary key columns */
+  Role_by_pk?: RoleGenqlSelection & { __args: { id: Scalars['String'] } }
   /** fetch data from the table: "StreamingPaymentProcessor" */
   StreamingPaymentProcessor?: StreamingPaymentProcessorGenqlSelection & {
     __args?: {
@@ -10558,7 +12761,76 @@ export interface raw_events_stream_cursor_value_input {
   transaction_fields?: Scalars['jsonb'] | null
 }
 
+/** Boolean expression to compare columns of type "redemptionstate". All fields are combined with logical 'AND'. */
+export interface redemptionstate_comparison_exp {
+  _eq?: Scalars['redemptionstate'] | null
+  _gt?: Scalars['redemptionstate'] | null
+  _gte?: Scalars['redemptionstate'] | null
+  _in?: Scalars['redemptionstate'][] | null
+  _is_null?: Scalars['Boolean'] | null
+  _lt?: Scalars['redemptionstate'] | null
+  _lte?: Scalars['redemptionstate'] | null
+  _neq?: Scalars['redemptionstate'] | null
+  _nin?: Scalars['redemptionstate'][] | null
+}
+
+/** Boolean expression to compare columns of type "rolestatus". All fields are combined with logical 'AND'. */
+export interface rolestatus_comparison_exp {
+  _eq?: Scalars['rolestatus'] | null
+  _gt?: Scalars['rolestatus'] | null
+  _gte?: Scalars['rolestatus'] | null
+  _in?: Scalars['rolestatus'][] | null
+  _is_null?: Scalars['Boolean'] | null
+  _lt?: Scalars['rolestatus'] | null
+  _lte?: Scalars['rolestatus'] | null
+  _neq?: Scalars['rolestatus'] | null
+  _nin?: Scalars['rolestatus'][] | null
+}
+
+/** Boolean expression to compare columns of type "sourcetokentype". All fields are combined with logical 'AND'. */
+export interface sourcetokentype_comparison_exp {
+  _eq?: Scalars['sourcetokentype'] | null
+  _gt?: Scalars['sourcetokentype'] | null
+  _gte?: Scalars['sourcetokentype'] | null
+  _in?: Scalars['sourcetokentype'][] | null
+  _is_null?: Scalars['Boolean'] | null
+  _lt?: Scalars['sourcetokentype'] | null
+  _lte?: Scalars['sourcetokentype'] | null
+  _neq?: Scalars['sourcetokentype'] | null
+  _nin?: Scalars['sourcetokentype'][] | null
+}
+
 export interface subscription_rootGenqlSelection {
+  /** fetch data from the table: "AutRoles" */
+  AutRoles?: AutRolesGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: AutRoles_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: AutRoles_order_by[] | null
+      /** filter the rows returned */
+      where?: AutRoles_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "AutRoles" using primary key columns */
+  AutRoles_by_pk?: AutRolesGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table in a streaming manner: "AutRoles" */
+  AutRoles_stream?: AutRolesGenqlSelection & {
+    __args: {
+      /** maximum number of rows returned in a single batch */
+      batch_size: Scalars['Int']
+      /** cursor to stream the results returned by the query */
+      cursor: (AutRoles_stream_cursor_input | null)[]
+      /** filter the rows returned */
+      where?: AutRoles_bool_exp | null
+    }
+  }
   /** fetch data from the table: "BondingCurve" */
   BondingCurve?: BondingCurveGenqlSelection & {
     __args?: {
@@ -10930,6 +13202,36 @@ export interface subscription_rootGenqlSelection {
       where?: Deposit_bool_exp | null
     }
   }
+  /** fetch data from the table: "ExternalPriceSetter" */
+  ExternalPriceSetter?: ExternalPriceSetterGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: ExternalPriceSetter_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: ExternalPriceSetter_order_by[] | null
+      /** filter the rows returned */
+      where?: ExternalPriceSetter_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "ExternalPriceSetter" using primary key columns */
+  ExternalPriceSetter_by_pk?: ExternalPriceSetterGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table in a streaming manner: "ExternalPriceSetter" */
+  ExternalPriceSetter_stream?: ExternalPriceSetterGenqlSelection & {
+    __args: {
+      /** maximum number of rows returned in a single batch */
+      batch_size: Scalars['Int']
+      /** cursor to stream the results returned by the query */
+      cursor: (ExternalPriceSetter_stream_cursor_input | null)[]
+      /** filter the rows returned */
+      where?: ExternalPriceSetter_bool_exp | null
+    }
+  }
   /** fetch data from the table: "IssuanceTokenDayData" */
   IssuanceTokenDayData?: IssuanceTokenDayDataGenqlSelection & {
     __args?: {
@@ -11050,6 +13352,51 @@ export interface subscription_rootGenqlSelection {
       where?: LinearVesting_bool_exp | null
     }
   }
+  /** fetch data from the table: "OraclePriceFM" */
+  OraclePriceFM?: OraclePriceFMGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: OraclePriceFM_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: OraclePriceFM_order_by[] | null
+      /** filter the rows returned */
+      where?: OraclePriceFM_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "OraclePriceFM" */
+  OraclePriceFM_aggregate?: OraclePriceFM_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: OraclePriceFM_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: OraclePriceFM_order_by[] | null
+      /** filter the rows returned */
+      where?: OraclePriceFM_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "OraclePriceFM" using primary key columns */
+  OraclePriceFM_by_pk?: OraclePriceFMGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table in a streaming manner: "OraclePriceFM" */
+  OraclePriceFM_stream?: OraclePriceFMGenqlSelection & {
+    __args: {
+      /** maximum number of rows returned in a single batch */
+      batch_size: Scalars['Int']
+      /** cursor to stream the results returned by the query */
+      cursor: (OraclePriceFM_stream_cursor_input | null)[]
+      /** filter the rows returned */
+      where?: OraclePriceFM_bool_exp | null
+    }
+  }
   /** fetch data from the table: "ProjectFee" */
   ProjectFee?: ProjectFeeGenqlSelection & {
     __args?: {
@@ -11138,6 +13485,79 @@ export interface subscription_rootGenqlSelection {
       cursor: (ProtocolFee_stream_cursor_input | null)[]
       /** filter the rows returned */
       where?: ProtocolFee_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "RedemptionPaymentOrder" */
+  RedemptionPaymentOrder?: RedemptionPaymentOrderGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: RedemptionPaymentOrder_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: RedemptionPaymentOrder_order_by[] | null
+      /** filter the rows returned */
+      where?: RedemptionPaymentOrder_bool_exp | null
+    }
+  }
+  /** fetch aggregated fields from the table: "RedemptionPaymentOrder" */
+  RedemptionPaymentOrder_aggregate?: RedemptionPaymentOrder_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: RedemptionPaymentOrder_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: RedemptionPaymentOrder_order_by[] | null
+      /** filter the rows returned */
+      where?: RedemptionPaymentOrder_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "RedemptionPaymentOrder" using primary key columns */
+  RedemptionPaymentOrder_by_pk?: RedemptionPaymentOrderGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table in a streaming manner: "RedemptionPaymentOrder" */
+  RedemptionPaymentOrder_stream?: RedemptionPaymentOrderGenqlSelection & {
+    __args: {
+      /** maximum number of rows returned in a single batch */
+      batch_size: Scalars['Int']
+      /** cursor to stream the results returned by the query */
+      cursor: (RedemptionPaymentOrder_stream_cursor_input | null)[]
+      /** filter the rows returned */
+      where?: RedemptionPaymentOrder_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "Role" */
+  Role?: RoleGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: Role_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: Role_order_by[] | null
+      /** filter the rows returned */
+      where?: Role_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "Role" using primary key columns */
+  Role_by_pk?: RoleGenqlSelection & { __args: { id: Scalars['String'] } }
+  /** fetch data from the table in a streaming manner: "Role" */
+  Role_stream?: RoleGenqlSelection & {
+    __args: {
+      /** maximum number of rows returned in a single batch */
+      batch_size: Scalars['Int']
+      /** cursor to stream the results returned by the query */
+      cursor: (Role_stream_cursor_input | null)[]
+      /** filter the rows returned */
+      where?: Role_bool_exp | null
     }
   }
   /** fetch data from the table: "StreamingPaymentProcessor" */
@@ -11614,6 +14034,14 @@ export interface vestingstatus_comparison_exp {
 
 export type QueryGenqlSelection = query_rootGenqlSelection
 export type SubscriptionGenqlSelection = subscription_rootGenqlSelection
+
+const AutRoles_possibleTypes: string[] = ['AutRoles']
+export const isAutRoles = (
+  obj?: { __typename?: any } | null
+): obj is AutRoles => {
+  if (!obj?.__typename) throw new Error('__typename is missing in "isAutRoles"')
+  return AutRoles_possibleTypes.includes(obj.__typename)
+}
 
 const BondingCurve_possibleTypes: string[] = ['BondingCurve']
 export const isBondingCurve = (
@@ -12528,6 +14956,15 @@ export const isDeposit_variance_fields = (
   return Deposit_variance_fields_possibleTypes.includes(obj.__typename)
 }
 
+const ExternalPriceSetter_possibleTypes: string[] = ['ExternalPriceSetter']
+export const isExternalPriceSetter = (
+  obj?: { __typename?: any } | null
+): obj is ExternalPriceSetter => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isExternalPriceSetter"')
+  return ExternalPriceSetter_possibleTypes.includes(obj.__typename)
+}
+
 const IssuanceTokenDayData_possibleTypes: string[] = ['IssuanceTokenDayData']
 export const isIssuanceTokenDayData = (
   obj?: { __typename?: any } | null
@@ -12895,6 +15332,157 @@ export const isLinearVesting = (
   return LinearVesting_possibleTypes.includes(obj.__typename)
 }
 
+const OraclePriceFM_possibleTypes: string[] = ['OraclePriceFM']
+export const isOraclePriceFM = (
+  obj?: { __typename?: any } | null
+): obj is OraclePriceFM => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isOraclePriceFM"')
+  return OraclePriceFM_possibleTypes.includes(obj.__typename)
+}
+
+const OraclePriceFM_aggregate_possibleTypes: string[] = [
+  'OraclePriceFM_aggregate',
+]
+export const isOraclePriceFM_aggregate = (
+  obj?: { __typename?: any } | null
+): obj is OraclePriceFM_aggregate => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isOraclePriceFM_aggregate"')
+  return OraclePriceFM_aggregate_possibleTypes.includes(obj.__typename)
+}
+
+const OraclePriceFM_aggregate_fields_possibleTypes: string[] = [
+  'OraclePriceFM_aggregate_fields',
+]
+export const isOraclePriceFM_aggregate_fields = (
+  obj?: { __typename?: any } | null
+): obj is OraclePriceFM_aggregate_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isOraclePriceFM_aggregate_fields"'
+    )
+  return OraclePriceFM_aggregate_fields_possibleTypes.includes(obj.__typename)
+}
+
+const OraclePriceFM_avg_fields_possibleTypes: string[] = [
+  'OraclePriceFM_avg_fields',
+]
+export const isOraclePriceFM_avg_fields = (
+  obj?: { __typename?: any } | null
+): obj is OraclePriceFM_avg_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isOraclePriceFM_avg_fields"')
+  return OraclePriceFM_avg_fields_possibleTypes.includes(obj.__typename)
+}
+
+const OraclePriceFM_max_fields_possibleTypes: string[] = [
+  'OraclePriceFM_max_fields',
+]
+export const isOraclePriceFM_max_fields = (
+  obj?: { __typename?: any } | null
+): obj is OraclePriceFM_max_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isOraclePriceFM_max_fields"')
+  return OraclePriceFM_max_fields_possibleTypes.includes(obj.__typename)
+}
+
+const OraclePriceFM_min_fields_possibleTypes: string[] = [
+  'OraclePriceFM_min_fields',
+]
+export const isOraclePriceFM_min_fields = (
+  obj?: { __typename?: any } | null
+): obj is OraclePriceFM_min_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isOraclePriceFM_min_fields"')
+  return OraclePriceFM_min_fields_possibleTypes.includes(obj.__typename)
+}
+
+const OraclePriceFM_stddev_fields_possibleTypes: string[] = [
+  'OraclePriceFM_stddev_fields',
+]
+export const isOraclePriceFM_stddev_fields = (
+  obj?: { __typename?: any } | null
+): obj is OraclePriceFM_stddev_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isOraclePriceFM_stddev_fields"')
+  return OraclePriceFM_stddev_fields_possibleTypes.includes(obj.__typename)
+}
+
+const OraclePriceFM_stddev_pop_fields_possibleTypes: string[] = [
+  'OraclePriceFM_stddev_pop_fields',
+]
+export const isOraclePriceFM_stddev_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is OraclePriceFM_stddev_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isOraclePriceFM_stddev_pop_fields"'
+    )
+  return OraclePriceFM_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const OraclePriceFM_stddev_samp_fields_possibleTypes: string[] = [
+  'OraclePriceFM_stddev_samp_fields',
+]
+export const isOraclePriceFM_stddev_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is OraclePriceFM_stddev_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isOraclePriceFM_stddev_samp_fields"'
+    )
+  return OraclePriceFM_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const OraclePriceFM_sum_fields_possibleTypes: string[] = [
+  'OraclePriceFM_sum_fields',
+]
+export const isOraclePriceFM_sum_fields = (
+  obj?: { __typename?: any } | null
+): obj is OraclePriceFM_sum_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isOraclePriceFM_sum_fields"')
+  return OraclePriceFM_sum_fields_possibleTypes.includes(obj.__typename)
+}
+
+const OraclePriceFM_var_pop_fields_possibleTypes: string[] = [
+  'OraclePriceFM_var_pop_fields',
+]
+export const isOraclePriceFM_var_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is OraclePriceFM_var_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isOraclePriceFM_var_pop_fields"')
+  return OraclePriceFM_var_pop_fields_possibleTypes.includes(obj.__typename)
+}
+
+const OraclePriceFM_var_samp_fields_possibleTypes: string[] = [
+  'OraclePriceFM_var_samp_fields',
+]
+export const isOraclePriceFM_var_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is OraclePriceFM_var_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isOraclePriceFM_var_samp_fields"'
+    )
+  return OraclePriceFM_var_samp_fields_possibleTypes.includes(obj.__typename)
+}
+
+const OraclePriceFM_variance_fields_possibleTypes: string[] = [
+  'OraclePriceFM_variance_fields',
+]
+export const isOraclePriceFM_variance_fields = (
+  obj?: { __typename?: any } | null
+): obj is OraclePriceFM_variance_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isOraclePriceFM_variance_fields"'
+    )
+  return OraclePriceFM_variance_fields_possibleTypes.includes(obj.__typename)
+}
+
 const ProjectFee_possibleTypes: string[] = ['ProjectFee']
 export const isProjectFee = (
   obj?: { __typename?: any } | null
@@ -13169,6 +15757,201 @@ export const isProtocolFee_variance_fields = (
   if (!obj?.__typename)
     throw new Error('__typename is missing in "isProtocolFee_variance_fields"')
   return ProtocolFee_variance_fields_possibleTypes.includes(obj.__typename)
+}
+
+const RedemptionPaymentOrder_possibleTypes: string[] = [
+  'RedemptionPaymentOrder',
+]
+export const isRedemptionPaymentOrder = (
+  obj?: { __typename?: any } | null
+): obj is RedemptionPaymentOrder => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isRedemptionPaymentOrder"')
+  return RedemptionPaymentOrder_possibleTypes.includes(obj.__typename)
+}
+
+const RedemptionPaymentOrder_aggregate_possibleTypes: string[] = [
+  'RedemptionPaymentOrder_aggregate',
+]
+export const isRedemptionPaymentOrder_aggregate = (
+  obj?: { __typename?: any } | null
+): obj is RedemptionPaymentOrder_aggregate => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isRedemptionPaymentOrder_aggregate"'
+    )
+  return RedemptionPaymentOrder_aggregate_possibleTypes.includes(obj.__typename)
+}
+
+const RedemptionPaymentOrder_aggregate_fields_possibleTypes: string[] = [
+  'RedemptionPaymentOrder_aggregate_fields',
+]
+export const isRedemptionPaymentOrder_aggregate_fields = (
+  obj?: { __typename?: any } | null
+): obj is RedemptionPaymentOrder_aggregate_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isRedemptionPaymentOrder_aggregate_fields"'
+    )
+  return RedemptionPaymentOrder_aggregate_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const RedemptionPaymentOrder_avg_fields_possibleTypes: string[] = [
+  'RedemptionPaymentOrder_avg_fields',
+]
+export const isRedemptionPaymentOrder_avg_fields = (
+  obj?: { __typename?: any } | null
+): obj is RedemptionPaymentOrder_avg_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isRedemptionPaymentOrder_avg_fields"'
+    )
+  return RedemptionPaymentOrder_avg_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const RedemptionPaymentOrder_max_fields_possibleTypes: string[] = [
+  'RedemptionPaymentOrder_max_fields',
+]
+export const isRedemptionPaymentOrder_max_fields = (
+  obj?: { __typename?: any } | null
+): obj is RedemptionPaymentOrder_max_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isRedemptionPaymentOrder_max_fields"'
+    )
+  return RedemptionPaymentOrder_max_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const RedemptionPaymentOrder_min_fields_possibleTypes: string[] = [
+  'RedemptionPaymentOrder_min_fields',
+]
+export const isRedemptionPaymentOrder_min_fields = (
+  obj?: { __typename?: any } | null
+): obj is RedemptionPaymentOrder_min_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isRedemptionPaymentOrder_min_fields"'
+    )
+  return RedemptionPaymentOrder_min_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const RedemptionPaymentOrder_stddev_fields_possibleTypes: string[] = [
+  'RedemptionPaymentOrder_stddev_fields',
+]
+export const isRedemptionPaymentOrder_stddev_fields = (
+  obj?: { __typename?: any } | null
+): obj is RedemptionPaymentOrder_stddev_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isRedemptionPaymentOrder_stddev_fields"'
+    )
+  return RedemptionPaymentOrder_stddev_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const RedemptionPaymentOrder_stddev_pop_fields_possibleTypes: string[] = [
+  'RedemptionPaymentOrder_stddev_pop_fields',
+]
+export const isRedemptionPaymentOrder_stddev_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is RedemptionPaymentOrder_stddev_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isRedemptionPaymentOrder_stddev_pop_fields"'
+    )
+  return RedemptionPaymentOrder_stddev_pop_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const RedemptionPaymentOrder_stddev_samp_fields_possibleTypes: string[] = [
+  'RedemptionPaymentOrder_stddev_samp_fields',
+]
+export const isRedemptionPaymentOrder_stddev_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is RedemptionPaymentOrder_stddev_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isRedemptionPaymentOrder_stddev_samp_fields"'
+    )
+  return RedemptionPaymentOrder_stddev_samp_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const RedemptionPaymentOrder_sum_fields_possibleTypes: string[] = [
+  'RedemptionPaymentOrder_sum_fields',
+]
+export const isRedemptionPaymentOrder_sum_fields = (
+  obj?: { __typename?: any } | null
+): obj is RedemptionPaymentOrder_sum_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isRedemptionPaymentOrder_sum_fields"'
+    )
+  return RedemptionPaymentOrder_sum_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const RedemptionPaymentOrder_var_pop_fields_possibleTypes: string[] = [
+  'RedemptionPaymentOrder_var_pop_fields',
+]
+export const isRedemptionPaymentOrder_var_pop_fields = (
+  obj?: { __typename?: any } | null
+): obj is RedemptionPaymentOrder_var_pop_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isRedemptionPaymentOrder_var_pop_fields"'
+    )
+  return RedemptionPaymentOrder_var_pop_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const RedemptionPaymentOrder_var_samp_fields_possibleTypes: string[] = [
+  'RedemptionPaymentOrder_var_samp_fields',
+]
+export const isRedemptionPaymentOrder_var_samp_fields = (
+  obj?: { __typename?: any } | null
+): obj is RedemptionPaymentOrder_var_samp_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isRedemptionPaymentOrder_var_samp_fields"'
+    )
+  return RedemptionPaymentOrder_var_samp_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const RedemptionPaymentOrder_variance_fields_possibleTypes: string[] = [
+  'RedemptionPaymentOrder_variance_fields',
+]
+export const isRedemptionPaymentOrder_variance_fields = (
+  obj?: { __typename?: any } | null
+): obj is RedemptionPaymentOrder_variance_fields => {
+  if (!obj?.__typename)
+    throw new Error(
+      '__typename is missing in "isRedemptionPaymentOrder_variance_fields"'
+    )
+  return RedemptionPaymentOrder_variance_fields_possibleTypes.includes(
+    obj.__typename
+  )
+}
+
+const Role_possibleTypes: string[] = ['Role']
+export const isRole = (obj?: { __typename?: any } | null): obj is Role => {
+  if (!obj?.__typename) throw new Error('__typename is missing in "isRole"')
+  return Role_possibleTypes.includes(obj.__typename)
 }
 
 const StreamingPaymentProcessor_possibleTypes: string[] = [
@@ -13542,6 +16325,14 @@ export const issubscription_root = (
   return subscription_root_possibleTypes.includes(obj.__typename)
 }
 
+export const enumAutRolesSelectColumn = {
+  address: 'address' as const,
+  chainId: 'chainId' as const,
+  db_write_timestamp: 'db_write_timestamp' as const,
+  id: 'id' as const,
+  workflow_id: 'workflow_id' as const,
+}
+
 export const enumBondingCurveSelectColumn = {
   address: 'address' as const,
   bcType: 'bcType' as const,
@@ -13583,14 +16374,17 @@ export const enumBountyContributorSelectColumn = {
   address: 'address' as const,
   bountyClaim_id: 'bountyClaim_id' as const,
   claimAmount: 'claimAmount' as const,
+  claimAmountUSD: 'claimAmountUSD' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
   id: 'id' as const,
 }
 
 export const enumBountyModuleSelectColumn = {
+  address: 'address' as const,
   chainId: 'chainId' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
   id: 'id' as const,
+  token_id: 'token_id' as const,
   workflow_id: 'workflow_id' as const,
 }
 
@@ -13601,7 +16395,9 @@ export const enumBountySelectColumn = {
   id: 'id' as const,
   locked: 'locked' as const,
   maximumPayoutAmount: 'maximumPayoutAmount' as const,
+  maximumPayoutAmountUSD: 'maximumPayoutAmountUSD' as const,
   minimumPayoutAmount: 'minimumPayoutAmount' as const,
+  minimumPayoutAmountUSD: 'minimumPayoutAmountUSD' as const,
 }
 
 export const enumBountySelectColumnBountyAggregateBoolExpBoolAndArgumentsColumns =
@@ -13615,19 +16411,20 @@ export const enumBountySelectColumnBountyAggregateBoolExpBoolOrArgumentsColumns 
   }
 
 export const enumCurveDayDataSelectColumn = {
+  address: 'address' as const,
   chainId: 'chainId' as const,
   closeCOL: 'closeCOL' as const,
   closeUSD: 'closeUSD' as const,
   collateralToken_id: 'collateralToken_id' as const,
   date: 'date' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
+  fundingManager_id: 'fundingManager_id' as const,
   highCOL: 'highCOL' as const,
   highUSD: 'highUSD' as const,
   id: 'id' as const,
   issuanceToken_id: 'issuanceToken_id' as const,
   lowCOL: 'lowCOL' as const,
   lowUSD: 'lowUSD' as const,
-  module_id: 'module_id' as const,
   openCOL: 'openCOL' as const,
   openUSD: 'openUSD' as const,
   priceCOL: 'priceCOL' as const,
@@ -13643,18 +16440,19 @@ export const enumCurveDayDataSelectColumn = {
 }
 
 export const enumCurveHourDataSelectColumn = {
+  address: 'address' as const,
   chainId: 'chainId' as const,
   closeCOL: 'closeCOL' as const,
   closeUSD: 'closeUSD' as const,
   collateralToken_id: 'collateralToken_id' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
+  fundingManager_id: 'fundingManager_id' as const,
   highCOL: 'highCOL' as const,
   highUSD: 'highUSD' as const,
   id: 'id' as const,
   issuanceToken_id: 'issuanceToken_id' as const,
   lowCOL: 'lowCOL' as const,
   lowUSD: 'lowUSD' as const,
-  module_id: 'module_id' as const,
   openCOL: 'openCOL' as const,
   openUSD: 'openUSD' as const,
   periodStartUnix: 'periodStartUnix' as const,
@@ -13684,14 +16482,28 @@ export const enumDepositVaultSelectColumn = {
 export const enumDepositSelectColumn = {
   amount: 'amount' as const,
   amountUSD: 'amountUSD' as const,
-  blockTimestamp: 'blockTimestamp' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
   depositVault_id: 'depositVault_id' as const,
   depositor: 'depositor' as const,
   id: 'id' as const,
+  timestamp: 'timestamp' as const,
+}
+
+export const enumExternalPriceSetterSelectColumn = {
+  address: 'address' as const,
+  chainId: 'chainId' as const,
+  collateralToken_id: 'collateralToken_id' as const,
+  db_write_timestamp: 'db_write_timestamp' as const,
+  id: 'id' as const,
+  issuanceToken_id: 'issuanceToken_id' as const,
+  priceCOL: 'priceCOL' as const,
+  priceISS: 'priceISS' as const,
+  priceUSD: 'priceUSD' as const,
+  workflow_id: 'workflow_id' as const,
 }
 
 export const enumIssuanceTokenDayDataSelectColumn = {
+  address: 'address' as const,
   chainId: 'chainId' as const,
   closeUSD: 'closeUSD' as const,
   date: 'date' as const,
@@ -13710,6 +16522,7 @@ export const enumIssuanceTokenDayDataSelectColumn = {
 }
 
 export const enumIssuanceTokenHourDataSelectColumn = {
+  address: 'address' as const,
   chainId: 'chainId' as const,
   closeUSD: 'closeUSD' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
@@ -13729,7 +16542,6 @@ export const enumIssuanceTokenHourDataSelectColumn = {
 
 export const enumLinearVestingSelectColumn = {
   amount: 'amount' as const,
-  blockTimestamp: 'blockTimestamp' as const,
   chainId: 'chainId' as const,
   cliff: 'cliff' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
@@ -13739,35 +16551,93 @@ export const enumLinearVestingSelectColumn = {
   start: 'start' as const,
   status: 'status' as const,
   streamingPaymentProcessor_id: 'streamingPaymentProcessor_id' as const,
+  timestamp: 'timestamp' as const,
   token_id: 'token_id' as const,
+}
+
+export const enumOraclePriceFmSelectColumn = {
+  address: 'address' as const,
+  buyFee: 'buyFee' as const,
+  chainId: 'chainId' as const,
+  collateralToken_id: 'collateralToken_id' as const,
+  db_write_timestamp: 'db_write_timestamp' as const,
+  externalPriceSetter_id: 'externalPriceSetter_id' as const,
+  id: 'id' as const,
+  issuanceToken_id: 'issuanceToken_id' as const,
+  pendingRedemptionCOL: 'pendingRedemptionCOL' as const,
+  pendingRedemptionUSD: 'pendingRedemptionUSD' as const,
+  reserveCOL: 'reserveCOL' as const,
+  reserveUSD: 'reserveUSD' as const,
+  sellFee: 'sellFee' as const,
+  workflow_id: 'workflow_id' as const,
 }
 
 export const enumProjectFeeSelectColumn = {
   amount: 'amount' as const,
   amountUSD: 'amountUSD' as const,
-  blockTimestamp: 'blockTimestamp' as const,
   chainId: 'chainId' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
   id: 'id' as const,
   module_id: 'module_id' as const,
   recipient: 'recipient' as const,
+  timestamp: 'timestamp' as const,
   token_id: 'token_id' as const,
 }
 
 export const enumProtocolFeeSelectColumn = {
   amount: 'amount' as const,
   amountUSD: 'amountUSD' as const,
-  blockTimestamp: 'blockTimestamp' as const,
   chainId: 'chainId' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
   id: 'id' as const,
   module_id: 'module_id' as const,
   source: 'source' as const,
+  timestamp: 'timestamp' as const,
   token_id: 'token_id' as const,
   treasury: 'treasury' as const,
 }
 
+export const enumRedemptionPaymentOrderSelectColumn = {
+  amount: 'amount' as const,
+  amountUSD: 'amountUSD' as const,
+  chainId: 'chainId' as const,
+  data: 'data' as const,
+  db_write_timestamp: 'db_write_timestamp' as const,
+  exchangeRate: 'exchangeRate' as const,
+  executedBy: 'executedBy' as const,
+  executedTimestamp: 'executedTimestamp' as const,
+  fee: 'fee' as const,
+  feePercentage: 'feePercentage' as const,
+  feeUSD: 'feeUSD' as const,
+  flags: 'flags' as const,
+  id: 'id' as const,
+  oraclePriceFM_id: 'oraclePriceFM_id' as const,
+  orderId: 'orderId' as const,
+  orderType: 'orderType' as const,
+  originChainId: 'originChainId' as const,
+  recipient: 'recipient' as const,
+  seller: 'seller' as const,
+  state: 'state' as const,
+  targetChainId: 'targetChainId' as const,
+  timestamp: 'timestamp' as const,
+  token_id: 'token_id' as const,
+}
+
+export const enumRoleSelectColumn = {
+  chainId: 'chainId' as const,
+  db_write_timestamp: 'db_write_timestamp' as const,
+  id: 'id' as const,
+  initiator: 'initiator' as const,
+  module_id: 'module_id' as const,
+  recipient: 'recipient' as const,
+  role: 'role' as const,
+  roleGen: 'roleGen' as const,
+  roleName: 'roleName' as const,
+  status: 'status' as const,
+}
+
 export const enumStreamingPaymentProcessorSelectColumn = {
+  address: 'address' as const,
   chainId: 'chainId' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
   id: 'id' as const,
@@ -13778,18 +16648,18 @@ export const enumSwapSelectColumn = {
   amountCOL: 'amountCOL' as const,
   amountISS: 'amountISS' as const,
   amountUSD: 'amountUSD' as const,
-  blockTimestamp: 'blockTimestamp' as const,
   chainId: 'chainId' as const,
   collateralToken_id: 'collateralToken_id' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
+  fundingManager_id: 'fundingManager_id' as const,
   id: 'id' as const,
   initiator: 'initiator' as const,
   issuanceToken_id: 'issuanceToken_id' as const,
-  module_id: 'module_id' as const,
   priceCOL: 'priceCOL' as const,
   priceUSD: 'priceUSD' as const,
   recipient: 'recipient' as const,
   swapType: 'swapType' as const,
+  timestamp: 'timestamp' as const,
 }
 
 export const enumTokenSelectColumn = {
@@ -13807,11 +16677,11 @@ export const enumTokenSelectColumn = {
 export const enumTransferSelectColumn = {
   amount: 'amount' as const,
   amountUSD: 'amountUSD' as const,
-  blockTimestamp: 'blockTimestamp' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
   depositVault_id: 'depositVault_id' as const,
   id: 'id' as const,
   recipient: 'recipient' as const,
+  timestamp: 'timestamp' as const,
 }
 
 export const enumWorkflowModuleTypeSelectColumn = {
@@ -13836,6 +16706,7 @@ export const enumWorkflowModuleSelectColumn = {
 }
 
 export const enumWorkflowSelectColumn = {
+  address: 'address' as const,
   authorizer_id: 'authorizer_id' as const,
   chainId: 'chainId' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
@@ -13844,6 +16715,7 @@ export const enumWorkflowSelectColumn = {
   optionalModules: 'optionalModules' as const,
   orchestrator: 'orchestrator' as const,
   paymentProcessor_id: 'paymentProcessor_id' as const,
+  token_id: 'token_id' as const,
 }
 
 export const enumChainMetadataSelectColumn = {

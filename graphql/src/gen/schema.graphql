@@ -13,6 +13,105 @@ directive @cached(
 ) on QUERY
 
 """
+columns and relationships of "AutRoles"
+"""
+type AutRoles {
+  address: String!
+  chainId: Int!
+  db_write_timestamp: timestamp
+  id: String!
+
+  """An array relationship"""
+  roles(
+    """distinct select on columns"""
+    distinct_on: [Role_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Role_order_by!]
+
+    """filter the rows returned"""
+    where: Role_bool_exp
+  ): [Role!]!
+
+  """An object relationship"""
+  workflow: Workflow
+  workflow_id: String!
+}
+
+"""
+Boolean expression to filter rows from the table "AutRoles". All fields are combined with a logical 'AND'.
+"""
+input AutRoles_bool_exp {
+  _and: [AutRoles_bool_exp!]
+  _not: AutRoles_bool_exp
+  _or: [AutRoles_bool_exp!]
+  address: String_comparison_exp
+  chainId: Int_comparison_exp
+  db_write_timestamp: timestamp_comparison_exp
+  id: String_comparison_exp
+  roles: Role_bool_exp
+  workflow: Workflow_bool_exp
+  workflow_id: String_comparison_exp
+}
+
+"""Ordering options when selecting data from "AutRoles"."""
+input AutRoles_order_by {
+  address: order_by
+  chainId: order_by
+  db_write_timestamp: order_by
+  id: order_by
+  roles_aggregate: Role_aggregate_order_by
+  workflow: Workflow_order_by
+  workflow_id: order_by
+}
+
+"""
+select columns of table "AutRoles"
+"""
+enum AutRoles_select_column {
+  """column name"""
+  address
+
+  """column name"""
+  chainId
+
+  """column name"""
+  db_write_timestamp
+
+  """column name"""
+  id
+
+  """column name"""
+  workflow_id
+}
+
+"""
+Streaming cursor of the table "AutRoles"
+"""
+input AutRoles_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: AutRoles_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input AutRoles_stream_cursor_value_input {
+  address: String
+  chainId: Int
+  db_write_timestamp: timestamp
+  id: String
+  workflow_id: String
+}
+
+"""
 columns and relationships of "BondingCurve"
 """
 type BondingCurve {
@@ -664,7 +763,9 @@ type Bounty {
   id: String!
   locked: Boolean
   maximumPayoutAmount: numeric!
+  maximumPayoutAmountUSD: numeric!
   minimumPayoutAmount: numeric!
+  minimumPayoutAmountUSD: numeric!
 }
 
 """
@@ -880,6 +981,7 @@ type BountyContributor {
   bountyClaim: BountyClaim
   bountyClaim_id: String!
   claimAmount: numeric!
+  claimAmountUSD: numeric!
   db_write_timestamp: timestamp
   id: String!
 }
@@ -906,6 +1008,7 @@ order by avg() on columns of table "BountyContributor"
 """
 input BountyContributor_avg_order_by {
   claimAmount: order_by
+  claimAmountUSD: order_by
 }
 
 """
@@ -919,6 +1022,7 @@ input BountyContributor_bool_exp {
   bountyClaim: BountyClaim_bool_exp
   bountyClaim_id: String_comparison_exp
   claimAmount: numeric_comparison_exp
+  claimAmountUSD: numeric_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
   id: String_comparison_exp
 }
@@ -930,6 +1034,7 @@ input BountyContributor_max_order_by {
   address: order_by
   bountyClaim_id: order_by
   claimAmount: order_by
+  claimAmountUSD: order_by
   db_write_timestamp: order_by
   id: order_by
 }
@@ -941,6 +1046,7 @@ input BountyContributor_min_order_by {
   address: order_by
   bountyClaim_id: order_by
   claimAmount: order_by
+  claimAmountUSD: order_by
   db_write_timestamp: order_by
   id: order_by
 }
@@ -951,6 +1057,7 @@ input BountyContributor_order_by {
   bountyClaim: BountyClaim_order_by
   bountyClaim_id: order_by
   claimAmount: order_by
+  claimAmountUSD: order_by
   db_write_timestamp: order_by
   id: order_by
 }
@@ -969,6 +1076,9 @@ enum BountyContributor_select_column {
   claimAmount
 
   """column name"""
+  claimAmountUSD
+
+  """column name"""
   db_write_timestamp
 
   """column name"""
@@ -980,6 +1090,7 @@ order by stddev() on columns of table "BountyContributor"
 """
 input BountyContributor_stddev_order_by {
   claimAmount: order_by
+  claimAmountUSD: order_by
 }
 
 """
@@ -987,6 +1098,7 @@ order by stddev_pop() on columns of table "BountyContributor"
 """
 input BountyContributor_stddev_pop_order_by {
   claimAmount: order_by
+  claimAmountUSD: order_by
 }
 
 """
@@ -994,6 +1106,7 @@ order by stddev_samp() on columns of table "BountyContributor"
 """
 input BountyContributor_stddev_samp_order_by {
   claimAmount: order_by
+  claimAmountUSD: order_by
 }
 
 """
@@ -1012,6 +1125,7 @@ input BountyContributor_stream_cursor_value_input {
   address: String
   bountyClaim_id: String
   claimAmount: numeric
+  claimAmountUSD: numeric
   db_write_timestamp: timestamp
   id: String
 }
@@ -1021,6 +1135,7 @@ order by sum() on columns of table "BountyContributor"
 """
 input BountyContributor_sum_order_by {
   claimAmount: order_by
+  claimAmountUSD: order_by
 }
 
 """
@@ -1028,6 +1143,7 @@ order by var_pop() on columns of table "BountyContributor"
 """
 input BountyContributor_var_pop_order_by {
   claimAmount: order_by
+  claimAmountUSD: order_by
 }
 
 """
@@ -1035,6 +1151,7 @@ order by var_samp() on columns of table "BountyContributor"
 """
 input BountyContributor_var_samp_order_by {
   claimAmount: order_by
+  claimAmountUSD: order_by
 }
 
 """
@@ -1042,12 +1159,15 @@ order by variance() on columns of table "BountyContributor"
 """
 input BountyContributor_variance_order_by {
   claimAmount: order_by
+  claimAmountUSD: order_by
 }
 
 """
 columns and relationships of "BountyModule"
 """
 type BountyModule {
+  address: String!
+
   """An array relationship"""
   bounties(
     """distinct select on columns"""
@@ -1088,6 +1208,10 @@ type BountyModule {
   id: String!
 
   """An object relationship"""
+  token: Token
+  token_id: String!
+
+  """An object relationship"""
   workflow: Workflow
   workflow_id: String!
 }
@@ -1099,21 +1223,27 @@ input BountyModule_bool_exp {
   _and: [BountyModule_bool_exp!]
   _not: BountyModule_bool_exp
   _or: [BountyModule_bool_exp!]
+  address: String_comparison_exp
   bounties: Bounty_bool_exp
   bounties_aggregate: Bounty_aggregate_bool_exp
   chainId: Int_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
   id: String_comparison_exp
+  token: Token_bool_exp
+  token_id: String_comparison_exp
   workflow: Workflow_bool_exp
   workflow_id: String_comparison_exp
 }
 
 """Ordering options when selecting data from "BountyModule"."""
 input BountyModule_order_by {
+  address: order_by
   bounties_aggregate: Bounty_aggregate_order_by
   chainId: order_by
   db_write_timestamp: order_by
   id: order_by
+  token: Token_order_by
+  token_id: order_by
   workflow: Workflow_order_by
   workflow_id: order_by
 }
@@ -1123,6 +1253,9 @@ select columns of table "BountyModule"
 """
 enum BountyModule_select_column {
   """column name"""
+  address
+
+  """column name"""
   chainId
 
   """column name"""
@@ -1130,6 +1263,9 @@ enum BountyModule_select_column {
 
   """column name"""
   id
+
+  """column name"""
+  token_id
 
   """column name"""
   workflow_id
@@ -1148,9 +1284,11 @@ input BountyModule_stream_cursor_input {
 
 """Initial value of the column from where the streaming should start"""
 input BountyModule_stream_cursor_value_input {
+  address: String
   chainId: Int
   db_write_timestamp: timestamp
   id: String
+  token_id: String
   workflow_id: String
 }
 
@@ -1226,7 +1364,9 @@ input Bounty_aggregate_order_by {
 """aggregate avg on columns"""
 type Bounty_avg_fields {
   maximumPayoutAmount: Float
+  maximumPayoutAmountUSD: Float
   minimumPayoutAmount: Float
+  minimumPayoutAmountUSD: Float
 }
 
 """
@@ -1234,7 +1374,9 @@ order by avg() on columns of table "Bounty"
 """
 input Bounty_avg_order_by {
   maximumPayoutAmount: order_by
+  maximumPayoutAmountUSD: order_by
   minimumPayoutAmount: order_by
+  minimumPayoutAmountUSD: order_by
 }
 
 """
@@ -1253,7 +1395,9 @@ input Bounty_bool_exp {
   id: String_comparison_exp
   locked: Boolean_comparison_exp
   maximumPayoutAmount: numeric_comparison_exp
+  maximumPayoutAmountUSD: numeric_comparison_exp
   minimumPayoutAmount: numeric_comparison_exp
+  minimumPayoutAmountUSD: numeric_comparison_exp
 }
 
 """aggregate max on columns"""
@@ -1263,7 +1407,9 @@ type Bounty_max_fields {
   details: String
   id: String
   maximumPayoutAmount: numeric
+  maximumPayoutAmountUSD: numeric
   minimumPayoutAmount: numeric
+  minimumPayoutAmountUSD: numeric
 }
 
 """
@@ -1275,7 +1421,9 @@ input Bounty_max_order_by {
   details: order_by
   id: order_by
   maximumPayoutAmount: order_by
+  maximumPayoutAmountUSD: order_by
   minimumPayoutAmount: order_by
+  minimumPayoutAmountUSD: order_by
 }
 
 """aggregate min on columns"""
@@ -1285,7 +1433,9 @@ type Bounty_min_fields {
   details: String
   id: String
   maximumPayoutAmount: numeric
+  maximumPayoutAmountUSD: numeric
   minimumPayoutAmount: numeric
+  minimumPayoutAmountUSD: numeric
 }
 
 """
@@ -1297,7 +1447,9 @@ input Bounty_min_order_by {
   details: order_by
   id: order_by
   maximumPayoutAmount: order_by
+  maximumPayoutAmountUSD: order_by
   minimumPayoutAmount: order_by
+  minimumPayoutAmountUSD: order_by
 }
 
 """Ordering options when selecting data from "Bounty"."""
@@ -1310,7 +1462,9 @@ input Bounty_order_by {
   id: order_by
   locked: order_by
   maximumPayoutAmount: order_by
+  maximumPayoutAmountUSD: order_by
   minimumPayoutAmount: order_by
+  minimumPayoutAmountUSD: order_by
 }
 
 """
@@ -1336,7 +1490,13 @@ enum Bounty_select_column {
   maximumPayoutAmount
 
   """column name"""
+  maximumPayoutAmountUSD
+
+  """column name"""
   minimumPayoutAmount
+
+  """column name"""
+  minimumPayoutAmountUSD
 }
 
 """
@@ -1358,7 +1518,9 @@ enum Bounty_select_column_Bounty_aggregate_bool_exp_bool_or_arguments_columns {
 """aggregate stddev on columns"""
 type Bounty_stddev_fields {
   maximumPayoutAmount: Float
+  maximumPayoutAmountUSD: Float
   minimumPayoutAmount: Float
+  minimumPayoutAmountUSD: Float
 }
 
 """
@@ -1366,13 +1528,17 @@ order by stddev() on columns of table "Bounty"
 """
 input Bounty_stddev_order_by {
   maximumPayoutAmount: order_by
+  maximumPayoutAmountUSD: order_by
   minimumPayoutAmount: order_by
+  minimumPayoutAmountUSD: order_by
 }
 
 """aggregate stddev_pop on columns"""
 type Bounty_stddev_pop_fields {
   maximumPayoutAmount: Float
+  maximumPayoutAmountUSD: Float
   minimumPayoutAmount: Float
+  minimumPayoutAmountUSD: Float
 }
 
 """
@@ -1380,13 +1546,17 @@ order by stddev_pop() on columns of table "Bounty"
 """
 input Bounty_stddev_pop_order_by {
   maximumPayoutAmount: order_by
+  maximumPayoutAmountUSD: order_by
   minimumPayoutAmount: order_by
+  minimumPayoutAmountUSD: order_by
 }
 
 """aggregate stddev_samp on columns"""
 type Bounty_stddev_samp_fields {
   maximumPayoutAmount: Float
+  maximumPayoutAmountUSD: Float
   minimumPayoutAmount: Float
+  minimumPayoutAmountUSD: Float
 }
 
 """
@@ -1394,7 +1564,9 @@ order by stddev_samp() on columns of table "Bounty"
 """
 input Bounty_stddev_samp_order_by {
   maximumPayoutAmount: order_by
+  maximumPayoutAmountUSD: order_by
   minimumPayoutAmount: order_by
+  minimumPayoutAmountUSD: order_by
 }
 
 """
@@ -1416,13 +1588,17 @@ input Bounty_stream_cursor_value_input {
   id: String
   locked: Boolean
   maximumPayoutAmount: numeric
+  maximumPayoutAmountUSD: numeric
   minimumPayoutAmount: numeric
+  minimumPayoutAmountUSD: numeric
 }
 
 """aggregate sum on columns"""
 type Bounty_sum_fields {
   maximumPayoutAmount: numeric
+  maximumPayoutAmountUSD: numeric
   minimumPayoutAmount: numeric
+  minimumPayoutAmountUSD: numeric
 }
 
 """
@@ -1430,13 +1606,17 @@ order by sum() on columns of table "Bounty"
 """
 input Bounty_sum_order_by {
   maximumPayoutAmount: order_by
+  maximumPayoutAmountUSD: order_by
   minimumPayoutAmount: order_by
+  minimumPayoutAmountUSD: order_by
 }
 
 """aggregate var_pop on columns"""
 type Bounty_var_pop_fields {
   maximumPayoutAmount: Float
+  maximumPayoutAmountUSD: Float
   minimumPayoutAmount: Float
+  minimumPayoutAmountUSD: Float
 }
 
 """
@@ -1444,13 +1624,17 @@ order by var_pop() on columns of table "Bounty"
 """
 input Bounty_var_pop_order_by {
   maximumPayoutAmount: order_by
+  maximumPayoutAmountUSD: order_by
   minimumPayoutAmount: order_by
+  minimumPayoutAmountUSD: order_by
 }
 
 """aggregate var_samp on columns"""
 type Bounty_var_samp_fields {
   maximumPayoutAmount: Float
+  maximumPayoutAmountUSD: Float
   minimumPayoutAmount: Float
+  minimumPayoutAmountUSD: Float
 }
 
 """
@@ -1458,13 +1642,17 @@ order by var_samp() on columns of table "Bounty"
 """
 input Bounty_var_samp_order_by {
   maximumPayoutAmount: order_by
+  maximumPayoutAmountUSD: order_by
   minimumPayoutAmount: order_by
+  minimumPayoutAmountUSD: order_by
 }
 
 """aggregate variance on columns"""
 type Bounty_variance_fields {
   maximumPayoutAmount: Float
+  maximumPayoutAmountUSD: Float
   minimumPayoutAmount: Float
+  minimumPayoutAmountUSD: Float
 }
 
 """
@@ -1472,13 +1660,16 @@ order by variance() on columns of table "Bounty"
 """
 input Bounty_variance_order_by {
   maximumPayoutAmount: order_by
+  maximumPayoutAmountUSD: order_by
   minimumPayoutAmount: order_by
+  minimumPayoutAmountUSD: order_by
 }
 
 """
 columns and relationships of "CurveDayData"
 """
 type CurveDayData {
+  address: String!
   chainId: Int!
   closeCOL: numeric!
   closeUSD: numeric!
@@ -1488,6 +1679,7 @@ type CurveDayData {
   collateralToken_id: String!
   date: Int!
   db_write_timestamp: timestamp
+  fundingManager_id: String!
   highCOL: numeric!
   highUSD: numeric!
   id: String!
@@ -1497,7 +1689,6 @@ type CurveDayData {
   issuanceToken_id: String!
   lowCOL: numeric!
   lowUSD: numeric!
-  module_id: String!
   openCOL: numeric!
   openUSD: numeric!
   priceCOL: numeric!
@@ -1622,6 +1813,7 @@ input CurveDayData_bool_exp {
   _and: [CurveDayData_bool_exp!]
   _not: CurveDayData_bool_exp
   _or: [CurveDayData_bool_exp!]
+  address: String_comparison_exp
   chainId: Int_comparison_exp
   closeCOL: numeric_comparison_exp
   closeUSD: numeric_comparison_exp
@@ -1629,6 +1821,7 @@ input CurveDayData_bool_exp {
   collateralToken_id: String_comparison_exp
   date: Int_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
+  fundingManager_id: String_comparison_exp
   highCOL: numeric_comparison_exp
   highUSD: numeric_comparison_exp
   id: String_comparison_exp
@@ -1636,7 +1829,6 @@ input CurveDayData_bool_exp {
   issuanceToken_id: String_comparison_exp
   lowCOL: numeric_comparison_exp
   lowUSD: numeric_comparison_exp
-  module_id: String_comparison_exp
   openCOL: numeric_comparison_exp
   openUSD: numeric_comparison_exp
   priceCOL: numeric_comparison_exp
@@ -1653,19 +1845,20 @@ input CurveDayData_bool_exp {
 
 """aggregate max on columns"""
 type CurveDayData_max_fields {
+  address: String
   chainId: Int
   closeCOL: numeric
   closeUSD: numeric
   collateralToken_id: String
   date: Int
   db_write_timestamp: timestamp
+  fundingManager_id: String
   highCOL: numeric
   highUSD: numeric
   id: String
   issuanceToken_id: String
   lowCOL: numeric
   lowUSD: numeric
-  module_id: String
   openCOL: numeric
   openUSD: numeric
   priceCOL: numeric
@@ -1684,19 +1877,20 @@ type CurveDayData_max_fields {
 order by max() on columns of table "CurveDayData"
 """
 input CurveDayData_max_order_by {
+  address: order_by
   chainId: order_by
   closeCOL: order_by
   closeUSD: order_by
   collateralToken_id: order_by
   date: order_by
   db_write_timestamp: order_by
+  fundingManager_id: order_by
   highCOL: order_by
   highUSD: order_by
   id: order_by
   issuanceToken_id: order_by
   lowCOL: order_by
   lowUSD: order_by
-  module_id: order_by
   openCOL: order_by
   openUSD: order_by
   priceCOL: order_by
@@ -1713,19 +1907,20 @@ input CurveDayData_max_order_by {
 
 """aggregate min on columns"""
 type CurveDayData_min_fields {
+  address: String
   chainId: Int
   closeCOL: numeric
   closeUSD: numeric
   collateralToken_id: String
   date: Int
   db_write_timestamp: timestamp
+  fundingManager_id: String
   highCOL: numeric
   highUSD: numeric
   id: String
   issuanceToken_id: String
   lowCOL: numeric
   lowUSD: numeric
-  module_id: String
   openCOL: numeric
   openUSD: numeric
   priceCOL: numeric
@@ -1744,19 +1939,20 @@ type CurveDayData_min_fields {
 order by min() on columns of table "CurveDayData"
 """
 input CurveDayData_min_order_by {
+  address: order_by
   chainId: order_by
   closeCOL: order_by
   closeUSD: order_by
   collateralToken_id: order_by
   date: order_by
   db_write_timestamp: order_by
+  fundingManager_id: order_by
   highCOL: order_by
   highUSD: order_by
   id: order_by
   issuanceToken_id: order_by
   lowCOL: order_by
   lowUSD: order_by
-  module_id: order_by
   openCOL: order_by
   openUSD: order_by
   priceCOL: order_by
@@ -1773,6 +1969,7 @@ input CurveDayData_min_order_by {
 
 """Ordering options when selecting data from "CurveDayData"."""
 input CurveDayData_order_by {
+  address: order_by
   chainId: order_by
   closeCOL: order_by
   closeUSD: order_by
@@ -1780,6 +1977,7 @@ input CurveDayData_order_by {
   collateralToken_id: order_by
   date: order_by
   db_write_timestamp: order_by
+  fundingManager_id: order_by
   highCOL: order_by
   highUSD: order_by
   id: order_by
@@ -1787,7 +1985,6 @@ input CurveDayData_order_by {
   issuanceToken_id: order_by
   lowCOL: order_by
   lowUSD: order_by
-  module_id: order_by
   openCOL: order_by
   openUSD: order_by
   priceCOL: order_by
@@ -1807,6 +2004,9 @@ select columns of table "CurveDayData"
 """
 enum CurveDayData_select_column {
   """column name"""
+  address
+
+  """column name"""
   chainId
 
   """column name"""
@@ -1825,6 +2025,9 @@ enum CurveDayData_select_column {
   db_write_timestamp
 
   """column name"""
+  fundingManager_id
+
+  """column name"""
   highCOL
 
   """column name"""
@@ -1841,9 +2044,6 @@ enum CurveDayData_select_column {
 
   """column name"""
   lowUSD
-
-  """column name"""
-  module_id
 
   """column name"""
   openCOL
@@ -2045,19 +2245,20 @@ input CurveDayData_stream_cursor_input {
 
 """Initial value of the column from where the streaming should start"""
 input CurveDayData_stream_cursor_value_input {
+  address: String
   chainId: Int
   closeCOL: numeric
   closeUSD: numeric
   collateralToken_id: String
   date: Int
   db_write_timestamp: timestamp
+  fundingManager_id: String
   highCOL: numeric
   highUSD: numeric
   id: String
   issuanceToken_id: String
   lowCOL: numeric
   lowUSD: numeric
-  module_id: String
   openCOL: numeric
   openUSD: numeric
   priceCOL: numeric
@@ -2276,6 +2477,7 @@ input CurveDayData_variance_order_by {
 columns and relationships of "CurveHourData"
 """
 type CurveHourData {
+  address: String!
   chainId: Int!
   closeCOL: numeric!
   closeUSD: numeric!
@@ -2284,6 +2486,7 @@ type CurveHourData {
   collateralToken: Token
   collateralToken_id: String!
   db_write_timestamp: timestamp
+  fundingManager_id: String!
   highCOL: numeric!
   highUSD: numeric!
   id: String!
@@ -2293,7 +2496,6 @@ type CurveHourData {
   issuanceToken_id: String!
   lowCOL: numeric!
   lowUSD: numeric!
-  module_id: String!
   openCOL: numeric!
   openUSD: numeric!
   periodStartUnix: Int!
@@ -2419,12 +2621,14 @@ input CurveHourData_bool_exp {
   _and: [CurveHourData_bool_exp!]
   _not: CurveHourData_bool_exp
   _or: [CurveHourData_bool_exp!]
+  address: String_comparison_exp
   chainId: Int_comparison_exp
   closeCOL: numeric_comparison_exp
   closeUSD: numeric_comparison_exp
   collateralToken: Token_bool_exp
   collateralToken_id: String_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
+  fundingManager_id: String_comparison_exp
   highCOL: numeric_comparison_exp
   highUSD: numeric_comparison_exp
   id: String_comparison_exp
@@ -2432,7 +2636,6 @@ input CurveHourData_bool_exp {
   issuanceToken_id: String_comparison_exp
   lowCOL: numeric_comparison_exp
   lowUSD: numeric_comparison_exp
-  module_id: String_comparison_exp
   openCOL: numeric_comparison_exp
   openUSD: numeric_comparison_exp
   periodStartUnix: Int_comparison_exp
@@ -2450,18 +2653,19 @@ input CurveHourData_bool_exp {
 
 """aggregate max on columns"""
 type CurveHourData_max_fields {
+  address: String
   chainId: Int
   closeCOL: numeric
   closeUSD: numeric
   collateralToken_id: String
   db_write_timestamp: timestamp
+  fundingManager_id: String
   highCOL: numeric
   highUSD: numeric
   id: String
   issuanceToken_id: String
   lowCOL: numeric
   lowUSD: numeric
-  module_id: String
   openCOL: numeric
   openUSD: numeric
   periodStartUnix: Int
@@ -2481,18 +2685,19 @@ type CurveHourData_max_fields {
 order by max() on columns of table "CurveHourData"
 """
 input CurveHourData_max_order_by {
+  address: order_by
   chainId: order_by
   closeCOL: order_by
   closeUSD: order_by
   collateralToken_id: order_by
   db_write_timestamp: order_by
+  fundingManager_id: order_by
   highCOL: order_by
   highUSD: order_by
   id: order_by
   issuanceToken_id: order_by
   lowCOL: order_by
   lowUSD: order_by
-  module_id: order_by
   openCOL: order_by
   openUSD: order_by
   periodStartUnix: order_by
@@ -2510,18 +2715,19 @@ input CurveHourData_max_order_by {
 
 """aggregate min on columns"""
 type CurveHourData_min_fields {
+  address: String
   chainId: Int
   closeCOL: numeric
   closeUSD: numeric
   collateralToken_id: String
   db_write_timestamp: timestamp
+  fundingManager_id: String
   highCOL: numeric
   highUSD: numeric
   id: String
   issuanceToken_id: String
   lowCOL: numeric
   lowUSD: numeric
-  module_id: String
   openCOL: numeric
   openUSD: numeric
   periodStartUnix: Int
@@ -2541,18 +2747,19 @@ type CurveHourData_min_fields {
 order by min() on columns of table "CurveHourData"
 """
 input CurveHourData_min_order_by {
+  address: order_by
   chainId: order_by
   closeCOL: order_by
   closeUSD: order_by
   collateralToken_id: order_by
   db_write_timestamp: order_by
+  fundingManager_id: order_by
   highCOL: order_by
   highUSD: order_by
   id: order_by
   issuanceToken_id: order_by
   lowCOL: order_by
   lowUSD: order_by
-  module_id: order_by
   openCOL: order_by
   openUSD: order_by
   periodStartUnix: order_by
@@ -2570,12 +2777,14 @@ input CurveHourData_min_order_by {
 
 """Ordering options when selecting data from "CurveHourData"."""
 input CurveHourData_order_by {
+  address: order_by
   chainId: order_by
   closeCOL: order_by
   closeUSD: order_by
   collateralToken: Token_order_by
   collateralToken_id: order_by
   db_write_timestamp: order_by
+  fundingManager_id: order_by
   highCOL: order_by
   highUSD: order_by
   id: order_by
@@ -2583,7 +2792,6 @@ input CurveHourData_order_by {
   issuanceToken_id: order_by
   lowCOL: order_by
   lowUSD: order_by
-  module_id: order_by
   openCOL: order_by
   openUSD: order_by
   periodStartUnix: order_by
@@ -2604,6 +2812,9 @@ select columns of table "CurveHourData"
 """
 enum CurveHourData_select_column {
   """column name"""
+  address
+
+  """column name"""
   chainId
 
   """column name"""
@@ -2617,6 +2828,9 @@ enum CurveHourData_select_column {
 
   """column name"""
   db_write_timestamp
+
+  """column name"""
+  fundingManager_id
 
   """column name"""
   highCOL
@@ -2635,9 +2849,6 @@ enum CurveHourData_select_column {
 
   """column name"""
   lowUSD
-
-  """column name"""
-  module_id
 
   """column name"""
   openCOL
@@ -2842,18 +3053,19 @@ input CurveHourData_stream_cursor_input {
 
 """Initial value of the column from where the streaming should start"""
 input CurveHourData_stream_cursor_value_input {
+  address: String
   chainId: Int
   closeCOL: numeric
   closeUSD: numeric
   collateralToken_id: String
   db_write_timestamp: timestamp
+  fundingManager_id: String
   highCOL: numeric
   highUSD: numeric
   id: String
   issuanceToken_id: String
   lowCOL: numeric
   lowUSD: numeric
-  module_id: String
   openCOL: numeric
   openUSD: numeric
   periodStartUnix: Int
@@ -3075,7 +3287,6 @@ columns and relationships of "Deposit"
 type Deposit {
   amount: numeric!
   amountUSD: numeric!
-  blockTimestamp: Int!
   db_write_timestamp: timestamp
 
   """An object relationship"""
@@ -3083,6 +3294,7 @@ type Deposit {
   depositVault_id: String!
   depositor: String!
   id: String!
+  timestamp: Int!
 }
 
 """
@@ -3430,7 +3642,7 @@ input Deposit_aggregate_order_by {
 type Deposit_avg_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
+  timestamp: Float
 }
 
 """
@@ -3439,7 +3651,7 @@ order by avg() on columns of table "Deposit"
 input Deposit_avg_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
+  timestamp: order_by
 }
 
 """
@@ -3451,23 +3663,23 @@ input Deposit_bool_exp {
   _or: [Deposit_bool_exp!]
   amount: numeric_comparison_exp
   amountUSD: numeric_comparison_exp
-  blockTimestamp: Int_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
   depositVault: DepositVault_bool_exp
   depositVault_id: String_comparison_exp
   depositor: String_comparison_exp
   id: String_comparison_exp
+  timestamp: Int_comparison_exp
 }
 
 """aggregate max on columns"""
 type Deposit_max_fields {
   amount: numeric
   amountUSD: numeric
-  blockTimestamp: Int
   db_write_timestamp: timestamp
   depositVault_id: String
   depositor: String
   id: String
+  timestamp: Int
 }
 
 """
@@ -3476,22 +3688,22 @@ order by max() on columns of table "Deposit"
 input Deposit_max_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   db_write_timestamp: order_by
   depositVault_id: order_by
   depositor: order_by
   id: order_by
+  timestamp: order_by
 }
 
 """aggregate min on columns"""
 type Deposit_min_fields {
   amount: numeric
   amountUSD: numeric
-  blockTimestamp: Int
   db_write_timestamp: timestamp
   depositVault_id: String
   depositor: String
   id: String
+  timestamp: Int
 }
 
 """
@@ -3500,23 +3712,23 @@ order by min() on columns of table "Deposit"
 input Deposit_min_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   db_write_timestamp: order_by
   depositVault_id: order_by
   depositor: order_by
   id: order_by
+  timestamp: order_by
 }
 
 """Ordering options when selecting data from "Deposit"."""
 input Deposit_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   db_write_timestamp: order_by
   depositVault: DepositVault_order_by
   depositVault_id: order_by
   depositor: order_by
   id: order_by
+  timestamp: order_by
 }
 
 """
@@ -3530,9 +3742,6 @@ enum Deposit_select_column {
   amountUSD
 
   """column name"""
-  blockTimestamp
-
-  """column name"""
   db_write_timestamp
 
   """column name"""
@@ -3543,13 +3752,16 @@ enum Deposit_select_column {
 
   """column name"""
   id
+
+  """column name"""
+  timestamp
 }
 
 """aggregate stddev on columns"""
 type Deposit_stddev_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
+  timestamp: Float
 }
 
 """
@@ -3558,14 +3770,14 @@ order by stddev() on columns of table "Deposit"
 input Deposit_stddev_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
+  timestamp: order_by
 }
 
 """aggregate stddev_pop on columns"""
 type Deposit_stddev_pop_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
+  timestamp: Float
 }
 
 """
@@ -3574,14 +3786,14 @@ order by stddev_pop() on columns of table "Deposit"
 input Deposit_stddev_pop_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
+  timestamp: order_by
 }
 
 """aggregate stddev_samp on columns"""
 type Deposit_stddev_samp_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
+  timestamp: Float
 }
 
 """
@@ -3590,7 +3802,7 @@ order by stddev_samp() on columns of table "Deposit"
 input Deposit_stddev_samp_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
+  timestamp: order_by
 }
 
 """
@@ -3608,18 +3820,18 @@ input Deposit_stream_cursor_input {
 input Deposit_stream_cursor_value_input {
   amount: numeric
   amountUSD: numeric
-  blockTimestamp: Int
   db_write_timestamp: timestamp
   depositVault_id: String
   depositor: String
   id: String
+  timestamp: Int
 }
 
 """aggregate sum on columns"""
 type Deposit_sum_fields {
   amount: numeric
   amountUSD: numeric
-  blockTimestamp: Int
+  timestamp: Int
 }
 
 """
@@ -3628,14 +3840,14 @@ order by sum() on columns of table "Deposit"
 input Deposit_sum_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
+  timestamp: order_by
 }
 
 """aggregate var_pop on columns"""
 type Deposit_var_pop_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
+  timestamp: Float
 }
 
 """
@@ -3644,14 +3856,14 @@ order by var_pop() on columns of table "Deposit"
 input Deposit_var_pop_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
+  timestamp: order_by
 }
 
 """aggregate var_samp on columns"""
 type Deposit_var_samp_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
+  timestamp: Float
 }
 
 """
@@ -3660,14 +3872,14 @@ order by var_samp() on columns of table "Deposit"
 input Deposit_var_samp_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
+  timestamp: order_by
 }
 
 """aggregate variance on columns"""
 type Deposit_variance_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
+  timestamp: Float
 }
 
 """
@@ -3676,7 +3888,131 @@ order by variance() on columns of table "Deposit"
 input Deposit_variance_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
+  timestamp: order_by
+}
+
+"""
+columns and relationships of "ExternalPriceSetter"
+"""
+type ExternalPriceSetter {
+  address: String!
+  chainId: Int!
+
+  """An object relationship"""
+  collateralToken: Token
+  collateralToken_id: String!
+  db_write_timestamp: timestamp
+  id: String!
+
+  """An object relationship"""
+  issuanceToken: Token
+  issuanceToken_id: String!
+  priceCOL: numeric!
+  priceISS: numeric!
+  priceUSD: numeric!
+
+  """An object relationship"""
+  workflow: Workflow
+  workflow_id: String!
+}
+
+"""
+Boolean expression to filter rows from the table "ExternalPriceSetter". All fields are combined with a logical 'AND'.
+"""
+input ExternalPriceSetter_bool_exp {
+  _and: [ExternalPriceSetter_bool_exp!]
+  _not: ExternalPriceSetter_bool_exp
+  _or: [ExternalPriceSetter_bool_exp!]
+  address: String_comparison_exp
+  chainId: Int_comparison_exp
+  collateralToken: Token_bool_exp
+  collateralToken_id: String_comparison_exp
+  db_write_timestamp: timestamp_comparison_exp
+  id: String_comparison_exp
+  issuanceToken: Token_bool_exp
+  issuanceToken_id: String_comparison_exp
+  priceCOL: numeric_comparison_exp
+  priceISS: numeric_comparison_exp
+  priceUSD: numeric_comparison_exp
+  workflow: Workflow_bool_exp
+  workflow_id: String_comparison_exp
+}
+
+"""Ordering options when selecting data from "ExternalPriceSetter"."""
+input ExternalPriceSetter_order_by {
+  address: order_by
+  chainId: order_by
+  collateralToken: Token_order_by
+  collateralToken_id: order_by
+  db_write_timestamp: order_by
+  id: order_by
+  issuanceToken: Token_order_by
+  issuanceToken_id: order_by
+  priceCOL: order_by
+  priceISS: order_by
+  priceUSD: order_by
+  workflow: Workflow_order_by
+  workflow_id: order_by
+}
+
+"""
+select columns of table "ExternalPriceSetter"
+"""
+enum ExternalPriceSetter_select_column {
+  """column name"""
+  address
+
+  """column name"""
+  chainId
+
+  """column name"""
+  collateralToken_id
+
+  """column name"""
+  db_write_timestamp
+
+  """column name"""
+  id
+
+  """column name"""
+  issuanceToken_id
+
+  """column name"""
+  priceCOL
+
+  """column name"""
+  priceISS
+
+  """column name"""
+  priceUSD
+
+  """column name"""
+  workflow_id
+}
+
+"""
+Streaming cursor of the table "ExternalPriceSetter"
+"""
+input ExternalPriceSetter_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: ExternalPriceSetter_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input ExternalPriceSetter_stream_cursor_value_input {
+  address: String
+  chainId: Int
+  collateralToken_id: String
+  db_write_timestamp: timestamp
+  id: String
+  issuanceToken_id: String
+  priceCOL: numeric
+  priceISS: numeric
+  priceUSD: numeric
+  workflow_id: String
 }
 
 """
@@ -3698,6 +4034,7 @@ input Int_comparison_exp {
 columns and relationships of "IssuanceTokenDayData"
 """
 type IssuanceTokenDayData {
+  address: String!
   chainId: Int!
   closeUSD: numeric!
   date: Int!
@@ -3809,6 +4146,7 @@ input IssuanceTokenDayData_bool_exp {
   _and: [IssuanceTokenDayData_bool_exp!]
   _not: IssuanceTokenDayData_bool_exp
   _or: [IssuanceTokenDayData_bool_exp!]
+  address: String_comparison_exp
   chainId: Int_comparison_exp
   closeUSD: numeric_comparison_exp
   date: Int_comparison_exp
@@ -3828,6 +4166,7 @@ input IssuanceTokenDayData_bool_exp {
 
 """aggregate max on columns"""
 type IssuanceTokenDayData_max_fields {
+  address: String
   chainId: Int
   closeUSD: numeric
   date: Int
@@ -3849,6 +4188,7 @@ type IssuanceTokenDayData_max_fields {
 order by max() on columns of table "IssuanceTokenDayData"
 """
 input IssuanceTokenDayData_max_order_by {
+  address: order_by
   chainId: order_by
   closeUSD: order_by
   date: order_by
@@ -3868,6 +4208,7 @@ input IssuanceTokenDayData_max_order_by {
 
 """aggregate min on columns"""
 type IssuanceTokenDayData_min_fields {
+  address: String
   chainId: Int
   closeUSD: numeric
   date: Int
@@ -3889,6 +4230,7 @@ type IssuanceTokenDayData_min_fields {
 order by min() on columns of table "IssuanceTokenDayData"
 """
 input IssuanceTokenDayData_min_order_by {
+  address: order_by
   chainId: order_by
   closeUSD: order_by
   date: order_by
@@ -3908,6 +4250,7 @@ input IssuanceTokenDayData_min_order_by {
 
 """Ordering options when selecting data from "IssuanceTokenDayData"."""
 input IssuanceTokenDayData_order_by {
+  address: order_by
   chainId: order_by
   closeUSD: order_by
   date: order_by
@@ -3929,6 +4272,9 @@ input IssuanceTokenDayData_order_by {
 select columns of table "IssuanceTokenDayData"
 """
 enum IssuanceTokenDayData_select_column {
+  """column name"""
+  address
+
   """column name"""
   chainId
 
@@ -4090,6 +4436,7 @@ input IssuanceTokenDayData_stream_cursor_input {
 
 """Initial value of the column from where the streaming should start"""
 input IssuanceTokenDayData_stream_cursor_value_input {
+  address: String
   chainId: Int
   closeUSD: numeric
   date: Int
@@ -4247,6 +4594,7 @@ input IssuanceTokenDayData_variance_order_by {
 columns and relationships of "IssuanceTokenHourData"
 """
 type IssuanceTokenHourData {
+  address: String!
   chainId: Int!
   closeUSD: numeric!
   db_write_timestamp: timestamp
@@ -4358,6 +4706,7 @@ input IssuanceTokenHourData_bool_exp {
   _and: [IssuanceTokenHourData_bool_exp!]
   _not: IssuanceTokenHourData_bool_exp
   _or: [IssuanceTokenHourData_bool_exp!]
+  address: String_comparison_exp
   chainId: Int_comparison_exp
   closeUSD: numeric_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
@@ -4377,6 +4726,7 @@ input IssuanceTokenHourData_bool_exp {
 
 """aggregate max on columns"""
 type IssuanceTokenHourData_max_fields {
+  address: String
   chainId: Int
   closeUSD: numeric
   db_write_timestamp: timestamp
@@ -4398,6 +4748,7 @@ type IssuanceTokenHourData_max_fields {
 order by max() on columns of table "IssuanceTokenHourData"
 """
 input IssuanceTokenHourData_max_order_by {
+  address: order_by
   chainId: order_by
   closeUSD: order_by
   db_write_timestamp: order_by
@@ -4417,6 +4768,7 @@ input IssuanceTokenHourData_max_order_by {
 
 """aggregate min on columns"""
 type IssuanceTokenHourData_min_fields {
+  address: String
   chainId: Int
   closeUSD: numeric
   db_write_timestamp: timestamp
@@ -4438,6 +4790,7 @@ type IssuanceTokenHourData_min_fields {
 order by min() on columns of table "IssuanceTokenHourData"
 """
 input IssuanceTokenHourData_min_order_by {
+  address: order_by
   chainId: order_by
   closeUSD: order_by
   db_write_timestamp: order_by
@@ -4457,6 +4810,7 @@ input IssuanceTokenHourData_min_order_by {
 
 """Ordering options when selecting data from "IssuanceTokenHourData"."""
 input IssuanceTokenHourData_order_by {
+  address: order_by
   chainId: order_by
   closeUSD: order_by
   db_write_timestamp: order_by
@@ -4478,6 +4832,9 @@ input IssuanceTokenHourData_order_by {
 select columns of table "IssuanceTokenHourData"
 """
 enum IssuanceTokenHourData_select_column {
+  """column name"""
+  address
+
   """column name"""
   chainId
 
@@ -4639,6 +4996,7 @@ input IssuanceTokenHourData_stream_cursor_input {
 
 """Initial value of the column from where the streaming should start"""
 input IssuanceTokenHourData_stream_cursor_value_input {
+  address: String
   chainId: Int
   closeUSD: numeric
   db_write_timestamp: timestamp
@@ -4797,7 +5155,6 @@ columns and relationships of "LinearVesting"
 """
 type LinearVesting {
   amount: numeric!
-  blockTimestamp: Int!
   chainId: Int!
   cliff: numeric!
   db_write_timestamp: timestamp
@@ -4810,6 +5167,7 @@ type LinearVesting {
   """An object relationship"""
   streamingPaymentProcessor: StreamingPaymentProcessor
   streamingPaymentProcessor_id: String!
+  timestamp: Int!
 
   """An object relationship"""
   token: Token
@@ -4838,11 +5196,11 @@ order by avg() on columns of table "LinearVesting"
 """
 input LinearVesting_avg_order_by {
   amount: order_by
-  blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
   end: order_by
   start: order_by
+  timestamp: order_by
 }
 
 """
@@ -4853,7 +5211,6 @@ input LinearVesting_bool_exp {
   _not: LinearVesting_bool_exp
   _or: [LinearVesting_bool_exp!]
   amount: numeric_comparison_exp
-  blockTimestamp: Int_comparison_exp
   chainId: Int_comparison_exp
   cliff: numeric_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
@@ -4864,6 +5221,7 @@ input LinearVesting_bool_exp {
   status: vestingstatus_comparison_exp
   streamingPaymentProcessor: StreamingPaymentProcessor_bool_exp
   streamingPaymentProcessor_id: String_comparison_exp
+  timestamp: Int_comparison_exp
   token: Token_bool_exp
   token_id: String_comparison_exp
 }
@@ -4873,7 +5231,6 @@ order by max() on columns of table "LinearVesting"
 """
 input LinearVesting_max_order_by {
   amount: order_by
-  blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
   db_write_timestamp: order_by
@@ -4883,6 +5240,7 @@ input LinearVesting_max_order_by {
   start: order_by
   status: order_by
   streamingPaymentProcessor_id: order_by
+  timestamp: order_by
   token_id: order_by
 }
 
@@ -4891,7 +5249,6 @@ order by min() on columns of table "LinearVesting"
 """
 input LinearVesting_min_order_by {
   amount: order_by
-  blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
   db_write_timestamp: order_by
@@ -4901,13 +5258,13 @@ input LinearVesting_min_order_by {
   start: order_by
   status: order_by
   streamingPaymentProcessor_id: order_by
+  timestamp: order_by
   token_id: order_by
 }
 
 """Ordering options when selecting data from "LinearVesting"."""
 input LinearVesting_order_by {
   amount: order_by
-  blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
   db_write_timestamp: order_by
@@ -4918,6 +5275,7 @@ input LinearVesting_order_by {
   status: order_by
   streamingPaymentProcessor: StreamingPaymentProcessor_order_by
   streamingPaymentProcessor_id: order_by
+  timestamp: order_by
   token: Token_order_by
   token_id: order_by
 }
@@ -4928,9 +5286,6 @@ select columns of table "LinearVesting"
 enum LinearVesting_select_column {
   """column name"""
   amount
-
-  """column name"""
-  blockTimestamp
 
   """column name"""
   chainId
@@ -4960,6 +5315,9 @@ enum LinearVesting_select_column {
   streamingPaymentProcessor_id
 
   """column name"""
+  timestamp
+
+  """column name"""
   token_id
 }
 
@@ -4968,11 +5326,11 @@ order by stddev() on columns of table "LinearVesting"
 """
 input LinearVesting_stddev_order_by {
   amount: order_by
-  blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
   end: order_by
   start: order_by
+  timestamp: order_by
 }
 
 """
@@ -4980,11 +5338,11 @@ order by stddev_pop() on columns of table "LinearVesting"
 """
 input LinearVesting_stddev_pop_order_by {
   amount: order_by
-  blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
   end: order_by
   start: order_by
+  timestamp: order_by
 }
 
 """
@@ -4992,11 +5350,11 @@ order by stddev_samp() on columns of table "LinearVesting"
 """
 input LinearVesting_stddev_samp_order_by {
   amount: order_by
-  blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
   end: order_by
   start: order_by
+  timestamp: order_by
 }
 
 """
@@ -5013,7 +5371,6 @@ input LinearVesting_stream_cursor_input {
 """Initial value of the column from where the streaming should start"""
 input LinearVesting_stream_cursor_value_input {
   amount: numeric
-  blockTimestamp: Int
   chainId: Int
   cliff: numeric
   db_write_timestamp: timestamp
@@ -5023,6 +5380,7 @@ input LinearVesting_stream_cursor_value_input {
   start: numeric
   status: vestingstatus
   streamingPaymentProcessor_id: String
+  timestamp: Int
   token_id: String
 }
 
@@ -5031,11 +5389,11 @@ order by sum() on columns of table "LinearVesting"
 """
 input LinearVesting_sum_order_by {
   amount: order_by
-  blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
   end: order_by
   start: order_by
+  timestamp: order_by
 }
 
 """
@@ -5043,11 +5401,11 @@ order by var_pop() on columns of table "LinearVesting"
 """
 input LinearVesting_var_pop_order_by {
   amount: order_by
-  blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
   end: order_by
   start: order_by
+  timestamp: order_by
 }
 
 """
@@ -5055,11 +5413,11 @@ order by var_samp() on columns of table "LinearVesting"
 """
 input LinearVesting_var_samp_order_by {
   amount: order_by
-  blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
   end: order_by
   start: order_by
+  timestamp: order_by
 }
 
 """
@@ -5067,11 +5425,454 @@ order by variance() on columns of table "LinearVesting"
 """
 input LinearVesting_variance_order_by {
   amount: order_by
-  blockTimestamp: order_by
   chainId: order_by
   cliff: order_by
   end: order_by
   start: order_by
+  timestamp: order_by
+}
+
+"""
+columns and relationships of "OraclePriceFM"
+"""
+type OraclePriceFM {
+  address: String!
+  buyFee: numeric!
+  chainId: Int!
+
+  """An object relationship"""
+  collateralToken: Token
+  collateralToken_id: String!
+  db_write_timestamp: timestamp
+
+  """An object relationship"""
+  externalPriceSetter: ExternalPriceSetter
+  externalPriceSetter_id: String
+  id: String!
+
+  """An object relationship"""
+  issuanceToken: Token
+  issuanceToken_id: String!
+
+  """An array relationship"""
+  paymentOrders(
+    """distinct select on columns"""
+    distinct_on: [RedemptionPaymentOrder_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [RedemptionPaymentOrder_order_by!]
+
+    """filter the rows returned"""
+    where: RedemptionPaymentOrder_bool_exp
+  ): [RedemptionPaymentOrder!]!
+
+  """An aggregate relationship"""
+  paymentOrders_aggregate(
+    """distinct select on columns"""
+    distinct_on: [RedemptionPaymentOrder_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [RedemptionPaymentOrder_order_by!]
+
+    """filter the rows returned"""
+    where: RedemptionPaymentOrder_bool_exp
+  ): RedemptionPaymentOrder_aggregate!
+  pendingRedemptionCOL: numeric!
+  pendingRedemptionUSD: numeric!
+
+  """An array relationship"""
+  projectFees(
+    """distinct select on columns"""
+    distinct_on: [ProjectFee_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ProjectFee_order_by!]
+
+    """filter the rows returned"""
+    where: ProjectFee_bool_exp
+  ): [ProjectFee!]!
+
+  """An aggregate relationship"""
+  projectFees_aggregate(
+    """distinct select on columns"""
+    distinct_on: [ProjectFee_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ProjectFee_order_by!]
+
+    """filter the rows returned"""
+    where: ProjectFee_bool_exp
+  ): ProjectFee_aggregate!
+
+  """An array relationship"""
+  protocolFees(
+    """distinct select on columns"""
+    distinct_on: [ProtocolFee_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ProtocolFee_order_by!]
+
+    """filter the rows returned"""
+    where: ProtocolFee_bool_exp
+  ): [ProtocolFee!]!
+
+  """An aggregate relationship"""
+  protocolFees_aggregate(
+    """distinct select on columns"""
+    distinct_on: [ProtocolFee_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ProtocolFee_order_by!]
+
+    """filter the rows returned"""
+    where: ProtocolFee_bool_exp
+  ): ProtocolFee_aggregate!
+  reserveCOL: numeric!
+  reserveUSD: numeric!
+  sellFee: numeric!
+
+  """An array relationship"""
+  swaps(
+    """distinct select on columns"""
+    distinct_on: [Swap_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Swap_order_by!]
+
+    """filter the rows returned"""
+    where: Swap_bool_exp
+  ): [Swap!]!
+
+  """An object relationship"""
+  workflow: Workflow
+  workflow_id: String!
+}
+
+"""
+aggregated selection of "OraclePriceFM"
+"""
+type OraclePriceFM_aggregate {
+  aggregate: OraclePriceFM_aggregate_fields
+  nodes: [OraclePriceFM!]!
+}
+
+"""
+aggregate fields of "OraclePriceFM"
+"""
+type OraclePriceFM_aggregate_fields {
+  avg: OraclePriceFM_avg_fields
+  count(columns: [OraclePriceFM_select_column!], distinct: Boolean): Int!
+  max: OraclePriceFM_max_fields
+  min: OraclePriceFM_min_fields
+  stddev: OraclePriceFM_stddev_fields
+  stddev_pop: OraclePriceFM_stddev_pop_fields
+  stddev_samp: OraclePriceFM_stddev_samp_fields
+  sum: OraclePriceFM_sum_fields
+  var_pop: OraclePriceFM_var_pop_fields
+  var_samp: OraclePriceFM_var_samp_fields
+  variance: OraclePriceFM_variance_fields
+}
+
+"""aggregate avg on columns"""
+type OraclePriceFM_avg_fields {
+  buyFee: Float
+  chainId: Float
+  pendingRedemptionCOL: Float
+  pendingRedemptionUSD: Float
+  reserveCOL: Float
+  reserveUSD: Float
+  sellFee: Float
+}
+
+"""
+Boolean expression to filter rows from the table "OraclePriceFM". All fields are combined with a logical 'AND'.
+"""
+input OraclePriceFM_bool_exp {
+  _and: [OraclePriceFM_bool_exp!]
+  _not: OraclePriceFM_bool_exp
+  _or: [OraclePriceFM_bool_exp!]
+  address: String_comparison_exp
+  buyFee: numeric_comparison_exp
+  chainId: Int_comparison_exp
+  collateralToken: Token_bool_exp
+  collateralToken_id: String_comparison_exp
+  db_write_timestamp: timestamp_comparison_exp
+  externalPriceSetter: ExternalPriceSetter_bool_exp
+  externalPriceSetter_id: String_comparison_exp
+  id: String_comparison_exp
+  issuanceToken: Token_bool_exp
+  issuanceToken_id: String_comparison_exp
+  paymentOrders: RedemptionPaymentOrder_bool_exp
+  paymentOrders_aggregate: RedemptionPaymentOrder_aggregate_bool_exp
+  pendingRedemptionCOL: numeric_comparison_exp
+  pendingRedemptionUSD: numeric_comparison_exp
+  projectFees: ProjectFee_bool_exp
+  projectFees_aggregate: ProjectFee_aggregate_bool_exp
+  protocolFees: ProtocolFee_bool_exp
+  protocolFees_aggregate: ProtocolFee_aggregate_bool_exp
+  reserveCOL: numeric_comparison_exp
+  reserveUSD: numeric_comparison_exp
+  sellFee: numeric_comparison_exp
+  swaps: Swap_bool_exp
+  workflow: Workflow_bool_exp
+  workflow_id: String_comparison_exp
+}
+
+"""aggregate max on columns"""
+type OraclePriceFM_max_fields {
+  address: String
+  buyFee: numeric
+  chainId: Int
+  collateralToken_id: String
+  db_write_timestamp: timestamp
+  externalPriceSetter_id: String
+  id: String
+  issuanceToken_id: String
+  pendingRedemptionCOL: numeric
+  pendingRedemptionUSD: numeric
+  reserveCOL: numeric
+  reserveUSD: numeric
+  sellFee: numeric
+  workflow_id: String
+}
+
+"""aggregate min on columns"""
+type OraclePriceFM_min_fields {
+  address: String
+  buyFee: numeric
+  chainId: Int
+  collateralToken_id: String
+  db_write_timestamp: timestamp
+  externalPriceSetter_id: String
+  id: String
+  issuanceToken_id: String
+  pendingRedemptionCOL: numeric
+  pendingRedemptionUSD: numeric
+  reserveCOL: numeric
+  reserveUSD: numeric
+  sellFee: numeric
+  workflow_id: String
+}
+
+"""Ordering options when selecting data from "OraclePriceFM"."""
+input OraclePriceFM_order_by {
+  address: order_by
+  buyFee: order_by
+  chainId: order_by
+  collateralToken: Token_order_by
+  collateralToken_id: order_by
+  db_write_timestamp: order_by
+  externalPriceSetter: ExternalPriceSetter_order_by
+  externalPriceSetter_id: order_by
+  id: order_by
+  issuanceToken: Token_order_by
+  issuanceToken_id: order_by
+  paymentOrders_aggregate: RedemptionPaymentOrder_aggregate_order_by
+  pendingRedemptionCOL: order_by
+  pendingRedemptionUSD: order_by
+  projectFees_aggregate: ProjectFee_aggregate_order_by
+  protocolFees_aggregate: ProtocolFee_aggregate_order_by
+  reserveCOL: order_by
+  reserveUSD: order_by
+  sellFee: order_by
+  swaps_aggregate: Swap_aggregate_order_by
+  workflow: Workflow_order_by
+  workflow_id: order_by
+}
+
+"""
+select columns of table "OraclePriceFM"
+"""
+enum OraclePriceFM_select_column {
+  """column name"""
+  address
+
+  """column name"""
+  buyFee
+
+  """column name"""
+  chainId
+
+  """column name"""
+  collateralToken_id
+
+  """column name"""
+  db_write_timestamp
+
+  """column name"""
+  externalPriceSetter_id
+
+  """column name"""
+  id
+
+  """column name"""
+  issuanceToken_id
+
+  """column name"""
+  pendingRedemptionCOL
+
+  """column name"""
+  pendingRedemptionUSD
+
+  """column name"""
+  reserveCOL
+
+  """column name"""
+  reserveUSD
+
+  """column name"""
+  sellFee
+
+  """column name"""
+  workflow_id
+}
+
+"""aggregate stddev on columns"""
+type OraclePriceFM_stddev_fields {
+  buyFee: Float
+  chainId: Float
+  pendingRedemptionCOL: Float
+  pendingRedemptionUSD: Float
+  reserveCOL: Float
+  reserveUSD: Float
+  sellFee: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type OraclePriceFM_stddev_pop_fields {
+  buyFee: Float
+  chainId: Float
+  pendingRedemptionCOL: Float
+  pendingRedemptionUSD: Float
+  reserveCOL: Float
+  reserveUSD: Float
+  sellFee: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type OraclePriceFM_stddev_samp_fields {
+  buyFee: Float
+  chainId: Float
+  pendingRedemptionCOL: Float
+  pendingRedemptionUSD: Float
+  reserveCOL: Float
+  reserveUSD: Float
+  sellFee: Float
+}
+
+"""
+Streaming cursor of the table "OraclePriceFM"
+"""
+input OraclePriceFM_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: OraclePriceFM_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input OraclePriceFM_stream_cursor_value_input {
+  address: String
+  buyFee: numeric
+  chainId: Int
+  collateralToken_id: String
+  db_write_timestamp: timestamp
+  externalPriceSetter_id: String
+  id: String
+  issuanceToken_id: String
+  pendingRedemptionCOL: numeric
+  pendingRedemptionUSD: numeric
+  reserveCOL: numeric
+  reserveUSD: numeric
+  sellFee: numeric
+  workflow_id: String
+}
+
+"""aggregate sum on columns"""
+type OraclePriceFM_sum_fields {
+  buyFee: numeric
+  chainId: Int
+  pendingRedemptionCOL: numeric
+  pendingRedemptionUSD: numeric
+  reserveCOL: numeric
+  reserveUSD: numeric
+  sellFee: numeric
+}
+
+"""aggregate var_pop on columns"""
+type OraclePriceFM_var_pop_fields {
+  buyFee: Float
+  chainId: Float
+  pendingRedemptionCOL: Float
+  pendingRedemptionUSD: Float
+  reserveCOL: Float
+  reserveUSD: Float
+  sellFee: Float
+}
+
+"""aggregate var_samp on columns"""
+type OraclePriceFM_var_samp_fields {
+  buyFee: Float
+  chainId: Float
+  pendingRedemptionCOL: Float
+  pendingRedemptionUSD: Float
+  reserveCOL: Float
+  reserveUSD: Float
+  sellFee: Float
+}
+
+"""aggregate variance on columns"""
+type OraclePriceFM_variance_fields {
+  buyFee: Float
+  chainId: Float
+  pendingRedemptionCOL: Float
+  pendingRedemptionUSD: Float
+  reserveCOL: Float
+  reserveUSD: Float
+  sellFee: Float
 }
 
 """
@@ -5080,12 +5881,12 @@ columns and relationships of "ProjectFee"
 type ProjectFee {
   amount: numeric!
   amountUSD: numeric!
-  blockTimestamp: Int!
   chainId: Int!
   db_write_timestamp: timestamp
   id: String!
   module_id: String!
   recipient: String!
+  timestamp: Int!
 
   """An object relationship"""
   token: Token
@@ -5149,8 +5950,8 @@ input ProjectFee_aggregate_order_by {
 type ProjectFee_avg_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
   chainId: Float
+  timestamp: Float
 }
 
 """
@@ -5159,8 +5960,8 @@ order by avg() on columns of table "ProjectFee"
 input ProjectFee_avg_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
+  timestamp: order_by
 }
 
 """
@@ -5172,12 +5973,12 @@ input ProjectFee_bool_exp {
   _or: [ProjectFee_bool_exp!]
   amount: numeric_comparison_exp
   amountUSD: numeric_comparison_exp
-  blockTimestamp: Int_comparison_exp
   chainId: Int_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
   id: String_comparison_exp
   module_id: String_comparison_exp
   recipient: String_comparison_exp
+  timestamp: Int_comparison_exp
   token: Token_bool_exp
   token_id: String_comparison_exp
 }
@@ -5186,12 +5987,12 @@ input ProjectFee_bool_exp {
 type ProjectFee_max_fields {
   amount: numeric
   amountUSD: numeric
-  blockTimestamp: Int
   chainId: Int
   db_write_timestamp: timestamp
   id: String
   module_id: String
   recipient: String
+  timestamp: Int
   token_id: String
 }
 
@@ -5201,12 +6002,12 @@ order by max() on columns of table "ProjectFee"
 input ProjectFee_max_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
   db_write_timestamp: order_by
   id: order_by
   module_id: order_by
   recipient: order_by
+  timestamp: order_by
   token_id: order_by
 }
 
@@ -5214,12 +6015,12 @@ input ProjectFee_max_order_by {
 type ProjectFee_min_fields {
   amount: numeric
   amountUSD: numeric
-  blockTimestamp: Int
   chainId: Int
   db_write_timestamp: timestamp
   id: String
   module_id: String
   recipient: String
+  timestamp: Int
   token_id: String
 }
 
@@ -5229,12 +6030,12 @@ order by min() on columns of table "ProjectFee"
 input ProjectFee_min_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
   db_write_timestamp: order_by
   id: order_by
   module_id: order_by
   recipient: order_by
+  timestamp: order_by
   token_id: order_by
 }
 
@@ -5242,12 +6043,12 @@ input ProjectFee_min_order_by {
 input ProjectFee_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
   db_write_timestamp: order_by
   id: order_by
   module_id: order_by
   recipient: order_by
+  timestamp: order_by
   token: Token_order_by
   token_id: order_by
 }
@@ -5261,9 +6062,6 @@ enum ProjectFee_select_column {
 
   """column name"""
   amountUSD
-
-  """column name"""
-  blockTimestamp
 
   """column name"""
   chainId
@@ -5281,6 +6079,9 @@ enum ProjectFee_select_column {
   recipient
 
   """column name"""
+  timestamp
+
+  """column name"""
   token_id
 }
 
@@ -5288,8 +6089,8 @@ enum ProjectFee_select_column {
 type ProjectFee_stddev_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
   chainId: Float
+  timestamp: Float
 }
 
 """
@@ -5298,16 +6099,16 @@ order by stddev() on columns of table "ProjectFee"
 input ProjectFee_stddev_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
+  timestamp: order_by
 }
 
 """aggregate stddev_pop on columns"""
 type ProjectFee_stddev_pop_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
   chainId: Float
+  timestamp: Float
 }
 
 """
@@ -5316,16 +6117,16 @@ order by stddev_pop() on columns of table "ProjectFee"
 input ProjectFee_stddev_pop_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
+  timestamp: order_by
 }
 
 """aggregate stddev_samp on columns"""
 type ProjectFee_stddev_samp_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
   chainId: Float
+  timestamp: Float
 }
 
 """
@@ -5334,8 +6135,8 @@ order by stddev_samp() on columns of table "ProjectFee"
 input ProjectFee_stddev_samp_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
+  timestamp: order_by
 }
 
 """
@@ -5353,12 +6154,12 @@ input ProjectFee_stream_cursor_input {
 input ProjectFee_stream_cursor_value_input {
   amount: numeric
   amountUSD: numeric
-  blockTimestamp: Int
   chainId: Int
   db_write_timestamp: timestamp
   id: String
   module_id: String
   recipient: String
+  timestamp: Int
   token_id: String
 }
 
@@ -5366,8 +6167,8 @@ input ProjectFee_stream_cursor_value_input {
 type ProjectFee_sum_fields {
   amount: numeric
   amountUSD: numeric
-  blockTimestamp: Int
   chainId: Int
+  timestamp: Int
 }
 
 """
@@ -5376,16 +6177,16 @@ order by sum() on columns of table "ProjectFee"
 input ProjectFee_sum_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
+  timestamp: order_by
 }
 
 """aggregate var_pop on columns"""
 type ProjectFee_var_pop_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
   chainId: Float
+  timestamp: Float
 }
 
 """
@@ -5394,16 +6195,16 @@ order by var_pop() on columns of table "ProjectFee"
 input ProjectFee_var_pop_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
+  timestamp: order_by
 }
 
 """aggregate var_samp on columns"""
 type ProjectFee_var_samp_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
   chainId: Float
+  timestamp: Float
 }
 
 """
@@ -5412,16 +6213,16 @@ order by var_samp() on columns of table "ProjectFee"
 input ProjectFee_var_samp_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
+  timestamp: order_by
 }
 
 """aggregate variance on columns"""
 type ProjectFee_variance_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
   chainId: Float
+  timestamp: Float
 }
 
 """
@@ -5430,8 +6231,8 @@ order by variance() on columns of table "ProjectFee"
 input ProjectFee_variance_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
+  timestamp: order_by
 }
 
 """
@@ -5440,12 +6241,12 @@ columns and relationships of "ProtocolFee"
 type ProtocolFee {
   amount: numeric!
   amountUSD: numeric!
-  blockTimestamp: Int!
   chainId: Int!
   db_write_timestamp: timestamp
   id: String!
   module_id: String!
-  source: feesource!
+  source: sourcetokentype!
+  timestamp: Int!
 
   """An object relationship"""
   token: Token
@@ -5510,8 +6311,8 @@ input ProtocolFee_aggregate_order_by {
 type ProtocolFee_avg_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
   chainId: Float
+  timestamp: Float
 }
 
 """
@@ -5520,8 +6321,8 @@ order by avg() on columns of table "ProtocolFee"
 input ProtocolFee_avg_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
+  timestamp: order_by
 }
 
 """
@@ -5533,12 +6334,12 @@ input ProtocolFee_bool_exp {
   _or: [ProtocolFee_bool_exp!]
   amount: numeric_comparison_exp
   amountUSD: numeric_comparison_exp
-  blockTimestamp: Int_comparison_exp
   chainId: Int_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
   id: String_comparison_exp
   module_id: String_comparison_exp
-  source: feesource_comparison_exp
+  source: sourcetokentype_comparison_exp
+  timestamp: Int_comparison_exp
   token: Token_bool_exp
   token_id: String_comparison_exp
   treasury: String_comparison_exp
@@ -5548,12 +6349,12 @@ input ProtocolFee_bool_exp {
 type ProtocolFee_max_fields {
   amount: numeric
   amountUSD: numeric
-  blockTimestamp: Int
   chainId: Int
   db_write_timestamp: timestamp
   id: String
   module_id: String
-  source: feesource
+  source: sourcetokentype
+  timestamp: Int
   token_id: String
   treasury: String
 }
@@ -5564,12 +6365,12 @@ order by max() on columns of table "ProtocolFee"
 input ProtocolFee_max_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
   db_write_timestamp: order_by
   id: order_by
   module_id: order_by
   source: order_by
+  timestamp: order_by
   token_id: order_by
   treasury: order_by
 }
@@ -5578,12 +6379,12 @@ input ProtocolFee_max_order_by {
 type ProtocolFee_min_fields {
   amount: numeric
   amountUSD: numeric
-  blockTimestamp: Int
   chainId: Int
   db_write_timestamp: timestamp
   id: String
   module_id: String
-  source: feesource
+  source: sourcetokentype
+  timestamp: Int
   token_id: String
   treasury: String
 }
@@ -5594,12 +6395,12 @@ order by min() on columns of table "ProtocolFee"
 input ProtocolFee_min_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
   db_write_timestamp: order_by
   id: order_by
   module_id: order_by
   source: order_by
+  timestamp: order_by
   token_id: order_by
   treasury: order_by
 }
@@ -5608,12 +6409,12 @@ input ProtocolFee_min_order_by {
 input ProtocolFee_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
   db_write_timestamp: order_by
   id: order_by
   module_id: order_by
   source: order_by
+  timestamp: order_by
   token: Token_order_by
   token_id: order_by
   treasury: order_by
@@ -5628,9 +6429,6 @@ enum ProtocolFee_select_column {
 
   """column name"""
   amountUSD
-
-  """column name"""
-  blockTimestamp
 
   """column name"""
   chainId
@@ -5648,6 +6446,9 @@ enum ProtocolFee_select_column {
   source
 
   """column name"""
+  timestamp
+
+  """column name"""
   token_id
 
   """column name"""
@@ -5658,8 +6459,8 @@ enum ProtocolFee_select_column {
 type ProtocolFee_stddev_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
   chainId: Float
+  timestamp: Float
 }
 
 """
@@ -5668,16 +6469,16 @@ order by stddev() on columns of table "ProtocolFee"
 input ProtocolFee_stddev_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
+  timestamp: order_by
 }
 
 """aggregate stddev_pop on columns"""
 type ProtocolFee_stddev_pop_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
   chainId: Float
+  timestamp: Float
 }
 
 """
@@ -5686,16 +6487,16 @@ order by stddev_pop() on columns of table "ProtocolFee"
 input ProtocolFee_stddev_pop_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
+  timestamp: order_by
 }
 
 """aggregate stddev_samp on columns"""
 type ProtocolFee_stddev_samp_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
   chainId: Float
+  timestamp: Float
 }
 
 """
@@ -5704,8 +6505,8 @@ order by stddev_samp() on columns of table "ProtocolFee"
 input ProtocolFee_stddev_samp_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
+  timestamp: order_by
 }
 
 """
@@ -5723,12 +6524,12 @@ input ProtocolFee_stream_cursor_input {
 input ProtocolFee_stream_cursor_value_input {
   amount: numeric
   amountUSD: numeric
-  blockTimestamp: Int
   chainId: Int
   db_write_timestamp: timestamp
   id: String
   module_id: String
-  source: feesource
+  source: sourcetokentype
+  timestamp: Int
   token_id: String
   treasury: String
 }
@@ -5737,8 +6538,8 @@ input ProtocolFee_stream_cursor_value_input {
 type ProtocolFee_sum_fields {
   amount: numeric
   amountUSD: numeric
-  blockTimestamp: Int
   chainId: Int
+  timestamp: Int
 }
 
 """
@@ -5747,16 +6548,16 @@ order by sum() on columns of table "ProtocolFee"
 input ProtocolFee_sum_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
+  timestamp: order_by
 }
 
 """aggregate var_pop on columns"""
 type ProtocolFee_var_pop_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
   chainId: Float
+  timestamp: Float
 }
 
 """
@@ -5765,16 +6566,16 @@ order by var_pop() on columns of table "ProtocolFee"
 input ProtocolFee_var_pop_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
+  timestamp: order_by
 }
 
 """aggregate var_samp on columns"""
 type ProtocolFee_var_samp_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
   chainId: Float
+  timestamp: Float
 }
 
 """
@@ -5783,16 +6584,16 @@ order by var_samp() on columns of table "ProtocolFee"
 input ProtocolFee_var_samp_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
+  timestamp: order_by
 }
 
 """aggregate variance on columns"""
 type ProtocolFee_variance_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
   chainId: Float
+  timestamp: Float
 }
 
 """
@@ -5801,7 +6602,868 @@ order by variance() on columns of table "ProtocolFee"
 input ProtocolFee_variance_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
+  chainId: order_by
+  timestamp: order_by
+}
+
+"""
+columns and relationships of "RedemptionPaymentOrder"
+"""
+type RedemptionPaymentOrder {
+  amount: numeric!
+  amountUSD: numeric!
+  chainId: Int!
+  data: [String!]!
+  db_write_timestamp: timestamp
+  exchangeRate: numeric!
+  executedBy: String
+  executedTimestamp: Int
+  fee: numeric!
+  feePercentage: numeric!
+  feeUSD: numeric!
+  flags: String!
+  id: String!
+
+  """An object relationship"""
+  oraclePriceFM: OraclePriceFM
+  oraclePriceFM_id: String!
+  orderId: numeric!
+  orderType: paymentordertype!
+  originChainId: Int!
+  recipient: String!
+  seller: String!
+  state: redemptionstate!
+  targetChainId: Int!
+  timestamp: Int!
+
+  """An object relationship"""
+  token: Token
+  token_id: String!
+}
+
+"""
+aggregated selection of "RedemptionPaymentOrder"
+"""
+type RedemptionPaymentOrder_aggregate {
+  aggregate: RedemptionPaymentOrder_aggregate_fields
+  nodes: [RedemptionPaymentOrder!]!
+}
+
+input RedemptionPaymentOrder_aggregate_bool_exp {
+  count: RedemptionPaymentOrder_aggregate_bool_exp_count
+}
+
+input RedemptionPaymentOrder_aggregate_bool_exp_count {
+  arguments: [RedemptionPaymentOrder_select_column!]
+  distinct: Boolean
+  filter: RedemptionPaymentOrder_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "RedemptionPaymentOrder"
+"""
+type RedemptionPaymentOrder_aggregate_fields {
+  avg: RedemptionPaymentOrder_avg_fields
+  count(columns: [RedemptionPaymentOrder_select_column!], distinct: Boolean): Int!
+  max: RedemptionPaymentOrder_max_fields
+  min: RedemptionPaymentOrder_min_fields
+  stddev: RedemptionPaymentOrder_stddev_fields
+  stddev_pop: RedemptionPaymentOrder_stddev_pop_fields
+  stddev_samp: RedemptionPaymentOrder_stddev_samp_fields
+  sum: RedemptionPaymentOrder_sum_fields
+  var_pop: RedemptionPaymentOrder_var_pop_fields
+  var_samp: RedemptionPaymentOrder_var_samp_fields
+  variance: RedemptionPaymentOrder_variance_fields
+}
+
+"""
+order by aggregate values of table "RedemptionPaymentOrder"
+"""
+input RedemptionPaymentOrder_aggregate_order_by {
+  avg: RedemptionPaymentOrder_avg_order_by
+  count: order_by
+  max: RedemptionPaymentOrder_max_order_by
+  min: RedemptionPaymentOrder_min_order_by
+  stddev: RedemptionPaymentOrder_stddev_order_by
+  stddev_pop: RedemptionPaymentOrder_stddev_pop_order_by
+  stddev_samp: RedemptionPaymentOrder_stddev_samp_order_by
+  sum: RedemptionPaymentOrder_sum_order_by
+  var_pop: RedemptionPaymentOrder_var_pop_order_by
+  var_samp: RedemptionPaymentOrder_var_samp_order_by
+  variance: RedemptionPaymentOrder_variance_order_by
+}
+
+"""aggregate avg on columns"""
+type RedemptionPaymentOrder_avg_fields {
+  amount: Float
+  amountUSD: Float
+  chainId: Float
+  exchangeRate: Float
+  executedTimestamp: Float
+  fee: Float
+  feePercentage: Float
+  feeUSD: Float
+  orderId: Float
+  originChainId: Float
+  targetChainId: Float
+  timestamp: Float
+}
+
+"""
+order by avg() on columns of table "RedemptionPaymentOrder"
+"""
+input RedemptionPaymentOrder_avg_order_by {
+  amount: order_by
+  amountUSD: order_by
+  chainId: order_by
+  exchangeRate: order_by
+  executedTimestamp: order_by
+  fee: order_by
+  feePercentage: order_by
+  feeUSD: order_by
+  orderId: order_by
+  originChainId: order_by
+  targetChainId: order_by
+  timestamp: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "RedemptionPaymentOrder". All fields are combined with a logical 'AND'.
+"""
+input RedemptionPaymentOrder_bool_exp {
+  _and: [RedemptionPaymentOrder_bool_exp!]
+  _not: RedemptionPaymentOrder_bool_exp
+  _or: [RedemptionPaymentOrder_bool_exp!]
+  amount: numeric_comparison_exp
+  amountUSD: numeric_comparison_exp
+  chainId: Int_comparison_exp
+  data: String_array_comparison_exp
+  db_write_timestamp: timestamp_comparison_exp
+  exchangeRate: numeric_comparison_exp
+  executedBy: String_comparison_exp
+  executedTimestamp: Int_comparison_exp
+  fee: numeric_comparison_exp
+  feePercentage: numeric_comparison_exp
+  feeUSD: numeric_comparison_exp
+  flags: String_comparison_exp
+  id: String_comparison_exp
+  oraclePriceFM: OraclePriceFM_bool_exp
+  oraclePriceFM_id: String_comparison_exp
+  orderId: numeric_comparison_exp
+  orderType: paymentordertype_comparison_exp
+  originChainId: Int_comparison_exp
+  recipient: String_comparison_exp
+  seller: String_comparison_exp
+  state: redemptionstate_comparison_exp
+  targetChainId: Int_comparison_exp
+  timestamp: Int_comparison_exp
+  token: Token_bool_exp
+  token_id: String_comparison_exp
+}
+
+"""aggregate max on columns"""
+type RedemptionPaymentOrder_max_fields {
+  amount: numeric
+  amountUSD: numeric
+  chainId: Int
+  data: [String!]
+  db_write_timestamp: timestamp
+  exchangeRate: numeric
+  executedBy: String
+  executedTimestamp: Int
+  fee: numeric
+  feePercentage: numeric
+  feeUSD: numeric
+  flags: String
+  id: String
+  oraclePriceFM_id: String
+  orderId: numeric
+  orderType: paymentordertype
+  originChainId: Int
+  recipient: String
+  seller: String
+  state: redemptionstate
+  targetChainId: Int
+  timestamp: Int
+  token_id: String
+}
+
+"""
+order by max() on columns of table "RedemptionPaymentOrder"
+"""
+input RedemptionPaymentOrder_max_order_by {
+  amount: order_by
+  amountUSD: order_by
+  chainId: order_by
+  data: order_by
+  db_write_timestamp: order_by
+  exchangeRate: order_by
+  executedBy: order_by
+  executedTimestamp: order_by
+  fee: order_by
+  feePercentage: order_by
+  feeUSD: order_by
+  flags: order_by
+  id: order_by
+  oraclePriceFM_id: order_by
+  orderId: order_by
+  orderType: order_by
+  originChainId: order_by
+  recipient: order_by
+  seller: order_by
+  state: order_by
+  targetChainId: order_by
+  timestamp: order_by
+  token_id: order_by
+}
+
+"""aggregate min on columns"""
+type RedemptionPaymentOrder_min_fields {
+  amount: numeric
+  amountUSD: numeric
+  chainId: Int
+  data: [String!]
+  db_write_timestamp: timestamp
+  exchangeRate: numeric
+  executedBy: String
+  executedTimestamp: Int
+  fee: numeric
+  feePercentage: numeric
+  feeUSD: numeric
+  flags: String
+  id: String
+  oraclePriceFM_id: String
+  orderId: numeric
+  orderType: paymentordertype
+  originChainId: Int
+  recipient: String
+  seller: String
+  state: redemptionstate
+  targetChainId: Int
+  timestamp: Int
+  token_id: String
+}
+
+"""
+order by min() on columns of table "RedemptionPaymentOrder"
+"""
+input RedemptionPaymentOrder_min_order_by {
+  amount: order_by
+  amountUSD: order_by
+  chainId: order_by
+  data: order_by
+  db_write_timestamp: order_by
+  exchangeRate: order_by
+  executedBy: order_by
+  executedTimestamp: order_by
+  fee: order_by
+  feePercentage: order_by
+  feeUSD: order_by
+  flags: order_by
+  id: order_by
+  oraclePriceFM_id: order_by
+  orderId: order_by
+  orderType: order_by
+  originChainId: order_by
+  recipient: order_by
+  seller: order_by
+  state: order_by
+  targetChainId: order_by
+  timestamp: order_by
+  token_id: order_by
+}
+
+"""Ordering options when selecting data from "RedemptionPaymentOrder"."""
+input RedemptionPaymentOrder_order_by {
+  amount: order_by
+  amountUSD: order_by
+  chainId: order_by
+  data: order_by
+  db_write_timestamp: order_by
+  exchangeRate: order_by
+  executedBy: order_by
+  executedTimestamp: order_by
+  fee: order_by
+  feePercentage: order_by
+  feeUSD: order_by
+  flags: order_by
+  id: order_by
+  oraclePriceFM: OraclePriceFM_order_by
+  oraclePriceFM_id: order_by
+  orderId: order_by
+  orderType: order_by
+  originChainId: order_by
+  recipient: order_by
+  seller: order_by
+  state: order_by
+  targetChainId: order_by
+  timestamp: order_by
+  token: Token_order_by
+  token_id: order_by
+}
+
+"""
+select columns of table "RedemptionPaymentOrder"
+"""
+enum RedemptionPaymentOrder_select_column {
+  """column name"""
+  amount
+
+  """column name"""
+  amountUSD
+
+  """column name"""
+  chainId
+
+  """column name"""
+  data
+
+  """column name"""
+  db_write_timestamp
+
+  """column name"""
+  exchangeRate
+
+  """column name"""
+  executedBy
+
+  """column name"""
+  executedTimestamp
+
+  """column name"""
+  fee
+
+  """column name"""
+  feePercentage
+
+  """column name"""
+  feeUSD
+
+  """column name"""
+  flags
+
+  """column name"""
+  id
+
+  """column name"""
+  oraclePriceFM_id
+
+  """column name"""
+  orderId
+
+  """column name"""
+  orderType
+
+  """column name"""
+  originChainId
+
+  """column name"""
+  recipient
+
+  """column name"""
+  seller
+
+  """column name"""
+  state
+
+  """column name"""
+  targetChainId
+
+  """column name"""
+  timestamp
+
+  """column name"""
+  token_id
+}
+
+"""aggregate stddev on columns"""
+type RedemptionPaymentOrder_stddev_fields {
+  amount: Float
+  amountUSD: Float
+  chainId: Float
+  exchangeRate: Float
+  executedTimestamp: Float
+  fee: Float
+  feePercentage: Float
+  feeUSD: Float
+  orderId: Float
+  originChainId: Float
+  targetChainId: Float
+  timestamp: Float
+}
+
+"""
+order by stddev() on columns of table "RedemptionPaymentOrder"
+"""
+input RedemptionPaymentOrder_stddev_order_by {
+  amount: order_by
+  amountUSD: order_by
+  chainId: order_by
+  exchangeRate: order_by
+  executedTimestamp: order_by
+  fee: order_by
+  feePercentage: order_by
+  feeUSD: order_by
+  orderId: order_by
+  originChainId: order_by
+  targetChainId: order_by
+  timestamp: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type RedemptionPaymentOrder_stddev_pop_fields {
+  amount: Float
+  amountUSD: Float
+  chainId: Float
+  exchangeRate: Float
+  executedTimestamp: Float
+  fee: Float
+  feePercentage: Float
+  feeUSD: Float
+  orderId: Float
+  originChainId: Float
+  targetChainId: Float
+  timestamp: Float
+}
+
+"""
+order by stddev_pop() on columns of table "RedemptionPaymentOrder"
+"""
+input RedemptionPaymentOrder_stddev_pop_order_by {
+  amount: order_by
+  amountUSD: order_by
+  chainId: order_by
+  exchangeRate: order_by
+  executedTimestamp: order_by
+  fee: order_by
+  feePercentage: order_by
+  feeUSD: order_by
+  orderId: order_by
+  originChainId: order_by
+  targetChainId: order_by
+  timestamp: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type RedemptionPaymentOrder_stddev_samp_fields {
+  amount: Float
+  amountUSD: Float
+  chainId: Float
+  exchangeRate: Float
+  executedTimestamp: Float
+  fee: Float
+  feePercentage: Float
+  feeUSD: Float
+  orderId: Float
+  originChainId: Float
+  targetChainId: Float
+  timestamp: Float
+}
+
+"""
+order by stddev_samp() on columns of table "RedemptionPaymentOrder"
+"""
+input RedemptionPaymentOrder_stddev_samp_order_by {
+  amount: order_by
+  amountUSD: order_by
+  chainId: order_by
+  exchangeRate: order_by
+  executedTimestamp: order_by
+  fee: order_by
+  feePercentage: order_by
+  feeUSD: order_by
+  orderId: order_by
+  originChainId: order_by
+  targetChainId: order_by
+  timestamp: order_by
+}
+
+"""
+Streaming cursor of the table "RedemptionPaymentOrder"
+"""
+input RedemptionPaymentOrder_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: RedemptionPaymentOrder_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input RedemptionPaymentOrder_stream_cursor_value_input {
+  amount: numeric
+  amountUSD: numeric
+  chainId: Int
+  data: [String!]
+  db_write_timestamp: timestamp
+  exchangeRate: numeric
+  executedBy: String
+  executedTimestamp: Int
+  fee: numeric
+  feePercentage: numeric
+  feeUSD: numeric
+  flags: String
+  id: String
+  oraclePriceFM_id: String
+  orderId: numeric
+  orderType: paymentordertype
+  originChainId: Int
+  recipient: String
+  seller: String
+  state: redemptionstate
+  targetChainId: Int
+  timestamp: Int
+  token_id: String
+}
+
+"""aggregate sum on columns"""
+type RedemptionPaymentOrder_sum_fields {
+  amount: numeric
+  amountUSD: numeric
+  chainId: Int
+  exchangeRate: numeric
+  executedTimestamp: Int
+  fee: numeric
+  feePercentage: numeric
+  feeUSD: numeric
+  orderId: numeric
+  originChainId: Int
+  targetChainId: Int
+  timestamp: Int
+}
+
+"""
+order by sum() on columns of table "RedemptionPaymentOrder"
+"""
+input RedemptionPaymentOrder_sum_order_by {
+  amount: order_by
+  amountUSD: order_by
+  chainId: order_by
+  exchangeRate: order_by
+  executedTimestamp: order_by
+  fee: order_by
+  feePercentage: order_by
+  feeUSD: order_by
+  orderId: order_by
+  originChainId: order_by
+  targetChainId: order_by
+  timestamp: order_by
+}
+
+"""aggregate var_pop on columns"""
+type RedemptionPaymentOrder_var_pop_fields {
+  amount: Float
+  amountUSD: Float
+  chainId: Float
+  exchangeRate: Float
+  executedTimestamp: Float
+  fee: Float
+  feePercentage: Float
+  feeUSD: Float
+  orderId: Float
+  originChainId: Float
+  targetChainId: Float
+  timestamp: Float
+}
+
+"""
+order by var_pop() on columns of table "RedemptionPaymentOrder"
+"""
+input RedemptionPaymentOrder_var_pop_order_by {
+  amount: order_by
+  amountUSD: order_by
+  chainId: order_by
+  exchangeRate: order_by
+  executedTimestamp: order_by
+  fee: order_by
+  feePercentage: order_by
+  feeUSD: order_by
+  orderId: order_by
+  originChainId: order_by
+  targetChainId: order_by
+  timestamp: order_by
+}
+
+"""aggregate var_samp on columns"""
+type RedemptionPaymentOrder_var_samp_fields {
+  amount: Float
+  amountUSD: Float
+  chainId: Float
+  exchangeRate: Float
+  executedTimestamp: Float
+  fee: Float
+  feePercentage: Float
+  feeUSD: Float
+  orderId: Float
+  originChainId: Float
+  targetChainId: Float
+  timestamp: Float
+}
+
+"""
+order by var_samp() on columns of table "RedemptionPaymentOrder"
+"""
+input RedemptionPaymentOrder_var_samp_order_by {
+  amount: order_by
+  amountUSD: order_by
+  chainId: order_by
+  exchangeRate: order_by
+  executedTimestamp: order_by
+  fee: order_by
+  feePercentage: order_by
+  feeUSD: order_by
+  orderId: order_by
+  originChainId: order_by
+  targetChainId: order_by
+  timestamp: order_by
+}
+
+"""aggregate variance on columns"""
+type RedemptionPaymentOrder_variance_fields {
+  amount: Float
+  amountUSD: Float
+  chainId: Float
+  exchangeRate: Float
+  executedTimestamp: Float
+  fee: Float
+  feePercentage: Float
+  feeUSD: Float
+  orderId: Float
+  originChainId: Float
+  targetChainId: Float
+  timestamp: Float
+}
+
+"""
+order by variance() on columns of table "RedemptionPaymentOrder"
+"""
+input RedemptionPaymentOrder_variance_order_by {
+  amount: order_by
+  amountUSD: order_by
+  chainId: order_by
+  exchangeRate: order_by
+  executedTimestamp: order_by
+  fee: order_by
+  feePercentage: order_by
+  feeUSD: order_by
+  orderId: order_by
+  originChainId: order_by
+  targetChainId: order_by
+  timestamp: order_by
+}
+
+"""
+columns and relationships of "Role"
+"""
+type Role {
+  chainId: Int!
+  db_write_timestamp: timestamp
+  id: String!
+  initiator: String!
+  module_id: String!
+  recipient: String!
+  role: String
+  roleGen: String!
+  roleName: String
+  status: rolestatus!
+}
+
+"""
+order by aggregate values of table "Role"
+"""
+input Role_aggregate_order_by {
+  avg: Role_avg_order_by
+  count: order_by
+  max: Role_max_order_by
+  min: Role_min_order_by
+  stddev: Role_stddev_order_by
+  stddev_pop: Role_stddev_pop_order_by
+  stddev_samp: Role_stddev_samp_order_by
+  sum: Role_sum_order_by
+  var_pop: Role_var_pop_order_by
+  var_samp: Role_var_samp_order_by
+  variance: Role_variance_order_by
+}
+
+"""
+order by avg() on columns of table "Role"
+"""
+input Role_avg_order_by {
+  chainId: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "Role". All fields are combined with a logical 'AND'.
+"""
+input Role_bool_exp {
+  _and: [Role_bool_exp!]
+  _not: Role_bool_exp
+  _or: [Role_bool_exp!]
+  chainId: Int_comparison_exp
+  db_write_timestamp: timestamp_comparison_exp
+  id: String_comparison_exp
+  initiator: String_comparison_exp
+  module_id: String_comparison_exp
+  recipient: String_comparison_exp
+  role: String_comparison_exp
+  roleGen: String_comparison_exp
+  roleName: String_comparison_exp
+  status: rolestatus_comparison_exp
+}
+
+"""
+order by max() on columns of table "Role"
+"""
+input Role_max_order_by {
+  chainId: order_by
+  db_write_timestamp: order_by
+  id: order_by
+  initiator: order_by
+  module_id: order_by
+  recipient: order_by
+  role: order_by
+  roleGen: order_by
+  roleName: order_by
+  status: order_by
+}
+
+"""
+order by min() on columns of table "Role"
+"""
+input Role_min_order_by {
+  chainId: order_by
+  db_write_timestamp: order_by
+  id: order_by
+  initiator: order_by
+  module_id: order_by
+  recipient: order_by
+  role: order_by
+  roleGen: order_by
+  roleName: order_by
+  status: order_by
+}
+
+"""Ordering options when selecting data from "Role"."""
+input Role_order_by {
+  chainId: order_by
+  db_write_timestamp: order_by
+  id: order_by
+  initiator: order_by
+  module_id: order_by
+  recipient: order_by
+  role: order_by
+  roleGen: order_by
+  roleName: order_by
+  status: order_by
+}
+
+"""
+select columns of table "Role"
+"""
+enum Role_select_column {
+  """column name"""
+  chainId
+
+  """column name"""
+  db_write_timestamp
+
+  """column name"""
+  id
+
+  """column name"""
+  initiator
+
+  """column name"""
+  module_id
+
+  """column name"""
+  recipient
+
+  """column name"""
+  role
+
+  """column name"""
+  roleGen
+
+  """column name"""
+  roleName
+
+  """column name"""
+  status
+}
+
+"""
+order by stddev() on columns of table "Role"
+"""
+input Role_stddev_order_by {
+  chainId: order_by
+}
+
+"""
+order by stddev_pop() on columns of table "Role"
+"""
+input Role_stddev_pop_order_by {
+  chainId: order_by
+}
+
+"""
+order by stddev_samp() on columns of table "Role"
+"""
+input Role_stddev_samp_order_by {
+  chainId: order_by
+}
+
+"""
+Streaming cursor of the table "Role"
+"""
+input Role_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: Role_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input Role_stream_cursor_value_input {
+  chainId: Int
+  db_write_timestamp: timestamp
+  id: String
+  initiator: String
+  module_id: String
+  recipient: String
+  role: String
+  roleGen: String
+  roleName: String
+  status: rolestatus
+}
+
+"""
+order by sum() on columns of table "Role"
+"""
+input Role_sum_order_by {
+  chainId: order_by
+}
+
+"""
+order by var_pop() on columns of table "Role"
+"""
+input Role_var_pop_order_by {
+  chainId: order_by
+}
+
+"""
+order by var_samp() on columns of table "Role"
+"""
+input Role_var_samp_order_by {
+  chainId: order_by
+}
+
+"""
+order by variance() on columns of table "Role"
+"""
+input Role_variance_order_by {
   chainId: order_by
 }
 
@@ -5809,6 +7471,7 @@ input ProtocolFee_variance_order_by {
 columns and relationships of "StreamingPaymentProcessor"
 """
 type StreamingPaymentProcessor {
+  address: String!
   chainId: Int!
   db_write_timestamp: timestamp
   id: String!
@@ -5843,6 +7506,7 @@ input StreamingPaymentProcessor_bool_exp {
   _and: [StreamingPaymentProcessor_bool_exp!]
   _not: StreamingPaymentProcessor_bool_exp
   _or: [StreamingPaymentProcessor_bool_exp!]
+  address: String_comparison_exp
   chainId: Int_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
   id: String_comparison_exp
@@ -5853,6 +7517,7 @@ input StreamingPaymentProcessor_bool_exp {
 
 """Ordering options when selecting data from "StreamingPaymentProcessor"."""
 input StreamingPaymentProcessor_order_by {
+  address: order_by
   chainId: order_by
   db_write_timestamp: order_by
   id: order_by
@@ -5865,6 +7530,9 @@ input StreamingPaymentProcessor_order_by {
 select columns of table "StreamingPaymentProcessor"
 """
 enum StreamingPaymentProcessor_select_column {
+  """column name"""
+  address
+
   """column name"""
   chainId
 
@@ -5891,6 +7559,7 @@ input StreamingPaymentProcessor_stream_cursor_input {
 
 """Initial value of the column from where the streaming should start"""
 input StreamingPaymentProcessor_stream_cursor_value_input {
+  address: String
   chainId: Int
   db_write_timestamp: timestamp
   id: String
@@ -5977,24 +7646,24 @@ type Swap {
   amountCOL: numeric!
   amountISS: numeric!
   amountUSD: numeric!
-  blockTimestamp: Int!
   chainId: Int!
 
   """An object relationship"""
   collateralToken: Token
   collateralToken_id: String!
   db_write_timestamp: timestamp
+  fundingManager_id: String!
   id: String!
   initiator: String!
 
   """An object relationship"""
   issuanceToken: Token
   issuanceToken_id: String!
-  module_id: String!
   priceCOL: numeric!
   priceUSD: numeric!
   recipient: String!
   swapType: swaptype!
+  timestamp: Int!
 }
 
 """
@@ -6021,10 +7690,10 @@ input Swap_avg_order_by {
   amountCOL: order_by
   amountISS: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
   priceCOL: order_by
   priceUSD: order_by
+  timestamp: order_by
 }
 
 """
@@ -6037,20 +7706,20 @@ input Swap_bool_exp {
   amountCOL: numeric_comparison_exp
   amountISS: numeric_comparison_exp
   amountUSD: numeric_comparison_exp
-  blockTimestamp: Int_comparison_exp
   chainId: Int_comparison_exp
   collateralToken: Token_bool_exp
   collateralToken_id: String_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
+  fundingManager_id: String_comparison_exp
   id: String_comparison_exp
   initiator: String_comparison_exp
   issuanceToken: Token_bool_exp
   issuanceToken_id: String_comparison_exp
-  module_id: String_comparison_exp
   priceCOL: numeric_comparison_exp
   priceUSD: numeric_comparison_exp
   recipient: String_comparison_exp
   swapType: swaptype_comparison_exp
+  timestamp: Int_comparison_exp
 }
 
 """
@@ -6060,18 +7729,18 @@ input Swap_max_order_by {
   amountCOL: order_by
   amountISS: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
   collateralToken_id: order_by
   db_write_timestamp: order_by
+  fundingManager_id: order_by
   id: order_by
   initiator: order_by
   issuanceToken_id: order_by
-  module_id: order_by
   priceCOL: order_by
   priceUSD: order_by
   recipient: order_by
   swapType: order_by
+  timestamp: order_by
 }
 
 """
@@ -6081,18 +7750,18 @@ input Swap_min_order_by {
   amountCOL: order_by
   amountISS: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
   collateralToken_id: order_by
   db_write_timestamp: order_by
+  fundingManager_id: order_by
   id: order_by
   initiator: order_by
   issuanceToken_id: order_by
-  module_id: order_by
   priceCOL: order_by
   priceUSD: order_by
   recipient: order_by
   swapType: order_by
+  timestamp: order_by
 }
 
 """Ordering options when selecting data from "Swap"."""
@@ -6100,20 +7769,20 @@ input Swap_order_by {
   amountCOL: order_by
   amountISS: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
   collateralToken: Token_order_by
   collateralToken_id: order_by
   db_write_timestamp: order_by
+  fundingManager_id: order_by
   id: order_by
   initiator: order_by
   issuanceToken: Token_order_by
   issuanceToken_id: order_by
-  module_id: order_by
   priceCOL: order_by
   priceUSD: order_by
   recipient: order_by
   swapType: order_by
+  timestamp: order_by
 }
 
 """
@@ -6130,9 +7799,6 @@ enum Swap_select_column {
   amountUSD
 
   """column name"""
-  blockTimestamp
-
-  """column name"""
   chainId
 
   """column name"""
@@ -6142,6 +7808,9 @@ enum Swap_select_column {
   db_write_timestamp
 
   """column name"""
+  fundingManager_id
+
+  """column name"""
   id
 
   """column name"""
@@ -6149,9 +7818,6 @@ enum Swap_select_column {
 
   """column name"""
   issuanceToken_id
-
-  """column name"""
-  module_id
 
   """column name"""
   priceCOL
@@ -6164,6 +7830,9 @@ enum Swap_select_column {
 
   """column name"""
   swapType
+
+  """column name"""
+  timestamp
 }
 
 """
@@ -6173,10 +7842,10 @@ input Swap_stddev_order_by {
   amountCOL: order_by
   amountISS: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
   priceCOL: order_by
   priceUSD: order_by
+  timestamp: order_by
 }
 
 """
@@ -6186,10 +7855,10 @@ input Swap_stddev_pop_order_by {
   amountCOL: order_by
   amountISS: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
   priceCOL: order_by
   priceUSD: order_by
+  timestamp: order_by
 }
 
 """
@@ -6199,10 +7868,10 @@ input Swap_stddev_samp_order_by {
   amountCOL: order_by
   amountISS: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
   priceCOL: order_by
   priceUSD: order_by
+  timestamp: order_by
 }
 
 """
@@ -6221,18 +7890,18 @@ input Swap_stream_cursor_value_input {
   amountCOL: numeric
   amountISS: numeric
   amountUSD: numeric
-  blockTimestamp: Int
   chainId: Int
   collateralToken_id: String
   db_write_timestamp: timestamp
+  fundingManager_id: String
   id: String
   initiator: String
   issuanceToken_id: String
-  module_id: String
   priceCOL: numeric
   priceUSD: numeric
   recipient: String
   swapType: swaptype
+  timestamp: Int
 }
 
 """
@@ -6242,10 +7911,10 @@ input Swap_sum_order_by {
   amountCOL: order_by
   amountISS: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
   priceCOL: order_by
   priceUSD: order_by
+  timestamp: order_by
 }
 
 """
@@ -6255,10 +7924,10 @@ input Swap_var_pop_order_by {
   amountCOL: order_by
   amountISS: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
   priceCOL: order_by
   priceUSD: order_by
+  timestamp: order_by
 }
 
 """
@@ -6268,10 +7937,10 @@ input Swap_var_samp_order_by {
   amountCOL: order_by
   amountISS: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
   priceCOL: order_by
   priceUSD: order_by
+  timestamp: order_by
 }
 
 """
@@ -6281,10 +7950,10 @@ input Swap_variance_order_by {
   amountCOL: order_by
   amountISS: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   chainId: order_by
   priceCOL: order_by
   priceUSD: order_by
+  timestamp: order_by
 }
 
 """
@@ -6510,7 +8179,6 @@ columns and relationships of "Transfer"
 type Transfer {
   amount: numeric!
   amountUSD: numeric!
-  blockTimestamp: Int!
   db_write_timestamp: timestamp
 
   """An object relationship"""
@@ -6518,6 +8186,7 @@ type Transfer {
   depositVault_id: String!
   id: String!
   recipient: String!
+  timestamp: Int!
 }
 
 """
@@ -6577,7 +8246,7 @@ input Transfer_aggregate_order_by {
 type Transfer_avg_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
+  timestamp: Float
 }
 
 """
@@ -6586,7 +8255,7 @@ order by avg() on columns of table "Transfer"
 input Transfer_avg_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
+  timestamp: order_by
 }
 
 """
@@ -6598,23 +8267,23 @@ input Transfer_bool_exp {
   _or: [Transfer_bool_exp!]
   amount: numeric_comparison_exp
   amountUSD: numeric_comparison_exp
-  blockTimestamp: Int_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
   depositVault: DepositVault_bool_exp
   depositVault_id: String_comparison_exp
   id: String_comparison_exp
   recipient: String_comparison_exp
+  timestamp: Int_comparison_exp
 }
 
 """aggregate max on columns"""
 type Transfer_max_fields {
   amount: numeric
   amountUSD: numeric
-  blockTimestamp: Int
   db_write_timestamp: timestamp
   depositVault_id: String
   id: String
   recipient: String
+  timestamp: Int
 }
 
 """
@@ -6623,22 +8292,22 @@ order by max() on columns of table "Transfer"
 input Transfer_max_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   db_write_timestamp: order_by
   depositVault_id: order_by
   id: order_by
   recipient: order_by
+  timestamp: order_by
 }
 
 """aggregate min on columns"""
 type Transfer_min_fields {
   amount: numeric
   amountUSD: numeric
-  blockTimestamp: Int
   db_write_timestamp: timestamp
   depositVault_id: String
   id: String
   recipient: String
+  timestamp: Int
 }
 
 """
@@ -6647,23 +8316,23 @@ order by min() on columns of table "Transfer"
 input Transfer_min_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   db_write_timestamp: order_by
   depositVault_id: order_by
   id: order_by
   recipient: order_by
+  timestamp: order_by
 }
 
 """Ordering options when selecting data from "Transfer"."""
 input Transfer_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
   db_write_timestamp: order_by
   depositVault: DepositVault_order_by
   depositVault_id: order_by
   id: order_by
   recipient: order_by
+  timestamp: order_by
 }
 
 """
@@ -6677,9 +8346,6 @@ enum Transfer_select_column {
   amountUSD
 
   """column name"""
-  blockTimestamp
-
-  """column name"""
   db_write_timestamp
 
   """column name"""
@@ -6690,13 +8356,16 @@ enum Transfer_select_column {
 
   """column name"""
   recipient
+
+  """column name"""
+  timestamp
 }
 
 """aggregate stddev on columns"""
 type Transfer_stddev_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
+  timestamp: Float
 }
 
 """
@@ -6705,14 +8374,14 @@ order by stddev() on columns of table "Transfer"
 input Transfer_stddev_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
+  timestamp: order_by
 }
 
 """aggregate stddev_pop on columns"""
 type Transfer_stddev_pop_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
+  timestamp: Float
 }
 
 """
@@ -6721,14 +8390,14 @@ order by stddev_pop() on columns of table "Transfer"
 input Transfer_stddev_pop_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
+  timestamp: order_by
 }
 
 """aggregate stddev_samp on columns"""
 type Transfer_stddev_samp_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
+  timestamp: Float
 }
 
 """
@@ -6737,7 +8406,7 @@ order by stddev_samp() on columns of table "Transfer"
 input Transfer_stddev_samp_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
+  timestamp: order_by
 }
 
 """
@@ -6755,18 +8424,18 @@ input Transfer_stream_cursor_input {
 input Transfer_stream_cursor_value_input {
   amount: numeric
   amountUSD: numeric
-  blockTimestamp: Int
   db_write_timestamp: timestamp
   depositVault_id: String
   id: String
   recipient: String
+  timestamp: Int
 }
 
 """aggregate sum on columns"""
 type Transfer_sum_fields {
   amount: numeric
   amountUSD: numeric
-  blockTimestamp: Int
+  timestamp: Int
 }
 
 """
@@ -6775,14 +8444,14 @@ order by sum() on columns of table "Transfer"
 input Transfer_sum_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
+  timestamp: order_by
 }
 
 """aggregate var_pop on columns"""
 type Transfer_var_pop_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
+  timestamp: Float
 }
 
 """
@@ -6791,14 +8460,14 @@ order by var_pop() on columns of table "Transfer"
 input Transfer_var_pop_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
+  timestamp: order_by
 }
 
 """aggregate var_samp on columns"""
 type Transfer_var_samp_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
+  timestamp: Float
 }
 
 """
@@ -6807,14 +8476,14 @@ order by var_samp() on columns of table "Transfer"
 input Transfer_var_samp_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
+  timestamp: order_by
 }
 
 """aggregate variance on columns"""
 type Transfer_variance_fields {
   amount: Float
   amountUSD: Float
-  blockTimestamp: Float
+  timestamp: Float
 }
 
 """
@@ -6823,13 +8492,15 @@ order by variance() on columns of table "Transfer"
 input Transfer_variance_order_by {
   amount: order_by
   amountUSD: order_by
-  blockTimestamp: order_by
+  timestamp: order_by
 }
 
 """
 columns and relationships of "Workflow"
 """
 type Workflow {
+  address: String!
+
   """An object relationship"""
   authorizer: WorkflowModule
   authorizer_id: String!
@@ -6846,6 +8517,10 @@ type Workflow {
   """An object relationship"""
   paymentProcessor: WorkflowModule
   paymentProcessor_id: String!
+
+  """An object relationship"""
+  token: Token
+  token_id: String!
 }
 
 """
@@ -7043,6 +8718,7 @@ input Workflow_bool_exp {
   _and: [Workflow_bool_exp!]
   _not: Workflow_bool_exp
   _or: [Workflow_bool_exp!]
+  address: String_comparison_exp
   authorizer: WorkflowModule_bool_exp
   authorizer_id: String_comparison_exp
   chainId: Int_comparison_exp
@@ -7054,10 +8730,13 @@ input Workflow_bool_exp {
   orchestrator: String_comparison_exp
   paymentProcessor: WorkflowModule_bool_exp
   paymentProcessor_id: String_comparison_exp
+  token: Token_bool_exp
+  token_id: String_comparison_exp
 }
 
 """Ordering options when selecting data from "Workflow"."""
 input Workflow_order_by {
+  address: order_by
   authorizer: WorkflowModule_order_by
   authorizer_id: order_by
   chainId: order_by
@@ -7069,12 +8748,17 @@ input Workflow_order_by {
   orchestrator: order_by
   paymentProcessor: WorkflowModule_order_by
   paymentProcessor_id: order_by
+  token: Token_order_by
+  token_id: order_by
 }
 
 """
 select columns of table "Workflow"
 """
 enum Workflow_select_column {
+  """column name"""
+  address
+
   """column name"""
   authorizer_id
 
@@ -7098,6 +8782,9 @@ enum Workflow_select_column {
 
   """column name"""
   paymentProcessor_id
+
+  """column name"""
+  token_id
 }
 
 """
@@ -7113,6 +8800,7 @@ input Workflow_stream_cursor_input {
 
 """Initial value of the column from where the streaming should start"""
 input Workflow_stream_cursor_value_input {
+  address: String
   authorizer_id: String
   chainId: Int
   db_write_timestamp: timestamp
@@ -7121,6 +8809,7 @@ input Workflow_stream_cursor_value_input {
   optionalModules: [String!]
   orchestrator: String
   paymentProcessor_id: String
+  token_id: String
 }
 
 """
@@ -7524,23 +9213,6 @@ input event_sync_state_stream_cursor_value_input {
   log_index: Int
 }
 
-scalar feesource
-
-"""
-Boolean expression to compare columns of type "feesource". All fields are combined with logical 'AND'.
-"""
-input feesource_comparison_exp {
-  _eq: feesource
-  _gt: feesource
-  _gte: feesource
-  _in: [feesource!]
-  _is_null: Boolean
-  _lt: feesource
-  _lte: feesource
-  _neq: feesource
-  _nin: [feesource!]
-}
-
 scalar jsonb
 
 input jsonb_cast_exp {
@@ -7614,6 +9286,23 @@ enum order_by {
 
   """in descending order, nulls last"""
   desc_nulls_last
+}
+
+scalar paymentordertype
+
+"""
+Boolean expression to compare columns of type "paymentordertype". All fields are combined with logical 'AND'.
+"""
+input paymentordertype_comparison_exp {
+  _eq: paymentordertype
+  _gt: paymentordertype
+  _gte: paymentordertype
+  _in: [paymentordertype!]
+  _is_null: Boolean
+  _lt: paymentordertype
+  _lte: paymentordertype
+  _neq: paymentordertype
+  _nin: [paymentordertype!]
 }
 
 """
@@ -7698,6 +9387,29 @@ input persisted_state_stream_cursor_value_input {
 }
 
 type query_root {
+  """
+  fetch data from the table: "AutRoles"
+  """
+  AutRoles(
+    """distinct select on columns"""
+    distinct_on: [AutRoles_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [AutRoles_order_by!]
+
+    """filter the rows returned"""
+    where: AutRoles_bool_exp
+  ): [AutRoles!]!
+
+  """fetch data from the table: "AutRoles" using primary key columns"""
+  AutRoles_by_pk(id: String!): AutRoles
+
   """
   fetch data from the table: "BondingCurve"
   """
@@ -8048,6 +9760,31 @@ type query_root {
   Deposit_by_pk(id: String!): Deposit
 
   """
+  fetch data from the table: "ExternalPriceSetter"
+  """
+  ExternalPriceSetter(
+    """distinct select on columns"""
+    distinct_on: [ExternalPriceSetter_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ExternalPriceSetter_order_by!]
+
+    """filter the rows returned"""
+    where: ExternalPriceSetter_bool_exp
+  ): [ExternalPriceSetter!]!
+
+  """
+  fetch data from the table: "ExternalPriceSetter" using primary key columns
+  """
+  ExternalPriceSetter_by_pk(id: String!): ExternalPriceSetter
+
+  """
   fetch data from the table: "IssuanceTokenDayData"
   """
   IssuanceTokenDayData(
@@ -8161,6 +9898,49 @@ type query_root {
   LinearVesting_by_pk(id: String!): LinearVesting
 
   """
+  fetch data from the table: "OraclePriceFM"
+  """
+  OraclePriceFM(
+    """distinct select on columns"""
+    distinct_on: [OraclePriceFM_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [OraclePriceFM_order_by!]
+
+    """filter the rows returned"""
+    where: OraclePriceFM_bool_exp
+  ): [OraclePriceFM!]!
+
+  """
+  fetch aggregated fields from the table: "OraclePriceFM"
+  """
+  OraclePriceFM_aggregate(
+    """distinct select on columns"""
+    distinct_on: [OraclePriceFM_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [OraclePriceFM_order_by!]
+
+    """filter the rows returned"""
+    where: OraclePriceFM_bool_exp
+  ): OraclePriceFM_aggregate!
+
+  """fetch data from the table: "OraclePriceFM" using primary key columns"""
+  OraclePriceFM_by_pk(id: String!): OraclePriceFM
+
+  """
   fetch data from the table: "ProjectFee"
   """
   ProjectFee(
@@ -8245,6 +10025,74 @@ type query_root {
 
   """fetch data from the table: "ProtocolFee" using primary key columns"""
   ProtocolFee_by_pk(id: String!): ProtocolFee
+
+  """
+  fetch data from the table: "RedemptionPaymentOrder"
+  """
+  RedemptionPaymentOrder(
+    """distinct select on columns"""
+    distinct_on: [RedemptionPaymentOrder_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [RedemptionPaymentOrder_order_by!]
+
+    """filter the rows returned"""
+    where: RedemptionPaymentOrder_bool_exp
+  ): [RedemptionPaymentOrder!]!
+
+  """
+  fetch aggregated fields from the table: "RedemptionPaymentOrder"
+  """
+  RedemptionPaymentOrder_aggregate(
+    """distinct select on columns"""
+    distinct_on: [RedemptionPaymentOrder_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [RedemptionPaymentOrder_order_by!]
+
+    """filter the rows returned"""
+    where: RedemptionPaymentOrder_bool_exp
+  ): RedemptionPaymentOrder_aggregate!
+
+  """
+  fetch data from the table: "RedemptionPaymentOrder" using primary key columns
+  """
+  RedemptionPaymentOrder_by_pk(id: String!): RedemptionPaymentOrder
+
+  """
+  fetch data from the table: "Role"
+  """
+  Role(
+    """distinct select on columns"""
+    distinct_on: [Role_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Role_order_by!]
+
+    """filter the rows returned"""
+    where: Role_bool_exp
+  ): [Role!]!
+
+  """fetch data from the table: "Role" using primary key columns"""
+  Role_by_pk(id: String!): Role
 
   """
   fetch data from the table: "StreamingPaymentProcessor"
@@ -8742,7 +10590,95 @@ input raw_events_stream_cursor_value_input {
   transaction_fields: jsonb
 }
 
+scalar redemptionstate
+
+"""
+Boolean expression to compare columns of type "redemptionstate". All fields are combined with logical 'AND'.
+"""
+input redemptionstate_comparison_exp {
+  _eq: redemptionstate
+  _gt: redemptionstate
+  _gte: redemptionstate
+  _in: [redemptionstate!]
+  _is_null: Boolean
+  _lt: redemptionstate
+  _lte: redemptionstate
+  _neq: redemptionstate
+  _nin: [redemptionstate!]
+}
+
+scalar rolestatus
+
+"""
+Boolean expression to compare columns of type "rolestatus". All fields are combined with logical 'AND'.
+"""
+input rolestatus_comparison_exp {
+  _eq: rolestatus
+  _gt: rolestatus
+  _gte: rolestatus
+  _in: [rolestatus!]
+  _is_null: Boolean
+  _lt: rolestatus
+  _lte: rolestatus
+  _neq: rolestatus
+  _nin: [rolestatus!]
+}
+
+scalar sourcetokentype
+
+"""
+Boolean expression to compare columns of type "sourcetokentype". All fields are combined with logical 'AND'.
+"""
+input sourcetokentype_comparison_exp {
+  _eq: sourcetokentype
+  _gt: sourcetokentype
+  _gte: sourcetokentype
+  _in: [sourcetokentype!]
+  _is_null: Boolean
+  _lt: sourcetokentype
+  _lte: sourcetokentype
+  _neq: sourcetokentype
+  _nin: [sourcetokentype!]
+}
+
 type subscription_root {
+  """
+  fetch data from the table: "AutRoles"
+  """
+  AutRoles(
+    """distinct select on columns"""
+    distinct_on: [AutRoles_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [AutRoles_order_by!]
+
+    """filter the rows returned"""
+    where: AutRoles_bool_exp
+  ): [AutRoles!]!
+
+  """fetch data from the table: "AutRoles" using primary key columns"""
+  AutRoles_by_pk(id: String!): AutRoles
+
+  """
+  fetch data from the table in a streaming manner: "AutRoles"
+  """
+  AutRoles_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [AutRoles_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: AutRoles_bool_exp
+  ): [AutRoles!]!
+
   """
   fetch data from the table: "BondingCurve"
   """
@@ -9219,6 +11155,45 @@ type subscription_root {
   ): [Deposit!]!
 
   """
+  fetch data from the table: "ExternalPriceSetter"
+  """
+  ExternalPriceSetter(
+    """distinct select on columns"""
+    distinct_on: [ExternalPriceSetter_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ExternalPriceSetter_order_by!]
+
+    """filter the rows returned"""
+    where: ExternalPriceSetter_bool_exp
+  ): [ExternalPriceSetter!]!
+
+  """
+  fetch data from the table: "ExternalPriceSetter" using primary key columns
+  """
+  ExternalPriceSetter_by_pk(id: String!): ExternalPriceSetter
+
+  """
+  fetch data from the table in a streaming manner: "ExternalPriceSetter"
+  """
+  ExternalPriceSetter_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [ExternalPriceSetter_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: ExternalPriceSetter_bool_exp
+  ): [ExternalPriceSetter!]!
+
+  """
   fetch data from the table: "IssuanceTokenDayData"
   """
   IssuanceTokenDayData(
@@ -9374,6 +11349,63 @@ type subscription_root {
   ): [LinearVesting!]!
 
   """
+  fetch data from the table: "OraclePriceFM"
+  """
+  OraclePriceFM(
+    """distinct select on columns"""
+    distinct_on: [OraclePriceFM_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [OraclePriceFM_order_by!]
+
+    """filter the rows returned"""
+    where: OraclePriceFM_bool_exp
+  ): [OraclePriceFM!]!
+
+  """
+  fetch aggregated fields from the table: "OraclePriceFM"
+  """
+  OraclePriceFM_aggregate(
+    """distinct select on columns"""
+    distinct_on: [OraclePriceFM_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [OraclePriceFM_order_by!]
+
+    """filter the rows returned"""
+    where: OraclePriceFM_bool_exp
+  ): OraclePriceFM_aggregate!
+
+  """fetch data from the table: "OraclePriceFM" using primary key columns"""
+  OraclePriceFM_by_pk(id: String!): OraclePriceFM
+
+  """
+  fetch data from the table in a streaming manner: "OraclePriceFM"
+  """
+  OraclePriceFM_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [OraclePriceFM_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: OraclePriceFM_bool_exp
+  ): [OraclePriceFM!]!
+
+  """
   fetch data from the table: "ProjectFee"
   """
   ProjectFee(
@@ -9486,6 +11518,102 @@ type subscription_root {
     """filter the rows returned"""
     where: ProtocolFee_bool_exp
   ): [ProtocolFee!]!
+
+  """
+  fetch data from the table: "RedemptionPaymentOrder"
+  """
+  RedemptionPaymentOrder(
+    """distinct select on columns"""
+    distinct_on: [RedemptionPaymentOrder_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [RedemptionPaymentOrder_order_by!]
+
+    """filter the rows returned"""
+    where: RedemptionPaymentOrder_bool_exp
+  ): [RedemptionPaymentOrder!]!
+
+  """
+  fetch aggregated fields from the table: "RedemptionPaymentOrder"
+  """
+  RedemptionPaymentOrder_aggregate(
+    """distinct select on columns"""
+    distinct_on: [RedemptionPaymentOrder_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [RedemptionPaymentOrder_order_by!]
+
+    """filter the rows returned"""
+    where: RedemptionPaymentOrder_bool_exp
+  ): RedemptionPaymentOrder_aggregate!
+
+  """
+  fetch data from the table: "RedemptionPaymentOrder" using primary key columns
+  """
+  RedemptionPaymentOrder_by_pk(id: String!): RedemptionPaymentOrder
+
+  """
+  fetch data from the table in a streaming manner: "RedemptionPaymentOrder"
+  """
+  RedemptionPaymentOrder_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [RedemptionPaymentOrder_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: RedemptionPaymentOrder_bool_exp
+  ): [RedemptionPaymentOrder!]!
+
+  """
+  fetch data from the table: "Role"
+  """
+  Role(
+    """distinct select on columns"""
+    distinct_on: [Role_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Role_order_by!]
+
+    """filter the rows returned"""
+    where: Role_bool_exp
+  ): [Role!]!
+
+  """fetch data from the table: "Role" using primary key columns"""
+  Role_by_pk(id: String!): Role
+
+  """
+  fetch data from the table in a streaming manner: "Role"
+  """
+  Role_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [Role_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: Role_bool_exp
+  ): [Role!]!
 
   """
   fetch data from the table: "StreamingPaymentProcessor"
