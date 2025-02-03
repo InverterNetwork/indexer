@@ -1,15 +1,44 @@
-import { PP_Queue_ManualExecution_v1, RedemptionState } from 'generated'
+import { PP_Queue_ManualExecution_v1 } from 'generated'
 import {
   deriveSourceTokenType,
   formatUnitsToBD,
   updateRedemptionPaymentOrder,
 } from '../../utils'
+import { RedemptionState_t } from 'generated/src/db/Enums.gen'
 
 PP_Queue_ManualExecution_v1.PaymentOrderStateChanged.handler(
   async ({ event, context }) => {
     const orderId = event.params.orderId_
     const oraclePriceFM_id = `${event.chainId}-${event.params.client_}`
-    const state = RedemptionState[event.params.state_]
+
+    context.log.warn(`orderId: ${orderId}, state: ${event.params.state_}`)
+
+    let state: RedemptionState_t
+    switch (event.params.state_) {
+      case 0n: {
+        state = 'PROCESSED'
+        break
+      }
+      case 1n: {
+        state = 'CANCELLED'
+        break
+      }
+      case 2n: {
+        state = 'PENDING'
+        break
+      }
+      case 3n: {
+        state = 'FAILED'
+        break
+      }
+      default: {
+        state = 'PENDING'
+      }
+    }
+
+    context.log.warn(`orderId: ${orderId}, state: ${state}`)
+
+    // const state = RedemptionState[event.params.state_]
     const isProcessed = state == 'PROCESSED'
 
     await updateRedemptionPaymentOrder({
@@ -18,7 +47,7 @@ PP_Queue_ManualExecution_v1.PaymentOrderStateChanged.handler(
       properties: {
         orderId: orderId,
         oraclePriceFM_id,
-        state: state,
+        state,
         executedBy: event.params.executedBy_,
         executedTimestamp: isProcessed ? event.block.timestamp : 0,
       },
