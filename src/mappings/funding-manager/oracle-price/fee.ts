@@ -45,22 +45,21 @@ FM_PC_ExternalPrice_Redeeming_v1.SellFeeUpdated.handler(
 // Fee Management Handlers
 // ============================================================================
 
-// Project Fee Claims
+// Project Fee Added
 // ============================================================================
 
-FM_PC_ExternalPrice_Redeeming_v1.ProjectCollateralFeeWithdrawn.handler(
+FM_PC_ExternalPrice_Redeeming_v1.ProjectCollateralFeeAdded.handler(
   async ({ event, context }) => {
     const id = `${event.chainId}-${event.srcAddress}`
     const bc = (await context.OraclePriceFM.get(id))!
 
     const module_id = bc.id
     const collateralToken_id = bc.collateralToken_id
-    const issuanceToken_id = bc.issuanceToken_id
 
     const collateralToken = await context.Token.get(collateralToken_id)
 
     const projectFeeCOL = BigDecimal(
-      formatUnits(event.params.amount, collateralToken!.decimals)
+      formatUnits(event.params.amount, Number(collateralToken!.decimals))
     )
     const projectFeeUSD = projectFeeCOL.times(collateralToken!.priceUSD)
 
@@ -71,30 +70,11 @@ FM_PC_ExternalPrice_Redeeming_v1.ProjectCollateralFeeWithdrawn.handler(
         module_id,
         token_id: collateralToken_id,
         timestamp: event.block.timestamp,
-
         amount: projectFeeCOL,
         amountUSD: projectFeeUSD,
-
-        recipient: event.params.receiver,
+        recipient: bc.treasury,
       },
     })
-
-    const updateTimeDataParams = {
-      context,
-      event,
-      properties: {
-        id,
-
-        collateralToken_id,
-        issuanceToken_id,
-
-        projectFeeCOL,
-        projectFeeUSD,
-      } satisfies IssuanceTokenIntervalProperties & CurveIntervalProperties,
-    }
-
-    await updateIssuanceTokenHourData(updateTimeDataParams)
-    await updateIssuanceTokenDayData(updateTimeDataParams)
   }
 )
 

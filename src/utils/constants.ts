@@ -75,3 +75,10 @@ export const knownRoles = knownRoleNames.map((name) => ({
             size: 32,
           }) as string),
 }))
+
+export enum RedemptionState {
+  PROCESSED,
+  CANCELLED,
+  PENDING,
+  FAILED,
+}

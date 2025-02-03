@@ -11,7 +11,7 @@ export const createProjectFee = async ({
   properties: Omit<ProjectFee_t, 'id' | 'chainId'>
 }) => {
   const chainId = event.chainId
-  const id = `${event.block.hash}-${event.logIndex}`
+  const id = `${chainId}-${event.transaction.hash}`
 
   const projectFee = { id, chainId, ...properties }
 
@@ -30,7 +30,7 @@ export const createProtocolFee = async ({
   properties: Omit<ProtocolFee_t, 'id' | 'chainId'>
 }) => {
   const chainId = event.chainId
-  const id = `${event.block.hash}-${event.logIndex}`
+  const id = `${chainId}-${event.transaction.hash}-${properties.source}`
 
   const protocolFee = { id, chainId, ...properties }
 

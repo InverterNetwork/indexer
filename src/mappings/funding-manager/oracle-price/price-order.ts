@@ -1,6 +1,5 @@
 import { FM_PC_ExternalPrice_Redeeming_v1 } from 'generated'
 import {
-  createSwap,
   CurveIntervalProperties,
   getIssPriceFromCol,
   getQtyAndPrice,
@@ -12,6 +11,7 @@ import {
   updateToken,
   updateOraclePrice,
   getBalanceOf,
+  createOraclePriceOrder,
 } from '../../../utils'
 
 // ============================================================================
@@ -41,11 +41,14 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensBought.handler(
     const priceUSD = getIssPriceFromCol(priceCOL, collateralToken?.priceUSD)
     const amountUSD = amountISS.times(priceUSD)
 
-    await createSwap({
+    const oraclePriceOrder_id = `${event.chainId}-${event.transaction.hash}`
+
+    await createOraclePriceOrder({
       context,
       event,
+      id: oraclePriceOrder_id,
       properties: {
-        fundingManager_id: id,
+        oraclePriceFM_id: id,
 
         swapType: 'BUY',
         timestamp: event.block.timestamp,
@@ -62,6 +65,8 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensBought.handler(
 
         initiator: event.params.buyer,
         recipient: event.params.receiver,
+
+        protocolFeeType: 'ISSUANCE',
       },
     })
 
@@ -142,30 +147,6 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensSold.handler(
 
     const priceUSD = getIssPriceFromCol(priceCOL, collateralToken?.priceUSD)
     const amountUSD = amountISS.times(priceUSD)
-
-    await createSwap({
-      context,
-      event,
-      properties: {
-        fundingManager_id: id,
-
-        swapType: 'SELL',
-        timestamp: event.block.timestamp,
-
-        collateralToken_id,
-        issuanceToken_id,
-
-        priceCOL,
-        priceUSD,
-
-        amountCOL,
-        amountISS,
-        amountUSD,
-
-        initiator: event.params.seller,
-        recipient: event.params.receiver,
-      },
-    })
 
     const updateTimeDataParams = {
       context,

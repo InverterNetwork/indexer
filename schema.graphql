@@ -54,7 +54,7 @@ type Token @entity {
 }
 
 type ProtocolFee {
-  id: ID! # `${event.block.hash}-${event.logIndex}`
+  id: ID! # `${chainId}-${event.transaction}-protocolFee-${source}`
   chainId: Int!
   module_id: ID! @index
 
@@ -70,7 +70,7 @@ type ProtocolFee {
 }
 
 type ProjectFee {
-  id: ID! # `${event.block.hash}-${event.logIndex}`
+  id: ID! # `${chainId}-${event.transaction}-projectFee`
   chainId: Int!
   module_id: ID! @index
 
@@ -265,6 +265,8 @@ type OraclePriceFM {
 
   workflow: Workflow!
 
+  treasury: String!
+
   externalPriceSetter: ExternalPriceSetter
 
   issuanceToken: Token!
@@ -273,10 +275,9 @@ type OraclePriceFM {
   buyFee: BigInt!
   sellFee: BigInt!
 
-  swaps: [Swap!]! @derivedFrom(field: "fundingManager_id")
   projectFees: [ProjectFee!]! @derivedFrom(field: "module_id")
   protocolFees: [ProtocolFee!]! @derivedFrom(field: "module_id")
-  paymentOrders: [RedemptionPaymentOrder!]! @derivedFrom(field: "oraclePriceFM")
+  orders: [OraclePriceOrder!]! @derivedFrom(field: "oraclePriceFM")
 
   pendingRedemptionCOL: BigDecimal!
   pendingRedemptionUSD: BigDecimal!
@@ -285,41 +286,40 @@ type OraclePriceFM {
   reserveUSD: BigDecimal!
 }
 
-type RedemptionPaymentOrder {
-  id: ID! # `${chainId}-${event.transaction}`
+
+type OraclePriceOrder {
+  id: ID! # `${oraclePriceFM_id}-${orderId}` | `${chainId}-${transaction.hash}`
   chainId: Int!
-
   timestamp: Int!
-  executedTimestamp: Int
+  orderId: BigInt
 
-  orderId: BigInt!
-
-  originChainId: Int!
-  targetChainId: Int!
-
-  orderType: PaymentOrderType!
-  state: RedemptionState!
-
-  token: Token!
+  swapType: SwapType!
 
   oraclePriceFM: OraclePriceFM!
 
+  initiator: String!
   recipient: String!
-  seller: String!
-  executedBy: String
 
-  feePercentage: BigInt!
+  issuanceToken: Token!
+  collateralToken: Token!
 
-  exchangeRate: BigDecimal!
-  amount: BigDecimal!
+  priceCOL: BigDecimal!
+  priceUSD: BigDecimal!
+
+  amountISS: BigDecimal!
+  amountCOL: BigDecimal!
   amountUSD: BigDecimal!
 
-  # TODO: Investigate if we can use ProtocolFee & ProjectFee entities
-  fee: BigDecimal!
-  feeUSD: BigDecimal!
+  protocolFee: ProtocolFee!
+  projectFee: ProjectFee!
 
-  flags: Bytes!
-  data: [Bytes!]!
+  targetChainId: Int
+
+  orderType: PaymentOrderType
+  state: RedemptionState
+
+  executedBy: String
+  executedTimestamp: Int
 }
 
 ## =============================================================================
@@ -334,12 +334,10 @@ type ExternalPriceSetter {
 
   workflow: Workflow!
 
-  issuanceToken: Token!
   collateralToken: Token!
 
   priceISS: BigDecimal!
   priceCOL: BigDecimal!
-  priceUSD: BigDecimal!
 }
 
 # Bounty System

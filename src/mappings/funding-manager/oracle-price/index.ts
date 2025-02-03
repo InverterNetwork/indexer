@@ -1,6 +1,5 @@
 import './init'
 import './fee'
-import './swap'
 import './redemption'
 import './payment-order'
-import './price-setter'
+import './price-order'

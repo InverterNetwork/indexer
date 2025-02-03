@@ -1,8 +1,12 @@
-import { OraclePriceFM_t } from 'generated/src/db/Entities.gen'
+import {
+  OraclePriceFM_t,
+  OraclePriceOrder_t,
+} from 'generated/src/db/Entities.gen'
+import { SourceTokenType_t } from 'generated/src/db/Enums.gen'
 
 import { eventLog, handlerContext } from 'generated'
-import { Writable } from 'type-fest'
-import { ZERO_BD } from '..'
+import { Writable, SetOptional } from 'type-fest'
+import { ZERO_BD, UTIL_DEBUG } from '..'
 
 export const updateOraclePrice = async ({
   event,
@@ -33,6 +37,8 @@ export const updateOraclePrice = async ({
 
       workflow_id: properties?.workflow_id!,
 
+      treasury: properties?.treasury! ?? '',
+
       issuanceToken_id: properties?.issuanceToken_id!,
       collateralToken_id: properties?.collateralToken_id!,
       externalPriceSetter_id: properties?.externalPriceSetter_id!,
@@ -56,4 +62,79 @@ export const updateOraclePrice = async ({
       ...properties,
     })
   }
+}
+
+export const createOraclePriceOrder = async ({
+  event,
+  context,
+  properties,
+  id,
+}: {
+  event: eventLog<any>
+  context: handlerContext
+  id: string
+  properties: Omit<
+    SetOptional<
+      OraclePriceOrder_t,
+      | 'executedBy'
+      | 'executedTimestamp'
+      | 'orderId'
+      | 'orderType'
+      | 'targetChainId'
+      | 'state'
+    > & {
+      protocolFeeType: SourceTokenType_t
+    },
+    'id' | 'chainId' | 'projectFee_id' | 'protocolFee_id'
+  >
+}) => {
+  const chainId = event.chainId
+
+  const projectFee_id = `${chainId}-${event.transaction.hash}`
+  const protocolFee_id = `${chainId}-${event.transaction.hash}-${properties.protocolFeeType}`
+
+  const data = {
+    id,
+    chainId,
+    projectFee_id,
+    protocolFee_id,
+    executedBy: undefined,
+    executedTimestamp: undefined,
+    orderId: 0n,
+    orderType: undefined,
+    targetChainId: undefined,
+    state: undefined,
+    ...properties,
+  }
+
+  context.OraclePriceOrder.set(data)
+
+  return data
+}
+
+export const updateOraclePriceOrder = async ({
+  context,
+  properties,
+  id,
+}: {
+  event: eventLog<any>
+  context: handlerContext
+  id: string
+  properties: Omit<Partial<OraclePriceOrder_t>, 'swapType'>
+}) => {
+  const data =
+    // PREVIOUS DATA
+    // --------------------------------------------------------------------------
+    (await context.OraclePriceOrder.get(id)) as Writable<OraclePriceOrder_t>
+
+  if (!data?.swapType) {
+    UTIL_DEBUG()(
+      `updateOraclePriceOrder: was called before createOraclePriceOrder ID: ${id} }`,
+      { data, properties }
+    )
+  }
+
+  context.OraclePriceOrder.set({ ...data, ...properties })
+
+  return data
 }

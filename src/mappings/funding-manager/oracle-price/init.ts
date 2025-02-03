@@ -4,6 +4,7 @@ import {
   deriveTokenAddress,
   updateToken,
   updateOraclePrice,
+  ZERO_BD,
 } from '../../../utils'
 
 FM_PC_ExternalPrice_Redeeming_v1.ModuleInitialized.handler(
@@ -53,6 +54,55 @@ FM_PC_ExternalPrice_Redeeming_v1.ModuleInitialized.handler(
         collateralToken_id,
         issuanceToken_id,
         address: address,
+      },
+    })
+  }
+)
+
+FM_PC_ExternalPrice_Redeeming_v1.ProjectTreasuryUpdated.handler(
+  async ({ event, context }) => {
+    const id = `${event.chainId}-${event.srcAddress}`
+    const bc = (await context.OraclePriceFM.get(id))!
+
+    await updateOraclePrice({
+      context,
+      event,
+      properties: {
+        treasury: event.params.newProjectTreasury_,
+      },
+      prevData: bc,
+    })
+  }
+)
+
+FM_PC_ExternalPrice_Redeeming_v1.OracleUpdated.handler(
+  async ({ event, context }) => {
+    const id = `${event.chainId}-${event.srcAddress}`
+    const newPriceSetter = event.params.newOracle_
+    const priceSetterId = `${event.chainId}-${newPriceSetter}`
+
+    const oraclePriceFM = (await context.OraclePriceFM.get(id))!
+    const workflow_id = oraclePriceFM.workflow_id
+    const workflow = (await context.Workflow.get(workflow_id))!
+    const collateralToken_id = workflow.token_id
+
+    context.ExternalPriceSetter.set({
+      id: priceSetterId,
+      workflow_id,
+      chainId: event.chainId,
+      address: event.srcAddress,
+
+      collateralToken_id,
+
+      priceISS: ZERO_BD,
+      priceCOL: ZERO_BD,
+    })
+
+    await updateOraclePrice({
+      context,
+      event,
+      properties: {
+        externalPriceSetter_id: priceSetterId,
       },
     })
   }
