@@ -1,5 +1,3 @@
 import './init'
 import './fee'
-import './redemption'
 import './payment-order'
-import './price-order'

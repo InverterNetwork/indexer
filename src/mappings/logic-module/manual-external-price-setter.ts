@@ -1,18 +1,11 @@
 import { LM_ManualExternalPriceSetter_v1 } from 'generated'
-import {
-  deriveTokenAddress,
-  formatUnitsToBD,
-  TOKEN_DEBUG,
-  updateToken,
-  ZERO_BD,
-  getIssPriceFromCol,
-} from '../../utils'
+import { formatUnitsToBD, MARKET_DEBUG, ZERO_BD } from '../../utils'
 
 LM_ManualExternalPriceSetter_v1.ModuleInitialized.handler(
   async ({ event, context }) => {
     const id = `${event.chainId}-${event.srcAddress}`
     const workflow_id = `${event.chainId}-${event.params.parentOrchestrator}`
-    const { fundingManager_id, token_id: collateralToken_id } =
+    const { token_id: collateralToken_id } =
       (await context.Workflow.get(workflow_id))!
 
     context.ExternalPriceSetter.set({
@@ -35,17 +28,25 @@ LM_ManualExternalPriceSetter_v1.RedemptionPriceSet.handler(
     const entity = await context.ExternalPriceSetter.get(id)
 
     if (!entity) {
+      context.log.error(
+        `ExternalPriceSetter not found. ID: ${id} @ RedemptionPriceSet`
+      )
       return
     }
 
-    const collateralToken = await context.Token.get(
-      `${event.chainId}-${entity.collateralToken_id}`
-    )
+    const collateralToken = await context.Token.get(entity.collateralToken_id)
 
     const priceCOL = formatUnitsToBD(
       event.params.price_,
       collateralToken?.decimals
     )
+
+    if (priceCOL.isZero()) {
+      MARKET_DEBUG()(`PriceCOL is Zero. ID: ${id} @ RedemptionPriceSet`, {
+        eventParamsPrice_: event.params.price_,
+        collateralTokenDecimals: collateralToken?.decimals,
+      })
+    }
 
     context.ExternalPriceSetter.set({
       ...entity,
@@ -60,17 +61,25 @@ LM_ManualExternalPriceSetter_v1.IssuancePriceSet.handler(
     const entity = await context.ExternalPriceSetter.get(id)
 
     if (!entity) {
+      context.log.error(
+        `ExternalPriceSetter not found. ID: ${id} @ IssuancePriceSet`
+      )
       return
     }
 
-    const collateralToken = await context.Token.get(
-      `${event.chainId}-${entity.collateralToken_id}`
-    )
+    const collateralToken = await context.Token.get(entity.collateralToken_id)
 
     const priceISS = formatUnitsToBD(
       event.params.price_,
       collateralToken?.decimals
     )
+
+    if (priceISS.isZero()) {
+      MARKET_DEBUG()(`PriceISS is Zero. ID: ${id} @ IssuancePriceSet`, {
+        eventParamsPrice_: event.params.price_,
+        collateralTokenDecimals: collateralToken?.decimals,
+      })
+    }
 
     context.ExternalPriceSetter.set({
       ...entity!,

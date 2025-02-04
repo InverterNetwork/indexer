@@ -127,7 +127,7 @@ export const updateOraclePriceOrder = async ({
     // --------------------------------------------------------------------------
     (await context.OraclePriceOrder.get(id)) as Writable<OraclePriceOrder_t>
 
-  if (!data?.swapType) {
+  if (!data?.id) {
     UTIL_DEBUG()(
       `updateOraclePriceOrder: was called before createOraclePriceOrder ID: ${id} }`,
       { data, properties }

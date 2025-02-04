@@ -5,7 +5,11 @@ import {
   updateToken,
   updateOraclePrice,
   ZERO_BD,
+  formatUnitsToBD,
 } from '../../../utils'
+
+// Module Initialization
+// ----------------------------------------------------------------------------
 
 FM_PC_ExternalPrice_Redeeming_v1.ModuleInitialized.handler(
   async ({ event, context }) => {
@@ -59,6 +63,9 @@ FM_PC_ExternalPrice_Redeeming_v1.ModuleInitialized.handler(
   }
 )
 
+// Project Treasury Updated
+// ----------------------------------------------------------------------------
+
 FM_PC_ExternalPrice_Redeeming_v1.ProjectTreasuryUpdated.handler(
   async ({ event, context }) => {
     const id = `${event.chainId}-${event.srcAddress}`
@@ -75,27 +82,34 @@ FM_PC_ExternalPrice_Redeeming_v1.ProjectTreasuryUpdated.handler(
   }
 )
 
+// Oracle Updated
+// ----------------------------------------------------------------------------
+
 FM_PC_ExternalPrice_Redeeming_v1.OracleUpdated.handler(
   async ({ event, context }) => {
-    const id = `${event.chainId}-${event.srcAddress}`
+    const chainId = event.chainId
+    const id = `${chainId}-${event.srcAddress}`
     const newPriceSetter = event.params.newOracle_
-    const priceSetterId = `${event.chainId}-${newPriceSetter}`
+    const priceSetterId = `${chainId}-${newPriceSetter}`
 
     const oraclePriceFM = (await context.OraclePriceFM.get(id))!
     const workflow_id = oraclePriceFM.workflow_id
     const workflow = (await context.Workflow.get(workflow_id))!
     const collateralToken_id = workflow.token_id
 
+    const externalPriceSetter =
+      await context.ExternalPriceSetter.get(priceSetterId)
+
     context.ExternalPriceSetter.set({
       id: priceSetterId,
       workflow_id,
-      chainId: event.chainId,
-      address: event.srcAddress,
+      chainId,
+      address: newPriceSetter,
 
       collateralToken_id,
 
-      priceISS: ZERO_BD,
-      priceCOL: ZERO_BD,
+      priceCOL: externalPriceSetter?.priceCOL ?? ZERO_BD,
+      priceISS: externalPriceSetter?.priceISS ?? ZERO_BD,
     })
 
     await updateOraclePrice({
@@ -103,6 +117,32 @@ FM_PC_ExternalPrice_Redeeming_v1.OracleUpdated.handler(
       event,
       properties: {
         externalPriceSetter_id: priceSetterId,
+      },
+    })
+  }
+)
+
+// Redemption Amount Updated
+// ----------------------------------------------------------------------------
+
+FM_PC_ExternalPrice_Redeeming_v1.RedemptionAmountUpdated.handler(
+  async ({ event, context }) => {
+    const oraclePriceFM_id = `${event.chainId}-${event.srcAddress}`
+    const entity = (await context.OraclePriceFM.get(oraclePriceFM_id))!
+    const token = (await context.Token.get(entity.collateralToken_id))!
+
+    const pendingRedemptionCOL = formatUnitsToBD(
+      event.params._openRedemptionAmount,
+      token.decimals
+    )
+    const pendingRedemptionUSD = pendingRedemptionCOL.times(token.priceUSD)
+
+    await updateOraclePrice({
+      context,
+      event,
+      properties: {
+        pendingRedemptionCOL,
+        pendingRedemptionUSD,
       },
     })
   }
