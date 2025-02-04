@@ -3295,6 +3295,7 @@ type Deposit {
   depositor: String!
   id: String!
   timestamp: Int!
+  txHash: String!
 }
 
 """
@@ -3669,6 +3670,7 @@ input Deposit_bool_exp {
   depositor: String_comparison_exp
   id: String_comparison_exp
   timestamp: Int_comparison_exp
+  txHash: String_comparison_exp
 }
 
 """aggregate max on columns"""
@@ -3680,6 +3682,7 @@ type Deposit_max_fields {
   depositor: String
   id: String
   timestamp: Int
+  txHash: String
 }
 
 """
@@ -3693,6 +3696,7 @@ input Deposit_max_order_by {
   depositor: order_by
   id: order_by
   timestamp: order_by
+  txHash: order_by
 }
 
 """aggregate min on columns"""
@@ -3704,6 +3708,7 @@ type Deposit_min_fields {
   depositor: String
   id: String
   timestamp: Int
+  txHash: String
 }
 
 """
@@ -3717,6 +3722,7 @@ input Deposit_min_order_by {
   depositor: order_by
   id: order_by
   timestamp: order_by
+  txHash: order_by
 }
 
 """Ordering options when selecting data from "Deposit"."""
@@ -3729,6 +3735,7 @@ input Deposit_order_by {
   depositor: order_by
   id: order_by
   timestamp: order_by
+  txHash: order_by
 }
 
 """
@@ -3755,6 +3762,9 @@ enum Deposit_select_column {
 
   """column name"""
   timestamp
+
+  """column name"""
+  txHash
 }
 
 """aggregate stddev on columns"""
@@ -3825,6 +3835,7 @@ input Deposit_stream_cursor_value_input {
   depositor: String
   id: String
   timestamp: Int
+  txHash: String
 }
 
 """aggregate sum on columns"""
@@ -3903,6 +3914,7 @@ type ExternalPriceSetter {
   collateralToken_id: String!
   db_write_timestamp: timestamp
   id: String!
+  lastUpdated: Int!
   priceCOL: numeric!
   priceISS: numeric!
 
@@ -3924,6 +3936,7 @@ input ExternalPriceSetter_bool_exp {
   collateralToken_id: String_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
   id: String_comparison_exp
+  lastUpdated: Int_comparison_exp
   priceCOL: numeric_comparison_exp
   priceISS: numeric_comparison_exp
   workflow: Workflow_bool_exp
@@ -3938,6 +3951,7 @@ input ExternalPriceSetter_order_by {
   collateralToken_id: order_by
   db_write_timestamp: order_by
   id: order_by
+  lastUpdated: order_by
   priceCOL: order_by
   priceISS: order_by
   workflow: Workflow_order_by
@@ -3962,6 +3976,9 @@ enum ExternalPriceSetter_select_column {
 
   """column name"""
   id
+
+  """column name"""
+  lastUpdated
 
   """column name"""
   priceCOL
@@ -3991,6 +4008,7 @@ input ExternalPriceSetter_stream_cursor_value_input {
   collateralToken_id: String
   db_write_timestamp: timestamp
   id: String
+  lastUpdated: Int
   priceCOL: numeric
   priceISS: numeric
   workflow_id: String
@@ -6056,6 +6074,7 @@ type OraclePriceOrder {
   swapType: swaptype!
   targetChainId: Int
   timestamp: Int!
+  txHash: String!
 }
 
 """
@@ -6126,6 +6145,7 @@ input OraclePriceOrder_bool_exp {
   swapType: swaptype_comparison_exp
   targetChainId: Int_comparison_exp
   timestamp: Int_comparison_exp
+  txHash: String_comparison_exp
 }
 
 """
@@ -6155,6 +6175,7 @@ input OraclePriceOrder_max_order_by {
   swapType: order_by
   targetChainId: order_by
   timestamp: order_by
+  txHash: order_by
 }
 
 """
@@ -6184,6 +6205,7 @@ input OraclePriceOrder_min_order_by {
   swapType: order_by
   targetChainId: order_by
   timestamp: order_by
+  txHash: order_by
 }
 
 """Ordering options when selecting data from "OraclePriceOrder"."""
@@ -6216,6 +6238,7 @@ input OraclePriceOrder_order_by {
   swapType: order_by
   targetChainId: order_by
   timestamp: order_by
+  txHash: order_by
 }
 
 """
@@ -6290,6 +6313,9 @@ enum OraclePriceOrder_select_column {
 
   """column name"""
   timestamp
+
+  """column name"""
+  txHash
 }
 
 """
@@ -6376,6 +6402,7 @@ input OraclePriceOrder_stream_cursor_value_input {
   swapType: swaptype
   targetChainId: Int
   timestamp: Int
+  txHash: String
 }
 
 """
@@ -6458,6 +6485,7 @@ type ProjectFee {
   """An object relationship"""
   token: Token
   token_id: String!
+  txHash: String!
 }
 
 """
@@ -6548,6 +6576,7 @@ input ProjectFee_bool_exp {
   timestamp: Int_comparison_exp
   token: Token_bool_exp
   token_id: String_comparison_exp
+  txHash: String_comparison_exp
 }
 
 """aggregate max on columns"""
@@ -6561,6 +6590,7 @@ type ProjectFee_max_fields {
   recipient: String
   timestamp: Int
   token_id: String
+  txHash: String
 }
 
 """
@@ -6576,6 +6606,7 @@ input ProjectFee_max_order_by {
   recipient: order_by
   timestamp: order_by
   token_id: order_by
+  txHash: order_by
 }
 
 """aggregate min on columns"""
@@ -6589,6 +6620,7 @@ type ProjectFee_min_fields {
   recipient: String
   timestamp: Int
   token_id: String
+  txHash: String
 }
 
 """
@@ -6604,6 +6636,7 @@ input ProjectFee_min_order_by {
   recipient: order_by
   timestamp: order_by
   token_id: order_by
+  txHash: order_by
 }
 
 """Ordering options when selecting data from "ProjectFee"."""
@@ -6618,6 +6651,7 @@ input ProjectFee_order_by {
   timestamp: order_by
   token: Token_order_by
   token_id: order_by
+  txHash: order_by
 }
 
 """
@@ -6650,6 +6684,9 @@ enum ProjectFee_select_column {
 
   """column name"""
   token_id
+
+  """column name"""
+  txHash
 }
 
 """aggregate stddev on columns"""
@@ -6728,6 +6765,7 @@ input ProjectFee_stream_cursor_value_input {
   recipient: String
   timestamp: Int
   token_id: String
+  txHash: String
 }
 
 """aggregate sum on columns"""
@@ -6819,6 +6857,7 @@ type ProtocolFee {
   token: Token
   token_id: String!
   treasury: String!
+  txHash: String!
 }
 
 """
@@ -6910,6 +6949,7 @@ input ProtocolFee_bool_exp {
   token: Token_bool_exp
   token_id: String_comparison_exp
   treasury: String_comparison_exp
+  txHash: String_comparison_exp
 }
 
 """aggregate max on columns"""
@@ -6924,6 +6964,7 @@ type ProtocolFee_max_fields {
   timestamp: Int
   token_id: String
   treasury: String
+  txHash: String
 }
 
 """
@@ -6940,6 +6981,7 @@ input ProtocolFee_max_order_by {
   timestamp: order_by
   token_id: order_by
   treasury: order_by
+  txHash: order_by
 }
 
 """aggregate min on columns"""
@@ -6954,6 +6996,7 @@ type ProtocolFee_min_fields {
   timestamp: Int
   token_id: String
   treasury: String
+  txHash: String
 }
 
 """
@@ -6970,6 +7013,7 @@ input ProtocolFee_min_order_by {
   timestamp: order_by
   token_id: order_by
   treasury: order_by
+  txHash: order_by
 }
 
 """Ordering options when selecting data from "ProtocolFee"."""
@@ -6985,6 +7029,7 @@ input ProtocolFee_order_by {
   token: Token_order_by
   token_id: order_by
   treasury: order_by
+  txHash: order_by
 }
 
 """
@@ -7020,6 +7065,9 @@ enum ProtocolFee_select_column {
 
   """column name"""
   treasury
+
+  """column name"""
+  txHash
 }
 
 """aggregate stddev on columns"""
@@ -7099,6 +7147,7 @@ input ProtocolFee_stream_cursor_value_input {
   timestamp: Int
   token_id: String
   treasury: String
+  txHash: String
 }
 
 """aggregate sum on columns"""
@@ -7584,6 +7633,7 @@ type Swap {
   recipient: String!
   swapType: swaptype!
   timestamp: Int!
+  txHash: String!
 }
 
 """
@@ -7640,6 +7690,7 @@ input Swap_bool_exp {
   recipient: String_comparison_exp
   swapType: swaptype_comparison_exp
   timestamp: Int_comparison_exp
+  txHash: String_comparison_exp
 }
 
 """
@@ -7661,6 +7712,7 @@ input Swap_max_order_by {
   recipient: order_by
   swapType: order_by
   timestamp: order_by
+  txHash: order_by
 }
 
 """
@@ -7682,6 +7734,7 @@ input Swap_min_order_by {
   recipient: order_by
   swapType: order_by
   timestamp: order_by
+  txHash: order_by
 }
 
 """Ordering options when selecting data from "Swap"."""
@@ -7703,6 +7756,7 @@ input Swap_order_by {
   recipient: order_by
   swapType: order_by
   timestamp: order_by
+  txHash: order_by
 }
 
 """
@@ -7753,6 +7807,9 @@ enum Swap_select_column {
 
   """column name"""
   timestamp
+
+  """column name"""
+  txHash
 }
 
 """
@@ -7822,6 +7879,7 @@ input Swap_stream_cursor_value_input {
   recipient: String
   swapType: swaptype
   timestamp: Int
+  txHash: String
 }
 
 """
@@ -8107,6 +8165,7 @@ type Transfer {
   id: String!
   recipient: String!
   timestamp: Int!
+  txHash: String!
 }
 
 """
@@ -8193,6 +8252,7 @@ input Transfer_bool_exp {
   id: String_comparison_exp
   recipient: String_comparison_exp
   timestamp: Int_comparison_exp
+  txHash: String_comparison_exp
 }
 
 """aggregate max on columns"""
@@ -8204,6 +8264,7 @@ type Transfer_max_fields {
   id: String
   recipient: String
   timestamp: Int
+  txHash: String
 }
 
 """
@@ -8217,6 +8278,7 @@ input Transfer_max_order_by {
   id: order_by
   recipient: order_by
   timestamp: order_by
+  txHash: order_by
 }
 
 """aggregate min on columns"""
@@ -8228,6 +8290,7 @@ type Transfer_min_fields {
   id: String
   recipient: String
   timestamp: Int
+  txHash: String
 }
 
 """
@@ -8241,6 +8304,7 @@ input Transfer_min_order_by {
   id: order_by
   recipient: order_by
   timestamp: order_by
+  txHash: order_by
 }
 
 """Ordering options when selecting data from "Transfer"."""
@@ -8253,6 +8317,7 @@ input Transfer_order_by {
   id: order_by
   recipient: order_by
   timestamp: order_by
+  txHash: order_by
 }
 
 """
@@ -8279,6 +8344,9 @@ enum Transfer_select_column {
 
   """column name"""
   timestamp
+
+  """column name"""
+  txHash
 }
 
 """aggregate stddev on columns"""
@@ -8349,6 +8417,7 @@ input Transfer_stream_cursor_value_input {
   id: String
   recipient: String
   timestamp: Int
+  txHash: String
 }
 
 """aggregate sum on columns"""

@@ -1,6 +1,6 @@
 {
   "name": "indexer",
-  "version": "0.9.9",
+  "version": "0.9.10",
   "scripts": {
     "dev": "DEBUG=* env $(cat .env | xargs) envio dev",
     "watch": "tsc --watch --noEmit -p tsconfig.json",

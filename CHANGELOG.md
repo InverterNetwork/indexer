@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.10](https://github.com/InverterNetwork/indexer/compare/v0.9.9...v0.9.10) (2025-02-04)
+
+
+### Features
+
+* add transaction hash tracking across multiple entities ([ec295c3](https://github.com/InverterNetwork/indexer/commit/ec295c3218bd748f8135ac64c20bd9461d301154))
+
 ### [0.9.9](https://github.com/InverterNetwork/indexer/compare/v0.9.8...v0.9.9) (2025-02-04)
 
 

@@ -1275,6 +1275,7 @@ export interface Deposit {
   depositor: Scalars['String']
   id: Scalars['String']
   timestamp: Scalars['Int']
+  txHash: Scalars['String']
   __typename: 'Deposit'
 }
 
@@ -1467,6 +1468,7 @@ export interface Deposit_max_fields {
   depositor: Scalars['String'] | null
   id: Scalars['String'] | null
   timestamp: Scalars['Int'] | null
+  txHash: Scalars['String'] | null
   __typename: 'Deposit_max_fields'
 }
 
@@ -1479,6 +1481,7 @@ export interface Deposit_min_fields {
   depositor: Scalars['String'] | null
   id: Scalars['String'] | null
   timestamp: Scalars['Int'] | null
+  txHash: Scalars['String'] | null
   __typename: 'Deposit_min_fields'
 }
 
@@ -1491,6 +1494,7 @@ export type Deposit_select_column =
   | 'depositor'
   | 'id'
   | 'timestamp'
+  | 'txHash'
 
 /** aggregate stddev on columns */
 export interface Deposit_stddev_fields {
@@ -1557,6 +1561,7 @@ export interface ExternalPriceSetter {
   collateralToken_id: Scalars['String']
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String']
+  lastUpdated: Scalars['Int']
   priceCOL: Scalars['numeric']
   priceISS: Scalars['numeric']
   /** An object relationship */
@@ -1572,6 +1577,7 @@ export type ExternalPriceSetter_select_column =
   | 'collateralToken_id'
   | 'db_write_timestamp'
   | 'id'
+  | 'lastUpdated'
   | 'priceCOL'
   | 'priceISS'
   | 'workflow_id'
@@ -2372,6 +2378,7 @@ export interface OraclePriceOrder {
   swapType: Scalars['swaptype']
   targetChainId: Scalars['Int'] | null
   timestamp: Scalars['Int']
+  txHash: Scalars['String']
   __typename: 'OraclePriceOrder'
 }
 
@@ -2400,6 +2407,7 @@ export type OraclePriceOrder_select_column =
   | 'swapType'
   | 'targetChainId'
   | 'timestamp'
+  | 'txHash'
 
 /** columns and relationships of "ProjectFee" */
 export interface ProjectFee {
@@ -2414,6 +2422,7 @@ export interface ProjectFee {
   /** An object relationship */
   token: Token | null
   token_id: Scalars['String']
+  txHash: Scalars['String']
   __typename: 'ProjectFee'
 }
 
@@ -2460,6 +2469,7 @@ export interface ProjectFee_max_fields {
   recipient: Scalars['String'] | null
   timestamp: Scalars['Int'] | null
   token_id: Scalars['String'] | null
+  txHash: Scalars['String'] | null
   __typename: 'ProjectFee_max_fields'
 }
 
@@ -2474,6 +2484,7 @@ export interface ProjectFee_min_fields {
   recipient: Scalars['String'] | null
   timestamp: Scalars['Int'] | null
   token_id: Scalars['String'] | null
+  txHash: Scalars['String'] | null
   __typename: 'ProjectFee_min_fields'
 }
 
@@ -2488,6 +2499,7 @@ export type ProjectFee_select_column =
   | 'recipient'
   | 'timestamp'
   | 'token_id'
+  | 'txHash'
 
 /** aggregate stddev on columns */
 export interface ProjectFee_stddev_fields {
@@ -2566,6 +2578,7 @@ export interface ProtocolFee {
   token: Token | null
   token_id: Scalars['String']
   treasury: Scalars['String']
+  txHash: Scalars['String']
   __typename: 'ProtocolFee'
 }
 
@@ -2613,6 +2626,7 @@ export interface ProtocolFee_max_fields {
   timestamp: Scalars['Int'] | null
   token_id: Scalars['String'] | null
   treasury: Scalars['String'] | null
+  txHash: Scalars['String'] | null
   __typename: 'ProtocolFee_max_fields'
 }
 
@@ -2628,6 +2642,7 @@ export interface ProtocolFee_min_fields {
   timestamp: Scalars['Int'] | null
   token_id: Scalars['String'] | null
   treasury: Scalars['String'] | null
+  txHash: Scalars['String'] | null
   __typename: 'ProtocolFee_min_fields'
 }
 
@@ -2643,6 +2658,7 @@ export type ProtocolFee_select_column =
   | 'timestamp'
   | 'token_id'
   | 'treasury'
+  | 'txHash'
 
 /** aggregate stddev on columns */
 export interface ProtocolFee_stddev_fields {
@@ -2778,6 +2794,7 @@ export interface Swap {
   recipient: Scalars['String']
   swapType: Scalars['swaptype']
   timestamp: Scalars['Int']
+  txHash: Scalars['String']
   __typename: 'Swap'
 }
 
@@ -2798,6 +2815,7 @@ export type Swap_select_column =
   | 'recipient'
   | 'swapType'
   | 'timestamp'
+  | 'txHash'
 
 /** columns and relationships of "Token" */
 export interface Token {
@@ -2959,6 +2977,7 @@ export interface Transfer {
   id: Scalars['String']
   recipient: Scalars['String']
   timestamp: Scalars['Int']
+  txHash: Scalars['String']
   __typename: 'Transfer'
 }
 
@@ -3002,6 +3021,7 @@ export interface Transfer_max_fields {
   id: Scalars['String'] | null
   recipient: Scalars['String'] | null
   timestamp: Scalars['Int'] | null
+  txHash: Scalars['String'] | null
   __typename: 'Transfer_max_fields'
 }
 
@@ -3014,6 +3034,7 @@ export interface Transfer_min_fields {
   id: Scalars['String'] | null
   recipient: Scalars['String'] | null
   timestamp: Scalars['Int'] | null
+  txHash: Scalars['String'] | null
   __typename: 'Transfer_min_fields'
 }
 
@@ -3026,6 +3047,7 @@ export type Transfer_select_column =
   | 'id'
   | 'recipient'
   | 'timestamp'
+  | 'txHash'
 
 /** aggregate stddev on columns */
 export interface Transfer_stddev_fields {
@@ -6547,6 +6569,7 @@ export interface DepositGenqlSelection {
   depositor?: boolean | number
   id?: boolean | number
   timestamp?: boolean | number
+  txHash?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -6907,6 +6930,7 @@ export interface Deposit_bool_exp {
   depositor?: String_comparison_exp | null
   id?: String_comparison_exp | null
   timestamp?: Int_comparison_exp | null
+  txHash?: String_comparison_exp | null
 }
 
 /** aggregate max on columns */
@@ -6918,6 +6942,7 @@ export interface Deposit_max_fieldsGenqlSelection {
   depositor?: boolean | number
   id?: boolean | number
   timestamp?: boolean | number
+  txHash?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -6931,6 +6956,7 @@ export interface Deposit_max_order_by {
   depositor?: order_by | null
   id?: order_by | null
   timestamp?: order_by | null
+  txHash?: order_by | null
 }
 
 /** aggregate min on columns */
@@ -6942,6 +6968,7 @@ export interface Deposit_min_fieldsGenqlSelection {
   depositor?: boolean | number
   id?: boolean | number
   timestamp?: boolean | number
+  txHash?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -6955,6 +6982,7 @@ export interface Deposit_min_order_by {
   depositor?: order_by | null
   id?: order_by | null
   timestamp?: order_by | null
+  txHash?: order_by | null
 }
 
 /** Ordering options when selecting data from "Deposit". */
@@ -6967,6 +6995,7 @@ export interface Deposit_order_by {
   depositor?: order_by | null
   id?: order_by | null
   timestamp?: order_by | null
+  txHash?: order_by | null
 }
 
 /** aggregate stddev on columns */
@@ -7034,6 +7063,7 @@ export interface Deposit_stream_cursor_value_input {
   depositor?: Scalars['String'] | null
   id?: Scalars['String'] | null
   timestamp?: Scalars['Int'] | null
+  txHash?: Scalars['String'] | null
 }
 
 /** aggregate sum on columns */
@@ -7109,6 +7139,7 @@ export interface ExternalPriceSetterGenqlSelection {
   collateralToken_id?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
+  lastUpdated?: boolean | number
   priceCOL?: boolean | number
   priceISS?: boolean | number
   /** An object relationship */
@@ -7129,6 +7160,7 @@ export interface ExternalPriceSetter_bool_exp {
   collateralToken_id?: String_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   id?: String_comparison_exp | null
+  lastUpdated?: Int_comparison_exp | null
   priceCOL?: numeric_comparison_exp | null
   priceISS?: numeric_comparison_exp | null
   workflow?: Workflow_bool_exp | null
@@ -7143,6 +7175,7 @@ export interface ExternalPriceSetter_order_by {
   collateralToken_id?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
+  lastUpdated?: order_by | null
   priceCOL?: order_by | null
   priceISS?: order_by | null
   workflow?: Workflow_order_by | null
@@ -7164,6 +7197,7 @@ export interface ExternalPriceSetter_stream_cursor_value_input {
   collateralToken_id?: Scalars['String'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
+  lastUpdated?: Scalars['Int'] | null
   priceCOL?: Scalars['numeric'] | null
   priceISS?: Scalars['numeric'] | null
   workflow_id?: Scalars['String'] | null
@@ -8968,6 +9002,7 @@ export interface OraclePriceOrderGenqlSelection {
   swapType?: boolean | number
   targetChainId?: boolean | number
   timestamp?: boolean | number
+  txHash?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -9034,6 +9069,7 @@ export interface OraclePriceOrder_bool_exp {
   swapType?: swaptype_comparison_exp | null
   targetChainId?: Int_comparison_exp | null
   timestamp?: Int_comparison_exp | null
+  txHash?: String_comparison_exp | null
 }
 
 /** order by max() on columns of table "OraclePriceOrder" */
@@ -9061,6 +9097,7 @@ export interface OraclePriceOrder_max_order_by {
   swapType?: order_by | null
   targetChainId?: order_by | null
   timestamp?: order_by | null
+  txHash?: order_by | null
 }
 
 /** order by min() on columns of table "OraclePriceOrder" */
@@ -9088,6 +9125,7 @@ export interface OraclePriceOrder_min_order_by {
   swapType?: order_by | null
   targetChainId?: order_by | null
   timestamp?: order_by | null
+  txHash?: order_by | null
 }
 
 /** Ordering options when selecting data from "OraclePriceOrder". */
@@ -9120,6 +9158,7 @@ export interface OraclePriceOrder_order_by {
   swapType?: order_by | null
   targetChainId?: order_by | null
   timestamp?: order_by | null
+  txHash?: order_by | null
 }
 
 /** order by stddev() on columns of table "OraclePriceOrder" */
@@ -9197,6 +9236,7 @@ export interface OraclePriceOrder_stream_cursor_value_input {
   swapType?: Scalars['swaptype'] | null
   targetChainId?: Scalars['Int'] | null
   timestamp?: Scalars['Int'] | null
+  txHash?: Scalars['String'] | null
 }
 
 /** order by sum() on columns of table "OraclePriceOrder" */
@@ -9268,6 +9308,7 @@ export interface ProjectFeeGenqlSelection {
   /** An object relationship */
   token?: TokenGenqlSelection
   token_id?: boolean | number
+  txHash?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -9364,6 +9405,7 @@ export interface ProjectFee_bool_exp {
   timestamp?: Int_comparison_exp | null
   token?: Token_bool_exp | null
   token_id?: String_comparison_exp | null
+  txHash?: String_comparison_exp | null
 }
 
 /** aggregate max on columns */
@@ -9377,6 +9419,7 @@ export interface ProjectFee_max_fieldsGenqlSelection {
   recipient?: boolean | number
   timestamp?: boolean | number
   token_id?: boolean | number
+  txHash?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -9392,6 +9435,7 @@ export interface ProjectFee_max_order_by {
   recipient?: order_by | null
   timestamp?: order_by | null
   token_id?: order_by | null
+  txHash?: order_by | null
 }
 
 /** aggregate min on columns */
@@ -9405,6 +9449,7 @@ export interface ProjectFee_min_fieldsGenqlSelection {
   recipient?: boolean | number
   timestamp?: boolean | number
   token_id?: boolean | number
+  txHash?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -9420,6 +9465,7 @@ export interface ProjectFee_min_order_by {
   recipient?: order_by | null
   timestamp?: order_by | null
   token_id?: order_by | null
+  txHash?: order_by | null
 }
 
 /** Ordering options when selecting data from "ProjectFee". */
@@ -9434,6 +9480,7 @@ export interface ProjectFee_order_by {
   timestamp?: order_by | null
   token?: Token_order_by | null
   token_id?: order_by | null
+  txHash?: order_by | null
 }
 
 /** aggregate stddev on columns */
@@ -9509,6 +9556,7 @@ export interface ProjectFee_stream_cursor_value_input {
   recipient?: Scalars['String'] | null
   timestamp?: Scalars['Int'] | null
   token_id?: Scalars['String'] | null
+  txHash?: Scalars['String'] | null
 }
 
 /** aggregate sum on columns */
@@ -9597,6 +9645,7 @@ export interface ProtocolFeeGenqlSelection {
   token?: TokenGenqlSelection
   token_id?: boolean | number
   treasury?: boolean | number
+  txHash?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -9694,6 +9743,7 @@ export interface ProtocolFee_bool_exp {
   token?: Token_bool_exp | null
   token_id?: String_comparison_exp | null
   treasury?: String_comparison_exp | null
+  txHash?: String_comparison_exp | null
 }
 
 /** aggregate max on columns */
@@ -9708,6 +9758,7 @@ export interface ProtocolFee_max_fieldsGenqlSelection {
   timestamp?: boolean | number
   token_id?: boolean | number
   treasury?: boolean | number
+  txHash?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -9724,6 +9775,7 @@ export interface ProtocolFee_max_order_by {
   timestamp?: order_by | null
   token_id?: order_by | null
   treasury?: order_by | null
+  txHash?: order_by | null
 }
 
 /** aggregate min on columns */
@@ -9738,6 +9790,7 @@ export interface ProtocolFee_min_fieldsGenqlSelection {
   timestamp?: boolean | number
   token_id?: boolean | number
   treasury?: boolean | number
+  txHash?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -9754,6 +9807,7 @@ export interface ProtocolFee_min_order_by {
   timestamp?: order_by | null
   token_id?: order_by | null
   treasury?: order_by | null
+  txHash?: order_by | null
 }
 
 /** Ordering options when selecting data from "ProtocolFee". */
@@ -9769,6 +9823,7 @@ export interface ProtocolFee_order_by {
   token?: Token_order_by | null
   token_id?: order_by | null
   treasury?: order_by | null
+  txHash?: order_by | null
 }
 
 /** aggregate stddev on columns */
@@ -9845,6 +9900,7 @@ export interface ProtocolFee_stream_cursor_value_input {
   timestamp?: Scalars['Int'] | null
   token_id?: Scalars['String'] | null
   treasury?: Scalars['String'] | null
+  txHash?: Scalars['String'] | null
 }
 
 /** aggregate sum on columns */
@@ -10212,6 +10268,7 @@ export interface SwapGenqlSelection {
   recipient?: boolean | number
   swapType?: boolean | number
   timestamp?: boolean | number
+  txHash?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -10264,6 +10321,7 @@ export interface Swap_bool_exp {
   recipient?: String_comparison_exp | null
   swapType?: swaptype_comparison_exp | null
   timestamp?: Int_comparison_exp | null
+  txHash?: String_comparison_exp | null
 }
 
 /** order by max() on columns of table "Swap" */
@@ -10283,6 +10341,7 @@ export interface Swap_max_order_by {
   recipient?: order_by | null
   swapType?: order_by | null
   timestamp?: order_by | null
+  txHash?: order_by | null
 }
 
 /** order by min() on columns of table "Swap" */
@@ -10302,6 +10361,7 @@ export interface Swap_min_order_by {
   recipient?: order_by | null
   swapType?: order_by | null
   timestamp?: order_by | null
+  txHash?: order_by | null
 }
 
 /** Ordering options when selecting data from "Swap". */
@@ -10323,6 +10383,7 @@ export interface Swap_order_by {
   recipient?: order_by | null
   swapType?: order_by | null
   timestamp?: order_by | null
+  txHash?: order_by | null
 }
 
 /** order by stddev() on columns of table "Swap" */
@@ -10383,6 +10444,7 @@ export interface Swap_stream_cursor_value_input {
   recipient?: Scalars['String'] | null
   swapType?: Scalars['swaptype'] | null
   timestamp?: Scalars['Int'] | null
+  txHash?: Scalars['String'] | null
 }
 
 /** order by sum() on columns of table "Swap" */
@@ -10648,6 +10710,7 @@ export interface TransferGenqlSelection {
   id?: boolean | number
   recipient?: boolean | number
   timestamp?: boolean | number
+  txHash?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -10740,6 +10803,7 @@ export interface Transfer_bool_exp {
   id?: String_comparison_exp | null
   recipient?: String_comparison_exp | null
   timestamp?: Int_comparison_exp | null
+  txHash?: String_comparison_exp | null
 }
 
 /** aggregate max on columns */
@@ -10751,6 +10815,7 @@ export interface Transfer_max_fieldsGenqlSelection {
   id?: boolean | number
   recipient?: boolean | number
   timestamp?: boolean | number
+  txHash?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -10764,6 +10829,7 @@ export interface Transfer_max_order_by {
   id?: order_by | null
   recipient?: order_by | null
   timestamp?: order_by | null
+  txHash?: order_by | null
 }
 
 /** aggregate min on columns */
@@ -10775,6 +10841,7 @@ export interface Transfer_min_fieldsGenqlSelection {
   id?: boolean | number
   recipient?: boolean | number
   timestamp?: boolean | number
+  txHash?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -10788,6 +10855,7 @@ export interface Transfer_min_order_by {
   id?: order_by | null
   recipient?: order_by | null
   timestamp?: order_by | null
+  txHash?: order_by | null
 }
 
 /** Ordering options when selecting data from "Transfer". */
@@ -10800,6 +10868,7 @@ export interface Transfer_order_by {
   id?: order_by | null
   recipient?: order_by | null
   timestamp?: order_by | null
+  txHash?: order_by | null
 }
 
 /** aggregate stddev on columns */
@@ -10867,6 +10936,7 @@ export interface Transfer_stream_cursor_value_input {
   id?: Scalars['String'] | null
   recipient?: Scalars['String'] | null
   timestamp?: Scalars['Int'] | null
+  txHash?: Scalars['String'] | null
 }
 
 /** aggregate sum on columns */
@@ -15953,6 +16023,7 @@ export const enumDepositSelectColumn = {
   depositor: 'depositor' as const,
   id: 'id' as const,
   timestamp: 'timestamp' as const,
+  txHash: 'txHash' as const,
 }
 
 export const enumExternalPriceSetterSelectColumn = {
@@ -15961,6 +16032,7 @@ export const enumExternalPriceSetterSelectColumn = {
   collateralToken_id: 'collateralToken_id' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
   id: 'id' as const,
+  lastUpdated: 'lastUpdated' as const,
   priceCOL: 'priceCOL' as const,
   priceISS: 'priceISS' as const,
   workflow_id: 'workflow_id' as const,
@@ -16063,6 +16135,7 @@ export const enumOraclePriceOrderSelectColumn = {
   swapType: 'swapType' as const,
   targetChainId: 'targetChainId' as const,
   timestamp: 'timestamp' as const,
+  txHash: 'txHash' as const,
 }
 
 export const enumProjectFeeSelectColumn = {
@@ -16075,6 +16148,7 @@ export const enumProjectFeeSelectColumn = {
   recipient: 'recipient' as const,
   timestamp: 'timestamp' as const,
   token_id: 'token_id' as const,
+  txHash: 'txHash' as const,
 }
 
 export const enumProtocolFeeSelectColumn = {
@@ -16088,6 +16162,7 @@ export const enumProtocolFeeSelectColumn = {
   timestamp: 'timestamp' as const,
   token_id: 'token_id' as const,
   treasury: 'treasury' as const,
+  txHash: 'txHash' as const,
 }
 
 export const enumRoleSelectColumn = {
@@ -16127,6 +16202,7 @@ export const enumSwapSelectColumn = {
   recipient: 'recipient' as const,
   swapType: 'swapType' as const,
   timestamp: 'timestamp' as const,
+  txHash: 'txHash' as const,
 }
 
 export const enumTokenSelectColumn = {
@@ -16149,6 +16225,7 @@ export const enumTransferSelectColumn = {
   id: 'id' as const,
   recipient: 'recipient' as const,
   timestamp: 'timestamp' as const,
+  txHash: 'txHash' as const,
 }
 
 export const enumWorkflowModuleTypeSelectColumn = {

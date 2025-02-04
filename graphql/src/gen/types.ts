@@ -2458,6 +2458,7 @@ export default {
       depositor: [422],
       id: [422],
       timestamp: [221],
+      txHash: [422],
       __typename: [422],
     },
     DepositVault: {
@@ -2734,6 +2735,7 @@ export default {
       depositor: [424],
       id: [424],
       timestamp: [222],
+      txHash: [424],
       __typename: [422],
     },
     Deposit_max_fields: {
@@ -2744,6 +2746,7 @@ export default {
       depositor: [422],
       id: [422],
       timestamp: [221],
+      txHash: [422],
       __typename: [422],
     },
     Deposit_max_order_by: {
@@ -2754,6 +2757,7 @@ export default {
       depositor: [541],
       id: [541],
       timestamp: [541],
+      txHash: [541],
       __typename: [422],
     },
     Deposit_min_fields: {
@@ -2764,6 +2768,7 @@ export default {
       depositor: [422],
       id: [422],
       timestamp: [221],
+      txHash: [422],
       __typename: [422],
     },
     Deposit_min_order_by: {
@@ -2774,6 +2779,7 @@ export default {
       depositor: [541],
       id: [541],
       timestamp: [541],
+      txHash: [541],
       __typename: [422],
     },
     Deposit_order_by: {
@@ -2785,6 +2791,7 @@ export default {
       depositor: [541],
       id: [541],
       timestamp: [541],
+      txHash: [541],
       __typename: [422],
     },
     Deposit_select_column: {},
@@ -2837,6 +2844,7 @@ export default {
       depositor: [422],
       id: [422],
       timestamp: [221],
+      txHash: [422],
       __typename: [422],
     },
     Deposit_sum_fields: {
@@ -2894,6 +2902,7 @@ export default {
       collateralToken_id: [422],
       db_write_timestamp: [564],
       id: [422],
+      lastUpdated: [221],
       priceCOL: [539],
       priceISS: [539],
       workflow: [491],
@@ -2910,6 +2919,7 @@ export default {
       collateralToken_id: [424],
       db_write_timestamp: [565],
       id: [424],
+      lastUpdated: [222],
       priceCOL: [540],
       priceISS: [540],
       workflow: [504],
@@ -2923,6 +2933,7 @@ export default {
       collateralToken_id: [541],
       db_write_timestamp: [541],
       id: [541],
+      lastUpdated: [541],
       priceCOL: [541],
       priceISS: [541],
       workflow: [505],
@@ -2941,6 +2952,7 @@ export default {
       collateralToken_id: [422],
       db_write_timestamp: [564],
       id: [422],
+      lastUpdated: [221],
       priceCOL: [539],
       priceISS: [539],
       workflow_id: [422],
@@ -4488,6 +4500,7 @@ export default {
       swapType: [562],
       targetChainId: [221],
       timestamp: [221],
+      txHash: [422],
       __typename: [422],
     },
     OraclePriceOrder_aggregate_order_by: {
@@ -4549,6 +4562,7 @@ export default {
       swapType: [563],
       targetChainId: [222],
       timestamp: [222],
+      txHash: [424],
       __typename: [422],
     },
     OraclePriceOrder_max_order_by: {
@@ -4575,6 +4589,7 @@ export default {
       swapType: [541],
       targetChainId: [541],
       timestamp: [541],
+      txHash: [541],
       __typename: [422],
     },
     OraclePriceOrder_min_order_by: {
@@ -4601,6 +4616,7 @@ export default {
       swapType: [541],
       targetChainId: [541],
       timestamp: [541],
+      txHash: [541],
       __typename: [422],
     },
     OraclePriceOrder_order_by: {
@@ -4632,6 +4648,7 @@ export default {
       swapType: [541],
       targetChainId: [541],
       timestamp: [541],
+      txHash: [541],
       __typename: [422],
     },
     OraclePriceOrder_select_column: {},
@@ -4703,6 +4720,7 @@ export default {
       swapType: [562],
       targetChainId: [221],
       timestamp: [221],
+      txHash: [422],
       __typename: [422],
     },
     OraclePriceOrder_sum_order_by: {
@@ -4768,6 +4786,7 @@ export default {
       timestamp: [221],
       token: [442],
       token_id: [422],
+      txHash: [422],
       __typename: [422],
     },
     ProjectFee_aggregate: {
@@ -4848,6 +4867,7 @@ export default {
       timestamp: [222],
       token: [446],
       token_id: [424],
+      txHash: [424],
       __typename: [422],
     },
     ProjectFee_max_fields: {
@@ -4860,6 +4880,7 @@ export default {
       recipient: [422],
       timestamp: [221],
       token_id: [422],
+      txHash: [422],
       __typename: [422],
     },
     ProjectFee_max_order_by: {
@@ -4872,6 +4893,7 @@ export default {
       recipient: [541],
       timestamp: [541],
       token_id: [541],
+      txHash: [541],
       __typename: [422],
     },
     ProjectFee_min_fields: {
@@ -4884,6 +4906,7 @@ export default {
       recipient: [422],
       timestamp: [221],
       token_id: [422],
+      txHash: [422],
       __typename: [422],
     },
     ProjectFee_min_order_by: {
@@ -4896,6 +4919,7 @@ export default {
       recipient: [541],
       timestamp: [541],
       token_id: [541],
+      txHash: [541],
       __typename: [422],
     },
     ProjectFee_order_by: {
@@ -4909,6 +4933,7 @@ export default {
       timestamp: [541],
       token: [449],
       token_id: [541],
+      txHash: [541],
       __typename: [422],
     },
     ProjectFee_select_column: {},
@@ -4969,6 +4994,7 @@ export default {
       recipient: [422],
       timestamp: [221],
       token_id: [422],
+      txHash: [422],
       __typename: [422],
     },
     ProjectFee_sum_fields: {
@@ -5039,6 +5065,7 @@ export default {
       token: [442],
       token_id: [422],
       treasury: [422],
+      txHash: [422],
       __typename: [422],
     },
     ProtocolFee_aggregate: {
@@ -5120,6 +5147,7 @@ export default {
       token: [446],
       token_id: [424],
       treasury: [424],
+      txHash: [424],
       __typename: [422],
     },
     ProtocolFee_max_fields: {
@@ -5133,6 +5161,7 @@ export default {
       timestamp: [221],
       token_id: [422],
       treasury: [422],
+      txHash: [422],
       __typename: [422],
     },
     ProtocolFee_max_order_by: {
@@ -5146,6 +5175,7 @@ export default {
       timestamp: [541],
       token_id: [541],
       treasury: [541],
+      txHash: [541],
       __typename: [422],
     },
     ProtocolFee_min_fields: {
@@ -5159,6 +5189,7 @@ export default {
       timestamp: [221],
       token_id: [422],
       treasury: [422],
+      txHash: [422],
       __typename: [422],
     },
     ProtocolFee_min_order_by: {
@@ -5172,6 +5203,7 @@ export default {
       timestamp: [541],
       token_id: [541],
       treasury: [541],
+      txHash: [541],
       __typename: [422],
     },
     ProtocolFee_order_by: {
@@ -5186,6 +5218,7 @@ export default {
       token: [449],
       token_id: [541],
       treasury: [541],
+      txHash: [541],
       __typename: [422],
     },
     ProtocolFee_select_column: {},
@@ -5247,6 +5280,7 @@ export default {
       timestamp: [221],
       token_id: [422],
       treasury: [422],
+      txHash: [422],
       __typename: [422],
     },
     ProtocolFee_sum_fields: {
@@ -5549,6 +5583,7 @@ export default {
       recipient: [422],
       swapType: [562],
       timestamp: [221],
+      txHash: [422],
       __typename: [422],
     },
     Swap_aggregate_order_by: {
@@ -5596,6 +5631,7 @@ export default {
       recipient: [424],
       swapType: [563],
       timestamp: [222],
+      txHash: [424],
       __typename: [422],
     },
     Swap_max_order_by: {
@@ -5614,6 +5650,7 @@ export default {
       recipient: [541],
       swapType: [541],
       timestamp: [541],
+      txHash: [541],
       __typename: [422],
     },
     Swap_min_order_by: {
@@ -5632,6 +5669,7 @@ export default {
       recipient: [541],
       swapType: [541],
       timestamp: [541],
+      txHash: [541],
       __typename: [422],
     },
     Swap_order_by: {
@@ -5652,6 +5690,7 @@ export default {
       recipient: [541],
       swapType: [541],
       timestamp: [541],
+      txHash: [541],
       __typename: [422],
     },
     Swap_select_column: {},
@@ -5706,6 +5745,7 @@ export default {
       recipient: [422],
       swapType: [562],
       timestamp: [221],
+      txHash: [422],
       __typename: [422],
     },
     Swap_sum_order_by: {
@@ -5919,6 +5959,7 @@ export default {
       id: [422],
       recipient: [422],
       timestamp: [221],
+      txHash: [422],
       __typename: [422],
     },
     Transfer_aggregate: {
@@ -5995,6 +6036,7 @@ export default {
       id: [424],
       recipient: [424],
       timestamp: [222],
+      txHash: [424],
       __typename: [422],
     },
     Transfer_max_fields: {
@@ -6005,6 +6047,7 @@ export default {
       id: [422],
       recipient: [422],
       timestamp: [221],
+      txHash: [422],
       __typename: [422],
     },
     Transfer_max_order_by: {
@@ -6015,6 +6058,7 @@ export default {
       id: [541],
       recipient: [541],
       timestamp: [541],
+      txHash: [541],
       __typename: [422],
     },
     Transfer_min_fields: {
@@ -6025,6 +6069,7 @@ export default {
       id: [422],
       recipient: [422],
       timestamp: [221],
+      txHash: [422],
       __typename: [422],
     },
     Transfer_min_order_by: {
@@ -6035,6 +6080,7 @@ export default {
       id: [541],
       recipient: [541],
       timestamp: [541],
+      txHash: [541],
       __typename: [422],
     },
     Transfer_order_by: {
@@ -6046,6 +6092,7 @@ export default {
       id: [541],
       recipient: [541],
       timestamp: [541],
+      txHash: [541],
       __typename: [422],
     },
     Transfer_select_column: {},
@@ -6098,6 +6145,7 @@ export default {
       id: [422],
       recipient: [422],
       timestamp: [221],
+      txHash: [422],
       __typename: [422],
     },
     Transfer_sum_fields: {
