@@ -1557,12 +1557,8 @@ export interface ExternalPriceSetter {
   collateralToken_id: Scalars['String']
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String']
-  /** An object relationship */
-  issuanceToken: Token | null
-  issuanceToken_id: Scalars['String']
   priceCOL: Scalars['numeric']
   priceISS: Scalars['numeric']
-  priceUSD: Scalars['numeric']
   /** An object relationship */
   workflow: Workflow | null
   workflow_id: Scalars['String']
@@ -1576,10 +1572,8 @@ export type ExternalPriceSetter_select_column =
   | 'collateralToken_id'
   | 'db_write_timestamp'
   | 'id'
-  | 'issuanceToken_id'
   | 'priceCOL'
   | 'priceISS'
-  | 'priceUSD'
   | 'workflow_id'
 
 /** columns and relationships of "IssuanceTokenDayData" */
@@ -1592,11 +1586,14 @@ export interface IssuanceTokenDayData {
   highUSD: Scalars['numeric']
   id: Scalars['String']
   lowUSD: Scalars['numeric']
+  module_id: Scalars['String']
   openUSD: Scalars['numeric']
   priceUSD: Scalars['numeric']
   projectFeeUSD: Scalars['numeric']
   protocolFeeISS: Scalars['numeric']
   protocolFeeUSD: Scalars['numeric']
+  /** An object relationship */
+  token: Token | null
   token_id: Scalars['String']
   volumeISS: Scalars['numeric']
   volumeUSD: Scalars['numeric']
@@ -1653,6 +1650,7 @@ export interface IssuanceTokenDayData_max_fields {
   highUSD: Scalars['numeric'] | null
   id: Scalars['String'] | null
   lowUSD: Scalars['numeric'] | null
+  module_id: Scalars['String'] | null
   openUSD: Scalars['numeric'] | null
   priceUSD: Scalars['numeric'] | null
   projectFeeUSD: Scalars['numeric'] | null
@@ -1674,6 +1672,7 @@ export interface IssuanceTokenDayData_min_fields {
   highUSD: Scalars['numeric'] | null
   id: Scalars['String'] | null
   lowUSD: Scalars['numeric'] | null
+  module_id: Scalars['String'] | null
   openUSD: Scalars['numeric'] | null
   priceUSD: Scalars['numeric'] | null
   projectFeeUSD: Scalars['numeric'] | null
@@ -1695,6 +1694,7 @@ export type IssuanceTokenDayData_select_column =
   | 'highUSD'
   | 'id'
   | 'lowUSD'
+  | 'module_id'
   | 'openUSD'
   | 'priceUSD'
   | 'projectFeeUSD'
@@ -1832,12 +1832,15 @@ export interface IssuanceTokenHourData {
   highUSD: Scalars['numeric']
   id: Scalars['String']
   lowUSD: Scalars['numeric']
+  module_id: Scalars['String']
   openUSD: Scalars['numeric']
   periodStartUnix: Scalars['Int']
   priceUSD: Scalars['numeric']
   projectFeeUSD: Scalars['numeric']
   protocolFeeISS: Scalars['numeric']
   protocolFeeUSD: Scalars['numeric']
+  /** An object relationship */
+  token: Token | null
   token_id: Scalars['String']
   volumeISS: Scalars['numeric']
   volumeUSD: Scalars['numeric']
@@ -1893,6 +1896,7 @@ export interface IssuanceTokenHourData_max_fields {
   highUSD: Scalars['numeric'] | null
   id: Scalars['String'] | null
   lowUSD: Scalars['numeric'] | null
+  module_id: Scalars['String'] | null
   openUSD: Scalars['numeric'] | null
   periodStartUnix: Scalars['Int'] | null
   priceUSD: Scalars['numeric'] | null
@@ -1914,6 +1918,7 @@ export interface IssuanceTokenHourData_min_fields {
   highUSD: Scalars['numeric'] | null
   id: Scalars['String'] | null
   lowUSD: Scalars['numeric'] | null
+  module_id: Scalars['String'] | null
   openUSD: Scalars['numeric'] | null
   periodStartUnix: Scalars['Int'] | null
   priceUSD: Scalars['numeric'] | null
@@ -1935,6 +1940,7 @@ export type IssuanceTokenHourData_select_column =
   | 'highUSD'
   | 'id'
   | 'lowUSD'
+  | 'module_id'
   | 'openUSD'
   | 'periodStartUnix'
   | 'priceUSD'
@@ -2108,6 +2114,14 @@ export interface OraclePriceFM {
   /** An object relationship */
   collateralToken: Token | null
   collateralToken_id: Scalars['String']
+  /** An array relationship */
+  curveDayData: CurveDayData[]
+  /** An aggregate relationship */
+  curveDayData_aggregate: CurveDayData_aggregate
+  /** An array relationship */
+  curveHourData: CurveHourData[]
+  /** An aggregate relationship */
+  curveHourData_aggregate: CurveHourData_aggregate
   db_write_timestamp: Scalars['timestamp'] | null
   /** An object relationship */
   externalPriceSetter: ExternalPriceSetter | null
@@ -2115,11 +2129,17 @@ export interface OraclePriceFM {
   id: Scalars['String']
   /** An object relationship */
   issuanceToken: Token | null
+  /** An array relationship */
+  issuanceTokenDayData: IssuanceTokenDayData[]
+  /** An aggregate relationship */
+  issuanceTokenDayData_aggregate: IssuanceTokenDayData_aggregate
+  /** An array relationship */
+  issuanceTokenHourData: IssuanceTokenHourData[]
+  /** An aggregate relationship */
+  issuanceTokenHourData_aggregate: IssuanceTokenHourData_aggregate
   issuanceToken_id: Scalars['String']
   /** An array relationship */
-  paymentOrders: RedemptionPaymentOrder[]
-  /** An aggregate relationship */
-  paymentOrders_aggregate: RedemptionPaymentOrder_aggregate
+  orders: OraclePriceOrder[]
   pendingRedemptionCOL: Scalars['numeric']
   pendingRedemptionUSD: Scalars['numeric']
   /** An array relationship */
@@ -2133,8 +2153,7 @@ export interface OraclePriceFM {
   reserveCOL: Scalars['numeric']
   reserveUSD: Scalars['numeric']
   sellFee: Scalars['numeric']
-  /** An array relationship */
-  swaps: Swap[]
+  treasury: Scalars['String']
   /** An object relationship */
   workflow: Workflow | null
   workflow_id: Scalars['String']
@@ -2191,6 +2210,7 @@ export interface OraclePriceFM_max_fields {
   reserveCOL: Scalars['numeric'] | null
   reserveUSD: Scalars['numeric'] | null
   sellFee: Scalars['numeric'] | null
+  treasury: Scalars['String'] | null
   workflow_id: Scalars['String'] | null
   __typename: 'OraclePriceFM_max_fields'
 }
@@ -2210,6 +2230,7 @@ export interface OraclePriceFM_min_fields {
   reserveCOL: Scalars['numeric'] | null
   reserveUSD: Scalars['numeric'] | null
   sellFee: Scalars['numeric'] | null
+  treasury: Scalars['String'] | null
   workflow_id: Scalars['String'] | null
   __typename: 'OraclePriceFM_min_fields'
 }
@@ -2229,6 +2250,7 @@ export type OraclePriceFM_select_column =
   | 'reserveCOL'
   | 'reserveUSD'
   | 'sellFee'
+  | 'treasury'
   | 'workflow_id'
 
 /** aggregate stddev on columns */
@@ -2314,6 +2336,70 @@ export interface OraclePriceFM_variance_fields {
   sellFee: Scalars['Float'] | null
   __typename: 'OraclePriceFM_variance_fields'
 }
+
+/** columns and relationships of "OraclePriceOrder" */
+export interface OraclePriceOrder {
+  amountCOL: Scalars['numeric']
+  amountISS: Scalars['numeric']
+  amountUSD: Scalars['numeric']
+  chainId: Scalars['Int']
+  /** An object relationship */
+  collateralToken: Token | null
+  collateralToken_id: Scalars['String']
+  db_write_timestamp: Scalars['timestamp'] | null
+  executedBy: Scalars['String'] | null
+  executedTimestamp: Scalars['Int'] | null
+  id: Scalars['String']
+  initiator: Scalars['String']
+  /** An object relationship */
+  issuanceToken: Token | null
+  issuanceToken_id: Scalars['String']
+  /** An object relationship */
+  oraclePriceFM: OraclePriceFM | null
+  oraclePriceFM_id: Scalars['String']
+  orderId: Scalars['numeric'] | null
+  orderType: Scalars['paymentordertype'] | null
+  priceCOL: Scalars['numeric']
+  priceUSD: Scalars['numeric']
+  /** An object relationship */
+  projectFee: ProjectFee | null
+  projectFee_id: Scalars['String']
+  /** An object relationship */
+  protocolFee: ProtocolFee | null
+  protocolFee_id: Scalars['String']
+  recipient: Scalars['String']
+  state: Scalars['redemptionstate'] | null
+  swapType: Scalars['swaptype']
+  targetChainId: Scalars['Int'] | null
+  timestamp: Scalars['Int']
+  __typename: 'OraclePriceOrder'
+}
+
+/** select columns of table "OraclePriceOrder" */
+export type OraclePriceOrder_select_column =
+  | 'amountCOL'
+  | 'amountISS'
+  | 'amountUSD'
+  | 'chainId'
+  | 'collateralToken_id'
+  | 'db_write_timestamp'
+  | 'executedBy'
+  | 'executedTimestamp'
+  | 'id'
+  | 'initiator'
+  | 'issuanceToken_id'
+  | 'oraclePriceFM_id'
+  | 'orderId'
+  | 'orderType'
+  | 'priceCOL'
+  | 'priceUSD'
+  | 'projectFee_id'
+  | 'protocolFee_id'
+  | 'recipient'
+  | 'state'
+  | 'swapType'
+  | 'targetChainId'
+  | 'timestamp'
 
 /** columns and relationships of "ProjectFee" */
 export interface ProjectFee {
@@ -2619,279 +2705,6 @@ export interface ProtocolFee_variance_fields {
   chainId: Scalars['Float'] | null
   timestamp: Scalars['Float'] | null
   __typename: 'ProtocolFee_variance_fields'
-}
-
-/** columns and relationships of "RedemptionPaymentOrder" */
-export interface RedemptionPaymentOrder {
-  amount: Scalars['numeric']
-  amountUSD: Scalars['numeric']
-  chainId: Scalars['Int']
-  data: Scalars['String'][]
-  db_write_timestamp: Scalars['timestamp'] | null
-  exchangeRate: Scalars['numeric']
-  executedBy: Scalars['String'] | null
-  executedTimestamp: Scalars['Int'] | null
-  fee: Scalars['numeric']
-  feePercentage: Scalars['numeric']
-  feeUSD: Scalars['numeric']
-  flags: Scalars['String']
-  id: Scalars['String']
-  /** An object relationship */
-  oraclePriceFM: OraclePriceFM | null
-  oraclePriceFM_id: Scalars['String']
-  orderId: Scalars['numeric']
-  orderType: Scalars['paymentordertype']
-  originChainId: Scalars['Int']
-  recipient: Scalars['String']
-  seller: Scalars['String']
-  state: Scalars['redemptionstate']
-  targetChainId: Scalars['Int']
-  timestamp: Scalars['Int']
-  /** An object relationship */
-  token: Token | null
-  token_id: Scalars['String']
-  __typename: 'RedemptionPaymentOrder'
-}
-
-/** aggregated selection of "RedemptionPaymentOrder" */
-export interface RedemptionPaymentOrder_aggregate {
-  aggregate: RedemptionPaymentOrder_aggregate_fields | null
-  nodes: RedemptionPaymentOrder[]
-  __typename: 'RedemptionPaymentOrder_aggregate'
-}
-
-/** aggregate fields of "RedemptionPaymentOrder" */
-export interface RedemptionPaymentOrder_aggregate_fields {
-  avg: RedemptionPaymentOrder_avg_fields | null
-  count: Scalars['Int']
-  max: RedemptionPaymentOrder_max_fields | null
-  min: RedemptionPaymentOrder_min_fields | null
-  stddev: RedemptionPaymentOrder_stddev_fields | null
-  stddev_pop: RedemptionPaymentOrder_stddev_pop_fields | null
-  stddev_samp: RedemptionPaymentOrder_stddev_samp_fields | null
-  sum: RedemptionPaymentOrder_sum_fields | null
-  var_pop: RedemptionPaymentOrder_var_pop_fields | null
-  var_samp: RedemptionPaymentOrder_var_samp_fields | null
-  variance: RedemptionPaymentOrder_variance_fields | null
-  __typename: 'RedemptionPaymentOrder_aggregate_fields'
-}
-
-/** aggregate avg on columns */
-export interface RedemptionPaymentOrder_avg_fields {
-  amount: Scalars['Float'] | null
-  amountUSD: Scalars['Float'] | null
-  chainId: Scalars['Float'] | null
-  exchangeRate: Scalars['Float'] | null
-  executedTimestamp: Scalars['Float'] | null
-  fee: Scalars['Float'] | null
-  feePercentage: Scalars['Float'] | null
-  feeUSD: Scalars['Float'] | null
-  orderId: Scalars['Float'] | null
-  originChainId: Scalars['Float'] | null
-  targetChainId: Scalars['Float'] | null
-  timestamp: Scalars['Float'] | null
-  __typename: 'RedemptionPaymentOrder_avg_fields'
-}
-
-/** aggregate max on columns */
-export interface RedemptionPaymentOrder_max_fields {
-  amount: Scalars['numeric'] | null
-  amountUSD: Scalars['numeric'] | null
-  chainId: Scalars['Int'] | null
-  data: Scalars['String'][] | null
-  db_write_timestamp: Scalars['timestamp'] | null
-  exchangeRate: Scalars['numeric'] | null
-  executedBy: Scalars['String'] | null
-  executedTimestamp: Scalars['Int'] | null
-  fee: Scalars['numeric'] | null
-  feePercentage: Scalars['numeric'] | null
-  feeUSD: Scalars['numeric'] | null
-  flags: Scalars['String'] | null
-  id: Scalars['String'] | null
-  oraclePriceFM_id: Scalars['String'] | null
-  orderId: Scalars['numeric'] | null
-  orderType: Scalars['paymentordertype'] | null
-  originChainId: Scalars['Int'] | null
-  recipient: Scalars['String'] | null
-  seller: Scalars['String'] | null
-  state: Scalars['redemptionstate'] | null
-  targetChainId: Scalars['Int'] | null
-  timestamp: Scalars['Int'] | null
-  token_id: Scalars['String'] | null
-  __typename: 'RedemptionPaymentOrder_max_fields'
-}
-
-/** aggregate min on columns */
-export interface RedemptionPaymentOrder_min_fields {
-  amount: Scalars['numeric'] | null
-  amountUSD: Scalars['numeric'] | null
-  chainId: Scalars['Int'] | null
-  data: Scalars['String'][] | null
-  db_write_timestamp: Scalars['timestamp'] | null
-  exchangeRate: Scalars['numeric'] | null
-  executedBy: Scalars['String'] | null
-  executedTimestamp: Scalars['Int'] | null
-  fee: Scalars['numeric'] | null
-  feePercentage: Scalars['numeric'] | null
-  feeUSD: Scalars['numeric'] | null
-  flags: Scalars['String'] | null
-  id: Scalars['String'] | null
-  oraclePriceFM_id: Scalars['String'] | null
-  orderId: Scalars['numeric'] | null
-  orderType: Scalars['paymentordertype'] | null
-  originChainId: Scalars['Int'] | null
-  recipient: Scalars['String'] | null
-  seller: Scalars['String'] | null
-  state: Scalars['redemptionstate'] | null
-  targetChainId: Scalars['Int'] | null
-  timestamp: Scalars['Int'] | null
-  token_id: Scalars['String'] | null
-  __typename: 'RedemptionPaymentOrder_min_fields'
-}
-
-/** select columns of table "RedemptionPaymentOrder" */
-export type RedemptionPaymentOrder_select_column =
-  | 'amount'
-  | 'amountUSD'
-  | 'chainId'
-  | 'data'
-  | 'db_write_timestamp'
-  | 'exchangeRate'
-  | 'executedBy'
-  | 'executedTimestamp'
-  | 'fee'
-  | 'feePercentage'
-  | 'feeUSD'
-  | 'flags'
-  | 'id'
-  | 'oraclePriceFM_id'
-  | 'orderId'
-  | 'orderType'
-  | 'originChainId'
-  | 'recipient'
-  | 'seller'
-  | 'state'
-  | 'targetChainId'
-  | 'timestamp'
-  | 'token_id'
-
-/** aggregate stddev on columns */
-export interface RedemptionPaymentOrder_stddev_fields {
-  amount: Scalars['Float'] | null
-  amountUSD: Scalars['Float'] | null
-  chainId: Scalars['Float'] | null
-  exchangeRate: Scalars['Float'] | null
-  executedTimestamp: Scalars['Float'] | null
-  fee: Scalars['Float'] | null
-  feePercentage: Scalars['Float'] | null
-  feeUSD: Scalars['Float'] | null
-  orderId: Scalars['Float'] | null
-  originChainId: Scalars['Float'] | null
-  targetChainId: Scalars['Float'] | null
-  timestamp: Scalars['Float'] | null
-  __typename: 'RedemptionPaymentOrder_stddev_fields'
-}
-
-/** aggregate stddev_pop on columns */
-export interface RedemptionPaymentOrder_stddev_pop_fields {
-  amount: Scalars['Float'] | null
-  amountUSD: Scalars['Float'] | null
-  chainId: Scalars['Float'] | null
-  exchangeRate: Scalars['Float'] | null
-  executedTimestamp: Scalars['Float'] | null
-  fee: Scalars['Float'] | null
-  feePercentage: Scalars['Float'] | null
-  feeUSD: Scalars['Float'] | null
-  orderId: Scalars['Float'] | null
-  originChainId: Scalars['Float'] | null
-  targetChainId: Scalars['Float'] | null
-  timestamp: Scalars['Float'] | null
-  __typename: 'RedemptionPaymentOrder_stddev_pop_fields'
-}
-
-/** aggregate stddev_samp on columns */
-export interface RedemptionPaymentOrder_stddev_samp_fields {
-  amount: Scalars['Float'] | null
-  amountUSD: Scalars['Float'] | null
-  chainId: Scalars['Float'] | null
-  exchangeRate: Scalars['Float'] | null
-  executedTimestamp: Scalars['Float'] | null
-  fee: Scalars['Float'] | null
-  feePercentage: Scalars['Float'] | null
-  feeUSD: Scalars['Float'] | null
-  orderId: Scalars['Float'] | null
-  originChainId: Scalars['Float'] | null
-  targetChainId: Scalars['Float'] | null
-  timestamp: Scalars['Float'] | null
-  __typename: 'RedemptionPaymentOrder_stddev_samp_fields'
-}
-
-/** aggregate sum on columns */
-export interface RedemptionPaymentOrder_sum_fields {
-  amount: Scalars['numeric'] | null
-  amountUSD: Scalars['numeric'] | null
-  chainId: Scalars['Int'] | null
-  exchangeRate: Scalars['numeric'] | null
-  executedTimestamp: Scalars['Int'] | null
-  fee: Scalars['numeric'] | null
-  feePercentage: Scalars['numeric'] | null
-  feeUSD: Scalars['numeric'] | null
-  orderId: Scalars['numeric'] | null
-  originChainId: Scalars['Int'] | null
-  targetChainId: Scalars['Int'] | null
-  timestamp: Scalars['Int'] | null
-  __typename: 'RedemptionPaymentOrder_sum_fields'
-}
-
-/** aggregate var_pop on columns */
-export interface RedemptionPaymentOrder_var_pop_fields {
-  amount: Scalars['Float'] | null
-  amountUSD: Scalars['Float'] | null
-  chainId: Scalars['Float'] | null
-  exchangeRate: Scalars['Float'] | null
-  executedTimestamp: Scalars['Float'] | null
-  fee: Scalars['Float'] | null
-  feePercentage: Scalars['Float'] | null
-  feeUSD: Scalars['Float'] | null
-  orderId: Scalars['Float'] | null
-  originChainId: Scalars['Float'] | null
-  targetChainId: Scalars['Float'] | null
-  timestamp: Scalars['Float'] | null
-  __typename: 'RedemptionPaymentOrder_var_pop_fields'
-}
-
-/** aggregate var_samp on columns */
-export interface RedemptionPaymentOrder_var_samp_fields {
-  amount: Scalars['Float'] | null
-  amountUSD: Scalars['Float'] | null
-  chainId: Scalars['Float'] | null
-  exchangeRate: Scalars['Float'] | null
-  executedTimestamp: Scalars['Float'] | null
-  fee: Scalars['Float'] | null
-  feePercentage: Scalars['Float'] | null
-  feeUSD: Scalars['Float'] | null
-  orderId: Scalars['Float'] | null
-  originChainId: Scalars['Float'] | null
-  targetChainId: Scalars['Float'] | null
-  timestamp: Scalars['Float'] | null
-  __typename: 'RedemptionPaymentOrder_var_samp_fields'
-}
-
-/** aggregate variance on columns */
-export interface RedemptionPaymentOrder_variance_fields {
-  amount: Scalars['Float'] | null
-  amountUSD: Scalars['Float'] | null
-  chainId: Scalars['Float'] | null
-  exchangeRate: Scalars['Float'] | null
-  executedTimestamp: Scalars['Float'] | null
-  fee: Scalars['Float'] | null
-  feePercentage: Scalars['Float'] | null
-  feeUSD: Scalars['Float'] | null
-  orderId: Scalars['Float'] | null
-  originChainId: Scalars['Float'] | null
-  targetChainId: Scalars['Float'] | null
-  timestamp: Scalars['Float'] | null
-  __typename: 'RedemptionPaymentOrder_variance_fields'
 }
 
 /** columns and relationships of "Role" */
@@ -3561,6 +3374,10 @@ export interface query_root {
   OraclePriceFM_aggregate: OraclePriceFM_aggregate
   /** fetch data from the table: "OraclePriceFM" using primary key columns */
   OraclePriceFM_by_pk: OraclePriceFM | null
+  /** fetch data from the table: "OraclePriceOrder" */
+  OraclePriceOrder: OraclePriceOrder[]
+  /** fetch data from the table: "OraclePriceOrder" using primary key columns */
+  OraclePriceOrder_by_pk: OraclePriceOrder | null
   /** fetch data from the table: "ProjectFee" */
   ProjectFee: ProjectFee[]
   /** fetch aggregated fields from the table: "ProjectFee" */
@@ -3573,12 +3390,6 @@ export interface query_root {
   ProtocolFee_aggregate: ProtocolFee_aggregate
   /** fetch data from the table: "ProtocolFee" using primary key columns */
   ProtocolFee_by_pk: ProtocolFee | null
-  /** fetch data from the table: "RedemptionPaymentOrder" */
-  RedemptionPaymentOrder: RedemptionPaymentOrder[]
-  /** fetch aggregated fields from the table: "RedemptionPaymentOrder" */
-  RedemptionPaymentOrder_aggregate: RedemptionPaymentOrder_aggregate
-  /** fetch data from the table: "RedemptionPaymentOrder" using primary key columns */
-  RedemptionPaymentOrder_by_pk: RedemptionPaymentOrder | null
   /** fetch data from the table: "Role" */
   Role: Role[]
   /** fetch data from the table: "Role" using primary key columns */
@@ -3789,6 +3600,12 @@ export interface subscription_root {
   OraclePriceFM_by_pk: OraclePriceFM | null
   /** fetch data from the table in a streaming manner: "OraclePriceFM" */
   OraclePriceFM_stream: OraclePriceFM[]
+  /** fetch data from the table: "OraclePriceOrder" */
+  OraclePriceOrder: OraclePriceOrder[]
+  /** fetch data from the table: "OraclePriceOrder" using primary key columns */
+  OraclePriceOrder_by_pk: OraclePriceOrder | null
+  /** fetch data from the table in a streaming manner: "OraclePriceOrder" */
+  OraclePriceOrder_stream: OraclePriceOrder[]
   /** fetch data from the table: "ProjectFee" */
   ProjectFee: ProjectFee[]
   /** fetch aggregated fields from the table: "ProjectFee" */
@@ -3805,14 +3622,6 @@ export interface subscription_root {
   ProtocolFee_by_pk: ProtocolFee | null
   /** fetch data from the table in a streaming manner: "ProtocolFee" */
   ProtocolFee_stream: ProtocolFee[]
-  /** fetch data from the table: "RedemptionPaymentOrder" */
-  RedemptionPaymentOrder: RedemptionPaymentOrder[]
-  /** fetch aggregated fields from the table: "RedemptionPaymentOrder" */
-  RedemptionPaymentOrder_aggregate: RedemptionPaymentOrder_aggregate
-  /** fetch data from the table: "RedemptionPaymentOrder" using primary key columns */
-  RedemptionPaymentOrder_by_pk: RedemptionPaymentOrder | null
-  /** fetch data from the table in a streaming manner: "RedemptionPaymentOrder" */
-  RedemptionPaymentOrder_stream: RedemptionPaymentOrder[]
   /** fetch data from the table: "Role" */
   Role: Role[]
   /** fetch data from the table: "Role" using primary key columns */
@@ -7300,12 +7109,8 @@ export interface ExternalPriceSetterGenqlSelection {
   collateralToken_id?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
-  /** An object relationship */
-  issuanceToken?: TokenGenqlSelection
-  issuanceToken_id?: boolean | number
   priceCOL?: boolean | number
   priceISS?: boolean | number
-  priceUSD?: boolean | number
   /** An object relationship */
   workflow?: WorkflowGenqlSelection
   workflow_id?: boolean | number
@@ -7324,11 +7129,8 @@ export interface ExternalPriceSetter_bool_exp {
   collateralToken_id?: String_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   id?: String_comparison_exp | null
-  issuanceToken?: Token_bool_exp | null
-  issuanceToken_id?: String_comparison_exp | null
   priceCOL?: numeric_comparison_exp | null
   priceISS?: numeric_comparison_exp | null
-  priceUSD?: numeric_comparison_exp | null
   workflow?: Workflow_bool_exp | null
   workflow_id?: String_comparison_exp | null
 }
@@ -7341,11 +7143,8 @@ export interface ExternalPriceSetter_order_by {
   collateralToken_id?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
-  issuanceToken?: Token_order_by | null
-  issuanceToken_id?: order_by | null
   priceCOL?: order_by | null
   priceISS?: order_by | null
-  priceUSD?: order_by | null
   workflow?: Workflow_order_by | null
   workflow_id?: order_by | null
 }
@@ -7365,10 +7164,8 @@ export interface ExternalPriceSetter_stream_cursor_value_input {
   collateralToken_id?: Scalars['String'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
-  issuanceToken_id?: Scalars['String'] | null
   priceCOL?: Scalars['numeric'] | null
   priceISS?: Scalars['numeric'] | null
-  priceUSD?: Scalars['numeric'] | null
   workflow_id?: Scalars['String'] | null
 }
 
@@ -7395,11 +7192,14 @@ export interface IssuanceTokenDayDataGenqlSelection {
   highUSD?: boolean | number
   id?: boolean | number
   lowUSD?: boolean | number
+  module_id?: boolean | number
   openUSD?: boolean | number
   priceUSD?: boolean | number
   projectFeeUSD?: boolean | number
   protocolFeeISS?: boolean | number
   protocolFeeUSD?: boolean | number
+  /** An object relationship */
+  token?: TokenGenqlSelection
   token_id?: boolean | number
   volumeISS?: boolean | number
   volumeUSD?: boolean | number
@@ -7513,11 +7313,13 @@ export interface IssuanceTokenDayData_bool_exp {
   highUSD?: numeric_comparison_exp | null
   id?: String_comparison_exp | null
   lowUSD?: numeric_comparison_exp | null
+  module_id?: String_comparison_exp | null
   openUSD?: numeric_comparison_exp | null
   priceUSD?: numeric_comparison_exp | null
   projectFeeUSD?: numeric_comparison_exp | null
   protocolFeeISS?: numeric_comparison_exp | null
   protocolFeeUSD?: numeric_comparison_exp | null
+  token?: Token_bool_exp | null
   token_id?: String_comparison_exp | null
   volumeISS?: numeric_comparison_exp | null
   volumeUSD?: numeric_comparison_exp | null
@@ -7533,6 +7335,7 @@ export interface IssuanceTokenDayData_max_fieldsGenqlSelection {
   highUSD?: boolean | number
   id?: boolean | number
   lowUSD?: boolean | number
+  module_id?: boolean | number
   openUSD?: boolean | number
   priceUSD?: boolean | number
   projectFeeUSD?: boolean | number
@@ -7555,6 +7358,7 @@ export interface IssuanceTokenDayData_max_order_by {
   highUSD?: order_by | null
   id?: order_by | null
   lowUSD?: order_by | null
+  module_id?: order_by | null
   openUSD?: order_by | null
   priceUSD?: order_by | null
   projectFeeUSD?: order_by | null
@@ -7575,6 +7379,7 @@ export interface IssuanceTokenDayData_min_fieldsGenqlSelection {
   highUSD?: boolean | number
   id?: boolean | number
   lowUSD?: boolean | number
+  module_id?: boolean | number
   openUSD?: boolean | number
   priceUSD?: boolean | number
   projectFeeUSD?: boolean | number
@@ -7597,6 +7402,7 @@ export interface IssuanceTokenDayData_min_order_by {
   highUSD?: order_by | null
   id?: order_by | null
   lowUSD?: order_by | null
+  module_id?: order_by | null
   openUSD?: order_by | null
   priceUSD?: order_by | null
   projectFeeUSD?: order_by | null
@@ -7617,11 +7423,13 @@ export interface IssuanceTokenDayData_order_by {
   highUSD?: order_by | null
   id?: order_by | null
   lowUSD?: order_by | null
+  module_id?: order_by | null
   openUSD?: order_by | null
   priceUSD?: order_by | null
   projectFeeUSD?: order_by | null
   protocolFeeISS?: order_by | null
   protocolFeeUSD?: order_by | null
+  token?: Token_order_by | null
   token_id?: order_by | null
   volumeISS?: order_by | null
   volumeUSD?: order_by | null
@@ -7747,6 +7555,7 @@ export interface IssuanceTokenDayData_stream_cursor_value_input {
   highUSD?: Scalars['numeric'] | null
   id?: Scalars['String'] | null
   lowUSD?: Scalars['numeric'] | null
+  module_id?: Scalars['String'] | null
   openUSD?: Scalars['numeric'] | null
   priceUSD?: Scalars['numeric'] | null
   projectFeeUSD?: Scalars['numeric'] | null
@@ -7902,12 +7711,15 @@ export interface IssuanceTokenHourDataGenqlSelection {
   highUSD?: boolean | number
   id?: boolean | number
   lowUSD?: boolean | number
+  module_id?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
   priceUSD?: boolean | number
   projectFeeUSD?: boolean | number
   protocolFeeISS?: boolean | number
   protocolFeeUSD?: boolean | number
+  /** An object relationship */
+  token?: TokenGenqlSelection
   token_id?: boolean | number
   volumeISS?: boolean | number
   volumeUSD?: boolean | number
@@ -8020,12 +7832,14 @@ export interface IssuanceTokenHourData_bool_exp {
   highUSD?: numeric_comparison_exp | null
   id?: String_comparison_exp | null
   lowUSD?: numeric_comparison_exp | null
+  module_id?: String_comparison_exp | null
   openUSD?: numeric_comparison_exp | null
   periodStartUnix?: Int_comparison_exp | null
   priceUSD?: numeric_comparison_exp | null
   projectFeeUSD?: numeric_comparison_exp | null
   protocolFeeISS?: numeric_comparison_exp | null
   protocolFeeUSD?: numeric_comparison_exp | null
+  token?: Token_bool_exp | null
   token_id?: String_comparison_exp | null
   volumeISS?: numeric_comparison_exp | null
   volumeUSD?: numeric_comparison_exp | null
@@ -8040,6 +7854,7 @@ export interface IssuanceTokenHourData_max_fieldsGenqlSelection {
   highUSD?: boolean | number
   id?: boolean | number
   lowUSD?: boolean | number
+  module_id?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
   priceUSD?: boolean | number
@@ -8062,6 +7877,7 @@ export interface IssuanceTokenHourData_max_order_by {
   highUSD?: order_by | null
   id?: order_by | null
   lowUSD?: order_by | null
+  module_id?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
   priceUSD?: order_by | null
@@ -8082,6 +7898,7 @@ export interface IssuanceTokenHourData_min_fieldsGenqlSelection {
   highUSD?: boolean | number
   id?: boolean | number
   lowUSD?: boolean | number
+  module_id?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
   priceUSD?: boolean | number
@@ -8104,6 +7921,7 @@ export interface IssuanceTokenHourData_min_order_by {
   highUSD?: order_by | null
   id?: order_by | null
   lowUSD?: order_by | null
+  module_id?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
   priceUSD?: order_by | null
@@ -8124,12 +7942,14 @@ export interface IssuanceTokenHourData_order_by {
   highUSD?: order_by | null
   id?: order_by | null
   lowUSD?: order_by | null
+  module_id?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
   priceUSD?: order_by | null
   projectFeeUSD?: order_by | null
   protocolFeeISS?: order_by | null
   protocolFeeUSD?: order_by | null
+  token?: Token_order_by | null
   token_id?: order_by | null
   volumeISS?: order_by | null
   volumeUSD?: order_by | null
@@ -8254,6 +8074,7 @@ export interface IssuanceTokenHourData_stream_cursor_value_input {
   highUSD?: Scalars['numeric'] | null
   id?: Scalars['String'] | null
   lowUSD?: Scalars['numeric'] | null
+  module_id?: Scalars['String'] | null
   openUSD?: Scalars['numeric'] | null
   periodStartUnix?: Scalars['Int'] | null
   priceUSD?: Scalars['numeric'] | null
@@ -8621,6 +8442,66 @@ export interface OraclePriceFMGenqlSelection {
   /** An object relationship */
   collateralToken?: TokenGenqlSelection
   collateralToken_id?: boolean | number
+  /** An array relationship */
+  curveDayData?: CurveDayDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveDayData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveDayData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveDayData_bool_exp | null
+    }
+  }
+  /** An aggregate relationship */
+  curveDayData_aggregate?: CurveDayData_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveDayData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveDayData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveDayData_bool_exp | null
+    }
+  }
+  /** An array relationship */
+  curveHourData?: CurveHourDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveHourData_bool_exp | null
+    }
+  }
+  /** An aggregate relationship */
+  curveHourData_aggregate?: CurveHourData_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveHourData_bool_exp | null
+    }
+  }
   db_write_timestamp?: boolean | number
   /** An object relationship */
   externalPriceSetter?: ExternalPriceSetterGenqlSelection
@@ -8628,35 +8509,80 @@ export interface OraclePriceFMGenqlSelection {
   id?: boolean | number
   /** An object relationship */
   issuanceToken?: TokenGenqlSelection
-  issuanceToken_id?: boolean | number
   /** An array relationship */
-  paymentOrders?: RedemptionPaymentOrderGenqlSelection & {
+  issuanceTokenDayData?: IssuanceTokenDayDataGenqlSelection & {
     __args?: {
       /** distinct select on columns */
-      distinct_on?: RedemptionPaymentOrder_select_column[] | null
+      distinct_on?: IssuanceTokenDayData_select_column[] | null
       /** limit the number of rows returned */
       limit?: Scalars['Int'] | null
       /** skip the first n rows. Use only with order_by */
       offset?: Scalars['Int'] | null
       /** sort the rows by one or more columns */
-      order_by?: RedemptionPaymentOrder_order_by[] | null
+      order_by?: IssuanceTokenDayData_order_by[] | null
       /** filter the rows returned */
-      where?: RedemptionPaymentOrder_bool_exp | null
+      where?: IssuanceTokenDayData_bool_exp | null
     }
   }
   /** An aggregate relationship */
-  paymentOrders_aggregate?: RedemptionPaymentOrder_aggregateGenqlSelection & {
+  issuanceTokenDayData_aggregate?: IssuanceTokenDayData_aggregateGenqlSelection & {
     __args?: {
       /** distinct select on columns */
-      distinct_on?: RedemptionPaymentOrder_select_column[] | null
+      distinct_on?: IssuanceTokenDayData_select_column[] | null
       /** limit the number of rows returned */
       limit?: Scalars['Int'] | null
       /** skip the first n rows. Use only with order_by */
       offset?: Scalars['Int'] | null
       /** sort the rows by one or more columns */
-      order_by?: RedemptionPaymentOrder_order_by[] | null
+      order_by?: IssuanceTokenDayData_order_by[] | null
       /** filter the rows returned */
-      where?: RedemptionPaymentOrder_bool_exp | null
+      where?: IssuanceTokenDayData_bool_exp | null
+    }
+  }
+  /** An array relationship */
+  issuanceTokenHourData?: IssuanceTokenHourDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: IssuanceTokenHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: IssuanceTokenHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: IssuanceTokenHourData_bool_exp | null
+    }
+  }
+  /** An aggregate relationship */
+  issuanceTokenHourData_aggregate?: IssuanceTokenHourData_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: IssuanceTokenHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: IssuanceTokenHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: IssuanceTokenHourData_bool_exp | null
+    }
+  }
+  issuanceToken_id?: boolean | number
+  /** An array relationship */
+  orders?: OraclePriceOrderGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: OraclePriceOrder_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: OraclePriceOrder_order_by[] | null
+      /** filter the rows returned */
+      where?: OraclePriceOrder_bool_exp | null
     }
   }
   pendingRedemptionCOL?: boolean | number
@@ -8724,21 +8650,7 @@ export interface OraclePriceFMGenqlSelection {
   reserveCOL?: boolean | number
   reserveUSD?: boolean | number
   sellFee?: boolean | number
-  /** An array relationship */
-  swaps?: SwapGenqlSelection & {
-    __args?: {
-      /** distinct select on columns */
-      distinct_on?: Swap_select_column[] | null
-      /** limit the number of rows returned */
-      limit?: Scalars['Int'] | null
-      /** skip the first n rows. Use only with order_by */
-      offset?: Scalars['Int'] | null
-      /** sort the rows by one or more columns */
-      order_by?: Swap_order_by[] | null
-      /** filter the rows returned */
-      where?: Swap_bool_exp | null
-    }
-  }
+  treasury?: boolean | number
   /** An object relationship */
   workflow?: WorkflowGenqlSelection
   workflow_id?: boolean | number
@@ -8802,14 +8714,21 @@ export interface OraclePriceFM_bool_exp {
   chainId?: Int_comparison_exp | null
   collateralToken?: Token_bool_exp | null
   collateralToken_id?: String_comparison_exp | null
+  curveDayData?: CurveDayData_bool_exp | null
+  curveDayData_aggregate?: CurveDayData_aggregate_bool_exp | null
+  curveHourData?: CurveHourData_bool_exp | null
+  curveHourData_aggregate?: CurveHourData_aggregate_bool_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   externalPriceSetter?: ExternalPriceSetter_bool_exp | null
   externalPriceSetter_id?: String_comparison_exp | null
   id?: String_comparison_exp | null
   issuanceToken?: Token_bool_exp | null
+  issuanceTokenDayData?: IssuanceTokenDayData_bool_exp | null
+  issuanceTokenDayData_aggregate?: IssuanceTokenDayData_aggregate_bool_exp | null
+  issuanceTokenHourData?: IssuanceTokenHourData_bool_exp | null
+  issuanceTokenHourData_aggregate?: IssuanceTokenHourData_aggregate_bool_exp | null
   issuanceToken_id?: String_comparison_exp | null
-  paymentOrders?: RedemptionPaymentOrder_bool_exp | null
-  paymentOrders_aggregate?: RedemptionPaymentOrder_aggregate_bool_exp | null
+  orders?: OraclePriceOrder_bool_exp | null
   pendingRedemptionCOL?: numeric_comparison_exp | null
   pendingRedemptionUSD?: numeric_comparison_exp | null
   projectFees?: ProjectFee_bool_exp | null
@@ -8819,7 +8738,7 @@ export interface OraclePriceFM_bool_exp {
   reserveCOL?: numeric_comparison_exp | null
   reserveUSD?: numeric_comparison_exp | null
   sellFee?: numeric_comparison_exp | null
-  swaps?: Swap_bool_exp | null
+  treasury?: String_comparison_exp | null
   workflow?: Workflow_bool_exp | null
   workflow_id?: String_comparison_exp | null
 }
@@ -8839,6 +8758,7 @@ export interface OraclePriceFM_max_fieldsGenqlSelection {
   reserveCOL?: boolean | number
   reserveUSD?: boolean | number
   sellFee?: boolean | number
+  treasury?: boolean | number
   workflow_id?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -8859,6 +8779,7 @@ export interface OraclePriceFM_min_fieldsGenqlSelection {
   reserveCOL?: boolean | number
   reserveUSD?: boolean | number
   sellFee?: boolean | number
+  treasury?: boolean | number
   workflow_id?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -8871,13 +8792,17 @@ export interface OraclePriceFM_order_by {
   chainId?: order_by | null
   collateralToken?: Token_order_by | null
   collateralToken_id?: order_by | null
+  curveDayData_aggregate?: CurveDayData_aggregate_order_by | null
+  curveHourData_aggregate?: CurveHourData_aggregate_order_by | null
   db_write_timestamp?: order_by | null
   externalPriceSetter?: ExternalPriceSetter_order_by | null
   externalPriceSetter_id?: order_by | null
   id?: order_by | null
   issuanceToken?: Token_order_by | null
+  issuanceTokenDayData_aggregate?: IssuanceTokenDayData_aggregate_order_by | null
+  issuanceTokenHourData_aggregate?: IssuanceTokenHourData_aggregate_order_by | null
   issuanceToken_id?: order_by | null
-  paymentOrders_aggregate?: RedemptionPaymentOrder_aggregate_order_by | null
+  orders_aggregate?: OraclePriceOrder_aggregate_order_by | null
   pendingRedemptionCOL?: order_by | null
   pendingRedemptionUSD?: order_by | null
   projectFees_aggregate?: ProjectFee_aggregate_order_by | null
@@ -8885,7 +8810,7 @@ export interface OraclePriceFM_order_by {
   reserveCOL?: order_by | null
   reserveUSD?: order_by | null
   sellFee?: order_by | null
-  swaps_aggregate?: Swap_aggregate_order_by | null
+  treasury?: order_by | null
   workflow?: Workflow_order_by | null
   workflow_id?: order_by | null
 }
@@ -8952,6 +8877,7 @@ export interface OraclePriceFM_stream_cursor_value_input {
   reserveCOL?: Scalars['numeric'] | null
   reserveUSD?: Scalars['numeric'] | null
   sellFee?: Scalars['numeric'] | null
+  treasury?: Scalars['String'] | null
   workflow_id?: Scalars['String'] | null
 }
 
@@ -9005,6 +8931,328 @@ export interface OraclePriceFM_variance_fieldsGenqlSelection {
   sellFee?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
+}
+
+/** columns and relationships of "OraclePriceOrder" */
+export interface OraclePriceOrderGenqlSelection {
+  amountCOL?: boolean | number
+  amountISS?: boolean | number
+  amountUSD?: boolean | number
+  chainId?: boolean | number
+  /** An object relationship */
+  collateralToken?: TokenGenqlSelection
+  collateralToken_id?: boolean | number
+  db_write_timestamp?: boolean | number
+  executedBy?: boolean | number
+  executedTimestamp?: boolean | number
+  id?: boolean | number
+  initiator?: boolean | number
+  /** An object relationship */
+  issuanceToken?: TokenGenqlSelection
+  issuanceToken_id?: boolean | number
+  /** An object relationship */
+  oraclePriceFM?: OraclePriceFMGenqlSelection
+  oraclePriceFM_id?: boolean | number
+  orderId?: boolean | number
+  orderType?: boolean | number
+  priceCOL?: boolean | number
+  priceUSD?: boolean | number
+  /** An object relationship */
+  projectFee?: ProjectFeeGenqlSelection
+  projectFee_id?: boolean | number
+  /** An object relationship */
+  protocolFee?: ProtocolFeeGenqlSelection
+  protocolFee_id?: boolean | number
+  recipient?: boolean | number
+  state?: boolean | number
+  swapType?: boolean | number
+  targetChainId?: boolean | number
+  timestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by aggregate values of table "OraclePriceOrder" */
+export interface OraclePriceOrder_aggregate_order_by {
+  avg?: OraclePriceOrder_avg_order_by | null
+  count?: order_by | null
+  max?: OraclePriceOrder_max_order_by | null
+  min?: OraclePriceOrder_min_order_by | null
+  stddev?: OraclePriceOrder_stddev_order_by | null
+  stddev_pop?: OraclePriceOrder_stddev_pop_order_by | null
+  stddev_samp?: OraclePriceOrder_stddev_samp_order_by | null
+  sum?: OraclePriceOrder_sum_order_by | null
+  var_pop?: OraclePriceOrder_var_pop_order_by | null
+  var_samp?: OraclePriceOrder_var_samp_order_by | null
+  variance?: OraclePriceOrder_variance_order_by | null
+}
+
+/** order by avg() on columns of table "OraclePriceOrder" */
+export interface OraclePriceOrder_avg_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  executedTimestamp?: order_by | null
+  orderId?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** Boolean expression to filter rows from the table "OraclePriceOrder". All fields are combined with a logical 'AND'. */
+export interface OraclePriceOrder_bool_exp {
+  _and?: OraclePriceOrder_bool_exp[] | null
+  _not?: OraclePriceOrder_bool_exp | null
+  _or?: OraclePriceOrder_bool_exp[] | null
+  amountCOL?: numeric_comparison_exp | null
+  amountISS?: numeric_comparison_exp | null
+  amountUSD?: numeric_comparison_exp | null
+  chainId?: Int_comparison_exp | null
+  collateralToken?: Token_bool_exp | null
+  collateralToken_id?: String_comparison_exp | null
+  db_write_timestamp?: timestamp_comparison_exp | null
+  executedBy?: String_comparison_exp | null
+  executedTimestamp?: Int_comparison_exp | null
+  id?: String_comparison_exp | null
+  initiator?: String_comparison_exp | null
+  issuanceToken?: Token_bool_exp | null
+  issuanceToken_id?: String_comparison_exp | null
+  oraclePriceFM?: OraclePriceFM_bool_exp | null
+  oraclePriceFM_id?: String_comparison_exp | null
+  orderId?: numeric_comparison_exp | null
+  orderType?: paymentordertype_comparison_exp | null
+  priceCOL?: numeric_comparison_exp | null
+  priceUSD?: numeric_comparison_exp | null
+  projectFee?: ProjectFee_bool_exp | null
+  projectFee_id?: String_comparison_exp | null
+  protocolFee?: ProtocolFee_bool_exp | null
+  protocolFee_id?: String_comparison_exp | null
+  recipient?: String_comparison_exp | null
+  state?: redemptionstate_comparison_exp | null
+  swapType?: swaptype_comparison_exp | null
+  targetChainId?: Int_comparison_exp | null
+  timestamp?: Int_comparison_exp | null
+}
+
+/** order by max() on columns of table "OraclePriceOrder" */
+export interface OraclePriceOrder_max_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  collateralToken_id?: order_by | null
+  db_write_timestamp?: order_by | null
+  executedBy?: order_by | null
+  executedTimestamp?: order_by | null
+  id?: order_by | null
+  initiator?: order_by | null
+  issuanceToken_id?: order_by | null
+  oraclePriceFM_id?: order_by | null
+  orderId?: order_by | null
+  orderType?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFee_id?: order_by | null
+  protocolFee_id?: order_by | null
+  recipient?: order_by | null
+  state?: order_by | null
+  swapType?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** order by min() on columns of table "OraclePriceOrder" */
+export interface OraclePriceOrder_min_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  collateralToken_id?: order_by | null
+  db_write_timestamp?: order_by | null
+  executedBy?: order_by | null
+  executedTimestamp?: order_by | null
+  id?: order_by | null
+  initiator?: order_by | null
+  issuanceToken_id?: order_by | null
+  oraclePriceFM_id?: order_by | null
+  orderId?: order_by | null
+  orderType?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFee_id?: order_by | null
+  protocolFee_id?: order_by | null
+  recipient?: order_by | null
+  state?: order_by | null
+  swapType?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** Ordering options when selecting data from "OraclePriceOrder". */
+export interface OraclePriceOrder_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  collateralToken?: Token_order_by | null
+  collateralToken_id?: order_by | null
+  db_write_timestamp?: order_by | null
+  executedBy?: order_by | null
+  executedTimestamp?: order_by | null
+  id?: order_by | null
+  initiator?: order_by | null
+  issuanceToken?: Token_order_by | null
+  issuanceToken_id?: order_by | null
+  oraclePriceFM?: OraclePriceFM_order_by | null
+  oraclePriceFM_id?: order_by | null
+  orderId?: order_by | null
+  orderType?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  projectFee?: ProjectFee_order_by | null
+  projectFee_id?: order_by | null
+  protocolFee?: ProtocolFee_order_by | null
+  protocolFee_id?: order_by | null
+  recipient?: order_by | null
+  state?: order_by | null
+  swapType?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** order by stddev() on columns of table "OraclePriceOrder" */
+export interface OraclePriceOrder_stddev_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  executedTimestamp?: order_by | null
+  orderId?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** order by stddev_pop() on columns of table "OraclePriceOrder" */
+export interface OraclePriceOrder_stddev_pop_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  executedTimestamp?: order_by | null
+  orderId?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** order by stddev_samp() on columns of table "OraclePriceOrder" */
+export interface OraclePriceOrder_stddev_samp_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  executedTimestamp?: order_by | null
+  orderId?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** Streaming cursor of the table "OraclePriceOrder" */
+export interface OraclePriceOrder_stream_cursor_input {
+  /** Stream column input with initial value */
+  initial_value: OraclePriceOrder_stream_cursor_value_input
+  /** cursor ordering */
+  ordering?: cursor_ordering | null
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface OraclePriceOrder_stream_cursor_value_input {
+  amountCOL?: Scalars['numeric'] | null
+  amountISS?: Scalars['numeric'] | null
+  amountUSD?: Scalars['numeric'] | null
+  chainId?: Scalars['Int'] | null
+  collateralToken_id?: Scalars['String'] | null
+  db_write_timestamp?: Scalars['timestamp'] | null
+  executedBy?: Scalars['String'] | null
+  executedTimestamp?: Scalars['Int'] | null
+  id?: Scalars['String'] | null
+  initiator?: Scalars['String'] | null
+  issuanceToken_id?: Scalars['String'] | null
+  oraclePriceFM_id?: Scalars['String'] | null
+  orderId?: Scalars['numeric'] | null
+  orderType?: Scalars['paymentordertype'] | null
+  priceCOL?: Scalars['numeric'] | null
+  priceUSD?: Scalars['numeric'] | null
+  projectFee_id?: Scalars['String'] | null
+  protocolFee_id?: Scalars['String'] | null
+  recipient?: Scalars['String'] | null
+  state?: Scalars['redemptionstate'] | null
+  swapType?: Scalars['swaptype'] | null
+  targetChainId?: Scalars['Int'] | null
+  timestamp?: Scalars['Int'] | null
+}
+
+/** order by sum() on columns of table "OraclePriceOrder" */
+export interface OraclePriceOrder_sum_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  executedTimestamp?: order_by | null
+  orderId?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** order by var_pop() on columns of table "OraclePriceOrder" */
+export interface OraclePriceOrder_var_pop_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  executedTimestamp?: order_by | null
+  orderId?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** order by var_samp() on columns of table "OraclePriceOrder" */
+export interface OraclePriceOrder_var_samp_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  executedTimestamp?: order_by | null
+  orderId?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** order by variance() on columns of table "OraclePriceOrder" */
+export interface OraclePriceOrder_variance_order_by {
+  amountCOL?: order_by | null
+  amountISS?: order_by | null
+  amountUSD?: order_by | null
+  chainId?: order_by | null
+  executedTimestamp?: order_by | null
+  orderId?: order_by | null
+  priceCOL?: order_by | null
+  priceUSD?: order_by | null
+  targetChainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** columns and relationships of "ProjectFee" */
@@ -9668,578 +9916,6 @@ export interface ProtocolFee_variance_order_by {
   amount?: order_by | null
   amountUSD?: order_by | null
   chainId?: order_by | null
-  timestamp?: order_by | null
-}
-
-/** columns and relationships of "RedemptionPaymentOrder" */
-export interface RedemptionPaymentOrderGenqlSelection {
-  amount?: boolean | number
-  amountUSD?: boolean | number
-  chainId?: boolean | number
-  data?: boolean | number
-  db_write_timestamp?: boolean | number
-  exchangeRate?: boolean | number
-  executedBy?: boolean | number
-  executedTimestamp?: boolean | number
-  fee?: boolean | number
-  feePercentage?: boolean | number
-  feeUSD?: boolean | number
-  flags?: boolean | number
-  id?: boolean | number
-  /** An object relationship */
-  oraclePriceFM?: OraclePriceFMGenqlSelection
-  oraclePriceFM_id?: boolean | number
-  orderId?: boolean | number
-  orderType?: boolean | number
-  originChainId?: boolean | number
-  recipient?: boolean | number
-  seller?: boolean | number
-  state?: boolean | number
-  targetChainId?: boolean | number
-  timestamp?: boolean | number
-  /** An object relationship */
-  token?: TokenGenqlSelection
-  token_id?: boolean | number
-  __typename?: boolean | number
-  __scalar?: boolean | number
-}
-
-/** aggregated selection of "RedemptionPaymentOrder" */
-export interface RedemptionPaymentOrder_aggregateGenqlSelection {
-  aggregate?: RedemptionPaymentOrder_aggregate_fieldsGenqlSelection
-  nodes?: RedemptionPaymentOrderGenqlSelection
-  __typename?: boolean | number
-  __scalar?: boolean | number
-}
-
-export interface RedemptionPaymentOrder_aggregate_bool_exp {
-  count?: RedemptionPaymentOrder_aggregate_bool_exp_count | null
-}
-
-export interface RedemptionPaymentOrder_aggregate_bool_exp_count {
-  arguments?: RedemptionPaymentOrder_select_column[] | null
-  distinct?: Scalars['Boolean'] | null
-  filter?: RedemptionPaymentOrder_bool_exp | null
-  predicate: Int_comparison_exp
-}
-
-/** aggregate fields of "RedemptionPaymentOrder" */
-export interface RedemptionPaymentOrder_aggregate_fieldsGenqlSelection {
-  avg?: RedemptionPaymentOrder_avg_fieldsGenqlSelection
-  count?:
-    | {
-        __args: {
-          columns?: RedemptionPaymentOrder_select_column[] | null
-          distinct?: Scalars['Boolean'] | null
-        }
-      }
-    | boolean
-    | number
-  max?: RedemptionPaymentOrder_max_fieldsGenqlSelection
-  min?: RedemptionPaymentOrder_min_fieldsGenqlSelection
-  stddev?: RedemptionPaymentOrder_stddev_fieldsGenqlSelection
-  stddev_pop?: RedemptionPaymentOrder_stddev_pop_fieldsGenqlSelection
-  stddev_samp?: RedemptionPaymentOrder_stddev_samp_fieldsGenqlSelection
-  sum?: RedemptionPaymentOrder_sum_fieldsGenqlSelection
-  var_pop?: RedemptionPaymentOrder_var_pop_fieldsGenqlSelection
-  var_samp?: RedemptionPaymentOrder_var_samp_fieldsGenqlSelection
-  variance?: RedemptionPaymentOrder_variance_fieldsGenqlSelection
-  __typename?: boolean | number
-  __scalar?: boolean | number
-}
-
-/** order by aggregate values of table "RedemptionPaymentOrder" */
-export interface RedemptionPaymentOrder_aggregate_order_by {
-  avg?: RedemptionPaymentOrder_avg_order_by | null
-  count?: order_by | null
-  max?: RedemptionPaymentOrder_max_order_by | null
-  min?: RedemptionPaymentOrder_min_order_by | null
-  stddev?: RedemptionPaymentOrder_stddev_order_by | null
-  stddev_pop?: RedemptionPaymentOrder_stddev_pop_order_by | null
-  stddev_samp?: RedemptionPaymentOrder_stddev_samp_order_by | null
-  sum?: RedemptionPaymentOrder_sum_order_by | null
-  var_pop?: RedemptionPaymentOrder_var_pop_order_by | null
-  var_samp?: RedemptionPaymentOrder_var_samp_order_by | null
-  variance?: RedemptionPaymentOrder_variance_order_by | null
-}
-
-/** aggregate avg on columns */
-export interface RedemptionPaymentOrder_avg_fieldsGenqlSelection {
-  amount?: boolean | number
-  amountUSD?: boolean | number
-  chainId?: boolean | number
-  exchangeRate?: boolean | number
-  executedTimestamp?: boolean | number
-  fee?: boolean | number
-  feePercentage?: boolean | number
-  feeUSD?: boolean | number
-  orderId?: boolean | number
-  originChainId?: boolean | number
-  targetChainId?: boolean | number
-  timestamp?: boolean | number
-  __typename?: boolean | number
-  __scalar?: boolean | number
-}
-
-/** order by avg() on columns of table "RedemptionPaymentOrder" */
-export interface RedemptionPaymentOrder_avg_order_by {
-  amount?: order_by | null
-  amountUSD?: order_by | null
-  chainId?: order_by | null
-  exchangeRate?: order_by | null
-  executedTimestamp?: order_by | null
-  fee?: order_by | null
-  feePercentage?: order_by | null
-  feeUSD?: order_by | null
-  orderId?: order_by | null
-  originChainId?: order_by | null
-  targetChainId?: order_by | null
-  timestamp?: order_by | null
-}
-
-/** Boolean expression to filter rows from the table "RedemptionPaymentOrder". All fields are combined with a logical 'AND'. */
-export interface RedemptionPaymentOrder_bool_exp {
-  _and?: RedemptionPaymentOrder_bool_exp[] | null
-  _not?: RedemptionPaymentOrder_bool_exp | null
-  _or?: RedemptionPaymentOrder_bool_exp[] | null
-  amount?: numeric_comparison_exp | null
-  amountUSD?: numeric_comparison_exp | null
-  chainId?: Int_comparison_exp | null
-  data?: String_array_comparison_exp | null
-  db_write_timestamp?: timestamp_comparison_exp | null
-  exchangeRate?: numeric_comparison_exp | null
-  executedBy?: String_comparison_exp | null
-  executedTimestamp?: Int_comparison_exp | null
-  fee?: numeric_comparison_exp | null
-  feePercentage?: numeric_comparison_exp | null
-  feeUSD?: numeric_comparison_exp | null
-  flags?: String_comparison_exp | null
-  id?: String_comparison_exp | null
-  oraclePriceFM?: OraclePriceFM_bool_exp | null
-  oraclePriceFM_id?: String_comparison_exp | null
-  orderId?: numeric_comparison_exp | null
-  orderType?: paymentordertype_comparison_exp | null
-  originChainId?: Int_comparison_exp | null
-  recipient?: String_comparison_exp | null
-  seller?: String_comparison_exp | null
-  state?: redemptionstate_comparison_exp | null
-  targetChainId?: Int_comparison_exp | null
-  timestamp?: Int_comparison_exp | null
-  token?: Token_bool_exp | null
-  token_id?: String_comparison_exp | null
-}
-
-/** aggregate max on columns */
-export interface RedemptionPaymentOrder_max_fieldsGenqlSelection {
-  amount?: boolean | number
-  amountUSD?: boolean | number
-  chainId?: boolean | number
-  data?: boolean | number
-  db_write_timestamp?: boolean | number
-  exchangeRate?: boolean | number
-  executedBy?: boolean | number
-  executedTimestamp?: boolean | number
-  fee?: boolean | number
-  feePercentage?: boolean | number
-  feeUSD?: boolean | number
-  flags?: boolean | number
-  id?: boolean | number
-  oraclePriceFM_id?: boolean | number
-  orderId?: boolean | number
-  orderType?: boolean | number
-  originChainId?: boolean | number
-  recipient?: boolean | number
-  seller?: boolean | number
-  state?: boolean | number
-  targetChainId?: boolean | number
-  timestamp?: boolean | number
-  token_id?: boolean | number
-  __typename?: boolean | number
-  __scalar?: boolean | number
-}
-
-/** order by max() on columns of table "RedemptionPaymentOrder" */
-export interface RedemptionPaymentOrder_max_order_by {
-  amount?: order_by | null
-  amountUSD?: order_by | null
-  chainId?: order_by | null
-  data?: order_by | null
-  db_write_timestamp?: order_by | null
-  exchangeRate?: order_by | null
-  executedBy?: order_by | null
-  executedTimestamp?: order_by | null
-  fee?: order_by | null
-  feePercentage?: order_by | null
-  feeUSD?: order_by | null
-  flags?: order_by | null
-  id?: order_by | null
-  oraclePriceFM_id?: order_by | null
-  orderId?: order_by | null
-  orderType?: order_by | null
-  originChainId?: order_by | null
-  recipient?: order_by | null
-  seller?: order_by | null
-  state?: order_by | null
-  targetChainId?: order_by | null
-  timestamp?: order_by | null
-  token_id?: order_by | null
-}
-
-/** aggregate min on columns */
-export interface RedemptionPaymentOrder_min_fieldsGenqlSelection {
-  amount?: boolean | number
-  amountUSD?: boolean | number
-  chainId?: boolean | number
-  data?: boolean | number
-  db_write_timestamp?: boolean | number
-  exchangeRate?: boolean | number
-  executedBy?: boolean | number
-  executedTimestamp?: boolean | number
-  fee?: boolean | number
-  feePercentage?: boolean | number
-  feeUSD?: boolean | number
-  flags?: boolean | number
-  id?: boolean | number
-  oraclePriceFM_id?: boolean | number
-  orderId?: boolean | number
-  orderType?: boolean | number
-  originChainId?: boolean | number
-  recipient?: boolean | number
-  seller?: boolean | number
-  state?: boolean | number
-  targetChainId?: boolean | number
-  timestamp?: boolean | number
-  token_id?: boolean | number
-  __typename?: boolean | number
-  __scalar?: boolean | number
-}
-
-/** order by min() on columns of table "RedemptionPaymentOrder" */
-export interface RedemptionPaymentOrder_min_order_by {
-  amount?: order_by | null
-  amountUSD?: order_by | null
-  chainId?: order_by | null
-  data?: order_by | null
-  db_write_timestamp?: order_by | null
-  exchangeRate?: order_by | null
-  executedBy?: order_by | null
-  executedTimestamp?: order_by | null
-  fee?: order_by | null
-  feePercentage?: order_by | null
-  feeUSD?: order_by | null
-  flags?: order_by | null
-  id?: order_by | null
-  oraclePriceFM_id?: order_by | null
-  orderId?: order_by | null
-  orderType?: order_by | null
-  originChainId?: order_by | null
-  recipient?: order_by | null
-  seller?: order_by | null
-  state?: order_by | null
-  targetChainId?: order_by | null
-  timestamp?: order_by | null
-  token_id?: order_by | null
-}
-
-/** Ordering options when selecting data from "RedemptionPaymentOrder". */
-export interface RedemptionPaymentOrder_order_by {
-  amount?: order_by | null
-  amountUSD?: order_by | null
-  chainId?: order_by | null
-  data?: order_by | null
-  db_write_timestamp?: order_by | null
-  exchangeRate?: order_by | null
-  executedBy?: order_by | null
-  executedTimestamp?: order_by | null
-  fee?: order_by | null
-  feePercentage?: order_by | null
-  feeUSD?: order_by | null
-  flags?: order_by | null
-  id?: order_by | null
-  oraclePriceFM?: OraclePriceFM_order_by | null
-  oraclePriceFM_id?: order_by | null
-  orderId?: order_by | null
-  orderType?: order_by | null
-  originChainId?: order_by | null
-  recipient?: order_by | null
-  seller?: order_by | null
-  state?: order_by | null
-  targetChainId?: order_by | null
-  timestamp?: order_by | null
-  token?: Token_order_by | null
-  token_id?: order_by | null
-}
-
-/** aggregate stddev on columns */
-export interface RedemptionPaymentOrder_stddev_fieldsGenqlSelection {
-  amount?: boolean | number
-  amountUSD?: boolean | number
-  chainId?: boolean | number
-  exchangeRate?: boolean | number
-  executedTimestamp?: boolean | number
-  fee?: boolean | number
-  feePercentage?: boolean | number
-  feeUSD?: boolean | number
-  orderId?: boolean | number
-  originChainId?: boolean | number
-  targetChainId?: boolean | number
-  timestamp?: boolean | number
-  __typename?: boolean | number
-  __scalar?: boolean | number
-}
-
-/** order by stddev() on columns of table "RedemptionPaymentOrder" */
-export interface RedemptionPaymentOrder_stddev_order_by {
-  amount?: order_by | null
-  amountUSD?: order_by | null
-  chainId?: order_by | null
-  exchangeRate?: order_by | null
-  executedTimestamp?: order_by | null
-  fee?: order_by | null
-  feePercentage?: order_by | null
-  feeUSD?: order_by | null
-  orderId?: order_by | null
-  originChainId?: order_by | null
-  targetChainId?: order_by | null
-  timestamp?: order_by | null
-}
-
-/** aggregate stddev_pop on columns */
-export interface RedemptionPaymentOrder_stddev_pop_fieldsGenqlSelection {
-  amount?: boolean | number
-  amountUSD?: boolean | number
-  chainId?: boolean | number
-  exchangeRate?: boolean | number
-  executedTimestamp?: boolean | number
-  fee?: boolean | number
-  feePercentage?: boolean | number
-  feeUSD?: boolean | number
-  orderId?: boolean | number
-  originChainId?: boolean | number
-  targetChainId?: boolean | number
-  timestamp?: boolean | number
-  __typename?: boolean | number
-  __scalar?: boolean | number
-}
-
-/** order by stddev_pop() on columns of table "RedemptionPaymentOrder" */
-export interface RedemptionPaymentOrder_stddev_pop_order_by {
-  amount?: order_by | null
-  amountUSD?: order_by | null
-  chainId?: order_by | null
-  exchangeRate?: order_by | null
-  executedTimestamp?: order_by | null
-  fee?: order_by | null
-  feePercentage?: order_by | null
-  feeUSD?: order_by | null
-  orderId?: order_by | null
-  originChainId?: order_by | null
-  targetChainId?: order_by | null
-  timestamp?: order_by | null
-}
-
-/** aggregate stddev_samp on columns */
-export interface RedemptionPaymentOrder_stddev_samp_fieldsGenqlSelection {
-  amount?: boolean | number
-  amountUSD?: boolean | number
-  chainId?: boolean | number
-  exchangeRate?: boolean | number
-  executedTimestamp?: boolean | number
-  fee?: boolean | number
-  feePercentage?: boolean | number
-  feeUSD?: boolean | number
-  orderId?: boolean | number
-  originChainId?: boolean | number
-  targetChainId?: boolean | number
-  timestamp?: boolean | number
-  __typename?: boolean | number
-  __scalar?: boolean | number
-}
-
-/** order by stddev_samp() on columns of table "RedemptionPaymentOrder" */
-export interface RedemptionPaymentOrder_stddev_samp_order_by {
-  amount?: order_by | null
-  amountUSD?: order_by | null
-  chainId?: order_by | null
-  exchangeRate?: order_by | null
-  executedTimestamp?: order_by | null
-  fee?: order_by | null
-  feePercentage?: order_by | null
-  feeUSD?: order_by | null
-  orderId?: order_by | null
-  originChainId?: order_by | null
-  targetChainId?: order_by | null
-  timestamp?: order_by | null
-}
-
-/** Streaming cursor of the table "RedemptionPaymentOrder" */
-export interface RedemptionPaymentOrder_stream_cursor_input {
-  /** Stream column input with initial value */
-  initial_value: RedemptionPaymentOrder_stream_cursor_value_input
-  /** cursor ordering */
-  ordering?: cursor_ordering | null
-}
-
-/** Initial value of the column from where the streaming should start */
-export interface RedemptionPaymentOrder_stream_cursor_value_input {
-  amount?: Scalars['numeric'] | null
-  amountUSD?: Scalars['numeric'] | null
-  chainId?: Scalars['Int'] | null
-  data?: Scalars['String'][] | null
-  db_write_timestamp?: Scalars['timestamp'] | null
-  exchangeRate?: Scalars['numeric'] | null
-  executedBy?: Scalars['String'] | null
-  executedTimestamp?: Scalars['Int'] | null
-  fee?: Scalars['numeric'] | null
-  feePercentage?: Scalars['numeric'] | null
-  feeUSD?: Scalars['numeric'] | null
-  flags?: Scalars['String'] | null
-  id?: Scalars['String'] | null
-  oraclePriceFM_id?: Scalars['String'] | null
-  orderId?: Scalars['numeric'] | null
-  orderType?: Scalars['paymentordertype'] | null
-  originChainId?: Scalars['Int'] | null
-  recipient?: Scalars['String'] | null
-  seller?: Scalars['String'] | null
-  state?: Scalars['redemptionstate'] | null
-  targetChainId?: Scalars['Int'] | null
-  timestamp?: Scalars['Int'] | null
-  token_id?: Scalars['String'] | null
-}
-
-/** aggregate sum on columns */
-export interface RedemptionPaymentOrder_sum_fieldsGenqlSelection {
-  amount?: boolean | number
-  amountUSD?: boolean | number
-  chainId?: boolean | number
-  exchangeRate?: boolean | number
-  executedTimestamp?: boolean | number
-  fee?: boolean | number
-  feePercentage?: boolean | number
-  feeUSD?: boolean | number
-  orderId?: boolean | number
-  originChainId?: boolean | number
-  targetChainId?: boolean | number
-  timestamp?: boolean | number
-  __typename?: boolean | number
-  __scalar?: boolean | number
-}
-
-/** order by sum() on columns of table "RedemptionPaymentOrder" */
-export interface RedemptionPaymentOrder_sum_order_by {
-  amount?: order_by | null
-  amountUSD?: order_by | null
-  chainId?: order_by | null
-  exchangeRate?: order_by | null
-  executedTimestamp?: order_by | null
-  fee?: order_by | null
-  feePercentage?: order_by | null
-  feeUSD?: order_by | null
-  orderId?: order_by | null
-  originChainId?: order_by | null
-  targetChainId?: order_by | null
-  timestamp?: order_by | null
-}
-
-/** aggregate var_pop on columns */
-export interface RedemptionPaymentOrder_var_pop_fieldsGenqlSelection {
-  amount?: boolean | number
-  amountUSD?: boolean | number
-  chainId?: boolean | number
-  exchangeRate?: boolean | number
-  executedTimestamp?: boolean | number
-  fee?: boolean | number
-  feePercentage?: boolean | number
-  feeUSD?: boolean | number
-  orderId?: boolean | number
-  originChainId?: boolean | number
-  targetChainId?: boolean | number
-  timestamp?: boolean | number
-  __typename?: boolean | number
-  __scalar?: boolean | number
-}
-
-/** order by var_pop() on columns of table "RedemptionPaymentOrder" */
-export interface RedemptionPaymentOrder_var_pop_order_by {
-  amount?: order_by | null
-  amountUSD?: order_by | null
-  chainId?: order_by | null
-  exchangeRate?: order_by | null
-  executedTimestamp?: order_by | null
-  fee?: order_by | null
-  feePercentage?: order_by | null
-  feeUSD?: order_by | null
-  orderId?: order_by | null
-  originChainId?: order_by | null
-  targetChainId?: order_by | null
-  timestamp?: order_by | null
-}
-
-/** aggregate var_samp on columns */
-export interface RedemptionPaymentOrder_var_samp_fieldsGenqlSelection {
-  amount?: boolean | number
-  amountUSD?: boolean | number
-  chainId?: boolean | number
-  exchangeRate?: boolean | number
-  executedTimestamp?: boolean | number
-  fee?: boolean | number
-  feePercentage?: boolean | number
-  feeUSD?: boolean | number
-  orderId?: boolean | number
-  originChainId?: boolean | number
-  targetChainId?: boolean | number
-  timestamp?: boolean | number
-  __typename?: boolean | number
-  __scalar?: boolean | number
-}
-
-/** order by var_samp() on columns of table "RedemptionPaymentOrder" */
-export interface RedemptionPaymentOrder_var_samp_order_by {
-  amount?: order_by | null
-  amountUSD?: order_by | null
-  chainId?: order_by | null
-  exchangeRate?: order_by | null
-  executedTimestamp?: order_by | null
-  fee?: order_by | null
-  feePercentage?: order_by | null
-  feeUSD?: order_by | null
-  orderId?: order_by | null
-  originChainId?: order_by | null
-  targetChainId?: order_by | null
-  timestamp?: order_by | null
-}
-
-/** aggregate variance on columns */
-export interface RedemptionPaymentOrder_variance_fieldsGenqlSelection {
-  amount?: boolean | number
-  amountUSD?: boolean | number
-  chainId?: boolean | number
-  exchangeRate?: boolean | number
-  executedTimestamp?: boolean | number
-  fee?: boolean | number
-  feePercentage?: boolean | number
-  feeUSD?: boolean | number
-  orderId?: boolean | number
-  originChainId?: boolean | number
-  targetChainId?: boolean | number
-  timestamp?: boolean | number
-  __typename?: boolean | number
-  __scalar?: boolean | number
-}
-
-/** order by variance() on columns of table "RedemptionPaymentOrder" */
-export interface RedemptionPaymentOrder_variance_order_by {
-  amount?: order_by | null
-  amountUSD?: order_by | null
-  chainId?: order_by | null
-  exchangeRate?: order_by | null
-  executedTimestamp?: order_by | null
-  fee?: order_by | null
-  feePercentage?: order_by | null
-  feeUSD?: order_by | null
-  orderId?: order_by | null
-  originChainId?: order_by | null
-  targetChainId?: order_by | null
   timestamp?: order_by | null
 }
 
@@ -12256,6 +11932,25 @@ export interface query_rootGenqlSelection {
   OraclePriceFM_by_pk?: OraclePriceFMGenqlSelection & {
     __args: { id: Scalars['String'] }
   }
+  /** fetch data from the table: "OraclePriceOrder" */
+  OraclePriceOrder?: OraclePriceOrderGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: OraclePriceOrder_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: OraclePriceOrder_order_by[] | null
+      /** filter the rows returned */
+      where?: OraclePriceOrder_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "OraclePriceOrder" using primary key columns */
+  OraclePriceOrder_by_pk?: OraclePriceOrderGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
   /** fetch data from the table: "ProjectFee" */
   ProjectFee?: ProjectFeeGenqlSelection & {
     __args?: {
@@ -12322,40 +12017,6 @@ export interface query_rootGenqlSelection {
   }
   /** fetch data from the table: "ProtocolFee" using primary key columns */
   ProtocolFee_by_pk?: ProtocolFeeGenqlSelection & {
-    __args: { id: Scalars['String'] }
-  }
-  /** fetch data from the table: "RedemptionPaymentOrder" */
-  RedemptionPaymentOrder?: RedemptionPaymentOrderGenqlSelection & {
-    __args?: {
-      /** distinct select on columns */
-      distinct_on?: RedemptionPaymentOrder_select_column[] | null
-      /** limit the number of rows returned */
-      limit?: Scalars['Int'] | null
-      /** skip the first n rows. Use only with order_by */
-      offset?: Scalars['Int'] | null
-      /** sort the rows by one or more columns */
-      order_by?: RedemptionPaymentOrder_order_by[] | null
-      /** filter the rows returned */
-      where?: RedemptionPaymentOrder_bool_exp | null
-    }
-  }
-  /** fetch aggregated fields from the table: "RedemptionPaymentOrder" */
-  RedemptionPaymentOrder_aggregate?: RedemptionPaymentOrder_aggregateGenqlSelection & {
-    __args?: {
-      /** distinct select on columns */
-      distinct_on?: RedemptionPaymentOrder_select_column[] | null
-      /** limit the number of rows returned */
-      limit?: Scalars['Int'] | null
-      /** skip the first n rows. Use only with order_by */
-      offset?: Scalars['Int'] | null
-      /** sort the rows by one or more columns */
-      order_by?: RedemptionPaymentOrder_order_by[] | null
-      /** filter the rows returned */
-      where?: RedemptionPaymentOrder_bool_exp | null
-    }
-  }
-  /** fetch data from the table: "RedemptionPaymentOrder" using primary key columns */
-  RedemptionPaymentOrder_by_pk?: RedemptionPaymentOrderGenqlSelection & {
     __args: { id: Scalars['String'] }
   }
   /** fetch data from the table: "Role" */
@@ -13397,6 +13058,36 @@ export interface subscription_rootGenqlSelection {
       where?: OraclePriceFM_bool_exp | null
     }
   }
+  /** fetch data from the table: "OraclePriceOrder" */
+  OraclePriceOrder?: OraclePriceOrderGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: OraclePriceOrder_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: OraclePriceOrder_order_by[] | null
+      /** filter the rows returned */
+      where?: OraclePriceOrder_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "OraclePriceOrder" using primary key columns */
+  OraclePriceOrder_by_pk?: OraclePriceOrderGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table in a streaming manner: "OraclePriceOrder" */
+  OraclePriceOrder_stream?: OraclePriceOrderGenqlSelection & {
+    __args: {
+      /** maximum number of rows returned in a single batch */
+      batch_size: Scalars['Int']
+      /** cursor to stream the results returned by the query */
+      cursor: (OraclePriceOrder_stream_cursor_input | null)[]
+      /** filter the rows returned */
+      where?: OraclePriceOrder_bool_exp | null
+    }
+  }
   /** fetch data from the table: "ProjectFee" */
   ProjectFee?: ProjectFeeGenqlSelection & {
     __args?: {
@@ -13485,51 +13176,6 @@ export interface subscription_rootGenqlSelection {
       cursor: (ProtocolFee_stream_cursor_input | null)[]
       /** filter the rows returned */
       where?: ProtocolFee_bool_exp | null
-    }
-  }
-  /** fetch data from the table: "RedemptionPaymentOrder" */
-  RedemptionPaymentOrder?: RedemptionPaymentOrderGenqlSelection & {
-    __args?: {
-      /** distinct select on columns */
-      distinct_on?: RedemptionPaymentOrder_select_column[] | null
-      /** limit the number of rows returned */
-      limit?: Scalars['Int'] | null
-      /** skip the first n rows. Use only with order_by */
-      offset?: Scalars['Int'] | null
-      /** sort the rows by one or more columns */
-      order_by?: RedemptionPaymentOrder_order_by[] | null
-      /** filter the rows returned */
-      where?: RedemptionPaymentOrder_bool_exp | null
-    }
-  }
-  /** fetch aggregated fields from the table: "RedemptionPaymentOrder" */
-  RedemptionPaymentOrder_aggregate?: RedemptionPaymentOrder_aggregateGenqlSelection & {
-    __args?: {
-      /** distinct select on columns */
-      distinct_on?: RedemptionPaymentOrder_select_column[] | null
-      /** limit the number of rows returned */
-      limit?: Scalars['Int'] | null
-      /** skip the first n rows. Use only with order_by */
-      offset?: Scalars['Int'] | null
-      /** sort the rows by one or more columns */
-      order_by?: RedemptionPaymentOrder_order_by[] | null
-      /** filter the rows returned */
-      where?: RedemptionPaymentOrder_bool_exp | null
-    }
-  }
-  /** fetch data from the table: "RedemptionPaymentOrder" using primary key columns */
-  RedemptionPaymentOrder_by_pk?: RedemptionPaymentOrderGenqlSelection & {
-    __args: { id: Scalars['String'] }
-  }
-  /** fetch data from the table in a streaming manner: "RedemptionPaymentOrder" */
-  RedemptionPaymentOrder_stream?: RedemptionPaymentOrderGenqlSelection & {
-    __args: {
-      /** maximum number of rows returned in a single batch */
-      batch_size: Scalars['Int']
-      /** cursor to stream the results returned by the query */
-      cursor: (RedemptionPaymentOrder_stream_cursor_input | null)[]
-      /** filter the rows returned */
-      where?: RedemptionPaymentOrder_bool_exp | null
     }
   }
   /** fetch data from the table: "Role" */
@@ -15483,6 +15129,15 @@ export const isOraclePriceFM_variance_fields = (
   return OraclePriceFM_variance_fields_possibleTypes.includes(obj.__typename)
 }
 
+const OraclePriceOrder_possibleTypes: string[] = ['OraclePriceOrder']
+export const isOraclePriceOrder = (
+  obj?: { __typename?: any } | null
+): obj is OraclePriceOrder => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isOraclePriceOrder"')
+  return OraclePriceOrder_possibleTypes.includes(obj.__typename)
+}
+
 const ProjectFee_possibleTypes: string[] = ['ProjectFee']
 export const isProjectFee = (
   obj?: { __typename?: any } | null
@@ -15757,195 +15412,6 @@ export const isProtocolFee_variance_fields = (
   if (!obj?.__typename)
     throw new Error('__typename is missing in "isProtocolFee_variance_fields"')
   return ProtocolFee_variance_fields_possibleTypes.includes(obj.__typename)
-}
-
-const RedemptionPaymentOrder_possibleTypes: string[] = [
-  'RedemptionPaymentOrder',
-]
-export const isRedemptionPaymentOrder = (
-  obj?: { __typename?: any } | null
-): obj is RedemptionPaymentOrder => {
-  if (!obj?.__typename)
-    throw new Error('__typename is missing in "isRedemptionPaymentOrder"')
-  return RedemptionPaymentOrder_possibleTypes.includes(obj.__typename)
-}
-
-const RedemptionPaymentOrder_aggregate_possibleTypes: string[] = [
-  'RedemptionPaymentOrder_aggregate',
-]
-export const isRedemptionPaymentOrder_aggregate = (
-  obj?: { __typename?: any } | null
-): obj is RedemptionPaymentOrder_aggregate => {
-  if (!obj?.__typename)
-    throw new Error(
-      '__typename is missing in "isRedemptionPaymentOrder_aggregate"'
-    )
-  return RedemptionPaymentOrder_aggregate_possibleTypes.includes(obj.__typename)
-}
-
-const RedemptionPaymentOrder_aggregate_fields_possibleTypes: string[] = [
-  'RedemptionPaymentOrder_aggregate_fields',
-]
-export const isRedemptionPaymentOrder_aggregate_fields = (
-  obj?: { __typename?: any } | null
-): obj is RedemptionPaymentOrder_aggregate_fields => {
-  if (!obj?.__typename)
-    throw new Error(
-      '__typename is missing in "isRedemptionPaymentOrder_aggregate_fields"'
-    )
-  return RedemptionPaymentOrder_aggregate_fields_possibleTypes.includes(
-    obj.__typename
-  )
-}
-
-const RedemptionPaymentOrder_avg_fields_possibleTypes: string[] = [
-  'RedemptionPaymentOrder_avg_fields',
-]
-export const isRedemptionPaymentOrder_avg_fields = (
-  obj?: { __typename?: any } | null
-): obj is RedemptionPaymentOrder_avg_fields => {
-  if (!obj?.__typename)
-    throw new Error(
-      '__typename is missing in "isRedemptionPaymentOrder_avg_fields"'
-    )
-  return RedemptionPaymentOrder_avg_fields_possibleTypes.includes(
-    obj.__typename
-  )
-}
-
-const RedemptionPaymentOrder_max_fields_possibleTypes: string[] = [
-  'RedemptionPaymentOrder_max_fields',
-]
-export const isRedemptionPaymentOrder_max_fields = (
-  obj?: { __typename?: any } | null
-): obj is RedemptionPaymentOrder_max_fields => {
-  if (!obj?.__typename)
-    throw new Error(
-      '__typename is missing in "isRedemptionPaymentOrder_max_fields"'
-    )
-  return RedemptionPaymentOrder_max_fields_possibleTypes.includes(
-    obj.__typename
-  )
-}
-
-const RedemptionPaymentOrder_min_fields_possibleTypes: string[] = [
-  'RedemptionPaymentOrder_min_fields',
-]
-export const isRedemptionPaymentOrder_min_fields = (
-  obj?: { __typename?: any } | null
-): obj is RedemptionPaymentOrder_min_fields => {
-  if (!obj?.__typename)
-    throw new Error(
-      '__typename is missing in "isRedemptionPaymentOrder_min_fields"'
-    )
-  return RedemptionPaymentOrder_min_fields_possibleTypes.includes(
-    obj.__typename
-  )
-}
-
-const RedemptionPaymentOrder_stddev_fields_possibleTypes: string[] = [
-  'RedemptionPaymentOrder_stddev_fields',
-]
-export const isRedemptionPaymentOrder_stddev_fields = (
-  obj?: { __typename?: any } | null
-): obj is RedemptionPaymentOrder_stddev_fields => {
-  if (!obj?.__typename)
-    throw new Error(
-      '__typename is missing in "isRedemptionPaymentOrder_stddev_fields"'
-    )
-  return RedemptionPaymentOrder_stddev_fields_possibleTypes.includes(
-    obj.__typename
-  )
-}
-
-const RedemptionPaymentOrder_stddev_pop_fields_possibleTypes: string[] = [
-  'RedemptionPaymentOrder_stddev_pop_fields',
-]
-export const isRedemptionPaymentOrder_stddev_pop_fields = (
-  obj?: { __typename?: any } | null
-): obj is RedemptionPaymentOrder_stddev_pop_fields => {
-  if (!obj?.__typename)
-    throw new Error(
-      '__typename is missing in "isRedemptionPaymentOrder_stddev_pop_fields"'
-    )
-  return RedemptionPaymentOrder_stddev_pop_fields_possibleTypes.includes(
-    obj.__typename
-  )
-}
-
-const RedemptionPaymentOrder_stddev_samp_fields_possibleTypes: string[] = [
-  'RedemptionPaymentOrder_stddev_samp_fields',
-]
-export const isRedemptionPaymentOrder_stddev_samp_fields = (
-  obj?: { __typename?: any } | null
-): obj is RedemptionPaymentOrder_stddev_samp_fields => {
-  if (!obj?.__typename)
-    throw new Error(
-      '__typename is missing in "isRedemptionPaymentOrder_stddev_samp_fields"'
-    )
-  return RedemptionPaymentOrder_stddev_samp_fields_possibleTypes.includes(
-    obj.__typename
-  )
-}
-
-const RedemptionPaymentOrder_sum_fields_possibleTypes: string[] = [
-  'RedemptionPaymentOrder_sum_fields',
-]
-export const isRedemptionPaymentOrder_sum_fields = (
-  obj?: { __typename?: any } | null
-): obj is RedemptionPaymentOrder_sum_fields => {
-  if (!obj?.__typename)
-    throw new Error(
-      '__typename is missing in "isRedemptionPaymentOrder_sum_fields"'
-    )
-  return RedemptionPaymentOrder_sum_fields_possibleTypes.includes(
-    obj.__typename
-  )
-}
-
-const RedemptionPaymentOrder_var_pop_fields_possibleTypes: string[] = [
-  'RedemptionPaymentOrder_var_pop_fields',
-]
-export const isRedemptionPaymentOrder_var_pop_fields = (
-  obj?: { __typename?: any } | null
-): obj is RedemptionPaymentOrder_var_pop_fields => {
-  if (!obj?.__typename)
-    throw new Error(
-      '__typename is missing in "isRedemptionPaymentOrder_var_pop_fields"'
-    )
-  return RedemptionPaymentOrder_var_pop_fields_possibleTypes.includes(
-    obj.__typename
-  )
-}
-
-const RedemptionPaymentOrder_var_samp_fields_possibleTypes: string[] = [
-  'RedemptionPaymentOrder_var_samp_fields',
-]
-export const isRedemptionPaymentOrder_var_samp_fields = (
-  obj?: { __typename?: any } | null
-): obj is RedemptionPaymentOrder_var_samp_fields => {
-  if (!obj?.__typename)
-    throw new Error(
-      '__typename is missing in "isRedemptionPaymentOrder_var_samp_fields"'
-    )
-  return RedemptionPaymentOrder_var_samp_fields_possibleTypes.includes(
-    obj.__typename
-  )
-}
-
-const RedemptionPaymentOrder_variance_fields_possibleTypes: string[] = [
-  'RedemptionPaymentOrder_variance_fields',
-]
-export const isRedemptionPaymentOrder_variance_fields = (
-  obj?: { __typename?: any } | null
-): obj is RedemptionPaymentOrder_variance_fields => {
-  if (!obj?.__typename)
-    throw new Error(
-      '__typename is missing in "isRedemptionPaymentOrder_variance_fields"'
-    )
-  return RedemptionPaymentOrder_variance_fields_possibleTypes.includes(
-    obj.__typename
-  )
 }
 
 const Role_possibleTypes: string[] = ['Role']
@@ -16495,10 +15961,8 @@ export const enumExternalPriceSetterSelectColumn = {
   collateralToken_id: 'collateralToken_id' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
   id: 'id' as const,
-  issuanceToken_id: 'issuanceToken_id' as const,
   priceCOL: 'priceCOL' as const,
   priceISS: 'priceISS' as const,
-  priceUSD: 'priceUSD' as const,
   workflow_id: 'workflow_id' as const,
 }
 
@@ -16511,6 +15975,7 @@ export const enumIssuanceTokenDayDataSelectColumn = {
   highUSD: 'highUSD' as const,
   id: 'id' as const,
   lowUSD: 'lowUSD' as const,
+  module_id: 'module_id' as const,
   openUSD: 'openUSD' as const,
   priceUSD: 'priceUSD' as const,
   projectFeeUSD: 'projectFeeUSD' as const,
@@ -16529,6 +15994,7 @@ export const enumIssuanceTokenHourDataSelectColumn = {
   highUSD: 'highUSD' as const,
   id: 'id' as const,
   lowUSD: 'lowUSD' as const,
+  module_id: 'module_id' as const,
   openUSD: 'openUSD' as const,
   periodStartUnix: 'periodStartUnix' as const,
   priceUSD: 'priceUSD' as const,
@@ -16569,7 +16035,34 @@ export const enumOraclePriceFmSelectColumn = {
   reserveCOL: 'reserveCOL' as const,
   reserveUSD: 'reserveUSD' as const,
   sellFee: 'sellFee' as const,
+  treasury: 'treasury' as const,
   workflow_id: 'workflow_id' as const,
+}
+
+export const enumOraclePriceOrderSelectColumn = {
+  amountCOL: 'amountCOL' as const,
+  amountISS: 'amountISS' as const,
+  amountUSD: 'amountUSD' as const,
+  chainId: 'chainId' as const,
+  collateralToken_id: 'collateralToken_id' as const,
+  db_write_timestamp: 'db_write_timestamp' as const,
+  executedBy: 'executedBy' as const,
+  executedTimestamp: 'executedTimestamp' as const,
+  id: 'id' as const,
+  initiator: 'initiator' as const,
+  issuanceToken_id: 'issuanceToken_id' as const,
+  oraclePriceFM_id: 'oraclePriceFM_id' as const,
+  orderId: 'orderId' as const,
+  orderType: 'orderType' as const,
+  priceCOL: 'priceCOL' as const,
+  priceUSD: 'priceUSD' as const,
+  projectFee_id: 'projectFee_id' as const,
+  protocolFee_id: 'protocolFee_id' as const,
+  recipient: 'recipient' as const,
+  state: 'state' as const,
+  swapType: 'swapType' as const,
+  targetChainId: 'targetChainId' as const,
+  timestamp: 'timestamp' as const,
 }
 
 export const enumProjectFeeSelectColumn = {
@@ -16595,32 +16088,6 @@ export const enumProtocolFeeSelectColumn = {
   timestamp: 'timestamp' as const,
   token_id: 'token_id' as const,
   treasury: 'treasury' as const,
-}
-
-export const enumRedemptionPaymentOrderSelectColumn = {
-  amount: 'amount' as const,
-  amountUSD: 'amountUSD' as const,
-  chainId: 'chainId' as const,
-  data: 'data' as const,
-  db_write_timestamp: 'db_write_timestamp' as const,
-  exchangeRate: 'exchangeRate' as const,
-  executedBy: 'executedBy' as const,
-  executedTimestamp: 'executedTimestamp' as const,
-  fee: 'fee' as const,
-  feePercentage: 'feePercentage' as const,
-  feeUSD: 'feeUSD' as const,
-  flags: 'flags' as const,
-  id: 'id' as const,
-  oraclePriceFM_id: 'oraclePriceFM_id' as const,
-  orderId: 'orderId' as const,
-  orderType: 'orderType' as const,
-  originChainId: 'originChainId' as const,
-  recipient: 'recipient' as const,
-  seller: 'seller' as const,
-  state: 'state' as const,
-  targetChainId: 'targetChainId' as const,
-  timestamp: 'timestamp' as const,
-  token_id: 'token_id' as const,
 }
 
 export const enumRoleSelectColumn = {

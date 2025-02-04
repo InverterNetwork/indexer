@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.9](https://github.com/InverterNetwork/indexer/compare/v0.9.8...v0.9.9) (2025-02-04)
+
+
+### Bug Fixes
+
+* redemptionState ([540e65c](https://github.com/InverterNetwork/indexer/commit/540e65cc06113f2849e384692ed243feddd0792b))
+* swap and payment order schema with fees ([3d56ff4](https://github.com/InverterNetwork/indexer/commit/3d56ff4d3f5f0de9e9fff1a20c90bf4f3bb9992b))
+
 ### [0.9.8](https://github.com/InverterNetwork/indexer/compare/v0.9.7...v0.9.8) (2025-02-02)
 
 ### [0.9.7](https://github.com/InverterNetwork/indexer/compare/v0.9.6...v0.9.7) (2025-02-02)

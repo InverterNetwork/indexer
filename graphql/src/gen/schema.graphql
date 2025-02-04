@@ -3903,13 +3903,8 @@ type ExternalPriceSetter {
   collateralToken_id: String!
   db_write_timestamp: timestamp
   id: String!
-
-  """An object relationship"""
-  issuanceToken: Token
-  issuanceToken_id: String!
   priceCOL: numeric!
   priceISS: numeric!
-  priceUSD: numeric!
 
   """An object relationship"""
   workflow: Workflow
@@ -3929,11 +3924,8 @@ input ExternalPriceSetter_bool_exp {
   collateralToken_id: String_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
   id: String_comparison_exp
-  issuanceToken: Token_bool_exp
-  issuanceToken_id: String_comparison_exp
   priceCOL: numeric_comparison_exp
   priceISS: numeric_comparison_exp
-  priceUSD: numeric_comparison_exp
   workflow: Workflow_bool_exp
   workflow_id: String_comparison_exp
 }
@@ -3946,11 +3938,8 @@ input ExternalPriceSetter_order_by {
   collateralToken_id: order_by
   db_write_timestamp: order_by
   id: order_by
-  issuanceToken: Token_order_by
-  issuanceToken_id: order_by
   priceCOL: order_by
   priceISS: order_by
-  priceUSD: order_by
   workflow: Workflow_order_by
   workflow_id: order_by
 }
@@ -3975,16 +3964,10 @@ enum ExternalPriceSetter_select_column {
   id
 
   """column name"""
-  issuanceToken_id
-
-  """column name"""
   priceCOL
 
   """column name"""
   priceISS
-
-  """column name"""
-  priceUSD
 
   """column name"""
   workflow_id
@@ -4008,10 +3991,8 @@ input ExternalPriceSetter_stream_cursor_value_input {
   collateralToken_id: String
   db_write_timestamp: timestamp
   id: String
-  issuanceToken_id: String
   priceCOL: numeric
   priceISS: numeric
-  priceUSD: numeric
   workflow_id: String
 }
 
@@ -4042,11 +4023,15 @@ type IssuanceTokenDayData {
   highUSD: numeric!
   id: String!
   lowUSD: numeric!
+  module_id: String!
   openUSD: numeric!
   priceUSD: numeric!
   projectFeeUSD: numeric!
   protocolFeeISS: numeric!
   protocolFeeUSD: numeric!
+
+  """An object relationship"""
+  token: Token
   token_id: String!
   volumeISS: numeric!
   volumeUSD: numeric!
@@ -4154,11 +4139,13 @@ input IssuanceTokenDayData_bool_exp {
   highUSD: numeric_comparison_exp
   id: String_comparison_exp
   lowUSD: numeric_comparison_exp
+  module_id: String_comparison_exp
   openUSD: numeric_comparison_exp
   priceUSD: numeric_comparison_exp
   projectFeeUSD: numeric_comparison_exp
   protocolFeeISS: numeric_comparison_exp
   protocolFeeUSD: numeric_comparison_exp
+  token: Token_bool_exp
   token_id: String_comparison_exp
   volumeISS: numeric_comparison_exp
   volumeUSD: numeric_comparison_exp
@@ -4174,6 +4161,7 @@ type IssuanceTokenDayData_max_fields {
   highUSD: numeric
   id: String
   lowUSD: numeric
+  module_id: String
   openUSD: numeric
   priceUSD: numeric
   projectFeeUSD: numeric
@@ -4196,6 +4184,7 @@ input IssuanceTokenDayData_max_order_by {
   highUSD: order_by
   id: order_by
   lowUSD: order_by
+  module_id: order_by
   openUSD: order_by
   priceUSD: order_by
   projectFeeUSD: order_by
@@ -4216,6 +4205,7 @@ type IssuanceTokenDayData_min_fields {
   highUSD: numeric
   id: String
   lowUSD: numeric
+  module_id: String
   openUSD: numeric
   priceUSD: numeric
   projectFeeUSD: numeric
@@ -4238,6 +4228,7 @@ input IssuanceTokenDayData_min_order_by {
   highUSD: order_by
   id: order_by
   lowUSD: order_by
+  module_id: order_by
   openUSD: order_by
   priceUSD: order_by
   projectFeeUSD: order_by
@@ -4258,11 +4249,13 @@ input IssuanceTokenDayData_order_by {
   highUSD: order_by
   id: order_by
   lowUSD: order_by
+  module_id: order_by
   openUSD: order_by
   priceUSD: order_by
   projectFeeUSD: order_by
   protocolFeeISS: order_by
   protocolFeeUSD: order_by
+  token: Token_order_by
   token_id: order_by
   volumeISS: order_by
   volumeUSD: order_by
@@ -4295,6 +4288,9 @@ enum IssuanceTokenDayData_select_column {
 
   """column name"""
   lowUSD
+
+  """column name"""
+  module_id
 
   """column name"""
   openUSD
@@ -4444,6 +4440,7 @@ input IssuanceTokenDayData_stream_cursor_value_input {
   highUSD: numeric
   id: String
   lowUSD: numeric
+  module_id: String
   openUSD: numeric
   priceUSD: numeric
   projectFeeUSD: numeric
@@ -4601,12 +4598,16 @@ type IssuanceTokenHourData {
   highUSD: numeric!
   id: String!
   lowUSD: numeric!
+  module_id: String!
   openUSD: numeric!
   periodStartUnix: Int!
   priceUSD: numeric!
   projectFeeUSD: numeric!
   protocolFeeISS: numeric!
   protocolFeeUSD: numeric!
+
+  """An object relationship"""
+  token: Token
   token_id: String!
   volumeISS: numeric!
   volumeUSD: numeric!
@@ -4713,12 +4714,14 @@ input IssuanceTokenHourData_bool_exp {
   highUSD: numeric_comparison_exp
   id: String_comparison_exp
   lowUSD: numeric_comparison_exp
+  module_id: String_comparison_exp
   openUSD: numeric_comparison_exp
   periodStartUnix: Int_comparison_exp
   priceUSD: numeric_comparison_exp
   projectFeeUSD: numeric_comparison_exp
   protocolFeeISS: numeric_comparison_exp
   protocolFeeUSD: numeric_comparison_exp
+  token: Token_bool_exp
   token_id: String_comparison_exp
   volumeISS: numeric_comparison_exp
   volumeUSD: numeric_comparison_exp
@@ -4733,6 +4736,7 @@ type IssuanceTokenHourData_max_fields {
   highUSD: numeric
   id: String
   lowUSD: numeric
+  module_id: String
   openUSD: numeric
   periodStartUnix: Int
   priceUSD: numeric
@@ -4755,6 +4759,7 @@ input IssuanceTokenHourData_max_order_by {
   highUSD: order_by
   id: order_by
   lowUSD: order_by
+  module_id: order_by
   openUSD: order_by
   periodStartUnix: order_by
   priceUSD: order_by
@@ -4775,6 +4780,7 @@ type IssuanceTokenHourData_min_fields {
   highUSD: numeric
   id: String
   lowUSD: numeric
+  module_id: String
   openUSD: numeric
   periodStartUnix: Int
   priceUSD: numeric
@@ -4797,6 +4803,7 @@ input IssuanceTokenHourData_min_order_by {
   highUSD: order_by
   id: order_by
   lowUSD: order_by
+  module_id: order_by
   openUSD: order_by
   periodStartUnix: order_by
   priceUSD: order_by
@@ -4817,12 +4824,14 @@ input IssuanceTokenHourData_order_by {
   highUSD: order_by
   id: order_by
   lowUSD: order_by
+  module_id: order_by
   openUSD: order_by
   periodStartUnix: order_by
   priceUSD: order_by
   projectFeeUSD: order_by
   protocolFeeISS: order_by
   protocolFeeUSD: order_by
+  token: Token_order_by
   token_id: order_by
   volumeISS: order_by
   volumeUSD: order_by
@@ -4852,6 +4861,9 @@ enum IssuanceTokenHourData_select_column {
 
   """column name"""
   lowUSD
+
+  """column name"""
+  module_id
 
   """column name"""
   openUSD
@@ -5003,6 +5015,7 @@ input IssuanceTokenHourData_stream_cursor_value_input {
   highUSD: numeric
   id: String
   lowUSD: numeric
+  module_id: String
   openUSD: numeric
   periodStartUnix: Int
   priceUSD: numeric
@@ -5443,6 +5456,78 @@ type OraclePriceFM {
   """An object relationship"""
   collateralToken: Token
   collateralToken_id: String!
+
+  """An array relationship"""
+  curveDayData(
+    """distinct select on columns"""
+    distinct_on: [CurveDayData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveDayData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveDayData_bool_exp
+  ): [CurveDayData!]!
+
+  """An aggregate relationship"""
+  curveDayData_aggregate(
+    """distinct select on columns"""
+    distinct_on: [CurveDayData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveDayData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveDayData_bool_exp
+  ): CurveDayData_aggregate!
+
+  """An array relationship"""
+  curveHourData(
+    """distinct select on columns"""
+    distinct_on: [CurveHourData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveHourData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveHourData_bool_exp
+  ): [CurveHourData!]!
+
+  """An aggregate relationship"""
+  curveHourData_aggregate(
+    """distinct select on columns"""
+    distinct_on: [CurveHourData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveHourData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveHourData_bool_exp
+  ): CurveHourData_aggregate!
   db_write_timestamp: timestamp
 
   """An object relationship"""
@@ -5452,12 +5537,84 @@ type OraclePriceFM {
 
   """An object relationship"""
   issuanceToken: Token
+
+  """An array relationship"""
+  issuanceTokenDayData(
+    """distinct select on columns"""
+    distinct_on: [IssuanceTokenDayData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [IssuanceTokenDayData_order_by!]
+
+    """filter the rows returned"""
+    where: IssuanceTokenDayData_bool_exp
+  ): [IssuanceTokenDayData!]!
+
+  """An aggregate relationship"""
+  issuanceTokenDayData_aggregate(
+    """distinct select on columns"""
+    distinct_on: [IssuanceTokenDayData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [IssuanceTokenDayData_order_by!]
+
+    """filter the rows returned"""
+    where: IssuanceTokenDayData_bool_exp
+  ): IssuanceTokenDayData_aggregate!
+
+  """An array relationship"""
+  issuanceTokenHourData(
+    """distinct select on columns"""
+    distinct_on: [IssuanceTokenHourData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [IssuanceTokenHourData_order_by!]
+
+    """filter the rows returned"""
+    where: IssuanceTokenHourData_bool_exp
+  ): [IssuanceTokenHourData!]!
+
+  """An aggregate relationship"""
+  issuanceTokenHourData_aggregate(
+    """distinct select on columns"""
+    distinct_on: [IssuanceTokenHourData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [IssuanceTokenHourData_order_by!]
+
+    """filter the rows returned"""
+    where: IssuanceTokenHourData_bool_exp
+  ): IssuanceTokenHourData_aggregate!
   issuanceToken_id: String!
 
   """An array relationship"""
-  paymentOrders(
+  orders(
     """distinct select on columns"""
-    distinct_on: [RedemptionPaymentOrder_select_column!]
+    distinct_on: [OraclePriceOrder_select_column!]
 
     """limit the number of rows returned"""
     limit: Int
@@ -5466,29 +5623,11 @@ type OraclePriceFM {
     offset: Int
 
     """sort the rows by one or more columns"""
-    order_by: [RedemptionPaymentOrder_order_by!]
+    order_by: [OraclePriceOrder_order_by!]
 
     """filter the rows returned"""
-    where: RedemptionPaymentOrder_bool_exp
-  ): [RedemptionPaymentOrder!]!
-
-  """An aggregate relationship"""
-  paymentOrders_aggregate(
-    """distinct select on columns"""
-    distinct_on: [RedemptionPaymentOrder_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [RedemptionPaymentOrder_order_by!]
-
-    """filter the rows returned"""
-    where: RedemptionPaymentOrder_bool_exp
-  ): RedemptionPaymentOrder_aggregate!
+    where: OraclePriceOrder_bool_exp
+  ): [OraclePriceOrder!]!
   pendingRedemptionCOL: numeric!
   pendingRedemptionUSD: numeric!
 
@@ -5566,24 +5705,7 @@ type OraclePriceFM {
   reserveCOL: numeric!
   reserveUSD: numeric!
   sellFee: numeric!
-
-  """An array relationship"""
-  swaps(
-    """distinct select on columns"""
-    distinct_on: [Swap_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Swap_order_by!]
-
-    """filter the rows returned"""
-    where: Swap_bool_exp
-  ): [Swap!]!
+  treasury: String!
 
   """An object relationship"""
   workflow: Workflow
@@ -5638,14 +5760,21 @@ input OraclePriceFM_bool_exp {
   chainId: Int_comparison_exp
   collateralToken: Token_bool_exp
   collateralToken_id: String_comparison_exp
+  curveDayData: CurveDayData_bool_exp
+  curveDayData_aggregate: CurveDayData_aggregate_bool_exp
+  curveHourData: CurveHourData_bool_exp
+  curveHourData_aggregate: CurveHourData_aggregate_bool_exp
   db_write_timestamp: timestamp_comparison_exp
   externalPriceSetter: ExternalPriceSetter_bool_exp
   externalPriceSetter_id: String_comparison_exp
   id: String_comparison_exp
   issuanceToken: Token_bool_exp
+  issuanceTokenDayData: IssuanceTokenDayData_bool_exp
+  issuanceTokenDayData_aggregate: IssuanceTokenDayData_aggregate_bool_exp
+  issuanceTokenHourData: IssuanceTokenHourData_bool_exp
+  issuanceTokenHourData_aggregate: IssuanceTokenHourData_aggregate_bool_exp
   issuanceToken_id: String_comparison_exp
-  paymentOrders: RedemptionPaymentOrder_bool_exp
-  paymentOrders_aggregate: RedemptionPaymentOrder_aggregate_bool_exp
+  orders: OraclePriceOrder_bool_exp
   pendingRedemptionCOL: numeric_comparison_exp
   pendingRedemptionUSD: numeric_comparison_exp
   projectFees: ProjectFee_bool_exp
@@ -5655,7 +5784,7 @@ input OraclePriceFM_bool_exp {
   reserveCOL: numeric_comparison_exp
   reserveUSD: numeric_comparison_exp
   sellFee: numeric_comparison_exp
-  swaps: Swap_bool_exp
+  treasury: String_comparison_exp
   workflow: Workflow_bool_exp
   workflow_id: String_comparison_exp
 }
@@ -5675,6 +5804,7 @@ type OraclePriceFM_max_fields {
   reserveCOL: numeric
   reserveUSD: numeric
   sellFee: numeric
+  treasury: String
   workflow_id: String
 }
 
@@ -5693,6 +5823,7 @@ type OraclePriceFM_min_fields {
   reserveCOL: numeric
   reserveUSD: numeric
   sellFee: numeric
+  treasury: String
   workflow_id: String
 }
 
@@ -5703,13 +5834,17 @@ input OraclePriceFM_order_by {
   chainId: order_by
   collateralToken: Token_order_by
   collateralToken_id: order_by
+  curveDayData_aggregate: CurveDayData_aggregate_order_by
+  curveHourData_aggregate: CurveHourData_aggregate_order_by
   db_write_timestamp: order_by
   externalPriceSetter: ExternalPriceSetter_order_by
   externalPriceSetter_id: order_by
   id: order_by
   issuanceToken: Token_order_by
+  issuanceTokenDayData_aggregate: IssuanceTokenDayData_aggregate_order_by
+  issuanceTokenHourData_aggregate: IssuanceTokenHourData_aggregate_order_by
   issuanceToken_id: order_by
-  paymentOrders_aggregate: RedemptionPaymentOrder_aggregate_order_by
+  orders_aggregate: OraclePriceOrder_aggregate_order_by
   pendingRedemptionCOL: order_by
   pendingRedemptionUSD: order_by
   projectFees_aggregate: ProjectFee_aggregate_order_by
@@ -5717,7 +5852,7 @@ input OraclePriceFM_order_by {
   reserveCOL: order_by
   reserveUSD: order_by
   sellFee: order_by
-  swaps_aggregate: Swap_aggregate_order_by
+  treasury: order_by
   workflow: Workflow_order_by
   workflow_id: order_by
 }
@@ -5764,6 +5899,9 @@ enum OraclePriceFM_select_column {
 
   """column name"""
   sellFee
+
+  """column name"""
+  treasury
 
   """column name"""
   workflow_id
@@ -5828,6 +5966,7 @@ input OraclePriceFM_stream_cursor_value_input {
   reserveCOL: numeric
   reserveUSD: numeric
   sellFee: numeric
+  treasury: String
   workflow_id: String
 }
 
@@ -5873,6 +6012,434 @@ type OraclePriceFM_variance_fields {
   reserveCOL: Float
   reserveUSD: Float
   sellFee: Float
+}
+
+"""
+columns and relationships of "OraclePriceOrder"
+"""
+type OraclePriceOrder {
+  amountCOL: numeric!
+  amountISS: numeric!
+  amountUSD: numeric!
+  chainId: Int!
+
+  """An object relationship"""
+  collateralToken: Token
+  collateralToken_id: String!
+  db_write_timestamp: timestamp
+  executedBy: String
+  executedTimestamp: Int
+  id: String!
+  initiator: String!
+
+  """An object relationship"""
+  issuanceToken: Token
+  issuanceToken_id: String!
+
+  """An object relationship"""
+  oraclePriceFM: OraclePriceFM
+  oraclePriceFM_id: String!
+  orderId: numeric
+  orderType: paymentordertype
+  priceCOL: numeric!
+  priceUSD: numeric!
+
+  """An object relationship"""
+  projectFee: ProjectFee
+  projectFee_id: String!
+
+  """An object relationship"""
+  protocolFee: ProtocolFee
+  protocolFee_id: String!
+  recipient: String!
+  state: redemptionstate
+  swapType: swaptype!
+  targetChainId: Int
+  timestamp: Int!
+}
+
+"""
+order by aggregate values of table "OraclePriceOrder"
+"""
+input OraclePriceOrder_aggregate_order_by {
+  avg: OraclePriceOrder_avg_order_by
+  count: order_by
+  max: OraclePriceOrder_max_order_by
+  min: OraclePriceOrder_min_order_by
+  stddev: OraclePriceOrder_stddev_order_by
+  stddev_pop: OraclePriceOrder_stddev_pop_order_by
+  stddev_samp: OraclePriceOrder_stddev_samp_order_by
+  sum: OraclePriceOrder_sum_order_by
+  var_pop: OraclePriceOrder_var_pop_order_by
+  var_samp: OraclePriceOrder_var_samp_order_by
+  variance: OraclePriceOrder_variance_order_by
+}
+
+"""
+order by avg() on columns of table "OraclePriceOrder"
+"""
+input OraclePriceOrder_avg_order_by {
+  amountCOL: order_by
+  amountISS: order_by
+  amountUSD: order_by
+  chainId: order_by
+  executedTimestamp: order_by
+  orderId: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  targetChainId: order_by
+  timestamp: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "OraclePriceOrder". All fields are combined with a logical 'AND'.
+"""
+input OraclePriceOrder_bool_exp {
+  _and: [OraclePriceOrder_bool_exp!]
+  _not: OraclePriceOrder_bool_exp
+  _or: [OraclePriceOrder_bool_exp!]
+  amountCOL: numeric_comparison_exp
+  amountISS: numeric_comparison_exp
+  amountUSD: numeric_comparison_exp
+  chainId: Int_comparison_exp
+  collateralToken: Token_bool_exp
+  collateralToken_id: String_comparison_exp
+  db_write_timestamp: timestamp_comparison_exp
+  executedBy: String_comparison_exp
+  executedTimestamp: Int_comparison_exp
+  id: String_comparison_exp
+  initiator: String_comparison_exp
+  issuanceToken: Token_bool_exp
+  issuanceToken_id: String_comparison_exp
+  oraclePriceFM: OraclePriceFM_bool_exp
+  oraclePriceFM_id: String_comparison_exp
+  orderId: numeric_comparison_exp
+  orderType: paymentordertype_comparison_exp
+  priceCOL: numeric_comparison_exp
+  priceUSD: numeric_comparison_exp
+  projectFee: ProjectFee_bool_exp
+  projectFee_id: String_comparison_exp
+  protocolFee: ProtocolFee_bool_exp
+  protocolFee_id: String_comparison_exp
+  recipient: String_comparison_exp
+  state: redemptionstate_comparison_exp
+  swapType: swaptype_comparison_exp
+  targetChainId: Int_comparison_exp
+  timestamp: Int_comparison_exp
+}
+
+"""
+order by max() on columns of table "OraclePriceOrder"
+"""
+input OraclePriceOrder_max_order_by {
+  amountCOL: order_by
+  amountISS: order_by
+  amountUSD: order_by
+  chainId: order_by
+  collateralToken_id: order_by
+  db_write_timestamp: order_by
+  executedBy: order_by
+  executedTimestamp: order_by
+  id: order_by
+  initiator: order_by
+  issuanceToken_id: order_by
+  oraclePriceFM_id: order_by
+  orderId: order_by
+  orderType: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFee_id: order_by
+  protocolFee_id: order_by
+  recipient: order_by
+  state: order_by
+  swapType: order_by
+  targetChainId: order_by
+  timestamp: order_by
+}
+
+"""
+order by min() on columns of table "OraclePriceOrder"
+"""
+input OraclePriceOrder_min_order_by {
+  amountCOL: order_by
+  amountISS: order_by
+  amountUSD: order_by
+  chainId: order_by
+  collateralToken_id: order_by
+  db_write_timestamp: order_by
+  executedBy: order_by
+  executedTimestamp: order_by
+  id: order_by
+  initiator: order_by
+  issuanceToken_id: order_by
+  oraclePriceFM_id: order_by
+  orderId: order_by
+  orderType: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFee_id: order_by
+  protocolFee_id: order_by
+  recipient: order_by
+  state: order_by
+  swapType: order_by
+  targetChainId: order_by
+  timestamp: order_by
+}
+
+"""Ordering options when selecting data from "OraclePriceOrder"."""
+input OraclePriceOrder_order_by {
+  amountCOL: order_by
+  amountISS: order_by
+  amountUSD: order_by
+  chainId: order_by
+  collateralToken: Token_order_by
+  collateralToken_id: order_by
+  db_write_timestamp: order_by
+  executedBy: order_by
+  executedTimestamp: order_by
+  id: order_by
+  initiator: order_by
+  issuanceToken: Token_order_by
+  issuanceToken_id: order_by
+  oraclePriceFM: OraclePriceFM_order_by
+  oraclePriceFM_id: order_by
+  orderId: order_by
+  orderType: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  projectFee: ProjectFee_order_by
+  projectFee_id: order_by
+  protocolFee: ProtocolFee_order_by
+  protocolFee_id: order_by
+  recipient: order_by
+  state: order_by
+  swapType: order_by
+  targetChainId: order_by
+  timestamp: order_by
+}
+
+"""
+select columns of table "OraclePriceOrder"
+"""
+enum OraclePriceOrder_select_column {
+  """column name"""
+  amountCOL
+
+  """column name"""
+  amountISS
+
+  """column name"""
+  amountUSD
+
+  """column name"""
+  chainId
+
+  """column name"""
+  collateralToken_id
+
+  """column name"""
+  db_write_timestamp
+
+  """column name"""
+  executedBy
+
+  """column name"""
+  executedTimestamp
+
+  """column name"""
+  id
+
+  """column name"""
+  initiator
+
+  """column name"""
+  issuanceToken_id
+
+  """column name"""
+  oraclePriceFM_id
+
+  """column name"""
+  orderId
+
+  """column name"""
+  orderType
+
+  """column name"""
+  priceCOL
+
+  """column name"""
+  priceUSD
+
+  """column name"""
+  projectFee_id
+
+  """column name"""
+  protocolFee_id
+
+  """column name"""
+  recipient
+
+  """column name"""
+  state
+
+  """column name"""
+  swapType
+
+  """column name"""
+  targetChainId
+
+  """column name"""
+  timestamp
+}
+
+"""
+order by stddev() on columns of table "OraclePriceOrder"
+"""
+input OraclePriceOrder_stddev_order_by {
+  amountCOL: order_by
+  amountISS: order_by
+  amountUSD: order_by
+  chainId: order_by
+  executedTimestamp: order_by
+  orderId: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  targetChainId: order_by
+  timestamp: order_by
+}
+
+"""
+order by stddev_pop() on columns of table "OraclePriceOrder"
+"""
+input OraclePriceOrder_stddev_pop_order_by {
+  amountCOL: order_by
+  amountISS: order_by
+  amountUSD: order_by
+  chainId: order_by
+  executedTimestamp: order_by
+  orderId: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  targetChainId: order_by
+  timestamp: order_by
+}
+
+"""
+order by stddev_samp() on columns of table "OraclePriceOrder"
+"""
+input OraclePriceOrder_stddev_samp_order_by {
+  amountCOL: order_by
+  amountISS: order_by
+  amountUSD: order_by
+  chainId: order_by
+  executedTimestamp: order_by
+  orderId: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  targetChainId: order_by
+  timestamp: order_by
+}
+
+"""
+Streaming cursor of the table "OraclePriceOrder"
+"""
+input OraclePriceOrder_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: OraclePriceOrder_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input OraclePriceOrder_stream_cursor_value_input {
+  amountCOL: numeric
+  amountISS: numeric
+  amountUSD: numeric
+  chainId: Int
+  collateralToken_id: String
+  db_write_timestamp: timestamp
+  executedBy: String
+  executedTimestamp: Int
+  id: String
+  initiator: String
+  issuanceToken_id: String
+  oraclePriceFM_id: String
+  orderId: numeric
+  orderType: paymentordertype
+  priceCOL: numeric
+  priceUSD: numeric
+  projectFee_id: String
+  protocolFee_id: String
+  recipient: String
+  state: redemptionstate
+  swapType: swaptype
+  targetChainId: Int
+  timestamp: Int
+}
+
+"""
+order by sum() on columns of table "OraclePriceOrder"
+"""
+input OraclePriceOrder_sum_order_by {
+  amountCOL: order_by
+  amountISS: order_by
+  amountUSD: order_by
+  chainId: order_by
+  executedTimestamp: order_by
+  orderId: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  targetChainId: order_by
+  timestamp: order_by
+}
+
+"""
+order by var_pop() on columns of table "OraclePriceOrder"
+"""
+input OraclePriceOrder_var_pop_order_by {
+  amountCOL: order_by
+  amountISS: order_by
+  amountUSD: order_by
+  chainId: order_by
+  executedTimestamp: order_by
+  orderId: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  targetChainId: order_by
+  timestamp: order_by
+}
+
+"""
+order by var_samp() on columns of table "OraclePriceOrder"
+"""
+input OraclePriceOrder_var_samp_order_by {
+  amountCOL: order_by
+  amountISS: order_by
+  amountUSD: order_by
+  chainId: order_by
+  executedTimestamp: order_by
+  orderId: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  targetChainId: order_by
+  timestamp: order_by
+}
+
+"""
+order by variance() on columns of table "OraclePriceOrder"
+"""
+input OraclePriceOrder_variance_order_by {
+  amountCOL: order_by
+  amountISS: order_by
+  amountUSD: order_by
+  chainId: order_by
+  executedTimestamp: order_by
+  orderId: order_by
+  priceCOL: order_by
+  priceUSD: order_by
+  targetChainId: order_by
+  timestamp: order_by
 }
 
 """
@@ -6603,653 +7170,6 @@ input ProtocolFee_variance_order_by {
   amount: order_by
   amountUSD: order_by
   chainId: order_by
-  timestamp: order_by
-}
-
-"""
-columns and relationships of "RedemptionPaymentOrder"
-"""
-type RedemptionPaymentOrder {
-  amount: numeric!
-  amountUSD: numeric!
-  chainId: Int!
-  data: [String!]!
-  db_write_timestamp: timestamp
-  exchangeRate: numeric!
-  executedBy: String
-  executedTimestamp: Int
-  fee: numeric!
-  feePercentage: numeric!
-  feeUSD: numeric!
-  flags: String!
-  id: String!
-
-  """An object relationship"""
-  oraclePriceFM: OraclePriceFM
-  oraclePriceFM_id: String!
-  orderId: numeric!
-  orderType: paymentordertype!
-  originChainId: Int!
-  recipient: String!
-  seller: String!
-  state: redemptionstate!
-  targetChainId: Int!
-  timestamp: Int!
-
-  """An object relationship"""
-  token: Token
-  token_id: String!
-}
-
-"""
-aggregated selection of "RedemptionPaymentOrder"
-"""
-type RedemptionPaymentOrder_aggregate {
-  aggregate: RedemptionPaymentOrder_aggregate_fields
-  nodes: [RedemptionPaymentOrder!]!
-}
-
-input RedemptionPaymentOrder_aggregate_bool_exp {
-  count: RedemptionPaymentOrder_aggregate_bool_exp_count
-}
-
-input RedemptionPaymentOrder_aggregate_bool_exp_count {
-  arguments: [RedemptionPaymentOrder_select_column!]
-  distinct: Boolean
-  filter: RedemptionPaymentOrder_bool_exp
-  predicate: Int_comparison_exp!
-}
-
-"""
-aggregate fields of "RedemptionPaymentOrder"
-"""
-type RedemptionPaymentOrder_aggregate_fields {
-  avg: RedemptionPaymentOrder_avg_fields
-  count(columns: [RedemptionPaymentOrder_select_column!], distinct: Boolean): Int!
-  max: RedemptionPaymentOrder_max_fields
-  min: RedemptionPaymentOrder_min_fields
-  stddev: RedemptionPaymentOrder_stddev_fields
-  stddev_pop: RedemptionPaymentOrder_stddev_pop_fields
-  stddev_samp: RedemptionPaymentOrder_stddev_samp_fields
-  sum: RedemptionPaymentOrder_sum_fields
-  var_pop: RedemptionPaymentOrder_var_pop_fields
-  var_samp: RedemptionPaymentOrder_var_samp_fields
-  variance: RedemptionPaymentOrder_variance_fields
-}
-
-"""
-order by aggregate values of table "RedemptionPaymentOrder"
-"""
-input RedemptionPaymentOrder_aggregate_order_by {
-  avg: RedemptionPaymentOrder_avg_order_by
-  count: order_by
-  max: RedemptionPaymentOrder_max_order_by
-  min: RedemptionPaymentOrder_min_order_by
-  stddev: RedemptionPaymentOrder_stddev_order_by
-  stddev_pop: RedemptionPaymentOrder_stddev_pop_order_by
-  stddev_samp: RedemptionPaymentOrder_stddev_samp_order_by
-  sum: RedemptionPaymentOrder_sum_order_by
-  var_pop: RedemptionPaymentOrder_var_pop_order_by
-  var_samp: RedemptionPaymentOrder_var_samp_order_by
-  variance: RedemptionPaymentOrder_variance_order_by
-}
-
-"""aggregate avg on columns"""
-type RedemptionPaymentOrder_avg_fields {
-  amount: Float
-  amountUSD: Float
-  chainId: Float
-  exchangeRate: Float
-  executedTimestamp: Float
-  fee: Float
-  feePercentage: Float
-  feeUSD: Float
-  orderId: Float
-  originChainId: Float
-  targetChainId: Float
-  timestamp: Float
-}
-
-"""
-order by avg() on columns of table "RedemptionPaymentOrder"
-"""
-input RedemptionPaymentOrder_avg_order_by {
-  amount: order_by
-  amountUSD: order_by
-  chainId: order_by
-  exchangeRate: order_by
-  executedTimestamp: order_by
-  fee: order_by
-  feePercentage: order_by
-  feeUSD: order_by
-  orderId: order_by
-  originChainId: order_by
-  targetChainId: order_by
-  timestamp: order_by
-}
-
-"""
-Boolean expression to filter rows from the table "RedemptionPaymentOrder". All fields are combined with a logical 'AND'.
-"""
-input RedemptionPaymentOrder_bool_exp {
-  _and: [RedemptionPaymentOrder_bool_exp!]
-  _not: RedemptionPaymentOrder_bool_exp
-  _or: [RedemptionPaymentOrder_bool_exp!]
-  amount: numeric_comparison_exp
-  amountUSD: numeric_comparison_exp
-  chainId: Int_comparison_exp
-  data: String_array_comparison_exp
-  db_write_timestamp: timestamp_comparison_exp
-  exchangeRate: numeric_comparison_exp
-  executedBy: String_comparison_exp
-  executedTimestamp: Int_comparison_exp
-  fee: numeric_comparison_exp
-  feePercentage: numeric_comparison_exp
-  feeUSD: numeric_comparison_exp
-  flags: String_comparison_exp
-  id: String_comparison_exp
-  oraclePriceFM: OraclePriceFM_bool_exp
-  oraclePriceFM_id: String_comparison_exp
-  orderId: numeric_comparison_exp
-  orderType: paymentordertype_comparison_exp
-  originChainId: Int_comparison_exp
-  recipient: String_comparison_exp
-  seller: String_comparison_exp
-  state: redemptionstate_comparison_exp
-  targetChainId: Int_comparison_exp
-  timestamp: Int_comparison_exp
-  token: Token_bool_exp
-  token_id: String_comparison_exp
-}
-
-"""aggregate max on columns"""
-type RedemptionPaymentOrder_max_fields {
-  amount: numeric
-  amountUSD: numeric
-  chainId: Int
-  data: [String!]
-  db_write_timestamp: timestamp
-  exchangeRate: numeric
-  executedBy: String
-  executedTimestamp: Int
-  fee: numeric
-  feePercentage: numeric
-  feeUSD: numeric
-  flags: String
-  id: String
-  oraclePriceFM_id: String
-  orderId: numeric
-  orderType: paymentordertype
-  originChainId: Int
-  recipient: String
-  seller: String
-  state: redemptionstate
-  targetChainId: Int
-  timestamp: Int
-  token_id: String
-}
-
-"""
-order by max() on columns of table "RedemptionPaymentOrder"
-"""
-input RedemptionPaymentOrder_max_order_by {
-  amount: order_by
-  amountUSD: order_by
-  chainId: order_by
-  data: order_by
-  db_write_timestamp: order_by
-  exchangeRate: order_by
-  executedBy: order_by
-  executedTimestamp: order_by
-  fee: order_by
-  feePercentage: order_by
-  feeUSD: order_by
-  flags: order_by
-  id: order_by
-  oraclePriceFM_id: order_by
-  orderId: order_by
-  orderType: order_by
-  originChainId: order_by
-  recipient: order_by
-  seller: order_by
-  state: order_by
-  targetChainId: order_by
-  timestamp: order_by
-  token_id: order_by
-}
-
-"""aggregate min on columns"""
-type RedemptionPaymentOrder_min_fields {
-  amount: numeric
-  amountUSD: numeric
-  chainId: Int
-  data: [String!]
-  db_write_timestamp: timestamp
-  exchangeRate: numeric
-  executedBy: String
-  executedTimestamp: Int
-  fee: numeric
-  feePercentage: numeric
-  feeUSD: numeric
-  flags: String
-  id: String
-  oraclePriceFM_id: String
-  orderId: numeric
-  orderType: paymentordertype
-  originChainId: Int
-  recipient: String
-  seller: String
-  state: redemptionstate
-  targetChainId: Int
-  timestamp: Int
-  token_id: String
-}
-
-"""
-order by min() on columns of table "RedemptionPaymentOrder"
-"""
-input RedemptionPaymentOrder_min_order_by {
-  amount: order_by
-  amountUSD: order_by
-  chainId: order_by
-  data: order_by
-  db_write_timestamp: order_by
-  exchangeRate: order_by
-  executedBy: order_by
-  executedTimestamp: order_by
-  fee: order_by
-  feePercentage: order_by
-  feeUSD: order_by
-  flags: order_by
-  id: order_by
-  oraclePriceFM_id: order_by
-  orderId: order_by
-  orderType: order_by
-  originChainId: order_by
-  recipient: order_by
-  seller: order_by
-  state: order_by
-  targetChainId: order_by
-  timestamp: order_by
-  token_id: order_by
-}
-
-"""Ordering options when selecting data from "RedemptionPaymentOrder"."""
-input RedemptionPaymentOrder_order_by {
-  amount: order_by
-  amountUSD: order_by
-  chainId: order_by
-  data: order_by
-  db_write_timestamp: order_by
-  exchangeRate: order_by
-  executedBy: order_by
-  executedTimestamp: order_by
-  fee: order_by
-  feePercentage: order_by
-  feeUSD: order_by
-  flags: order_by
-  id: order_by
-  oraclePriceFM: OraclePriceFM_order_by
-  oraclePriceFM_id: order_by
-  orderId: order_by
-  orderType: order_by
-  originChainId: order_by
-  recipient: order_by
-  seller: order_by
-  state: order_by
-  targetChainId: order_by
-  timestamp: order_by
-  token: Token_order_by
-  token_id: order_by
-}
-
-"""
-select columns of table "RedemptionPaymentOrder"
-"""
-enum RedemptionPaymentOrder_select_column {
-  """column name"""
-  amount
-
-  """column name"""
-  amountUSD
-
-  """column name"""
-  chainId
-
-  """column name"""
-  data
-
-  """column name"""
-  db_write_timestamp
-
-  """column name"""
-  exchangeRate
-
-  """column name"""
-  executedBy
-
-  """column name"""
-  executedTimestamp
-
-  """column name"""
-  fee
-
-  """column name"""
-  feePercentage
-
-  """column name"""
-  feeUSD
-
-  """column name"""
-  flags
-
-  """column name"""
-  id
-
-  """column name"""
-  oraclePriceFM_id
-
-  """column name"""
-  orderId
-
-  """column name"""
-  orderType
-
-  """column name"""
-  originChainId
-
-  """column name"""
-  recipient
-
-  """column name"""
-  seller
-
-  """column name"""
-  state
-
-  """column name"""
-  targetChainId
-
-  """column name"""
-  timestamp
-
-  """column name"""
-  token_id
-}
-
-"""aggregate stddev on columns"""
-type RedemptionPaymentOrder_stddev_fields {
-  amount: Float
-  amountUSD: Float
-  chainId: Float
-  exchangeRate: Float
-  executedTimestamp: Float
-  fee: Float
-  feePercentage: Float
-  feeUSD: Float
-  orderId: Float
-  originChainId: Float
-  targetChainId: Float
-  timestamp: Float
-}
-
-"""
-order by stddev() on columns of table "RedemptionPaymentOrder"
-"""
-input RedemptionPaymentOrder_stddev_order_by {
-  amount: order_by
-  amountUSD: order_by
-  chainId: order_by
-  exchangeRate: order_by
-  executedTimestamp: order_by
-  fee: order_by
-  feePercentage: order_by
-  feeUSD: order_by
-  orderId: order_by
-  originChainId: order_by
-  targetChainId: order_by
-  timestamp: order_by
-}
-
-"""aggregate stddev_pop on columns"""
-type RedemptionPaymentOrder_stddev_pop_fields {
-  amount: Float
-  amountUSD: Float
-  chainId: Float
-  exchangeRate: Float
-  executedTimestamp: Float
-  fee: Float
-  feePercentage: Float
-  feeUSD: Float
-  orderId: Float
-  originChainId: Float
-  targetChainId: Float
-  timestamp: Float
-}
-
-"""
-order by stddev_pop() on columns of table "RedemptionPaymentOrder"
-"""
-input RedemptionPaymentOrder_stddev_pop_order_by {
-  amount: order_by
-  amountUSD: order_by
-  chainId: order_by
-  exchangeRate: order_by
-  executedTimestamp: order_by
-  fee: order_by
-  feePercentage: order_by
-  feeUSD: order_by
-  orderId: order_by
-  originChainId: order_by
-  targetChainId: order_by
-  timestamp: order_by
-}
-
-"""aggregate stddev_samp on columns"""
-type RedemptionPaymentOrder_stddev_samp_fields {
-  amount: Float
-  amountUSD: Float
-  chainId: Float
-  exchangeRate: Float
-  executedTimestamp: Float
-  fee: Float
-  feePercentage: Float
-  feeUSD: Float
-  orderId: Float
-  originChainId: Float
-  targetChainId: Float
-  timestamp: Float
-}
-
-"""
-order by stddev_samp() on columns of table "RedemptionPaymentOrder"
-"""
-input RedemptionPaymentOrder_stddev_samp_order_by {
-  amount: order_by
-  amountUSD: order_by
-  chainId: order_by
-  exchangeRate: order_by
-  executedTimestamp: order_by
-  fee: order_by
-  feePercentage: order_by
-  feeUSD: order_by
-  orderId: order_by
-  originChainId: order_by
-  targetChainId: order_by
-  timestamp: order_by
-}
-
-"""
-Streaming cursor of the table "RedemptionPaymentOrder"
-"""
-input RedemptionPaymentOrder_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: RedemptionPaymentOrder_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input RedemptionPaymentOrder_stream_cursor_value_input {
-  amount: numeric
-  amountUSD: numeric
-  chainId: Int
-  data: [String!]
-  db_write_timestamp: timestamp
-  exchangeRate: numeric
-  executedBy: String
-  executedTimestamp: Int
-  fee: numeric
-  feePercentage: numeric
-  feeUSD: numeric
-  flags: String
-  id: String
-  oraclePriceFM_id: String
-  orderId: numeric
-  orderType: paymentordertype
-  originChainId: Int
-  recipient: String
-  seller: String
-  state: redemptionstate
-  targetChainId: Int
-  timestamp: Int
-  token_id: String
-}
-
-"""aggregate sum on columns"""
-type RedemptionPaymentOrder_sum_fields {
-  amount: numeric
-  amountUSD: numeric
-  chainId: Int
-  exchangeRate: numeric
-  executedTimestamp: Int
-  fee: numeric
-  feePercentage: numeric
-  feeUSD: numeric
-  orderId: numeric
-  originChainId: Int
-  targetChainId: Int
-  timestamp: Int
-}
-
-"""
-order by sum() on columns of table "RedemptionPaymentOrder"
-"""
-input RedemptionPaymentOrder_sum_order_by {
-  amount: order_by
-  amountUSD: order_by
-  chainId: order_by
-  exchangeRate: order_by
-  executedTimestamp: order_by
-  fee: order_by
-  feePercentage: order_by
-  feeUSD: order_by
-  orderId: order_by
-  originChainId: order_by
-  targetChainId: order_by
-  timestamp: order_by
-}
-
-"""aggregate var_pop on columns"""
-type RedemptionPaymentOrder_var_pop_fields {
-  amount: Float
-  amountUSD: Float
-  chainId: Float
-  exchangeRate: Float
-  executedTimestamp: Float
-  fee: Float
-  feePercentage: Float
-  feeUSD: Float
-  orderId: Float
-  originChainId: Float
-  targetChainId: Float
-  timestamp: Float
-}
-
-"""
-order by var_pop() on columns of table "RedemptionPaymentOrder"
-"""
-input RedemptionPaymentOrder_var_pop_order_by {
-  amount: order_by
-  amountUSD: order_by
-  chainId: order_by
-  exchangeRate: order_by
-  executedTimestamp: order_by
-  fee: order_by
-  feePercentage: order_by
-  feeUSD: order_by
-  orderId: order_by
-  originChainId: order_by
-  targetChainId: order_by
-  timestamp: order_by
-}
-
-"""aggregate var_samp on columns"""
-type RedemptionPaymentOrder_var_samp_fields {
-  amount: Float
-  amountUSD: Float
-  chainId: Float
-  exchangeRate: Float
-  executedTimestamp: Float
-  fee: Float
-  feePercentage: Float
-  feeUSD: Float
-  orderId: Float
-  originChainId: Float
-  targetChainId: Float
-  timestamp: Float
-}
-
-"""
-order by var_samp() on columns of table "RedemptionPaymentOrder"
-"""
-input RedemptionPaymentOrder_var_samp_order_by {
-  amount: order_by
-  amountUSD: order_by
-  chainId: order_by
-  exchangeRate: order_by
-  executedTimestamp: order_by
-  fee: order_by
-  feePercentage: order_by
-  feeUSD: order_by
-  orderId: order_by
-  originChainId: order_by
-  targetChainId: order_by
-  timestamp: order_by
-}
-
-"""aggregate variance on columns"""
-type RedemptionPaymentOrder_variance_fields {
-  amount: Float
-  amountUSD: Float
-  chainId: Float
-  exchangeRate: Float
-  executedTimestamp: Float
-  fee: Float
-  feePercentage: Float
-  feeUSD: Float
-  orderId: Float
-  originChainId: Float
-  targetChainId: Float
-  timestamp: Float
-}
-
-"""
-order by variance() on columns of table "RedemptionPaymentOrder"
-"""
-input RedemptionPaymentOrder_variance_order_by {
-  amount: order_by
-  amountUSD: order_by
-  chainId: order_by
-  exchangeRate: order_by
-  executedTimestamp: order_by
-  fee: order_by
-  feePercentage: order_by
-  feeUSD: order_by
-  orderId: order_by
-  originChainId: order_by
-  targetChainId: order_by
   timestamp: order_by
 }
 
@@ -9941,6 +9861,31 @@ type query_root {
   OraclePriceFM_by_pk(id: String!): OraclePriceFM
 
   """
+  fetch data from the table: "OraclePriceOrder"
+  """
+  OraclePriceOrder(
+    """distinct select on columns"""
+    distinct_on: [OraclePriceOrder_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [OraclePriceOrder_order_by!]
+
+    """filter the rows returned"""
+    where: OraclePriceOrder_bool_exp
+  ): [OraclePriceOrder!]!
+
+  """
+  fetch data from the table: "OraclePriceOrder" using primary key columns
+  """
+  OraclePriceOrder_by_pk(id: String!): OraclePriceOrder
+
+  """
   fetch data from the table: "ProjectFee"
   """
   ProjectFee(
@@ -10025,51 +9970,6 @@ type query_root {
 
   """fetch data from the table: "ProtocolFee" using primary key columns"""
   ProtocolFee_by_pk(id: String!): ProtocolFee
-
-  """
-  fetch data from the table: "RedemptionPaymentOrder"
-  """
-  RedemptionPaymentOrder(
-    """distinct select on columns"""
-    distinct_on: [RedemptionPaymentOrder_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [RedemptionPaymentOrder_order_by!]
-
-    """filter the rows returned"""
-    where: RedemptionPaymentOrder_bool_exp
-  ): [RedemptionPaymentOrder!]!
-
-  """
-  fetch aggregated fields from the table: "RedemptionPaymentOrder"
-  """
-  RedemptionPaymentOrder_aggregate(
-    """distinct select on columns"""
-    distinct_on: [RedemptionPaymentOrder_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [RedemptionPaymentOrder_order_by!]
-
-    """filter the rows returned"""
-    where: RedemptionPaymentOrder_bool_exp
-  ): RedemptionPaymentOrder_aggregate!
-
-  """
-  fetch data from the table: "RedemptionPaymentOrder" using primary key columns
-  """
-  RedemptionPaymentOrder_by_pk(id: String!): RedemptionPaymentOrder
 
   """
   fetch data from the table: "Role"
@@ -11406,6 +11306,45 @@ type subscription_root {
   ): [OraclePriceFM!]!
 
   """
+  fetch data from the table: "OraclePriceOrder"
+  """
+  OraclePriceOrder(
+    """distinct select on columns"""
+    distinct_on: [OraclePriceOrder_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [OraclePriceOrder_order_by!]
+
+    """filter the rows returned"""
+    where: OraclePriceOrder_bool_exp
+  ): [OraclePriceOrder!]!
+
+  """
+  fetch data from the table: "OraclePriceOrder" using primary key columns
+  """
+  OraclePriceOrder_by_pk(id: String!): OraclePriceOrder
+
+  """
+  fetch data from the table in a streaming manner: "OraclePriceOrder"
+  """
+  OraclePriceOrder_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [OraclePriceOrder_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: OraclePriceOrder_bool_exp
+  ): [OraclePriceOrder!]!
+
+  """
   fetch data from the table: "ProjectFee"
   """
   ProjectFee(
@@ -11518,65 +11457,6 @@ type subscription_root {
     """filter the rows returned"""
     where: ProtocolFee_bool_exp
   ): [ProtocolFee!]!
-
-  """
-  fetch data from the table: "RedemptionPaymentOrder"
-  """
-  RedemptionPaymentOrder(
-    """distinct select on columns"""
-    distinct_on: [RedemptionPaymentOrder_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [RedemptionPaymentOrder_order_by!]
-
-    """filter the rows returned"""
-    where: RedemptionPaymentOrder_bool_exp
-  ): [RedemptionPaymentOrder!]!
-
-  """
-  fetch aggregated fields from the table: "RedemptionPaymentOrder"
-  """
-  RedemptionPaymentOrder_aggregate(
-    """distinct select on columns"""
-    distinct_on: [RedemptionPaymentOrder_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [RedemptionPaymentOrder_order_by!]
-
-    """filter the rows returned"""
-    where: RedemptionPaymentOrder_bool_exp
-  ): RedemptionPaymentOrder_aggregate!
-
-  """
-  fetch data from the table: "RedemptionPaymentOrder" using primary key columns
-  """
-  RedemptionPaymentOrder_by_pk(id: String!): RedemptionPaymentOrder
-
-  """
-  fetch data from the table in a streaming manner: "RedemptionPaymentOrder"
-  """
-  RedemptionPaymentOrder_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [RedemptionPaymentOrder_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: RedemptionPaymentOrder_bool_exp
-  ): [RedemptionPaymentOrder!]!
 
   """
   fetch data from the table: "Role"
