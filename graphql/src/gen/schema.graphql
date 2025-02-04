@@ -7236,6 +7236,8 @@ type Role {
   roleGen: String!
   roleName: String
   status: rolestatus!
+  timestamp: Int!
+  txHash: String!
 }
 
 """
@@ -7260,6 +7262,7 @@ order by avg() on columns of table "Role"
 """
 input Role_avg_order_by {
   chainId: order_by
+  timestamp: order_by
 }
 
 """
@@ -7279,6 +7282,8 @@ input Role_bool_exp {
   roleGen: String_comparison_exp
   roleName: String_comparison_exp
   status: rolestatus_comparison_exp
+  timestamp: Int_comparison_exp
+  txHash: String_comparison_exp
 }
 
 """
@@ -7295,6 +7300,8 @@ input Role_max_order_by {
   roleGen: order_by
   roleName: order_by
   status: order_by
+  timestamp: order_by
+  txHash: order_by
 }
 
 """
@@ -7311,6 +7318,8 @@ input Role_min_order_by {
   roleGen: order_by
   roleName: order_by
   status: order_by
+  timestamp: order_by
+  txHash: order_by
 }
 
 """Ordering options when selecting data from "Role"."""
@@ -7325,6 +7334,8 @@ input Role_order_by {
   roleGen: order_by
   roleName: order_by
   status: order_by
+  timestamp: order_by
+  txHash: order_by
 }
 
 """
@@ -7360,6 +7371,12 @@ enum Role_select_column {
 
   """column name"""
   status
+
+  """column name"""
+  timestamp
+
+  """column name"""
+  txHash
 }
 
 """
@@ -7367,6 +7384,7 @@ order by stddev() on columns of table "Role"
 """
 input Role_stddev_order_by {
   chainId: order_by
+  timestamp: order_by
 }
 
 """
@@ -7374,6 +7392,7 @@ order by stddev_pop() on columns of table "Role"
 """
 input Role_stddev_pop_order_by {
   chainId: order_by
+  timestamp: order_by
 }
 
 """
@@ -7381,6 +7400,7 @@ order by stddev_samp() on columns of table "Role"
 """
 input Role_stddev_samp_order_by {
   chainId: order_by
+  timestamp: order_by
 }
 
 """
@@ -7406,6 +7426,8 @@ input Role_stream_cursor_value_input {
   roleGen: String
   roleName: String
   status: rolestatus
+  timestamp: Int
+  txHash: String
 }
 
 """
@@ -7413,6 +7435,7 @@ order by sum() on columns of table "Role"
 """
 input Role_sum_order_by {
   chainId: order_by
+  timestamp: order_by
 }
 
 """
@@ -7420,6 +7443,7 @@ order by var_pop() on columns of table "Role"
 """
 input Role_var_pop_order_by {
   chainId: order_by
+  timestamp: order_by
 }
 
 """
@@ -7427,6 +7451,7 @@ order by var_samp() on columns of table "Role"
 """
 input Role_var_samp_order_by {
   chainId: order_by
+  timestamp: order_by
 }
 
 """
@@ -7434,6 +7459,7 @@ order by variance() on columns of table "Role"
 """
 input Role_variance_order_by {
   chainId: order_by
+  timestamp: order_by
 }
 
 """

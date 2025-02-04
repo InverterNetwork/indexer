@@ -5350,6 +5350,8 @@ export default {
       roleGen: [422],
       roleName: [422],
       status: [558],
+      timestamp: [221],
+      txHash: [422],
       __typename: [422],
     },
     Role_aggregate_order_by: {
@@ -5368,6 +5370,7 @@ export default {
     },
     Role_avg_order_by: {
       chainId: [541],
+      timestamp: [541],
       __typename: [422],
     },
     Role_bool_exp: {
@@ -5384,6 +5387,8 @@ export default {
       roleGen: [424],
       roleName: [424],
       status: [559],
+      timestamp: [222],
+      txHash: [424],
       __typename: [422],
     },
     Role_max_order_by: {
@@ -5397,6 +5402,8 @@ export default {
       roleGen: [541],
       roleName: [541],
       status: [541],
+      timestamp: [541],
+      txHash: [541],
       __typename: [422],
     },
     Role_min_order_by: {
@@ -5410,6 +5417,8 @@ export default {
       roleGen: [541],
       roleName: [541],
       status: [541],
+      timestamp: [541],
+      txHash: [541],
       __typename: [422],
     },
     Role_order_by: {
@@ -5423,19 +5432,24 @@ export default {
       roleGen: [541],
       roleName: [541],
       status: [541],
+      timestamp: [541],
+      txHash: [541],
       __typename: [422],
     },
     Role_select_column: {},
     Role_stddev_order_by: {
       chainId: [541],
+      timestamp: [541],
       __typename: [422],
     },
     Role_stddev_pop_order_by: {
       chainId: [541],
+      timestamp: [541],
       __typename: [422],
     },
     Role_stddev_samp_order_by: {
       chainId: [541],
+      timestamp: [541],
       __typename: [422],
     },
     Role_stream_cursor_input: {
@@ -5454,22 +5468,28 @@ export default {
       roleGen: [422],
       roleName: [422],
       status: [558],
+      timestamp: [221],
+      txHash: [422],
       __typename: [422],
     },
     Role_sum_order_by: {
       chainId: [541],
+      timestamp: [541],
       __typename: [422],
     },
     Role_var_pop_order_by: {
       chainId: [541],
+      timestamp: [541],
       __typename: [422],
     },
     Role_var_samp_order_by: {
       chainId: [541],
+      timestamp: [541],
       __typename: [422],
     },
     Role_variance_order_by: {
       chainId: [541],
+      timestamp: [541],
       __typename: [422],
     },
     StreamingPaymentProcessor: {

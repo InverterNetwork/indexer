@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.11](https://github.com/InverterNetwork/indexer/compare/v0.9.10...v0.9.11) (2025-02-04)
+
+
+### Bug Fixes
+
+* timestamp and txhash added to roles ([2925658](https://github.com/InverterNetwork/indexer/commit/2925658b2683342c85378230fe4cbb55199d7ff1))
+
 ### [0.9.10](https://github.com/InverterNetwork/indexer/compare/v0.9.9...v0.9.10) (2025-02-04)
 
 

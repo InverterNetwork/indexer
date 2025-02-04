@@ -2735,6 +2735,8 @@ export interface Role {
   roleGen: Scalars['String']
   roleName: Scalars['String'] | null
   status: Scalars['rolestatus']
+  timestamp: Scalars['Int']
+  txHash: Scalars['String']
   __typename: 'Role'
 }
 
@@ -2750,6 +2752,8 @@ export type Role_select_column =
   | 'roleGen'
   | 'roleName'
   | 'status'
+  | 'timestamp'
+  | 'txHash'
 
 /** columns and relationships of "StreamingPaymentProcessor" */
 export interface StreamingPaymentProcessor {
@@ -9987,6 +9991,8 @@ export interface RoleGenqlSelection {
   roleGen?: boolean | number
   roleName?: boolean | number
   status?: boolean | number
+  timestamp?: boolean | number
+  txHash?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -10009,6 +10015,7 @@ export interface Role_aggregate_order_by {
 /** order by avg() on columns of table "Role" */
 export interface Role_avg_order_by {
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** Boolean expression to filter rows from the table "Role". All fields are combined with a logical 'AND'. */
@@ -10026,6 +10033,8 @@ export interface Role_bool_exp {
   roleGen?: String_comparison_exp | null
   roleName?: String_comparison_exp | null
   status?: rolestatus_comparison_exp | null
+  timestamp?: Int_comparison_exp | null
+  txHash?: String_comparison_exp | null
 }
 
 /** order by max() on columns of table "Role" */
@@ -10040,6 +10049,8 @@ export interface Role_max_order_by {
   roleGen?: order_by | null
   roleName?: order_by | null
   status?: order_by | null
+  timestamp?: order_by | null
+  txHash?: order_by | null
 }
 
 /** order by min() on columns of table "Role" */
@@ -10054,6 +10065,8 @@ export interface Role_min_order_by {
   roleGen?: order_by | null
   roleName?: order_by | null
   status?: order_by | null
+  timestamp?: order_by | null
+  txHash?: order_by | null
 }
 
 /** Ordering options when selecting data from "Role". */
@@ -10068,21 +10081,26 @@ export interface Role_order_by {
   roleGen?: order_by | null
   roleName?: order_by | null
   status?: order_by | null
+  timestamp?: order_by | null
+  txHash?: order_by | null
 }
 
 /** order by stddev() on columns of table "Role" */
 export interface Role_stddev_order_by {
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** order by stddev_pop() on columns of table "Role" */
 export interface Role_stddev_pop_order_by {
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** order by stddev_samp() on columns of table "Role" */
 export interface Role_stddev_samp_order_by {
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** Streaming cursor of the table "Role" */
@@ -10105,26 +10123,32 @@ export interface Role_stream_cursor_value_input {
   roleGen?: Scalars['String'] | null
   roleName?: Scalars['String'] | null
   status?: Scalars['rolestatus'] | null
+  timestamp?: Scalars['Int'] | null
+  txHash?: Scalars['String'] | null
 }
 
 /** order by sum() on columns of table "Role" */
 export interface Role_sum_order_by {
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** order by var_pop() on columns of table "Role" */
 export interface Role_var_pop_order_by {
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** order by var_samp() on columns of table "Role" */
 export interface Role_var_samp_order_by {
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** order by variance() on columns of table "Role" */
 export interface Role_variance_order_by {
   chainId?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** columns and relationships of "StreamingPaymentProcessor" */
@@ -16176,6 +16200,8 @@ export const enumRoleSelectColumn = {
   roleGen: 'roleGen' as const,
   roleName: 'roleName' as const,
   status: 'status' as const,
+  timestamp: 'timestamp' as const,
+  txHash: 'txHash' as const,
 }
 
 export const enumStreamingPaymentProcessorSelectColumn = {
