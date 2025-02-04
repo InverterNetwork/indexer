@@ -41,6 +41,8 @@ export type CurveIntervalProperties = {
 }
 
 export type IssuanceTokenIntervalProperties = {
+  id: string
+
   issuanceToken_id: string
 
   priceUSD?: BigDecimal
@@ -140,6 +142,7 @@ async function handleIssuanceTokenIntervalData<
 }): Promise<Writable<T>> {
   const timestamp = event.block.timestamp
   const {
+    id,
     issuanceToken_id,
 
     priceUSD,
@@ -156,6 +159,8 @@ async function handleIssuanceTokenIntervalData<
       id: intervalID,
       chainId: event.chainId,
       address,
+
+      module_id: id,
 
       token_id: issuanceToken_id,
 

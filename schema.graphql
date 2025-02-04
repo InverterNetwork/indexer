@@ -213,9 +213,10 @@ type BondingCurve {
   curveDayData: [CurveDayData!]! @derivedFrom(field: "fundingManager_id")
   curveHourData: [CurveHourData!]! @derivedFrom(field: "fundingManager_id")
 
-  issuanceTokenDayData: [IssuanceTokenDayData!]! @derivedFrom(field: "token_id")
+  issuanceTokenDayData: [IssuanceTokenDayData!]!
+    @derivedFrom(field: "module_id")
   issuanceTokenHourData: [IssuanceTokenHourData!]!
-    @derivedFrom(field: "token_id")
+    @derivedFrom(field: "module_id")
 }
 
 # Deposit Vault
@@ -275,17 +276,25 @@ type OraclePriceFM {
   buyFee: BigInt!
   sellFee: BigInt!
 
-  projectFees: [ProjectFee!]! @derivedFrom(field: "module_id")
-  protocolFees: [ProtocolFee!]! @derivedFrom(field: "module_id")
-  orders: [OraclePriceOrder!]! @derivedFrom(field: "oraclePriceFM")
-
   pendingRedemptionCOL: BigDecimal!
   pendingRedemptionUSD: BigDecimal!
 
   reserveCOL: BigDecimal!
   reserveUSD: BigDecimal!
-}
 
+  orders: [OraclePriceOrder!]! @derivedFrom(field: "oraclePriceFM")
+
+  projectFees: [ProjectFee!]! @derivedFrom(field: "module_id")
+  protocolFees: [ProtocolFee!]! @derivedFrom(field: "module_id")
+
+  curveDayData: [CurveDayData!]! @derivedFrom(field: "fundingManager_id")
+  curveHourData: [CurveHourData!]! @derivedFrom(field: "fundingManager_id")
+
+  issuanceTokenDayData: [IssuanceTokenDayData!]!
+    @derivedFrom(field: "module_id")
+  issuanceTokenHourData: [IssuanceTokenHourData!]!
+    @derivedFrom(field: "module_id")
+}
 
 type OraclePriceOrder {
   id: ID! # `${oraclePriceFM_id}-${orderId}` | `${chainId}-${transaction.hash}`
@@ -425,7 +434,9 @@ type IssuanceTokenDayData @entity {
   chainId: Int!
   address: String!
 
-  token_id: ID! @index
+  module_id: ID! @index
+
+  token: Token!
 
   volumeUSD: BigDecimal!
   volumeISS: BigDecimal!
@@ -449,7 +460,9 @@ type IssuanceTokenHourData @entity {
   chainId: Int!
   address: String!
 
-  token_id: ID! @index
+  module_id: ID! @index
+
+  token: Token!
 
   volumeUSD: BigDecimal!
   volumeISS: BigDecimal!
