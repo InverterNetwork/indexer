@@ -153,6 +153,9 @@ type Role {
 
   module_id: ID! @index
   status: RoleStatus!
+
+  timestamp: Int!
+  txHash: String!
 }
 
 ## =============================================================================

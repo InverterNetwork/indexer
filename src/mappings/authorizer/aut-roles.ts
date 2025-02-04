@@ -36,6 +36,8 @@ AUT_Roles_v1.RoleGranted.handler(async ({ event, context }) => {
       roleGen,
       recipient,
       initiator,
+      timestamp: event.block.timestamp,
+      txHash: event.transaction.hash,
     },
   })
 })
@@ -56,6 +58,8 @@ AUT_Roles_v1.RoleRevoked.handler(async ({ event, context }) => {
       roleGen,
       recipient,
       initiator,
+      timestamp: event.block.timestamp,
+      txHash: event.transaction.hash,
     },
   })
 })
