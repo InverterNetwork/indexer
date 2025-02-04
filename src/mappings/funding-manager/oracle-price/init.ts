@@ -104,6 +104,8 @@ FM_PC_ExternalPrice_Redeeming_v1.OracleUpdated.handler(
       id: priceSetterId,
       workflow_id,
       chainId,
+      lastUpdated: event.block.timestamp,
+
       address: newPriceSetter,
 
       collateralToken_id,

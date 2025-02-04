@@ -12,6 +12,8 @@ LM_ManualExternalPriceSetter_v1.ModuleInitialized.handler(
       id,
       workflow_id,
       chainId: event.chainId,
+      lastUpdated: event.block.timestamp,
+
       address: event.srcAddress,
 
       collateralToken_id,
@@ -50,6 +52,7 @@ LM_ManualExternalPriceSetter_v1.RedemptionPriceSet.handler(
 
     context.ExternalPriceSetter.set({
       ...entity,
+      lastUpdated: event.block.timestamp,
       priceCOL,
     })
   }
@@ -83,6 +86,7 @@ LM_ManualExternalPriceSetter_v1.IssuancePriceSet.handler(
 
     context.ExternalPriceSetter.set({
       ...entity!,
+      lastUpdated: event.block.timestamp,
       priceISS,
     })
   }

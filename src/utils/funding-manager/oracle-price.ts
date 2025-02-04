@@ -85,10 +85,11 @@ export const createOraclePriceOrder = async ({
     > & {
       protocolFeeType: SourceTokenType_t
     },
-    'id' | 'chainId' | 'projectFee_id' | 'protocolFee_id'
+    'id' | 'chainId' | 'projectFee_id' | 'protocolFee_id' | 'txHash'
   >
 }) => {
   const chainId = event.chainId
+  const txHash = event.transaction.hash
 
   const projectFee_id = `${chainId}-${event.transaction.hash}`
   const protocolFee_id = `${chainId}-${event.transaction.hash}-${properties.protocolFeeType}`
@@ -96,6 +97,7 @@ export const createOraclePriceOrder = async ({
   const data = {
     id,
     chainId,
+    txHash,
     projectFee_id,
     protocolFee_id,
     executedBy: undefined,

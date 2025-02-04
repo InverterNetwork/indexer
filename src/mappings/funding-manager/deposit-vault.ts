@@ -76,6 +76,7 @@ FM_DepositVault_v1.Deposit.handler(async ({ event, context }) => {
     id: `${event.chainId}-${event.transaction}`,
     depositVault_id: id,
     timestamp: event.block.timestamp,
+    txHash: event.transaction.hash,
 
     amount,
     amountUSD,
@@ -116,6 +117,8 @@ FM_DepositVault_v1.TransferOrchestratorToken.handler(
     context.Transfer.set({
       id: `${event.chainId}-${event.transaction}`,
       timestamp: event.block.timestamp,
+      txHash: event.transaction.hash,
+
       depositVault_id: id,
 
       amount,

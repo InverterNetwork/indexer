@@ -56,6 +56,7 @@ type Token @entity {
 type ProtocolFee {
   id: ID! # `${chainId}-${event.transaction}-protocolFee-${source}`
   chainId: Int!
+  txHash: String!
   module_id: ID! @index
 
   source: SourceTokenType!
@@ -72,6 +73,7 @@ type ProtocolFee {
 type ProjectFee {
   id: ID! # `${chainId}-${event.transaction}-projectFee`
   chainId: Int!
+  txHash: String!
   module_id: ID! @index
 
   timestamp: Int!
@@ -161,6 +163,7 @@ type Role {
 type Swap {
   id: ID! # `${event.block.hash}-${event.logIndex}`
   chainId: Int!
+  txHash: String!
   fundingManager_id: ID! @index
 
   timestamp: Int!
@@ -239,6 +242,7 @@ type DepositVault {
 type Deposit {
   id: ID! # `${chainId}-${event.transaction}`
   timestamp: Int!
+  txHash: String!
 
   depositVault: DepositVault!
   depositor: String!
@@ -250,6 +254,7 @@ type Deposit {
 type Transfer {
   id: ID! # `${chainId}-${event.transaction}`
   timestamp: Int!
+  txHash: String!
 
   depositVault: DepositVault!
   recipient: String!
@@ -299,6 +304,7 @@ type OraclePriceFM {
 type OraclePriceOrder {
   id: ID! # `${oraclePriceFM_id}-${orderId}` | `${chainId}-${transaction.hash}`
   chainId: Int!
+  txHash: String!
   timestamp: Int!
   orderId: BigInt
 
@@ -340,6 +346,7 @@ type ExternalPriceSetter {
   id: ID! # `${chainId}-${address}`
   chainId: Int!
   address: String!
+  lastUpdated: Int!
 
   workflow: Workflow!
 

@@ -40,12 +40,13 @@ export const createSwap = async ({
 }: {
   event: eventLog<any>
   context: handlerContext
-  properties: Omit<Swap_t, 'id' | 'chainId'>
+  properties: Omit<Swap_t, 'id' | 'chainId' | 'txHash'>
 }) => {
   const chainId = event.chainId
+  const txHash = event.transaction.hash
   const id = `${event.block.hash}-${event.logIndex}`
 
-  const swap = { id, chainId, ...properties }
+  const swap = { id, chainId, txHash, ...properties }
 
   context.Swap.set(swap)
 

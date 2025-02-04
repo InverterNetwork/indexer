@@ -8,12 +8,18 @@ export const createProjectFee = async ({
 }: {
   event: eventLog<any>
   context: handlerContext
-  properties: Omit<ProjectFee_t, 'id' | 'chainId'>
+  properties: Omit<ProjectFee_t, 'id' | 'chainId' | 'txHash'>
 }) => {
   const chainId = event.chainId
+  const txHash = event.transaction.hash
   const id = `${chainId}-${event.transaction.hash}`
 
-  const projectFee = { id, chainId, ...properties }
+  const projectFee = {
+    id,
+    chainId,
+    txHash,
+    ...properties,
+  }
 
   context.ProjectFee.set(projectFee)
 
@@ -27,12 +33,13 @@ export const createProtocolFee = async ({
 }: {
   event: eventLog<any>
   context: handlerContext
-  properties: Omit<ProtocolFee_t, 'id' | 'chainId'>
+  properties: Omit<ProtocolFee_t, 'id' | 'chainId' | 'txHash'>
 }) => {
   const chainId = event.chainId
+  const txHash = event.transaction.hash
   const id = `${chainId}-${event.transaction.hash}-${properties.source}`
 
-  const protocolFee = { id, chainId, ...properties }
+  const protocolFee = { id, chainId, txHash, ...properties }
 
   context.ProtocolFee.set(protocolFee)
 
