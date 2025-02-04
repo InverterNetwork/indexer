@@ -4,7 +4,7 @@ unordered_multichain_mode: true
 rollback_on_reorg: false
 field_selection:
   transaction_fields:
-    - "hash"
+    - 'hash'
 contracts:
   - name: ModuleFactory_v1
     abi_file_path: abis/ModuleFactory_v1.json
@@ -111,87 +111,87 @@ contracts:
       - event: IssuancePriceSet
       - event: RedemptionPriceSet
 networks:
-  # - id: 11155420
-  #   start_block: 16141643
-  #   contracts:
-  #     - name: ModuleFactory_v1
-  #       address: 0xcEB82D3FA367cE3563e07763765bB1ae7B5Ba3d5
-  #     - name: OrchestratorFactory_v1
-  #       address: 0x535BdbC1D369d43fed8546024D273eE5274fFF65
-  #     - name: Orchestrator_v1
-  #       address:
-  #     - name: AUT_Roles_v1
-  #       address:
-  #     - name: BondingCurve # renamed to solve postgres conflict due to length of name
-  #       address:
-  #     - name: PP_Streaming_v1
-  #       address:
-  #     - name: LM_PC_Bounties_v1
-  #       address:
-  #     - name: FM_DepositVault_v1
-  #       address:
-  #     - name: FM_PC_ExternalPrice_Redeeming_v1
-  #       address:
-  #     - name: PP_Queue_v1
-  #       address:
-  #     - name: PP_Queue_ManualExecution_v1
-  #       address:
-  #     - name: LM_ManualExternalPriceSetter_v1
-  #       address:
-  # - id: 84532
-  #   start_block: 14158776
-  #   contracts:
-  #     - name: ModuleFactory_v1
-  #       address: 0xcEB82D3FA367cE3563e07763765bB1ae7B5Ba3d5
-  #     - name: OrchestratorFactory_v1
-  #       address: 0x535BdbC1D369d43fed8546024D273eE5274fFF65
-  #     - name: Orchestrator_v1
-  #       address:
-  #     - name: AUT_Roles_v1
-  #       address:
-  #     - name: BondingCurve # renamed to solve postgres conflict due to length of name
-  #       address:
-  #     - name: PP_Streaming_v1
-  #       address:
-  #     - name: LM_PC_Bounties_v1
-  #       address:
-  #     - name: FM_DepositVault_v1
-  #       address:
-  #     - name: FM_PC_ExternalPrice_Redeeming_v1
-  #       address:
-  #     - name: PP_Queue_v1
-  #       address:
-  #     - name: PP_Queue_ManualExecution_v1
-  #       address:
-  #     - name: LM_ManualExternalPriceSetter_v1
-  #       address:
-  # - id: 1101
-  #   start_block: 16657460
-  #   contracts:
-  #     - name: ModuleFactory_v1
-  #       address: 0x5Da8231feE106f4A43e07f2EEE95564467A1Ee58
-  #     - name: OrchestratorFactory_v1
-  #       address: 0x6ecA5f791d9635e4a1874cCD95564F914fBCF73d
-  #     - name: Orchestrator_v1
-  #       address:
-  #     - name: AUT_Roles_v1
-  #       address:
-  #     - name: BondingCurve # renamed to solve postgres conflict due to length of name
-  #       address:
-  #     - name: PP_Streaming_v1
-  #       address:
-  #     - name: LM_PC_Bounties_v1
-  #       address:
-  #     - name: FM_DepositVault_v1
-  #       address:
-  #     - name: FM_PC_ExternalPrice_Redeeming_v1
-  #       address:
-  #     - name: PP_Queue_v1
-  #       address:
-  #     - name: PP_Queue_ManualExecution_v1
-  #       address:
-  #     - name: LM_ManualExternalPriceSetter_v1
-  #       address:
+  - id: 11155420
+    start_block: 16141643
+    contracts:
+      - name: ModuleFactory_v1
+        address: 0xcEB82D3FA367cE3563e07763765bB1ae7B5Ba3d5
+      - name: OrchestratorFactory_v1
+        address: 0x535BdbC1D369d43fed8546024D273eE5274fFF65
+      - name: Orchestrator_v1
+        address:
+      - name: AUT_Roles_v1
+        address:
+      - name: BondingCurve # renamed to solve postgres conflict due to length of name
+        address:
+      - name: PP_Streaming_v1
+        address:
+      - name: LM_PC_Bounties_v1
+        address:
+      - name: FM_DepositVault_v1
+        address:
+      - name: FM_PC_ExternalPrice_Redeeming_v1
+        address:
+      - name: PP_Queue_v1
+        address:
+      - name: PP_Queue_ManualExecution_v1
+        address:
+      - name: LM_ManualExternalPriceSetter_v1
+        address:
+  - id: 84532
+    start_block: 14158776
+    contracts:
+      - name: ModuleFactory_v1
+        address: 0xcEB82D3FA367cE3563e07763765bB1ae7B5Ba3d5
+      - name: OrchestratorFactory_v1
+        address: 0x535BdbC1D369d43fed8546024D273eE5274fFF65
+      - name: Orchestrator_v1
+        address:
+      - name: AUT_Roles_v1
+        address:
+      - name: BondingCurve # renamed to solve postgres conflict due to length of name
+        address:
+      - name: PP_Streaming_v1
+        address:
+      - name: LM_PC_Bounties_v1
+        address:
+      - name: FM_DepositVault_v1
+        address:
+      - name: FM_PC_ExternalPrice_Redeeming_v1
+        address:
+      - name: PP_Queue_v1
+        address:
+      - name: PP_Queue_ManualExecution_v1
+        address:
+      - name: LM_ManualExternalPriceSetter_v1
+        address:
+  - id: 1101
+    start_block: 16657460
+    contracts:
+      - name: ModuleFactory_v1
+        address: 0x5Da8231feE106f4A43e07f2EEE95564467A1Ee58
+      - name: OrchestratorFactory_v1
+        address: 0x6ecA5f791d9635e4a1874cCD95564F914fBCF73d
+      - name: Orchestrator_v1
+        address:
+      - name: AUT_Roles_v1
+        address:
+      - name: BondingCurve # renamed to solve postgres conflict due to length of name
+        address:
+      - name: PP_Streaming_v1
+        address:
+      - name: LM_PC_Bounties_v1
+        address:
+      - name: FM_DepositVault_v1
+        address:
+      - name: FM_PC_ExternalPrice_Redeeming_v1
+        address:
+      - name: PP_Queue_v1
+        address:
+      - name: PP_Queue_ManualExecution_v1
+        address:
+      - name: LM_ManualExternalPriceSetter_v1
+        address:
   - id: 11155111
     start_block: 6531547
     contracts:
