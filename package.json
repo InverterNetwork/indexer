@@ -42,7 +42,7 @@
     "viem": "^2.21.0"
   },
   "dependencies": {
-    "envio": "^2.12.3",
+    "envio": "^2.12.4",
     "geckoterm": "^0.2.4",
     "node-ts-cache": "^4.4.0",
     "node-ts-cache-storage-memory": "^4.4.0",
