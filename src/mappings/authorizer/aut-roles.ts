@@ -27,7 +27,7 @@ AUT_Roles_v1.RoleGranted.handler(async ({ event, context }) => {
   const recipient = event.params.account
   const initiator = event.params.sender
 
-  updateRole({
+  await updateRole({
     event,
     context,
     properties: {
@@ -49,7 +49,7 @@ AUT_Roles_v1.RoleRevoked.handler(async ({ event, context }) => {
   const recipient = event.params.account
   const initiator = event.params.sender
 
-  updateRole({
+  await updateRole({
     event,
     context,
     properties: {
