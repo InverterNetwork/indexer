@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.13](https://github.com/InverterNetwork/indexer/compare/v0.9.12...v0.9.13) (2025-02-07)
+
+
+### Bug Fixes
+
+* add await to updateRole calls in role event handlers ([ab03081](https://github.com/InverterNetwork/indexer/commit/ab03081d015d020b3bcf1e0186924f78143e38c0))
+
 ### [0.9.12](https://github.com/InverterNetwork/indexer/compare/v0.9.11...v0.9.12) (2025-02-05)
 
 ### [0.9.11](https://github.com/InverterNetwork/indexer/compare/v0.9.10...v0.9.11) (2025-02-04)
