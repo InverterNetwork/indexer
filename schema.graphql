@@ -54,7 +54,7 @@ type Token @entity {
 }
 
 type ProtocolFee {
-  id: ID! # `${chainId}-${event.transaction}-protocolFee-${source}`
+  id: ID! # `${chainId}-${event.transaction.hash}-protocolFee-${source}`
   chainId: Int!
   txHash: String!
   module_id: ID! @index
@@ -71,7 +71,7 @@ type ProtocolFee {
 }
 
 type ProjectFee {
-  id: ID! # `${chainId}-${event.transaction}-projectFee`
+  id: ID! # `${chainId}-${event.transaction.hash}-projectFee`
   chainId: Int!
   txHash: String!
   module_id: ID! @index
@@ -243,7 +243,7 @@ type DepositVault {
 }
 
 type Deposit {
-  id: ID! # `${chainId}-${event.transaction}`
+  id: ID! # `${chainId}-${event.transaction.hash}`
   timestamp: Int!
   txHash: String!
 
@@ -255,7 +255,7 @@ type Deposit {
 }
 
 type Transfer {
-  id: ID! # `${chainId}-${event.transaction}`
+  id: ID! # `${chainId}-${event.transaction.hash}`
   timestamp: Int!
   txHash: String!
 
@@ -365,8 +365,9 @@ type ExternalPriceSetter {
 }
 
 type ExternalPrice {
-  id: ID! # `${externalPriceSetter_id}-${timestamp}`
+  id: ID! # `${event.transaction.hash}-${event.logIndex}`
   chainId: Int!
+  txHash: String!
 
   source: SourceTokenType!
 

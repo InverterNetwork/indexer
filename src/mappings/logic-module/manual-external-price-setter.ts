@@ -57,7 +57,7 @@ LM_ManualExternalPriceSetter_v1.RedemptionPriceSet.handler(
     })
 
     context.ExternalPrice.set({
-      id: `${id}-${event.block.timestamp}`,
+      id: `${event.transaction.hash}-${event.logIndex}`,
       chainId: event.chainId,
       source: 'COLLATERAL',
 
@@ -67,6 +67,7 @@ LM_ManualExternalPriceSetter_v1.RedemptionPriceSet.handler(
       timestamp: event.block.timestamp,
 
       price: priceCOL,
+      txHash: event.transaction.hash,
     })
   }
 )
@@ -104,8 +105,10 @@ LM_ManualExternalPriceSetter_v1.IssuancePriceSet.handler(
     })
 
     context.ExternalPrice.set({
-      id: `${id}-${event.block.timestamp}`,
+      id: `${event.transaction.hash}-${event.logIndex}`,
       chainId: event.chainId,
+      txHash: event.transaction.hash,
+
       source: 'ISSUANCE',
 
       externalPriceSetter_id: id,

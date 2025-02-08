@@ -73,7 +73,7 @@ FM_DepositVault_v1.Deposit.handler(async ({ event, context }) => {
 
   // Create deposit record
   context.Deposit.set({
-    id: `${event.chainId}-${event.transaction}`,
+    id: `${event.chainId}-${event.transaction.hash}`,
     depositVault_id: id,
     timestamp: event.block.timestamp,
     txHash: event.transaction.hash,
@@ -115,7 +115,7 @@ FM_DepositVault_v1.TransferOrchestratorToken.handler(
 
     // Create transfer record
     context.Transfer.set({
-      id: `${event.chainId}-${event.transaction}`,
+      id: `${event.chainId}-${event.transaction.hash}`,
       timestamp: event.block.timestamp,
       txHash: event.transaction.hash,
 
