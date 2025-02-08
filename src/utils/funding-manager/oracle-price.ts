@@ -43,6 +43,9 @@ export const updateOraclePrice = async ({
       collateralToken_id: properties?.collateralToken_id!,
       externalPriceSetter_id: properties?.externalPriceSetter_id!,
 
+      maxBuyFee: properties?.maxBuyFee ?? 0n,
+      maxSellFee: properties?.maxSellFee ?? 0n,
+
       buyFee: 0n,
       sellFee: 0n,
 

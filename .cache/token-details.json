@@ -3427,5 +3427,653 @@
       "decimals": 18,
       "address": "0xfF75ABDc7A29739C095314D4AA30E0eFbc1F80F1"
     }
+  },
+  "0x13492bf907fa548f835f6ff5a5d353b608ef3291-11155111": {
+    "meta": {},
+    "content": {
+      "name": "The Legend",
+      "symbol": "LGND",
+      "decimals": 18,
+      "address": "0x13492BF907FA548f835F6fF5a5D353B608ef3291"
+    }
+  },
+  "0xc631450735496ea903d8738576f2b43742331360-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Automated Deploy",
+      "symbol": "FFAD",
+      "decimals": 18,
+      "address": "0xC631450735496Ea903d8738576f2b43742331360"
+    }
+  },
+  "0x810024ed21a1784f167f83a15242e126d10bdc06-11155111": {
+    "meta": {},
+    "content": {
+      "name": "OG Ether",
+      "symbol": "OETH",
+      "decimals": 18,
+      "address": "0x810024ed21A1784f167F83a15242E126D10Bdc06"
+    }
+  },
+  "0xa21a487c3234bc1a6254299b348dcc2364c85fd6-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Test Token",
+      "symbol": "TST",
+      "decimals": 18,
+      "address": "0xa21a487C3234bc1A6254299B348DcC2364C85fd6"
+    }
+  },
+  "0xdcb402adc0177f2e432330c02a8df9c79dfba6ad-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Test Token",
+      "symbol": "TST",
+      "decimals": 18,
+      "address": "0xDCb402ADC0177F2E432330C02A8DF9C79DfbA6ad"
+    }
+  },
+  "0x67d9ee8cfde45503ad5cf3e69b7aaa397c8b5fc5-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Tester ERC",
+      "symbol": "ERC",
+      "decimals": 18,
+      "address": "0x67D9EE8cFDE45503ad5CF3e69b7aAA397C8B5FC5"
+    }
+  },
+  "0x46d156d7284d4b32b50e7c70ef8ba34557469ddc-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Space Token",
+      "symbol": "SPC",
+      "decimals": 18,
+      "address": "0x46D156D7284d4b32B50e7c70eF8ba34557469ddc"
+    }
+  },
+  "0xae9dc681d39d58a3ca37d00a0256f92a68d540de-11155111": {
+    "meta": {},
+    "content": {
+      "name": "asdasd",
+      "symbol": "ASDASD",
+      "decimals": 18,
+      "address": "0xaE9Dc681d39D58A3cA37d00a0256F92A68D540de"
+    }
+  },
+  "0x17cf4052c10077d3cf74c9f4b066ec66cffc62c2-11155111": {
+    "meta": {},
+    "content": {
+      "name": "asdasdasdas",
+      "symbol": "ADASDASD",
+      "decimals": 18,
+      "address": "0x17cF4052C10077d3cf74c9F4B066EC66cFFC62C2"
+    }
+  },
+  "0x3b04eb1ae9dbf5d17afa591a78ccdaa326d7050f-11155111": {
+    "meta": {},
+    "content": {
+      "name": "asdasdasdas",
+      "symbol": "ADASDASD",
+      "decimals": 18,
+      "address": "0x3b04Eb1Ae9dbf5d17AFa591A78CCdaa326D7050F"
+    }
+  },
+  "0xa91c4b070b3dedd0eabef6fd2fc7078f87f4e333-11155111": {
+    "meta": {},
+    "content": {
+      "name": "tst",
+      "symbol": "TST",
+      "decimals": 18,
+      "address": "0xA91c4B070B3dEdD0eAbeF6fD2FC7078F87F4E333"
+    }
+  },
+  "0x27a2b0b3f02ca4b86491dd70864b0fca75e69e9e-11155111": {
+    "meta": {},
+    "content": {
+      "name": "TST",
+      "symbol": "TST",
+      "decimals": 18,
+      "address": "0x27a2b0B3f02cA4B86491dd70864B0fcA75E69E9E"
+    }
+  },
+  "0x6e214dcbc97849576d39a46423107c359bf13e95-11155111": {
+    "meta": {},
+    "content": {
+      "name": "TST",
+      "symbol": "TST",
+      "decimals": 18,
+      "address": "0x6e214DcBc97849576d39a46423107c359bf13e95"
+    }
+  },
+  "0xd2865a1bb3010a4ca60799137ca201f649668a97-11155111": {
+    "meta": {},
+    "content": {
+      "name": "SILK Fund",
+      "symbol": "SLK",
+      "decimals": 18,
+      "address": "0xD2865a1Bb3010A4CA60799137cA201f649668A97"
+    }
+  },
+  "0x70743ec72fe11b87278768557debfdbac445e97a-11155111": {
+    "meta": {},
+    "content": {
+      "name": "SILK Fund v2",
+      "symbol": "SLK",
+      "decimals": 18,
+      "address": "0x70743ec72FE11B87278768557DEbFDBac445E97A"
+    }
+  },
+  "0x89fdbe0d63ae8b04588df13aff81651f522e0bcb-11155111": {
+    "meta": {},
+    "content": {
+      "name": "SILK Fund v3",
+      "symbol": "SLK",
+      "decimals": 18,
+      "address": "0x89FdBe0d63aE8B04588DF13AFf81651F522E0bcb"
+    }
+  },
+  "0x1be9143cc5acfed93a88f7f7962feba6e1ddff9b-11155111": {
+    "meta": {},
+    "content": {
+      "name": "SILK Fund v4",
+      "symbol": "SLK",
+      "decimals": 18,
+      "address": "0x1be9143cC5ACFED93A88F7f7962febA6E1DDFf9B"
+    }
+  },
+  "0x7192c4e036ed866ee73d63ba81eeab2ce667e434-11155111": {
+    "meta": {},
+    "content": {
+      "name": "eRPC saved us",
+      "symbol": "ERPC",
+      "decimals": 18,
+      "address": "0x7192c4E036ED866EE73d63Ba81eeab2CE667e434"
+    }
+  },
+  "0x3e7bc0bb6f24418b98e39931c6b84ab2c28210e5-11155111": {
+    "meta": {},
+    "content": {
+      "name": "TST",
+      "symbol": "TST",
+      "decimals": 18,
+      "address": "0x3E7Bc0BB6f24418B98e39931C6B84AB2C28210e5"
+    }
+  },
+  "0xf740fe4abe2512e44ee5b26c4ee437f3864a9f77-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Stable DUDE",
+      "symbol": "STB",
+      "decimals": 18,
+      "address": "0xF740fe4abE2512E44EE5B26C4eE437f3864a9F77"
+    }
+  },
+  "0x8d3ed3d0412dfb692304738e63125b9636db6040-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Space token fund",
+      "symbol": "SPC",
+      "decimals": 18,
+      "address": "0x8d3ED3d0412DFb692304738e63125B9636Db6040"
+    }
+  },
+  "0x0afa55c9b33b3f6107f49d8b1a8c0a454277b44b-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Space token fund v2",
+      "symbol": "SPC",
+      "decimals": 18,
+      "address": "0x0afa55c9B33b3F6107f49D8B1A8c0a454277b44B"
+    }
+  },
+  "0x401b23d9b90302844c3c898fa1614a1328674464-11155420": {
+    "meta": {},
+    "content": {
+      "name": "TST",
+      "symbol": "TST",
+      "decimals": 18,
+      "address": "0x401B23D9b90302844c3c898fa1614A1328674464"
+    }
+  },
+  "0x836e7b8273f9d024f9a154e3ec6ed597eec96527-11155111": {
+    "meta": {},
+    "content": {
+      "name": "TST",
+      "symbol": "TST",
+      "decimals": 18,
+      "address": "0x836e7b8273f9D024f9A154E3EC6eD597eeC96527"
+    }
+  },
+  "0x25171e3e10858bf50eabdac2523997ea5fa0d05c-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Space fund v3",
+      "symbol": "SPC",
+      "decimals": 18,
+      "address": "0x25171E3E10858BF50eAbDAC2523997EA5FA0d05c"
+    }
+  },
+  "0xa2445f4d520f89951d179d518a6fde74591e15e3-11155111": {
+    "meta": {},
+    "content": {
+      "name": "TST",
+      "symbol": "TST",
+      "decimals": 18,
+      "address": "0xa2445f4d520f89951d179D518A6Fde74591e15e3"
+    }
+  },
+  "0x28d86a88b47f0105d38dc8d6884ee946a9745725-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Yapi Kredi Money Market Fund II",
+      "symbol": "YPKMM",
+      "decimals": 18,
+      "address": "0x28d86A88B47F0105D38Dc8d6884Ee946A9745725"
+    }
+  },
+  "0xb5db3244111da33ff5e6c083dfefa54871088532-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Yapi Kredi Money Market Fund II",
+      "symbol": "YPKMM",
+      "decimals": 18,
+      "address": "0xB5dB3244111da33fF5e6C083DFEfA54871088532"
+    }
+  },
+  "0x211aaf59d0b03d4e7b2fcac36d5de28f69a79d78-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Yapi Kredi Money Market Fund II",
+      "symbol": "YPKMM",
+      "decimals": 18,
+      "address": "0x211aAF59d0b03d4e7b2fcaC36D5DE28f69A79d78"
+    }
+  },
+  "0x501ce261568dca40e480fd06abaa33e77cfd0e94-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Yapi Kredi Money Market Fund II",
+      "symbol": "YPKMM",
+      "decimals": 18,
+      "address": "0x501ce261568DcA40e480FD06abAA33E77cfD0e94"
+    }
+  },
+  "0x1f485df7895b7763241e3da50a2b45ddc2d4633f-11155111": {
+    "meta": {},
+    "content": {
+      "name": "tst",
+      "symbol": "TST",
+      "decimals": 18,
+      "address": "0x1f485df7895B7763241E3da50A2b45DDc2d4633F"
+    }
+  },
+  "0xb1a1eaf8bc5b7a6dc249abe0316e766c9fb3e289-11155111": {
+    "meta": {},
+    "content": {
+      "name": "lols",
+      "symbol": "LOL",
+      "decimals": 18,
+      "address": "0xb1A1eaf8Bc5b7A6DC249ABe0316E766C9FB3E289"
+    }
+  },
+  "0xf03a628ec272c31e6115fe7dfad4af8497cdb8e6-11155420": {
+    "meta": {},
+    "content": {
+      "name": "tst",
+      "symbol": "TST",
+      "decimals": 18,
+      "address": "0xf03A628Ec272C31E6115FE7dfAD4Af8497cdB8e6"
+    }
+  },
+  "0x144638de8cba31efbe8e6ab9f856154fad065bdf-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Space token fund v4",
+      "symbol": "SPC4",
+      "decimals": 18,
+      "address": "0x144638dE8cba31EFBE8e6Ab9f856154fAD065bdF"
+    }
+  },
+  "0x3034631f2f5fc20bfdf9c9331a76477b05052b04-11155420": {
+    "meta": {},
+    "content": {
+      "name": "optst",
+      "symbol": "OPTST",
+      "decimals": 18,
+      "address": "0x3034631f2F5fC20bFDf9c9331A76477B05052B04"
+    }
+  },
+  "0x0c7fe9d82b0a8ff224a06b67fa27dac5f564beba-11155420": {
+    "meta": {},
+    "content": {
+      "name": "optst",
+      "symbol": "OPTST",
+      "decimals": 18,
+      "address": "0x0C7fE9D82B0A8Ff224a06B67FA27DAC5F564bEBa"
+    }
+  },
+  "0x0c1bb37157a538441c266fa0cfb0b200fee49578-11155420": {
+    "meta": {},
+    "content": {
+      "name": "optst",
+      "symbol": "OPTST",
+      "decimals": 18,
+      "address": "0x0c1bB37157a538441C266Fa0CfB0B200fee49578"
+    }
+  },
+  "0x07c016fb7c9dc4c5cdf2a99196595901f32594d5-11155420": {
+    "meta": {},
+    "content": {
+      "name": "optst",
+      "symbol": "OPTST",
+      "decimals": 18,
+      "address": "0x07C016Fb7C9dc4C5cdF2a99196595901F32594D5"
+    }
+  },
+  "0x16cad3932def3391e86ecb73ad30a2fc9dc663ab-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Green Fund",
+      "symbol": "GRNF",
+      "decimals": 18,
+      "address": "0x16caD3932deF3391e86eCb73AD30A2fc9dc663Ab"
+    }
+  },
+  "0x81b4b74f39be8ad1c8eb5b11313c73c8c6010756-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Space token fund v5",
+      "symbol": "SPC5",
+      "decimals": 18,
+      "address": "0x81B4b74F39be8Ad1c8EB5B11313c73C8C6010756"
+    }
+  },
+  "0x3d3923232cca10db696b4053dfc3075aa20c9ddd-11155111": {
+    "meta": {},
+    "content": {
+      "name": "MG Test Flow",
+      "symbol": "MGS",
+      "decimals": 18,
+      "address": "0x3D3923232CCA10DB696B4053DFc3075Aa20c9Ddd"
+    }
+  },
+  "0x422e6f101585c559ce586e10fd30636d317ad16a-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Final countdown",
+      "symbol": "COUNT",
+      "decimals": 18,
+      "address": "0x422E6F101585c559ce586e10FD30636d317Ad16a"
+    }
+  },
+  "0xcccf16b18740c6e99d1b0e059d587fd268d52340-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Yapi Kredi Money Market Fund II",
+      "symbol": "YPKMM",
+      "decimals": 18,
+      "address": "0xcCcf16b18740c6E99d1b0e059d587Fd268D52340"
+    }
+  },
+  "0xdc83e2644483a5f33cb68a6c34c5308f6ef80bf7-11155420": {
+    "meta": {},
+    "content": {
+      "name": "OP Green Fund",
+      "symbol": "OPGRN",
+      "decimals": 18,
+      "address": "0xDC83e2644483a5F33cB68a6C34C5308F6Ef80BF7"
+    }
+  },
+  "0x38a728ea0d8022d748ff0adb697883c3186d429e-11155420": {
+    "meta": {},
+    "content": {
+      "name": "OP Green Fund",
+      "symbol": "OPGRN",
+      "decimals": 18,
+      "address": "0x38a728EA0d8022D748FF0AdB697883C3186d429e"
+    }
+  },
+  "0xae0f86168df4589cae0bf53df3bbfe29206c3814-11155420": {
+    "meta": {},
+    "content": {
+      "name": "OP Green Fund",
+      "symbol": "OPGRN",
+      "decimals": 18,
+      "address": "0xae0F86168df4589CAE0bF53DF3BBFe29206c3814"
+    }
+  },
+  "0xb62a47a622e66aa8974170da865899ab1274b733-11155420": {
+    "meta": {},
+    "content": {
+      "name": "OP Green Fund",
+      "symbol": "OPGRN",
+      "decimals": 18,
+      "address": "0xb62a47a622E66aa8974170Da865899AB1274B733"
+    }
+  },
+  "0x5c35112e452c5910618c219d5b9e8154ff63e707-11155420": {
+    "meta": {},
+    "content": {
+      "name": "OP Green Fund",
+      "symbol": "OPGRN",
+      "decimals": 18,
+      "address": "0x5c35112E452c5910618C219D5b9E8154FF63E707"
+    }
+  },
+  "0x46cbc77ba9ea6f73c0c8fcc2de59bbd527abcf8d-11155420": {
+    "meta": {},
+    "content": {
+      "name": "OP Green Fund",
+      "symbol": "OPGRN",
+      "decimals": 18,
+      "address": "0x46cBc77Ba9EA6F73C0C8FCc2dE59bbd527aBCf8d"
+    }
+  },
+  "0xe792a9f755cf4e8b85f666500598e9599a0e834d-11155420": {
+    "meta": {},
+    "content": {
+      "name": "OP Green Fund",
+      "symbol": "OPGRN",
+      "decimals": 18,
+      "address": "0xE792a9f755cF4e8b85f666500598e9599A0e834d"
+    }
+  },
+  "0x2187aeec6c8990b1ba124a88188cb4359e240d64-11155420": {
+    "meta": {},
+    "content": {
+      "name": "OP Green Fund",
+      "symbol": "OPGRN",
+      "decimals": 18,
+      "address": "0x2187AeEC6C8990B1Ba124a88188CB4359E240D64"
+    }
+  },
+  "0x92e15b24c30dfe7c5bf739e1ffb202e07fda474b-11155420": {
+    "meta": {},
+    "content": {
+      "name": "OP Sepolia Test Blacklist",
+      "symbol": "OPSB",
+      "decimals": 18,
+      "address": "0x92e15b24c30DFe7C5BF739e1fFB202E07FdA474b"
+    }
+  },
+  "0xa93b06144a016965b4dc42d976efac7e9f60da30-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Test Token",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0xa93b06144a016965b4dc42d976eFAc7e9f60Da30"
+    }
+  },
+  "0xb75960ce1de2f5eb96b7f21f2b7f848d10f2d4b1-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Test Token",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0xb75960cE1De2F5eb96b7f21F2b7f848D10F2D4b1"
+    }
+  },
+  "0x7b5872e51e03ba5ee85e1a41318ea26e85d8c490-11155420": {
+    "meta": {},
+    "content": {
+      "name": "OP Green Fund",
+      "symbol": "OPGRN",
+      "decimals": 18,
+      "address": "0x7B5872E51E03Ba5EE85e1A41318ea26E85D8C490"
+    }
+  },
+  "0xa72ac59fdcf4ecad3b5892d1b7f65a1b43611ece-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Test Token",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0xa72aC59FDCF4EcAD3b5892d1B7f65a1b43611eCe"
+    }
+  },
+  "0x12a6dfc527401d00b6ecc06ffc3168a699e9fd3b-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Test Token",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0x12A6dFc527401d00B6ecc06ffC3168A699E9Fd3B"
+    }
+  },
+  "0x9bc043411a7e352f9ae4a0e1473cebbbb003a243-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Test Token",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0x9Bc043411a7E352f9AE4a0e1473ceBBBb003A243"
+    }
+  },
+  "0x6ff8daa0d0273e1201ca4be2a09297e3ad7893bf-11155420": {
+    "meta": {},
+    "content": {
+      "name": "OP Green Fund",
+      "symbol": "OPGRN",
+      "decimals": 18,
+      "address": "0x6Ff8DaA0D0273e1201CA4be2A09297e3ad7893bf"
+    }
+  },
+  "0x7ba448cf29b411f9f807d03ef287c7081d413793-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Test Token",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0x7Ba448CF29b411f9f807D03eF287c7081d413793"
+    }
+  },
+  "0x247591c7e5c12b54f6f79948c00341ee8c4b444f-11155420": {
+    "meta": {},
+    "content": {
+      "name": "OP Test Token",
+      "symbol": "OPTST",
+      "decimals": 18,
+      "address": "0x247591C7E5C12B54F6f79948c00341EE8c4B444f"
+    }
+  },
+  "0xefaf7a140d556b1efb607b21dfc7da0d9ece4099-11155420": {
+    "meta": {},
+    "content": {
+      "name": "OP Test Token",
+      "symbol": "OPTST",
+      "decimals": 18,
+      "address": "0xefaf7a140d556B1efb607b21DfC7dA0D9ECe4099"
+    }
+  },
+  "0x9f59e4ef2da606ae313393da4c82dd1a2997592b-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Furst Fund of the World",
+      "symbol": "FURST",
+      "decimals": 18,
+      "address": "0x9F59e4eF2Da606ae313393da4c82dd1A2997592b"
+    }
+  },
+  "0x1e06459656a665bd5db251d518dc1c0a79f9621c-11155111": {
+    "meta": {},
+    "content": {
+      "name": "ETH SEP LTS",
+      "symbol": "ETHSEP",
+      "decimals": 18,
+      "address": "0x1e06459656a665bD5Db251D518DC1c0A79f9621c"
+    }
+  },
+  "0x966c742336718b7a2572b66195493e430c934d0f-11155111": {
+    "meta": {},
+    "content": {
+      "name": "ETH SEP LTS",
+      "symbol": "ETHSEP",
+      "decimals": 18,
+      "address": "0x966c742336718b7A2572B66195493E430c934d0f"
+    }
+  },
+  "0x2190c8d8c5ba81fb7f10578cd782183e000a42c7-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Only Await Required",
+      "symbol": "AWAIT",
+      "decimals": 18,
+      "address": "0x2190C8d8c5BA81fB7F10578cd782183e000a42C7"
+    }
+  },
+  "0xca6fc30e4266f48ee340e4f7af7af949fa260fac-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Only Await Required",
+      "symbol": "AWAIT",
+      "decimals": 18,
+      "address": "0xCA6fc30E4266F48ee340e4F7aF7af949Fa260FAc"
+    }
+  },
+  "0x0b140a3c8e0401c16881c9580d6e9cf717a69c5b-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Only Await Required",
+      "symbol": "AWAIT",
+      "decimals": 18,
+      "address": "0x0B140a3c8E0401C16881C9580D6E9cF717A69C5b"
+    }
+  },
+  "0x332453cee0b1ab4c12f818fda9f5461e74f1d9f7-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Only Await Required",
+      "symbol": "AWAIT",
+      "decimals": 18,
+      "address": "0x332453ceE0b1AB4C12F818Fda9f5461e74F1d9F7"
+    }
+  },
+  "0x774295efae4d0cca90dba8e42d7053ef1c76299e-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Only Await Required",
+      "symbol": "AWAIT",
+      "decimals": 18,
+      "address": "0x774295EFAe4D0CCA90DBA8e42D7053EF1c76299e"
+    }
+  },
+  "0x898bd0db9c325d02437ac7b31b23ca844f337d8a-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Only Await Required",
+      "symbol": "AWAIT",
+      "decimals": 18,
+      "address": "0x898bd0db9c325D02437aC7B31b23cA844F337d8a"
+    }
+  },
+  "0xeec7839d33f0335ae17fca0ecb061b63fd7594c5-11155111": {
+    "meta": {},
+    "content": {
+      "name": "ETH SEP 1",
+      "symbol": "LOCAL",
+      "decimals": 18,
+      "address": "0xEEc7839D33f0335AE17fCa0ecB061b63fD7594C5"
+    }
   }
 }

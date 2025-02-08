@@ -55,6 +55,19 @@ LM_ManualExternalPriceSetter_v1.RedemptionPriceSet.handler(
       lastUpdated: event.block.timestamp,
       priceCOL,
     })
+
+    context.ExternalPrice.set({
+      id: `${id}-${event.block.timestamp}`,
+      chainId: event.chainId,
+      source: 'COLLATERAL',
+
+      externalPriceSetter_id: id,
+
+      executedBy: event.srcAddress,
+      timestamp: event.block.timestamp,
+
+      price: priceCOL,
+    })
   }
 )
 
@@ -88,6 +101,19 @@ LM_ManualExternalPriceSetter_v1.IssuancePriceSet.handler(
       ...entity!,
       lastUpdated: event.block.timestamp,
       priceISS,
+    })
+
+    context.ExternalPrice.set({
+      id: `${id}-${event.block.timestamp}`,
+      chainId: event.chainId,
+      source: 'ISSUANCE',
+
+      externalPriceSetter_id: id,
+
+      executedBy: event.srcAddress,
+      timestamp: event.block.timestamp,
+
+      price: priceISS,
     })
   }
 )

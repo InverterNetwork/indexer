@@ -6,7 +6,9 @@ import {
   updateOraclePrice,
   ZERO_BD,
   formatUnitsToBD,
+  getPublicClient,
 } from '../../../utils'
+import { parseAbiItem } from 'viem'
 
 // Module Initialization
 // ----------------------------------------------------------------------------
@@ -50,6 +52,32 @@ FM_PC_ExternalPrice_Redeeming_v1.ModuleInitialized.handler(
       triggerTotalSupply: true,
     })
 
+    const getMaxProjectBuyFeeAbi = parseAbiItem(
+      'function getMaxProjectBuyFee() view returns (uint256 maxProjectBuyFee_)'
+    )
+    const getMaxProjectSellFeeAbi = parseAbiItem(
+      'function getMaxProjectSellFee() view returns (uint256 maxProjectSellFee_)'
+    )
+
+    const publicClient = getPublicClient(event.chainId)
+
+    let maxProjectBuyFee = 0n
+    let maxProjectSellFee = 0n
+
+    if (!!publicClient) {
+      maxProjectBuyFee = await publicClient.readContract({
+        address: event.srcAddress as `0x${string}`,
+        abi: [getMaxProjectBuyFeeAbi],
+        functionName: 'getMaxProjectBuyFee',
+      })
+
+      maxProjectSellFee = await publicClient.readContract({
+        address: event.srcAddress as `0x${string}`,
+        abi: [getMaxProjectSellFeeAbi],
+        functionName: 'getMaxProjectSellFee',
+      })
+    }
+
     await updateOraclePrice({
       event,
       context,
@@ -58,6 +86,8 @@ FM_PC_ExternalPrice_Redeeming_v1.ModuleInitialized.handler(
         collateralToken_id,
         issuanceToken_id,
         address: address,
+        maxBuyFee: maxProjectBuyFee,
+        maxSellFee: maxProjectSellFee,
       },
     })
   }

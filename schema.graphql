@@ -281,6 +281,9 @@ type OraclePriceFM {
   issuanceToken: Token!
   collateralToken: Token!
 
+  maxBuyFee: BigInt!
+  maxSellFee: BigInt!
+
   buyFee: BigInt!
   sellFee: BigInt!
 
@@ -357,6 +360,22 @@ type ExternalPriceSetter {
 
   priceISS: BigDecimal!
   priceCOL: BigDecimal!
+
+  externalPrices: [ExternalPrice!]! @derivedFrom(field: "externalPriceSetter")
+}
+
+type ExternalPrice {
+  id: ID! # `${externalPriceSetter_id}-${timestamp}`
+  chainId: Int!
+
+  source: SourceTokenType!
+
+  externalPriceSetter: ExternalPriceSetter!
+
+  timestamp: Int!
+  executedBy: String!
+
+  price: BigDecimal!
 }
 
 # Bounty System
