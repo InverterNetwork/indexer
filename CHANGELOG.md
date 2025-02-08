@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.15](https://github.com/InverterNetwork/indexer/compare/v0.9.14...v0.9.15) (2025-02-08)
+
+
+### Bug Fixes
+
+* update external price setter event handlers to use correct caller parameter ([905dc3d](https://github.com/InverterNetwork/indexer/commit/905dc3d79ed576e4051e1c1a20c0dfedbebd3287))
+* update ID generation and add transaction hash for ExternalPrice entity ([fb85c8c](https://github.com/InverterNetwork/indexer/commit/fb85c8c2ca9f5c13fac1619edd8acec730e49022))
+
 ### [0.9.14](https://github.com/InverterNetwork/indexer/compare/v0.9.13...v0.9.14) (2025-02-08)
 
 

@@ -3917,6 +3917,7 @@ type ExternalPrice {
   price: numeric!
   source: sourcetokentype!
   timestamp: Int!
+  txHash: String!
 }
 
 """
@@ -4093,6 +4094,7 @@ input ExternalPrice_bool_exp {
   price: numeric_comparison_exp
   source: sourcetokentype_comparison_exp
   timestamp: Int_comparison_exp
+  txHash: String_comparison_exp
 }
 
 """
@@ -4107,6 +4109,7 @@ input ExternalPrice_max_order_by {
   price: order_by
   source: order_by
   timestamp: order_by
+  txHash: order_by
 }
 
 """
@@ -4121,6 +4124,7 @@ input ExternalPrice_min_order_by {
   price: order_by
   source: order_by
   timestamp: order_by
+  txHash: order_by
 }
 
 """Ordering options when selecting data from "ExternalPrice"."""
@@ -4134,6 +4138,7 @@ input ExternalPrice_order_by {
   price: order_by
   source: order_by
   timestamp: order_by
+  txHash: order_by
 }
 
 """
@@ -4163,6 +4168,9 @@ enum ExternalPrice_select_column {
 
   """column name"""
   timestamp
+
+  """column name"""
+  txHash
 }
 
 """
@@ -4213,6 +4221,7 @@ input ExternalPrice_stream_cursor_value_input {
   price: numeric
   source: sourcetokentype
   timestamp: Int
+  txHash: String
 }
 
 """

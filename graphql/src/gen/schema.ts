@@ -1564,6 +1564,7 @@ export interface ExternalPrice {
   price: Scalars['numeric']
   source: Scalars['sourcetokentype']
   timestamp: Scalars['Int']
+  txHash: Scalars['String']
   __typename: 'ExternalPrice'
 }
 
@@ -1609,6 +1610,7 @@ export type ExternalPrice_select_column =
   | 'price'
   | 'source'
   | 'timestamp'
+  | 'txHash'
 
 /** columns and relationships of "IssuanceTokenDayData" */
 export interface IssuanceTokenDayData {
@@ -7206,6 +7208,7 @@ export interface ExternalPriceGenqlSelection {
   price?: boolean | number
   source?: boolean | number
   timestamp?: boolean | number
+  txHash?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
 }
@@ -7336,6 +7339,7 @@ export interface ExternalPrice_bool_exp {
   price?: numeric_comparison_exp | null
   source?: sourcetokentype_comparison_exp | null
   timestamp?: Int_comparison_exp | null
+  txHash?: String_comparison_exp | null
 }
 
 /** order by max() on columns of table "ExternalPrice" */
@@ -7348,6 +7352,7 @@ export interface ExternalPrice_max_order_by {
   price?: order_by | null
   source?: order_by | null
   timestamp?: order_by | null
+  txHash?: order_by | null
 }
 
 /** order by min() on columns of table "ExternalPrice" */
@@ -7360,6 +7365,7 @@ export interface ExternalPrice_min_order_by {
   price?: order_by | null
   source?: order_by | null
   timestamp?: order_by | null
+  txHash?: order_by | null
 }
 
 /** Ordering options when selecting data from "ExternalPrice". */
@@ -7373,6 +7379,7 @@ export interface ExternalPrice_order_by {
   price?: order_by | null
   source?: order_by | null
   timestamp?: order_by | null
+  txHash?: order_by | null
 }
 
 /** order by stddev() on columns of table "ExternalPrice" */
@@ -7414,6 +7421,7 @@ export interface ExternalPrice_stream_cursor_value_input {
   price?: Scalars['numeric'] | null
   source?: Scalars['sourcetokentype'] | null
   timestamp?: Scalars['Int'] | null
+  txHash?: Scalars['String'] | null
 }
 
 /** order by sum() on columns of table "ExternalPrice" */
@@ -16390,6 +16398,7 @@ export const enumExternalPriceSelectColumn = {
   price: 'price' as const,
   source: 'source' as const,
   timestamp: 'timestamp' as const,
+  txHash: 'txHash' as const,
 }
 
 export const enumIssuanceTokenDayDataSelectColumn = {

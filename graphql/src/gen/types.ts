@@ -2905,6 +2905,7 @@ export default {
       price: [556],
       source: [577],
       timestamp: [238],
+      txHash: [439],
       __typename: [439],
     },
     ExternalPriceSetter: {
@@ -3015,6 +3016,7 @@ export default {
       price: [557],
       source: [578],
       timestamp: [239],
+      txHash: [441],
       __typename: [439],
     },
     ExternalPrice_max_order_by: {
@@ -3026,6 +3028,7 @@ export default {
       price: [558],
       source: [558],
       timestamp: [558],
+      txHash: [558],
       __typename: [439],
     },
     ExternalPrice_min_order_by: {
@@ -3037,6 +3040,7 @@ export default {
       price: [558],
       source: [558],
       timestamp: [558],
+      txHash: [558],
       __typename: [439],
     },
     ExternalPrice_order_by: {
@@ -3049,6 +3053,7 @@ export default {
       price: [558],
       source: [558],
       timestamp: [558],
+      txHash: [558],
       __typename: [439],
     },
     ExternalPrice_select_column: {},
@@ -3084,6 +3089,7 @@ export default {
       price: [556],
       source: [577],
       timestamp: [238],
+      txHash: [439],
       __typename: [439],
     },
     ExternalPrice_sum_order_by: {
