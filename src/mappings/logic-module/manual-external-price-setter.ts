@@ -63,7 +63,7 @@ LM_ManualExternalPriceSetter_v1.RedemptionPriceSet.handler(
 
       externalPriceSetter_id: id,
 
-      executedBy: event.srcAddress,
+      executedBy: event.params.caller_,
       timestamp: event.block.timestamp,
 
       price: priceCOL,
@@ -110,7 +110,7 @@ LM_ManualExternalPriceSetter_v1.IssuancePriceSet.handler(
 
       externalPriceSetter_id: id,
 
-      executedBy: event.srcAddress,
+      executedBy: event.params.caller_,
       timestamp: event.block.timestamp,
 
       price: priceISS,
