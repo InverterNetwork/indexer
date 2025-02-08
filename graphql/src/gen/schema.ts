@@ -1552,6 +1552,21 @@ export interface Deposit_variance_fields {
   __typename: 'Deposit_variance_fields'
 }
 
+/** columns and relationships of "ExternalPrice" */
+export interface ExternalPrice {
+  chainId: Scalars['Int']
+  db_write_timestamp: Scalars['timestamp'] | null
+  executedBy: Scalars['String']
+  /** An object relationship */
+  externalPriceSetter: ExternalPriceSetter | null
+  externalPriceSetter_id: Scalars['String']
+  id: Scalars['String']
+  price: Scalars['numeric']
+  source: Scalars['sourcetokentype']
+  timestamp: Scalars['Int']
+  __typename: 'ExternalPrice'
+}
+
 /** columns and relationships of "ExternalPriceSetter" */
 export interface ExternalPriceSetter {
   address: Scalars['String']
@@ -1560,6 +1575,8 @@ export interface ExternalPriceSetter {
   collateralToken: Token | null
   collateralToken_id: Scalars['String']
   db_write_timestamp: Scalars['timestamp'] | null
+  /** An array relationship */
+  externalPrices: ExternalPrice[]
   id: Scalars['String']
   lastUpdated: Scalars['Int']
   priceCOL: Scalars['numeric']
@@ -1581,6 +1598,17 @@ export type ExternalPriceSetter_select_column =
   | 'priceCOL'
   | 'priceISS'
   | 'workflow_id'
+
+/** select columns of table "ExternalPrice" */
+export type ExternalPrice_select_column =
+  | 'chainId'
+  | 'db_write_timestamp'
+  | 'executedBy'
+  | 'externalPriceSetter_id'
+  | 'id'
+  | 'price'
+  | 'source'
+  | 'timestamp'
 
 /** columns and relationships of "IssuanceTokenDayData" */
 export interface IssuanceTokenDayData {
@@ -2144,6 +2172,8 @@ export interface OraclePriceFM {
   /** An aggregate relationship */
   issuanceTokenHourData_aggregate: IssuanceTokenHourData_aggregate
   issuanceToken_id: Scalars['String']
+  maxBuyFee: Scalars['numeric']
+  maxSellFee: Scalars['numeric']
   /** An array relationship */
   orders: OraclePriceOrder[]
   pendingRedemptionCOL: Scalars['numeric']
@@ -2193,6 +2223,8 @@ export interface OraclePriceFM_aggregate_fields {
 export interface OraclePriceFM_avg_fields {
   buyFee: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  maxBuyFee: Scalars['Float'] | null
+  maxSellFee: Scalars['Float'] | null
   pendingRedemptionCOL: Scalars['Float'] | null
   pendingRedemptionUSD: Scalars['Float'] | null
   reserveCOL: Scalars['Float'] | null
@@ -2211,6 +2243,8 @@ export interface OraclePriceFM_max_fields {
   externalPriceSetter_id: Scalars['String'] | null
   id: Scalars['String'] | null
   issuanceToken_id: Scalars['String'] | null
+  maxBuyFee: Scalars['numeric'] | null
+  maxSellFee: Scalars['numeric'] | null
   pendingRedemptionCOL: Scalars['numeric'] | null
   pendingRedemptionUSD: Scalars['numeric'] | null
   reserveCOL: Scalars['numeric'] | null
@@ -2231,6 +2265,8 @@ export interface OraclePriceFM_min_fields {
   externalPriceSetter_id: Scalars['String'] | null
   id: Scalars['String'] | null
   issuanceToken_id: Scalars['String'] | null
+  maxBuyFee: Scalars['numeric'] | null
+  maxSellFee: Scalars['numeric'] | null
   pendingRedemptionCOL: Scalars['numeric'] | null
   pendingRedemptionUSD: Scalars['numeric'] | null
   reserveCOL: Scalars['numeric'] | null
@@ -2251,6 +2287,8 @@ export type OraclePriceFM_select_column =
   | 'externalPriceSetter_id'
   | 'id'
   | 'issuanceToken_id'
+  | 'maxBuyFee'
+  | 'maxSellFee'
   | 'pendingRedemptionCOL'
   | 'pendingRedemptionUSD'
   | 'reserveCOL'
@@ -2263,6 +2301,8 @@ export type OraclePriceFM_select_column =
 export interface OraclePriceFM_stddev_fields {
   buyFee: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  maxBuyFee: Scalars['Float'] | null
+  maxSellFee: Scalars['Float'] | null
   pendingRedemptionCOL: Scalars['Float'] | null
   pendingRedemptionUSD: Scalars['Float'] | null
   reserveCOL: Scalars['Float'] | null
@@ -2275,6 +2315,8 @@ export interface OraclePriceFM_stddev_fields {
 export interface OraclePriceFM_stddev_pop_fields {
   buyFee: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  maxBuyFee: Scalars['Float'] | null
+  maxSellFee: Scalars['Float'] | null
   pendingRedemptionCOL: Scalars['Float'] | null
   pendingRedemptionUSD: Scalars['Float'] | null
   reserveCOL: Scalars['Float'] | null
@@ -2287,6 +2329,8 @@ export interface OraclePriceFM_stddev_pop_fields {
 export interface OraclePriceFM_stddev_samp_fields {
   buyFee: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  maxBuyFee: Scalars['Float'] | null
+  maxSellFee: Scalars['Float'] | null
   pendingRedemptionCOL: Scalars['Float'] | null
   pendingRedemptionUSD: Scalars['Float'] | null
   reserveCOL: Scalars['Float'] | null
@@ -2299,6 +2343,8 @@ export interface OraclePriceFM_stddev_samp_fields {
 export interface OraclePriceFM_sum_fields {
   buyFee: Scalars['numeric'] | null
   chainId: Scalars['Int'] | null
+  maxBuyFee: Scalars['numeric'] | null
+  maxSellFee: Scalars['numeric'] | null
   pendingRedemptionCOL: Scalars['numeric'] | null
   pendingRedemptionUSD: Scalars['numeric'] | null
   reserveCOL: Scalars['numeric'] | null
@@ -2311,6 +2357,8 @@ export interface OraclePriceFM_sum_fields {
 export interface OraclePriceFM_var_pop_fields {
   buyFee: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  maxBuyFee: Scalars['Float'] | null
+  maxSellFee: Scalars['Float'] | null
   pendingRedemptionCOL: Scalars['Float'] | null
   pendingRedemptionUSD: Scalars['Float'] | null
   reserveCOL: Scalars['Float'] | null
@@ -2323,6 +2371,8 @@ export interface OraclePriceFM_var_pop_fields {
 export interface OraclePriceFM_var_samp_fields {
   buyFee: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  maxBuyFee: Scalars['Float'] | null
+  maxSellFee: Scalars['Float'] | null
   pendingRedemptionCOL: Scalars['Float'] | null
   pendingRedemptionUSD: Scalars['Float'] | null
   reserveCOL: Scalars['Float'] | null
@@ -2335,6 +2385,8 @@ export interface OraclePriceFM_var_samp_fields {
 export interface OraclePriceFM_variance_fields {
   buyFee: Scalars['Float'] | null
   chainId: Scalars['Float'] | null
+  maxBuyFee: Scalars['Float'] | null
+  maxSellFee: Scalars['Float'] | null
   pendingRedemptionCOL: Scalars['Float'] | null
   pendingRedemptionUSD: Scalars['Float'] | null
   reserveCOL: Scalars['Float'] | null
@@ -3260,7 +3312,6 @@ export type dynamic_contract_registry_select_column =
 export interface end_of_block_range_scanned_data {
   block_hash: Scalars['String']
   block_number: Scalars['Int']
-  block_timestamp: Scalars['Int']
   chain_id: Scalars['Int']
   __typename: 'end_of_block_range_scanned_data'
 }
@@ -3269,7 +3320,6 @@ export interface end_of_block_range_scanned_data {
 export type end_of_block_range_scanned_data_select_column =
   | 'block_hash'
   | 'block_number'
-  | 'block_timestamp'
   | 'chain_id'
 
 /** columns and relationships of "event_sync_state" */
@@ -3374,10 +3424,14 @@ export interface query_root {
   Deposit_aggregate: Deposit_aggregate
   /** fetch data from the table: "Deposit" using primary key columns */
   Deposit_by_pk: Deposit | null
+  /** fetch data from the table: "ExternalPrice" */
+  ExternalPrice: ExternalPrice[]
   /** fetch data from the table: "ExternalPriceSetter" */
   ExternalPriceSetter: ExternalPriceSetter[]
   /** fetch data from the table: "ExternalPriceSetter" using primary key columns */
   ExternalPriceSetter_by_pk: ExternalPriceSetter | null
+  /** fetch data from the table: "ExternalPrice" using primary key columns */
+  ExternalPrice_by_pk: ExternalPrice | null
   /** fetch data from the table: "IssuanceTokenDayData" */
   IssuanceTokenDayData: IssuanceTokenDayData[]
   /** fetch aggregated fields from the table: "IssuanceTokenDayData" */
@@ -3590,12 +3644,18 @@ export interface subscription_root {
   Deposit_by_pk: Deposit | null
   /** fetch data from the table in a streaming manner: "Deposit" */
   Deposit_stream: Deposit[]
+  /** fetch data from the table: "ExternalPrice" */
+  ExternalPrice: ExternalPrice[]
   /** fetch data from the table: "ExternalPriceSetter" */
   ExternalPriceSetter: ExternalPriceSetter[]
   /** fetch data from the table: "ExternalPriceSetter" using primary key columns */
   ExternalPriceSetter_by_pk: ExternalPriceSetter | null
   /** fetch data from the table in a streaming manner: "ExternalPriceSetter" */
   ExternalPriceSetter_stream: ExternalPriceSetter[]
+  /** fetch data from the table: "ExternalPrice" using primary key columns */
+  ExternalPrice_by_pk: ExternalPrice | null
+  /** fetch data from the table in a streaming manner: "ExternalPrice" */
+  ExternalPrice_stream: ExternalPrice[]
   /** fetch data from the table: "IssuanceTokenDayData" */
   IssuanceTokenDayData: IssuanceTokenDayData[]
   /** fetch aggregated fields from the table: "IssuanceTokenDayData" */
@@ -7134,6 +7194,22 @@ export interface Deposit_variance_order_by {
   timestamp?: order_by | null
 }
 
+/** columns and relationships of "ExternalPrice" */
+export interface ExternalPriceGenqlSelection {
+  chainId?: boolean | number
+  db_write_timestamp?: boolean | number
+  executedBy?: boolean | number
+  /** An object relationship */
+  externalPriceSetter?: ExternalPriceSetterGenqlSelection
+  externalPriceSetter_id?: boolean | number
+  id?: boolean | number
+  price?: boolean | number
+  source?: boolean | number
+  timestamp?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
 /** columns and relationships of "ExternalPriceSetter" */
 export interface ExternalPriceSetterGenqlSelection {
   address?: boolean | number
@@ -7142,6 +7218,21 @@ export interface ExternalPriceSetterGenqlSelection {
   collateralToken?: TokenGenqlSelection
   collateralToken_id?: boolean | number
   db_write_timestamp?: boolean | number
+  /** An array relationship */
+  externalPrices?: ExternalPriceGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: ExternalPrice_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: ExternalPrice_order_by[] | null
+      /** filter the rows returned */
+      where?: ExternalPrice_bool_exp | null
+    }
+  }
   id?: boolean | number
   lastUpdated?: boolean | number
   priceCOL?: boolean | number
@@ -7163,6 +7254,7 @@ export interface ExternalPriceSetter_bool_exp {
   collateralToken?: Token_bool_exp | null
   collateralToken_id?: String_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
+  externalPrices?: ExternalPrice_bool_exp | null
   id?: String_comparison_exp | null
   lastUpdated?: Int_comparison_exp | null
   priceCOL?: numeric_comparison_exp | null
@@ -7178,6 +7270,7 @@ export interface ExternalPriceSetter_order_by {
   collateralToken?: Token_order_by | null
   collateralToken_id?: order_by | null
   db_write_timestamp?: order_by | null
+  externalPrices_aggregate?: ExternalPrice_aggregate_order_by | null
   id?: order_by | null
   lastUpdated?: order_by | null
   priceCOL?: order_by | null
@@ -7205,6 +7298,150 @@ export interface ExternalPriceSetter_stream_cursor_value_input {
   priceCOL?: Scalars['numeric'] | null
   priceISS?: Scalars['numeric'] | null
   workflow_id?: Scalars['String'] | null
+}
+
+/** order by aggregate values of table "ExternalPrice" */
+export interface ExternalPrice_aggregate_order_by {
+  avg?: ExternalPrice_avg_order_by | null
+  count?: order_by | null
+  max?: ExternalPrice_max_order_by | null
+  min?: ExternalPrice_min_order_by | null
+  stddev?: ExternalPrice_stddev_order_by | null
+  stddev_pop?: ExternalPrice_stddev_pop_order_by | null
+  stddev_samp?: ExternalPrice_stddev_samp_order_by | null
+  sum?: ExternalPrice_sum_order_by | null
+  var_pop?: ExternalPrice_var_pop_order_by | null
+  var_samp?: ExternalPrice_var_samp_order_by | null
+  variance?: ExternalPrice_variance_order_by | null
+}
+
+/** order by avg() on columns of table "ExternalPrice" */
+export interface ExternalPrice_avg_order_by {
+  chainId?: order_by | null
+  price?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** Boolean expression to filter rows from the table "ExternalPrice". All fields are combined with a logical 'AND'. */
+export interface ExternalPrice_bool_exp {
+  _and?: ExternalPrice_bool_exp[] | null
+  _not?: ExternalPrice_bool_exp | null
+  _or?: ExternalPrice_bool_exp[] | null
+  chainId?: Int_comparison_exp | null
+  db_write_timestamp?: timestamp_comparison_exp | null
+  executedBy?: String_comparison_exp | null
+  externalPriceSetter?: ExternalPriceSetter_bool_exp | null
+  externalPriceSetter_id?: String_comparison_exp | null
+  id?: String_comparison_exp | null
+  price?: numeric_comparison_exp | null
+  source?: sourcetokentype_comparison_exp | null
+  timestamp?: Int_comparison_exp | null
+}
+
+/** order by max() on columns of table "ExternalPrice" */
+export interface ExternalPrice_max_order_by {
+  chainId?: order_by | null
+  db_write_timestamp?: order_by | null
+  executedBy?: order_by | null
+  externalPriceSetter_id?: order_by | null
+  id?: order_by | null
+  price?: order_by | null
+  source?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** order by min() on columns of table "ExternalPrice" */
+export interface ExternalPrice_min_order_by {
+  chainId?: order_by | null
+  db_write_timestamp?: order_by | null
+  executedBy?: order_by | null
+  externalPriceSetter_id?: order_by | null
+  id?: order_by | null
+  price?: order_by | null
+  source?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** Ordering options when selecting data from "ExternalPrice". */
+export interface ExternalPrice_order_by {
+  chainId?: order_by | null
+  db_write_timestamp?: order_by | null
+  executedBy?: order_by | null
+  externalPriceSetter?: ExternalPriceSetter_order_by | null
+  externalPriceSetter_id?: order_by | null
+  id?: order_by | null
+  price?: order_by | null
+  source?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** order by stddev() on columns of table "ExternalPrice" */
+export interface ExternalPrice_stddev_order_by {
+  chainId?: order_by | null
+  price?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** order by stddev_pop() on columns of table "ExternalPrice" */
+export interface ExternalPrice_stddev_pop_order_by {
+  chainId?: order_by | null
+  price?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** order by stddev_samp() on columns of table "ExternalPrice" */
+export interface ExternalPrice_stddev_samp_order_by {
+  chainId?: order_by | null
+  price?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** Streaming cursor of the table "ExternalPrice" */
+export interface ExternalPrice_stream_cursor_input {
+  /** Stream column input with initial value */
+  initial_value: ExternalPrice_stream_cursor_value_input
+  /** cursor ordering */
+  ordering?: cursor_ordering | null
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface ExternalPrice_stream_cursor_value_input {
+  chainId?: Scalars['Int'] | null
+  db_write_timestamp?: Scalars['timestamp'] | null
+  executedBy?: Scalars['String'] | null
+  externalPriceSetter_id?: Scalars['String'] | null
+  id?: Scalars['String'] | null
+  price?: Scalars['numeric'] | null
+  source?: Scalars['sourcetokentype'] | null
+  timestamp?: Scalars['Int'] | null
+}
+
+/** order by sum() on columns of table "ExternalPrice" */
+export interface ExternalPrice_sum_order_by {
+  chainId?: order_by | null
+  price?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** order by var_pop() on columns of table "ExternalPrice" */
+export interface ExternalPrice_var_pop_order_by {
+  chainId?: order_by | null
+  price?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** order by var_samp() on columns of table "ExternalPrice" */
+export interface ExternalPrice_var_samp_order_by {
+  chainId?: order_by | null
+  price?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** order by variance() on columns of table "ExternalPrice" */
+export interface ExternalPrice_variance_order_by {
+  chainId?: order_by | null
+  price?: order_by | null
+  timestamp?: order_by | null
 }
 
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
@@ -8608,6 +8845,8 @@ export interface OraclePriceFMGenqlSelection {
     }
   }
   issuanceToken_id?: boolean | number
+  maxBuyFee?: boolean | number
+  maxSellFee?: boolean | number
   /** An array relationship */
   orders?: OraclePriceOrderGenqlSelection & {
     __args?: {
@@ -8733,6 +8972,8 @@ export interface OraclePriceFM_aggregate_fieldsGenqlSelection {
 export interface OraclePriceFM_avg_fieldsGenqlSelection {
   buyFee?: boolean | number
   chainId?: boolean | number
+  maxBuyFee?: boolean | number
+  maxSellFee?: boolean | number
   pendingRedemptionCOL?: boolean | number
   pendingRedemptionUSD?: boolean | number
   reserveCOL?: boolean | number
@@ -8766,6 +9007,8 @@ export interface OraclePriceFM_bool_exp {
   issuanceTokenHourData?: IssuanceTokenHourData_bool_exp | null
   issuanceTokenHourData_aggregate?: IssuanceTokenHourData_aggregate_bool_exp | null
   issuanceToken_id?: String_comparison_exp | null
+  maxBuyFee?: numeric_comparison_exp | null
+  maxSellFee?: numeric_comparison_exp | null
   orders?: OraclePriceOrder_bool_exp | null
   pendingRedemptionCOL?: numeric_comparison_exp | null
   pendingRedemptionUSD?: numeric_comparison_exp | null
@@ -8791,6 +9034,8 @@ export interface OraclePriceFM_max_fieldsGenqlSelection {
   externalPriceSetter_id?: boolean | number
   id?: boolean | number
   issuanceToken_id?: boolean | number
+  maxBuyFee?: boolean | number
+  maxSellFee?: boolean | number
   pendingRedemptionCOL?: boolean | number
   pendingRedemptionUSD?: boolean | number
   reserveCOL?: boolean | number
@@ -8812,6 +9057,8 @@ export interface OraclePriceFM_min_fieldsGenqlSelection {
   externalPriceSetter_id?: boolean | number
   id?: boolean | number
   issuanceToken_id?: boolean | number
+  maxBuyFee?: boolean | number
+  maxSellFee?: boolean | number
   pendingRedemptionCOL?: boolean | number
   pendingRedemptionUSD?: boolean | number
   reserveCOL?: boolean | number
@@ -8840,6 +9087,8 @@ export interface OraclePriceFM_order_by {
   issuanceTokenDayData_aggregate?: IssuanceTokenDayData_aggregate_order_by | null
   issuanceTokenHourData_aggregate?: IssuanceTokenHourData_aggregate_order_by | null
   issuanceToken_id?: order_by | null
+  maxBuyFee?: order_by | null
+  maxSellFee?: order_by | null
   orders_aggregate?: OraclePriceOrder_aggregate_order_by | null
   pendingRedemptionCOL?: order_by | null
   pendingRedemptionUSD?: order_by | null
@@ -8857,6 +9106,8 @@ export interface OraclePriceFM_order_by {
 export interface OraclePriceFM_stddev_fieldsGenqlSelection {
   buyFee?: boolean | number
   chainId?: boolean | number
+  maxBuyFee?: boolean | number
+  maxSellFee?: boolean | number
   pendingRedemptionCOL?: boolean | number
   pendingRedemptionUSD?: boolean | number
   reserveCOL?: boolean | number
@@ -8870,6 +9121,8 @@ export interface OraclePriceFM_stddev_fieldsGenqlSelection {
 export interface OraclePriceFM_stddev_pop_fieldsGenqlSelection {
   buyFee?: boolean | number
   chainId?: boolean | number
+  maxBuyFee?: boolean | number
+  maxSellFee?: boolean | number
   pendingRedemptionCOL?: boolean | number
   pendingRedemptionUSD?: boolean | number
   reserveCOL?: boolean | number
@@ -8883,6 +9136,8 @@ export interface OraclePriceFM_stddev_pop_fieldsGenqlSelection {
 export interface OraclePriceFM_stddev_samp_fieldsGenqlSelection {
   buyFee?: boolean | number
   chainId?: boolean | number
+  maxBuyFee?: boolean | number
+  maxSellFee?: boolean | number
   pendingRedemptionCOL?: boolean | number
   pendingRedemptionUSD?: boolean | number
   reserveCOL?: boolean | number
@@ -8910,6 +9165,8 @@ export interface OraclePriceFM_stream_cursor_value_input {
   externalPriceSetter_id?: Scalars['String'] | null
   id?: Scalars['String'] | null
   issuanceToken_id?: Scalars['String'] | null
+  maxBuyFee?: Scalars['numeric'] | null
+  maxSellFee?: Scalars['numeric'] | null
   pendingRedemptionCOL?: Scalars['numeric'] | null
   pendingRedemptionUSD?: Scalars['numeric'] | null
   reserveCOL?: Scalars['numeric'] | null
@@ -8923,6 +9180,8 @@ export interface OraclePriceFM_stream_cursor_value_input {
 export interface OraclePriceFM_sum_fieldsGenqlSelection {
   buyFee?: boolean | number
   chainId?: boolean | number
+  maxBuyFee?: boolean | number
+  maxSellFee?: boolean | number
   pendingRedemptionCOL?: boolean | number
   pendingRedemptionUSD?: boolean | number
   reserveCOL?: boolean | number
@@ -8936,6 +9195,8 @@ export interface OraclePriceFM_sum_fieldsGenqlSelection {
 export interface OraclePriceFM_var_pop_fieldsGenqlSelection {
   buyFee?: boolean | number
   chainId?: boolean | number
+  maxBuyFee?: boolean | number
+  maxSellFee?: boolean | number
   pendingRedemptionCOL?: boolean | number
   pendingRedemptionUSD?: boolean | number
   reserveCOL?: boolean | number
@@ -8949,6 +9210,8 @@ export interface OraclePriceFM_var_pop_fieldsGenqlSelection {
 export interface OraclePriceFM_var_samp_fieldsGenqlSelection {
   buyFee?: boolean | number
   chainId?: boolean | number
+  maxBuyFee?: boolean | number
+  maxSellFee?: boolean | number
   pendingRedemptionCOL?: boolean | number
   pendingRedemptionUSD?: boolean | number
   reserveCOL?: boolean | number
@@ -8962,6 +9225,8 @@ export interface OraclePriceFM_var_samp_fieldsGenqlSelection {
 export interface OraclePriceFM_variance_fieldsGenqlSelection {
   buyFee?: boolean | number
   chainId?: boolean | number
+  maxBuyFee?: boolean | number
+  maxSellFee?: boolean | number
   pendingRedemptionCOL?: boolean | number
   pendingRedemptionUSD?: boolean | number
   reserveCOL?: boolean | number
@@ -11397,7 +11662,6 @@ export interface dynamic_contract_registry_stream_cursor_value_input {
 export interface end_of_block_range_scanned_dataGenqlSelection {
   block_hash?: boolean | number
   block_number?: boolean | number
-  block_timestamp?: boolean | number
   chain_id?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
@@ -11410,7 +11674,6 @@ export interface end_of_block_range_scanned_data_bool_exp {
   _or?: end_of_block_range_scanned_data_bool_exp[] | null
   block_hash?: String_comparison_exp | null
   block_number?: Int_comparison_exp | null
-  block_timestamp?: Int_comparison_exp | null
   chain_id?: Int_comparison_exp | null
 }
 
@@ -11418,7 +11681,6 @@ export interface end_of_block_range_scanned_data_bool_exp {
 export interface end_of_block_range_scanned_data_order_by {
   block_hash?: order_by | null
   block_number?: order_by | null
-  block_timestamp?: order_by | null
   chain_id?: order_by | null
 }
 
@@ -11434,7 +11696,6 @@ export interface end_of_block_range_scanned_data_stream_cursor_input {
 export interface end_of_block_range_scanned_data_stream_cursor_value_input {
   block_hash?: Scalars['String'] | null
   block_number?: Scalars['Int'] | null
-  block_timestamp?: Scalars['Int'] | null
   chain_id?: Scalars['Int'] | null
 }
 
@@ -11886,6 +12147,21 @@ export interface query_rootGenqlSelection {
   }
   /** fetch data from the table: "Deposit" using primary key columns */
   Deposit_by_pk?: DepositGenqlSelection & { __args: { id: Scalars['String'] } }
+  /** fetch data from the table: "ExternalPrice" */
+  ExternalPrice?: ExternalPriceGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: ExternalPrice_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: ExternalPrice_order_by[] | null
+      /** filter the rows returned */
+      where?: ExternalPrice_bool_exp | null
+    }
+  }
   /** fetch data from the table: "ExternalPriceSetter" */
   ExternalPriceSetter?: ExternalPriceSetterGenqlSelection & {
     __args?: {
@@ -11903,6 +12179,10 @@ export interface query_rootGenqlSelection {
   }
   /** fetch data from the table: "ExternalPriceSetter" using primary key columns */
   ExternalPriceSetter_by_pk?: ExternalPriceSetterGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table: "ExternalPrice" using primary key columns */
+  ExternalPrice_by_pk?: ExternalPriceGenqlSelection & {
     __args: { id: Scalars['String'] }
   }
   /** fetch data from the table: "IssuanceTokenDayData" */
@@ -12957,6 +13237,21 @@ export interface subscription_rootGenqlSelection {
       where?: Deposit_bool_exp | null
     }
   }
+  /** fetch data from the table: "ExternalPrice" */
+  ExternalPrice?: ExternalPriceGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: ExternalPrice_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: ExternalPrice_order_by[] | null
+      /** filter the rows returned */
+      where?: ExternalPrice_bool_exp | null
+    }
+  }
   /** fetch data from the table: "ExternalPriceSetter" */
   ExternalPriceSetter?: ExternalPriceSetterGenqlSelection & {
     __args?: {
@@ -12985,6 +13280,21 @@ export interface subscription_rootGenqlSelection {
       cursor: (ExternalPriceSetter_stream_cursor_input | null)[]
       /** filter the rows returned */
       where?: ExternalPriceSetter_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "ExternalPrice" using primary key columns */
+  ExternalPrice_by_pk?: ExternalPriceGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table in a streaming manner: "ExternalPrice" */
+  ExternalPrice_stream?: ExternalPriceGenqlSelection & {
+    __args: {
+      /** maximum number of rows returned in a single batch */
+      batch_size: Scalars['Int']
+      /** cursor to stream the results returned by the query */
+      cursor: (ExternalPrice_stream_cursor_input | null)[]
+      /** filter the rows returned */
+      where?: ExternalPrice_bool_exp | null
     }
   }
   /** fetch data from the table: "IssuanceTokenDayData" */
@@ -14696,6 +15006,15 @@ export const isDeposit_variance_fields = (
   return Deposit_variance_fields_possibleTypes.includes(obj.__typename)
 }
 
+const ExternalPrice_possibleTypes: string[] = ['ExternalPrice']
+export const isExternalPrice = (
+  obj?: { __typename?: any } | null
+): obj is ExternalPrice => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isExternalPrice"')
+  return ExternalPrice_possibleTypes.includes(obj.__typename)
+}
+
 const ExternalPriceSetter_possibleTypes: string[] = ['ExternalPriceSetter']
 export const isExternalPriceSetter = (
   obj?: { __typename?: any } | null
@@ -16062,6 +16381,17 @@ export const enumExternalPriceSetterSelectColumn = {
   workflow_id: 'workflow_id' as const,
 }
 
+export const enumExternalPriceSelectColumn = {
+  chainId: 'chainId' as const,
+  db_write_timestamp: 'db_write_timestamp' as const,
+  executedBy: 'executedBy' as const,
+  externalPriceSetter_id: 'externalPriceSetter_id' as const,
+  id: 'id' as const,
+  price: 'price' as const,
+  source: 'source' as const,
+  timestamp: 'timestamp' as const,
+}
+
 export const enumIssuanceTokenDayDataSelectColumn = {
   address: 'address' as const,
   chainId: 'chainId' as const,
@@ -16126,6 +16456,8 @@ export const enumOraclePriceFmSelectColumn = {
   externalPriceSetter_id: 'externalPriceSetter_id' as const,
   id: 'id' as const,
   issuanceToken_id: 'issuanceToken_id' as const,
+  maxBuyFee: 'maxBuyFee' as const,
+  maxSellFee: 'maxSellFee' as const,
   pendingRedemptionCOL: 'pendingRedemptionCOL' as const,
   pendingRedemptionUSD: 'pendingRedemptionUSD' as const,
   reserveCOL: 'reserveCOL' as const,
@@ -16326,7 +16658,6 @@ export const enumDynamicContractRegistrySelectColumn = {
 export const enumEndOfBlockRangeScannedDataSelectColumn = {
   block_hash: 'block_hash' as const,
   block_number: 'block_number' as const,
-  block_timestamp: 'block_timestamp' as const,
   chain_id: 'chain_id' as const,
 }
 

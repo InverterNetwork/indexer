@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.14](https://github.com/InverterNetwork/indexer/compare/v0.9.13...v0.9.14) (2025-02-08)
+
+
+### Features
+
+* enhance oracle price tracking with max fees and external price history ([2a46d20](https://github.com/InverterNetwork/indexer/commit/2a46d202204fe052f25667c17fa202c20940f1c0))
+
 ### [0.9.13](https://github.com/InverterNetwork/indexer/compare/v0.9.12...v0.9.13) (2025-02-07)
 
 
