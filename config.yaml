@@ -91,6 +91,7 @@ contracts:
       - event: RedemptionAmountUpdated
       - event: PaymentOrderAdded
       - event: OracleUpdated
+      - event: ReserveDeposited
   - name: PP_Queue_v1
     abi_file_path: abis/PP_Queue_v1.json
     handler: src/mappings/payment-processor/queue.ts

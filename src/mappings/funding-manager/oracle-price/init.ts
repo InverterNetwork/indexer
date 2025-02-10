@@ -7,6 +7,7 @@ import {
   ZERO_BD,
   formatUnitsToBD,
   getPublicClient,
+  getBalanceOf,
 } from '../../../utils'
 import { parseAbiItem } from 'viem'
 
@@ -175,6 +176,39 @@ FM_PC_ExternalPrice_Redeeming_v1.RedemptionAmountUpdated.handler(
       properties: {
         pendingRedemptionCOL,
         pendingRedemptionUSD,
+      },
+    })
+  }
+)
+
+// Reserve Deposited
+// ----------------------------------------------------------------------------
+
+FM_PC_ExternalPrice_Redeeming_v1.ReserveDeposited.handler(
+  async ({ event, context }) => {
+    const id = `${event.chainId}-${event.srcAddress}`
+    const op = (await context.OraclePriceFM.get(id))!
+
+    const collateralToken_id = op.collateralToken_id
+
+    const collateralToken = (await context.Token.get(collateralToken_id))!
+
+    const reserveCOL = await getBalanceOf({
+      tokenAddress: collateralToken.address,
+      address: op.address,
+      chainId: op.chainId,
+      decimals: collateralToken.decimals,
+    })
+
+    const reserveUSD = reserveCOL.times(collateralToken.priceUSD)
+
+    await updateOraclePrice({
+      context,
+      event,
+      prevData: op,
+      properties: {
+        reserveCOL,
+        reserveUSD,
       },
     })
   }
