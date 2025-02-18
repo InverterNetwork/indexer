@@ -1,15 +1,29 @@
 import { Migrating_PIM_Factory_v1 } from 'generated'
-import { formatUnitsToBD } from '../../utils'
+import { formatUnitsToBD, updateToken } from '../../utils'
 
 Migrating_PIM_Factory_v1.PIMWorkflowCreated.handler(
   async ({ event, context }) => {
     const chainId = event.chainId
     const id = `${chainId}-${event.params.orchestrator}`
 
+    const collateralToken = await updateToken({
+      context,
+      event,
+      properties: {
+        address: event.params.collateralToken,
+      },
+      derivedType: 'token',
+    })
+
+    const migrationThreshold = formatUnitsToBD(
+      event.params.migrationConfig_[1],
+      collateralToken.decimals
+    )
+
     context.MigrationConfig.set({
       id,
       isImmutable: event.params.migrationConfig_[0],
-      migrationThreshold: event.params.migrationConfig_[1],
+      migrationThreshold,
       dexAdapter: event.params.migrationConfig_[2],
       lpTokenRecipient: event.params.migrationConfig_[3],
     })

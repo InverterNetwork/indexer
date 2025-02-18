@@ -608,7 +608,7 @@ type MigratingPIM {
 type MigrationConfig {
   id: ID! # `${chainId}-${orchestratorAddress}`
   isImmutable: Boolean!
-  migrationThreshold: BigInt!
+  migrationThreshold: BigDecimal!
   dexAdapter: String!
   lpTokenRecipient: String!
 }
