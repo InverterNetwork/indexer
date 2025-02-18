@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.16](https://github.com/InverterNetwork/indexer/compare/v0.9.15...v0.9.16) (2025-02-18)
+
+
+### Features
+
+* add support for Migrating PIM Factory ([56ff157](https://github.com/InverterNetwork/indexer/commit/56ff157774572f8ba99d60cafb9b6920a13b0888))
+* improve MigrationConfig handling with decimal formatting ([a1e6a0d](https://github.com/InverterNetwork/indexer/commit/a1e6a0d59802d1d5c265f40a7b7fa5b111c06a5f))
+
+
+### Bug Fixes
+
+* indent bug ([557cfd0](https://github.com/InverterNetwork/indexer/commit/557cfd079762ad47c46b130e4fe1b9eb0ea606b3))
+* paymentQueueExecuted event added ([5ebcd01](https://github.com/InverterNetwork/indexer/commit/5ebcd01d30f5fb9cf5d1e2f6a899f0914c21296c))
+* reserve deposited event has been added ([13a00e6](https://github.com/InverterNetwork/indexer/commit/13a00e60c0ed2b827c072f800c5c54fa0b299fdb))
+
 ### [0.9.15](https://github.com/InverterNetwork/indexer/compare/v0.9.14...v0.9.15) (2025-02-08)
 
 
