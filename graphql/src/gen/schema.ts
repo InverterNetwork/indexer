@@ -1612,6 +1612,30 @@ export type ExternalPrice_select_column =
   | 'timestamp'
   | 'txHash'
 
+/** columns and relationships of "Graduation" */
+export interface Graduation {
+  collateralTokenAmount: Scalars['numeric']
+  db_write_timestamp: Scalars['timestamp'] | null
+  id: Scalars['String']
+  issuanceTokenAmount: Scalars['numeric']
+  /** An object relationship */
+  migratingPIM: MigratingPIM | null
+  migratingPIM_id: Scalars['String']
+  timestamp: Scalars['Int']
+  txHash: Scalars['String']
+  __typename: 'Graduation'
+}
+
+/** select columns of table "Graduation" */
+export type Graduation_select_column =
+  | 'collateralTokenAmount'
+  | 'db_write_timestamp'
+  | 'id'
+  | 'issuanceTokenAmount'
+  | 'migratingPIM_id'
+  | 'timestamp'
+  | 'txHash'
+
 /** columns and relationships of "IssuanceTokenDayData" */
 export interface IssuanceTokenDayData {
   address: Scalars['String']
@@ -2141,6 +2165,64 @@ export type LinearVesting_select_column =
   | 'streamingPaymentProcessor_id'
   | 'timestamp'
   | 'token_id'
+
+/** columns and relationships of "MigratingPIM" */
+export interface MigratingPIM {
+  address: Scalars['String']
+  chainId: Scalars['Int']
+  /** An object relationship */
+  collateralToken: Token | null
+  collateralToken_id: Scalars['String']
+  db_write_timestamp: Scalars['timestamp'] | null
+  deployer: Scalars['String']
+  /** An array relationship */
+  graduations: Graduation[]
+  id: Scalars['String']
+  initiator: Scalars['String']
+  /** An object relationship */
+  issuanceToken: Token | null
+  issuanceToken_id: Scalars['String']
+  /** An object relationship */
+  migrationConfig: MigrationConfig | null
+  migrationConfig_id: Scalars['String']
+  /** An object relationship */
+  workflow: Workflow | null
+  workflow_id: Scalars['String']
+  __typename: 'MigratingPIM'
+}
+
+/** select columns of table "MigratingPIM" */
+export type MigratingPIM_select_column =
+  | 'address'
+  | 'chainId'
+  | 'collateralToken_id'
+  | 'db_write_timestamp'
+  | 'deployer'
+  | 'id'
+  | 'initiator'
+  | 'issuanceToken_id'
+  | 'migrationConfig_id'
+  | 'workflow_id'
+
+/** columns and relationships of "MigrationConfig" */
+export interface MigrationConfig {
+  db_write_timestamp: Scalars['timestamp'] | null
+  dexAdapter: Scalars['String']
+  id: Scalars['String']
+  isImmutable: Scalars['Boolean']
+  lpTokenRecipient: Scalars['String']
+  migrationThreshold: Scalars['numeric']
+  __typename: 'MigrationConfig'
+}
+
+/** select columns of table "MigrationConfig" */
+export type MigrationConfig_select_column =
+  | 'db_write_timestamp'
+  | 'dexAdapter'
+  | 'id'
+  | 'isImmutable'
+  | 'lpTokenRecipient'
+  | 'migrationThreshold'
 
 /** columns and relationships of "OraclePriceFM" */
 export interface OraclePriceFM {
@@ -3434,6 +3516,10 @@ export interface query_root {
   ExternalPriceSetter_by_pk: ExternalPriceSetter | null
   /** fetch data from the table: "ExternalPrice" using primary key columns */
   ExternalPrice_by_pk: ExternalPrice | null
+  /** fetch data from the table: "Graduation" */
+  Graduation: Graduation[]
+  /** fetch data from the table: "Graduation" using primary key columns */
+  Graduation_by_pk: Graduation | null
   /** fetch data from the table: "IssuanceTokenDayData" */
   IssuanceTokenDayData: IssuanceTokenDayData[]
   /** fetch aggregated fields from the table: "IssuanceTokenDayData" */
@@ -3450,6 +3536,14 @@ export interface query_root {
   LinearVesting: LinearVesting[]
   /** fetch data from the table: "LinearVesting" using primary key columns */
   LinearVesting_by_pk: LinearVesting | null
+  /** fetch data from the table: "MigratingPIM" */
+  MigratingPIM: MigratingPIM[]
+  /** fetch data from the table: "MigratingPIM" using primary key columns */
+  MigratingPIM_by_pk: MigratingPIM | null
+  /** fetch data from the table: "MigrationConfig" */
+  MigrationConfig: MigrationConfig[]
+  /** fetch data from the table: "MigrationConfig" using primary key columns */
+  MigrationConfig_by_pk: MigrationConfig | null
   /** fetch data from the table: "OraclePriceFM" */
   OraclePriceFM: OraclePriceFM[]
   /** fetch aggregated fields from the table: "OraclePriceFM" */
@@ -3658,6 +3752,12 @@ export interface subscription_root {
   ExternalPrice_by_pk: ExternalPrice | null
   /** fetch data from the table in a streaming manner: "ExternalPrice" */
   ExternalPrice_stream: ExternalPrice[]
+  /** fetch data from the table: "Graduation" */
+  Graduation: Graduation[]
+  /** fetch data from the table: "Graduation" using primary key columns */
+  Graduation_by_pk: Graduation | null
+  /** fetch data from the table in a streaming manner: "Graduation" */
+  Graduation_stream: Graduation[]
   /** fetch data from the table: "IssuanceTokenDayData" */
   IssuanceTokenDayData: IssuanceTokenDayData[]
   /** fetch aggregated fields from the table: "IssuanceTokenDayData" */
@@ -3680,6 +3780,18 @@ export interface subscription_root {
   LinearVesting_by_pk: LinearVesting | null
   /** fetch data from the table in a streaming manner: "LinearVesting" */
   LinearVesting_stream: LinearVesting[]
+  /** fetch data from the table: "MigratingPIM" */
+  MigratingPIM: MigratingPIM[]
+  /** fetch data from the table: "MigratingPIM" using primary key columns */
+  MigratingPIM_by_pk: MigratingPIM | null
+  /** fetch data from the table in a streaming manner: "MigratingPIM" */
+  MigratingPIM_stream: MigratingPIM[]
+  /** fetch data from the table: "MigrationConfig" */
+  MigrationConfig: MigrationConfig[]
+  /** fetch data from the table: "MigrationConfig" using primary key columns */
+  MigrationConfig_by_pk: MigrationConfig | null
+  /** fetch data from the table in a streaming manner: "MigrationConfig" */
+  MigrationConfig_stream: MigrationConfig[]
   /** fetch data from the table: "OraclePriceFM" */
   OraclePriceFM: OraclePriceFM[]
   /** fetch aggregated fields from the table: "OraclePriceFM" */
@@ -7452,6 +7564,160 @@ export interface ExternalPrice_variance_order_by {
   timestamp?: order_by | null
 }
 
+/** columns and relationships of "Graduation" */
+export interface GraduationGenqlSelection {
+  collateralTokenAmount?: boolean | number
+  db_write_timestamp?: boolean | number
+  id?: boolean | number
+  issuanceTokenAmount?: boolean | number
+  /** An object relationship */
+  migratingPIM?: MigratingPIMGenqlSelection
+  migratingPIM_id?: boolean | number
+  timestamp?: boolean | number
+  txHash?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by aggregate values of table "Graduation" */
+export interface Graduation_aggregate_order_by {
+  avg?: Graduation_avg_order_by | null
+  count?: order_by | null
+  max?: Graduation_max_order_by | null
+  min?: Graduation_min_order_by | null
+  stddev?: Graduation_stddev_order_by | null
+  stddev_pop?: Graduation_stddev_pop_order_by | null
+  stddev_samp?: Graduation_stddev_samp_order_by | null
+  sum?: Graduation_sum_order_by | null
+  var_pop?: Graduation_var_pop_order_by | null
+  var_samp?: Graduation_var_samp_order_by | null
+  variance?: Graduation_variance_order_by | null
+}
+
+/** order by avg() on columns of table "Graduation" */
+export interface Graduation_avg_order_by {
+  collateralTokenAmount?: order_by | null
+  issuanceTokenAmount?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** Boolean expression to filter rows from the table "Graduation". All fields are combined with a logical 'AND'. */
+export interface Graduation_bool_exp {
+  _and?: Graduation_bool_exp[] | null
+  _not?: Graduation_bool_exp | null
+  _or?: Graduation_bool_exp[] | null
+  collateralTokenAmount?: numeric_comparison_exp | null
+  db_write_timestamp?: timestamp_comparison_exp | null
+  id?: String_comparison_exp | null
+  issuanceTokenAmount?: numeric_comparison_exp | null
+  migratingPIM?: MigratingPIM_bool_exp | null
+  migratingPIM_id?: String_comparison_exp | null
+  timestamp?: Int_comparison_exp | null
+  txHash?: String_comparison_exp | null
+}
+
+/** order by max() on columns of table "Graduation" */
+export interface Graduation_max_order_by {
+  collateralTokenAmount?: order_by | null
+  db_write_timestamp?: order_by | null
+  id?: order_by | null
+  issuanceTokenAmount?: order_by | null
+  migratingPIM_id?: order_by | null
+  timestamp?: order_by | null
+  txHash?: order_by | null
+}
+
+/** order by min() on columns of table "Graduation" */
+export interface Graduation_min_order_by {
+  collateralTokenAmount?: order_by | null
+  db_write_timestamp?: order_by | null
+  id?: order_by | null
+  issuanceTokenAmount?: order_by | null
+  migratingPIM_id?: order_by | null
+  timestamp?: order_by | null
+  txHash?: order_by | null
+}
+
+/** Ordering options when selecting data from "Graduation". */
+export interface Graduation_order_by {
+  collateralTokenAmount?: order_by | null
+  db_write_timestamp?: order_by | null
+  id?: order_by | null
+  issuanceTokenAmount?: order_by | null
+  migratingPIM?: MigratingPIM_order_by | null
+  migratingPIM_id?: order_by | null
+  timestamp?: order_by | null
+  txHash?: order_by | null
+}
+
+/** order by stddev() on columns of table "Graduation" */
+export interface Graduation_stddev_order_by {
+  collateralTokenAmount?: order_by | null
+  issuanceTokenAmount?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** order by stddev_pop() on columns of table "Graduation" */
+export interface Graduation_stddev_pop_order_by {
+  collateralTokenAmount?: order_by | null
+  issuanceTokenAmount?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** order by stddev_samp() on columns of table "Graduation" */
+export interface Graduation_stddev_samp_order_by {
+  collateralTokenAmount?: order_by | null
+  issuanceTokenAmount?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** Streaming cursor of the table "Graduation" */
+export interface Graduation_stream_cursor_input {
+  /** Stream column input with initial value */
+  initial_value: Graduation_stream_cursor_value_input
+  /** cursor ordering */
+  ordering?: cursor_ordering | null
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface Graduation_stream_cursor_value_input {
+  collateralTokenAmount?: Scalars['numeric'] | null
+  db_write_timestamp?: Scalars['timestamp'] | null
+  id?: Scalars['String'] | null
+  issuanceTokenAmount?: Scalars['numeric'] | null
+  migratingPIM_id?: Scalars['String'] | null
+  timestamp?: Scalars['Int'] | null
+  txHash?: Scalars['String'] | null
+}
+
+/** order by sum() on columns of table "Graduation" */
+export interface Graduation_sum_order_by {
+  collateralTokenAmount?: order_by | null
+  issuanceTokenAmount?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** order by var_pop() on columns of table "Graduation" */
+export interface Graduation_var_pop_order_by {
+  collateralTokenAmount?: order_by | null
+  issuanceTokenAmount?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** order by var_samp() on columns of table "Graduation" */
+export interface Graduation_var_samp_order_by {
+  collateralTokenAmount?: order_by | null
+  issuanceTokenAmount?: order_by | null
+  timestamp?: order_by | null
+}
+
+/** order by variance() on columns of table "Graduation" */
+export interface Graduation_variance_order_by {
+  collateralTokenAmount?: order_by | null
+  issuanceTokenAmount?: order_by | null
+  timestamp?: order_by | null
+}
+
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export interface Int_comparison_exp {
   _eq?: Scalars['Int'] | null
@@ -8715,6 +8981,161 @@ export interface LinearVesting_variance_order_by {
   end?: order_by | null
   start?: order_by | null
   timestamp?: order_by | null
+}
+
+/** columns and relationships of "MigratingPIM" */
+export interface MigratingPIMGenqlSelection {
+  address?: boolean | number
+  chainId?: boolean | number
+  /** An object relationship */
+  collateralToken?: TokenGenqlSelection
+  collateralToken_id?: boolean | number
+  db_write_timestamp?: boolean | number
+  deployer?: boolean | number
+  /** An array relationship */
+  graduations?: GraduationGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: Graduation_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: Graduation_order_by[] | null
+      /** filter the rows returned */
+      where?: Graduation_bool_exp | null
+    }
+  }
+  id?: boolean | number
+  initiator?: boolean | number
+  /** An object relationship */
+  issuanceToken?: TokenGenqlSelection
+  issuanceToken_id?: boolean | number
+  /** An object relationship */
+  migrationConfig?: MigrationConfigGenqlSelection
+  migrationConfig_id?: boolean | number
+  /** An object relationship */
+  workflow?: WorkflowGenqlSelection
+  workflow_id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** Boolean expression to filter rows from the table "MigratingPIM". All fields are combined with a logical 'AND'. */
+export interface MigratingPIM_bool_exp {
+  _and?: MigratingPIM_bool_exp[] | null
+  _not?: MigratingPIM_bool_exp | null
+  _or?: MigratingPIM_bool_exp[] | null
+  address?: String_comparison_exp | null
+  chainId?: Int_comparison_exp | null
+  collateralToken?: Token_bool_exp | null
+  collateralToken_id?: String_comparison_exp | null
+  db_write_timestamp?: timestamp_comparison_exp | null
+  deployer?: String_comparison_exp | null
+  graduations?: Graduation_bool_exp | null
+  id?: String_comparison_exp | null
+  initiator?: String_comparison_exp | null
+  issuanceToken?: Token_bool_exp | null
+  issuanceToken_id?: String_comparison_exp | null
+  migrationConfig?: MigrationConfig_bool_exp | null
+  migrationConfig_id?: String_comparison_exp | null
+  workflow?: Workflow_bool_exp | null
+  workflow_id?: String_comparison_exp | null
+}
+
+/** Ordering options when selecting data from "MigratingPIM". */
+export interface MigratingPIM_order_by {
+  address?: order_by | null
+  chainId?: order_by | null
+  collateralToken?: Token_order_by | null
+  collateralToken_id?: order_by | null
+  db_write_timestamp?: order_by | null
+  deployer?: order_by | null
+  graduations_aggregate?: Graduation_aggregate_order_by | null
+  id?: order_by | null
+  initiator?: order_by | null
+  issuanceToken?: Token_order_by | null
+  issuanceToken_id?: order_by | null
+  migrationConfig?: MigrationConfig_order_by | null
+  migrationConfig_id?: order_by | null
+  workflow?: Workflow_order_by | null
+  workflow_id?: order_by | null
+}
+
+/** Streaming cursor of the table "MigratingPIM" */
+export interface MigratingPIM_stream_cursor_input {
+  /** Stream column input with initial value */
+  initial_value: MigratingPIM_stream_cursor_value_input
+  /** cursor ordering */
+  ordering?: cursor_ordering | null
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface MigratingPIM_stream_cursor_value_input {
+  address?: Scalars['String'] | null
+  chainId?: Scalars['Int'] | null
+  collateralToken_id?: Scalars['String'] | null
+  db_write_timestamp?: Scalars['timestamp'] | null
+  deployer?: Scalars['String'] | null
+  id?: Scalars['String'] | null
+  initiator?: Scalars['String'] | null
+  issuanceToken_id?: Scalars['String'] | null
+  migrationConfig_id?: Scalars['String'] | null
+  workflow_id?: Scalars['String'] | null
+}
+
+/** columns and relationships of "MigrationConfig" */
+export interface MigrationConfigGenqlSelection {
+  db_write_timestamp?: boolean | number
+  dexAdapter?: boolean | number
+  id?: boolean | number
+  isImmutable?: boolean | number
+  lpTokenRecipient?: boolean | number
+  migrationThreshold?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** Boolean expression to filter rows from the table "MigrationConfig". All fields are combined with a logical 'AND'. */
+export interface MigrationConfig_bool_exp {
+  _and?: MigrationConfig_bool_exp[] | null
+  _not?: MigrationConfig_bool_exp | null
+  _or?: MigrationConfig_bool_exp[] | null
+  db_write_timestamp?: timestamp_comparison_exp | null
+  dexAdapter?: String_comparison_exp | null
+  id?: String_comparison_exp | null
+  isImmutable?: Boolean_comparison_exp | null
+  lpTokenRecipient?: String_comparison_exp | null
+  migrationThreshold?: numeric_comparison_exp | null
+}
+
+/** Ordering options when selecting data from "MigrationConfig". */
+export interface MigrationConfig_order_by {
+  db_write_timestamp?: order_by | null
+  dexAdapter?: order_by | null
+  id?: order_by | null
+  isImmutable?: order_by | null
+  lpTokenRecipient?: order_by | null
+  migrationThreshold?: order_by | null
+}
+
+/** Streaming cursor of the table "MigrationConfig" */
+export interface MigrationConfig_stream_cursor_input {
+  /** Stream column input with initial value */
+  initial_value: MigrationConfig_stream_cursor_value_input
+  /** cursor ordering */
+  ordering?: cursor_ordering | null
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface MigrationConfig_stream_cursor_value_input {
+  db_write_timestamp?: Scalars['timestamp'] | null
+  dexAdapter?: Scalars['String'] | null
+  id?: Scalars['String'] | null
+  isImmutable?: Scalars['Boolean'] | null
+  lpTokenRecipient?: Scalars['String'] | null
+  migrationThreshold?: Scalars['numeric'] | null
 }
 
 /** columns and relationships of "OraclePriceFM" */
@@ -12193,6 +12614,25 @@ export interface query_rootGenqlSelection {
   ExternalPrice_by_pk?: ExternalPriceGenqlSelection & {
     __args: { id: Scalars['String'] }
   }
+  /** fetch data from the table: "Graduation" */
+  Graduation?: GraduationGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: Graduation_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: Graduation_order_by[] | null
+      /** filter the rows returned */
+      where?: Graduation_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "Graduation" using primary key columns */
+  Graduation_by_pk?: GraduationGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
   /** fetch data from the table: "IssuanceTokenDayData" */
   IssuanceTokenDayData?: IssuanceTokenDayDataGenqlSelection & {
     __args?: {
@@ -12278,6 +12718,44 @@ export interface query_rootGenqlSelection {
   }
   /** fetch data from the table: "LinearVesting" using primary key columns */
   LinearVesting_by_pk?: LinearVestingGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table: "MigratingPIM" */
+  MigratingPIM?: MigratingPIMGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: MigratingPIM_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: MigratingPIM_order_by[] | null
+      /** filter the rows returned */
+      where?: MigratingPIM_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "MigratingPIM" using primary key columns */
+  MigratingPIM_by_pk?: MigratingPIMGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table: "MigrationConfig" */
+  MigrationConfig?: MigrationConfigGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: MigrationConfig_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: MigrationConfig_order_by[] | null
+      /** filter the rows returned */
+      where?: MigrationConfig_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "MigrationConfig" using primary key columns */
+  MigrationConfig_by_pk?: MigrationConfigGenqlSelection & {
     __args: { id: Scalars['String'] }
   }
   /** fetch data from the table: "OraclePriceFM" */
@@ -13305,6 +13783,36 @@ export interface subscription_rootGenqlSelection {
       where?: ExternalPrice_bool_exp | null
     }
   }
+  /** fetch data from the table: "Graduation" */
+  Graduation?: GraduationGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: Graduation_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: Graduation_order_by[] | null
+      /** filter the rows returned */
+      where?: Graduation_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "Graduation" using primary key columns */
+  Graduation_by_pk?: GraduationGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table in a streaming manner: "Graduation" */
+  Graduation_stream?: GraduationGenqlSelection & {
+    __args: {
+      /** maximum number of rows returned in a single batch */
+      batch_size: Scalars['Int']
+      /** cursor to stream the results returned by the query */
+      cursor: (Graduation_stream_cursor_input | null)[]
+      /** filter the rows returned */
+      where?: Graduation_bool_exp | null
+    }
+  }
   /** fetch data from the table: "IssuanceTokenDayData" */
   IssuanceTokenDayData?: IssuanceTokenDayDataGenqlSelection & {
     __args?: {
@@ -13423,6 +13931,66 @@ export interface subscription_rootGenqlSelection {
       cursor: (LinearVesting_stream_cursor_input | null)[]
       /** filter the rows returned */
       where?: LinearVesting_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "MigratingPIM" */
+  MigratingPIM?: MigratingPIMGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: MigratingPIM_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: MigratingPIM_order_by[] | null
+      /** filter the rows returned */
+      where?: MigratingPIM_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "MigratingPIM" using primary key columns */
+  MigratingPIM_by_pk?: MigratingPIMGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table in a streaming manner: "MigratingPIM" */
+  MigratingPIM_stream?: MigratingPIMGenqlSelection & {
+    __args: {
+      /** maximum number of rows returned in a single batch */
+      batch_size: Scalars['Int']
+      /** cursor to stream the results returned by the query */
+      cursor: (MigratingPIM_stream_cursor_input | null)[]
+      /** filter the rows returned */
+      where?: MigratingPIM_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "MigrationConfig" */
+  MigrationConfig?: MigrationConfigGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: MigrationConfig_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: MigrationConfig_order_by[] | null
+      /** filter the rows returned */
+      where?: MigrationConfig_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "MigrationConfig" using primary key columns */
+  MigrationConfig_by_pk?: MigrationConfigGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table in a streaming manner: "MigrationConfig" */
+  MigrationConfig_stream?: MigrationConfigGenqlSelection & {
+    __args: {
+      /** maximum number of rows returned in a single batch */
+      batch_size: Scalars['Int']
+      /** cursor to stream the results returned by the query */
+      cursor: (MigrationConfig_stream_cursor_input | null)[]
+      /** filter the rows returned */
+      where?: MigrationConfig_bool_exp | null
     }
   }
   /** fetch data from the table: "OraclePriceFM" */
@@ -15032,6 +15600,15 @@ export const isExternalPriceSetter = (
   return ExternalPriceSetter_possibleTypes.includes(obj.__typename)
 }
 
+const Graduation_possibleTypes: string[] = ['Graduation']
+export const isGraduation = (
+  obj?: { __typename?: any } | null
+): obj is Graduation => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isGraduation"')
+  return Graduation_possibleTypes.includes(obj.__typename)
+}
+
 const IssuanceTokenDayData_possibleTypes: string[] = ['IssuanceTokenDayData']
 export const isIssuanceTokenDayData = (
   obj?: { __typename?: any } | null
@@ -15397,6 +15974,24 @@ export const isLinearVesting = (
   if (!obj?.__typename)
     throw new Error('__typename is missing in "isLinearVesting"')
   return LinearVesting_possibleTypes.includes(obj.__typename)
+}
+
+const MigratingPIM_possibleTypes: string[] = ['MigratingPIM']
+export const isMigratingPIM = (
+  obj?: { __typename?: any } | null
+): obj is MigratingPIM => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isMigratingPIM"')
+  return MigratingPIM_possibleTypes.includes(obj.__typename)
+}
+
+const MigrationConfig_possibleTypes: string[] = ['MigrationConfig']
+export const isMigrationConfig = (
+  obj?: { __typename?: any } | null
+): obj is MigrationConfig => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isMigrationConfig"')
+  return MigrationConfig_possibleTypes.includes(obj.__typename)
 }
 
 const OraclePriceFM_possibleTypes: string[] = ['OraclePriceFM']
@@ -16401,6 +16996,16 @@ export const enumExternalPriceSelectColumn = {
   txHash: 'txHash' as const,
 }
 
+export const enumGraduationSelectColumn = {
+  collateralTokenAmount: 'collateralTokenAmount' as const,
+  db_write_timestamp: 'db_write_timestamp' as const,
+  id: 'id' as const,
+  issuanceTokenAmount: 'issuanceTokenAmount' as const,
+  migratingPIM_id: 'migratingPIM_id' as const,
+  timestamp: 'timestamp' as const,
+  txHash: 'txHash' as const,
+}
+
 export const enumIssuanceTokenDayDataSelectColumn = {
   address: 'address' as const,
   chainId: 'chainId' as const,
@@ -16454,6 +17059,28 @@ export const enumLinearVestingSelectColumn = {
   streamingPaymentProcessor_id: 'streamingPaymentProcessor_id' as const,
   timestamp: 'timestamp' as const,
   token_id: 'token_id' as const,
+}
+
+export const enumMigratingPimSelectColumn = {
+  address: 'address' as const,
+  chainId: 'chainId' as const,
+  collateralToken_id: 'collateralToken_id' as const,
+  db_write_timestamp: 'db_write_timestamp' as const,
+  deployer: 'deployer' as const,
+  id: 'id' as const,
+  initiator: 'initiator' as const,
+  issuanceToken_id: 'issuanceToken_id' as const,
+  migrationConfig_id: 'migrationConfig_id' as const,
+  workflow_id: 'workflow_id' as const,
+}
+
+export const enumMigrationConfigSelectColumn = {
+  db_write_timestamp: 'db_write_timestamp' as const,
+  dexAdapter: 'dexAdapter' as const,
+  id: 'id' as const,
+  isImmutable: 'isImmutable' as const,
+  lpTokenRecipient: 'lpTokenRecipient' as const,
+  migrationThreshold: 'migrationThreshold' as const,
 }
 
 export const enumOraclePriceFmSelectColumn = {

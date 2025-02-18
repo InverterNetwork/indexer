@@ -4261,6 +4261,214 @@ input ExternalPrice_variance_order_by {
 }
 
 """
+columns and relationships of "Graduation"
+"""
+type Graduation {
+  collateralTokenAmount: numeric!
+  db_write_timestamp: timestamp
+  id: String!
+  issuanceTokenAmount: numeric!
+
+  """An object relationship"""
+  migratingPIM: MigratingPIM
+  migratingPIM_id: String!
+  timestamp: Int!
+  txHash: String!
+}
+
+"""
+order by aggregate values of table "Graduation"
+"""
+input Graduation_aggregate_order_by {
+  avg: Graduation_avg_order_by
+  count: order_by
+  max: Graduation_max_order_by
+  min: Graduation_min_order_by
+  stddev: Graduation_stddev_order_by
+  stddev_pop: Graduation_stddev_pop_order_by
+  stddev_samp: Graduation_stddev_samp_order_by
+  sum: Graduation_sum_order_by
+  var_pop: Graduation_var_pop_order_by
+  var_samp: Graduation_var_samp_order_by
+  variance: Graduation_variance_order_by
+}
+
+"""
+order by avg() on columns of table "Graduation"
+"""
+input Graduation_avg_order_by {
+  collateralTokenAmount: order_by
+  issuanceTokenAmount: order_by
+  timestamp: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "Graduation". All fields are combined with a logical 'AND'.
+"""
+input Graduation_bool_exp {
+  _and: [Graduation_bool_exp!]
+  _not: Graduation_bool_exp
+  _or: [Graduation_bool_exp!]
+  collateralTokenAmount: numeric_comparison_exp
+  db_write_timestamp: timestamp_comparison_exp
+  id: String_comparison_exp
+  issuanceTokenAmount: numeric_comparison_exp
+  migratingPIM: MigratingPIM_bool_exp
+  migratingPIM_id: String_comparison_exp
+  timestamp: Int_comparison_exp
+  txHash: String_comparison_exp
+}
+
+"""
+order by max() on columns of table "Graduation"
+"""
+input Graduation_max_order_by {
+  collateralTokenAmount: order_by
+  db_write_timestamp: order_by
+  id: order_by
+  issuanceTokenAmount: order_by
+  migratingPIM_id: order_by
+  timestamp: order_by
+  txHash: order_by
+}
+
+"""
+order by min() on columns of table "Graduation"
+"""
+input Graduation_min_order_by {
+  collateralTokenAmount: order_by
+  db_write_timestamp: order_by
+  id: order_by
+  issuanceTokenAmount: order_by
+  migratingPIM_id: order_by
+  timestamp: order_by
+  txHash: order_by
+}
+
+"""Ordering options when selecting data from "Graduation"."""
+input Graduation_order_by {
+  collateralTokenAmount: order_by
+  db_write_timestamp: order_by
+  id: order_by
+  issuanceTokenAmount: order_by
+  migratingPIM: MigratingPIM_order_by
+  migratingPIM_id: order_by
+  timestamp: order_by
+  txHash: order_by
+}
+
+"""
+select columns of table "Graduation"
+"""
+enum Graduation_select_column {
+  """column name"""
+  collateralTokenAmount
+
+  """column name"""
+  db_write_timestamp
+
+  """column name"""
+  id
+
+  """column name"""
+  issuanceTokenAmount
+
+  """column name"""
+  migratingPIM_id
+
+  """column name"""
+  timestamp
+
+  """column name"""
+  txHash
+}
+
+"""
+order by stddev() on columns of table "Graduation"
+"""
+input Graduation_stddev_order_by {
+  collateralTokenAmount: order_by
+  issuanceTokenAmount: order_by
+  timestamp: order_by
+}
+
+"""
+order by stddev_pop() on columns of table "Graduation"
+"""
+input Graduation_stddev_pop_order_by {
+  collateralTokenAmount: order_by
+  issuanceTokenAmount: order_by
+  timestamp: order_by
+}
+
+"""
+order by stddev_samp() on columns of table "Graduation"
+"""
+input Graduation_stddev_samp_order_by {
+  collateralTokenAmount: order_by
+  issuanceTokenAmount: order_by
+  timestamp: order_by
+}
+
+"""
+Streaming cursor of the table "Graduation"
+"""
+input Graduation_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: Graduation_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input Graduation_stream_cursor_value_input {
+  collateralTokenAmount: numeric
+  db_write_timestamp: timestamp
+  id: String
+  issuanceTokenAmount: numeric
+  migratingPIM_id: String
+  timestamp: Int
+  txHash: String
+}
+
+"""
+order by sum() on columns of table "Graduation"
+"""
+input Graduation_sum_order_by {
+  collateralTokenAmount: order_by
+  issuanceTokenAmount: order_by
+  timestamp: order_by
+}
+
+"""
+order by var_pop() on columns of table "Graduation"
+"""
+input Graduation_var_pop_order_by {
+  collateralTokenAmount: order_by
+  issuanceTokenAmount: order_by
+  timestamp: order_by
+}
+
+"""
+order by var_samp() on columns of table "Graduation"
+"""
+input Graduation_var_samp_order_by {
+  collateralTokenAmount: order_by
+  issuanceTokenAmount: order_by
+  timestamp: order_by
+}
+
+"""
+order by variance() on columns of table "Graduation"
+"""
+input Graduation_variance_order_by {
+  collateralTokenAmount: order_by
+  issuanceTokenAmount: order_by
+  timestamp: order_by
+}
+
+"""
 Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
 """
 input Int_comparison_exp {
@@ -5707,6 +5915,236 @@ input LinearVesting_variance_order_by {
   end: order_by
   start: order_by
   timestamp: order_by
+}
+
+"""
+columns and relationships of "MigratingPIM"
+"""
+type MigratingPIM {
+  address: String!
+  chainId: Int!
+
+  """An object relationship"""
+  collateralToken: Token
+  collateralToken_id: String!
+  db_write_timestamp: timestamp
+  deployer: String!
+
+  """An array relationship"""
+  graduations(
+    """distinct select on columns"""
+    distinct_on: [Graduation_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Graduation_order_by!]
+
+    """filter the rows returned"""
+    where: Graduation_bool_exp
+  ): [Graduation!]!
+  id: String!
+  initiator: String!
+
+  """An object relationship"""
+  issuanceToken: Token
+  issuanceToken_id: String!
+
+  """An object relationship"""
+  migrationConfig: MigrationConfig
+  migrationConfig_id: String!
+
+  """An object relationship"""
+  workflow: Workflow
+  workflow_id: String!
+}
+
+"""
+Boolean expression to filter rows from the table "MigratingPIM". All fields are combined with a logical 'AND'.
+"""
+input MigratingPIM_bool_exp {
+  _and: [MigratingPIM_bool_exp!]
+  _not: MigratingPIM_bool_exp
+  _or: [MigratingPIM_bool_exp!]
+  address: String_comparison_exp
+  chainId: Int_comparison_exp
+  collateralToken: Token_bool_exp
+  collateralToken_id: String_comparison_exp
+  db_write_timestamp: timestamp_comparison_exp
+  deployer: String_comparison_exp
+  graduations: Graduation_bool_exp
+  id: String_comparison_exp
+  initiator: String_comparison_exp
+  issuanceToken: Token_bool_exp
+  issuanceToken_id: String_comparison_exp
+  migrationConfig: MigrationConfig_bool_exp
+  migrationConfig_id: String_comparison_exp
+  workflow: Workflow_bool_exp
+  workflow_id: String_comparison_exp
+}
+
+"""Ordering options when selecting data from "MigratingPIM"."""
+input MigratingPIM_order_by {
+  address: order_by
+  chainId: order_by
+  collateralToken: Token_order_by
+  collateralToken_id: order_by
+  db_write_timestamp: order_by
+  deployer: order_by
+  graduations_aggregate: Graduation_aggregate_order_by
+  id: order_by
+  initiator: order_by
+  issuanceToken: Token_order_by
+  issuanceToken_id: order_by
+  migrationConfig: MigrationConfig_order_by
+  migrationConfig_id: order_by
+  workflow: Workflow_order_by
+  workflow_id: order_by
+}
+
+"""
+select columns of table "MigratingPIM"
+"""
+enum MigratingPIM_select_column {
+  """column name"""
+  address
+
+  """column name"""
+  chainId
+
+  """column name"""
+  collateralToken_id
+
+  """column name"""
+  db_write_timestamp
+
+  """column name"""
+  deployer
+
+  """column name"""
+  id
+
+  """column name"""
+  initiator
+
+  """column name"""
+  issuanceToken_id
+
+  """column name"""
+  migrationConfig_id
+
+  """column name"""
+  workflow_id
+}
+
+"""
+Streaming cursor of the table "MigratingPIM"
+"""
+input MigratingPIM_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: MigratingPIM_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input MigratingPIM_stream_cursor_value_input {
+  address: String
+  chainId: Int
+  collateralToken_id: String
+  db_write_timestamp: timestamp
+  deployer: String
+  id: String
+  initiator: String
+  issuanceToken_id: String
+  migrationConfig_id: String
+  workflow_id: String
+}
+
+"""
+columns and relationships of "MigrationConfig"
+"""
+type MigrationConfig {
+  db_write_timestamp: timestamp
+  dexAdapter: String!
+  id: String!
+  isImmutable: Boolean!
+  lpTokenRecipient: String!
+  migrationThreshold: numeric!
+}
+
+"""
+Boolean expression to filter rows from the table "MigrationConfig". All fields are combined with a logical 'AND'.
+"""
+input MigrationConfig_bool_exp {
+  _and: [MigrationConfig_bool_exp!]
+  _not: MigrationConfig_bool_exp
+  _or: [MigrationConfig_bool_exp!]
+  db_write_timestamp: timestamp_comparison_exp
+  dexAdapter: String_comparison_exp
+  id: String_comparison_exp
+  isImmutable: Boolean_comparison_exp
+  lpTokenRecipient: String_comparison_exp
+  migrationThreshold: numeric_comparison_exp
+}
+
+"""Ordering options when selecting data from "MigrationConfig"."""
+input MigrationConfig_order_by {
+  db_write_timestamp: order_by
+  dexAdapter: order_by
+  id: order_by
+  isImmutable: order_by
+  lpTokenRecipient: order_by
+  migrationThreshold: order_by
+}
+
+"""
+select columns of table "MigrationConfig"
+"""
+enum MigrationConfig_select_column {
+  """column name"""
+  db_write_timestamp
+
+  """column name"""
+  dexAdapter
+
+  """column name"""
+  id
+
+  """column name"""
+  isImmutable
+
+  """column name"""
+  lpTokenRecipient
+
+  """column name"""
+  migrationThreshold
+}
+
+"""
+Streaming cursor of the table "MigrationConfig"
+"""
+input MigrationConfig_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: MigrationConfig_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input MigrationConfig_stream_cursor_value_input {
+  db_write_timestamp: timestamp
+  dexAdapter: String
+  id: String
+  isImmutable: Boolean
+  lpTokenRecipient: String
+  migrationThreshold: numeric
 }
 
 """
@@ -10096,6 +10534,29 @@ type query_root {
   ExternalPrice_by_pk(id: String!): ExternalPrice
 
   """
+  fetch data from the table: "Graduation"
+  """
+  Graduation(
+    """distinct select on columns"""
+    distinct_on: [Graduation_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Graduation_order_by!]
+
+    """filter the rows returned"""
+    where: Graduation_bool_exp
+  ): [Graduation!]!
+
+  """fetch data from the table: "Graduation" using primary key columns"""
+  Graduation_by_pk(id: String!): Graduation
+
+  """
   fetch data from the table: "IssuanceTokenDayData"
   """
   IssuanceTokenDayData(
@@ -10207,6 +10668,52 @@ type query_root {
 
   """fetch data from the table: "LinearVesting" using primary key columns"""
   LinearVesting_by_pk(id: String!): LinearVesting
+
+  """
+  fetch data from the table: "MigratingPIM"
+  """
+  MigratingPIM(
+    """distinct select on columns"""
+    distinct_on: [MigratingPIM_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [MigratingPIM_order_by!]
+
+    """filter the rows returned"""
+    where: MigratingPIM_bool_exp
+  ): [MigratingPIM!]!
+
+  """fetch data from the table: "MigratingPIM" using primary key columns"""
+  MigratingPIM_by_pk(id: String!): MigratingPIM
+
+  """
+  fetch data from the table: "MigrationConfig"
+  """
+  MigrationConfig(
+    """distinct select on columns"""
+    distinct_on: [MigrationConfig_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [MigrationConfig_order_by!]
+
+    """filter the rows returned"""
+    where: MigrationConfig_bool_exp
+  ): [MigrationConfig!]!
+
+  """fetch data from the table: "MigrationConfig" using primary key columns"""
+  MigrationConfig_by_pk(id: String!): MigrationConfig
 
   """
   fetch data from the table: "OraclePriceFM"
@@ -11522,6 +12029,43 @@ type subscription_root {
   ): [ExternalPrice!]!
 
   """
+  fetch data from the table: "Graduation"
+  """
+  Graduation(
+    """distinct select on columns"""
+    distinct_on: [Graduation_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Graduation_order_by!]
+
+    """filter the rows returned"""
+    where: Graduation_bool_exp
+  ): [Graduation!]!
+
+  """fetch data from the table: "Graduation" using primary key columns"""
+  Graduation_by_pk(id: String!): Graduation
+
+  """
+  fetch data from the table in a streaming manner: "Graduation"
+  """
+  Graduation_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [Graduation_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: Graduation_bool_exp
+  ): [Graduation!]!
+
+  """
   fetch data from the table: "IssuanceTokenDayData"
   """
   IssuanceTokenDayData(
@@ -11675,6 +12219,80 @@ type subscription_root {
     """filter the rows returned"""
     where: LinearVesting_bool_exp
   ): [LinearVesting!]!
+
+  """
+  fetch data from the table: "MigratingPIM"
+  """
+  MigratingPIM(
+    """distinct select on columns"""
+    distinct_on: [MigratingPIM_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [MigratingPIM_order_by!]
+
+    """filter the rows returned"""
+    where: MigratingPIM_bool_exp
+  ): [MigratingPIM!]!
+
+  """fetch data from the table: "MigratingPIM" using primary key columns"""
+  MigratingPIM_by_pk(id: String!): MigratingPIM
+
+  """
+  fetch data from the table in a streaming manner: "MigratingPIM"
+  """
+  MigratingPIM_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [MigratingPIM_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: MigratingPIM_bool_exp
+  ): [MigratingPIM!]!
+
+  """
+  fetch data from the table: "MigrationConfig"
+  """
+  MigrationConfig(
+    """distinct select on columns"""
+    distinct_on: [MigrationConfig_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [MigrationConfig_order_by!]
+
+    """filter the rows returned"""
+    where: MigrationConfig_bool_exp
+  ): [MigrationConfig!]!
+
+  """fetch data from the table: "MigrationConfig" using primary key columns"""
+  MigrationConfig_by_pk(id: String!): MigrationConfig
+
+  """
+  fetch data from the table in a streaming manner: "MigrationConfig"
+  """
+  MigrationConfig_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [MigrationConfig_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: MigrationConfig_bool_exp
+  ): [MigrationConfig!]!
 
   """
   fetch data from the table: "OraclePriceFM"
