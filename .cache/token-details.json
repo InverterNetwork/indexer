@@ -4075,5 +4075,815 @@
       "decimals": 18,
       "address": "0xEEc7839D33f0335AE17fCa0ecB061b63fD7594C5"
     }
+  },
+  "0xa5733b3a8e62a8faf43b0376d5faf46e89b3033e-80002": {
+    "meta": {},
+    "content": {
+      "name": "Wrapped POL",
+      "symbol": "WPOL",
+      "decimals": 18,
+      "address": "0xA5733b3A8e62A8faF43b0376d5fAF46E89B3033E"
+    }
+  },
+  "0xc530b75465ce3c6286e718110a7b2e2b64bdc860-80002": {
+    "meta": {},
+    "content": {
+      "name": "x23.ai",
+      "symbol": "X23",
+      "decimals": 18,
+      "address": "0xc530B75465Ce3c6286e718110A7B2e2B64Bdc860"
+    }
+  },
+  "0xa1a78ac9884adc9d04d59b2b743f1ec709618e55-80002": {
+    "meta": {},
+    "content": {
+      "name": "Alpha Chad",
+      "symbol": "ACHAD",
+      "decimals": 18,
+      "address": "0xA1a78aC9884aDc9d04d59b2b743f1eC709618e55"
+    }
+  },
+  "0xfafb870f1918827fe57ca4b891124606eaa7e6bd-80002": {
+    "meta": {},
+    "content": {
+      "name": "The Grand Timeline",
+      "symbol": "GRNDT",
+      "decimals": 18,
+      "address": "0xfAFB870F1918827fe57Ca4b891124606EaA7e6bd"
+    }
+  },
+  "0xa2445f4d520f89951d179d518a6fde74591e15e3-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Test Token",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0xa2445f4d520f89951d179D518A6Fde74591e15e3"
+    }
+  },
+  "0x28d86a88b47f0105d38dc8d6884ee946a9745725-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Test Token",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0x28d86A88B47F0105D38Dc8d6884Ee946A9745725"
+    }
+  },
+  "0x388abf9934e5f6f5c77693772ae9c4fef0a1b251-11155420": {
+    "meta": {},
+    "content": {
+      "name": "OP Nonce",
+      "symbol": "NONCE",
+      "decimals": 18,
+      "address": "0x388AbF9934e5f6F5c77693772Ae9c4FeF0a1b251"
+    }
+  },
+  "0xce3eb7ba32f2c6bfafd79aa042f440377d3dc224-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Space token fund v6",
+      "symbol": "SPC6",
+      "decimals": 18,
+      "address": "0xcE3Eb7bA32f2C6bFafd79aa042f440377d3Dc224"
+    }
+  },
+  "0x4f653c079ebae1c9f82964f2df6d70116fffd272-11155111": {
+    "meta": {},
+    "content": {
+      "name": "YFBL",
+      "symbol": "YFBL",
+      "decimals": 18,
+      "address": "0x4F653c079ebae1C9f82964f2DF6D70116FFFd272"
+    }
+  },
+  "0xf9ebe12dff859a0177a538da7a92534ada148eea-11155111": {
+    "meta": {},
+    "content": {
+      "name": "atates",
+      "symbol": "ATATEST",
+      "decimals": 18,
+      "address": "0xF9EBe12DfF859a0177a538dA7A92534aDa148Eea"
+    }
+  },
+  "0x0daf689b4ed935d1fe51edc550f94f8e52ff8dc8-11155111": {
+    "meta": {},
+    "content": {
+      "name": "ata1",
+      "symbol": "ATA1",
+      "decimals": 18,
+      "address": "0x0Daf689B4ed935d1FE51Edc550F94F8e52ff8dc8"
+    }
+  },
+  "0x77b3b45a2e07ea547f1379abbdea8ce6169a69a3-11155111": {
+    "meta": {},
+    "content": {
+      "name": "ata2",
+      "symbol": "ATA2",
+      "decimals": 18,
+      "address": "0x77B3b45a2E07ea547f1379abBDEA8ce6169A69A3"
+    }
+  },
+  "0x1b30b25ab68f67a8a2c539b83355028c18c09379-11155111": {
+    "meta": {},
+    "content": {
+      "name": "ata3",
+      "symbol": "ATA3",
+      "decimals": 18,
+      "address": "0x1B30B25aB68f67a8A2C539b83355028c18c09379"
+    }
+  },
+  "0x1ad9dde4e65e4225bf745f222aaf346c2729158a-11155420": {
+    "meta": {},
+    "content": {
+      "name": "OP Hmm",
+      "symbol": "HMM",
+      "decimals": 18,
+      "address": "0x1aD9Dde4e65e4225BF745f222aaf346c2729158A"
+    }
+  },
+  "0xc5124313b076f27b291132758f6b792461013094-11155420": {
+    "meta": {},
+    "content": {
+      "name": "1",
+      "symbol": "1",
+      "decimals": 18,
+      "address": "0xc5124313b076f27B291132758F6b792461013094"
+    }
+  },
+  "0xccc4131084a52986a952b85143435a185b0df57d-11155420": {
+    "meta": {},
+    "content": {
+      "name": "qweqweqwe",
+      "symbol": "QWEQWE",
+      "decimals": 18,
+      "address": "0xcCc4131084A52986A952b85143435A185b0Df57D"
+    }
+  },
+  "0xec10480c13245b59480d0b3e0433dd6c8cd50cb3-11155420": {
+    "meta": {},
+    "content": {
+      "name": "asdasdasdas",
+      "symbol": "ASDADAD",
+      "decimals": 18,
+      "address": "0xEc10480c13245b59480d0B3E0433Dd6C8CD50cB3"
+    }
+  },
+  "0x6e5418df722531473acf4e5b03e3c10a57720462-11155420": {
+    "meta": {},
+    "content": {
+      "name": "DOGU_TEST",
+      "symbol": "DOGUT",
+      "decimals": 18,
+      "address": "0x6E5418Df722531473acF4E5b03e3C10A57720462"
+    }
+  },
+  "0x5deac602762362fe5f135fa5904351916053cf70-84532": {
+    "meta": {},
+    "content": {
+      "name": "Base Sepolia USDC",
+      "symbol": "USDC",
+      "decimals": 18,
+      "address": "0x5dEaC602762362FE5f135FA5904351916053cF70"
+    }
+  },
+  "0xc530b75465ce3c6286e718110a7b2e2b64bdc860-84532": {
+    "meta": {},
+    "content": {
+      "name": "example_name",
+      "symbol": "example_symbol",
+      "decimals": 18,
+      "address": "0xc530B75465Ce3c6286e718110A7B2e2B64Bdc860"
+    }
+  },
+  "0xe263fd8ca4e0386fdef8f612e2ce975fa57f0b06-11155111": {
+    "meta": {},
+    "content": {
+      "name": "ata4",
+      "symbol": "ATA4",
+      "decimals": 18,
+      "address": "0xE263fd8CA4E0386fdEF8f612E2cE975FA57f0B06"
+    }
+  },
+  "0x9bb5c6078b78609a7de10a406335395622443d0c-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Not Test Token",
+      "symbol": "NTEST",
+      "decimals": 18,
+      "address": "0x9bb5c6078b78609a7DE10a406335395622443d0C"
+    }
+  },
+  "0x91d6f03a802e62b703fe53b827a1b3ae0fa5dda0-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Space token fund v7",
+      "symbol": "SPC7",
+      "decimals": 18,
+      "address": "0x91D6F03a802e62b703FE53b827A1B3aE0fa5dDA0"
+    }
+  },
+  "0x4200000000000000000000000000000000000006-84532": {
+    "meta": {},
+    "content": {
+      "name": "Wrapped Ether",
+      "symbol": "WETH",
+      "decimals": 18,
+      "address": "0x4200000000000000000000000000000000000006"
+    }
+  },
+  "0x6a252876ed419918dd8cc4423703ca850cf438c0-84532": {
+    "meta": {},
+    "content": {
+      "name": "ABC TOKEN",
+      "symbol": "ABC",
+      "decimals": 18,
+      "address": "0x6a252876ed419918DD8cC4423703Ca850CF438C0"
+    }
+  },
+  "0x7a70249fd01796b09af7a2f4755bb9122d7f8a5e-84532": {
+    "meta": {},
+    "content": {
+      "name": "ABC TOKEN",
+      "symbol": "ABC",
+      "decimals": 18,
+      "address": "0x7A70249Fd01796b09af7A2F4755bb9122d7F8a5e"
+    }
+  },
+  "0xad8b4e3d99a74c01a12cbf6475e3dd0bd733ea85-84532": {
+    "meta": {},
+    "content": {
+      "name": "ABC TOKEN",
+      "symbol": "ABC",
+      "decimals": 18,
+      "address": "0xAd8b4E3D99a74c01A12Cbf6475E3dd0BD733EA85"
+    }
+  },
+  "0x8779dbc4e880270bd4f0c32ad33cbb93150c50bd-11155111": {
+    "meta": {},
+    "content": {
+      "name": "USD Institutional Digital Liquidity Fund",
+      "symbol": "BUIDL",
+      "decimals": 18,
+      "address": "0x8779DBC4e880270Bd4F0C32Ad33CbB93150c50bd"
+    }
+  },
+  "0xcf8e1508fb8cb7c53872a7e132f8f570980f4500-11155420": {
+    "meta": {},
+    "content": {
+      "name": "USD Institutional Digital Liquidity Fund",
+      "symbol": "BUIDL",
+      "decimals": 18,
+      "address": "0xcF8e1508fB8CB7C53872A7e132f8f570980f4500"
+    }
+  },
+  "0xba2dc32ef52603d9e72c1ca120782d014de4b011-84532": {
+    "meta": {},
+    "content": {
+      "name": "ABC TOKEN",
+      "symbol": "ABC",
+      "decimals": 18,
+      "address": "0xbA2dc32eF52603d9e72c1CA120782D014dE4b011"
+    }
+  },
+  "0x410bce929aebd89fcbefed4495d829b9b278bc53-84532": {
+    "meta": {},
+    "content": {
+      "name": "ABC TOKEN",
+      "symbol": "ABC",
+      "decimals": 18,
+      "address": "0x410BCE929aEbd89fCBEfEd4495D829B9B278bC53"
+    }
+  },
+  "0x72a2a15cd6e6bfef86cd0a609a00c850cfc67a0f-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Final Demo Candidate OP Sepolia",
+      "symbol": "FNL",
+      "decimals": 18,
+      "address": "0x72A2A15CD6e6BFeF86CD0a609A00C850CFc67a0f"
+    }
+  },
+  "0xd39f3f3ea980573cec55174cc70993f3c00c0aca-84532": {
+    "meta": {},
+    "content": {
+      "name": "ABC TOKEN",
+      "symbol": "ABC",
+      "decimals": 18,
+      "address": "0xd39f3F3ea980573CEc55174Cc70993F3C00C0ACA"
+    }
+  },
+  "0x15232710bf1028e2abae9428b4e75e17078e052a-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Final Test ",
+      "symbol": "FT",
+      "decimals": 18,
+      "address": "0x15232710bf1028E2abAE9428b4e75E17078e052A"
+    }
+  },
+  "0x3c346473eb6addb971d2e7aec722ed567725946d-84532": {
+    "meta": {},
+    "content": {
+      "name": "ABC TOKEN",
+      "symbol": "ABC",
+      "decimals": 18,
+      "address": "0x3C346473Eb6AdDb971D2E7aec722eD567725946D"
+    }
+  },
+  "0xaec854ef2d4f7ea6387ee7aa7ad904dfba2941d1-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Final Final",
+      "symbol": "FNLFNL",
+      "decimals": 18,
+      "address": "0xaEC854ef2d4F7Ea6387Ee7aa7aD904DFBA2941d1"
+    }
+  },
+  "0x3f9a0fe7846ff2f76f0ef9cf1d5838c8783c93af-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Final Final Final OP",
+      "symbol": "FNLOP",
+      "decimals": 18,
+      "address": "0x3F9a0Fe7846FF2F76f0EF9Cf1d5838c8783C93Af"
+    }
+  },
+  "0xd591af50eed6d9ce04888aff365112e2b938ce10-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Final Final Final OP",
+      "symbol": "FNLOP",
+      "decimals": 18,
+      "address": "0xD591AF50Eed6d9cE04888aff365112e2b938Ce10"
+    }
+  },
+  "0x5fce79110c4a5a98f053d480c951c64cfbd95e63-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Final Final Final Final OP",
+      "symbol": "FNLOP",
+      "decimals": 18,
+      "address": "0x5FcE79110c4A5A98f053d480C951c64cfBD95e63"
+    }
+  },
+  "0xcc40e0d048c77e4c101e892505cd85827ee437b0-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Final final final realllllly final test",
+      "symbol": "FNL",
+      "decimals": 18,
+      "address": "0xcc40e0d048C77e4c101e892505cd85827EE437B0"
+    }
+  },
+  "0x375eeafde2abf88b67f57d568f34193a3f09eebc-84532": {
+    "meta": {},
+    "content": {
+      "name": "ABC TOKEN",
+      "symbol": "ABC",
+      "decimals": 18,
+      "address": "0x375EeAFdE2Abf88b67f57D568f34193a3F09EeBC"
+    }
+  },
+  "0xe701cfa1c34681f3a559f235b83c24f394022985-84532": {
+    "meta": {},
+    "content": {
+      "name": "ABC TOKEN",
+      "symbol": "ABC",
+      "decimals": 18,
+      "address": "0xE701CfA1c34681f3a559F235B83C24f394022985"
+    }
+  },
+  "0x30595566f19c7bd8b187e14bc321f39acfc4eb13-11155420": {
+    "meta": {},
+    "content": {
+      "name": "No throw DUDE",
+      "symbol": "DRPC",
+      "decimals": 18,
+      "address": "0x30595566F19C7bd8B187e14bc321f39AcFc4Eb13"
+    }
+  },
+  "0x97731d6cf0e0bbe65369260d64fd28814c8ef1e5-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Is it the solution?",
+      "symbol": "ERPC",
+      "decimals": 18,
+      "address": "0x97731d6cF0e0bBE65369260D64FD28814c8eF1E5"
+    }
+  },
+  "0x7e6acaf5c712ba911da5d04ebfc0f0c6cfab664b-11155420": {
+    "meta": {},
+    "content": {
+      "name": "ANKR Test",
+      "symbol": "ANKR",
+      "decimals": 18,
+      "address": "0x7E6AcaF5c712ba911dA5D04EBfc0f0c6cFAB664B"
+    }
+  },
+  "0xe263fd8ca4e0386fdef8f612e2ce975fa57f0b06-11155420": {
+    "meta": {},
+    "content": {
+      "name": "CMon",
+      "symbol": "NONCE",
+      "decimals": 18,
+      "address": "0xE263fd8CA4E0386fdEF8f612E2cE975FA57f0B06"
+    }
+  },
+  "0x0aecbb17be7b3fef3aed8603c825c536844f6d43-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Double Confirm at Workflow",
+      "symbol": "CONF",
+      "decimals": 18,
+      "address": "0x0aeCbb17be7b3FEf3aED8603C825c536844F6D43"
+    }
+  },
+  "0xf09dcf76ee98e5058f2114364b2b2deef96420c2-84532": {
+    "meta": {},
+    "content": {
+      "name": "ABC TOKEN",
+      "symbol": "ABC",
+      "decimals": 18,
+      "address": "0xf09dCF76ee98e5058F2114364B2B2dEEf96420C2"
+    }
+  },
+  "0x3f2f2621a400d87365fb93b8d94f4dc0f09b6382-11155420": {
+    "meta": {},
+    "content": {
+      "name": "inc nonce at start",
+      "symbol": "NONCE",
+      "decimals": 18,
+      "address": "0x3f2F2621a400d87365fb93B8D94f4Dc0f09b6382"
+    }
+  },
+  "0xc4fe25ec095066dff6ac1f546e9e929403f9890b-11155420": {
+    "meta": {},
+    "content": {
+      "name": "ISit",
+      "symbol": "ISIT",
+      "decimals": 18,
+      "address": "0xc4fe25EC095066DFf6Ac1F546E9e929403F9890b"
+    }
+  },
+  "0x785879d13c308012d83c93eff19677855a6c8795-11155420": {
+    "meta": {},
+    "content": {
+      "name": "JESUS",
+      "symbol": "JJ",
+      "decimals": 18,
+      "address": "0x785879d13c308012D83c93eff19677855a6C8795"
+    }
+  },
+  "0xaec854ef2d4f7ea6387ee7aa7ad904dfba2941d1-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Test Token",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0xaEC854ef2d4F7Ea6387Ee7aa7aD904DFBA2941d1"
+    }
+  },
+  "0xdfa8cda5de10d7e495f7ee60458134b92dd6548d-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Test Token",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0xdFA8cDA5dE10D7e495F7Ee60458134B92Dd6548d"
+    }
+  },
+  "0x6a04b51a1a8bb8652b4593123b62100066fca14c-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Test Token",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0x6a04B51a1A8BB8652b4593123b62100066fca14C"
+    }
+  },
+  "0x9bf9dfc36372019040f84542e64426eeb8e43fe8-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Test Token",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0x9bF9DFc36372019040F84542e64426eeb8e43FE8"
+    }
+  },
+  "0xb235b339ff05b215cd97a94ee2f4ed1d7be8c33c-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Test Token",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0xb235b339Ff05b215cD97A94Ee2f4Ed1D7BE8C33C"
+    }
+  },
+  "0x33c510c53839e5c2fa676dd4fb8f422be7736e0a-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Test Token",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0x33C510c53839e5c2fa676dd4Fb8f422bE7736e0a"
+    }
+  },
+  "0xc508fba0b31722cce768afa04d999e6d2f26e85a-11155420": {
+    "meta": {},
+    "content": {
+      "name": "TEST",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0xc508fBA0B31722CCe768afa04d999E6D2F26E85a"
+    }
+  },
+  "0x5816d22f5b76424ceb4f845acf0bf7ac66d8461b-11155420": {
+    "meta": {},
+    "content": {
+      "name": "TEST",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0x5816D22f5B76424CEB4f845ACF0Bf7aC66d8461B"
+    }
+  },
+  "0x45f8ec99907305f8287c8bc4210bcae28fad7635-11155420": {
+    "meta": {},
+    "content": {
+      "name": "TEST",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0x45f8eC99907305f8287c8bC4210bcaE28FaD7635"
+    }
+  },
+  "0x771525754e352924b1cad8880950aa3dcbf29a95-11155420": {
+    "meta": {},
+    "content": {
+      "name": "ERPC",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0x771525754e352924B1cAd8880950aA3DCbf29a95"
+    }
+  },
+  "0x3b59511246682068797520ab62af24b9f66f7717-11155420": {
+    "meta": {},
+    "content": {
+      "name": "ERPC 3",
+      "symbol": "ERPC",
+      "decimals": 18,
+      "address": "0x3B59511246682068797520ab62aF24B9f66F7717"
+    }
+  },
+  "0x75b12443762e3b01cc257f434e2fc60ff15597f3-11155420": {
+    "meta": {},
+    "content": {
+      "name": "ERPC 4",
+      "symbol": "ERPC",
+      "decimals": 18,
+      "address": "0x75B12443762E3b01cc257F434e2Fc60Ff15597f3"
+    }
+  },
+  "0xe00941c44597ece3e6eb483b5324600ca63386ad-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Test",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0xe00941c44597ecE3E6eb483b5324600CA63386Ad"
+    }
+  },
+  "0x6a04b51a1a8bb8652b4593123b62100066fca14c-11155111": {
+    "meta": {},
+    "content": {
+      "name": "I really hope this works",
+      "symbol": "IRHTW",
+      "decimals": 18,
+      "address": "0x6a04B51a1A8BB8652b4593123b62100066fca14C"
+    }
+  },
+  "0x5f22f646877885a55b8038eecb358cd635e5866e-11155420": {
+    "meta": {},
+    "content": {
+      "name": "TEST SEMI CONF",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0x5F22F646877885a55B8038EECB358cd635e5866E"
+    }
+  },
+  "0x9122ee56a8a2cfcd8bd4c8095a08a2ca58015f29-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Please my g",
+      "symbol": "PLZ",
+      "decimals": 18,
+      "address": "0x9122ee56a8a2Cfcd8Bd4c8095a08A2cA58015f29"
+    }
+  },
+  "0xa0a437c16698bd60c84fee2117fdd9945aba7b09-11155420": {
+    "meta": {},
+    "content": {
+      "name": "OP SEP ",
+      "symbol": "TEST",
+      "decimals": 18,
+      "address": "0xA0A437c16698bD60C84FEe2117fdd9945Aba7b09"
+    }
+  },
+  "0xecbcd1d537add91ff0c052f9643b1979af850877-11155420": {
+    "meta": {},
+    "content": {
+      "name": "LEZGO",
+      "symbol": "LFG",
+      "decimals": 18,
+      "address": "0xecBcD1d537aDd91fF0c052F9643b1979af850877"
+    }
+  },
+  "0x92d3ba781a0028fe6ea88ddb0280b170e825592d-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Ok lezgo",
+      "symbol": "OKLG",
+      "decimals": 18,
+      "address": "0x92D3ba781a0028FE6EA88ddb0280B170E825592d"
+    }
+  },
+  "0x4efb3e762075314bd578ad169084a4d013de95db-11155420": {
+    "meta": {},
+    "content": {
+      "name": "USD Institutional Digital Liquidity Fund",
+      "symbol": "BUIDL",
+      "decimals": 18,
+      "address": "0x4efB3e762075314bD578Ad169084A4d013DE95Db"
+    }
+  },
+  "0x67b5b2c50168bdb135c51420248d78beebaf98f2-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Yapikredi Type-B Class 1 Liquid Fund",
+      "symbol": "YFBL1",
+      "decimals": 18,
+      "address": "0x67B5B2c50168bdb135c51420248D78BEeBaF98f2"
+    }
+  },
+  "0xda10600d7214411b797daa4293384f833ef7b897-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Yapi Kredi Portfoy Nisantasi Kay Payi Odeyen Fon",
+      "symbol": "YKNIS",
+      "decimals": 18,
+      "address": "0xdA10600D7214411b797daa4293384F833Ef7b897"
+    }
+  },
+  "0x2f80ea397002ee4d053212a3217f541e8e453c73-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Internal demo",
+      "symbol": "INT",
+      "decimals": 18,
+      "address": "0x2f80eA397002EE4D053212a3217f541E8E453C73"
+    }
+  },
+  "0x597d8e65712fd3d8055ee04ec48c89f588eb8cc7-84532": {
+    "meta": {},
+    "content": {
+      "name": "ABC TOKEN",
+      "symbol": "ABC",
+      "decimals": 18,
+      "address": "0x597D8e65712FD3D8055Ee04eC48c89F588EB8cC7"
+    }
+  },
+  "0x795e9beed82b848922200fb38f381bd5a881082a-11155111": {
+    "meta": {},
+    "content": {
+      "name": "JIM AIGent",
+      "symbol": "JIM",
+      "decimals": 18,
+      "address": "0x795e9beed82B848922200fb38F381bD5a881082A"
+    }
+  },
+  "0x70e7a6a915f39d1bef9527a64e5a81525b92f951-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Space token fund v8",
+      "symbol": "SPC8",
+      "decimals": 18,
+      "address": "0x70e7a6a915f39d1BEf9527a64E5A81525b92F951"
+    }
+  },
+  "0x93f53b7d0ef11514175cb0de4ffbe795a4ff523b-11155111": {
+    "meta": {},
+    "content": {
+      "name": "JIM AIGent",
+      "symbol": "JIM",
+      "decimals": 18,
+      "address": "0x93f53B7D0eF11514175CB0De4FFbE795a4fF523b"
+    }
+  },
+  "0x46f2632429d0314be06bd0609da219899eae0ed9-11155111": {
+    "meta": {},
+    "content": {
+      "name": "JIM AIGent",
+      "symbol": "JIM",
+      "decimals": 18,
+      "address": "0x46F2632429d0314Be06bd0609da219899EAe0ed9"
+    }
+  },
+  "0xe69e65f5dcc43ee59c7ca07e79ad8c0943892e4e-11155420": {
+    "meta": {},
+    "content": {
+      "name": "My fund",
+      "symbol": "MFND",
+      "decimals": 18,
+      "address": "0xe69E65F5dcc43Ee59c7Ca07E79aD8C0943892E4e"
+    }
+  },
+  "0xaa47f216b5c98c41aeb02b3a084b77162f4336b1-11155111": {
+    "meta": {},
+    "content": {
+      "name": "eth",
+      "symbol": "ETH",
+      "decimals": 18,
+      "address": "0xaa47F216b5c98C41AEb02b3A084B77162f4336b1"
+    }
+  },
+  "0x422769a4790a92ce3d7ea35ada5b6b11d2f57f06-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Mel",
+      "symbol": "ML",
+      "decimals": 18,
+      "address": "0x422769a4790A92cE3D7ea35ADA5B6B11D2F57f06"
+    }
+  },
+  "0x45f8ec99907305f8287c8bc4210bcae28fad7635-11155111": {
+    "meta": {},
+    "content": {
+      "name": "NewGoktug",
+      "symbol": "NEWGOK",
+      "decimals": 18,
+      "address": "0x45f8eC99907305f8287c8bC4210bcaE28FaD7635"
+    }
+  },
+  "0x771525754e352924b1cad8880950aa3dcbf29a95-11155111": {
+    "meta": {},
+    "content": {
+      "name": "NewGoktug",
+      "symbol": "NEWGOK",
+      "decimals": 18,
+      "address": "0x771525754e352924B1cAd8880950aA3DCbf29a95"
+    }
+  },
+  "0x147fd4069756b9f46f983267e8ee61f83a1af571-11155111": {
+    "meta": {},
+    "content": {
+      "name": "USP BiLira",
+      "symbol": "USPBL",
+      "decimals": 18,
+      "address": "0x147Fd4069756B9f46f983267e8Ee61f83a1aF571"
+    }
+  },
+  "0x87bce50ecfa1cb5ec7f831c9eb1eedc2a1523122-11155111": {
+    "meta": {},
+    "content": {
+      "name": "TOKAMAK",
+      "symbol": "VRTX",
+      "decimals": 18,
+      "address": "0x87BCe50ecFA1Cb5ec7F831c9Eb1EEDc2a1523122"
+    }
+  },
+  "0x3ff653fd338b027eb0a362f9bbf8ced618cbb97b-11155111": {
+    "meta": {},
+    "content": {
+      "name": "TOKAMAK",
+      "symbol": "TOK",
+      "decimals": 18,
+      "address": "0x3ff653Fd338B027eb0A362f9BbF8CeD618cBB97B"
+    }
+  },
+  "0x845cff3313176d5abd9d87f3491646c2fdeb90f9-11155111": {
+    "meta": {},
+    "content": {
+      "name": "TOKAMAK",
+      "symbol": "TOK",
+      "decimals": 18,
+      "address": "0x845cFf3313176d5ABD9D87f3491646c2FdEB90F9"
+    }
+  },
+  "0xaf4a82ab487dfa8136812875124157b4b3e3495d-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Tokamak",
+      "symbol": "TOK",
+      "decimals": 18,
+      "address": "0xAF4A82AB487DFa8136812875124157b4B3E3495D"
+    }
+  },
+  "0xda294839b0e3e5e03e6978d51cf4b19a20425e7f-11155111": {
+    "meta": {},
+    "content": {
+      "name": "JIM AIGent",
+      "symbol": "JIM",
+      "decimals": 18,
+      "address": "0xdA294839B0E3E5E03e6978D51Cf4B19A20425E7f"
+    }
   }
 }

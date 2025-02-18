@@ -582,3 +582,44 @@ type CurveHourData @entity {
   lowUSD: BigDecimal!
   closeUSD: BigDecimal!
 }
+
+# -----------------------------------------------------------------------------
+# MISCELLANEOUS
+# -----------------------------------------------------------------------------
+
+type MigratingPIM {
+  id: ID! # `${chainId}-${orchestratorAddress}`
+  chainId: Int!
+  address: String!
+
+  workflow: Workflow!
+
+  deployer: String!
+  initiator: String!
+
+  issuanceToken: Token!
+  collateralToken: Token!
+
+  migrationConfig: MigrationConfig!
+
+  graduations: [Graduation!]! @derivedFrom(field: "migratingPIM")
+}
+
+type MigrationConfig {
+  id: ID! # `${chainId}-${orchestratorAddress}`
+  isImmutable: Boolean!
+  migrationThreshold: BigInt!
+  dexAdapter: String!
+  lpTokenRecipient: String!
+}
+
+type Graduation {
+  id: ID! # `${chainId}-${orchestratorAddress}`
+  migratingPIM: MigratingPIM!
+
+  issuanceTokenAmount: BigDecimal!
+  collateralTokenAmount: BigDecimal!
+
+  timestamp: Int!
+  txHash: String!
+}

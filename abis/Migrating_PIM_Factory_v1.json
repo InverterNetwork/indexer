@@ -1,0 +1,543 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "_orchestratorFactory",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "_trustedForwarder",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "buyFor",
+    "inputs": [
+      {
+        "name": "fundingManager",
+        "type": "address",
+        "internalType": "address"
+      },
+      { "name": "recipient", "type": "address", "internalType": "address" },
+      { "name": "amountIn", "type": "uint256", "internalType": "uint256" },
+      { "name": "minAmountOut", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "createPIMWorkflow",
+    "inputs": [
+      {
+        "name": "workflowConfig",
+        "type": "tuple",
+        "internalType": "struct IOrchestratorFactory_v1.WorkflowConfig",
+        "components": [
+          {
+            "name": "independentUpdates",
+            "type": "bool",
+            "internalType": "bool"
+          },
+          {
+            "name": "independentUpdateAdmin",
+            "type": "address",
+            "internalType": "address"
+          }
+        ]
+      },
+      {
+        "name": "fundingManagerConfig",
+        "type": "tuple",
+        "internalType": "struct IOrchestratorFactory_v1.ModuleConfig",
+        "components": [
+          {
+            "name": "metadata",
+            "type": "tuple",
+            "internalType": "struct IModule_v1.Metadata",
+            "components": [
+              {
+                "name": "majorVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "minorVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "patchVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              { "name": "url", "type": "string", "internalType": "string" },
+              { "name": "title", "type": "string", "internalType": "string" }
+            ]
+          },
+          { "name": "configData", "type": "bytes", "internalType": "bytes" }
+        ]
+      },
+      {
+        "name": "authorizerConfig",
+        "type": "tuple",
+        "internalType": "struct IOrchestratorFactory_v1.ModuleConfig",
+        "components": [
+          {
+            "name": "metadata",
+            "type": "tuple",
+            "internalType": "struct IModule_v1.Metadata",
+            "components": [
+              {
+                "name": "majorVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "minorVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "patchVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              { "name": "url", "type": "string", "internalType": "string" },
+              { "name": "title", "type": "string", "internalType": "string" }
+            ]
+          },
+          { "name": "configData", "type": "bytes", "internalType": "bytes" }
+        ]
+      },
+      {
+        "name": "paymentProcessorConfig",
+        "type": "tuple",
+        "internalType": "struct IOrchestratorFactory_v1.ModuleConfig",
+        "components": [
+          {
+            "name": "metadata",
+            "type": "tuple",
+            "internalType": "struct IModule_v1.Metadata",
+            "components": [
+              {
+                "name": "majorVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "minorVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "patchVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              { "name": "url", "type": "string", "internalType": "string" },
+              { "name": "title", "type": "string", "internalType": "string" }
+            ]
+          },
+          { "name": "configData", "type": "bytes", "internalType": "bytes" }
+        ]
+      },
+      {
+        "name": "moduleConfigs",
+        "type": "tuple[]",
+        "internalType": "struct IOrchestratorFactory_v1.ModuleConfig[]",
+        "components": [
+          {
+            "name": "metadata",
+            "type": "tuple",
+            "internalType": "struct IModule_v1.Metadata",
+            "components": [
+              {
+                "name": "majorVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "minorVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "patchVersion",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              { "name": "url", "type": "string", "internalType": "string" },
+              { "name": "title", "type": "string", "internalType": "string" }
+            ]
+          },
+          { "name": "configData", "type": "bytes", "internalType": "bytes" }
+        ]
+      },
+      {
+        "name": "issuanceTokenParams",
+        "type": "tuple",
+        "internalType": "struct IBondingCurveBase_v1.IssuanceToken",
+        "components": [
+          { "name": "name", "type": "string", "internalType": "string" },
+          { "name": "symbol", "type": "string", "internalType": "string" },
+          { "name": "decimals", "type": "uint8", "internalType": "uint8" },
+          {
+            "name": "maxSupply",
+            "type": "uint256",
+            "internalType": "uint256"
+          }
+        ]
+      },
+      {
+        "name": "initialPurchaseAmount",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "migrationConfig_",
+        "type": "tuple",
+        "internalType": "struct IMigrating_PIM_Factory_v1.MigrationConfig",
+        "components": [
+          { "name": "isImmutable", "type": "bool", "internalType": "bool" },
+          {
+            "name": "migrationThreshold",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "dexAdapter",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "lpTokenRecipient",
+            "type": "address",
+            "internalType": "address"
+          }
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract IOrchestrator_v1"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getIsGraduated",
+    "inputs": [
+      {
+        "name": "fundingManager",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getIsImmutable",
+    "inputs": [
+      {
+        "name": "fundingManager",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getLpTokenRecipient",
+    "inputs": [
+      {
+        "name": "fundingManager",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getMigrationThreshold",
+    "inputs": [
+      {
+        "name": "fundingManager",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "isTrustedForwarder",
+    "inputs": [
+      { "name": "forwarder", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "orchestratorFactory",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "pims",
+    "inputs": [
+      {
+        "name": "fundingManager",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      { "name": "isGraduated", "type": "bool", "internalType": "bool" },
+      { "name": "isImmutable", "type": "bool", "internalType": "bool" },
+      {
+        "name": "migrationThreshold",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      { "name": "initiator", "type": "address", "internalType": "address" },
+      { "name": "dexAdapter", "type": "address", "internalType": "address" },
+      {
+        "name": "lpTokenRecipient",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "orchestrator",
+        "type": "address",
+        "internalType": "contract IOrchestrator_v1"
+      },
+      {
+        "name": "initialVirtualIssuanceSupply",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "initialVirtualCollateralSupply",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "sellTo",
+    "inputs": [
+      {
+        "name": "fundingManager",
+        "type": "address",
+        "internalType": "address"
+      },
+      { "name": "recipient", "type": "address", "internalType": "address" },
+      { "name": "amountIn", "type": "uint256", "internalType": "uint256" },
+      { "name": "minAmountOut", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setRewards",
+    "inputs": [
+      {
+        "name": "fundingManager",
+        "type": "address",
+        "internalType": "address"
+      },
+      { "name": "amount", "type": "uint256", "internalType": "uint256" },
+      { "name": "duration", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "trustedForwarder",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "event",
+    "name": "Graduation",
+    "inputs": [
+      {
+        "name": "orchestrator",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "pool",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "issuanceTokenAmount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "collateralTokenAmount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "PIMWorkflowCreated",
+    "inputs": [
+      {
+        "name": "orchestrator",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "issuanceToken",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "deployer",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "collateralToken",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "initiator",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "migrationConfig_",
+        "type": "tuple",
+        "indexed": false,
+        "internalType": "struct IMigrating_PIM_Factory_v1.MigrationConfig",
+        "components": [
+          { "name": "isImmutable", "type": "bool", "internalType": "bool" },
+          {
+            "name": "migrationThreshold",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "dexAdapter",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "lpTokenRecipient",
+            "type": "address",
+            "internalType": "address"
+          }
+        ]
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "PimFeeClaimed",
+    "inputs": [
+      {
+        "name": "fundingManager",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "claimer",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "to",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "PimFeeRecipientUpdated",
+    "inputs": [
+      {
+        "name": "fundingManager",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "oldRecipient",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "newRecipient",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "error",
+    "name": "PIM_WorkflowFactory__OnlyInitiator",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "PIM_WorkflowFactory__OnlyPimFeeRecipient",
+    "inputs": []
+  }
+]
