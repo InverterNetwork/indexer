@@ -4268,38 +4268,9 @@ type Graduation {
   db_write_timestamp: timestamp
   id: String!
   issuanceTokenAmount: numeric!
-
-  """An object relationship"""
-  migratingPIM: MigratingPIM
-  migratingPIM_id: String!
+  pool: String!
   timestamp: Int!
   txHash: String!
-}
-
-"""
-order by aggregate values of table "Graduation"
-"""
-input Graduation_aggregate_order_by {
-  avg: Graduation_avg_order_by
-  count: order_by
-  max: Graduation_max_order_by
-  min: Graduation_min_order_by
-  stddev: Graduation_stddev_order_by
-  stddev_pop: Graduation_stddev_pop_order_by
-  stddev_samp: Graduation_stddev_samp_order_by
-  sum: Graduation_sum_order_by
-  var_pop: Graduation_var_pop_order_by
-  var_samp: Graduation_var_samp_order_by
-  variance: Graduation_variance_order_by
-}
-
-"""
-order by avg() on columns of table "Graduation"
-"""
-input Graduation_avg_order_by {
-  collateralTokenAmount: order_by
-  issuanceTokenAmount: order_by
-  timestamp: order_by
 }
 
 """
@@ -4313,36 +4284,9 @@ input Graduation_bool_exp {
   db_write_timestamp: timestamp_comparison_exp
   id: String_comparison_exp
   issuanceTokenAmount: numeric_comparison_exp
-  migratingPIM: MigratingPIM_bool_exp
-  migratingPIM_id: String_comparison_exp
+  pool: String_comparison_exp
   timestamp: Int_comparison_exp
   txHash: String_comparison_exp
-}
-
-"""
-order by max() on columns of table "Graduation"
-"""
-input Graduation_max_order_by {
-  collateralTokenAmount: order_by
-  db_write_timestamp: order_by
-  id: order_by
-  issuanceTokenAmount: order_by
-  migratingPIM_id: order_by
-  timestamp: order_by
-  txHash: order_by
-}
-
-"""
-order by min() on columns of table "Graduation"
-"""
-input Graduation_min_order_by {
-  collateralTokenAmount: order_by
-  db_write_timestamp: order_by
-  id: order_by
-  issuanceTokenAmount: order_by
-  migratingPIM_id: order_by
-  timestamp: order_by
-  txHash: order_by
 }
 
 """Ordering options when selecting data from "Graduation"."""
@@ -4351,8 +4295,7 @@ input Graduation_order_by {
   db_write_timestamp: order_by
   id: order_by
   issuanceTokenAmount: order_by
-  migratingPIM: MigratingPIM_order_by
-  migratingPIM_id: order_by
+  pool: order_by
   timestamp: order_by
   txHash: order_by
 }
@@ -4374,40 +4317,13 @@ enum Graduation_select_column {
   issuanceTokenAmount
 
   """column name"""
-  migratingPIM_id
+  pool
 
   """column name"""
   timestamp
 
   """column name"""
   txHash
-}
-
-"""
-order by stddev() on columns of table "Graduation"
-"""
-input Graduation_stddev_order_by {
-  collateralTokenAmount: order_by
-  issuanceTokenAmount: order_by
-  timestamp: order_by
-}
-
-"""
-order by stddev_pop() on columns of table "Graduation"
-"""
-input Graduation_stddev_pop_order_by {
-  collateralTokenAmount: order_by
-  issuanceTokenAmount: order_by
-  timestamp: order_by
-}
-
-"""
-order by stddev_samp() on columns of table "Graduation"
-"""
-input Graduation_stddev_samp_order_by {
-  collateralTokenAmount: order_by
-  issuanceTokenAmount: order_by
-  timestamp: order_by
 }
 
 """
@@ -4427,45 +4343,9 @@ input Graduation_stream_cursor_value_input {
   db_write_timestamp: timestamp
   id: String
   issuanceTokenAmount: numeric
-  migratingPIM_id: String
+  pool: String
   timestamp: Int
   txHash: String
-}
-
-"""
-order by sum() on columns of table "Graduation"
-"""
-input Graduation_sum_order_by {
-  collateralTokenAmount: order_by
-  issuanceTokenAmount: order_by
-  timestamp: order_by
-}
-
-"""
-order by var_pop() on columns of table "Graduation"
-"""
-input Graduation_var_pop_order_by {
-  collateralTokenAmount: order_by
-  issuanceTokenAmount: order_by
-  timestamp: order_by
-}
-
-"""
-order by var_samp() on columns of table "Graduation"
-"""
-input Graduation_var_samp_order_by {
-  collateralTokenAmount: order_by
-  issuanceTokenAmount: order_by
-  timestamp: order_by
-}
-
-"""
-order by variance() on columns of table "Graduation"
-"""
-input Graduation_variance_order_by {
-  collateralTokenAmount: order_by
-  issuanceTokenAmount: order_by
-  timestamp: order_by
 }
 
 """
@@ -5930,23 +5810,9 @@ type MigratingPIM {
   db_write_timestamp: timestamp
   deployer: String!
 
-  """An array relationship"""
-  graduations(
-    """distinct select on columns"""
-    distinct_on: [Graduation_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Graduation_order_by!]
-
-    """filter the rows returned"""
-    where: Graduation_bool_exp
-  ): [Graduation!]!
+  """An object relationship"""
+  graduation: Graduation
+  graduation_id: String!
   id: String!
   initiator: String!
 
@@ -5976,7 +5842,8 @@ input MigratingPIM_bool_exp {
   collateralToken_id: String_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
   deployer: String_comparison_exp
-  graduations: Graduation_bool_exp
+  graduation: Graduation_bool_exp
+  graduation_id: String_comparison_exp
   id: String_comparison_exp
   initiator: String_comparison_exp
   issuanceToken: Token_bool_exp
@@ -5995,7 +5862,8 @@ input MigratingPIM_order_by {
   collateralToken_id: order_by
   db_write_timestamp: order_by
   deployer: order_by
-  graduations_aggregate: Graduation_aggregate_order_by
+  graduation: Graduation_order_by
+  graduation_id: order_by
   id: order_by
   initiator: order_by
   issuanceToken: Token_order_by
@@ -6024,6 +5892,9 @@ enum MigratingPIM_select_column {
 
   """column name"""
   deployer
+
+  """column name"""
+  graduation_id
 
   """column name"""
   id
@@ -6059,6 +5930,7 @@ input MigratingPIM_stream_cursor_value_input {
   collateralToken_id: String
   db_write_timestamp: timestamp
   deployer: String
+  graduation_id: String
   id: String
   initiator: String
   issuanceToken_id: String
@@ -6073,6 +5945,7 @@ type MigrationConfig {
   db_write_timestamp: timestamp
   dexAdapter: String!
   id: String!
+  initialRewardDuration: numeric!
   isImmutable: Boolean!
   lpTokenRecipient: String!
   migrationThreshold: numeric!
@@ -6088,6 +5961,7 @@ input MigrationConfig_bool_exp {
   db_write_timestamp: timestamp_comparison_exp
   dexAdapter: String_comparison_exp
   id: String_comparison_exp
+  initialRewardDuration: numeric_comparison_exp
   isImmutable: Boolean_comparison_exp
   lpTokenRecipient: String_comparison_exp
   migrationThreshold: numeric_comparison_exp
@@ -6098,6 +5972,7 @@ input MigrationConfig_order_by {
   db_write_timestamp: order_by
   dexAdapter: order_by
   id: order_by
+  initialRewardDuration: order_by
   isImmutable: order_by
   lpTokenRecipient: order_by
   migrationThreshold: order_by
@@ -6115,6 +5990,9 @@ enum MigrationConfig_select_column {
 
   """column name"""
   id
+
+  """column name"""
+  initialRewardDuration
 
   """column name"""
   isImmutable
@@ -6142,6 +6020,7 @@ input MigrationConfig_stream_cursor_value_input {
   db_write_timestamp: timestamp
   dexAdapter: String
   id: String
+  initialRewardDuration: numeric
   isImmutable: Boolean
   lpTokenRecipient: String
   migrationThreshold: numeric

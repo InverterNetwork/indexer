@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.17](https://github.com/InverterNetwork/indexer/compare/v0.9.16...v0.9.17) (2025-02-19)
+
+
+### Features
+
+* update Migrating PIM Factory schema and mappings ([45428c2](https://github.com/InverterNetwork/indexer/commit/45428c2ee565a3499c88491be47f8758a99367f6))
+
+
+### Bug Fixes
+
+* unique ids for linear vestings ([755f204](https://github.com/InverterNetwork/indexer/commit/755f20457bf880cf3991df2b6d0ee0b2cd97b6f8))
+
 ### [0.9.16](https://github.com/InverterNetwork/indexer/compare/v0.9.15...v0.9.16) (2025-02-18)
 
 

@@ -1618,9 +1618,7 @@ export interface Graduation {
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String']
   issuanceTokenAmount: Scalars['numeric']
-  /** An object relationship */
-  migratingPIM: MigratingPIM | null
-  migratingPIM_id: Scalars['String']
+  pool: Scalars['String']
   timestamp: Scalars['Int']
   txHash: Scalars['String']
   __typename: 'Graduation'
@@ -1632,7 +1630,7 @@ export type Graduation_select_column =
   | 'db_write_timestamp'
   | 'id'
   | 'issuanceTokenAmount'
-  | 'migratingPIM_id'
+  | 'pool'
   | 'timestamp'
   | 'txHash'
 
@@ -2175,8 +2173,9 @@ export interface MigratingPIM {
   collateralToken_id: Scalars['String']
   db_write_timestamp: Scalars['timestamp'] | null
   deployer: Scalars['String']
-  /** An array relationship */
-  graduations: Graduation[]
+  /** An object relationship */
+  graduation: Graduation | null
+  graduation_id: Scalars['String']
   id: Scalars['String']
   initiator: Scalars['String']
   /** An object relationship */
@@ -2198,6 +2197,7 @@ export type MigratingPIM_select_column =
   | 'collateralToken_id'
   | 'db_write_timestamp'
   | 'deployer'
+  | 'graduation_id'
   | 'id'
   | 'initiator'
   | 'issuanceToken_id'
@@ -2209,6 +2209,7 @@ export interface MigrationConfig {
   db_write_timestamp: Scalars['timestamp'] | null
   dexAdapter: Scalars['String']
   id: Scalars['String']
+  initialRewardDuration: Scalars['numeric']
   isImmutable: Scalars['Boolean']
   lpTokenRecipient: Scalars['String']
   migrationThreshold: Scalars['numeric']
@@ -2220,6 +2221,7 @@ export type MigrationConfig_select_column =
   | 'db_write_timestamp'
   | 'dexAdapter'
   | 'id'
+  | 'initialRewardDuration'
   | 'isImmutable'
   | 'lpTokenRecipient'
   | 'migrationThreshold'
@@ -7570,35 +7572,11 @@ export interface GraduationGenqlSelection {
   db_write_timestamp?: boolean | number
   id?: boolean | number
   issuanceTokenAmount?: boolean | number
-  /** An object relationship */
-  migratingPIM?: MigratingPIMGenqlSelection
-  migratingPIM_id?: boolean | number
+  pool?: boolean | number
   timestamp?: boolean | number
   txHash?: boolean | number
   __typename?: boolean | number
   __scalar?: boolean | number
-}
-
-/** order by aggregate values of table "Graduation" */
-export interface Graduation_aggregate_order_by {
-  avg?: Graduation_avg_order_by | null
-  count?: order_by | null
-  max?: Graduation_max_order_by | null
-  min?: Graduation_min_order_by | null
-  stddev?: Graduation_stddev_order_by | null
-  stddev_pop?: Graduation_stddev_pop_order_by | null
-  stddev_samp?: Graduation_stddev_samp_order_by | null
-  sum?: Graduation_sum_order_by | null
-  var_pop?: Graduation_var_pop_order_by | null
-  var_samp?: Graduation_var_samp_order_by | null
-  variance?: Graduation_variance_order_by | null
-}
-
-/** order by avg() on columns of table "Graduation" */
-export interface Graduation_avg_order_by {
-  collateralTokenAmount?: order_by | null
-  issuanceTokenAmount?: order_by | null
-  timestamp?: order_by | null
 }
 
 /** Boolean expression to filter rows from the table "Graduation". All fields are combined with a logical 'AND'. */
@@ -7610,32 +7588,9 @@ export interface Graduation_bool_exp {
   db_write_timestamp?: timestamp_comparison_exp | null
   id?: String_comparison_exp | null
   issuanceTokenAmount?: numeric_comparison_exp | null
-  migratingPIM?: MigratingPIM_bool_exp | null
-  migratingPIM_id?: String_comparison_exp | null
+  pool?: String_comparison_exp | null
   timestamp?: Int_comparison_exp | null
   txHash?: String_comparison_exp | null
-}
-
-/** order by max() on columns of table "Graduation" */
-export interface Graduation_max_order_by {
-  collateralTokenAmount?: order_by | null
-  db_write_timestamp?: order_by | null
-  id?: order_by | null
-  issuanceTokenAmount?: order_by | null
-  migratingPIM_id?: order_by | null
-  timestamp?: order_by | null
-  txHash?: order_by | null
-}
-
-/** order by min() on columns of table "Graduation" */
-export interface Graduation_min_order_by {
-  collateralTokenAmount?: order_by | null
-  db_write_timestamp?: order_by | null
-  id?: order_by | null
-  issuanceTokenAmount?: order_by | null
-  migratingPIM_id?: order_by | null
-  timestamp?: order_by | null
-  txHash?: order_by | null
 }
 
 /** Ordering options when selecting data from "Graduation". */
@@ -7644,31 +7599,9 @@ export interface Graduation_order_by {
   db_write_timestamp?: order_by | null
   id?: order_by | null
   issuanceTokenAmount?: order_by | null
-  migratingPIM?: MigratingPIM_order_by | null
-  migratingPIM_id?: order_by | null
+  pool?: order_by | null
   timestamp?: order_by | null
   txHash?: order_by | null
-}
-
-/** order by stddev() on columns of table "Graduation" */
-export interface Graduation_stddev_order_by {
-  collateralTokenAmount?: order_by | null
-  issuanceTokenAmount?: order_by | null
-  timestamp?: order_by | null
-}
-
-/** order by stddev_pop() on columns of table "Graduation" */
-export interface Graduation_stddev_pop_order_by {
-  collateralTokenAmount?: order_by | null
-  issuanceTokenAmount?: order_by | null
-  timestamp?: order_by | null
-}
-
-/** order by stddev_samp() on columns of table "Graduation" */
-export interface Graduation_stddev_samp_order_by {
-  collateralTokenAmount?: order_by | null
-  issuanceTokenAmount?: order_by | null
-  timestamp?: order_by | null
 }
 
 /** Streaming cursor of the table "Graduation" */
@@ -7685,37 +7618,9 @@ export interface Graduation_stream_cursor_value_input {
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
   issuanceTokenAmount?: Scalars['numeric'] | null
-  migratingPIM_id?: Scalars['String'] | null
+  pool?: Scalars['String'] | null
   timestamp?: Scalars['Int'] | null
   txHash?: Scalars['String'] | null
-}
-
-/** order by sum() on columns of table "Graduation" */
-export interface Graduation_sum_order_by {
-  collateralTokenAmount?: order_by | null
-  issuanceTokenAmount?: order_by | null
-  timestamp?: order_by | null
-}
-
-/** order by var_pop() on columns of table "Graduation" */
-export interface Graduation_var_pop_order_by {
-  collateralTokenAmount?: order_by | null
-  issuanceTokenAmount?: order_by | null
-  timestamp?: order_by | null
-}
-
-/** order by var_samp() on columns of table "Graduation" */
-export interface Graduation_var_samp_order_by {
-  collateralTokenAmount?: order_by | null
-  issuanceTokenAmount?: order_by | null
-  timestamp?: order_by | null
-}
-
-/** order by variance() on columns of table "Graduation" */
-export interface Graduation_variance_order_by {
-  collateralTokenAmount?: order_by | null
-  issuanceTokenAmount?: order_by | null
-  timestamp?: order_by | null
 }
 
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
@@ -8992,21 +8897,9 @@ export interface MigratingPIMGenqlSelection {
   collateralToken_id?: boolean | number
   db_write_timestamp?: boolean | number
   deployer?: boolean | number
-  /** An array relationship */
-  graduations?: GraduationGenqlSelection & {
-    __args?: {
-      /** distinct select on columns */
-      distinct_on?: Graduation_select_column[] | null
-      /** limit the number of rows returned */
-      limit?: Scalars['Int'] | null
-      /** skip the first n rows. Use only with order_by */
-      offset?: Scalars['Int'] | null
-      /** sort the rows by one or more columns */
-      order_by?: Graduation_order_by[] | null
-      /** filter the rows returned */
-      where?: Graduation_bool_exp | null
-    }
-  }
+  /** An object relationship */
+  graduation?: GraduationGenqlSelection
+  graduation_id?: boolean | number
   id?: boolean | number
   initiator?: boolean | number
   /** An object relationship */
@@ -9033,7 +8926,8 @@ export interface MigratingPIM_bool_exp {
   collateralToken_id?: String_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   deployer?: String_comparison_exp | null
-  graduations?: Graduation_bool_exp | null
+  graduation?: Graduation_bool_exp | null
+  graduation_id?: String_comparison_exp | null
   id?: String_comparison_exp | null
   initiator?: String_comparison_exp | null
   issuanceToken?: Token_bool_exp | null
@@ -9052,7 +8946,8 @@ export interface MigratingPIM_order_by {
   collateralToken_id?: order_by | null
   db_write_timestamp?: order_by | null
   deployer?: order_by | null
-  graduations_aggregate?: Graduation_aggregate_order_by | null
+  graduation?: Graduation_order_by | null
+  graduation_id?: order_by | null
   id?: order_by | null
   initiator?: order_by | null
   issuanceToken?: Token_order_by | null
@@ -9078,6 +8973,7 @@ export interface MigratingPIM_stream_cursor_value_input {
   collateralToken_id?: Scalars['String'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   deployer?: Scalars['String'] | null
+  graduation_id?: Scalars['String'] | null
   id?: Scalars['String'] | null
   initiator?: Scalars['String'] | null
   issuanceToken_id?: Scalars['String'] | null
@@ -9090,6 +8986,7 @@ export interface MigrationConfigGenqlSelection {
   db_write_timestamp?: boolean | number
   dexAdapter?: boolean | number
   id?: boolean | number
+  initialRewardDuration?: boolean | number
   isImmutable?: boolean | number
   lpTokenRecipient?: boolean | number
   migrationThreshold?: boolean | number
@@ -9105,6 +9002,7 @@ export interface MigrationConfig_bool_exp {
   db_write_timestamp?: timestamp_comparison_exp | null
   dexAdapter?: String_comparison_exp | null
   id?: String_comparison_exp | null
+  initialRewardDuration?: numeric_comparison_exp | null
   isImmutable?: Boolean_comparison_exp | null
   lpTokenRecipient?: String_comparison_exp | null
   migrationThreshold?: numeric_comparison_exp | null
@@ -9115,6 +9013,7 @@ export interface MigrationConfig_order_by {
   db_write_timestamp?: order_by | null
   dexAdapter?: order_by | null
   id?: order_by | null
+  initialRewardDuration?: order_by | null
   isImmutable?: order_by | null
   lpTokenRecipient?: order_by | null
   migrationThreshold?: order_by | null
@@ -9133,6 +9032,7 @@ export interface MigrationConfig_stream_cursor_value_input {
   db_write_timestamp?: Scalars['timestamp'] | null
   dexAdapter?: Scalars['String'] | null
   id?: Scalars['String'] | null
+  initialRewardDuration?: Scalars['numeric'] | null
   isImmutable?: Scalars['Boolean'] | null
   lpTokenRecipient?: Scalars['String'] | null
   migrationThreshold?: Scalars['numeric'] | null
@@ -17001,7 +16901,7 @@ export const enumGraduationSelectColumn = {
   db_write_timestamp: 'db_write_timestamp' as const,
   id: 'id' as const,
   issuanceTokenAmount: 'issuanceTokenAmount' as const,
-  migratingPIM_id: 'migratingPIM_id' as const,
+  pool: 'pool' as const,
   timestamp: 'timestamp' as const,
   txHash: 'txHash' as const,
 }
@@ -17067,6 +16967,7 @@ export const enumMigratingPimSelectColumn = {
   collateralToken_id: 'collateralToken_id' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
   deployer: 'deployer' as const,
+  graduation_id: 'graduation_id' as const,
   id: 'id' as const,
   initiator: 'initiator' as const,
   issuanceToken_id: 'issuanceToken_id' as const,
@@ -17078,6 +16979,7 @@ export const enumMigrationConfigSelectColumn = {
   db_write_timestamp: 'db_write_timestamp' as const,
   dexAdapter: 'dexAdapter' as const,
   id: 'id' as const,
+  initialRewardDuration: 'initialRewardDuration' as const,
   isImmutable: 'isImmutable' as const,
   lpTokenRecipient: 'lpTokenRecipient' as const,
   migrationThreshold: 'migrationThreshold' as const,
