@@ -1,5 +1,5 @@
-import { BigDecimal, PP_Streaming_v1 } from 'generated'
-import { formatUnitsToBD } from '../../utils'
+import { PP_Streaming_v1 } from 'generated'
+import { formatUnitsToBD, hashString } from '../../utils'
 
 // ============================================================================
 // Module Initialization Handler
@@ -23,17 +23,15 @@ PP_Streaming_v1.ModuleInitialized.handler(async ({ event, context }) => {
 // ============================================================================
 // Streaming Payment Added Handler
 // ============================================================================
-
 PP_Streaming_v1.StreamingPaymentAdded.handler(async ({ event, context }) => {
   const streamingPaymentProcessor_id = `${event.chainId}-${event.srcAddress}`
-
-  const id = `${streamingPaymentProcessor_id}-${event.params.streamId}`
-
+  const id = hashString(
+    `${streamingPaymentProcessor_id}-${event.params.recipient}-${event.params.streamId}`
+  )
   const token_id = `${event.chainId}-${event.params.paymentToken}`
   const token = await context.Token.get(token_id)
 
   const amount = formatUnitsToBD(event.params.amount, token?.decimals)
-
   context.LinearVesting.set({
     id,
     chainId: event.chainId,
