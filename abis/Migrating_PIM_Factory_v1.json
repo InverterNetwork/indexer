@@ -220,6 +220,11 @@
             "name": "lpTokenRecipient",
             "type": "address",
             "internalType": "address"
+          },
+          {
+            "name": "initialRewardDuration",
+            "type": "uint256",
+            "internalType": "uint256"
           }
         ]
       }
@@ -340,6 +345,11 @@
         "name": "initialVirtualCollateralSupply",
         "type": "uint256",
         "internalType": "uint256"
+      },
+      {
+        "name": "initialRewardDuration",
+        "type": "uint256",
+        "internalType": "uint256"
       }
     ],
     "stateMutability": "view"
@@ -356,21 +366,6 @@
       { "name": "recipient", "type": "address", "internalType": "address" },
       { "name": "amountIn", "type": "uint256", "internalType": "uint256" },
       { "name": "minAmountOut", "type": "uint256", "internalType": "uint256" }
-    ],
-    "outputs": [],
-    "stateMutability": "nonpayable"
-  },
-  {
-    "type": "function",
-    "name": "setRewards",
-    "inputs": [
-      {
-        "name": "fundingManager",
-        "type": "address",
-        "internalType": "address"
-      },
-      { "name": "amount", "type": "uint256", "internalType": "uint256" },
-      { "name": "duration", "type": "uint256", "internalType": "uint256" }
     ],
     "outputs": [],
     "stateMutability": "nonpayable"
@@ -406,6 +401,12 @@
       },
       {
         "name": "collateralTokenAmount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "stakingRewards",
         "type": "uint256",
         "indexed": false,
         "internalType": "uint256"
@@ -468,6 +469,11 @@
             "name": "lpTokenRecipient",
             "type": "address",
             "internalType": "address"
+          },
+          {
+            "name": "initialRewardDuration",
+            "type": "uint256",
+            "internalType": "uint256"
           }
         ]
       }
@@ -475,69 +481,8 @@
     "anonymous": false
   },
   {
-    "type": "event",
-    "name": "PimFeeClaimed",
-    "inputs": [
-      {
-        "name": "fundingManager",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "claimer",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "to",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "amount",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
-      }
-    ],
-    "anonymous": false
-  },
-  {
-    "type": "event",
-    "name": "PimFeeRecipientUpdated",
-    "inputs": [
-      {
-        "name": "fundingManager",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "oldRecipient",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "newRecipient",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      }
-    ],
-    "anonymous": false
-  },
-  {
     "type": "error",
-    "name": "PIM_WorkflowFactory__OnlyInitiator",
-    "inputs": []
-  },
-  {
-    "type": "error",
-    "name": "PIM_WorkflowFactory__OnlyPimFeeRecipient",
+    "name": "PIM_WorkflowFactory__OnlyInitiatorAfterGraduation",
     "inputs": []
   }
 ]

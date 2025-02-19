@@ -26,6 +26,7 @@ Migrating_PIM_Factory_v1.PIMWorkflowCreated.handler(
       migrationThreshold,
       dexAdapter: event.params.migrationConfig_[2],
       lpTokenRecipient: event.params.migrationConfig_[3],
+      initialRewardDuration: event.params.migrationConfig_[4],
     })
 
     context.MigratingPIM.set({
@@ -42,6 +43,7 @@ Migrating_PIM_Factory_v1.PIMWorkflowCreated.handler(
       initiator: event.params.initiator,
 
       migrationConfig_id: id,
+      graduation_id: id,
     })
   }
 )
@@ -71,10 +73,9 @@ Migrating_PIM_Factory_v1.Graduation.handler(async ({ event, context }) => {
   context.Graduation.set({
     id,
 
-    migratingPIM_id: id,
-
     issuanceTokenAmount,
     collateralTokenAmount,
+    pool: event.params.pool,
 
     timestamp: event.block.timestamp,
     txHash: event.transaction.hash,

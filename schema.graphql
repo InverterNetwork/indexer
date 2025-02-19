@@ -602,7 +602,7 @@ type MigratingPIM {
 
   migrationConfig: MigrationConfig!
 
-  graduations: [Graduation!]! @derivedFrom(field: "migratingPIM")
+  graduation: Graduation!
 }
 
 type MigrationConfig {
@@ -611,14 +611,14 @@ type MigrationConfig {
   migrationThreshold: BigDecimal!
   dexAdapter: String!
   lpTokenRecipient: String!
+  initialRewardDuration: BigInt!
 }
 
 type Graduation {
   id: ID! # `${chainId}-${orchestratorAddress}`
-  migratingPIM: MigratingPIM!
-
   issuanceTokenAmount: BigDecimal!
   collateralTokenAmount: BigDecimal!
+  pool: String!
 
   timestamp: Int!
   txHash: String!

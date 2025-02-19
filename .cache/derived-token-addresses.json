@@ -5146,5 +5146,29 @@
   "0x30e1e3561b3f148fc2ad3b90b8033500f69de003-11155111-issuance": {
     "meta": {},
     "content": "0xdA294839B0E3E5E03e6978D51Cf4B19A20425E7f"
+  },
+  "0xcf489afb0e261e8c00ad02abf7fa668f2d183400-11155420-token": {
+    "meta": {},
+    "content": "0x065775C7aB4E60ad1776A30DCfB15325d231Ce4F"
+  },
+  "0xcf489afb0e261e8c00ad02abf7fa668f2d183400-11155420-issuance": {
+    "meta": {},
+    "content": "0xB15bC446D4DF01c611A43b3a5e8f20A172D1e22A"
+  },
+  "0xe166ca8fc515213a579e9326be6d93f2cb41b4db-11155111-token": {
+    "meta": {},
+    "content": "0xdA294839B0E3E5E03e6978D51Cf4B19A20425E7f"
+  },
+  "0xe166ca8fc515213a579e9326be6d93f2cb41b4db-11155111-issuance": {
+    "meta": {},
+    "content": "0x59bDe9428B6a3641b2E5f2034427e83d75fE08dD"
+  },
+  "0x607a1af36e27bba8121e5768f643c1110be01c54-11155111-token": {
+    "meta": {},
+    "content": "0x065775C7aB4E60ad1776A30DCfB15325d231Ce4F"
+  },
+  "0x607a1af36e27bba8121e5768f643c1110be01c54-11155111-issuance": {
+    "meta": {},
+    "content": "0x5a9ea5c091d2A0c5381A604551C9e5d61E87A63c"
   }
 }

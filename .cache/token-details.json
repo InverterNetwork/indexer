@@ -4885,5 +4885,32 @@
       "decimals": 18,
       "address": "0xdA294839B0E3E5E03e6978D51Cf4B19A20425E7f"
     }
+  },
+  "0xb15bc446d4df01c611a43b3a5e8f20a172d1e22a-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Green Fund",
+      "symbol": "GRNF",
+      "decimals": 18,
+      "address": "0xB15bC446D4DF01c611A43b3a5e8f20A172D1e22A"
+    }
+  },
+  "0x59bde9428b6a3641b2e5f2034427e83d75fe08dd-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Tokamak Token",
+      "symbol": "TOK",
+      "decimals": 18,
+      "address": "0x59bDe9428B6a3641b2E5f2034427e83d75fE08dD"
+    }
+  },
+  "0x5a9ea5c091d2a0c5381a604551c9e5d61e87a63c-11155111": {
+    "meta": {},
+    "content": {
+      "name": "JIM AIGent",
+      "symbol": "JIM",
+      "decimals": 18,
+      "address": "0x5a9ea5c091d2A0c5381A604551C9e5d61E87A63c"
+    }
   }
 }
