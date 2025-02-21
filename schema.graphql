@@ -49,6 +49,7 @@ type Token @entity {
   symbol: String!
 
   totalSupply: BigDecimal!
+  marketCapUSD: BigDecimal!
 
   priceUSD: BigDecimal!
 }

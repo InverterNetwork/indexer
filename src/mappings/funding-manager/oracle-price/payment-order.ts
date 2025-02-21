@@ -90,6 +90,7 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensBought.handler(
         collateralToken_id,
         issuanceToken_id,
 
+        priceCOL,
         priceUSD,
 
         amountISS,

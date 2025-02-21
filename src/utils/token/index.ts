@@ -85,6 +85,8 @@ export async function updateToken({
   }
   if (priceUSD.isNaN()) priceUSD = ZERO_BD
 
+  const marketCapUSD = totalSupply.times(priceUSD)
+
   // Merge all token data
   const token = {
     ...currentEntity,
@@ -95,6 +97,7 @@ export async function updateToken({
     id,
     totalSupply,
     priceUSD,
+    marketCapUSD,
   }
 
   // Save and return

@@ -86,6 +86,7 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
       issuanceToken_id,
 
       priceUSD,
+      priceCOL,
 
       amountISS,
       amountCOL,
