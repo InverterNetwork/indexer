@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.18](https://github.com/InverterNetwork/indexer/compare/v0.9.17...v0.9.18) (2025-02-21)
+
+
+### Features
+
+* add market capitalization to interval data entities ([cf7df54](https://github.com/InverterNetwork/indexer/commit/cf7df54244f57f1a2cc04faaac8a6930b4467933))
+* add market capitalization to Token entity ([84e5ea4](https://github.com/InverterNetwork/indexer/commit/84e5ea41fa0e1384206877b7742b8bfb67eb5a47))
+
 ### [0.9.17](https://github.com/InverterNetwork/indexer/compare/v0.9.16...v0.9.17) (2025-02-19)
 
 
