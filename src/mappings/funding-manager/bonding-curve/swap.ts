@@ -65,7 +65,7 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
     },
   })
 
-  await updateToken({
+  const updatedIssuanceToken = await updateToken({
     event,
     context,
     derivedType: 'issuance',
@@ -76,6 +76,9 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
     triggerTotalSupply: true,
   })
 
+  const marketCapUSD = updatedIssuanceToken.marketCapUSD
+  const marketCapCOL = priceCOL.times(updatedIssuanceToken.totalSupply)
+
   const updateTimeDataParams = {
     context,
     event,
@@ -84,6 +87,9 @@ BondingCurve.TokensBought.handler(async ({ event, context }) => {
 
       collateralToken_id,
       issuanceToken_id,
+
+      marketCapUSD,
+      marketCapCOL,
 
       priceUSD,
       priceCOL,
@@ -165,6 +171,20 @@ BondingCurve.TokensSold.handler(async ({ event, context }) => {
     },
   })
 
+  const updatedIssuanceToken = await updateToken({
+    event,
+    context,
+    derivedType: 'issuance',
+    properties: {
+      address: issuanceToken!.address,
+      priceUSD,
+    },
+    triggerTotalSupply: true,
+  })
+
+  const marketCapUSD = updatedIssuanceToken.marketCapUSD
+  const marketCapCOL = priceCOL.times(updatedIssuanceToken.totalSupply)
+
   const updateTimeDataParams = {
     context,
     event,
@@ -173,6 +193,9 @@ BondingCurve.TokensSold.handler(async ({ event, context }) => {
 
       collateralToken_id,
       issuanceToken_id,
+
+      marketCapUSD,
+      marketCapCOL,
 
       priceCOL,
       priceUSD,
@@ -188,17 +211,6 @@ BondingCurve.TokensSold.handler(async ({ event, context }) => {
 
   await updateIssuanceTokenHourData(updateTimeDataParams)
   await updateIssuanceTokenDayData(updateTimeDataParams)
-
-  await updateToken({
-    event,
-    context,
-    derivedType: 'issuance',
-    properties: {
-      address: issuanceToken!.address,
-      priceUSD,
-    },
-    triggerTotalSupply: true,
-  })
 
   const reserveCOL = await getBalanceOf({
     tokenAddress: collateralToken!.address,

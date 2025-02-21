@@ -25,6 +25,9 @@ export type CurveIntervalProperties = {
   collateralToken_id: string
   issuanceToken_id: string
 
+  marketCapCOL?: BigDecimal
+  marketCapUSD?: BigDecimal
+
   priceCOL?: BigDecimal
   priceUSD?: BigDecimal
 
@@ -46,6 +49,8 @@ export type IssuanceTokenIntervalProperties = {
   issuanceToken_id: string
 
   priceUSD?: BigDecimal
+
+  marketCapUSD?: BigDecimal
 
   amountISS?: BigDecimal
   amountUSD?: BigDecimal
@@ -146,6 +151,7 @@ async function handleIssuanceTokenIntervalData<
     issuanceToken_id,
 
     priceUSD,
+    marketCapUSD,
   } = properties
   const address = issuanceToken_id.split('-')[1]
   const intervalData = getIntervalData({ intervalType, timestamp })
@@ -166,6 +172,8 @@ async function handleIssuanceTokenIntervalData<
 
       volumeUSD: ZERO_BD,
       volumeISS: ZERO_BD,
+
+      marketCapUSD: ZERO_BD,
 
       priceUSD: nonNullPriceUSD,
 
@@ -259,6 +267,9 @@ async function handleBondingCurveIntervalData<
       highUSD: nonNullPriceUSD,
       lowUSD: nonNullPriceUSD,
       closeUSD: nonNullPriceUSD,
+
+      marketCapUSD: ZERO_BD,
+      marketCapCOL: ZERO_BD,
     } satisfies Writable<
       Omit<BondingCurveIntervalData, 'date' | 'periodStartUnix'>
     >)
@@ -279,6 +290,8 @@ function setOHLCVData({
   properties: {
     priceCOL,
     priceUSD,
+    marketCapUSD,
+    marketCapCOL,
     amountCOL,
     amountISS,
     amountUSD,
@@ -295,6 +308,8 @@ function setOHLCVData({
   properties: Partial<{
     priceCOL: BigDecimal
     priceUSD: BigDecimal
+    marketCapUSD: BigDecimal
+    marketCapCOL: BigDecimal
     amountCOL: BigDecimal
     amountISS: BigDecimal
     amountUSD: BigDecimal
@@ -326,6 +341,10 @@ function setOHLCVData({
     data.volumeCOL = data.volumeCOL.plus(amountCOL)
   if (amountISS) data.volumeISS = data.volumeISS.plus(amountISS)
   if (amountUSD) data.volumeUSD = data.volumeUSD.plus(amountUSD)
+
+  // Update market caps
+  if ('marketCapCOL' in data && marketCapCOL) data.marketCapCOL = marketCapCOL
+  if (marketCapUSD) data.marketCapUSD = marketCapUSD
 
   // Update Project fees
   if ('projectFeeCOL' in data && projectFeeCOL)

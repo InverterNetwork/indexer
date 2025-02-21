@@ -4993,5 +4993,68 @@
       "decimals": 18,
       "address": "0x1BF131AcB28bAC7A5C5d43A78Eff491B38eEa6C0"
     }
+  },
+  "0x8c003d66ac137e1d7ab440ff74c5c763a3c6912d-11155111": {
+    "meta": {},
+    "content": {
+      "name": "cof",
+      "symbol": "cof",
+      "decimals": 18,
+      "address": "0x8C003d66aC137e1D7Ab440ff74c5C763A3c6912D"
+    }
+  },
+  "0xd9bd1072cda6145f49124bebbb24d4a55ffc7d56-11155111": {
+    "meta": {},
+    "content": {
+      "name": "bnb",
+      "symbol": "bnb",
+      "decimals": 18,
+      "address": "0xD9BD1072cDa6145f49124bEbBb24d4A55ffc7d56"
+    }
+  },
+  "0x4d2437229c0a83e1e1ab6a88337cbc1fca5667c3-11155111": {
+    "meta": {},
+    "content": {
+      "name": "JIM AIGent",
+      "symbol": "JIM",
+      "decimals": 18,
+      "address": "0x4d2437229c0A83e1E1Ab6a88337CBC1fCa5667c3"
+    }
+  },
+  "0x8ecace7a20631d135652c2925dc44c7ac37d41f8-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Tokamak Token",
+      "symbol": "TOK",
+      "decimals": 18,
+      "address": "0x8ECaCE7a20631d135652C2925DC44c7aC37d41f8"
+    }
+  },
+  "0x7e126b0dacf1fd5e9bf64ea90ea220a38aef6fd0-11155111": {
+    "meta": {},
+    "content": {
+      "name": "JIM AIGent",
+      "symbol": "JIM",
+      "decimals": 18,
+      "address": "0x7e126b0dACf1FD5e9bf64Ea90eA220A38AEf6Fd0"
+    }
+  },
+  "0x5828f5ab43ad4ecb94a64e59199625cdb9a95c14-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Pfrmr",
+      "symbol": "PPFRMR",
+      "decimals": 18,
+      "address": "0x5828f5aB43AD4eCB94a64E59199625cdB9A95C14"
+    }
+  },
+  "0xba09194232625b49f8e02ceb13ecd1d91b8a783a-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Pepe Farmer",
+      "symbol": "FARM",
+      "decimals": 18,
+      "address": "0xBA09194232625B49F8e02cEb13Ecd1d91B8A783a"
+    }
   }
 }

@@ -70,7 +70,7 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensBought.handler(
       },
     })
 
-    await updateToken({
+    const updatedIssuanceToken = await updateToken({
       event,
       context,
       derivedType: 'issuance',
@@ -81,6 +81,9 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensBought.handler(
       triggerTotalSupply: true,
     })
 
+    const marketCapUSD = updatedIssuanceToken.marketCapUSD
+    const marketCapCOL = priceCOL.times(updatedIssuanceToken.totalSupply)
+
     const updateTimeDataParams = {
       context,
       event,
@@ -89,6 +92,9 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensBought.handler(
 
         collateralToken_id,
         issuanceToken_id,
+
+        marketCapUSD,
+        marketCapCOL,
 
         priceCOL,
         priceUSD,
@@ -225,6 +231,20 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensSold.handler(
     const priceUSD = getIssPriceFromCol(priceCOL, collateralToken?.priceUSD)
     const amountUSD = amountISS.times(priceUSD)
 
+    const updatedIssuanceToken = await updateToken({
+      event,
+      context,
+      derivedType: 'issuance',
+      properties: {
+        address: issuanceToken!.address,
+        priceUSD,
+      },
+      triggerTotalSupply: true,
+    })
+
+    const marketCapUSD = updatedIssuanceToken.marketCapUSD
+    const marketCapCOL = priceCOL.times(updatedIssuanceToken.totalSupply)
+
     const updateTimeDataParams = {
       context,
       event,
@@ -233,6 +253,9 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensSold.handler(
 
         collateralToken_id,
         issuanceToken_id,
+
+        marketCapUSD,
+        marketCapCOL,
 
         priceCOL,
         priceUSD,
@@ -248,17 +271,6 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensSold.handler(
 
     await updateIssuanceTokenHourData(updateTimeDataParams)
     await updateIssuanceTokenDayData(updateTimeDataParams)
-
-    await updateToken({
-      event,
-      context,
-      derivedType: 'issuance',
-      properties: {
-        address: issuanceToken!.address,
-        priceUSD,
-      },
-      triggerTotalSupply: true,
-    })
 
     const reserveCOL = await getBalanceOf({
       tokenAddress: collateralToken!.address,

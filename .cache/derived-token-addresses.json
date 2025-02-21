@@ -5234,5 +5234,61 @@
   "0x122e7be1ec9f6f656e1cdb221f1c0d62efadafa3-137-issuance": {
     "meta": {},
     "content": "0x1BF131AcB28bAC7A5C5d43A78Eff491B38eEa6C0"
+  },
+  "0x7323f040950990f7541c4bf9a3e90b698fd60e12-11155111-token": {
+    "meta": {},
+    "content": "0x5a9ea5c091d2A0c5381A604551C9e5d61E87A63c"
+  },
+  "0x7323f040950990f7541c4bf9a3e90b698fd60e12-11155111-issuance": {
+    "meta": {},
+    "content": "0x8C003d66aC137e1D7Ab440ff74c5C763A3c6912D"
+  },
+  "0xcd58484c9a5a8dccfee06a6a87f4f0027fe88afc-11155111-token": {
+    "meta": {},
+    "content": "0x5a9ea5c091d2A0c5381A604551C9e5d61E87A63c"
+  },
+  "0xcd58484c9a5a8dccfee06a6a87f4f0027fe88afc-11155111-issuance": {
+    "meta": {},
+    "content": "0xD9BD1072cDa6145f49124bEbBb24d4A55ffc7d56"
+  },
+  "0x982d3c5a5639926a0d7d5b6e06b598b9d26851a5-11155111-token": {
+    "meta": {},
+    "content": "0x065775C7aB4E60ad1776A30DCfB15325d231Ce4F"
+  },
+  "0x982d3c5a5639926a0d7d5b6e06b598b9d26851a5-11155111-issuance": {
+    "meta": {},
+    "content": "0x4d2437229c0A83e1E1Ab6a88337CBC1fCa5667c3"
+  },
+  "0x9af90bc044c34de77fb1c0e3a821f9304ad2ef28-11155111-token": {
+    "meta": {},
+    "content": "0x4d2437229c0A83e1E1Ab6a88337CBC1fCa5667c3"
+  },
+  "0x9af90bc044c34de77fb1c0e3a821f9304ad2ef28-11155111-issuance": {
+    "meta": {},
+    "content": "0x8ECaCE7a20631d135652C2925DC44c7aC37d41f8"
+  },
+  "0x9ab89615069be388449d317fa759466da50f6367-11155111-token": {
+    "meta": {},
+    "content": "0x065775C7aB4E60ad1776A30DCfB15325d231Ce4F"
+  },
+  "0x9ab89615069be388449d317fa759466da50f6367-11155111-issuance": {
+    "meta": {},
+    "content": "0x7e126b0dACf1FD5e9bf64Ea90eA220A38AEf6Fd0"
+  },
+  "0xbbfb561559c117602a18d9cbb140bc661bd1033a-11155111-token": {
+    "meta": {},
+    "content": "0x7e126b0dACf1FD5e9bf64Ea90eA220A38AEf6Fd0"
+  },
+  "0xbbfb561559c117602a18d9cbb140bc661bd1033a-11155111-issuance": {
+    "meta": {},
+    "content": "0x5828f5aB43AD4eCB94a64E59199625cdB9A95C14"
+  },
+  "0xfb98dfa379b399ad5e06164d57a8d133ababe8d7-11155111-token": {
+    "meta": {},
+    "content": "0x7e126b0dACf1FD5e9bf64Ea90eA220A38AEf6Fd0"
+  },
+  "0xfb98dfa379b399ad5e06164d57a8d133ababe8d7-11155111-issuance": {
+    "meta": {},
+    "content": "0xBA09194232625B49F8e02cEb13Ecd1d91B8A783a"
   }
 }

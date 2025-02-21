@@ -477,6 +477,8 @@ type IssuanceTokenDayData @entity {
   protocolFeeUSD: BigDecimal!
   protocolFeeISS: BigDecimal!
 
+  marketCapUSD: BigDecimal!
+
   priceUSD: BigDecimal!
 
   openUSD: BigDecimal!
@@ -502,6 +504,8 @@ type IssuanceTokenHourData @entity {
 
   protocolFeeUSD: BigDecimal!
   protocolFeeISS: BigDecimal!
+
+  marketCapUSD: BigDecimal!
 
   priceUSD: BigDecimal!
 
@@ -533,6 +537,9 @@ type CurveDayData @entity {
   protocolFeeUSD: BigDecimal!
   protocolFeeCOL: BigDecimal!
   protocolFeeISS: BigDecimal!
+
+  marketCapUSD: BigDecimal!
+  marketCapCOL: BigDecimal!
 
   priceUSD: BigDecimal!
   priceCOL: BigDecimal!
@@ -569,6 +576,9 @@ type CurveHourData @entity {
   protocolFeeUSD: BigDecimal!
   protocolFeeCOL: BigDecimal!
   protocolFeeISS: BigDecimal!
+
+  marketCapUSD: BigDecimal!
+  marketCapCOL: BigDecimal!
 
   priceUSD: BigDecimal!
   priceCOL: BigDecimal!
