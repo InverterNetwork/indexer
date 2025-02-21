@@ -5290,5 +5290,69 @@
   "0xfb98dfa379b399ad5e06164d57a8d133ababe8d7-11155111-issuance": {
     "meta": {},
     "content": "0xBA09194232625B49F8e02cEb13Ecd1d91B8A783a"
+  },
+  "0x8161ee5ea90d50513e8ed7896aa56da06e58ec3e-80002-token": {
+    "meta": {},
+    "content": "0xA5733b3A8e62A8faF43b0376d5fAF46E89B3033E"
+  },
+  "0x8161ee5ea90d50513e8ed7896aa56da06e58ec3e-80002-issuance": {
+    "meta": {},
+    "content": "0xfAFB870F1918827fe57Ca4b891124606EaA7e6bd"
+  },
+  "0xde2bacecef22f4b3ef69b8b5ab9c67eb762a88fa-80002-token": {
+    "meta": {},
+    "content": "0xA5733b3A8e62A8faF43b0376d5fAF46E89B3033E"
+  },
+  "0xde2bacecef22f4b3ef69b8b5ab9c67eb762a88fa-80002-issuance": {
+    "meta": {},
+    "content": "0xfAFB870F1918827fe57Ca4b891124606EaA7e6bd"
+  },
+  "0x674bfa2ceb14ae91f2b9b20e965c85e27132b638-80002-token": {
+    "meta": {},
+    "content": "0xA5733b3A8e62A8faF43b0376d5fAF46E89B3033E"
+  },
+  "0x674bfa2ceb14ae91f2b9b20e965c85e27132b638-80002-issuance": {
+    "meta": {},
+    "content": "0xA1a78aC9884aDc9d04d59b2b743f1eC709618e55"
+  },
+  "0x02e9b5bc35788f15656733a6af3f110e47c5ee35-80002-token": {
+    "meta": {},
+    "content": "0xA5733b3A8e62A8faF43b0376d5fAF46E89B3033E"
+  },
+  "0x02e9b5bc35788f15656733a6af3f110e47c5ee35-80002-issuance": {
+    "meta": {},
+    "content": "0xA3dd6163B5742B0D8Cb7d79CB5DFE3F81F8F8fC4"
+  },
+  "0xd031340ade4a09215b6859a64494e4a9c5573c10-80002-token": {
+    "meta": {},
+    "content": "0xA5733b3A8e62A8faF43b0376d5fAF46E89B3033E"
+  },
+  "0xd031340ade4a09215b6859a64494e4a9c5573c10-80002-issuance": {
+    "meta": {},
+    "content": "0x5FDAF637Aed59B2e6d384d9e84D8ac5cF03c6697"
+  },
+  "0x61f7bdcda1f40b9426dd54905136ba87cafb3d70-80002-token": {
+    "meta": {},
+    "content": "0xA5733b3A8e62A8faF43b0376d5fAF46E89B3033E"
+  },
+  "0x61f7bdcda1f40b9426dd54905136ba87cafb3d70-80002-issuance": {
+    "meta": {},
+    "content": "0xA3dd6163B5742B0D8Cb7d79CB5DFE3F81F8F8fC4"
+  },
+  "0xc29d8cfa255a0b3abf252c456e778ac160ca9f1e-80002-token": {
+    "meta": {},
+    "content": "0xA5733b3A8e62A8faF43b0376d5fAF46E89B3033E"
+  },
+  "0xc29d8cfa255a0b3abf252c456e778ac160ca9f1e-80002-issuance": {
+    "meta": {},
+    "content": "0x4191F84f66e0B7CC10370Ff47a0E2168E35b9Bdf"
+  },
+  "0x7e2ad680ccf84e45a8e410e60f960f847a03e8b5-11155420-token": {
+    "meta": {},
+    "content": "0x065775C7aB4E60ad1776A30DCfB15325d231Ce4F"
+  },
+  "0x7e2ad680ccf84e45a8e410e60f960f847a03e8b5-11155420-issuance": {
+    "meta": {},
+    "content": "0xa7ef818497C4E444d53fFC5a13a23c6a788E6435"
   }
 }

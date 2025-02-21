@@ -1689,6 +1689,8 @@ type CurveDayData {
   issuanceToken_id: String!
   lowCOL: numeric!
   lowUSD: numeric!
+  marketCapCOL: numeric!
+  marketCapUSD: numeric!
   openCOL: numeric!
   openUSD: numeric!
   priceCOL: numeric!
@@ -1766,6 +1768,8 @@ type CurveDayData_avg_fields {
   highUSD: Float
   lowCOL: Float
   lowUSD: Float
+  marketCapCOL: Float
+  marketCapUSD: Float
   openCOL: Float
   openUSD: Float
   priceCOL: Float
@@ -1792,6 +1796,8 @@ input CurveDayData_avg_order_by {
   highUSD: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   priceCOL: order_by
@@ -1829,6 +1835,8 @@ input CurveDayData_bool_exp {
   issuanceToken_id: String_comparison_exp
   lowCOL: numeric_comparison_exp
   lowUSD: numeric_comparison_exp
+  marketCapCOL: numeric_comparison_exp
+  marketCapUSD: numeric_comparison_exp
   openCOL: numeric_comparison_exp
   openUSD: numeric_comparison_exp
   priceCOL: numeric_comparison_exp
@@ -1859,6 +1867,8 @@ type CurveDayData_max_fields {
   issuanceToken_id: String
   lowCOL: numeric
   lowUSD: numeric
+  marketCapCOL: numeric
+  marketCapUSD: numeric
   openCOL: numeric
   openUSD: numeric
   priceCOL: numeric
@@ -1891,6 +1901,8 @@ input CurveDayData_max_order_by {
   issuanceToken_id: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   priceCOL: order_by
@@ -1921,6 +1933,8 @@ type CurveDayData_min_fields {
   issuanceToken_id: String
   lowCOL: numeric
   lowUSD: numeric
+  marketCapCOL: numeric
+  marketCapUSD: numeric
   openCOL: numeric
   openUSD: numeric
   priceCOL: numeric
@@ -1953,6 +1967,8 @@ input CurveDayData_min_order_by {
   issuanceToken_id: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   priceCOL: order_by
@@ -1985,6 +2001,8 @@ input CurveDayData_order_by {
   issuanceToken_id: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   priceCOL: order_by
@@ -2046,6 +2064,12 @@ enum CurveDayData_select_column {
   lowUSD
 
   """column name"""
+  marketCapCOL
+
+  """column name"""
+  marketCapUSD
+
+  """column name"""
   openCOL
 
   """column name"""
@@ -2092,6 +2116,8 @@ type CurveDayData_stddev_fields {
   highUSD: Float
   lowCOL: Float
   lowUSD: Float
+  marketCapCOL: Float
+  marketCapUSD: Float
   openCOL: Float
   openUSD: Float
   priceCOL: Float
@@ -2118,6 +2144,8 @@ input CurveDayData_stddev_order_by {
   highUSD: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   priceCOL: order_by
@@ -2142,6 +2170,8 @@ type CurveDayData_stddev_pop_fields {
   highUSD: Float
   lowCOL: Float
   lowUSD: Float
+  marketCapCOL: Float
+  marketCapUSD: Float
   openCOL: Float
   openUSD: Float
   priceCOL: Float
@@ -2168,6 +2198,8 @@ input CurveDayData_stddev_pop_order_by {
   highUSD: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   priceCOL: order_by
@@ -2192,6 +2224,8 @@ type CurveDayData_stddev_samp_fields {
   highUSD: Float
   lowCOL: Float
   lowUSD: Float
+  marketCapCOL: Float
+  marketCapUSD: Float
   openCOL: Float
   openUSD: Float
   priceCOL: Float
@@ -2218,6 +2252,8 @@ input CurveDayData_stddev_samp_order_by {
   highUSD: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   priceCOL: order_by
@@ -2259,6 +2295,8 @@ input CurveDayData_stream_cursor_value_input {
   issuanceToken_id: String
   lowCOL: numeric
   lowUSD: numeric
+  marketCapCOL: numeric
+  marketCapUSD: numeric
   openCOL: numeric
   openUSD: numeric
   priceCOL: numeric
@@ -2283,6 +2321,8 @@ type CurveDayData_sum_fields {
   highUSD: numeric
   lowCOL: numeric
   lowUSD: numeric
+  marketCapCOL: numeric
+  marketCapUSD: numeric
   openCOL: numeric
   openUSD: numeric
   priceCOL: numeric
@@ -2309,6 +2349,8 @@ input CurveDayData_sum_order_by {
   highUSD: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   priceCOL: order_by
@@ -2333,6 +2375,8 @@ type CurveDayData_var_pop_fields {
   highUSD: Float
   lowCOL: Float
   lowUSD: Float
+  marketCapCOL: Float
+  marketCapUSD: Float
   openCOL: Float
   openUSD: Float
   priceCOL: Float
@@ -2359,6 +2403,8 @@ input CurveDayData_var_pop_order_by {
   highUSD: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   priceCOL: order_by
@@ -2383,6 +2429,8 @@ type CurveDayData_var_samp_fields {
   highUSD: Float
   lowCOL: Float
   lowUSD: Float
+  marketCapCOL: Float
+  marketCapUSD: Float
   openCOL: Float
   openUSD: Float
   priceCOL: Float
@@ -2409,6 +2457,8 @@ input CurveDayData_var_samp_order_by {
   highUSD: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   priceCOL: order_by
@@ -2433,6 +2483,8 @@ type CurveDayData_variance_fields {
   highUSD: Float
   lowCOL: Float
   lowUSD: Float
+  marketCapCOL: Float
+  marketCapUSD: Float
   openCOL: Float
   openUSD: Float
   priceCOL: Float
@@ -2459,6 +2511,8 @@ input CurveDayData_variance_order_by {
   highUSD: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   priceCOL: order_by
@@ -2496,6 +2550,8 @@ type CurveHourData {
   issuanceToken_id: String!
   lowCOL: numeric!
   lowUSD: numeric!
+  marketCapCOL: numeric!
+  marketCapUSD: numeric!
   openCOL: numeric!
   openUSD: numeric!
   periodStartUnix: Int!
@@ -2573,6 +2629,8 @@ type CurveHourData_avg_fields {
   highUSD: Float
   lowCOL: Float
   lowUSD: Float
+  marketCapCOL: Float
+  marketCapUSD: Float
   openCOL: Float
   openUSD: Float
   periodStartUnix: Float
@@ -2599,6 +2657,8 @@ input CurveHourData_avg_order_by {
   highUSD: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   periodStartUnix: order_by
@@ -2636,6 +2696,8 @@ input CurveHourData_bool_exp {
   issuanceToken_id: String_comparison_exp
   lowCOL: numeric_comparison_exp
   lowUSD: numeric_comparison_exp
+  marketCapCOL: numeric_comparison_exp
+  marketCapUSD: numeric_comparison_exp
   openCOL: numeric_comparison_exp
   openUSD: numeric_comparison_exp
   periodStartUnix: Int_comparison_exp
@@ -2666,6 +2728,8 @@ type CurveHourData_max_fields {
   issuanceToken_id: String
   lowCOL: numeric
   lowUSD: numeric
+  marketCapCOL: numeric
+  marketCapUSD: numeric
   openCOL: numeric
   openUSD: numeric
   periodStartUnix: Int
@@ -2698,6 +2762,8 @@ input CurveHourData_max_order_by {
   issuanceToken_id: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   periodStartUnix: order_by
@@ -2728,6 +2794,8 @@ type CurveHourData_min_fields {
   issuanceToken_id: String
   lowCOL: numeric
   lowUSD: numeric
+  marketCapCOL: numeric
+  marketCapUSD: numeric
   openCOL: numeric
   openUSD: numeric
   periodStartUnix: Int
@@ -2760,6 +2828,8 @@ input CurveHourData_min_order_by {
   issuanceToken_id: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   periodStartUnix: order_by
@@ -2792,6 +2862,8 @@ input CurveHourData_order_by {
   issuanceToken_id: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   periodStartUnix: order_by
@@ -2851,6 +2923,12 @@ enum CurveHourData_select_column {
   lowUSD
 
   """column name"""
+  marketCapCOL
+
+  """column name"""
+  marketCapUSD
+
+  """column name"""
   openCOL
 
   """column name"""
@@ -2899,6 +2977,8 @@ type CurveHourData_stddev_fields {
   highUSD: Float
   lowCOL: Float
   lowUSD: Float
+  marketCapCOL: Float
+  marketCapUSD: Float
   openCOL: Float
   openUSD: Float
   periodStartUnix: Float
@@ -2925,6 +3005,8 @@ input CurveHourData_stddev_order_by {
   highUSD: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   periodStartUnix: order_by
@@ -2949,6 +3031,8 @@ type CurveHourData_stddev_pop_fields {
   highUSD: Float
   lowCOL: Float
   lowUSD: Float
+  marketCapCOL: Float
+  marketCapUSD: Float
   openCOL: Float
   openUSD: Float
   periodStartUnix: Float
@@ -2975,6 +3059,8 @@ input CurveHourData_stddev_pop_order_by {
   highUSD: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   periodStartUnix: order_by
@@ -2999,6 +3085,8 @@ type CurveHourData_stddev_samp_fields {
   highUSD: Float
   lowCOL: Float
   lowUSD: Float
+  marketCapCOL: Float
+  marketCapUSD: Float
   openCOL: Float
   openUSD: Float
   periodStartUnix: Float
@@ -3025,6 +3113,8 @@ input CurveHourData_stddev_samp_order_by {
   highUSD: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   periodStartUnix: order_by
@@ -3066,6 +3156,8 @@ input CurveHourData_stream_cursor_value_input {
   issuanceToken_id: String
   lowCOL: numeric
   lowUSD: numeric
+  marketCapCOL: numeric
+  marketCapUSD: numeric
   openCOL: numeric
   openUSD: numeric
   periodStartUnix: Int
@@ -3090,6 +3182,8 @@ type CurveHourData_sum_fields {
   highUSD: numeric
   lowCOL: numeric
   lowUSD: numeric
+  marketCapCOL: numeric
+  marketCapUSD: numeric
   openCOL: numeric
   openUSD: numeric
   periodStartUnix: Int
@@ -3116,6 +3210,8 @@ input CurveHourData_sum_order_by {
   highUSD: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   periodStartUnix: order_by
@@ -3140,6 +3236,8 @@ type CurveHourData_var_pop_fields {
   highUSD: Float
   lowCOL: Float
   lowUSD: Float
+  marketCapCOL: Float
+  marketCapUSD: Float
   openCOL: Float
   openUSD: Float
   periodStartUnix: Float
@@ -3166,6 +3264,8 @@ input CurveHourData_var_pop_order_by {
   highUSD: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   periodStartUnix: order_by
@@ -3190,6 +3290,8 @@ type CurveHourData_var_samp_fields {
   highUSD: Float
   lowCOL: Float
   lowUSD: Float
+  marketCapCOL: Float
+  marketCapUSD: Float
   openCOL: Float
   openUSD: Float
   periodStartUnix: Float
@@ -3216,6 +3318,8 @@ input CurveHourData_var_samp_order_by {
   highUSD: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   periodStartUnix: order_by
@@ -3240,6 +3344,8 @@ type CurveHourData_variance_fields {
   highUSD: Float
   lowCOL: Float
   lowUSD: Float
+  marketCapCOL: Float
+  marketCapUSD: Float
   openCOL: Float
   openUSD: Float
   periodStartUnix: Float
@@ -3266,6 +3372,8 @@ input CurveHourData_variance_order_by {
   highUSD: order_by
   lowCOL: order_by
   lowUSD: order_by
+  marketCapCOL: order_by
+  marketCapUSD: order_by
   openCOL: order_by
   openUSD: order_by
   periodStartUnix: order_by
@@ -4375,6 +4483,7 @@ type IssuanceTokenDayData {
   highUSD: numeric!
   id: String!
   lowUSD: numeric!
+  marketCapUSD: numeric!
   module_id: String!
   openUSD: numeric!
   priceUSD: numeric!
@@ -4449,6 +4558,7 @@ type IssuanceTokenDayData_avg_fields {
   date: Float
   highUSD: Float
   lowUSD: Float
+  marketCapUSD: Float
   openUSD: Float
   priceUSD: Float
   projectFeeUSD: Float
@@ -4467,6 +4577,7 @@ input IssuanceTokenDayData_avg_order_by {
   date: order_by
   highUSD: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   openUSD: order_by
   priceUSD: order_by
   projectFeeUSD: order_by
@@ -4491,6 +4602,7 @@ input IssuanceTokenDayData_bool_exp {
   highUSD: numeric_comparison_exp
   id: String_comparison_exp
   lowUSD: numeric_comparison_exp
+  marketCapUSD: numeric_comparison_exp
   module_id: String_comparison_exp
   openUSD: numeric_comparison_exp
   priceUSD: numeric_comparison_exp
@@ -4513,6 +4625,7 @@ type IssuanceTokenDayData_max_fields {
   highUSD: numeric
   id: String
   lowUSD: numeric
+  marketCapUSD: numeric
   module_id: String
   openUSD: numeric
   priceUSD: numeric
@@ -4536,6 +4649,7 @@ input IssuanceTokenDayData_max_order_by {
   highUSD: order_by
   id: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   module_id: order_by
   openUSD: order_by
   priceUSD: order_by
@@ -4557,6 +4671,7 @@ type IssuanceTokenDayData_min_fields {
   highUSD: numeric
   id: String
   lowUSD: numeric
+  marketCapUSD: numeric
   module_id: String
   openUSD: numeric
   priceUSD: numeric
@@ -4580,6 +4695,7 @@ input IssuanceTokenDayData_min_order_by {
   highUSD: order_by
   id: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   module_id: order_by
   openUSD: order_by
   priceUSD: order_by
@@ -4601,6 +4717,7 @@ input IssuanceTokenDayData_order_by {
   highUSD: order_by
   id: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   module_id: order_by
   openUSD: order_by
   priceUSD: order_by
@@ -4642,6 +4759,9 @@ enum IssuanceTokenDayData_select_column {
   lowUSD
 
   """column name"""
+  marketCapUSD
+
+  """column name"""
   module_id
 
   """column name"""
@@ -4676,6 +4796,7 @@ type IssuanceTokenDayData_stddev_fields {
   date: Float
   highUSD: Float
   lowUSD: Float
+  marketCapUSD: Float
   openUSD: Float
   priceUSD: Float
   projectFeeUSD: Float
@@ -4694,6 +4815,7 @@ input IssuanceTokenDayData_stddev_order_by {
   date: order_by
   highUSD: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   openUSD: order_by
   priceUSD: order_by
   projectFeeUSD: order_by
@@ -4710,6 +4832,7 @@ type IssuanceTokenDayData_stddev_pop_fields {
   date: Float
   highUSD: Float
   lowUSD: Float
+  marketCapUSD: Float
   openUSD: Float
   priceUSD: Float
   projectFeeUSD: Float
@@ -4728,6 +4851,7 @@ input IssuanceTokenDayData_stddev_pop_order_by {
   date: order_by
   highUSD: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   openUSD: order_by
   priceUSD: order_by
   projectFeeUSD: order_by
@@ -4744,6 +4868,7 @@ type IssuanceTokenDayData_stddev_samp_fields {
   date: Float
   highUSD: Float
   lowUSD: Float
+  marketCapUSD: Float
   openUSD: Float
   priceUSD: Float
   projectFeeUSD: Float
@@ -4762,6 +4887,7 @@ input IssuanceTokenDayData_stddev_samp_order_by {
   date: order_by
   highUSD: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   openUSD: order_by
   priceUSD: order_by
   projectFeeUSD: order_by
@@ -4792,6 +4918,7 @@ input IssuanceTokenDayData_stream_cursor_value_input {
   highUSD: numeric
   id: String
   lowUSD: numeric
+  marketCapUSD: numeric
   module_id: String
   openUSD: numeric
   priceUSD: numeric
@@ -4810,6 +4937,7 @@ type IssuanceTokenDayData_sum_fields {
   date: Int
   highUSD: numeric
   lowUSD: numeric
+  marketCapUSD: numeric
   openUSD: numeric
   priceUSD: numeric
   projectFeeUSD: numeric
@@ -4828,6 +4956,7 @@ input IssuanceTokenDayData_sum_order_by {
   date: order_by
   highUSD: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   openUSD: order_by
   priceUSD: order_by
   projectFeeUSD: order_by
@@ -4844,6 +4973,7 @@ type IssuanceTokenDayData_var_pop_fields {
   date: Float
   highUSD: Float
   lowUSD: Float
+  marketCapUSD: Float
   openUSD: Float
   priceUSD: Float
   projectFeeUSD: Float
@@ -4862,6 +4992,7 @@ input IssuanceTokenDayData_var_pop_order_by {
   date: order_by
   highUSD: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   openUSD: order_by
   priceUSD: order_by
   projectFeeUSD: order_by
@@ -4878,6 +5009,7 @@ type IssuanceTokenDayData_var_samp_fields {
   date: Float
   highUSD: Float
   lowUSD: Float
+  marketCapUSD: Float
   openUSD: Float
   priceUSD: Float
   projectFeeUSD: Float
@@ -4896,6 +5028,7 @@ input IssuanceTokenDayData_var_samp_order_by {
   date: order_by
   highUSD: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   openUSD: order_by
   priceUSD: order_by
   projectFeeUSD: order_by
@@ -4912,6 +5045,7 @@ type IssuanceTokenDayData_variance_fields {
   date: Float
   highUSD: Float
   lowUSD: Float
+  marketCapUSD: Float
   openUSD: Float
   priceUSD: Float
   projectFeeUSD: Float
@@ -4930,6 +5064,7 @@ input IssuanceTokenDayData_variance_order_by {
   date: order_by
   highUSD: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   openUSD: order_by
   priceUSD: order_by
   projectFeeUSD: order_by
@@ -4950,6 +5085,7 @@ type IssuanceTokenHourData {
   highUSD: numeric!
   id: String!
   lowUSD: numeric!
+  marketCapUSD: numeric!
   module_id: String!
   openUSD: numeric!
   periodStartUnix: Int!
@@ -5024,6 +5160,7 @@ type IssuanceTokenHourData_avg_fields {
   closeUSD: Float
   highUSD: Float
   lowUSD: Float
+  marketCapUSD: Float
   openUSD: Float
   periodStartUnix: Float
   priceUSD: Float
@@ -5042,6 +5179,7 @@ input IssuanceTokenHourData_avg_order_by {
   closeUSD: order_by
   highUSD: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   openUSD: order_by
   periodStartUnix: order_by
   priceUSD: order_by
@@ -5066,6 +5204,7 @@ input IssuanceTokenHourData_bool_exp {
   highUSD: numeric_comparison_exp
   id: String_comparison_exp
   lowUSD: numeric_comparison_exp
+  marketCapUSD: numeric_comparison_exp
   module_id: String_comparison_exp
   openUSD: numeric_comparison_exp
   periodStartUnix: Int_comparison_exp
@@ -5088,6 +5227,7 @@ type IssuanceTokenHourData_max_fields {
   highUSD: numeric
   id: String
   lowUSD: numeric
+  marketCapUSD: numeric
   module_id: String
   openUSD: numeric
   periodStartUnix: Int
@@ -5111,6 +5251,7 @@ input IssuanceTokenHourData_max_order_by {
   highUSD: order_by
   id: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   module_id: order_by
   openUSD: order_by
   periodStartUnix: order_by
@@ -5132,6 +5273,7 @@ type IssuanceTokenHourData_min_fields {
   highUSD: numeric
   id: String
   lowUSD: numeric
+  marketCapUSD: numeric
   module_id: String
   openUSD: numeric
   periodStartUnix: Int
@@ -5155,6 +5297,7 @@ input IssuanceTokenHourData_min_order_by {
   highUSD: order_by
   id: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   module_id: order_by
   openUSD: order_by
   periodStartUnix: order_by
@@ -5176,6 +5319,7 @@ input IssuanceTokenHourData_order_by {
   highUSD: order_by
   id: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   module_id: order_by
   openUSD: order_by
   periodStartUnix: order_by
@@ -5215,6 +5359,9 @@ enum IssuanceTokenHourData_select_column {
   lowUSD
 
   """column name"""
+  marketCapUSD
+
+  """column name"""
   module_id
 
   """column name"""
@@ -5251,6 +5398,7 @@ type IssuanceTokenHourData_stddev_fields {
   closeUSD: Float
   highUSD: Float
   lowUSD: Float
+  marketCapUSD: Float
   openUSD: Float
   periodStartUnix: Float
   priceUSD: Float
@@ -5269,6 +5417,7 @@ input IssuanceTokenHourData_stddev_order_by {
   closeUSD: order_by
   highUSD: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   openUSD: order_by
   periodStartUnix: order_by
   priceUSD: order_by
@@ -5285,6 +5434,7 @@ type IssuanceTokenHourData_stddev_pop_fields {
   closeUSD: Float
   highUSD: Float
   lowUSD: Float
+  marketCapUSD: Float
   openUSD: Float
   periodStartUnix: Float
   priceUSD: Float
@@ -5303,6 +5453,7 @@ input IssuanceTokenHourData_stddev_pop_order_by {
   closeUSD: order_by
   highUSD: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   openUSD: order_by
   periodStartUnix: order_by
   priceUSD: order_by
@@ -5319,6 +5470,7 @@ type IssuanceTokenHourData_stddev_samp_fields {
   closeUSD: Float
   highUSD: Float
   lowUSD: Float
+  marketCapUSD: Float
   openUSD: Float
   periodStartUnix: Float
   priceUSD: Float
@@ -5337,6 +5489,7 @@ input IssuanceTokenHourData_stddev_samp_order_by {
   closeUSD: order_by
   highUSD: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   openUSD: order_by
   periodStartUnix: order_by
   priceUSD: order_by
@@ -5367,6 +5520,7 @@ input IssuanceTokenHourData_stream_cursor_value_input {
   highUSD: numeric
   id: String
   lowUSD: numeric
+  marketCapUSD: numeric
   module_id: String
   openUSD: numeric
   periodStartUnix: Int
@@ -5385,6 +5539,7 @@ type IssuanceTokenHourData_sum_fields {
   closeUSD: numeric
   highUSD: numeric
   lowUSD: numeric
+  marketCapUSD: numeric
   openUSD: numeric
   periodStartUnix: Int
   priceUSD: numeric
@@ -5403,6 +5558,7 @@ input IssuanceTokenHourData_sum_order_by {
   closeUSD: order_by
   highUSD: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   openUSD: order_by
   periodStartUnix: order_by
   priceUSD: order_by
@@ -5419,6 +5575,7 @@ type IssuanceTokenHourData_var_pop_fields {
   closeUSD: Float
   highUSD: Float
   lowUSD: Float
+  marketCapUSD: Float
   openUSD: Float
   periodStartUnix: Float
   priceUSD: Float
@@ -5437,6 +5594,7 @@ input IssuanceTokenHourData_var_pop_order_by {
   closeUSD: order_by
   highUSD: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   openUSD: order_by
   periodStartUnix: order_by
   priceUSD: order_by
@@ -5453,6 +5611,7 @@ type IssuanceTokenHourData_var_samp_fields {
   closeUSD: Float
   highUSD: Float
   lowUSD: Float
+  marketCapUSD: Float
   openUSD: Float
   periodStartUnix: Float
   priceUSD: Float
@@ -5471,6 +5630,7 @@ input IssuanceTokenHourData_var_samp_order_by {
   closeUSD: order_by
   highUSD: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   openUSD: order_by
   periodStartUnix: order_by
   priceUSD: order_by
@@ -5487,6 +5647,7 @@ type IssuanceTokenHourData_variance_fields {
   closeUSD: Float
   highUSD: Float
   lowUSD: Float
+  marketCapUSD: Float
   openUSD: Float
   periodStartUnix: Float
   priceUSD: Float
@@ -5505,6 +5666,7 @@ input IssuanceTokenHourData_variance_order_by {
   closeUSD: order_by
   highUSD: order_by
   lowUSD: order_by
+  marketCapUSD: order_by
   openUSD: order_by
   periodStartUnix: order_by
   priceUSD: order_by
@@ -8566,6 +8728,7 @@ type Token {
   db_write_timestamp: timestamp
   decimals: Int!
   id: String!
+  marketCapUSD: numeric!
   name: String!
   priceUSD: numeric!
   symbol: String!
@@ -8601,6 +8764,7 @@ type Token_aggregate_fields {
 type Token_avg_fields {
   chainId: Float
   decimals: Float
+  marketCapUSD: Float
   priceUSD: Float
   totalSupply: Float
 }
@@ -8617,6 +8781,7 @@ input Token_bool_exp {
   db_write_timestamp: timestamp_comparison_exp
   decimals: Int_comparison_exp
   id: String_comparison_exp
+  marketCapUSD: numeric_comparison_exp
   name: String_comparison_exp
   priceUSD: numeric_comparison_exp
   symbol: String_comparison_exp
@@ -8630,6 +8795,7 @@ type Token_max_fields {
   db_write_timestamp: timestamp
   decimals: Int
   id: String
+  marketCapUSD: numeric
   name: String
   priceUSD: numeric
   symbol: String
@@ -8643,6 +8809,7 @@ type Token_min_fields {
   db_write_timestamp: timestamp
   decimals: Int
   id: String
+  marketCapUSD: numeric
   name: String
   priceUSD: numeric
   symbol: String
@@ -8656,6 +8823,7 @@ input Token_order_by {
   db_write_timestamp: order_by
   decimals: order_by
   id: order_by
+  marketCapUSD: order_by
   name: order_by
   priceUSD: order_by
   symbol: order_by
@@ -8682,6 +8850,9 @@ enum Token_select_column {
   id
 
   """column name"""
+  marketCapUSD
+
+  """column name"""
   name
 
   """column name"""
@@ -8698,6 +8869,7 @@ enum Token_select_column {
 type Token_stddev_fields {
   chainId: Float
   decimals: Float
+  marketCapUSD: Float
   priceUSD: Float
   totalSupply: Float
 }
@@ -8706,6 +8878,7 @@ type Token_stddev_fields {
 type Token_stddev_pop_fields {
   chainId: Float
   decimals: Float
+  marketCapUSD: Float
   priceUSD: Float
   totalSupply: Float
 }
@@ -8714,6 +8887,7 @@ type Token_stddev_pop_fields {
 type Token_stddev_samp_fields {
   chainId: Float
   decimals: Float
+  marketCapUSD: Float
   priceUSD: Float
   totalSupply: Float
 }
@@ -8736,6 +8910,7 @@ input Token_stream_cursor_value_input {
   db_write_timestamp: timestamp
   decimals: Int
   id: String
+  marketCapUSD: numeric
   name: String
   priceUSD: numeric
   symbol: String
@@ -8746,6 +8921,7 @@ input Token_stream_cursor_value_input {
 type Token_sum_fields {
   chainId: Int
   decimals: Int
+  marketCapUSD: numeric
   priceUSD: numeric
   totalSupply: numeric
 }
@@ -8754,6 +8930,7 @@ type Token_sum_fields {
 type Token_var_pop_fields {
   chainId: Float
   decimals: Float
+  marketCapUSD: Float
   priceUSD: Float
   totalSupply: Float
 }
@@ -8762,6 +8939,7 @@ type Token_var_pop_fields {
 type Token_var_samp_fields {
   chainId: Float
   decimals: Float
+  marketCapUSD: Float
   priceUSD: Float
   totalSupply: Float
 }
@@ -8770,6 +8948,7 @@ type Token_var_samp_fields {
 type Token_variance_fields {
   chainId: Float
   decimals: Float
+  marketCapUSD: Float
   priceUSD: Float
   totalSupply: Float
 }

@@ -5056,5 +5056,41 @@
       "decimals": 18,
       "address": "0xBA09194232625B49F8e02cEb13Ecd1d91B8A783a"
     }
+  },
+  "0xa3dd6163b5742b0d8cb7d79cb5dfe3f81f8f8fc4-80002": {
+    "meta": {},
+    "content": {
+      "name": "AKA",
+      "symbol": "AKA",
+      "decimals": 18,
+      "address": "0xA3dd6163B5742B0D8Cb7d79CB5DFE3F81F8F8fC4"
+    }
+  },
+  "0x5fdaf637aed59b2e6d384d9e84d8ac5cf03c6697-80002": {
+    "meta": {},
+    "content": {
+      "name": "Melodex",
+      "symbol": "MELS",
+      "decimals": 18,
+      "address": "0x5FDAF637Aed59B2e6d384d9e84D8ac5cF03c6697"
+    }
+  },
+  "0x4191f84f66e0b7cc10370ff47a0e2168e35b9bdf-80002": {
+    "meta": {},
+    "content": {
+      "name": "BEAST",
+      "symbol": "BEAST",
+      "decimals": 18,
+      "address": "0x4191F84f66e0B7CC10370Ff47a0E2168E35b9Bdf"
+    }
+  },
+  "0xa7ef818497c4e444d53ffc5a13a23c6a788e6435-11155420": {
+    "meta": {},
+    "content": {
+      "name": "Emre Eth",
+      "symbol": "EMRETH",
+      "decimals": 18,
+      "address": "0xa7ef818497C4E444d53fFC5a13a23c6a788E6435"
+    }
   }
 }

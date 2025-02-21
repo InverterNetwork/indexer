@@ -586,6 +586,8 @@ export interface CurveDayData {
   issuanceToken_id: Scalars['String']
   lowCOL: Scalars['numeric']
   lowUSD: Scalars['numeric']
+  marketCapCOL: Scalars['numeric']
+  marketCapUSD: Scalars['numeric']
   openCOL: Scalars['numeric']
   openUSD: Scalars['numeric']
   priceCOL: Scalars['numeric']
@@ -634,6 +636,8 @@ export interface CurveDayData_avg_fields {
   highUSD: Scalars['Float'] | null
   lowCOL: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapCOL: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openCOL: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   priceCOL: Scalars['Float'] | null
@@ -665,6 +669,8 @@ export interface CurveDayData_max_fields {
   issuanceToken_id: Scalars['String'] | null
   lowCOL: Scalars['numeric'] | null
   lowUSD: Scalars['numeric'] | null
+  marketCapCOL: Scalars['numeric'] | null
+  marketCapUSD: Scalars['numeric'] | null
   openCOL: Scalars['numeric'] | null
   openUSD: Scalars['numeric'] | null
   priceCOL: Scalars['numeric'] | null
@@ -696,6 +702,8 @@ export interface CurveDayData_min_fields {
   issuanceToken_id: Scalars['String'] | null
   lowCOL: Scalars['numeric'] | null
   lowUSD: Scalars['numeric'] | null
+  marketCapCOL: Scalars['numeric'] | null
+  marketCapUSD: Scalars['numeric'] | null
   openCOL: Scalars['numeric'] | null
   openUSD: Scalars['numeric'] | null
   priceCOL: Scalars['numeric'] | null
@@ -727,6 +735,8 @@ export type CurveDayData_select_column =
   | 'issuanceToken_id'
   | 'lowCOL'
   | 'lowUSD'
+  | 'marketCapCOL'
+  | 'marketCapUSD'
   | 'openCOL'
   | 'openUSD'
   | 'priceCOL'
@@ -750,6 +760,8 @@ export interface CurveDayData_stddev_fields {
   highUSD: Scalars['Float'] | null
   lowCOL: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapCOL: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openCOL: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   priceCOL: Scalars['Float'] | null
@@ -775,6 +787,8 @@ export interface CurveDayData_stddev_pop_fields {
   highUSD: Scalars['Float'] | null
   lowCOL: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapCOL: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openCOL: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   priceCOL: Scalars['Float'] | null
@@ -800,6 +814,8 @@ export interface CurveDayData_stddev_samp_fields {
   highUSD: Scalars['Float'] | null
   lowCOL: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapCOL: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openCOL: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   priceCOL: Scalars['Float'] | null
@@ -825,6 +841,8 @@ export interface CurveDayData_sum_fields {
   highUSD: Scalars['numeric'] | null
   lowCOL: Scalars['numeric'] | null
   lowUSD: Scalars['numeric'] | null
+  marketCapCOL: Scalars['numeric'] | null
+  marketCapUSD: Scalars['numeric'] | null
   openCOL: Scalars['numeric'] | null
   openUSD: Scalars['numeric'] | null
   priceCOL: Scalars['numeric'] | null
@@ -850,6 +868,8 @@ export interface CurveDayData_var_pop_fields {
   highUSD: Scalars['Float'] | null
   lowCOL: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapCOL: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openCOL: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   priceCOL: Scalars['Float'] | null
@@ -875,6 +895,8 @@ export interface CurveDayData_var_samp_fields {
   highUSD: Scalars['Float'] | null
   lowCOL: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapCOL: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openCOL: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   priceCOL: Scalars['Float'] | null
@@ -900,6 +922,8 @@ export interface CurveDayData_variance_fields {
   highUSD: Scalars['Float'] | null
   lowCOL: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapCOL: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openCOL: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   priceCOL: Scalars['Float'] | null
@@ -934,6 +958,8 @@ export interface CurveHourData {
   issuanceToken_id: Scalars['String']
   lowCOL: Scalars['numeric']
   lowUSD: Scalars['numeric']
+  marketCapCOL: Scalars['numeric']
+  marketCapUSD: Scalars['numeric']
   openCOL: Scalars['numeric']
   openUSD: Scalars['numeric']
   periodStartUnix: Scalars['Int']
@@ -982,6 +1008,8 @@ export interface CurveHourData_avg_fields {
   highUSD: Scalars['Float'] | null
   lowCOL: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapCOL: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openCOL: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
@@ -1013,6 +1041,8 @@ export interface CurveHourData_max_fields {
   issuanceToken_id: Scalars['String'] | null
   lowCOL: Scalars['numeric'] | null
   lowUSD: Scalars['numeric'] | null
+  marketCapCOL: Scalars['numeric'] | null
+  marketCapUSD: Scalars['numeric'] | null
   openCOL: Scalars['numeric'] | null
   openUSD: Scalars['numeric'] | null
   periodStartUnix: Scalars['Int'] | null
@@ -1044,6 +1074,8 @@ export interface CurveHourData_min_fields {
   issuanceToken_id: Scalars['String'] | null
   lowCOL: Scalars['numeric'] | null
   lowUSD: Scalars['numeric'] | null
+  marketCapCOL: Scalars['numeric'] | null
+  marketCapUSD: Scalars['numeric'] | null
   openCOL: Scalars['numeric'] | null
   openUSD: Scalars['numeric'] | null
   periodStartUnix: Scalars['Int'] | null
@@ -1075,6 +1107,8 @@ export type CurveHourData_select_column =
   | 'issuanceToken_id'
   | 'lowCOL'
   | 'lowUSD'
+  | 'marketCapCOL'
+  | 'marketCapUSD'
   | 'openCOL'
   | 'openUSD'
   | 'periodStartUnix'
@@ -1098,6 +1132,8 @@ export interface CurveHourData_stddev_fields {
   highUSD: Scalars['Float'] | null
   lowCOL: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapCOL: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openCOL: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
@@ -1123,6 +1159,8 @@ export interface CurveHourData_stddev_pop_fields {
   highUSD: Scalars['Float'] | null
   lowCOL: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapCOL: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openCOL: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
@@ -1148,6 +1186,8 @@ export interface CurveHourData_stddev_samp_fields {
   highUSD: Scalars['Float'] | null
   lowCOL: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapCOL: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openCOL: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
@@ -1173,6 +1213,8 @@ export interface CurveHourData_sum_fields {
   highUSD: Scalars['numeric'] | null
   lowCOL: Scalars['numeric'] | null
   lowUSD: Scalars['numeric'] | null
+  marketCapCOL: Scalars['numeric'] | null
+  marketCapUSD: Scalars['numeric'] | null
   openCOL: Scalars['numeric'] | null
   openUSD: Scalars['numeric'] | null
   periodStartUnix: Scalars['Int'] | null
@@ -1198,6 +1240,8 @@ export interface CurveHourData_var_pop_fields {
   highUSD: Scalars['Float'] | null
   lowCOL: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapCOL: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openCOL: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
@@ -1223,6 +1267,8 @@ export interface CurveHourData_var_samp_fields {
   highUSD: Scalars['Float'] | null
   lowCOL: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapCOL: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openCOL: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
@@ -1248,6 +1294,8 @@ export interface CurveHourData_variance_fields {
   highUSD: Scalars['Float'] | null
   lowCOL: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapCOL: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openCOL: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
@@ -1644,6 +1692,7 @@ export interface IssuanceTokenDayData {
   highUSD: Scalars['numeric']
   id: Scalars['String']
   lowUSD: Scalars['numeric']
+  marketCapUSD: Scalars['numeric']
   module_id: Scalars['String']
   openUSD: Scalars['numeric']
   priceUSD: Scalars['numeric']
@@ -1688,6 +1737,7 @@ export interface IssuanceTokenDayData_avg_fields {
   date: Scalars['Float'] | null
   highUSD: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
   projectFeeUSD: Scalars['Float'] | null
@@ -1708,6 +1758,7 @@ export interface IssuanceTokenDayData_max_fields {
   highUSD: Scalars['numeric'] | null
   id: Scalars['String'] | null
   lowUSD: Scalars['numeric'] | null
+  marketCapUSD: Scalars['numeric'] | null
   module_id: Scalars['String'] | null
   openUSD: Scalars['numeric'] | null
   priceUSD: Scalars['numeric'] | null
@@ -1730,6 +1781,7 @@ export interface IssuanceTokenDayData_min_fields {
   highUSD: Scalars['numeric'] | null
   id: Scalars['String'] | null
   lowUSD: Scalars['numeric'] | null
+  marketCapUSD: Scalars['numeric'] | null
   module_id: Scalars['String'] | null
   openUSD: Scalars['numeric'] | null
   priceUSD: Scalars['numeric'] | null
@@ -1752,6 +1804,7 @@ export type IssuanceTokenDayData_select_column =
   | 'highUSD'
   | 'id'
   | 'lowUSD'
+  | 'marketCapUSD'
   | 'module_id'
   | 'openUSD'
   | 'priceUSD'
@@ -1769,6 +1822,7 @@ export interface IssuanceTokenDayData_stddev_fields {
   date: Scalars['Float'] | null
   highUSD: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
   projectFeeUSD: Scalars['Float'] | null
@@ -1786,6 +1840,7 @@ export interface IssuanceTokenDayData_stddev_pop_fields {
   date: Scalars['Float'] | null
   highUSD: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
   projectFeeUSD: Scalars['Float'] | null
@@ -1803,6 +1858,7 @@ export interface IssuanceTokenDayData_stddev_samp_fields {
   date: Scalars['Float'] | null
   highUSD: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
   projectFeeUSD: Scalars['Float'] | null
@@ -1820,6 +1876,7 @@ export interface IssuanceTokenDayData_sum_fields {
   date: Scalars['Int'] | null
   highUSD: Scalars['numeric'] | null
   lowUSD: Scalars['numeric'] | null
+  marketCapUSD: Scalars['numeric'] | null
   openUSD: Scalars['numeric'] | null
   priceUSD: Scalars['numeric'] | null
   projectFeeUSD: Scalars['numeric'] | null
@@ -1837,6 +1894,7 @@ export interface IssuanceTokenDayData_var_pop_fields {
   date: Scalars['Float'] | null
   highUSD: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
   projectFeeUSD: Scalars['Float'] | null
@@ -1854,6 +1912,7 @@ export interface IssuanceTokenDayData_var_samp_fields {
   date: Scalars['Float'] | null
   highUSD: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
   projectFeeUSD: Scalars['Float'] | null
@@ -1871,6 +1930,7 @@ export interface IssuanceTokenDayData_variance_fields {
   date: Scalars['Float'] | null
   highUSD: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
   projectFeeUSD: Scalars['Float'] | null
@@ -1890,6 +1950,7 @@ export interface IssuanceTokenHourData {
   highUSD: Scalars['numeric']
   id: Scalars['String']
   lowUSD: Scalars['numeric']
+  marketCapUSD: Scalars['numeric']
   module_id: Scalars['String']
   openUSD: Scalars['numeric']
   periodStartUnix: Scalars['Int']
@@ -1934,6 +1995,7 @@ export interface IssuanceTokenHourData_avg_fields {
   closeUSD: Scalars['Float'] | null
   highUSD: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
@@ -1954,6 +2016,7 @@ export interface IssuanceTokenHourData_max_fields {
   highUSD: Scalars['numeric'] | null
   id: Scalars['String'] | null
   lowUSD: Scalars['numeric'] | null
+  marketCapUSD: Scalars['numeric'] | null
   module_id: Scalars['String'] | null
   openUSD: Scalars['numeric'] | null
   periodStartUnix: Scalars['Int'] | null
@@ -1976,6 +2039,7 @@ export interface IssuanceTokenHourData_min_fields {
   highUSD: Scalars['numeric'] | null
   id: Scalars['String'] | null
   lowUSD: Scalars['numeric'] | null
+  marketCapUSD: Scalars['numeric'] | null
   module_id: Scalars['String'] | null
   openUSD: Scalars['numeric'] | null
   periodStartUnix: Scalars['Int'] | null
@@ -1998,6 +2062,7 @@ export type IssuanceTokenHourData_select_column =
   | 'highUSD'
   | 'id'
   | 'lowUSD'
+  | 'marketCapUSD'
   | 'module_id'
   | 'openUSD'
   | 'periodStartUnix'
@@ -2015,6 +2080,7 @@ export interface IssuanceTokenHourData_stddev_fields {
   closeUSD: Scalars['Float'] | null
   highUSD: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
@@ -2032,6 +2098,7 @@ export interface IssuanceTokenHourData_stddev_pop_fields {
   closeUSD: Scalars['Float'] | null
   highUSD: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
@@ -2049,6 +2116,7 @@ export interface IssuanceTokenHourData_stddev_samp_fields {
   closeUSD: Scalars['Float'] | null
   highUSD: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
@@ -2066,6 +2134,7 @@ export interface IssuanceTokenHourData_sum_fields {
   closeUSD: Scalars['numeric'] | null
   highUSD: Scalars['numeric'] | null
   lowUSD: Scalars['numeric'] | null
+  marketCapUSD: Scalars['numeric'] | null
   openUSD: Scalars['numeric'] | null
   periodStartUnix: Scalars['Int'] | null
   priceUSD: Scalars['numeric'] | null
@@ -2083,6 +2152,7 @@ export interface IssuanceTokenHourData_var_pop_fields {
   closeUSD: Scalars['Float'] | null
   highUSD: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
@@ -2100,6 +2170,7 @@ export interface IssuanceTokenHourData_var_samp_fields {
   closeUSD: Scalars['Float'] | null
   highUSD: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
@@ -2117,6 +2188,7 @@ export interface IssuanceTokenHourData_variance_fields {
   closeUSD: Scalars['Float'] | null
   highUSD: Scalars['Float'] | null
   lowUSD: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   openUSD: Scalars['Float'] | null
   periodStartUnix: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
@@ -2966,6 +3038,7 @@ export interface Token {
   db_write_timestamp: Scalars['timestamp'] | null
   decimals: Scalars['Int']
   id: Scalars['String']
+  marketCapUSD: Scalars['numeric']
   name: Scalars['String']
   priceUSD: Scalars['numeric']
   symbol: Scalars['String']
@@ -3000,6 +3073,7 @@ export interface Token_aggregate_fields {
 export interface Token_avg_fields {
   chainId: Scalars['Float'] | null
   decimals: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
   totalSupply: Scalars['Float'] | null
   __typename: 'Token_avg_fields'
@@ -3012,6 +3086,7 @@ export interface Token_max_fields {
   db_write_timestamp: Scalars['timestamp'] | null
   decimals: Scalars['Int'] | null
   id: Scalars['String'] | null
+  marketCapUSD: Scalars['numeric'] | null
   name: Scalars['String'] | null
   priceUSD: Scalars['numeric'] | null
   symbol: Scalars['String'] | null
@@ -3026,6 +3101,7 @@ export interface Token_min_fields {
   db_write_timestamp: Scalars['timestamp'] | null
   decimals: Scalars['Int'] | null
   id: Scalars['String'] | null
+  marketCapUSD: Scalars['numeric'] | null
   name: Scalars['String'] | null
   priceUSD: Scalars['numeric'] | null
   symbol: Scalars['String'] | null
@@ -3040,6 +3116,7 @@ export type Token_select_column =
   | 'db_write_timestamp'
   | 'decimals'
   | 'id'
+  | 'marketCapUSD'
   | 'name'
   | 'priceUSD'
   | 'symbol'
@@ -3049,6 +3126,7 @@ export type Token_select_column =
 export interface Token_stddev_fields {
   chainId: Scalars['Float'] | null
   decimals: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
   totalSupply: Scalars['Float'] | null
   __typename: 'Token_stddev_fields'
@@ -3058,6 +3136,7 @@ export interface Token_stddev_fields {
 export interface Token_stddev_pop_fields {
   chainId: Scalars['Float'] | null
   decimals: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
   totalSupply: Scalars['Float'] | null
   __typename: 'Token_stddev_pop_fields'
@@ -3067,6 +3146,7 @@ export interface Token_stddev_pop_fields {
 export interface Token_stddev_samp_fields {
   chainId: Scalars['Float'] | null
   decimals: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
   totalSupply: Scalars['Float'] | null
   __typename: 'Token_stddev_samp_fields'
@@ -3076,6 +3156,7 @@ export interface Token_stddev_samp_fields {
 export interface Token_sum_fields {
   chainId: Scalars['Int'] | null
   decimals: Scalars['Int'] | null
+  marketCapUSD: Scalars['numeric'] | null
   priceUSD: Scalars['numeric'] | null
   totalSupply: Scalars['numeric'] | null
   __typename: 'Token_sum_fields'
@@ -3085,6 +3166,7 @@ export interface Token_sum_fields {
 export interface Token_var_pop_fields {
   chainId: Scalars['Float'] | null
   decimals: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
   totalSupply: Scalars['Float'] | null
   __typename: 'Token_var_pop_fields'
@@ -3094,6 +3176,7 @@ export interface Token_var_pop_fields {
 export interface Token_var_samp_fields {
   chainId: Scalars['Float'] | null
   decimals: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
   totalSupply: Scalars['Float'] | null
   __typename: 'Token_var_samp_fields'
@@ -3103,6 +3186,7 @@ export interface Token_var_samp_fields {
 export interface Token_variance_fields {
   chainId: Scalars['Float'] | null
   decimals: Scalars['Float'] | null
+  marketCapUSD: Scalars['Float'] | null
   priceUSD: Scalars['Float'] | null
   totalSupply: Scalars['Float'] | null
   __typename: 'Token_variance_fields'
@@ -5310,6 +5394,8 @@ export interface CurveDayDataGenqlSelection {
   issuanceToken_id?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   priceCOL?: boolean | number
@@ -5395,6 +5481,8 @@ export interface CurveDayData_avg_fieldsGenqlSelection {
   highUSD?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   priceCOL?: boolean | number
@@ -5421,6 +5509,8 @@ export interface CurveDayData_avg_order_by {
   highUSD?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   priceCOL?: order_by | null
@@ -5456,6 +5546,8 @@ export interface CurveDayData_bool_exp {
   issuanceToken_id?: String_comparison_exp | null
   lowCOL?: numeric_comparison_exp | null
   lowUSD?: numeric_comparison_exp | null
+  marketCapCOL?: numeric_comparison_exp | null
+  marketCapUSD?: numeric_comparison_exp | null
   openCOL?: numeric_comparison_exp | null
   openUSD?: numeric_comparison_exp | null
   priceCOL?: numeric_comparison_exp | null
@@ -5486,6 +5578,8 @@ export interface CurveDayData_max_fieldsGenqlSelection {
   issuanceToken_id?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   priceCOL?: boolean | number
@@ -5518,6 +5612,8 @@ export interface CurveDayData_max_order_by {
   issuanceToken_id?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   priceCOL?: order_by | null
@@ -5548,6 +5644,8 @@ export interface CurveDayData_min_fieldsGenqlSelection {
   issuanceToken_id?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   priceCOL?: boolean | number
@@ -5580,6 +5678,8 @@ export interface CurveDayData_min_order_by {
   issuanceToken_id?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   priceCOL?: order_by | null
@@ -5612,6 +5712,8 @@ export interface CurveDayData_order_by {
   issuanceToken_id?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   priceCOL?: order_by | null
@@ -5636,6 +5738,8 @@ export interface CurveDayData_stddev_fieldsGenqlSelection {
   highUSD?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   priceCOL?: boolean | number
@@ -5662,6 +5766,8 @@ export interface CurveDayData_stddev_order_by {
   highUSD?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   priceCOL?: order_by | null
@@ -5686,6 +5792,8 @@ export interface CurveDayData_stddev_pop_fieldsGenqlSelection {
   highUSD?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   priceCOL?: boolean | number
@@ -5712,6 +5820,8 @@ export interface CurveDayData_stddev_pop_order_by {
   highUSD?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   priceCOL?: order_by | null
@@ -5736,6 +5846,8 @@ export interface CurveDayData_stddev_samp_fieldsGenqlSelection {
   highUSD?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   priceCOL?: boolean | number
@@ -5762,6 +5874,8 @@ export interface CurveDayData_stddev_samp_order_by {
   highUSD?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   priceCOL?: order_by | null
@@ -5800,6 +5914,8 @@ export interface CurveDayData_stream_cursor_value_input {
   issuanceToken_id?: Scalars['String'] | null
   lowCOL?: Scalars['numeric'] | null
   lowUSD?: Scalars['numeric'] | null
+  marketCapCOL?: Scalars['numeric'] | null
+  marketCapUSD?: Scalars['numeric'] | null
   openCOL?: Scalars['numeric'] | null
   openUSD?: Scalars['numeric'] | null
   priceCOL?: Scalars['numeric'] | null
@@ -5824,6 +5940,8 @@ export interface CurveDayData_sum_fieldsGenqlSelection {
   highUSD?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   priceCOL?: boolean | number
@@ -5850,6 +5968,8 @@ export interface CurveDayData_sum_order_by {
   highUSD?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   priceCOL?: order_by | null
@@ -5874,6 +5994,8 @@ export interface CurveDayData_var_pop_fieldsGenqlSelection {
   highUSD?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   priceCOL?: boolean | number
@@ -5900,6 +6022,8 @@ export interface CurveDayData_var_pop_order_by {
   highUSD?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   priceCOL?: order_by | null
@@ -5924,6 +6048,8 @@ export interface CurveDayData_var_samp_fieldsGenqlSelection {
   highUSD?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   priceCOL?: boolean | number
@@ -5950,6 +6076,8 @@ export interface CurveDayData_var_samp_order_by {
   highUSD?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   priceCOL?: order_by | null
@@ -5974,6 +6102,8 @@ export interface CurveDayData_variance_fieldsGenqlSelection {
   highUSD?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   priceCOL?: boolean | number
@@ -6000,6 +6130,8 @@ export interface CurveDayData_variance_order_by {
   highUSD?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   priceCOL?: order_by | null
@@ -6033,6 +6165,8 @@ export interface CurveHourDataGenqlSelection {
   issuanceToken_id?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
@@ -6118,6 +6252,8 @@ export interface CurveHourData_avg_fieldsGenqlSelection {
   highUSD?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
@@ -6144,6 +6280,8 @@ export interface CurveHourData_avg_order_by {
   highUSD?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
@@ -6179,6 +6317,8 @@ export interface CurveHourData_bool_exp {
   issuanceToken_id?: String_comparison_exp | null
   lowCOL?: numeric_comparison_exp | null
   lowUSD?: numeric_comparison_exp | null
+  marketCapCOL?: numeric_comparison_exp | null
+  marketCapUSD?: numeric_comparison_exp | null
   openCOL?: numeric_comparison_exp | null
   openUSD?: numeric_comparison_exp | null
   periodStartUnix?: Int_comparison_exp | null
@@ -6209,6 +6349,8 @@ export interface CurveHourData_max_fieldsGenqlSelection {
   issuanceToken_id?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
@@ -6241,6 +6383,8 @@ export interface CurveHourData_max_order_by {
   issuanceToken_id?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
@@ -6271,6 +6415,8 @@ export interface CurveHourData_min_fieldsGenqlSelection {
   issuanceToken_id?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
@@ -6303,6 +6449,8 @@ export interface CurveHourData_min_order_by {
   issuanceToken_id?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
@@ -6335,6 +6483,8 @@ export interface CurveHourData_order_by {
   issuanceToken_id?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
@@ -6359,6 +6509,8 @@ export interface CurveHourData_stddev_fieldsGenqlSelection {
   highUSD?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
@@ -6385,6 +6537,8 @@ export interface CurveHourData_stddev_order_by {
   highUSD?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
@@ -6409,6 +6563,8 @@ export interface CurveHourData_stddev_pop_fieldsGenqlSelection {
   highUSD?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
@@ -6435,6 +6591,8 @@ export interface CurveHourData_stddev_pop_order_by {
   highUSD?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
@@ -6459,6 +6617,8 @@ export interface CurveHourData_stddev_samp_fieldsGenqlSelection {
   highUSD?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
@@ -6485,6 +6645,8 @@ export interface CurveHourData_stddev_samp_order_by {
   highUSD?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
@@ -6523,6 +6685,8 @@ export interface CurveHourData_stream_cursor_value_input {
   issuanceToken_id?: Scalars['String'] | null
   lowCOL?: Scalars['numeric'] | null
   lowUSD?: Scalars['numeric'] | null
+  marketCapCOL?: Scalars['numeric'] | null
+  marketCapUSD?: Scalars['numeric'] | null
   openCOL?: Scalars['numeric'] | null
   openUSD?: Scalars['numeric'] | null
   periodStartUnix?: Scalars['Int'] | null
@@ -6547,6 +6711,8 @@ export interface CurveHourData_sum_fieldsGenqlSelection {
   highUSD?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
@@ -6573,6 +6739,8 @@ export interface CurveHourData_sum_order_by {
   highUSD?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
@@ -6597,6 +6765,8 @@ export interface CurveHourData_var_pop_fieldsGenqlSelection {
   highUSD?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
@@ -6623,6 +6793,8 @@ export interface CurveHourData_var_pop_order_by {
   highUSD?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
@@ -6647,6 +6819,8 @@ export interface CurveHourData_var_samp_fieldsGenqlSelection {
   highUSD?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
@@ -6673,6 +6847,8 @@ export interface CurveHourData_var_samp_order_by {
   highUSD?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
@@ -6697,6 +6873,8 @@ export interface CurveHourData_variance_fieldsGenqlSelection {
   highUSD?: boolean | number
   lowCOL?: boolean | number
   lowUSD?: boolean | number
+  marketCapCOL?: boolean | number
+  marketCapUSD?: boolean | number
   openCOL?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
@@ -6723,6 +6901,8 @@ export interface CurveHourData_variance_order_by {
   highUSD?: order_by | null
   lowCOL?: order_by | null
   lowUSD?: order_by | null
+  marketCapCOL?: order_by | null
+  marketCapUSD?: order_by | null
   openCOL?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
@@ -7646,6 +7826,7 @@ export interface IssuanceTokenDayDataGenqlSelection {
   highUSD?: boolean | number
   id?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   module_id?: boolean | number
   openUSD?: boolean | number
   priceUSD?: boolean | number
@@ -7727,6 +7908,7 @@ export interface IssuanceTokenDayData_avg_fieldsGenqlSelection {
   date?: boolean | number
   highUSD?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   openUSD?: boolean | number
   priceUSD?: boolean | number
   projectFeeUSD?: boolean | number
@@ -7745,6 +7927,7 @@ export interface IssuanceTokenDayData_avg_order_by {
   date?: order_by | null
   highUSD?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   openUSD?: order_by | null
   priceUSD?: order_by | null
   projectFeeUSD?: order_by | null
@@ -7767,6 +7950,7 @@ export interface IssuanceTokenDayData_bool_exp {
   highUSD?: numeric_comparison_exp | null
   id?: String_comparison_exp | null
   lowUSD?: numeric_comparison_exp | null
+  marketCapUSD?: numeric_comparison_exp | null
   module_id?: String_comparison_exp | null
   openUSD?: numeric_comparison_exp | null
   priceUSD?: numeric_comparison_exp | null
@@ -7789,6 +7973,7 @@ export interface IssuanceTokenDayData_max_fieldsGenqlSelection {
   highUSD?: boolean | number
   id?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   module_id?: boolean | number
   openUSD?: boolean | number
   priceUSD?: boolean | number
@@ -7812,6 +7997,7 @@ export interface IssuanceTokenDayData_max_order_by {
   highUSD?: order_by | null
   id?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   module_id?: order_by | null
   openUSD?: order_by | null
   priceUSD?: order_by | null
@@ -7833,6 +8019,7 @@ export interface IssuanceTokenDayData_min_fieldsGenqlSelection {
   highUSD?: boolean | number
   id?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   module_id?: boolean | number
   openUSD?: boolean | number
   priceUSD?: boolean | number
@@ -7856,6 +8043,7 @@ export interface IssuanceTokenDayData_min_order_by {
   highUSD?: order_by | null
   id?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   module_id?: order_by | null
   openUSD?: order_by | null
   priceUSD?: order_by | null
@@ -7877,6 +8065,7 @@ export interface IssuanceTokenDayData_order_by {
   highUSD?: order_by | null
   id?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   module_id?: order_by | null
   openUSD?: order_by | null
   priceUSD?: order_by | null
@@ -7896,6 +8085,7 @@ export interface IssuanceTokenDayData_stddev_fieldsGenqlSelection {
   date?: boolean | number
   highUSD?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   openUSD?: boolean | number
   priceUSD?: boolean | number
   projectFeeUSD?: boolean | number
@@ -7914,6 +8104,7 @@ export interface IssuanceTokenDayData_stddev_order_by {
   date?: order_by | null
   highUSD?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   openUSD?: order_by | null
   priceUSD?: order_by | null
   projectFeeUSD?: order_by | null
@@ -7930,6 +8121,7 @@ export interface IssuanceTokenDayData_stddev_pop_fieldsGenqlSelection {
   date?: boolean | number
   highUSD?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   openUSD?: boolean | number
   priceUSD?: boolean | number
   projectFeeUSD?: boolean | number
@@ -7948,6 +8140,7 @@ export interface IssuanceTokenDayData_stddev_pop_order_by {
   date?: order_by | null
   highUSD?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   openUSD?: order_by | null
   priceUSD?: order_by | null
   projectFeeUSD?: order_by | null
@@ -7964,6 +8157,7 @@ export interface IssuanceTokenDayData_stddev_samp_fieldsGenqlSelection {
   date?: boolean | number
   highUSD?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   openUSD?: boolean | number
   priceUSD?: boolean | number
   projectFeeUSD?: boolean | number
@@ -7982,6 +8176,7 @@ export interface IssuanceTokenDayData_stddev_samp_order_by {
   date?: order_by | null
   highUSD?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   openUSD?: order_by | null
   priceUSD?: order_by | null
   projectFeeUSD?: order_by | null
@@ -8009,6 +8204,7 @@ export interface IssuanceTokenDayData_stream_cursor_value_input {
   highUSD?: Scalars['numeric'] | null
   id?: Scalars['String'] | null
   lowUSD?: Scalars['numeric'] | null
+  marketCapUSD?: Scalars['numeric'] | null
   module_id?: Scalars['String'] | null
   openUSD?: Scalars['numeric'] | null
   priceUSD?: Scalars['numeric'] | null
@@ -8027,6 +8223,7 @@ export interface IssuanceTokenDayData_sum_fieldsGenqlSelection {
   date?: boolean | number
   highUSD?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   openUSD?: boolean | number
   priceUSD?: boolean | number
   projectFeeUSD?: boolean | number
@@ -8045,6 +8242,7 @@ export interface IssuanceTokenDayData_sum_order_by {
   date?: order_by | null
   highUSD?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   openUSD?: order_by | null
   priceUSD?: order_by | null
   projectFeeUSD?: order_by | null
@@ -8061,6 +8259,7 @@ export interface IssuanceTokenDayData_var_pop_fieldsGenqlSelection {
   date?: boolean | number
   highUSD?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   openUSD?: boolean | number
   priceUSD?: boolean | number
   projectFeeUSD?: boolean | number
@@ -8079,6 +8278,7 @@ export interface IssuanceTokenDayData_var_pop_order_by {
   date?: order_by | null
   highUSD?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   openUSD?: order_by | null
   priceUSD?: order_by | null
   projectFeeUSD?: order_by | null
@@ -8095,6 +8295,7 @@ export interface IssuanceTokenDayData_var_samp_fieldsGenqlSelection {
   date?: boolean | number
   highUSD?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   openUSD?: boolean | number
   priceUSD?: boolean | number
   projectFeeUSD?: boolean | number
@@ -8113,6 +8314,7 @@ export interface IssuanceTokenDayData_var_samp_order_by {
   date?: order_by | null
   highUSD?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   openUSD?: order_by | null
   priceUSD?: order_by | null
   projectFeeUSD?: order_by | null
@@ -8129,6 +8331,7 @@ export interface IssuanceTokenDayData_variance_fieldsGenqlSelection {
   date?: boolean | number
   highUSD?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   openUSD?: boolean | number
   priceUSD?: boolean | number
   projectFeeUSD?: boolean | number
@@ -8147,6 +8350,7 @@ export interface IssuanceTokenDayData_variance_order_by {
   date?: order_by | null
   highUSD?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   openUSD?: order_by | null
   priceUSD?: order_by | null
   projectFeeUSD?: order_by | null
@@ -8165,6 +8369,7 @@ export interface IssuanceTokenHourDataGenqlSelection {
   highUSD?: boolean | number
   id?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   module_id?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
@@ -8246,6 +8451,7 @@ export interface IssuanceTokenHourData_avg_fieldsGenqlSelection {
   closeUSD?: boolean | number
   highUSD?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
   priceUSD?: boolean | number
@@ -8264,6 +8470,7 @@ export interface IssuanceTokenHourData_avg_order_by {
   closeUSD?: order_by | null
   highUSD?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
   priceUSD?: order_by | null
@@ -8286,6 +8493,7 @@ export interface IssuanceTokenHourData_bool_exp {
   highUSD?: numeric_comparison_exp | null
   id?: String_comparison_exp | null
   lowUSD?: numeric_comparison_exp | null
+  marketCapUSD?: numeric_comparison_exp | null
   module_id?: String_comparison_exp | null
   openUSD?: numeric_comparison_exp | null
   periodStartUnix?: Int_comparison_exp | null
@@ -8308,6 +8516,7 @@ export interface IssuanceTokenHourData_max_fieldsGenqlSelection {
   highUSD?: boolean | number
   id?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   module_id?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
@@ -8331,6 +8540,7 @@ export interface IssuanceTokenHourData_max_order_by {
   highUSD?: order_by | null
   id?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   module_id?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
@@ -8352,6 +8562,7 @@ export interface IssuanceTokenHourData_min_fieldsGenqlSelection {
   highUSD?: boolean | number
   id?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   module_id?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
@@ -8375,6 +8586,7 @@ export interface IssuanceTokenHourData_min_order_by {
   highUSD?: order_by | null
   id?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   module_id?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
@@ -8396,6 +8608,7 @@ export interface IssuanceTokenHourData_order_by {
   highUSD?: order_by | null
   id?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   module_id?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
@@ -8415,6 +8628,7 @@ export interface IssuanceTokenHourData_stddev_fieldsGenqlSelection {
   closeUSD?: boolean | number
   highUSD?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
   priceUSD?: boolean | number
@@ -8433,6 +8647,7 @@ export interface IssuanceTokenHourData_stddev_order_by {
   closeUSD?: order_by | null
   highUSD?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
   priceUSD?: order_by | null
@@ -8449,6 +8664,7 @@ export interface IssuanceTokenHourData_stddev_pop_fieldsGenqlSelection {
   closeUSD?: boolean | number
   highUSD?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
   priceUSD?: boolean | number
@@ -8467,6 +8683,7 @@ export interface IssuanceTokenHourData_stddev_pop_order_by {
   closeUSD?: order_by | null
   highUSD?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
   priceUSD?: order_by | null
@@ -8483,6 +8700,7 @@ export interface IssuanceTokenHourData_stddev_samp_fieldsGenqlSelection {
   closeUSD?: boolean | number
   highUSD?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
   priceUSD?: boolean | number
@@ -8501,6 +8719,7 @@ export interface IssuanceTokenHourData_stddev_samp_order_by {
   closeUSD?: order_by | null
   highUSD?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
   priceUSD?: order_by | null
@@ -8528,6 +8747,7 @@ export interface IssuanceTokenHourData_stream_cursor_value_input {
   highUSD?: Scalars['numeric'] | null
   id?: Scalars['String'] | null
   lowUSD?: Scalars['numeric'] | null
+  marketCapUSD?: Scalars['numeric'] | null
   module_id?: Scalars['String'] | null
   openUSD?: Scalars['numeric'] | null
   periodStartUnix?: Scalars['Int'] | null
@@ -8546,6 +8766,7 @@ export interface IssuanceTokenHourData_sum_fieldsGenqlSelection {
   closeUSD?: boolean | number
   highUSD?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
   priceUSD?: boolean | number
@@ -8564,6 +8785,7 @@ export interface IssuanceTokenHourData_sum_order_by {
   closeUSD?: order_by | null
   highUSD?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
   priceUSD?: order_by | null
@@ -8580,6 +8802,7 @@ export interface IssuanceTokenHourData_var_pop_fieldsGenqlSelection {
   closeUSD?: boolean | number
   highUSD?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
   priceUSD?: boolean | number
@@ -8598,6 +8821,7 @@ export interface IssuanceTokenHourData_var_pop_order_by {
   closeUSD?: order_by | null
   highUSD?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
   priceUSD?: order_by | null
@@ -8614,6 +8838,7 @@ export interface IssuanceTokenHourData_var_samp_fieldsGenqlSelection {
   closeUSD?: boolean | number
   highUSD?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
   priceUSD?: boolean | number
@@ -8632,6 +8857,7 @@ export interface IssuanceTokenHourData_var_samp_order_by {
   closeUSD?: order_by | null
   highUSD?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
   priceUSD?: order_by | null
@@ -8648,6 +8874,7 @@ export interface IssuanceTokenHourData_variance_fieldsGenqlSelection {
   closeUSD?: boolean | number
   highUSD?: boolean | number
   lowUSD?: boolean | number
+  marketCapUSD?: boolean | number
   openUSD?: boolean | number
   periodStartUnix?: boolean | number
   priceUSD?: boolean | number
@@ -8666,6 +8893,7 @@ export interface IssuanceTokenHourData_variance_order_by {
   closeUSD?: order_by | null
   highUSD?: order_by | null
   lowUSD?: order_by | null
+  marketCapUSD?: order_by | null
   openUSD?: order_by | null
   periodStartUnix?: order_by | null
   priceUSD?: order_by | null
@@ -11116,6 +11344,7 @@ export interface TokenGenqlSelection {
   db_write_timestamp?: boolean | number
   decimals?: boolean | number
   id?: boolean | number
+  marketCapUSD?: boolean | number
   name?: boolean | number
   priceUSD?: boolean | number
   symbol?: boolean | number
@@ -11161,6 +11390,7 @@ export interface Token_aggregate_fieldsGenqlSelection {
 export interface Token_avg_fieldsGenqlSelection {
   chainId?: boolean | number
   decimals?: boolean | number
+  marketCapUSD?: boolean | number
   priceUSD?: boolean | number
   totalSupply?: boolean | number
   __typename?: boolean | number
@@ -11177,6 +11407,7 @@ export interface Token_bool_exp {
   db_write_timestamp?: timestamp_comparison_exp | null
   decimals?: Int_comparison_exp | null
   id?: String_comparison_exp | null
+  marketCapUSD?: numeric_comparison_exp | null
   name?: String_comparison_exp | null
   priceUSD?: numeric_comparison_exp | null
   symbol?: String_comparison_exp | null
@@ -11190,6 +11421,7 @@ export interface Token_max_fieldsGenqlSelection {
   db_write_timestamp?: boolean | number
   decimals?: boolean | number
   id?: boolean | number
+  marketCapUSD?: boolean | number
   name?: boolean | number
   priceUSD?: boolean | number
   symbol?: boolean | number
@@ -11205,6 +11437,7 @@ export interface Token_min_fieldsGenqlSelection {
   db_write_timestamp?: boolean | number
   decimals?: boolean | number
   id?: boolean | number
+  marketCapUSD?: boolean | number
   name?: boolean | number
   priceUSD?: boolean | number
   symbol?: boolean | number
@@ -11220,6 +11453,7 @@ export interface Token_order_by {
   db_write_timestamp?: order_by | null
   decimals?: order_by | null
   id?: order_by | null
+  marketCapUSD?: order_by | null
   name?: order_by | null
   priceUSD?: order_by | null
   symbol?: order_by | null
@@ -11230,6 +11464,7 @@ export interface Token_order_by {
 export interface Token_stddev_fieldsGenqlSelection {
   chainId?: boolean | number
   decimals?: boolean | number
+  marketCapUSD?: boolean | number
   priceUSD?: boolean | number
   totalSupply?: boolean | number
   __typename?: boolean | number
@@ -11240,6 +11475,7 @@ export interface Token_stddev_fieldsGenqlSelection {
 export interface Token_stddev_pop_fieldsGenqlSelection {
   chainId?: boolean | number
   decimals?: boolean | number
+  marketCapUSD?: boolean | number
   priceUSD?: boolean | number
   totalSupply?: boolean | number
   __typename?: boolean | number
@@ -11250,6 +11486,7 @@ export interface Token_stddev_pop_fieldsGenqlSelection {
 export interface Token_stddev_samp_fieldsGenqlSelection {
   chainId?: boolean | number
   decimals?: boolean | number
+  marketCapUSD?: boolean | number
   priceUSD?: boolean | number
   totalSupply?: boolean | number
   __typename?: boolean | number
@@ -11271,6 +11508,7 @@ export interface Token_stream_cursor_value_input {
   db_write_timestamp?: Scalars['timestamp'] | null
   decimals?: Scalars['Int'] | null
   id?: Scalars['String'] | null
+  marketCapUSD?: Scalars['numeric'] | null
   name?: Scalars['String'] | null
   priceUSD?: Scalars['numeric'] | null
   symbol?: Scalars['String'] | null
@@ -11281,6 +11519,7 @@ export interface Token_stream_cursor_value_input {
 export interface Token_sum_fieldsGenqlSelection {
   chainId?: boolean | number
   decimals?: boolean | number
+  marketCapUSD?: boolean | number
   priceUSD?: boolean | number
   totalSupply?: boolean | number
   __typename?: boolean | number
@@ -11291,6 +11530,7 @@ export interface Token_sum_fieldsGenqlSelection {
 export interface Token_var_pop_fieldsGenqlSelection {
   chainId?: boolean | number
   decimals?: boolean | number
+  marketCapUSD?: boolean | number
   priceUSD?: boolean | number
   totalSupply?: boolean | number
   __typename?: boolean | number
@@ -11301,6 +11541,7 @@ export interface Token_var_pop_fieldsGenqlSelection {
 export interface Token_var_samp_fieldsGenqlSelection {
   chainId?: boolean | number
   decimals?: boolean | number
+  marketCapUSD?: boolean | number
   priceUSD?: boolean | number
   totalSupply?: boolean | number
   __typename?: boolean | number
@@ -11311,6 +11552,7 @@ export interface Token_var_samp_fieldsGenqlSelection {
 export interface Token_variance_fieldsGenqlSelection {
   chainId?: boolean | number
   decimals?: boolean | number
+  marketCapUSD?: boolean | number
   priceUSD?: boolean | number
   totalSupply?: boolean | number
   __typename?: boolean | number
@@ -16807,6 +17049,8 @@ export const enumCurveDayDataSelectColumn = {
   issuanceToken_id: 'issuanceToken_id' as const,
   lowCOL: 'lowCOL' as const,
   lowUSD: 'lowUSD' as const,
+  marketCapCOL: 'marketCapCOL' as const,
+  marketCapUSD: 'marketCapUSD' as const,
   openCOL: 'openCOL' as const,
   openUSD: 'openUSD' as const,
   priceCOL: 'priceCOL' as const,
@@ -16835,6 +17079,8 @@ export const enumCurveHourDataSelectColumn = {
   issuanceToken_id: 'issuanceToken_id' as const,
   lowCOL: 'lowCOL' as const,
   lowUSD: 'lowUSD' as const,
+  marketCapCOL: 'marketCapCOL' as const,
+  marketCapUSD: 'marketCapUSD' as const,
   openCOL: 'openCOL' as const,
   openUSD: 'openUSD' as const,
   periodStartUnix: 'periodStartUnix' as const,
@@ -16915,6 +17161,7 @@ export const enumIssuanceTokenDayDataSelectColumn = {
   highUSD: 'highUSD' as const,
   id: 'id' as const,
   lowUSD: 'lowUSD' as const,
+  marketCapUSD: 'marketCapUSD' as const,
   module_id: 'module_id' as const,
   openUSD: 'openUSD' as const,
   priceUSD: 'priceUSD' as const,
@@ -16934,6 +17181,7 @@ export const enumIssuanceTokenHourDataSelectColumn = {
   highUSD: 'highUSD' as const,
   id: 'id' as const,
   lowUSD: 'lowUSD' as const,
+  marketCapUSD: 'marketCapUSD' as const,
   module_id: 'module_id' as const,
   openUSD: 'openUSD' as const,
   periodStartUnix: 'periodStartUnix' as const,
@@ -17107,6 +17355,7 @@ export const enumTokenSelectColumn = {
   db_write_timestamp: 'db_write_timestamp' as const,
   decimals: 'decimals' as const,
   id: 'id' as const,
+  marketCapUSD: 'marketCapUSD' as const,
   name: 'name' as const,
   priceUSD: 'priceUSD' as const,
   symbol: 'symbol' as const,
