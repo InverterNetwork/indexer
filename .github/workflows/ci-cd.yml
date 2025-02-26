@@ -1,4 +1,4 @@
-name: PROD CI-CD
+name: CI-CD
 on:
   workflow_dispatch:
     inputs:
@@ -23,11 +23,10 @@ on:
         default: 'dev'
 env:
   REGION: eu-central-1
-  PLATFORM: ${{ inputs.branch == 'main' ? 'prod' : 'dev' }}
+  PLATFORM: ${{ inputs.branch == 'main' && 'prod' || 'dev' }}
   REPO_NAME: ${{ github.event.repository.name }}
   ECR_REPOSITORY: ${{ github.event.repository.name }}-${{ inputs.branch }}
-  AWS_ACCOUNT_ID: ${{ inputs.branch == 'main' ? secrets.ACCOUNT_ID_PROD : secrets.ACCOUNT_ID_DEV }}
-
+  AWS_ACCOUNT_ID: ${{ inputs.branch == 'main' && secrets.ACCOUNT_ID_PROD || secrets.ACCOUNT_ID_DEV }}
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -37,7 +36,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    environment: production
+    environment: ${{ env.PLATFORM == 'prod' && 'production' || 'development' }}
 
     steps:
       - name: Configure AWS credentials
