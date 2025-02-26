@@ -1,12 +1,13 @@
 {
+  "include": ["src", "tests", "scripts"],
   "compilerOptions": {
     "target": "es2020", //required for use with BigInt types
     "module": "commonjs",
-    "lib": ["es6"],
+    "lib": ["es2020"],
     "allowJs": true,
     "checkJs": false,
     "outDir": "build",
-    "rootDirs": ["src", "generated", "test"],
+    "rootDirs": ["src", "generated"],
     "strict": true,
     "noImplicitAny": true,
     "esModuleInterop": true,

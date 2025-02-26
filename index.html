@@ -1,4 +1,3 @@
-
 <!--
  *  Copyright (c) 2021 GraphQL Contributors
  *  All rights reserved.
@@ -6,7 +5,7 @@
  *  This source code is licensed under the license found in the
  *  LICENSE file in the root directory of this source tree.
 -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <title>GraphiQL</title>
@@ -47,6 +46,10 @@
       favored resource bundler.
      -->
     <link rel="stylesheet" href="https://unpkg.com/graphiql/graphiql.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@graphiql/plugin-explorer/dist/style.css"
+    />
   </head>
 
   <body>
@@ -55,16 +58,41 @@
       src="https://unpkg.com/graphiql/graphiql.min.js"
       type="application/javascript"
     ></script>
+    <script
+      src="https://unpkg.com/@graphiql/plugin-explorer/dist/index.umd.js"
+      crossorigin="anonymous"
+    ></script>
     <script>
-      ReactDOM.render(
-        React.createElement(GraphiQL, {
-          fetcher: GraphiQL.createFetcher({
-            url: 'http://localhost:8080/v1/graphql',
-          }),
+      const fetcher = GraphiQL.createFetcher({
+        url: 'http://indexer-graphql-dev-1145992051.eu-central-1.elb.amazonaws.com/v1/graphql',
+      })
+
+      const explorerPlugin = GraphiQLPluginExplorer.explorerPlugin()
+
+      const defaultQuery = /* GraphiQL */ `query MyQuery {
+  Token(limit: 5) {
+    name
+    priceUSD
+    symbol
+    totalSupply
+    address
+    chainId
+  }
+}`
+
+      function GraphiQLWithExplorer() {
+        return React.createElement(GraphiQL, {
+          fetcher,
           defaultEditorToolsVisibility: true,
-        }),
-        document.getElementById('graphiql'),
-      );
+          plugins: [explorerPlugin],
+          defaultQuery,
+        })
+      }
+
+      ReactDOM.render(
+        React.createElement(GraphiQLWithExplorer),
+        document.getElementById('graphiql')
+      )
     </script>
   </body>
 </html>

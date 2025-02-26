@@ -31,3 +31,7 @@ cache
 build
 *.bs.js
 generated
+ref
+.DS_Store
+.env
+*.idea/

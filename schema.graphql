@@ -1,53 +1,10 @@
-## GENERAL ENTITIES
+## =============================================================================
+## ENUMS
+## =============================================================================
 
-type Workflow {
-  id: ID! # orchestratorAddress
-  orchestratorId: BigInt!
-  fundingManager: WorkflowModule!
-  authorizer: WorkflowModule!
-  paymentProcessor: WorkflowModule!
-  optionalModules: [String!]
-  chainId: Int!
-}
-
-type WorkflowModuleType {
-  id: ID! # identifier is keccak256 hash of parts of metadata
-  majorVersion: BigInt!
-  minorVersion: BigInt!
-  patchVersion: BigInt!
-  url: String!
-  beacon: String!
-  name: String!
-  chainId: Int!
-}
-
-type WorkflowModule {
-  id: ID! # address of module
-  orchestrator: String!
-  moduleType: WorkflowModuleType!
-  chainId: Int!
-}
-
-## BONDING CURVE RELATED
-
-type BondingCurve {
-  id: ID! # address of module
-  chainId: Int!
-  workflow: Workflow! # address of associated orchestrator
-  collateralToken: String
-  collateralTokenDecimals: Int
-  buyFee: BigInt
-  bcType: String # restricted or not restricted
-  sellFee: BigInt
-  virtualCollateral: Float
-  virtualCollateralRaw: BigInt
-  virtualIssuance: Float
-  buyReserveRatio: BigInt
-  sellReserveRatio: BigInt
-  issuanceToken: String
-  issuanceTokenDecimals: Int
-  swaps: [Swap!]! @derivedFrom(field: "bondingCurve")
-  feeClaim: [FeeClaim!]! @derivedFrom(field: "bondingCurve")
+enum SourceTokenType {
+  ISSUANCE
+  COLLATERAL
 }
 
 enum SwapType {
@@ -55,38 +12,9 @@ enum SwapType {
   SELL
 }
 
-type Swap {
-  id: ID!
-  bondingCurve: BondingCurve!
-  swapType: SwapType!
-  issuanceAmount: Float!
-  issuanceToken: String!
-  collateralAmount: Float!
-  collateralToken: String!
-  priceInCol: Float!
-  initiator: String!
-  recipient: String!
-  blockTimestamp: Int!
-  chainId: Int!
-}
-
-type FeeClaim {
-  id: ID!
-  bondingCurve: BondingCurve!
-  amount: Float!
-  blockTimestamp: Int!
-  chainId: Int!
-  recipient: String!
-}
-
-## VESTING RELATED
-
-type StreamingPaymentProcessor {
-  id: ID! # address
-  chainId: Int!
-  workflow: Workflow!
-  vestings: [LinearVesting!]!
-    @derivedFrom(field: "streamingPaymentProcessor")
+enum RoleStatus {
+  GRANTED
+  REVOKED
 }
 
 enum VestingStatus {
@@ -94,16 +22,615 @@ enum VestingStatus {
   CANCELLED
 }
 
-type LinearVesting {
-  id: ID! # concat(recipient,'-',streamId)
+enum RedemptionState {
+  PROCESSED
+  CANCELLED
+  PENDING
+  FAILED
+}
+
+enum PaymentOrderType {
+  PAYMENT
+  QUEUED
+}
+
+## =============================================================================
+## CORE ENTITIES
+## =============================================================================
+
+# Base token entity used throughout the schema
+type Token @entity {
+  id: ID! # `${chainId}-${address}`
   chainId: Int!
-  streamingPaymentProcessor: StreamingPaymentProcessor!
-  token: String!
-  amountRaw: BigInt!
+  address: String!
+
+  decimals: Int!
+  name: String!
+  symbol: String!
+
+  totalSupply: BigDecimal!
+  marketCapUSD: BigDecimal!
+
+  priceUSD: BigDecimal!
+}
+
+type ProtocolFee {
+  id: ID! # `${chainId}-${event.transaction.hash}-protocolFee-${source}`
+  chainId: Int!
+  txHash: String!
+  module_id: ID! @index
+
+  source: SourceTokenType!
+  timestamp: Int!
+
+  token: Token!
+
+  treasury: String!
+
+  amount: BigDecimal!
+  amountUSD: BigDecimal!
+}
+
+type ProjectFee {
+  id: ID! # `${chainId}-${event.transaction.hash}-projectFee`
+  chainId: Int!
+  txHash: String!
+  module_id: ID! @index
+
+  timestamp: Int!
+
+  token: Token!
+
   recipient: String!
+
+  amount: BigDecimal!
+  amountUSD: BigDecimal!
+}
+
+## =============================================================================
+## WORKFLOW SYSTEM
+## =============================================================================
+
+type Workflow {
+  id: ID! # ${chainId}-${address}
+  chainId: Int!
+  address: String!
+
+  token: Token!
+
+  orchestrator: String!
+  fundingManager: WorkflowModule!
+  authorizer: WorkflowModule!
+  paymentProcessor: WorkflowModule!
+  optionalModules: [String!]
+}
+
+type WorkflowModuleType {
+  id: ID! # identifier is keccak256 hash of parts of metadata
+  chainId: Int!
+
+  url: String!
+  beacon: String!
+  name: String!
+
+  majorVersion: BigInt!
+  minorVersion: BigInt!
+  patchVersion: BigInt!
+}
+
+type WorkflowModule {
+  id: ID! # ${chainId}-${address}
+  chainId: Int!
+  address: String!
+
+  orchestrator: String!
+  moduleType: WorkflowModuleType!
+}
+
+## =============================================================================
+## AUTHORIZATION SYSTEM
+## =============================================================================
+
+type AutRoles {
+  id: ID! # ${chainId}-${address}
+  chainId: Int!
+  address: String!
+
+  workflow: Workflow!
+
+  roles: [Role!]! @derivedFrom(field: "module_id")
+}
+
+type Role {
+  id: ID! # ${module_id}-${roleGen}-${recipient}
+  chainId: Int!
+
+  role: String
+  roleName: String
+  roleGen: String!
+
+  initiator: String!
+  recipient: String!
+
+  module_id: ID! @index
+  status: RoleStatus!
+
+  timestamp: Int!
+  txHash: String!
+}
+
+## =============================================================================
+## FUNDING MANAGERS
+## =============================================================================
+
+# Base Transaction Types
+type Swap {
+  id: ID! # `${event.block.hash}-${event.logIndex}`
+  chainId: Int!
+  txHash: String!
+  fundingManager_id: ID! @index
+
+  timestamp: Int!
+
+  swapType: SwapType!
+
+  initiator: String!
+  recipient: String!
+
+  issuanceToken: Token!
+  collateralToken: Token!
+
+  priceCOL: BigDecimal!
+  priceUSD: BigDecimal!
+
+  amountISS: BigDecimal!
+  amountCOL: BigDecimal!
+  amountUSD: BigDecimal!
+}
+
+# Bonding Curve
+type BondingCurve {
+  id: ID! # `${chainId}-${address}`
+  chainId: Int!
+  address: String!
+
+  bcType: String # restricted or not restricted
+  workflow: Workflow!
+
+  issuanceToken: Token!
+  collateralToken: Token!
+
+  buyFee: BigInt!
+  sellFee: BigInt!
+
+  virtualCOL: BigDecimal!
+  virtualISS: BigDecimal!
+
+  buyReserveRatio: BigInt!
+  sellReserveRatio: BigInt!
+
+  reserveCOL: BigDecimal!
+  reserveUSD: BigDecimal!
+
+  swaps: [Swap!]! @derivedFrom(field: "fundingManager_id")
+
+  projectFees: [ProjectFee!]! @derivedFrom(field: "module_id")
+  protocolFees: [ProtocolFee!]! @derivedFrom(field: "module_id")
+
+  curveDayData: [CurveDayData!]! @derivedFrom(field: "fundingManager_id")
+  curveHourData: [CurveHourData!]! @derivedFrom(field: "fundingManager_id")
+
+  issuanceTokenDayData: [IssuanceTokenDayData!]!
+    @derivedFrom(field: "module_id")
+  issuanceTokenHourData: [IssuanceTokenHourData!]!
+    @derivedFrom(field: "module_id")
+}
+
+# Deposit Vault
+type DepositVault {
+  id: ID! # `${chainId}-${address}`
+  chainId: Int!
+  address: String!
+
+  token: Token!
+
+  workflow: Workflow!
+
+  balance: BigDecimal!
+  balanceUSD: BigDecimal!
+
+  deposits: [Deposit!]! @derivedFrom(field: "depositVault")
+  transfers: [Transfer!]! @derivedFrom(field: "depositVault")
+}
+
+type Deposit {
+  id: ID! # `${chainId}-${event.transaction.hash}`
+  timestamp: Int!
+  txHash: String!
+
+  depositVault: DepositVault!
+  depositor: String!
+
+  amount: BigDecimal!
+  amountUSD: BigDecimal!
+}
+
+type Transfer {
+  id: ID! # `${chainId}-${event.transaction.hash}`
+  timestamp: Int!
+  txHash: String!
+
+  depositVault: DepositVault!
+  recipient: String!
+
+  amount: BigDecimal!
+  amountUSD: BigDecimal!
+}
+
+# Oracle Price
+type OraclePriceFM {
+  id: ID! # `${chainId}-${address}`
+  chainId: Int!
+  address: String!
+
+  workflow: Workflow!
+
+  treasury: String!
+
+  externalPriceSetter: ExternalPriceSetter
+
+  issuanceToken: Token!
+  collateralToken: Token!
+
+  maxBuyFee: BigInt!
+  maxSellFee: BigInt!
+
+  buyFee: BigInt!
+  sellFee: BigInt!
+
+  pendingRedemptionCOL: BigDecimal!
+  pendingRedemptionUSD: BigDecimal!
+
+  reserveCOL: BigDecimal!
+  reserveUSD: BigDecimal!
+
+  orders: [OraclePriceOrder!]! @derivedFrom(field: "oraclePriceFM")
+
+  projectFees: [ProjectFee!]! @derivedFrom(field: "module_id")
+  protocolFees: [ProtocolFee!]! @derivedFrom(field: "module_id")
+
+  curveDayData: [CurveDayData!]! @derivedFrom(field: "fundingManager_id")
+  curveHourData: [CurveHourData!]! @derivedFrom(field: "fundingManager_id")
+
+  issuanceTokenDayData: [IssuanceTokenDayData!]!
+    @derivedFrom(field: "module_id")
+  issuanceTokenHourData: [IssuanceTokenHourData!]!
+    @derivedFrom(field: "module_id")
+}
+
+type OraclePriceOrder {
+  id: ID! # `${oraclePriceFM_id}-${orderId}` | `${chainId}-${transaction.hash}`
+  chainId: Int!
+  txHash: String!
+  timestamp: Int!
+  orderId: BigInt
+
+  swapType: SwapType!
+
+  oraclePriceFM: OraclePriceFM!
+
+  initiator: String!
+  recipient: String!
+
+  issuanceToken: Token!
+  collateralToken: Token!
+
+  priceCOL: BigDecimal!
+  priceUSD: BigDecimal!
+
+  amountISS: BigDecimal!
+  amountCOL: BigDecimal!
+  amountUSD: BigDecimal!
+
+  protocolFee: ProtocolFee!
+  projectFee: ProjectFee!
+
+  targetChainId: Int
+
+  orderType: PaymentOrderType
+  state: RedemptionState
+
+  executedBy: String
+  executedTimestamp: Int
+}
+
+## =============================================================================
+## LOGIC MODULES
+## =============================================================================
+
+# External Price
+type ExternalPriceSetter {
+  id: ID! # `${chainId}-${address}`
+  chainId: Int!
+  address: String!
+  lastUpdated: Int!
+
+  workflow: Workflow!
+
+  collateralToken: Token!
+
+  priceISS: BigDecimal!
+  priceCOL: BigDecimal!
+
+  externalPrices: [ExternalPrice!]! @derivedFrom(field: "externalPriceSetter")
+}
+
+type ExternalPrice {
+  id: ID! # `${event.transaction.hash}-${event.logIndex}`
+  chainId: Int!
+  txHash: String!
+
+  source: SourceTokenType!
+
+  externalPriceSetter: ExternalPriceSetter!
+
+  timestamp: Int!
+  executedBy: String!
+
+  price: BigDecimal!
+}
+
+# Bounty System
+type BountyModule {
+  id: ID! # `${chainId}-${address}`
+  chainId: Int!
+  address: String!
+
+  token: Token!
+
+  workflow: Workflow!
+  bounties: [Bounty!]! @derivedFrom(field: "bountyModule")
+}
+
+type Bounty {
+  id: ID! # `${moduleId}-${event.params.bountyId}`
+  bountyModule: BountyModule!
+
+  minimumPayoutAmount: BigDecimal!
+  maximumPayoutAmount: BigDecimal!
+
+  minimumPayoutAmountUSD: BigDecimal!
+  maximumPayoutAmountUSD: BigDecimal!
+
+  details: String!
+  locked: Boolean
+  claims: [BountyClaim!]! @derivedFrom(field: "bounty")
+}
+
+type BountyClaim {
+  id: ID! # `${moduleId}-${event.params.claimId}`
+  bounty: Bounty!
+  details: String!
+  claimed: Boolean
+  contributors: [BountyContributor!]! @derivedFrom(field: "bountyClaim")
+}
+
+type BountyContributor {
+  id: ID! # `${moduleId}-${event.params.claimId}-${contributorIndex}`
+  address: String!
+
+  bountyClaim: BountyClaim!
+
+  claimAmount: BigDecimal!
+  claimAmountUSD: BigDecimal!
+}
+
+# Streaming Payments
+type StreamingPaymentProcessor {
+  id: ID! # StreamingPaymentProcessor address
+  chainId: Int!
+  address: String!
+
+  workflow: Workflow!
+  vestings: [LinearVesting!]! @derivedFrom(field: "streamingPaymentProcessor")
+}
+
+type LinearVesting {
+  id: ID! # `${recipient}-${streamId}`
+  chainId: Int!
+  timestamp: Int!
+
+  streamingPaymentProcessor: StreamingPaymentProcessor!
+
+  token: Token!
+
+  amount: BigDecimal!
+  recipient: String!
+
   start: BigInt!
   cliff: BigInt!
   end: BigInt!
+
   status: VestingStatus!
-  blockTimestamp: Int!
+}
+
+## =============================================================================
+## MARKET DATA
+## =============================================================================
+
+# Issuance Token Market Data
+type IssuanceTokenDayData @entity {
+  id: ID! # `${token_id}-${dayID}`
+  date: Int! # timestamp rounded to current day by dividing by 86400
+  chainId: Int!
+  address: String!
+
+  module_id: ID! @index
+
+  token: Token!
+
+  volumeUSD: BigDecimal!
+  volumeISS: BigDecimal!
+
+  projectFeeUSD: BigDecimal!
+
+  protocolFeeUSD: BigDecimal!
+  protocolFeeISS: BigDecimal!
+
+  marketCapUSD: BigDecimal!
+
+  priceUSD: BigDecimal!
+
+  openUSD: BigDecimal!
+  highUSD: BigDecimal!
+  lowUSD: BigDecimal!
+  closeUSD: BigDecimal!
+}
+
+type IssuanceTokenHourData @entity {
+  id: ID! # `${token_id}-${hourID}`
+  periodStartUnix: Int! # unix timestamp for start of hour
+  chainId: Int!
+  address: String!
+
+  module_id: ID! @index
+
+  token: Token!
+
+  volumeUSD: BigDecimal!
+  volumeISS: BigDecimal!
+
+  projectFeeUSD: BigDecimal!
+
+  protocolFeeUSD: BigDecimal!
+  protocolFeeISS: BigDecimal!
+
+  marketCapUSD: BigDecimal!
+
+  priceUSD: BigDecimal!
+
+  openUSD: BigDecimal!
+  highUSD: BigDecimal!
+  lowUSD: BigDecimal!
+  closeUSD: BigDecimal!
+}
+
+# Funding Manager Market Data
+type CurveDayData @entity {
+  id: ID! # `${fundingManager_id}-${dayID}`
+  fundingManager_id: ID! @index
+
+  date: Int! # timestamp rounded to current day by dividing by 86400
+  chainId: Int!
+  address: String!
+
+  collateralToken: Token!
+  issuanceToken: Token!
+
+  volumeUSD: BigDecimal!
+  volumeCOL: BigDecimal!
+  volumeISS: BigDecimal!
+
+  projectFeeUSD: BigDecimal!
+  projectFeeCOL: BigDecimal!
+
+  protocolFeeUSD: BigDecimal!
+  protocolFeeCOL: BigDecimal!
+  protocolFeeISS: BigDecimal!
+
+  marketCapUSD: BigDecimal!
+  marketCapCOL: BigDecimal!
+
+  priceUSD: BigDecimal!
+  priceCOL: BigDecimal!
+
+  openCOL: BigDecimal!
+  highCOL: BigDecimal!
+  lowCOL: BigDecimal!
+  closeCOL: BigDecimal!
+
+  openUSD: BigDecimal!
+  highUSD: BigDecimal!
+  lowUSD: BigDecimal!
+  closeUSD: BigDecimal!
+}
+
+type CurveHourData @entity {
+  id: ID! # `${fundingManager_id}-${hourID}`
+  fundingManager_id: ID! @index
+
+  periodStartUnix: Int! # unix timestamp for start of hour
+  chainId: Int!
+  address: String!
+
+  collateralToken: Token!
+  issuanceToken: Token!
+
+  volumeUSD: BigDecimal!
+  volumeCOL: BigDecimal!
+  volumeISS: BigDecimal!
+
+  projectFeeUSD: BigDecimal!
+  projectFeeCOL: BigDecimal!
+
+  protocolFeeUSD: BigDecimal!
+  protocolFeeCOL: BigDecimal!
+  protocolFeeISS: BigDecimal!
+
+  marketCapUSD: BigDecimal!
+  marketCapCOL: BigDecimal!
+
+  priceUSD: BigDecimal!
+  priceCOL: BigDecimal!
+
+  openCOL: BigDecimal!
+  highCOL: BigDecimal!
+  lowCOL: BigDecimal!
+  closeCOL: BigDecimal!
+
+  openUSD: BigDecimal!
+  highUSD: BigDecimal!
+  lowUSD: BigDecimal!
+  closeUSD: BigDecimal!
+}
+
+# -----------------------------------------------------------------------------
+# MISCELLANEOUS
+# -----------------------------------------------------------------------------
+
+type MigratingPIM {
+  id: ID! # `${chainId}-${orchestratorAddress}`
+  chainId: Int!
+  address: String!
+
+  workflow: Workflow!
+
+  deployer: String!
+  initiator: String!
+
+  issuanceToken: Token!
+  collateralToken: Token!
+
+  migrationConfig: MigrationConfig!
+
+  graduation: Graduation!
+}
+
+type MigrationConfig {
+  id: ID! # `${chainId}-${orchestratorAddress}`
+  isImmutable: Boolean!
+  migrationThreshold: BigDecimal!
+  dexAdapter: String!
+  lpTokenRecipient: String!
+  initialRewardDuration: BigInt!
+}
+
+type Graduation {
+  id: ID! # `${chainId}-${orchestratorAddress}`
+  issuanceTokenAmount: BigDecimal!
+  collateralTokenAmount: BigDecimal!
+  pool: String!
+
+  timestamp: Int!
+  txHash: String!
 }

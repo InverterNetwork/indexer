@@ -1,32 +1,78 @@
 {
-  "name": "hello_greeter",
-  "version": "0.1.0",
+  "name": "indexer",
+  "version": "0.9.18",
   "scripts": {
-    "clean": "tsc --clean",
-    "build": "tsc --build",
-    "watch": "tsc --watch",
-    "mocha": "ts-mocha test/**/*.ts",
+    "dev": "DEBUG=* env $(cat .env | xargs) envio dev",
+    "watch": "tsc --watch --noEmit -p tsconfig.json",
+    "start": "TUI_OFF=true pnpm ts-node generated/src/Index.bs.js",
+    "start:pm2": "pm2 restart envio || pm2 start 'pnpm start' --name envio",
+    "clean": "rm -rf build",
+    "build": "pnpm clean && tsc --build tsconfig.build.json && pnpm ts-add-js-extension --dir=build/src",
+    "compile": "genql --endpoint https://dev.indexer.inverter.network/v1/graphql --output graphql/src/gen && prettier --write graphql/src/gen/**/*.ts && eslint --fix graphql/src/gen/**/*.ts",
     "codegen": "envio codegen",
-    "dev": "envio dev",
-    "test": "pnpm mocha",
-    "start": "ts-node generated/src/Index.bs.js"
+    "grant:agg-permissions": "ts-node scripts/grant-aggregate-permissions.ts",
+    "prod": "pnpm codegen && docker-compose --file generated/docker-compose.yaml up -d && pnpm migrate:setup && pnpm start:pm2",
+    "prod:update": "pnpm codegen && pnpm start:pm2",
+    "prod:migrate": "pnpm codegen && pnpm migrate:up && pnpm start:pm2",
+    "prod:fresh": "pnpm migrate:down && pnpm prod",
+    "migrate:setup": "pnpm -C generated run db-setup && pnpm grant:agg-permissions",
+    "migrate:up": "pnpm -C generated run db-up",
+    "migrate:down": "pnpm -C generated run db-down",
+    "test": "mocha",
+    "type-check": "tsc-files --pretty -p ./tsconfig.json --noEmit --module ESNext --declaration",
+    "format": "prettier --write .",
+    "postinstall": "husky || true",
+    "release": "standard-version -a",
+    "release:pub": "git push --follow-tags origin $(git rev-parse --abbrev-ref HEAD)",
+    "build-run-docker": "chmod +x scripts/build-run-docker.sh && ./scripts/build-run-docker.sh"
   },
-  "devDependencies": {
-    "@types/chai": "^4.3.11",
-    "@types/expect": "^24.3.0",
-    "@types/mocha": "10.0.6",
-    "@types/node": "20.8.8",
-    "mocha": "10.2.0",
-    "ts-mocha": "^10.0.0",
-    "ts-node": "10.9.1",
-    "typescript": "5.2.2"
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "pnpm type-check"
+    ],
+    "*.{ts,tsx,js,jsx,mjs,cjs,json,css}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "resolutions": {
+    "typescript": "^5.7.2"
+  },
+  "peerDependencies": {
+    "viem": "^2.21.0"
   },
   "dependencies": {
-    "chai": "4.3.10",
-    "envio": "^2.8.2",
-    "ethers": "6.8.0"
+    "envio": "^2.12.4",
+    "geckoterm": "^0.2.4",
+    "node-ts-cache": "^4.4.0",
+    "node-ts-cache-storage-memory": "^4.4.0",
+    "node-ts-cache-storage-node-fs": "^4.4.0"
   },
   "optionalDependencies": {
     "generated": "./generated"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@genql/cli": "^6.3.3",
+    "@types/chai": "^5.0.1",
+    "@types/debug": "^4.1.12",
+    "@types/lodash": "^4.17.14",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.8.8",
+    "chai": "^5.1.2",
+    "debug": "^4.4.0",
+    "eslint-plugin-import-x": "4.6.1",
+    "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.3.0",
+    "mocha": "^11.0.1",
+    "pm2": "^5.4.3",
+    "prettier": "^3.4.2",
+    "standard-version": "^9.5.0",
+    "ts-node": "10.9.1",
+    "tsc-files": "^1.1.4",
+    "type-fest": "^4.32.0",
+    "typescript-eslint": "^8.21.0"
   }
 }

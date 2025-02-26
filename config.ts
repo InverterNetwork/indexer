@@ -1,0 +1,17 @@
+export const publicAggregationTables = [
+  'RedemptionPaymentOrder',
+  'OraclePriceFM',
+  'BondingCurve',
+  'IssuanceTokenDayData',
+  'IssuanceTokenHourData',
+  'CurveDayData',
+  'CurveHourData',
+  'Token',
+  'Deposit',
+  'DepositVault',
+  'Bounty',
+  'BountyClaim',
+  'ProjectFee',
+  'ProtocolFee',
+  'Transfer',
+]
