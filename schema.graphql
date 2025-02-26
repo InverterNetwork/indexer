@@ -623,3 +623,34 @@ type Graduation {
   timestamp: Int!
   txHash: String!
 }
+
+# -----------------------------------------------------------------------------
+# EXTERNAL
+# -----------------------------------------------------------------------------
+
+type BlacklistIssuanceToken {
+  id: ID! # `${chainId}-${address}`
+  chainId: Int!
+  address: String!
+
+  token: Token!
+
+  oraclePriceFM: OraclePriceFM!
+
+  manager: [String!]!
+
+  minter: [String!]!
+
+  blacklisted: [BlacklistedAccount!]! @derivedFrom(field: "blacklistIssuanceToken")
+}
+
+type BlacklistedAccount {
+  id: ID! # `${BlacklistIssuanceToken.id}-${address}`
+  blacklistIssuanceToken: BlacklistIssuanceToken!
+
+  account: String!
+  blacklisted: Boolean!
+  # blacklistedBy: String!
+  timestamp: Int!
+  txHash: String!
+}

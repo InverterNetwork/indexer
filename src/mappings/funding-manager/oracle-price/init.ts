@@ -8,6 +8,7 @@ import {
   formatUnitsToBD,
   getPublicClient,
   getBalanceOf,
+  initBlacklistIssuanceToken,
 } from '../../../utils'
 import { parseAbiItem } from 'viem'
 
@@ -89,6 +90,18 @@ FM_PC_ExternalPrice_Redeeming_v1.ModuleInitialized.handler(
         address: address,
         maxBuyFee: maxProjectBuyFee,
         maxSellFee: maxProjectSellFee,
+      },
+    })
+
+    // Initial setup of Blacklist Issuance Token
+
+    await initBlacklistIssuanceToken({
+      event,
+      context,
+      blacklistIssuanceTokenAddress: issuanceTokenAddress,
+      properties: {
+        token_id: issuanceToken_id,
+        oraclePriceFM_id: `${event.chainId}-${event.srcAddress}`,
       },
     })
   }
@@ -211,5 +224,14 @@ FM_PC_ExternalPrice_Redeeming_v1.ReserveDeposited.handler(
         reserveUSD,
       },
     })
+  }
+)
+
+// Issuance Token Set - Register Blacklist Issuance Token to Indexer
+// ----------------------------------------------------------------------------
+
+FM_PC_ExternalPrice_Redeeming_v1.IssuanceTokenSet.contractRegister(
+  async ({ event, context }) => {
+    context.addERC20Issuance_Blacklist_v1(event.params.issuanceToken)
   }
 )
