@@ -641,16 +641,18 @@ type BlacklistIssuanceToken {
 
   minter: [String!]!
 
-  blacklisted: [BlacklistedAccount!]! @derivedFrom(field: "blacklistIssuanceToken")
+  blacklisted: [BlacklistRole!]! @derivedFrom(field: "token")
 }
 
-type BlacklistedAccount {
+type BlacklistRole {
   id: ID! # `${BlacklistIssuanceToken.id}-${address}`
-  blacklistIssuanceToken: BlacklistIssuanceToken!
+  token: BlacklistIssuanceToken!
 
-  account: String!
-  blacklisted: Boolean!
-  # blacklistedBy: String!
+  #initiator: String!
+  recipient: String!
+
+  status: RoleStatus!
+
   timestamp: Int!
   txHash: String!
 }

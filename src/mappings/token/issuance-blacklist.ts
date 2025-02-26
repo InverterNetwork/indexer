@@ -15,10 +15,10 @@ ERC20Issuance_Blacklist_v1.AddedToBlacklist.handler(
       event,
       context,
       properties: {
-        blacklistIssuanceToken_id: blacklistedTokenIdId,
-        account: event.params.account_,
+        token_id: blacklistedTokenIdId,
+        recipient: event.params.account_,
         // blacklistedBy: event.params.blacklistManager_,
-        blacklisted: true,
+        status: 'GRANTED',
       },
     })
   }
@@ -35,10 +35,10 @@ ERC20Issuance_Blacklist_v1.RemovedFromBlacklist.handler(
       event,
       context,
       properties: {
-        blacklistIssuanceToken_id: blacklistedTokenIdId,
-        account: event.params.account_,
+        token_id: blacklistedTokenIdId,
+        recipient: event.params.account_,
         // blacklistedBy: event.params.blacklistManager_,
-        blacklisted: false,
+        status: 'REVOKED',
       },
     })
   }

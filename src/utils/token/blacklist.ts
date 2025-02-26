@@ -1,6 +1,6 @@
 import {
   BlacklistIssuanceToken_t,
-  BlacklistedAccount_t,
+  BlacklistRole_t,
 } from 'generated/src/db/Entities.gen'
 import { eventLog, handlerContext } from 'generated'
 import { Writable } from 'type-fest'
@@ -112,8 +112,8 @@ export const updateBlacklistedAccount = async ({
 }: {
   event: eventLog<any>
   context: handlerContext
-  properties: Partial<Omit<BlacklistedAccount_t, 'id'>>
-  prevData?: BlacklistedAccount_t
+  properties: Partial<Omit<BlacklistRole_t, 'id'>>
+  prevData?: BlacklistRole_t
 }) => {
   const { chainId, srcAddress: address } = event
 
@@ -123,26 +123,24 @@ export const updateBlacklistedAccount = async ({
     // PREVIOUS DATA
     // --------------------------------------------------------------------------
     prevData ||
-    ((await context.BlacklistedAccount.get(
-      id
-    )) as Writable<BlacklistedAccount_t>) ||
+    ((await context.BlacklistRole.get(id)) as Writable<BlacklistRole_t>) ||
     // DEFAULT STATE
     // --------------------------------------------------------------------------
     ({
       id,
-      blacklistIssuanceToken_id: `${event.chainId}-${event.srcAddress}`,
-      account: event.params.account_,
+      token_id: properties?.token_id!,
+      recipient: properties?.recipient!,
       // blacklistedBy: event.params.blacklistManager_,
-      blacklisted: false,
+      status: 'REVOKED',
       timestamp: event.block.timestamp,
       txHash: event.block.hash,
 
       ...properties,
-    } satisfies BlacklistedAccount_t)
+    } satisfies BlacklistRole_t)
 
   // If required fields are present, update the blacklisted account
-  if (data.account && data.blacklistIssuanceToken_id) {
-    context.BlacklistedAccount.set({
+  if (data.recipient && data.token_id) {
+    context.BlacklistRole.set({
       ...data,
       ...properties,
     })
