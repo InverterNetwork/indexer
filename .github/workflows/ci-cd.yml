@@ -1,4 +1,4 @@
-name: Dev CI-CD
+name: PROD CI-CD
 on:
   workflow_dispatch:
     inputs:
@@ -14,11 +14,20 @@ on:
         description: 'Build new image'
         type: boolean
         default: false
+      branch:
+        description: 'Branch to deploy'
+        type: choice
+        options:
+          - main
+          - dev
+        default: 'dev'
 env:
   REGION: eu-central-1
-  PLATFORM: dev
+  PLATFORM: ${{ inputs.branch == 'main' ? 'prod' : 'dev' }}
   REPO_NAME: ${{ github.event.repository.name }}
-  ECR_REPOSITORY: ${{ github.event.repository.name }}-dev
+  ECR_REPOSITORY: ${{ github.event.repository.name }}-${{ inputs.branch }}
+  AWS_ACCOUNT_ID: ${{ inputs.branch == 'main' ? secrets.ACCOUNT_ID_PROD : secrets.ACCOUNT_ID_DEV }}
+
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -28,13 +37,13 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    environment: development
+    environment: production
 
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::${{secrets.ACCOUNT_ID_DEV}}:role/platform-github-action-role-${{env.PLATFORM}}
+          role-to-assume: arn:aws:iam::${{env.AWS_ACCOUNT_ID}}:role/platform-github-action-role-${{env.PLATFORM}}
           aws-region: ${{ env.REGION }}
           role-duration-seconds: 3600
 
@@ -91,12 +100,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    environment: production
     if: always() && !cancelled()
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::${{secrets.ACCOUNT_ID_DEV}}:role/platform-github-action-role-${{env.PLATFORM}}
+          role-to-assume: arn:aws:iam::${{secrets.ACCOUNT_ID_PROD}}:role/platform-github-action-role-${{env.PLATFORM}}
           aws-region: ${{ env.REGION }}
           role-duration-seconds: 3600
 
@@ -153,12 +163,12 @@ jobs:
           esac
 
           # Get current task definition and remove AWS-specific fields
-          aws ecs describe-task-definition --task-definition indexer-dev --query 'taskDefinition' > task-definition-full.json
+          aws ecs describe-task-definition --task-definition indexer-${{ env.PLATFORM }} --query 'taskDefinition' > task-definition-full.json
 
           jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' task-definition-full.json > task-definition.json
 
-          # Update the command and image in the indexer-dev container using IMAGE_URI and CMD
-          jq --arg cmd "$CMD" --arg img $IMAGE_URI '(.containerDefinitions[] | select(.name == "indexer-dev") | .command) = ["sh", "-c", $cmd] | (.containerDefinitions[] | select(.name == "indexer-dev") | .image) = $img' task-definition.json > updated-task-definition.json
+          # Update the command and image in the indexer container using IMAGE_URI and CMD
+          jq --arg cmd "$CMD" --arg img $IMAGE_URI '(.containerDefinitions[] | select(.name == "indexer-${{ env.PLATFORM }}") | .command) = ["sh", "-c", $cmd] | (.containerDefinitions[] | select(.name == "indexer-${{ env.PLATFORM }}") | .image) = $img' task-definition.json > updated-task-definition.json
 
           # Update the task definition with the new file
           mv updated-task-definition.json task-definition.json
