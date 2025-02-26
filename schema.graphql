@@ -651,7 +651,7 @@ type BlacklistRole {
   #initiator: String!
   recipient: String!
 
-  status: RoleStatus!
+  status: RoleStatus! # GRANTED for blacklisted
 
   timestamp: Int!
   txHash: String!
