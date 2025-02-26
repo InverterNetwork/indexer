@@ -170,8 +170,17 @@ jobs:
 
           jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' task-definition-full.json > task-definition.json
 
-          # Update the command and image in the indexer container using IMAGE_URI and CMD
-          jq --arg cmd "$CMD" --arg img $IMAGE_URI '(.containerDefinitions[] | select(.name == "indexer-${{ env.PLATFORM }}") | .command) = ["sh", "-c", $cmd] | (.containerDefinitions[] | select(.name == "indexer-${{ env.PLATFORM }}") | .image) = $img' task-definition.json > updated-task-definition.json
+          # Extract current database name and switch it
+          CURRENT_DB=$(jq -r '.containerDefinitions[] | select(.name == "graphql-engine") | .environment[] | select(.name == "HASURA_GRAPHQL_DATABASE_URL") | .value' task-definition.json | grep -o 'blue\|green')
+          NEW_DB=$([ "$CURRENT_DB" = "blue" ] && echo "green" || echo "blue")
+
+          # Update database names in both container definitions
+          jq --arg cmd "$CMD" --arg img "$IMAGE_URI" --arg new_db "$NEW_DB" '
+            (.containerDefinitions[] | select(.name == "graphql-engine") | .environment[] | select(.name == "HASURA_GRAPHQL_DATABASE_URL") | .value) |= sub("/(blue|green)\\?"; "/\($new_db)?") |
+            (.containerDefinitions[] | select(.name == "indexer-${{ env.PLATFORM }}") | .environment[] | select(.name == "ENVIO_PG_DATABASE") | .value) = $new_db |
+            (.containerDefinitions[] | select(.name == "indexer-${{ env.PLATFORM }}") | .command) = ["sh", "-c", $cmd] |
+            (.containerDefinitions[] | select(.name == "indexer-${{ env.PLATFORM }}") | .image) = $img
+          ' task-definition.json > updated-task-definition.json
 
           # Update the task definition with the new file
           mv updated-task-definition.json task-definition.json
