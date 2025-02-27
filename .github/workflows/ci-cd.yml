@@ -170,9 +170,15 @@ jobs:
 
           jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' task-definition-full.json > task-definition.json
 
-          # Extract current database name and switch it
+          # Extract current database name and switch it only for specific commands
           CURRENT_DB=$(jq -r '.containerDefinitions[] | select(.name == "graphql-engine") | .environment[] | select(.name == "HASURA_GRAPHQL_DATABASE_URL") | .value' task-definition.json | grep -o 'blue\|green')
-          NEW_DB=$([ "$CURRENT_DB" = "blue" ] && echo "green" || echo "blue")
+
+          # Only switch DB for SCHEMA_CHANGED and MIGRATE_DOWN_UP
+          if [[ "${{ inputs.env }}" == "SCHEMA_CHANGED" || "${{ inputs.env }}" == "MIGRATE_DOWN_UP" ]]; then
+            NEW_DB=$([ "$CURRENT_DB" = "blue" ] && echo "green" || echo "blue")
+          else
+            NEW_DB=$CURRENT_DB
+          fi
 
           # Update database names in both container definitions
           jq --arg cmd "$CMD" --arg img "$IMAGE_URI" --arg new_db "$NEW_DB" '

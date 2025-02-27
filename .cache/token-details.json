@@ -5092,5 +5092,95 @@
       "decimals": 18,
       "address": "0xa7ef818497C4E444d53fFC5a13a23c6a788E6435"
     }
+  },
+  "0x0d9b0790e97e3426c161580df4ee853e4a7c4607-80002": {
+    "meta": {},
+    "content": {
+      "name": "Citizen Wallet",
+      "symbol": "CTZN",
+      "decimals": 18,
+      "address": "0x0D9B0790E97e3426C161580dF4Ee853E4A7C4607"
+    }
+  },
+  "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270-137": {
+    "meta": {},
+    "content": {
+      "name": "Wrapped Polygon Ecosystem Token",
+      "symbol": "WPOL",
+      "decimals": 18,
+      "address": "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270"
+    }
+  },
+  "0x4191f84f66e0b7cc10370ff47a0e2168e35b9bdf-137": {
+    "meta": {},
+    "content": {
+      "name": "BEAST",
+      "symbol": "BEAST",
+      "decimals": 18,
+      "address": "0x4191F84f66e0B7CC10370Ff47a0E2168E35b9Bdf"
+    }
+  },
+  "0xa3dd6163b5742b0d8cb7d79cb5dfe3f81f8f8fc4-137": {
+    "meta": {},
+    "content": {
+      "name": "AKA",
+      "symbol": "AKA",
+      "decimals": 18,
+      "address": "0xA3dd6163B5742B0D8Cb7d79CB5DFE3F81F8F8fC4"
+    }
+  },
+  "0x5fdaf637aed59b2e6d384d9e84d8ac5cf03c6697-137": {
+    "meta": {},
+    "content": {
+      "name": "Melodex",
+      "symbol": "MELS",
+      "decimals": 18,
+      "address": "0x5FDAF637Aed59B2e6d384d9e84D8ac5cF03c6697"
+    }
+  },
+  "0xa1a78ac9884adc9d04d59b2b743f1ec709618e55-137": {
+    "meta": {},
+    "content": {
+      "name": "Alpha Chad",
+      "symbol": "ACHAD",
+      "decimals": 18,
+      "address": "0xA1a78aC9884aDc9d04d59b2b743f1eC709618e55"
+    }
+  },
+  "0xfafb870f1918827fe57ca4b891124606eaa7e6bd-137": {
+    "meta": {},
+    "content": {
+      "name": "The Grand Timeline",
+      "symbol": "GRNDT",
+      "decimals": 18,
+      "address": "0xfAFB870F1918827fe57Ca4b891124606EaA7e6bd"
+    }
+  },
+  "0x0d9b0790e97e3426c161580df4ee853e4a7c4607-137": {
+    "meta": {},
+    "content": {
+      "name": "Citizen Wallet",
+      "symbol": "CTZN",
+      "decimals": 18,
+      "address": "0x0D9B0790E97e3426C161580dF4Ee853E4A7C4607"
+    }
+  },
+  "0x0b7a46e1af45e1eaadeed34b55b6fc00a85c7c68-137": {
+    "meta": {},
+    "content": {
+      "name": "Prismo Technology",
+      "symbol": "PRSM",
+      "decimals": 18,
+      "address": "0x0b7a46E1af45E1EaadEeD34B55b6FC00A85c7c68"
+    }
+  },
+  "0xc530b75465ce3c6286e718110a7b2e2b64bdc860-137": {
+    "meta": {},
+    "content": {
+      "name": "x23.ai",
+      "symbol": "X23",
+      "decimals": 18,
+      "address": "0xc530B75465Ce3c6286e718110A7B2e2B64Bdc860"
+    }
   }
 }
