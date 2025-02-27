@@ -634,3 +634,36 @@ type Graduation {
   timestamp: Int!
   txHash: String!
 }
+
+# -----------------------------------------------------------------------------
+# EXTERNAL
+# -----------------------------------------------------------------------------
+
+type BlacklistIssuanceToken {
+  id: ID! # `${chainId}-${address}`
+  chainId: Int!
+  address: String!
+
+  token: Token!
+
+  oraclePriceFM: OraclePriceFM!
+
+  manager: [String!]!
+
+  minter: [String!]!
+
+  blacklisted: [BlacklistRole!]! @derivedFrom(field: "token")
+}
+
+type BlacklistRole {
+  id: ID! # `${BlacklistIssuanceToken.id}-${address}`
+  token: BlacklistIssuanceToken!
+
+  #initiator: String!
+  recipient: String!
+
+  status: RoleStatus! # GRANTED for blacklisted
+
+  timestamp: Int!
+  txHash: String!
+}

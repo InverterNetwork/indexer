@@ -98,6 +98,7 @@ contracts:
       - event: PaymentOrderAdded
       - event: OracleUpdated
       - event: ReserveDeposited
+      - event: IssuanceTokenSet
   - name: PP_Queue_v1
     abi_file_path: abis/PP_Queue_v1.json
     handler: src/mappings/payment-processor/queue.ts
@@ -119,6 +120,14 @@ contracts:
       - event: ModuleInitialized
       - event: IssuancePriceSet
       - event: RedemptionPriceSet
+  - name: ERC20Issuance_Blacklist_v1
+    abi_file_path: abis/ERC20Issuance_Blacklist_v1.json
+    handler: src/mappings/token/issuance-blacklist.ts
+    events:
+      - event: AddedToBlacklist
+      - event: RemovedFromBlacklist
+      - event: BlacklistManagerUpdated
+      - event: MinterSet
 networks:
   - id: 11155420
     start_block: 16141643
@@ -147,6 +156,8 @@ networks:
         address:
       - name: LM_ManualExternalPriceSetter_v1
         address:
+      - name: ERC20Issuance_Blacklist_v1
+        address:
   - id: 84532
     start_block: 14158776
     contracts:
@@ -174,6 +185,8 @@ networks:
         address:
       - name: LM_ManualExternalPriceSetter_v1
         address:
+      - name: ERC20Issuance_Blacklist_v1
+        address:
   - id: 1101
     start_block: 16657460
     contracts:
@@ -200,6 +213,8 @@ networks:
       - name: PP_Queue_ManualExecution_v1
         address:
       - name: LM_ManualExternalPriceSetter_v1
+        address:
+      - name: ERC20Issuance_Blacklist_v1
         address:
   - id: 11155111
     start_block: 6531547
@@ -230,6 +245,8 @@ networks:
         address:
       - name: LM_ManualExternalPriceSetter_v1
         address:
+      - name: ERC20Issuance_Blacklist_v1
+        address:
   - id: 137
     start_block: 67830000
     contracts:
@@ -257,6 +274,8 @@ networks:
         address:
       - name: LM_ManualExternalPriceSetter_v1
         address:
+      - name: ERC20Issuance_Blacklist_v1
+        address:
   - id: 80002
     start_block: 14158776
     contracts:
@@ -283,4 +302,6 @@ networks:
       - name: PP_Queue_ManualExecution_v1
         address:
       - name: LM_ManualExternalPriceSetter_v1
+        address:
+      - name: ERC20Issuance_Blacklist_v1
         address:
