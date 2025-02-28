@@ -188,10 +188,11 @@ jobs:
               echo "Switching database to $NEW_DB as healthy tasks found"
             else
               NEW_DB=$CURRENT_DB
-              echo "Keeping current database $CURRENT_DB as no healthy tasks found or chosen command is not SCHEMA_CHANGED or MIGRATE_DOWN_UP"
+              echo "Keeping current database $CURRENT_DB as no healthy tasks found"
             fi
           else
             NEW_DB=$CURRENT_DB
+            echo "Keeping current database $CURRENT_DB as chosen command is not SCHEMA_CHANGED or MIGRATE_DOWN_UP"
           fi
 
           # Update database names in both container definitions
