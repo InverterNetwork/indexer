@@ -204,8 +204,9 @@ jobs:
             --force-new-deployment
 
       - name: Wait for service stability
-        timeout-minutes: 20
+        timeout-minutes: 15
         run: |
+          sleep 300 && \
           aws ecs wait services-stable \
             --cluster ${{env.PLATFORM}}-services-cluster \
             --services ${{ env.REPO_NAME }}-${{env.PLATFORM}}
