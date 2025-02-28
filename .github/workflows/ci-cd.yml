@@ -175,6 +175,7 @@ jobs:
 
           # Only switch DB for SCHEMA_CHANGED and MIGRATE_DOWN_UP if there are healthy tasks
           if [[ "${{ inputs.env }}" == "SCHEMA_CHANGED" || "${{ inputs.env }}" == "MIGRATE_DOWN_UP" ]]; then
+            NEW_DB=$([ "$CURRENT_DB" = "blue" ] && echo "green" || echo "blue")
           else
             NEW_DB=$CURRENT_DB
             echo "Keeping current database $CURRENT_DB as chosen command is not SCHEMA_CHANGED or MIGRATE_DOWN_UP"
