@@ -170,12 +170,26 @@ jobs:
 
           jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' task-definition-full.json > task-definition.json
 
-          # Extract current database name and switch it only for specific commands
+          # Extract current database name
           CURRENT_DB=$(jq -r '.containerDefinitions[] | select(.name == "graphql-engine") | .environment[] | select(.name == "HASURA_GRAPHQL_DATABASE_URL") | .value' task-definition.json | grep -o 'blue\|green')
 
-          # Only switch DB for SCHEMA_CHANGED and MIGRATE_DOWN_UP
+          # Only switch DB for SCHEMA_CHANGED and MIGRATE_DOWN_UP if there are healthy tasks
           if [[ "${{ inputs.env }}" == "SCHEMA_CHANGED" || "${{ inputs.env }}" == "MIGRATE_DOWN_UP" ]]; then
-            NEW_DB=$([ "$CURRENT_DB" = "blue" ] && echo "green" || echo "blue")
+
+            # Check latest task definition health status
+            CLUSTER="${{env.PLATFORM}}-services-cluster"
+            SERVICE="${{ env.REPO_NAME }}-${{env.PLATFORM}}"
+            LATEST_TASK_DEF=$(aws ecs describe-services --cluster $CLUSTER --services $SERVICE --query 'services[0].taskDefinition' --output text)
+            HEALTHY_TASKS=$(aws ecs list-tasks --cluster $CLUSTER --service $SERVICE --desired-status RUNNING --query 'taskArns[]' --output text | \
+              xargs -I {} aws ecs describe-tasks --cluster $CLUSTER --tasks {} --query "tasks[?taskDefinitionArn=='${LATEST_TASK_DEF}' && lastStatus=='RUNNING' && healthStatus=='HEALTHY'].taskArn" --output text)
+
+            if [ -n "$HEALTHY_TASKS" ]; then
+              NEW_DB=$([ "$CURRENT_DB" = "blue" ] && echo "green" || echo "blue")
+              echo "Switching database to $NEW_DB as healthy tasks found"
+            else
+              NEW_DB=$CURRENT_DB
+              echo "Keeping current database $CURRENT_DB as no healthy tasks found or chosen command is not SCHEMA_CHANGED or MIGRATE_DOWN_UP"
+            fi
           else
             NEW_DB=$CURRENT_DB
           fi
