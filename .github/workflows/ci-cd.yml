@@ -170,8 +170,11 @@ jobs:
 
           jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' task-definition-full.json > task-definition.json
 
-          # Extract current database name
-          CURRENT_DB=$(jq -r '.containerDefinitions[] | select(.name == "graphql-engine") | .environment[] | select(.name == "HASURA_GRAPHQL_DATABASE_URL") | .value' task-definition.json | grep -o 'blue\|green')
+          # Extract current database name from running tasks, fallback to latest task definition
+          CURRENT_DB=$(aws ecs list-tasks --cluster ${{env.PLATFORM}}-services-cluster --service-name ${{ env.REPO_NAME }}-${{env.PLATFORM}} --desired-status RUNNING --query 'taskArns[0]' --output text | grep -v '^None$' && \
+            aws ecs describe-tasks --cluster ${{env.PLATFORM}}-services-cluster --tasks $(aws ecs list-tasks --cluster ${{env.PLATFORM}}-services-cluster --service-name ${{ env.REPO_NAME }}-${{env.PLATFORM}} --desired-status RUNNING --query 'taskArns[0]' --output text) --query 'tasks[0].taskDefinitionArn' --output text | grep -v '^None$' && \
+            aws ecs describe-task-definition --task-definition $(aws ecs describe-tasks --cluster ${{env.PLATFORM}}-services-cluster --tasks $(aws ecs list-tasks --cluster ${{env.PLATFORM}}-services-cluster --service-name ${{ env.REPO_NAME }}-${{env.PLATFORM}} --desired-status RUNNING --query 'taskArns[0]' --output text) --query 'tasks[0].taskDefinitionArn' --output text) --query 'taskDefinition.containerDefinitions[?name==`graphql-engine`].environment[?name==`HASURA_GRAPHQL_DATABASE_URL`].value' --output text | grep -o 'blue\|green' || \
+            jq -r '.containerDefinitions[] | select(.name == "graphql-engine") | .environment[] | select(.name == "HASURA_GRAPHQL_DATABASE_URL") | .value' task-definition.json | grep -o 'blue\|green')
 
           # Only switch DB for SCHEMA_CHANGED and MIGRATE_DOWN_UP if there are healthy tasks
           if [[ "${{ inputs.env }}" == "SCHEMA_CHANGED" || "${{ inputs.env }}" == "MIGRATE_DOWN_UP" ]]; then
