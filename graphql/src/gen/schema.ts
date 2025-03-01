@@ -43,6 +43,60 @@ export type AutRoles_select_column =
   | 'id'
   | 'workflow_id'
 
+/** columns and relationships of "BlacklistIssuanceToken" */
+export interface BlacklistIssuanceToken {
+  address: Scalars['String']
+  /** An array relationship */
+  blacklisted: BlacklistRole[]
+  chainId: Scalars['Int']
+  db_write_timestamp: Scalars['timestamp'] | null
+  id: Scalars['String']
+  manager: Scalars['String'][]
+  minter: Scalars['String'][]
+  /** An object relationship */
+  oraclePriceFM: OraclePriceFM | null
+  oraclePriceFM_id: Scalars['String']
+  /** An object relationship */
+  token: Token | null
+  token_id: Scalars['String']
+  __typename: 'BlacklistIssuanceToken'
+}
+
+/** select columns of table "BlacklistIssuanceToken" */
+export type BlacklistIssuanceToken_select_column =
+  | 'address'
+  | 'chainId'
+  | 'db_write_timestamp'
+  | 'id'
+  | 'manager'
+  | 'minter'
+  | 'oraclePriceFM_id'
+  | 'token_id'
+
+/** columns and relationships of "BlacklistRole" */
+export interface BlacklistRole {
+  db_write_timestamp: Scalars['timestamp'] | null
+  id: Scalars['String']
+  recipient: Scalars['String']
+  status: Scalars['rolestatus']
+  timestamp: Scalars['Int']
+  /** An object relationship */
+  token: BlacklistIssuanceToken | null
+  token_id: Scalars['String']
+  txHash: Scalars['String']
+  __typename: 'BlacklistRole'
+}
+
+/** select columns of table "BlacklistRole" */
+export type BlacklistRole_select_column =
+  | 'db_write_timestamp'
+  | 'id'
+  | 'recipient'
+  | 'status'
+  | 'timestamp'
+  | 'token_id'
+  | 'txHash'
+
 /** columns and relationships of "BondingCurve" */
 export interface BondingCurve {
   address: Scalars['String']
@@ -3544,6 +3598,14 @@ export interface query_root {
   AutRoles: AutRoles[]
   /** fetch data from the table: "AutRoles" using primary key columns */
   AutRoles_by_pk: AutRoles | null
+  /** fetch data from the table: "BlacklistIssuanceToken" */
+  BlacklistIssuanceToken: BlacklistIssuanceToken[]
+  /** fetch data from the table: "BlacklistIssuanceToken" using primary key columns */
+  BlacklistIssuanceToken_by_pk: BlacklistIssuanceToken | null
+  /** fetch data from the table: "BlacklistRole" */
+  BlacklistRole: BlacklistRole[]
+  /** fetch data from the table: "BlacklistRole" using primary key columns */
+  BlacklistRole_by_pk: BlacklistRole | null
   /** fetch data from the table: "BondingCurve" */
   BondingCurve: BondingCurve[]
   /** fetch aggregated fields from the table: "BondingCurve" */
@@ -3758,6 +3820,18 @@ export interface subscription_root {
   AutRoles_by_pk: AutRoles | null
   /** fetch data from the table in a streaming manner: "AutRoles" */
   AutRoles_stream: AutRoles[]
+  /** fetch data from the table: "BlacklistIssuanceToken" */
+  BlacklistIssuanceToken: BlacklistIssuanceToken[]
+  /** fetch data from the table: "BlacklistIssuanceToken" using primary key columns */
+  BlacklistIssuanceToken_by_pk: BlacklistIssuanceToken | null
+  /** fetch data from the table in a streaming manner: "BlacklistIssuanceToken" */
+  BlacklistIssuanceToken_stream: BlacklistIssuanceToken[]
+  /** fetch data from the table: "BlacklistRole" */
+  BlacklistRole: BlacklistRole[]
+  /** fetch data from the table: "BlacklistRole" using primary key columns */
+  BlacklistRole_by_pk: BlacklistRole | null
+  /** fetch data from the table in a streaming manner: "BlacklistRole" */
+  BlacklistRole_stream: BlacklistRole[]
   /** fetch data from the table: "BondingCurve" */
   BondingCurve: BondingCurve[]
   /** fetch aggregated fields from the table: "BondingCurve" */
@@ -4070,6 +4144,230 @@ export interface AutRoles_stream_cursor_value_input {
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
   workflow_id?: Scalars['String'] | null
+}
+
+/** columns and relationships of "BlacklistIssuanceToken" */
+export interface BlacklistIssuanceTokenGenqlSelection {
+  address?: boolean | number
+  /** An array relationship */
+  blacklisted?: BlacklistRoleGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: BlacklistRole_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: BlacklistRole_order_by[] | null
+      /** filter the rows returned */
+      where?: BlacklistRole_bool_exp | null
+    }
+  }
+  chainId?: boolean | number
+  db_write_timestamp?: boolean | number
+  id?: boolean | number
+  manager?: boolean | number
+  minter?: boolean | number
+  /** An object relationship */
+  oraclePriceFM?: OraclePriceFMGenqlSelection
+  oraclePriceFM_id?: boolean | number
+  /** An object relationship */
+  token?: TokenGenqlSelection
+  token_id?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** Boolean expression to filter rows from the table "BlacklistIssuanceToken". All fields are combined with a logical 'AND'. */
+export interface BlacklistIssuanceToken_bool_exp {
+  _and?: BlacklistIssuanceToken_bool_exp[] | null
+  _not?: BlacklistIssuanceToken_bool_exp | null
+  _or?: BlacklistIssuanceToken_bool_exp[] | null
+  address?: String_comparison_exp | null
+  blacklisted?: BlacklistRole_bool_exp | null
+  chainId?: Int_comparison_exp | null
+  db_write_timestamp?: timestamp_comparison_exp | null
+  id?: String_comparison_exp | null
+  manager?: String_array_comparison_exp | null
+  minter?: String_array_comparison_exp | null
+  oraclePriceFM?: OraclePriceFM_bool_exp | null
+  oraclePriceFM_id?: String_comparison_exp | null
+  token?: Token_bool_exp | null
+  token_id?: String_comparison_exp | null
+}
+
+/** Ordering options when selecting data from "BlacklistIssuanceToken". */
+export interface BlacklistIssuanceToken_order_by {
+  address?: order_by | null
+  blacklisted_aggregate?: BlacklistRole_aggregate_order_by | null
+  chainId?: order_by | null
+  db_write_timestamp?: order_by | null
+  id?: order_by | null
+  manager?: order_by | null
+  minter?: order_by | null
+  oraclePriceFM?: OraclePriceFM_order_by | null
+  oraclePriceFM_id?: order_by | null
+  token?: Token_order_by | null
+  token_id?: order_by | null
+}
+
+/** Streaming cursor of the table "BlacklistIssuanceToken" */
+export interface BlacklistIssuanceToken_stream_cursor_input {
+  /** Stream column input with initial value */
+  initial_value: BlacklistIssuanceToken_stream_cursor_value_input
+  /** cursor ordering */
+  ordering?: cursor_ordering | null
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface BlacklistIssuanceToken_stream_cursor_value_input {
+  address?: Scalars['String'] | null
+  chainId?: Scalars['Int'] | null
+  db_write_timestamp?: Scalars['timestamp'] | null
+  id?: Scalars['String'] | null
+  manager?: Scalars['String'][] | null
+  minter?: Scalars['String'][] | null
+  oraclePriceFM_id?: Scalars['String'] | null
+  token_id?: Scalars['String'] | null
+}
+
+/** columns and relationships of "BlacklistRole" */
+export interface BlacklistRoleGenqlSelection {
+  db_write_timestamp?: boolean | number
+  id?: boolean | number
+  recipient?: boolean | number
+  status?: boolean | number
+  timestamp?: boolean | number
+  /** An object relationship */
+  token?: BlacklistIssuanceTokenGenqlSelection
+  token_id?: boolean | number
+  txHash?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by aggregate values of table "BlacklistRole" */
+export interface BlacklistRole_aggregate_order_by {
+  avg?: BlacklistRole_avg_order_by | null
+  count?: order_by | null
+  max?: BlacklistRole_max_order_by | null
+  min?: BlacklistRole_min_order_by | null
+  stddev?: BlacklistRole_stddev_order_by | null
+  stddev_pop?: BlacklistRole_stddev_pop_order_by | null
+  stddev_samp?: BlacklistRole_stddev_samp_order_by | null
+  sum?: BlacklistRole_sum_order_by | null
+  var_pop?: BlacklistRole_var_pop_order_by | null
+  var_samp?: BlacklistRole_var_samp_order_by | null
+  variance?: BlacklistRole_variance_order_by | null
+}
+
+/** order by avg() on columns of table "BlacklistRole" */
+export interface BlacklistRole_avg_order_by {
+  timestamp?: order_by | null
+}
+
+/** Boolean expression to filter rows from the table "BlacklistRole". All fields are combined with a logical 'AND'. */
+export interface BlacklistRole_bool_exp {
+  _and?: BlacklistRole_bool_exp[] | null
+  _not?: BlacklistRole_bool_exp | null
+  _or?: BlacklistRole_bool_exp[] | null
+  db_write_timestamp?: timestamp_comparison_exp | null
+  id?: String_comparison_exp | null
+  recipient?: String_comparison_exp | null
+  status?: rolestatus_comparison_exp | null
+  timestamp?: Int_comparison_exp | null
+  token?: BlacklistIssuanceToken_bool_exp | null
+  token_id?: String_comparison_exp | null
+  txHash?: String_comparison_exp | null
+}
+
+/** order by max() on columns of table "BlacklistRole" */
+export interface BlacklistRole_max_order_by {
+  db_write_timestamp?: order_by | null
+  id?: order_by | null
+  recipient?: order_by | null
+  status?: order_by | null
+  timestamp?: order_by | null
+  token_id?: order_by | null
+  txHash?: order_by | null
+}
+
+/** order by min() on columns of table "BlacklistRole" */
+export interface BlacklistRole_min_order_by {
+  db_write_timestamp?: order_by | null
+  id?: order_by | null
+  recipient?: order_by | null
+  status?: order_by | null
+  timestamp?: order_by | null
+  token_id?: order_by | null
+  txHash?: order_by | null
+}
+
+/** Ordering options when selecting data from "BlacklistRole". */
+export interface BlacklistRole_order_by {
+  db_write_timestamp?: order_by | null
+  id?: order_by | null
+  recipient?: order_by | null
+  status?: order_by | null
+  timestamp?: order_by | null
+  token?: BlacklistIssuanceToken_order_by | null
+  token_id?: order_by | null
+  txHash?: order_by | null
+}
+
+/** order by stddev() on columns of table "BlacklistRole" */
+export interface BlacklistRole_stddev_order_by {
+  timestamp?: order_by | null
+}
+
+/** order by stddev_pop() on columns of table "BlacklistRole" */
+export interface BlacklistRole_stddev_pop_order_by {
+  timestamp?: order_by | null
+}
+
+/** order by stddev_samp() on columns of table "BlacklistRole" */
+export interface BlacklistRole_stddev_samp_order_by {
+  timestamp?: order_by | null
+}
+
+/** Streaming cursor of the table "BlacklistRole" */
+export interface BlacklistRole_stream_cursor_input {
+  /** Stream column input with initial value */
+  initial_value: BlacklistRole_stream_cursor_value_input
+  /** cursor ordering */
+  ordering?: cursor_ordering | null
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface BlacklistRole_stream_cursor_value_input {
+  db_write_timestamp?: Scalars['timestamp'] | null
+  id?: Scalars['String'] | null
+  recipient?: Scalars['String'] | null
+  status?: Scalars['rolestatus'] | null
+  timestamp?: Scalars['Int'] | null
+  token_id?: Scalars['String'] | null
+  txHash?: Scalars['String'] | null
+}
+
+/** order by sum() on columns of table "BlacklistRole" */
+export interface BlacklistRole_sum_order_by {
+  timestamp?: order_by | null
+}
+
+/** order by var_pop() on columns of table "BlacklistRole" */
+export interface BlacklistRole_var_pop_order_by {
+  timestamp?: order_by | null
+}
+
+/** order by var_samp() on columns of table "BlacklistRole" */
+export interface BlacklistRole_var_samp_order_by {
+  timestamp?: order_by | null
+}
+
+/** order by variance() on columns of table "BlacklistRole" */
+export interface BlacklistRole_variance_order_by {
+  timestamp?: order_by | null
 }
 
 /** columns and relationships of "BondingCurve" */
@@ -12446,6 +12744,44 @@ export interface query_rootGenqlSelection {
   AutRoles_by_pk?: AutRolesGenqlSelection & {
     __args: { id: Scalars['String'] }
   }
+  /** fetch data from the table: "BlacklistIssuanceToken" */
+  BlacklistIssuanceToken?: BlacklistIssuanceTokenGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: BlacklistIssuanceToken_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: BlacklistIssuanceToken_order_by[] | null
+      /** filter the rows returned */
+      where?: BlacklistIssuanceToken_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "BlacklistIssuanceToken" using primary key columns */
+  BlacklistIssuanceToken_by_pk?: BlacklistIssuanceTokenGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table: "BlacklistRole" */
+  BlacklistRole?: BlacklistRoleGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: BlacklistRole_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: BlacklistRole_order_by[] | null
+      /** filter the rows returned */
+      where?: BlacklistRole_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "BlacklistRole" using primary key columns */
+  BlacklistRole_by_pk?: BlacklistRoleGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
   /** fetch data from the table: "BondingCurve" */
   BondingCurve?: BondingCurveGenqlSelection & {
     __args?: {
@@ -13492,6 +13828,66 @@ export interface subscription_rootGenqlSelection {
       cursor: (AutRoles_stream_cursor_input | null)[]
       /** filter the rows returned */
       where?: AutRoles_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "BlacklistIssuanceToken" */
+  BlacklistIssuanceToken?: BlacklistIssuanceTokenGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: BlacklistIssuanceToken_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: BlacklistIssuanceToken_order_by[] | null
+      /** filter the rows returned */
+      where?: BlacklistIssuanceToken_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "BlacklistIssuanceToken" using primary key columns */
+  BlacklistIssuanceToken_by_pk?: BlacklistIssuanceTokenGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table in a streaming manner: "BlacklistIssuanceToken" */
+  BlacklistIssuanceToken_stream?: BlacklistIssuanceTokenGenqlSelection & {
+    __args: {
+      /** maximum number of rows returned in a single batch */
+      batch_size: Scalars['Int']
+      /** cursor to stream the results returned by the query */
+      cursor: (BlacklistIssuanceToken_stream_cursor_input | null)[]
+      /** filter the rows returned */
+      where?: BlacklistIssuanceToken_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "BlacklistRole" */
+  BlacklistRole?: BlacklistRoleGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: BlacklistRole_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: BlacklistRole_order_by[] | null
+      /** filter the rows returned */
+      where?: BlacklistRole_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "BlacklistRole" using primary key columns */
+  BlacklistRole_by_pk?: BlacklistRoleGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table in a streaming manner: "BlacklistRole" */
+  BlacklistRole_stream?: BlacklistRoleGenqlSelection & {
+    __args: {
+      /** maximum number of rows returned in a single batch */
+      batch_size: Scalars['Int']
+      /** cursor to stream the results returned by the query */
+      cursor: (BlacklistRole_stream_cursor_input | null)[]
+      /** filter the rows returned */
+      where?: BlacklistRole_bool_exp | null
     }
   }
   /** fetch data from the table: "BondingCurve" */
@@ -14809,6 +15205,26 @@ export const isAutRoles = (
 ): obj is AutRoles => {
   if (!obj?.__typename) throw new Error('__typename is missing in "isAutRoles"')
   return AutRoles_possibleTypes.includes(obj.__typename)
+}
+
+const BlacklistIssuanceToken_possibleTypes: string[] = [
+  'BlacklistIssuanceToken',
+]
+export const isBlacklistIssuanceToken = (
+  obj?: { __typename?: any } | null
+): obj is BlacklistIssuanceToken => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBlacklistIssuanceToken"')
+  return BlacklistIssuanceToken_possibleTypes.includes(obj.__typename)
+}
+
+const BlacklistRole_possibleTypes: string[] = ['BlacklistRole']
+export const isBlacklistRole = (
+  obj?: { __typename?: any } | null
+): obj is BlacklistRole => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBlacklistRole"')
+  return BlacklistRole_possibleTypes.includes(obj.__typename)
 }
 
 const BondingCurve_possibleTypes: string[] = ['BondingCurve']
@@ -16955,6 +17371,27 @@ export const enumAutRolesSelectColumn = {
   db_write_timestamp: 'db_write_timestamp' as const,
   id: 'id' as const,
   workflow_id: 'workflow_id' as const,
+}
+
+export const enumBlacklistIssuanceTokenSelectColumn = {
+  address: 'address' as const,
+  chainId: 'chainId' as const,
+  db_write_timestamp: 'db_write_timestamp' as const,
+  id: 'id' as const,
+  manager: 'manager' as const,
+  minter: 'minter' as const,
+  oraclePriceFM_id: 'oraclePriceFM_id' as const,
+  token_id: 'token_id' as const,
+}
+
+export const enumBlacklistRoleSelectColumn = {
+  db_write_timestamp: 'db_write_timestamp' as const,
+  id: 'id' as const,
+  recipient: 'recipient' as const,
+  status: 'status' as const,
+  timestamp: 'timestamp' as const,
+  token_id: 'token_id' as const,
+  txHash: 'txHash' as const,
 }
 
 export const enumBondingCurveSelectColumn = {

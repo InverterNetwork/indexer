@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.19](https://github.com/InverterNetwork/indexer/compare/v0.9.18...v0.9.19) (2025-03-01)
+
+
+### Features
+
+* adds prod.yml ([04e2b0f](https://github.com/InverterNetwork/indexer/commit/04e2b0f9f98865f7e0f3615f9035f992aecc0e41))
+* enhance blue-green database switching with health check ([57d5f7e](https://github.com/InverterNetwork/indexer/commit/57d5f7ec85368bd830c1e733dc633b0f7c28c3d7))
+
+
+### Bug Fixes
+
+* add dynamic database selection for blue-green deployment ([31583b5](https://github.com/InverterNetwork/indexer/commit/31583b5e6de7afd2dec4b0fdeb2b211e5aff08bc))
+* improve database detection in blue-green deployment ([cd8a6db](https://github.com/InverterNetwork/indexer/commit/cd8a6dbc0b5c4783fa2367889bf61f75cf0dbaa3))
+* reduce ECS service stability wait timeout and add sleep ([19b565c](https://github.com/InverterNetwork/indexer/commit/19b565cac11424db46f31486805ebd2aa47a7382))
+* refine database switching logic in CI/CD workflow ([e3112fa](https://github.com/InverterNetwork/indexer/commit/e3112fa95ab0bcc7966088db7ed7c5df17a5be11))
+* remove database health check logic from CI/CD workflow ([1345f01](https://github.com/InverterNetwork/indexer/commit/1345f013f1e58e6b5220f41e986397d50119b914))
+
 ### [0.9.18](https://github.com/InverterNetwork/indexer/compare/v0.9.17...v0.9.18) (2025-02-21)
 
 

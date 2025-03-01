@@ -112,6 +112,323 @@ input AutRoles_stream_cursor_value_input {
 }
 
 """
+columns and relationships of "BlacklistIssuanceToken"
+"""
+type BlacklistIssuanceToken {
+  address: String!
+
+  """An array relationship"""
+  blacklisted(
+    """distinct select on columns"""
+    distinct_on: [BlacklistRole_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [BlacklistRole_order_by!]
+
+    """filter the rows returned"""
+    where: BlacklistRole_bool_exp
+  ): [BlacklistRole!]!
+  chainId: Int!
+  db_write_timestamp: timestamp
+  id: String!
+  manager: [String!]!
+  minter: [String!]!
+
+  """An object relationship"""
+  oraclePriceFM: OraclePriceFM
+  oraclePriceFM_id: String!
+
+  """An object relationship"""
+  token: Token
+  token_id: String!
+}
+
+"""
+Boolean expression to filter rows from the table "BlacklistIssuanceToken". All fields are combined with a logical 'AND'.
+"""
+input BlacklistIssuanceToken_bool_exp {
+  _and: [BlacklistIssuanceToken_bool_exp!]
+  _not: BlacklistIssuanceToken_bool_exp
+  _or: [BlacklistIssuanceToken_bool_exp!]
+  address: String_comparison_exp
+  blacklisted: BlacklistRole_bool_exp
+  chainId: Int_comparison_exp
+  db_write_timestamp: timestamp_comparison_exp
+  id: String_comparison_exp
+  manager: String_array_comparison_exp
+  minter: String_array_comparison_exp
+  oraclePriceFM: OraclePriceFM_bool_exp
+  oraclePriceFM_id: String_comparison_exp
+  token: Token_bool_exp
+  token_id: String_comparison_exp
+}
+
+"""Ordering options when selecting data from "BlacklistIssuanceToken"."""
+input BlacklistIssuanceToken_order_by {
+  address: order_by
+  blacklisted_aggregate: BlacklistRole_aggregate_order_by
+  chainId: order_by
+  db_write_timestamp: order_by
+  id: order_by
+  manager: order_by
+  minter: order_by
+  oraclePriceFM: OraclePriceFM_order_by
+  oraclePriceFM_id: order_by
+  token: Token_order_by
+  token_id: order_by
+}
+
+"""
+select columns of table "BlacklistIssuanceToken"
+"""
+enum BlacklistIssuanceToken_select_column {
+  """column name"""
+  address
+
+  """column name"""
+  chainId
+
+  """column name"""
+  db_write_timestamp
+
+  """column name"""
+  id
+
+  """column name"""
+  manager
+
+  """column name"""
+  minter
+
+  """column name"""
+  oraclePriceFM_id
+
+  """column name"""
+  token_id
+}
+
+"""
+Streaming cursor of the table "BlacklistIssuanceToken"
+"""
+input BlacklistIssuanceToken_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: BlacklistIssuanceToken_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input BlacklistIssuanceToken_stream_cursor_value_input {
+  address: String
+  chainId: Int
+  db_write_timestamp: timestamp
+  id: String
+  manager: [String!]
+  minter: [String!]
+  oraclePriceFM_id: String
+  token_id: String
+}
+
+"""
+columns and relationships of "BlacklistRole"
+"""
+type BlacklistRole {
+  db_write_timestamp: timestamp
+  id: String!
+  recipient: String!
+  status: rolestatus!
+  timestamp: Int!
+
+  """An object relationship"""
+  token: BlacklistIssuanceToken
+  token_id: String!
+  txHash: String!
+}
+
+"""
+order by aggregate values of table "BlacklistRole"
+"""
+input BlacklistRole_aggregate_order_by {
+  avg: BlacklistRole_avg_order_by
+  count: order_by
+  max: BlacklistRole_max_order_by
+  min: BlacklistRole_min_order_by
+  stddev: BlacklistRole_stddev_order_by
+  stddev_pop: BlacklistRole_stddev_pop_order_by
+  stddev_samp: BlacklistRole_stddev_samp_order_by
+  sum: BlacklistRole_sum_order_by
+  var_pop: BlacklistRole_var_pop_order_by
+  var_samp: BlacklistRole_var_samp_order_by
+  variance: BlacklistRole_variance_order_by
+}
+
+"""
+order by avg() on columns of table "BlacklistRole"
+"""
+input BlacklistRole_avg_order_by {
+  timestamp: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "BlacklistRole". All fields are combined with a logical 'AND'.
+"""
+input BlacklistRole_bool_exp {
+  _and: [BlacklistRole_bool_exp!]
+  _not: BlacklistRole_bool_exp
+  _or: [BlacklistRole_bool_exp!]
+  db_write_timestamp: timestamp_comparison_exp
+  id: String_comparison_exp
+  recipient: String_comparison_exp
+  status: rolestatus_comparison_exp
+  timestamp: Int_comparison_exp
+  token: BlacklistIssuanceToken_bool_exp
+  token_id: String_comparison_exp
+  txHash: String_comparison_exp
+}
+
+"""
+order by max() on columns of table "BlacklistRole"
+"""
+input BlacklistRole_max_order_by {
+  db_write_timestamp: order_by
+  id: order_by
+  recipient: order_by
+  status: order_by
+  timestamp: order_by
+  token_id: order_by
+  txHash: order_by
+}
+
+"""
+order by min() on columns of table "BlacklistRole"
+"""
+input BlacklistRole_min_order_by {
+  db_write_timestamp: order_by
+  id: order_by
+  recipient: order_by
+  status: order_by
+  timestamp: order_by
+  token_id: order_by
+  txHash: order_by
+}
+
+"""Ordering options when selecting data from "BlacklistRole"."""
+input BlacklistRole_order_by {
+  db_write_timestamp: order_by
+  id: order_by
+  recipient: order_by
+  status: order_by
+  timestamp: order_by
+  token: BlacklistIssuanceToken_order_by
+  token_id: order_by
+  txHash: order_by
+}
+
+"""
+select columns of table "BlacklistRole"
+"""
+enum BlacklistRole_select_column {
+  """column name"""
+  db_write_timestamp
+
+  """column name"""
+  id
+
+  """column name"""
+  recipient
+
+  """column name"""
+  status
+
+  """column name"""
+  timestamp
+
+  """column name"""
+  token_id
+
+  """column name"""
+  txHash
+}
+
+"""
+order by stddev() on columns of table "BlacklistRole"
+"""
+input BlacklistRole_stddev_order_by {
+  timestamp: order_by
+}
+
+"""
+order by stddev_pop() on columns of table "BlacklistRole"
+"""
+input BlacklistRole_stddev_pop_order_by {
+  timestamp: order_by
+}
+
+"""
+order by stddev_samp() on columns of table "BlacklistRole"
+"""
+input BlacklistRole_stddev_samp_order_by {
+  timestamp: order_by
+}
+
+"""
+Streaming cursor of the table "BlacklistRole"
+"""
+input BlacklistRole_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: BlacklistRole_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input BlacklistRole_stream_cursor_value_input {
+  db_write_timestamp: timestamp
+  id: String
+  recipient: String
+  status: rolestatus
+  timestamp: Int
+  token_id: String
+  txHash: String
+}
+
+"""
+order by sum() on columns of table "BlacklistRole"
+"""
+input BlacklistRole_sum_order_by {
+  timestamp: order_by
+}
+
+"""
+order by var_pop() on columns of table "BlacklistRole"
+"""
+input BlacklistRole_var_pop_order_by {
+  timestamp: order_by
+}
+
+"""
+order by var_samp() on columns of table "BlacklistRole"
+"""
+input BlacklistRole_var_samp_order_by {
+  timestamp: order_by
+}
+
+"""
+order by variance() on columns of table "BlacklistRole"
+"""
+input BlacklistRole_variance_order_by {
+  timestamp: order_by
+}
+
+"""
 columns and relationships of "BondingCurve"
 """
 type BondingCurve {
@@ -10195,6 +10512,54 @@ type query_root {
   AutRoles_by_pk(id: String!): AutRoles
 
   """
+  fetch data from the table: "BlacklistIssuanceToken"
+  """
+  BlacklistIssuanceToken(
+    """distinct select on columns"""
+    distinct_on: [BlacklistIssuanceToken_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [BlacklistIssuanceToken_order_by!]
+
+    """filter the rows returned"""
+    where: BlacklistIssuanceToken_bool_exp
+  ): [BlacklistIssuanceToken!]!
+
+  """
+  fetch data from the table: "BlacklistIssuanceToken" using primary key columns
+  """
+  BlacklistIssuanceToken_by_pk(id: String!): BlacklistIssuanceToken
+
+  """
+  fetch data from the table: "BlacklistRole"
+  """
+  BlacklistRole(
+    """distinct select on columns"""
+    distinct_on: [BlacklistRole_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [BlacklistRole_order_by!]
+
+    """filter the rows returned"""
+    where: BlacklistRole_bool_exp
+  ): [BlacklistRole!]!
+
+  """fetch data from the table: "BlacklistRole" using primary key columns"""
+  BlacklistRole_by_pk(id: String!): BlacklistRole
+
+  """
   fetch data from the table: "BondingCurve"
   """
   BondingCurve(
@@ -11534,6 +11899,82 @@ type subscription_root {
     """filter the rows returned"""
     where: AutRoles_bool_exp
   ): [AutRoles!]!
+
+  """
+  fetch data from the table: "BlacklistIssuanceToken"
+  """
+  BlacklistIssuanceToken(
+    """distinct select on columns"""
+    distinct_on: [BlacklistIssuanceToken_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [BlacklistIssuanceToken_order_by!]
+
+    """filter the rows returned"""
+    where: BlacklistIssuanceToken_bool_exp
+  ): [BlacklistIssuanceToken!]!
+
+  """
+  fetch data from the table: "BlacklistIssuanceToken" using primary key columns
+  """
+  BlacklistIssuanceToken_by_pk(id: String!): BlacklistIssuanceToken
+
+  """
+  fetch data from the table in a streaming manner: "BlacklistIssuanceToken"
+  """
+  BlacklistIssuanceToken_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [BlacklistIssuanceToken_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: BlacklistIssuanceToken_bool_exp
+  ): [BlacklistIssuanceToken!]!
+
+  """
+  fetch data from the table: "BlacklistRole"
+  """
+  BlacklistRole(
+    """distinct select on columns"""
+    distinct_on: [BlacklistRole_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [BlacklistRole_order_by!]
+
+    """filter the rows returned"""
+    where: BlacklistRole_bool_exp
+  ): [BlacklistRole!]!
+
+  """fetch data from the table: "BlacklistRole" using primary key columns"""
+  BlacklistRole_by_pk(id: String!): BlacklistRole
+
+  """
+  fetch data from the table in a streaming manner: "BlacklistRole"
+  """
+  BlacklistRole_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [BlacklistRole_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: BlacklistRole_bool_exp
+  ): [BlacklistRole!]!
 
   """
   fetch data from the table: "BondingCurve"
