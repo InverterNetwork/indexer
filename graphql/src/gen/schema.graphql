@@ -6424,7 +6424,6 @@ type MigrationConfig {
   db_write_timestamp: timestamp
   dexAdapter: String!
   id: String!
-  initialRewardDuration: numeric!
   isImmutable: Boolean!
   lpTokenRecipient: String!
   migrationThreshold: numeric!
@@ -6440,7 +6439,6 @@ input MigrationConfig_bool_exp {
   db_write_timestamp: timestamp_comparison_exp
   dexAdapter: String_comparison_exp
   id: String_comparison_exp
-  initialRewardDuration: numeric_comparison_exp
   isImmutable: Boolean_comparison_exp
   lpTokenRecipient: String_comparison_exp
   migrationThreshold: numeric_comparison_exp
@@ -6451,7 +6449,6 @@ input MigrationConfig_order_by {
   db_write_timestamp: order_by
   dexAdapter: order_by
   id: order_by
-  initialRewardDuration: order_by
   isImmutable: order_by
   lpTokenRecipient: order_by
   migrationThreshold: order_by
@@ -6469,9 +6466,6 @@ enum MigrationConfig_select_column {
 
   """column name"""
   id
-
-  """column name"""
-  initialRewardDuration
 
   """column name"""
   isImmutable
@@ -6499,7 +6493,6 @@ input MigrationConfig_stream_cursor_value_input {
   db_write_timestamp: timestamp
   dexAdapter: String
   id: String
-  initialRewardDuration: numeric
   isImmutable: Boolean
   lpTokenRecipient: String
   migrationThreshold: numeric

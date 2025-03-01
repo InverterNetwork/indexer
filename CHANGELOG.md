@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.20](https://github.com/InverterNetwork/indexer/compare/v0.9.19...v0.9.20) (2025-03-01)
+
+
+### Bug Fixes
+
+* **ci:** improve database detection and logging in blue-green deployment ([92ab669](https://github.com/InverterNetwork/indexer/commit/92ab6694a3d6c1b5a36a6f2015cbf77864186c83))
+* **ci:** simplify database detection in ECS deployment workflow ([5acb554](https://github.com/InverterNetwork/indexer/commit/5acb554b43b08450edfeb3be8d8ba2f86dbf926e))
+
 ### [0.9.19](https://github.com/InverterNetwork/indexer/compare/v0.9.18...v0.9.19) (2025-03-01)
 
 

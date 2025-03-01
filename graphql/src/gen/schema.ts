@@ -2335,7 +2335,6 @@ export interface MigrationConfig {
   db_write_timestamp: Scalars['timestamp'] | null
   dexAdapter: Scalars['String']
   id: Scalars['String']
-  initialRewardDuration: Scalars['numeric']
   isImmutable: Scalars['Boolean']
   lpTokenRecipient: Scalars['String']
   migrationThreshold: Scalars['numeric']
@@ -2347,7 +2346,6 @@ export type MigrationConfig_select_column =
   | 'db_write_timestamp'
   | 'dexAdapter'
   | 'id'
-  | 'initialRewardDuration'
   | 'isImmutable'
   | 'lpTokenRecipient'
   | 'migrationThreshold'
@@ -9512,7 +9510,6 @@ export interface MigrationConfigGenqlSelection {
   db_write_timestamp?: boolean | number
   dexAdapter?: boolean | number
   id?: boolean | number
-  initialRewardDuration?: boolean | number
   isImmutable?: boolean | number
   lpTokenRecipient?: boolean | number
   migrationThreshold?: boolean | number
@@ -9528,7 +9525,6 @@ export interface MigrationConfig_bool_exp {
   db_write_timestamp?: timestamp_comparison_exp | null
   dexAdapter?: String_comparison_exp | null
   id?: String_comparison_exp | null
-  initialRewardDuration?: numeric_comparison_exp | null
   isImmutable?: Boolean_comparison_exp | null
   lpTokenRecipient?: String_comparison_exp | null
   migrationThreshold?: numeric_comparison_exp | null
@@ -9539,7 +9535,6 @@ export interface MigrationConfig_order_by {
   db_write_timestamp?: order_by | null
   dexAdapter?: order_by | null
   id?: order_by | null
-  initialRewardDuration?: order_by | null
   isImmutable?: order_by | null
   lpTokenRecipient?: order_by | null
   migrationThreshold?: order_by | null
@@ -9558,7 +9553,6 @@ export interface MigrationConfig_stream_cursor_value_input {
   db_write_timestamp?: Scalars['timestamp'] | null
   dexAdapter?: Scalars['String'] | null
   id?: Scalars['String'] | null
-  initialRewardDuration?: Scalars['numeric'] | null
   isImmutable?: Scalars['Boolean'] | null
   lpTokenRecipient?: Scalars['String'] | null
   migrationThreshold?: Scalars['numeric'] | null
@@ -17664,7 +17658,6 @@ export const enumMigrationConfigSelectColumn = {
   db_write_timestamp: 'db_write_timestamp' as const,
   dexAdapter: 'dexAdapter' as const,
   id: 'id' as const,
-  initialRewardDuration: 'initialRewardDuration' as const,
   isImmutable: 'isImmutable' as const,
   lpTokenRecipient: 'lpTokenRecipient' as const,
   migrationThreshold: 'migrationThreshold' as const,
