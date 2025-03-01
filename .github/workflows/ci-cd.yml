@@ -171,21 +171,18 @@ jobs:
           jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' task-definition-full.json > task-definition.json
 
           # Extract current database name from running tasks, fallback to latest task definition
-          TASK_ARN=$(aws ecs list-tasks --cluster ${{env.PLATFORM}}-services-cluster --service-name ${{ env.REPO_NAME }}-${{env.PLATFORM}} --desired-status RUNNING --query 'taskArns[0]' --output text)
+          RUNNING_TASK_ARN=$(aws ecs list-tasks --cluster ${{env.PLATFORM}}-services-cluster --service-name ${{ env.REPO_NAME }}-${{env.PLATFORM}} --desired-status RUNNING --query 'taskArns[0]' --output text)
 
-          if [[ "$TASK_ARN" != "None" && -n "$TASK_ARN" ]]; then
-            TASK_DEF_ARN=$(aws ecs describe-tasks --cluster ${{env.PLATFORM}}-services-cluster --tasks $TASK_ARN --query 'tasks[0].taskDefinitionArn' --output text)
-            if [[ "$TASK_DEF_ARN" != "None" && -n "$TASK_DEF_ARN" ]]; then
-              CURRENT_DB=$(aws ecs describe-task-definition --task-definition $TASK_DEF_ARN --query 'taskDefinition.containerDefinitions[?name==`graphql-engine`].environment[?name==`HASURA_GRAPHQL_DATABASE_URL`].value' --output text | grep -o 'blue\|green' || echo "")
+          if [[ "$RUNNING_TASK_ARN" != "None" && -n "$RUNNING_TASK_ARN" ]]; then
+            RUNNING_TASK_DEF_ARN=$(aws ecs describe-tasks --cluster ${{env.PLATFORM}}-services-cluster --tasks $RUNNING_TASK_ARN --query 'tasks[0].taskDefinitionArn' --output text)
+            if [[ "$RUNNING_TASK_DEF_ARN" != "None" && -n "$RUNNING_TASK_DEF_ARN" ]]; then
+              aws ecs describe-task-definition --task-definition indexer-${{ env.PLATFORM }} --query 'taskDefinition' > running-task-definition.json
+              CURRENT_DB=$(jq -r '.containerDefinitions[] | select(.name == "graphql-engine") | .environment[] | select(.name == "HASURA_GRAPHQL_DATABASE_URL") | .value' running-task-definition.json | grep -o 'blue\|green')
+            else 
+              CURRENT_DB=$(jq -r '.containerDefinitions[] | select(.name == "graphql-engine") | .environment[] | select(.name == "HASURA_GRAPHQL_DATABASE_URL") | .value' task-definition.json | grep -o 'blue\|green')
             fi
-          fi
-
-          # If no running tasks or couldn't get DB, fallback to task definition
-          if [[ -z "$CURRENT_DB" ]]; then
-            CURRENT_DB=$(jq -r '.containerDefinitions[] | select(.name == "graphql-engine") | .environment[] | select(.name == "HASURA_GRAPHQL_DATABASE_URL") | .value' task-definition.json | grep -o 'blue\|green')
-            echo "No running tasks found or couldn't determine DB, falling back to task definition DB: $CURRENT_DB"
           else
-            echo "Found DB from running task: $CURRENT_DB"
+            CURRENT_DB=$(jq -r '.containerDefinitions[] | select(.name == "graphql-engine") | .environment[] | select(.name == "HASURA_GRAPHQL_DATABASE_URL") | .value' task-definition.json | grep -o 'blue\|green')
           fi
 
           # Only switch DB for SCHEMA_CHANGED and MIGRATE_DOWN_UP if there are healthy tasks
