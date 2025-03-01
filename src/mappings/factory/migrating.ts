@@ -26,7 +26,6 @@ Migrating_PIM_Factory_v1.PIMWorkflowCreated.handler(
       migrationThreshold,
       dexAdapter: event.params.migrationConfig_[2],
       lpTokenRecipient: event.params.migrationConfig_[3],
-      initialRewardDuration: event.params.migrationConfig_[4],
     })
 
     context.MigratingPIM.set({

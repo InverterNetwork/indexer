@@ -11,9 +11,17 @@
         "name": "_trustedForwarder",
         "type": "address",
         "internalType": "address"
-      }
+      },
+      { "name": "_admin", "type": "address", "internalType": "address" }
     ],
     "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "admin",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "stateMutability": "view"
   },
   {
     "type": "function",
@@ -30,6 +38,13 @@
     ],
     "outputs": [],
     "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "collateralFeeMultiplier",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
   },
   {
     "type": "function",
@@ -220,11 +235,6 @@
             "name": "lpTokenRecipient",
             "type": "address",
             "internalType": "address"
-          },
-          {
-            "name": "initialRewardDuration",
-            "type": "uint256",
-            "internalType": "uint256"
           }
         ]
       }
@@ -301,6 +311,27 @@
   },
   {
     "type": "function",
+    "name": "issuanceFeeMultiplier",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "issuanceLiquidityDivisor",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "mainFundingManager",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "orchestratorFactory",
     "inputs": [],
     "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
@@ -345,21 +376,6 @@
         "name": "initialVirtualCollateralSupply",
         "type": "uint256",
         "internalType": "uint256"
-      },
-      {
-        "name": "initialRewardDuration",
-        "type": "uint256",
-        "internalType": "uint256"
-      },
-      {
-        "name": "staking",
-        "type": "address",
-        "internalType": "contract LM_PC_Staking_v1"
-      },
-      {
-        "name": "paymentRouter",
-        "type": "address",
-        "internalType": "contract LM_PC_PaymentRouter_v1"
       }
     ],
     "stateMutability": "view"
@@ -382,15 +398,61 @@
   },
   {
     "type": "function",
-    "name": "setRewards",
+    "name": "setAdmin",
+    "inputs": [
+      { "name": "_admin", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setCollateralFeeMultiplier",
     "inputs": [
       {
-        "name": "fundingManager",
+        "name": "_collateralFeeMultiplier",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setIssuanceFeeMultiplier",
+    "inputs": [
+      {
+        "name": "_issuanceFeeMultiplier",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setIssuanceLiquidityDivisor",
+    "inputs": [
+      {
+        "name": "_issuanceLiquidityDivisor",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setMainFundingManager",
+    "inputs": [
+      {
+        "name": "_mainFundingManager",
         "type": "address",
         "internalType": "address"
-      },
-      { "name": "amount", "type": "uint256", "internalType": "uint256" },
-      { "name": "duration", "type": "uint256", "internalType": "uint256" }
+      }
     ],
     "outputs": [],
     "stateMutability": "nonpayable"
@@ -401,20 +463,6 @@
     "inputs": [],
     "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
     "stateMutability": "view"
-  },
-  {
-    "type": "function",
-    "name": "withdrawPimFee",
-    "inputs": [
-      {
-        "name": "fundingManager",
-        "type": "address",
-        "internalType": "address"
-      },
-      { "name": "to", "type": "address", "internalType": "address" }
-    ],
-    "outputs": [],
-    "stateMutability": "nonpayable"
   },
   {
     "type": "event",
@@ -508,11 +556,6 @@
             "name": "lpTokenRecipient",
             "type": "address",
             "internalType": "address"
-          },
-          {
-            "name": "initialRewardDuration",
-            "type": "uint256",
-            "internalType": "uint256"
           }
         ]
       }
@@ -521,12 +564,13 @@
   },
   {
     "type": "error",
-    "name": "PIM_WorkflowFactory__OnlyInitiatorAfterGraduation",
+    "name": "PIM_WorkflowFactory__CantBeZeroAddress",
     "inputs": []
   },
+  { "type": "error", "name": "PIM_WorkflowFactory__OnlyAdmin", "inputs": [] },
   {
     "type": "error",
-    "name": "PIM_WorkflowFactory__OnlyInitiatorAndRewardDurationOver",
+    "name": "PIM_WorkflowFactory__OnlyInitiatorAfterGraduation",
     "inputs": []
   }
 ]
