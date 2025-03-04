@@ -250,6 +250,13 @@
   },
   {
     "type": "function",
+    "name": "fundingManagers",
+    "inputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "getIsGraduated",
     "inputs": [
       {
@@ -376,6 +383,16 @@
         "name": "initialVirtualCollateralSupply",
         "type": "uint256",
         "internalType": "uint256"
+      },
+      {
+        "name": "stakingModule",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "paymentRouter",
+        "type": "address",
+        "internalType": "address"
       }
     ],
     "stateMutability": "view"
@@ -465,6 +482,13 @@
     "stateMutability": "view"
   },
   {
+    "type": "function",
+    "name": "withdrawAllProjectCollateralFeesToStaking",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
     "type": "event",
     "name": "Graduation",
     "inputs": [
@@ -488,12 +512,6 @@
       },
       {
         "name": "collateralTokenAmount",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
-      },
-      {
-        "name": "stakingRewards",
         "type": "uint256",
         "indexed": false,
         "internalType": "uint256"
@@ -565,6 +583,11 @@
   {
     "type": "error",
     "name": "PIM_WorkflowFactory__CantBeZeroAddress",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "PIM_WorkflowFactory__InitialPurchaseGraduatesMarket",
     "inputs": []
   },
   { "type": "error", "name": "PIM_WorkflowFactory__OnlyAdmin", "inputs": [] },
