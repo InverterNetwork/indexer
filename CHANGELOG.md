@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.21](https://github.com/InverterNetwork/indexer/compare/v0.9.21-alpha.0...v0.9.21) (2025-03-05)
+
 ### [0.9.20](https://github.com/InverterNetwork/indexer/compare/v0.9.19...v0.9.20) (2025-03-01)
 
 
