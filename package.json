@@ -42,7 +42,7 @@
     "viem": "^2.21.0"
   },
   "dependencies": {
-    "envio": "^2.12.4",
+    "envio": "^2.13.0",
     "geckoterm": "^0.2.4",
     "node-ts-cache": "^4.4.0",
     "node-ts-cache-storage-memory": "^4.4.0",
@@ -52,27 +52,27 @@
     "generated": "./generated"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.6.0",
-    "@commitlint/config-conventional": "^19.6.0",
+    "@commitlint/cli": "^19.7.1",
+    "@commitlint/config-conventional": "^19.7.1",
     "@genql/cli": "^6.3.3",
     "@types/chai": "^5.0.1",
     "@types/debug": "^4.1.12",
-    "@types/lodash": "^4.17.14",
+    "@types/lodash": "^4.17.16",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.8.8",
-    "chai": "^5.1.2",
+    "chai": "^5.2.0",
     "debug": "^4.4.0",
     "eslint-plugin-import-x": "4.6.1",
-    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-prettier": "^5.2.3",
     "husky": "^9.1.7",
-    "lint-staged": "^15.3.0",
-    "mocha": "^11.0.1",
+    "lint-staged": "^15.4.3",
+    "mocha": "^11.1.0",
     "pm2": "^5.4.3",
-    "prettier": "^3.4.2",
+    "prettier": "^3.5.3",
     "standard-version": "^9.5.0",
     "ts-node": "10.9.1",
     "tsc-files": "^1.1.4",
-    "type-fest": "^4.32.0",
-    "typescript-eslint": "^8.21.0"
+    "type-fest": "^4.37.0",
+    "typescript-eslint": "^8.26.0"
   }
 }

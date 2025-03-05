@@ -22,8 +22,10 @@ describe('#GET_TOKEN', () => {
   it('2. Should subscribe to a token', async () => {
     const sub = subscription(fields)
 
-    let token: Omit<Token, 'db_write_timestamp' | 'id' | 'priceUSD'> | null =
-      null
+    let token: Omit<
+      Token,
+      'db_write_timestamp' | 'id' | 'priceUSD' | 'marketCapUSD'
+    > | null = null
 
     sub.addCallback((result) => {
       token = result.Token.at(0) ?? null
