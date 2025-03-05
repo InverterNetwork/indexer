@@ -141,7 +141,7 @@ jobs:
       - name: Create Task Definition
         id: task-def
         run: |
-          MIGRATE_SETUP='node -e "require('\''./generated/src/db/Migrations.bs.js'\'').setupDb()"'
+          MIGRATE_SETUP='node -e "require('\''./generated/src/db/Migrations.bs.js'\'').runUpMigrations(true, true)"'
           MIGRATE_UP='node -e "require('\''./generated/src/db/Migrations.bs.js'\'').runUpMigrations(true)"'
           MIGRATE_DOWN='node -e "require('\''./generated/src/db/Migrations.bs.js'\'').runDownMigrations(true)"'
           GRANT_PERMISSIONS='pnpm ts-node scripts/grant-aggregate-permissions.ts'
