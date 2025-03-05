@@ -476,6 +476,61 @@
   },
   {
     "type": "function",
+    "name": "setStakingModuleMetadata",
+    "inputs": [
+      {
+        "name": "_stakingModuleMetadata",
+        "type": "tuple",
+        "internalType": "struct IMigrating_PIM_Factory_v1.LM_PC_Staking_v1_Metadata",
+        "components": [
+          {
+            "name": "majorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "minorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "patchVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          { "name": "url", "type": "string", "internalType": "string" }
+        ]
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "stakingModuleMetadata",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "majorVersion",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "minorVersion",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "patchVersion",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      { "name": "url", "type": "string", "internalType": "string" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "trustedForwarder",
     "inputs": [],
     "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
@@ -487,6 +542,44 @@
     "inputs": [],
     "outputs": [],
     "stateMutability": "nonpayable"
+  },
+  {
+    "type": "event",
+    "name": "AdminChanged",
+    "inputs": [
+      {
+        "name": "oldAdmin",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "newAdmin",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "CollateralFeeMultiplierChanged",
+    "inputs": [
+      {
+        "name": "oldMultiplier",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "newMultiplier",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
   },
   {
     "type": "event",
@@ -515,6 +608,63 @@
         "type": "uint256",
         "indexed": false,
         "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "IssuanceFeeMultiplierChanged",
+    "inputs": [
+      {
+        "name": "oldMultiplier",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "newMultiplier",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "IssuanceLiquidityDivisorChanged",
+    "inputs": [
+      {
+        "name": "oldDivisor",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "newDivisor",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "MainFundingManagerChanged",
+    "inputs": [
+      {
+        "name": "oldMainFundingManager",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "newMainFundingManager",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
       }
     ],
     "anonymous": false
@@ -581,6 +731,76 @@
     "anonymous": false
   },
   {
+    "type": "event",
+    "name": "StakingModuleMetadataChanged",
+    "inputs": [
+      {
+        "name": "oldMetadata",
+        "type": "tuple",
+        "indexed": false,
+        "internalType": "struct IMigrating_PIM_Factory_v1.LM_PC_Staking_v1_Metadata",
+        "components": [
+          {
+            "name": "majorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "minorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "patchVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          { "name": "url", "type": "string", "internalType": "string" }
+        ]
+      },
+      {
+        "name": "newMetadata",
+        "type": "tuple",
+        "indexed": false,
+        "internalType": "struct IMigrating_PIM_Factory_v1.LM_PC_Staking_v1_Metadata",
+        "components": [
+          {
+            "name": "majorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "minorVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "patchVersion",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          { "name": "url", "type": "string", "internalType": "string" }
+        ]
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "error",
+    "name": "AddressEmptyCode",
+    "inputs": [
+      { "name": "target", "type": "address", "internalType": "address" }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "AddressInsufficientBalance",
+    "inputs": [
+      { "name": "account", "type": "address", "internalType": "address" }
+    ]
+  },
+  { "type": "error", "name": "FailedInnerCall", "inputs": [] },
+  {
     "type": "error",
     "name": "PIM_WorkflowFactory__CantBeZeroAddress",
     "inputs": []
@@ -595,5 +815,12 @@
     "type": "error",
     "name": "PIM_WorkflowFactory__OnlyInitiatorAfterGraduation",
     "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "SafeERC20FailedOperation",
+    "inputs": [
+      { "name": "token", "type": "address", "internalType": "address" }
+    ]
   }
 ]
