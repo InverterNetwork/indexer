@@ -226,7 +226,7 @@ networks:
       - name: Orchestrator_v1
         address:
       - name: Migrating_PIM_Factory_v1
-        address: 0xd9efea12ff508ea3bd6e67d185387d71f83f4ad1
+        address: 0xA89eaC3Fc5945e465256EBe4639E9dcdcD51B34C
       - name: AUT_Roles_v1
         address:
       - name: BondingCurve # renamed to solve postgres conflict due to length of name
