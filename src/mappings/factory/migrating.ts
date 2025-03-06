@@ -11,7 +11,7 @@ Migrating_PIM_Factory_v1.PIMWorkflowCreated.handler(
       throw new Error('Workflow not found')
     }
 
-    const id = `${chainId}-${workflow.fundingManager_id}`
+    const id = workflow.fundingManager_id
 
     const collateralToken = await updateToken({
       context,
@@ -63,7 +63,7 @@ Migrating_PIM_Factory_v1.Graduation.handler(async ({ event, context }) => {
     throw new Error('Workflow not found')
   }
 
-  const id = `${chainId}-${workflow.fundingManager_id}`
+  const id = workflow.fundingManager_id
 
   const migratingPim = (await context.MigratingPIM.get(id))!
   const issuanceToken = (await context.Token.get(

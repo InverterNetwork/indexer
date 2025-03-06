@@ -599,7 +599,7 @@ type CurveHourData @entity {
 # -----------------------------------------------------------------------------
 
 type MigratingPIM {
-  id: ID! # `${chainId}-${orchestratorAddress}`
+  id: ID! # fundingManager_id
   chainId: Int!
   address: String!
 
@@ -615,7 +615,8 @@ type MigratingPIM {
 
   graduation: Graduation!
 
-  curveHourDatas: [CurveHourData!]! @derivedFrom(field: "fundingManager_id")
+  curveHourData: [CurveHourData!]! @derivedFrom(field: "fundingManager_id")
+  curveDayData: [CurveDayData!]! @derivedFrom(field: "fundingManager_id")
 }
 
 type MigrationConfig {
