@@ -6286,6 +6286,78 @@ type MigratingPIM {
   """An object relationship"""
   collateralToken: Token
   collateralToken_id: String!
+
+  """An array relationship"""
+  curveDayData(
+    """distinct select on columns"""
+    distinct_on: [CurveDayData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveDayData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveDayData_bool_exp
+  ): [CurveDayData!]!
+
+  """An aggregate relationship"""
+  curveDayData_aggregate(
+    """distinct select on columns"""
+    distinct_on: [CurveDayData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveDayData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveDayData_bool_exp
+  ): CurveDayData_aggregate!
+
+  """An array relationship"""
+  curveHourData(
+    """distinct select on columns"""
+    distinct_on: [CurveHourData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveHourData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveHourData_bool_exp
+  ): [CurveHourData!]!
+
+  """An aggregate relationship"""
+  curveHourData_aggregate(
+    """distinct select on columns"""
+    distinct_on: [CurveHourData_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [CurveHourData_order_by!]
+
+    """filter the rows returned"""
+    where: CurveHourData_bool_exp
+  ): CurveHourData_aggregate!
   db_write_timestamp: timestamp
   deployer: String!
 
@@ -6319,6 +6391,10 @@ input MigratingPIM_bool_exp {
   chainId: Int_comparison_exp
   collateralToken: Token_bool_exp
   collateralToken_id: String_comparison_exp
+  curveDayData: CurveDayData_bool_exp
+  curveDayData_aggregate: CurveDayData_aggregate_bool_exp
+  curveHourData: CurveHourData_bool_exp
+  curveHourData_aggregate: CurveHourData_aggregate_bool_exp
   db_write_timestamp: timestamp_comparison_exp
   deployer: String_comparison_exp
   graduation: Graduation_bool_exp
@@ -6339,6 +6415,8 @@ input MigratingPIM_order_by {
   chainId: order_by
   collateralToken: Token_order_by
   collateralToken_id: order_by
+  curveDayData_aggregate: CurveDayData_aggregate_order_by
+  curveHourData_aggregate: CurveHourData_aggregate_order_by
   db_write_timestamp: order_by
   deployer: order_by
   graduation: Graduation_order_by

@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.22](https://github.com/InverterNetwork/indexer/compare/v0.9.21...v0.9.22) (2025-03-06)
+
+
+### Features
+
+* **factory:** add staking module metadata functions and events ([d1190c0](https://github.com/InverterNetwork/indexer/commit/d1190c0d061d62171cea8642b43d425b2e809bda))
+* **schema:** update MigratingPIM entity with additional data relations ([51bc6e3](https://github.com/InverterNetwork/indexer/commit/51bc6e31491cb7b39c48c5f85abb12c53652c2da))
+
+
+### Bug Fixes
+
+* **ci:** update ( envio changed the cmd ) migration setup command in workflow ([d0ebea0](https://github.com/InverterNetwork/indexer/commit/d0ebea0157a799d9727dc712f7922701541f4262))
+* **factory:** resolve workflow reference in migrating PIM handler ([994c218](https://github.com/InverterNetwork/indexer/commit/994c218636a4818f5884185231eb9ddb6a04e9ef))
+
 ### [0.9.21](https://github.com/InverterNetwork/indexer/compare/v0.9.21-alpha.0...v0.9.21) (2025-03-05)
 
 ### [0.9.20](https://github.com/InverterNetwork/indexer/compare/v0.9.19...v0.9.20) (2025-03-01)

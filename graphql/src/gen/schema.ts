@@ -2297,6 +2297,14 @@ export interface MigratingPIM {
   /** An object relationship */
   collateralToken: Token | null
   collateralToken_id: Scalars['String']
+  /** An array relationship */
+  curveDayData: CurveDayData[]
+  /** An aggregate relationship */
+  curveDayData_aggregate: CurveDayData_aggregate
+  /** An array relationship */
+  curveHourData: CurveHourData[]
+  /** An aggregate relationship */
+  curveHourData_aggregate: CurveHourData_aggregate
   db_write_timestamp: Scalars['timestamp'] | null
   deployer: Scalars['String']
   /** An object relationship */
@@ -9419,6 +9427,66 @@ export interface MigratingPIMGenqlSelection {
   /** An object relationship */
   collateralToken?: TokenGenqlSelection
   collateralToken_id?: boolean | number
+  /** An array relationship */
+  curveDayData?: CurveDayDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveDayData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveDayData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveDayData_bool_exp | null
+    }
+  }
+  /** An aggregate relationship */
+  curveDayData_aggregate?: CurveDayData_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveDayData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveDayData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveDayData_bool_exp | null
+    }
+  }
+  /** An array relationship */
+  curveHourData?: CurveHourDataGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveHourData_bool_exp | null
+    }
+  }
+  /** An aggregate relationship */
+  curveHourData_aggregate?: CurveHourData_aggregateGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: CurveHourData_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: CurveHourData_order_by[] | null
+      /** filter the rows returned */
+      where?: CurveHourData_bool_exp | null
+    }
+  }
   db_write_timestamp?: boolean | number
   deployer?: boolean | number
   /** An object relationship */
@@ -9448,6 +9516,10 @@ export interface MigratingPIM_bool_exp {
   chainId?: Int_comparison_exp | null
   collateralToken?: Token_bool_exp | null
   collateralToken_id?: String_comparison_exp | null
+  curveDayData?: CurveDayData_bool_exp | null
+  curveDayData_aggregate?: CurveDayData_aggregate_bool_exp | null
+  curveHourData?: CurveHourData_bool_exp | null
+  curveHourData_aggregate?: CurveHourData_aggregate_bool_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   deployer?: String_comparison_exp | null
   graduation?: Graduation_bool_exp | null
@@ -9468,6 +9540,8 @@ export interface MigratingPIM_order_by {
   chainId?: order_by | null
   collateralToken?: Token_order_by | null
   collateralToken_id?: order_by | null
+  curveDayData_aggregate?: CurveDayData_aggregate_order_by | null
+  curveHourData_aggregate?: CurveHourData_aggregate_order_by | null
   db_write_timestamp?: order_by | null
   deployer?: order_by | null
   graduation?: Graduation_order_by | null
