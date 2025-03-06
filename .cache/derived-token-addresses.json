@@ -5610,5 +5610,133 @@
   "0x4b2502ad254855ac83990998695c6fd16c2ceed9-137-issuance": {
     "meta": {},
     "content": "0xc530B75465Ce3c6286e718110A7B2e2B64Bdc860"
+  },
+  "0x3825e511fd062ac2707f1b29ce10c3f64748e370-11155111-token": {
+    "meta": {},
+    "content": "0x065775C7aB4E60ad1776A30DCfB15325d231Ce4F"
+  },
+  "0x3825e511fd062ac2707f1b29ce10c3f64748e370-11155111-issuance": {
+    "meta": {},
+    "content": "0xE5948fAd93c2B4C132a9CaBd3658A9F22277d9b8"
+  },
+  "0xf023dc34bd33dfa49593d1030cf2cdea285f2eab-11155111-token": {
+    "meta": {},
+    "content": "0x065775C7aB4E60ad1776A30DCfB15325d231Ce4F"
+  },
+  "0xf023dc34bd33dfa49593d1030cf2cdea285f2eab-11155111-issuance": {
+    "meta": {},
+    "content": "0x8031373441D786d37E936B05be5e4F148028d042"
+  },
+  "0xe195aa9d2db2cf0ce80a2dcbd17f03cd1a95a9e9-11155111-token": {
+    "meta": {},
+    "content": "0x065775C7aB4E60ad1776A30DCfB15325d231Ce4F"
+  },
+  "0xe195aa9d2db2cf0ce80a2dcbd17f03cd1a95a9e9-11155111-issuance": {
+    "meta": {},
+    "content": "0x1F53f595E6ac02eac19eBb23e86e896F766f02F0"
+  },
+  "0x5370396be6562854628ec5f40d0524bfd93ec0d3-11155111-token": {
+    "meta": {},
+    "content": "0x065775C7aB4E60ad1776A30DCfB15325d231Ce4F"
+  },
+  "0x5370396be6562854628ec5f40d0524bfd93ec0d3-11155111-issuance": {
+    "meta": {},
+    "content": "0x457391ADEEf8803D0016314eD7aF6B2662Fd3267"
+  },
+  "0xc924e4331293f298ccbe71ed40bd40a221427922-11155111-token": {
+    "meta": {},
+    "content": "0x065775C7aB4E60ad1776A30DCfB15325d231Ce4F"
+  },
+  "0xc924e4331293f298ccbe71ed40bd40a221427922-11155111-issuance": {
+    "meta": {},
+    "content": "0x360A71d97b7340906954508A208DEaF6b2Cb235B"
+  },
+  "0x900d58a6fb0a3ca84c6a8651ed03faa0dfc2ad01-84532-token": {
+    "meta": {},
+    "content": "0xC4d4598AE5843ed851D81F4E35E97cCCC4E25D80"
+  },
+  "0x900d58a6fb0a3ca84c6a8651ed03faa0dfc2ad01-84532-issuance": {
+    "meta": {},
+    "content": "0xF80dA1cB12e7D8C80c0102563C1b9FaD34C29D93"
+  },
+  "0x4fef548681fd4abed2f7b047fefd15fba93d056a-137-token": {
+    "meta": {},
+    "content": "0xc20CAf8deE81059ec0c8E5971b2AF7347eC131f4"
+  },
+  "0x4fef548681fd4abed2f7b047fefd15fba93d056a-137-issuance": {
+    "meta": {},
+    "content": "0x42fb8742381D5cE84D91B168De1e916D237D2875"
+  },
+  "0xa5c822332573b7be9b8cd9dda6ebb248e1dc6f81-84532-token": {
+    "meta": {},
+    "content": "0xC4d4598AE5843ed851D81F4E35E97cCCC4E25D80"
+  },
+  "0xa5c822332573b7be9b8cd9dda6ebb248e1dc6f81-84532-issuance": {
+    "meta": {},
+    "content": "0x421950207ce6fDD3AbF1e1A9Ca1C5E7BcC2f9941"
+  },
+  "0x7d9eb6f95da7800d3deef8f537e2157bfee4ee87-137-token": {
+    "meta": {},
+    "content": "0x668f5965C26e5dF5E9917f0d7D3367c8d8433682"
+  },
+  "0x7d9eb6f95da7800d3deef8f537e2157bfee4ee87-137-issuance": {
+    "meta": {},
+    "content": "0xfF1a6f79DE0b5b7fA47bCA5bA4Ed4892aCc9B17e"
+  },
+  "0x5d77999c6604ef236e942828cd42553e2dac5c73-137-token": {
+    "meta": {},
+    "content": "0x668f5965C26e5dF5E9917f0d7D3367c8d8433682"
+  },
+  "0x5d77999c6604ef236e942828cd42553e2dac5c73-137-issuance": {
+    "meta": {},
+    "content": "0xe535660123932cC17342A0391cdfBFd0d4F93Ce2"
+  },
+  "0x77b962f9a22a20e1b99dbcab382ae9256cdd9360-137-token": {
+    "meta": {},
+    "content": "0x668f5965C26e5dF5E9917f0d7D3367c8d8433682"
+  },
+  "0x77b962f9a22a20e1b99dbcab382ae9256cdd9360-137-issuance": {
+    "meta": {},
+    "content": "0x7835611BF9475E489b9Bef3C9c534Eb97f195Ec9"
+  },
+  "0xf60f647faff366003ef5e1d7464400a1cbb9bf5d-137-token": {
+    "meta": {},
+    "content": "0x668f5965C26e5dF5E9917f0d7D3367c8d8433682"
+  },
+  "0xf60f647faff366003ef5e1d7464400a1cbb9bf5d-137-issuance": {
+    "meta": {},
+    "content": "0xA5f2228980613F5F1D7A310021FbFa9bD165bC32"
+  },
+  "0xda1e3bc621390e67295a40c1fc303f9a831df089-11155111-token": {
+    "meta": {},
+    "content": "0x065775C7aB4E60ad1776A30DCfB15325d231Ce4F"
+  },
+  "0xda1e3bc621390e67295a40c1fc303f9a831df089-11155111-issuance": {
+    "meta": {},
+    "content": "0x7B3825f8c8157ae4d2d3A45A130867E2fa7A57D3"
+  },
+  "0xbc543c31c16e4d51dfface213cd4e178c819cc6c-11155111-token": {
+    "meta": {},
+    "content": "0x065775C7aB4E60ad1776A30DCfB15325d231Ce4F"
+  },
+  "0xbc543c31c16e4d51dfface213cd4e178c819cc6c-11155111-issuance": {
+    "meta": {},
+    "content": "0x2c0B3F380494d42bcAfD38FA8E3F0B62ADF36909"
+  },
+  "0xfb553cd82233d4cf740e6ca606ec43d1cd11e698-11155420-token": {
+    "meta": {},
+    "content": "0xd5018fA63924d1BE2C2C42aBDc24bD754499F97c"
+  },
+  "0xbc4b544c55bbb659faf665ec6b7c8ffb7f948bea-11155420-token": {
+    "meta": {},
+    "content": "0xd5018fA63924d1BE2C2C42aBDc24bD754499F97c"
+  },
+  "0x532380edb4562ecfe92c48b91450ac8b98e40bd3-11155420-token": {
+    "meta": {},
+    "content": "0x065775C7aB4E60ad1776A30DCfB15325d231Ce4F"
+  },
+  "0x532380edb4562ecfe92c48b91450ac8b98e40bd3-11155420-issuance": {
+    "meta": {},
+    "content": "0xDB95b45Ec7acC082d978a6FcBAcccf5A47386Db3"
   }
 }

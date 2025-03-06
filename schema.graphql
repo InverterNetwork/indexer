@@ -614,6 +614,8 @@ type MigratingPIM {
   migrationConfig: MigrationConfig!
 
   graduation: Graduation!
+
+  curveHourDatas: [CurveHourData!]! @derivedFrom(field: "fundingManager_id")
 }
 
 type MigrationConfig {

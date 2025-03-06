@@ -4,7 +4,14 @@ import { formatUnitsToBD, updateToken } from '../../utils'
 Migrating_PIM_Factory_v1.PIMWorkflowCreated.handler(
   async ({ event, context }) => {
     const chainId = event.chainId
-    const id = `${chainId}-${event.params.orchestrator}`
+    const workflow_id = `${chainId}-${event.params.orchestrator}`
+    const workflow = await context.Workflow.get(workflow_id)
+
+    if (!workflow) {
+      throw new Error('Workflow not found')
+    }
+
+    const id = `${chainId}-${workflow.fundingManager_id}`
 
     const collateralToken = await updateToken({
       context,
@@ -33,7 +40,7 @@ Migrating_PIM_Factory_v1.PIMWorkflowCreated.handler(
       chainId,
       address: event.srcAddress,
 
-      workflow_id: `${chainId}-${event.params.orchestrator}`,
+      workflow_id,
 
       issuanceToken_id: `${event.chainId}-${event.params.issuanceToken}`,
       collateralToken_id: `${event.chainId}-${event.params.collateralToken}`,
@@ -49,7 +56,14 @@ Migrating_PIM_Factory_v1.PIMWorkflowCreated.handler(
 
 Migrating_PIM_Factory_v1.Graduation.handler(async ({ event, context }) => {
   const chainId = event.chainId
-  const id = `${chainId}-${event.params.orchestrator}`
+  const workflow_id = `${chainId}-${event.params.orchestrator}`
+  const workflow = await context.Workflow.get(workflow_id)
+
+  if (!workflow) {
+    throw new Error('Workflow not found')
+  }
+
+  const id = `${chainId}-${workflow.fundingManager_id}`
 
   const migratingPim = (await context.MigratingPIM.get(id))!
   const issuanceToken = (await context.Token.get(
