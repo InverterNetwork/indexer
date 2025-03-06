@@ -130,7 +130,7 @@ export const updateBlacklistedAccount = async ({
       id,
       token_id: properties?.token_id!,
       recipient: properties?.recipient!,
-      // blacklistedBy: event.params.blacklistManager_,
+      initiator: properties?.initiator!,
       status: 'REVOKED',
       timestamp: event.block.timestamp,
       txHash: event.block.hash,

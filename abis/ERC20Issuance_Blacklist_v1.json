@@ -6,12 +6,7 @@
       { "name": "symbol_", "type": "string", "internalType": "string" },
       { "name": "decimals_", "type": "uint8", "internalType": "uint8" },
       { "name": "maxSupply_", "type": "uint256", "internalType": "uint256" },
-      { "name": "initialAdmin_", "type": "address", "internalType": "address" },
-      {
-        "name": "initialBlacklistManager_",
-        "type": "address",
-        "internalType": "address"
-      }
+      { "name": "initialAdmin_", "type": "address", "internalType": "address" }
     ],
     "stateMutability": "nonpayable"
   },
@@ -189,6 +184,17 @@
   },
   {
     "type": "function",
+    "name": "spendAllowance",
+    "inputs": [
+      { "name": "_from", "type": "address", "internalType": "address" },
+      { "name": "_spender", "type": "address", "internalType": "address" },
+      { "name": "_amount", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
     "name": "symbol",
     "inputs": [],
     "outputs": [{ "name": "", "type": "string", "internalType": "string" }],
@@ -240,6 +246,12 @@
         "type": "address",
         "indexed": true,
         "internalType": "address"
+      },
+      {
+        "name": "blacklistManager_",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
       }
     ],
     "anonymous": false
@@ -284,6 +296,12 @@
         "type": "bool",
         "indexed": false,
         "internalType": "bool"
+      },
+      {
+        "name": "tokenOwner_",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
       }
     ],
     "anonymous": false
@@ -332,6 +350,12 @@
     "inputs": [
       {
         "name": "account_",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "blacklistManager_",
         "type": "address",
         "indexed": true,
         "internalType": "address"

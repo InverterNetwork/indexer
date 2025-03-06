@@ -17,7 +17,7 @@ ERC20Issuance_Blacklist_v1.AddedToBlacklist.handler(
       properties: {
         token_id: blacklistedTokenIdId,
         recipient: event.params.account_,
-        // blacklistedBy: event.params.blacklistManager_,
+        initiator: event.params.blacklistManager_,
         status: 'GRANTED',
       },
     })
@@ -37,7 +37,7 @@ ERC20Issuance_Blacklist_v1.RemovedFromBlacklist.handler(
       properties: {
         token_id: blacklistedTokenIdId,
         recipient: event.params.account_,
-        // blacklistedBy: event.params.blacklistManager_,
+        initiator: event.params.blacklistManager_,
         status: 'REVOKED',
       },
     })
