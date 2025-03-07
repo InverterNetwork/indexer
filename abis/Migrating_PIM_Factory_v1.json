@@ -810,6 +810,11 @@
     "name": "PIM_WorkflowFactory__InitialPurchaseGraduatesMarket",
     "inputs": []
   },
+  {
+    "type": "error",
+    "name": "PIM_WorkflowFactory__MainFundingManagerNotSet",
+    "inputs": []
+  },
   { "type": "error", "name": "PIM_WorkflowFactory__OnlyAdmin", "inputs": [] },
   {
     "type": "error",
