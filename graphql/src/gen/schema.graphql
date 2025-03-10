@@ -242,6 +242,7 @@ columns and relationships of "BlacklistRole"
 type BlacklistRole {
   db_write_timestamp: timestamp
   id: String!
+  initiator: String!
   recipient: String!
   status: rolestatus!
   timestamp: Int!
@@ -285,6 +286,7 @@ input BlacklistRole_bool_exp {
   _or: [BlacklistRole_bool_exp!]
   db_write_timestamp: timestamp_comparison_exp
   id: String_comparison_exp
+  initiator: String_comparison_exp
   recipient: String_comparison_exp
   status: rolestatus_comparison_exp
   timestamp: Int_comparison_exp
@@ -299,6 +301,7 @@ order by max() on columns of table "BlacklistRole"
 input BlacklistRole_max_order_by {
   db_write_timestamp: order_by
   id: order_by
+  initiator: order_by
   recipient: order_by
   status: order_by
   timestamp: order_by
@@ -312,6 +315,7 @@ order by min() on columns of table "BlacklistRole"
 input BlacklistRole_min_order_by {
   db_write_timestamp: order_by
   id: order_by
+  initiator: order_by
   recipient: order_by
   status: order_by
   timestamp: order_by
@@ -323,6 +327,7 @@ input BlacklistRole_min_order_by {
 input BlacklistRole_order_by {
   db_write_timestamp: order_by
   id: order_by
+  initiator: order_by
   recipient: order_by
   status: order_by
   timestamp: order_by
@@ -340,6 +345,9 @@ enum BlacklistRole_select_column {
 
   """column name"""
   id
+
+  """column name"""
+  initiator
 
   """column name"""
   recipient
@@ -393,6 +401,7 @@ input BlacklistRole_stream_cursor_input {
 input BlacklistRole_stream_cursor_value_input {
   db_write_timestamp: timestamp
   id: String
+  initiator: String
   recipient: String
   status: rolestatus
   timestamp: Int

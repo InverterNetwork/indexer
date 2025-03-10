@@ -136,6 +136,7 @@ export default {
     BlacklistRole: {
       db_write_timestamp: [622],
       id: [480],
+      initiator: [480],
       recipient: [480],
       status: [616],
       timestamp: [267],
@@ -168,6 +169,7 @@ export default {
       _or: [15],
       db_write_timestamp: [623],
       id: [482],
+      initiator: [482],
       recipient: [482],
       status: [617],
       timestamp: [268],
@@ -179,6 +181,7 @@ export default {
     BlacklistRole_max_order_by: {
       db_write_timestamp: [599],
       id: [599],
+      initiator: [599],
       recipient: [599],
       status: [599],
       timestamp: [599],
@@ -189,6 +192,7 @@ export default {
     BlacklistRole_min_order_by: {
       db_write_timestamp: [599],
       id: [599],
+      initiator: [599],
       recipient: [599],
       status: [599],
       timestamp: [599],
@@ -199,6 +203,7 @@ export default {
     BlacklistRole_order_by: {
       db_write_timestamp: [599],
       id: [599],
+      initiator: [599],
       recipient: [599],
       status: [599],
       timestamp: [599],
@@ -228,6 +233,7 @@ export default {
     BlacklistRole_stream_cursor_value_input: {
       db_write_timestamp: [622],
       id: [480],
+      initiator: [480],
       recipient: [480],
       status: [616],
       timestamp: [267],

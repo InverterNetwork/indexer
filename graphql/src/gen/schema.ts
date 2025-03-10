@@ -77,6 +77,7 @@ export type BlacklistIssuanceToken_select_column =
 export interface BlacklistRole {
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String']
+  initiator: Scalars['String']
   recipient: Scalars['String']
   status: Scalars['rolestatus']
   timestamp: Scalars['Int']
@@ -91,6 +92,7 @@ export interface BlacklistRole {
 export type BlacklistRole_select_column =
   | 'db_write_timestamp'
   | 'id'
+  | 'initiator'
   | 'recipient'
   | 'status'
   | 'timestamp'
@@ -4242,6 +4244,7 @@ export interface BlacklistIssuanceToken_stream_cursor_value_input {
 export interface BlacklistRoleGenqlSelection {
   db_write_timestamp?: boolean | number
   id?: boolean | number
+  initiator?: boolean | number
   recipient?: boolean | number
   status?: boolean | number
   timestamp?: boolean | number
@@ -4280,6 +4283,7 @@ export interface BlacklistRole_bool_exp {
   _or?: BlacklistRole_bool_exp[] | null
   db_write_timestamp?: timestamp_comparison_exp | null
   id?: String_comparison_exp | null
+  initiator?: String_comparison_exp | null
   recipient?: String_comparison_exp | null
   status?: rolestatus_comparison_exp | null
   timestamp?: Int_comparison_exp | null
@@ -4292,6 +4296,7 @@ export interface BlacklistRole_bool_exp {
 export interface BlacklistRole_max_order_by {
   db_write_timestamp?: order_by | null
   id?: order_by | null
+  initiator?: order_by | null
   recipient?: order_by | null
   status?: order_by | null
   timestamp?: order_by | null
@@ -4303,6 +4308,7 @@ export interface BlacklistRole_max_order_by {
 export interface BlacklistRole_min_order_by {
   db_write_timestamp?: order_by | null
   id?: order_by | null
+  initiator?: order_by | null
   recipient?: order_by | null
   status?: order_by | null
   timestamp?: order_by | null
@@ -4314,6 +4320,7 @@ export interface BlacklistRole_min_order_by {
 export interface BlacklistRole_order_by {
   db_write_timestamp?: order_by | null
   id?: order_by | null
+  initiator?: order_by | null
   recipient?: order_by | null
   status?: order_by | null
   timestamp?: order_by | null
@@ -4349,6 +4356,7 @@ export interface BlacklistRole_stream_cursor_input {
 export interface BlacklistRole_stream_cursor_value_input {
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
+  initiator?: Scalars['String'] | null
   recipient?: Scalars['String'] | null
   status?: Scalars['rolestatus'] | null
   timestamp?: Scalars['Int'] | null
@@ -17455,6 +17463,7 @@ export const enumBlacklistIssuanceTokenSelectColumn = {
 export const enumBlacklistRoleSelectColumn = {
   db_write_timestamp: 'db_write_timestamp' as const,
   id: 'id' as const,
+  initiator: 'initiator' as const,
   recipient: 'recipient' as const,
   status: 'status' as const,
   timestamp: 'timestamp' as const,
