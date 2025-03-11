@@ -650,11 +650,10 @@ type BlacklistIssuanceToken {
 
   oraclePriceFM: OraclePriceFM!
 
-  manager: [String!]!
-
   minter: [String!]!
 
   blacklisted: [BlacklistRole!]! @derivedFrom(field: "token")
+  manager: [BlacklistManager!]! @derivedFrom(field: "token")
 }
 
 type BlacklistRole {
@@ -668,3 +667,16 @@ type BlacklistRole {
   timestamp: Int!
   txHash: String!
 }
+
+type BlacklistManager {
+  id: ID! # `${BlacklistIssuanceToken.id}-${address}`
+  token: BlacklistIssuanceToken!
+
+  initiator: String!
+  recipient: String!
+
+  status: RoleStatus! # GRANTED for manager
+  timestamp: Int!
+  txHash: String!
+}
+

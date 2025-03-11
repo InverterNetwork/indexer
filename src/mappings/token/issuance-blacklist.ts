@@ -2,6 +2,7 @@ import { ERC20Issuance_Blacklist_v1 } from 'generated'
 import {
   updateBlacklistIssuanceToken,
   updateBlacklistedAccount,
+  updateBlacklistedManager,
 } from '../../utils/token'
 
 // AddedToBlacklist
@@ -49,25 +50,16 @@ ERC20Issuance_Blacklist_v1.RemovedFromBlacklist.handler(
 
 ERC20Issuance_Blacklist_v1.BlacklistManagerUpdated.handler(
   async ({ event, context }) => {
-    const id = `${event.chainId}-${event.srcAddress}`
-    const blacklistIssuanceToken =
-      (await context.BlacklistIssuanceToken.get(id))!
+    const blacklistedTokenIdId = `${event.chainId}-${event.srcAddress}`
 
-    const managerList = blacklistIssuanceToken.manager
-
-    const allowed = event.params.allowed_
-
-    if (allowed) {
-      managerList.push(event.params.account_)
-    } else {
-      managerList.splice(managerList.indexOf(event.params.account_), 1)
-    }
-
-    await updateBlacklistIssuanceToken({
+    await updateBlacklistedManager({
       event,
       context,
       properties: {
-        manager: managerList,
+        token_id: blacklistedTokenIdId,
+        recipient: event.params.account_,
+        initiator: event.params.tokenOwner_,
+        status: event.params.allowed_ ? 'GRANTED' : 'REVOKED',
       },
     })
   }
