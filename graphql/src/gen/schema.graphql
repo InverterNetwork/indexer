@@ -137,7 +137,24 @@ type BlacklistIssuanceToken {
   chainId: Int!
   db_write_timestamp: timestamp
   id: String!
-  manager: [String!]!
+
+  """An array relationship"""
+  manager(
+    """distinct select on columns"""
+    distinct_on: [BlacklistManager_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [BlacklistManager_order_by!]
+
+    """filter the rows returned"""
+    where: BlacklistManager_bool_exp
+  ): [BlacklistManager!]!
   minter: [String!]!
 
   """An object relationship"""
@@ -161,7 +178,7 @@ input BlacklistIssuanceToken_bool_exp {
   chainId: Int_comparison_exp
   db_write_timestamp: timestamp_comparison_exp
   id: String_comparison_exp
-  manager: String_array_comparison_exp
+  manager: BlacklistManager_bool_exp
   minter: String_array_comparison_exp
   oraclePriceFM: OraclePriceFM_bool_exp
   oraclePriceFM_id: String_comparison_exp
@@ -176,7 +193,7 @@ input BlacklistIssuanceToken_order_by {
   chainId: order_by
   db_write_timestamp: order_by
   id: order_by
-  manager: order_by
+  manager_aggregate: BlacklistManager_aggregate_order_by
   minter: order_by
   oraclePriceFM: OraclePriceFM_order_by
   oraclePriceFM_id: order_by
@@ -199,9 +216,6 @@ enum BlacklistIssuanceToken_select_column {
 
   """column name"""
   id
-
-  """column name"""
-  manager
 
   """column name"""
   minter
@@ -230,10 +244,210 @@ input BlacklistIssuanceToken_stream_cursor_value_input {
   chainId: Int
   db_write_timestamp: timestamp
   id: String
-  manager: [String!]
   minter: [String!]
   oraclePriceFM_id: String
   token_id: String
+}
+
+"""
+columns and relationships of "BlacklistManager"
+"""
+type BlacklistManager {
+  db_write_timestamp: timestamp
+  id: String!
+  initiator: String!
+  recipient: String!
+  status: rolestatus!
+  timestamp: Int!
+
+  """An object relationship"""
+  token: BlacklistIssuanceToken
+  token_id: String!
+  txHash: String!
+}
+
+"""
+order by aggregate values of table "BlacklistManager"
+"""
+input BlacklistManager_aggregate_order_by {
+  avg: BlacklistManager_avg_order_by
+  count: order_by
+  max: BlacklistManager_max_order_by
+  min: BlacklistManager_min_order_by
+  stddev: BlacklistManager_stddev_order_by
+  stddev_pop: BlacklistManager_stddev_pop_order_by
+  stddev_samp: BlacklistManager_stddev_samp_order_by
+  sum: BlacklistManager_sum_order_by
+  var_pop: BlacklistManager_var_pop_order_by
+  var_samp: BlacklistManager_var_samp_order_by
+  variance: BlacklistManager_variance_order_by
+}
+
+"""
+order by avg() on columns of table "BlacklistManager"
+"""
+input BlacklistManager_avg_order_by {
+  timestamp: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "BlacklistManager". All fields are combined with a logical 'AND'.
+"""
+input BlacklistManager_bool_exp {
+  _and: [BlacklistManager_bool_exp!]
+  _not: BlacklistManager_bool_exp
+  _or: [BlacklistManager_bool_exp!]
+  db_write_timestamp: timestamp_comparison_exp
+  id: String_comparison_exp
+  initiator: String_comparison_exp
+  recipient: String_comparison_exp
+  status: rolestatus_comparison_exp
+  timestamp: Int_comparison_exp
+  token: BlacklistIssuanceToken_bool_exp
+  token_id: String_comparison_exp
+  txHash: String_comparison_exp
+}
+
+"""
+order by max() on columns of table "BlacklistManager"
+"""
+input BlacklistManager_max_order_by {
+  db_write_timestamp: order_by
+  id: order_by
+  initiator: order_by
+  recipient: order_by
+  status: order_by
+  timestamp: order_by
+  token_id: order_by
+  txHash: order_by
+}
+
+"""
+order by min() on columns of table "BlacklistManager"
+"""
+input BlacklistManager_min_order_by {
+  db_write_timestamp: order_by
+  id: order_by
+  initiator: order_by
+  recipient: order_by
+  status: order_by
+  timestamp: order_by
+  token_id: order_by
+  txHash: order_by
+}
+
+"""Ordering options when selecting data from "BlacklistManager"."""
+input BlacklistManager_order_by {
+  db_write_timestamp: order_by
+  id: order_by
+  initiator: order_by
+  recipient: order_by
+  status: order_by
+  timestamp: order_by
+  token: BlacklistIssuanceToken_order_by
+  token_id: order_by
+  txHash: order_by
+}
+
+"""
+select columns of table "BlacklistManager"
+"""
+enum BlacklistManager_select_column {
+  """column name"""
+  db_write_timestamp
+
+  """column name"""
+  id
+
+  """column name"""
+  initiator
+
+  """column name"""
+  recipient
+
+  """column name"""
+  status
+
+  """column name"""
+  timestamp
+
+  """column name"""
+  token_id
+
+  """column name"""
+  txHash
+}
+
+"""
+order by stddev() on columns of table "BlacklistManager"
+"""
+input BlacklistManager_stddev_order_by {
+  timestamp: order_by
+}
+
+"""
+order by stddev_pop() on columns of table "BlacklistManager"
+"""
+input BlacklistManager_stddev_pop_order_by {
+  timestamp: order_by
+}
+
+"""
+order by stddev_samp() on columns of table "BlacklistManager"
+"""
+input BlacklistManager_stddev_samp_order_by {
+  timestamp: order_by
+}
+
+"""
+Streaming cursor of the table "BlacklistManager"
+"""
+input BlacklistManager_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: BlacklistManager_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input BlacklistManager_stream_cursor_value_input {
+  db_write_timestamp: timestamp
+  id: String
+  initiator: String
+  recipient: String
+  status: rolestatus
+  timestamp: Int
+  token_id: String
+  txHash: String
+}
+
+"""
+order by sum() on columns of table "BlacklistManager"
+"""
+input BlacklistManager_sum_order_by {
+  timestamp: order_by
+}
+
+"""
+order by var_pop() on columns of table "BlacklistManager"
+"""
+input BlacklistManager_var_pop_order_by {
+  timestamp: order_by
+}
+
+"""
+order by var_samp() on columns of table "BlacklistManager"
+"""
+input BlacklistManager_var_samp_order_by {
+  timestamp: order_by
+}
+
+"""
+order by variance() on columns of table "BlacklistManager"
+"""
+input BlacklistManager_variance_order_by {
+  timestamp: order_by
 }
 
 """
@@ -10617,6 +10831,31 @@ type query_root {
   BlacklistIssuanceToken_by_pk(id: String!): BlacklistIssuanceToken
 
   """
+  fetch data from the table: "BlacklistManager"
+  """
+  BlacklistManager(
+    """distinct select on columns"""
+    distinct_on: [BlacklistManager_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [BlacklistManager_order_by!]
+
+    """filter the rows returned"""
+    where: BlacklistManager_bool_exp
+  ): [BlacklistManager!]!
+
+  """
+  fetch data from the table: "BlacklistManager" using primary key columns
+  """
+  BlacklistManager_by_pk(id: String!): BlacklistManager
+
+  """
   fetch data from the table: "BlacklistRole"
   """
   BlacklistRole(
@@ -12018,6 +12257,45 @@ type subscription_root {
     """filter the rows returned"""
     where: BlacklistIssuanceToken_bool_exp
   ): [BlacklistIssuanceToken!]!
+
+  """
+  fetch data from the table: "BlacklistManager"
+  """
+  BlacklistManager(
+    """distinct select on columns"""
+    distinct_on: [BlacklistManager_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [BlacklistManager_order_by!]
+
+    """filter the rows returned"""
+    where: BlacklistManager_bool_exp
+  ): [BlacklistManager!]!
+
+  """
+  fetch data from the table: "BlacklistManager" using primary key columns
+  """
+  BlacklistManager_by_pk(id: String!): BlacklistManager
+
+  """
+  fetch data from the table in a streaming manner: "BlacklistManager"
+  """
+  BlacklistManager_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [BlacklistManager_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: BlacklistManager_bool_exp
+  ): [BlacklistManager!]!
 
   """
   fetch data from the table: "BlacklistRole"

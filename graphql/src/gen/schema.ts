@@ -51,7 +51,8 @@ export interface BlacklistIssuanceToken {
   chainId: Scalars['Int']
   db_write_timestamp: Scalars['timestamp'] | null
   id: Scalars['String']
-  manager: Scalars['String'][]
+  /** An array relationship */
+  manager: BlacklistManager[]
   minter: Scalars['String'][]
   /** An object relationship */
   oraclePriceFM: OraclePriceFM | null
@@ -68,10 +69,35 @@ export type BlacklistIssuanceToken_select_column =
   | 'chainId'
   | 'db_write_timestamp'
   | 'id'
-  | 'manager'
   | 'minter'
   | 'oraclePriceFM_id'
   | 'token_id'
+
+/** columns and relationships of "BlacklistManager" */
+export interface BlacklistManager {
+  db_write_timestamp: Scalars['timestamp'] | null
+  id: Scalars['String']
+  initiator: Scalars['String']
+  recipient: Scalars['String']
+  status: Scalars['rolestatus']
+  timestamp: Scalars['Int']
+  /** An object relationship */
+  token: BlacklistIssuanceToken | null
+  token_id: Scalars['String']
+  txHash: Scalars['String']
+  __typename: 'BlacklistManager'
+}
+
+/** select columns of table "BlacklistManager" */
+export type BlacklistManager_select_column =
+  | 'db_write_timestamp'
+  | 'id'
+  | 'initiator'
+  | 'recipient'
+  | 'status'
+  | 'timestamp'
+  | 'token_id'
+  | 'txHash'
 
 /** columns and relationships of "BlacklistRole" */
 export interface BlacklistRole {
@@ -3610,6 +3636,10 @@ export interface query_root {
   BlacklistIssuanceToken: BlacklistIssuanceToken[]
   /** fetch data from the table: "BlacklistIssuanceToken" using primary key columns */
   BlacklistIssuanceToken_by_pk: BlacklistIssuanceToken | null
+  /** fetch data from the table: "BlacklistManager" */
+  BlacklistManager: BlacklistManager[]
+  /** fetch data from the table: "BlacklistManager" using primary key columns */
+  BlacklistManager_by_pk: BlacklistManager | null
   /** fetch data from the table: "BlacklistRole" */
   BlacklistRole: BlacklistRole[]
   /** fetch data from the table: "BlacklistRole" using primary key columns */
@@ -3834,6 +3864,12 @@ export interface subscription_root {
   BlacklistIssuanceToken_by_pk: BlacklistIssuanceToken | null
   /** fetch data from the table in a streaming manner: "BlacklistIssuanceToken" */
   BlacklistIssuanceToken_stream: BlacklistIssuanceToken[]
+  /** fetch data from the table: "BlacklistManager" */
+  BlacklistManager: BlacklistManager[]
+  /** fetch data from the table: "BlacklistManager" using primary key columns */
+  BlacklistManager_by_pk: BlacklistManager | null
+  /** fetch data from the table in a streaming manner: "BlacklistManager" */
+  BlacklistManager_stream: BlacklistManager[]
   /** fetch data from the table: "BlacklistRole" */
   BlacklistRole: BlacklistRole[]
   /** fetch data from the table: "BlacklistRole" using primary key columns */
@@ -4175,7 +4211,21 @@ export interface BlacklistIssuanceTokenGenqlSelection {
   chainId?: boolean | number
   db_write_timestamp?: boolean | number
   id?: boolean | number
-  manager?: boolean | number
+  /** An array relationship */
+  manager?: BlacklistManagerGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: BlacklistManager_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: BlacklistManager_order_by[] | null
+      /** filter the rows returned */
+      where?: BlacklistManager_bool_exp | null
+    }
+  }
   minter?: boolean | number
   /** An object relationship */
   oraclePriceFM?: OraclePriceFMGenqlSelection
@@ -4197,7 +4247,7 @@ export interface BlacklistIssuanceToken_bool_exp {
   chainId?: Int_comparison_exp | null
   db_write_timestamp?: timestamp_comparison_exp | null
   id?: String_comparison_exp | null
-  manager?: String_array_comparison_exp | null
+  manager?: BlacklistManager_bool_exp | null
   minter?: String_array_comparison_exp | null
   oraclePriceFM?: OraclePriceFM_bool_exp | null
   oraclePriceFM_id?: String_comparison_exp | null
@@ -4212,7 +4262,7 @@ export interface BlacklistIssuanceToken_order_by {
   chainId?: order_by | null
   db_write_timestamp?: order_by | null
   id?: order_by | null
-  manager?: order_by | null
+  manager_aggregate?: BlacklistManager_aggregate_order_by | null
   minter?: order_by | null
   oraclePriceFM?: OraclePriceFM_order_by | null
   oraclePriceFM_id?: order_by | null
@@ -4234,10 +4284,153 @@ export interface BlacklistIssuanceToken_stream_cursor_value_input {
   chainId?: Scalars['Int'] | null
   db_write_timestamp?: Scalars['timestamp'] | null
   id?: Scalars['String'] | null
-  manager?: Scalars['String'][] | null
   minter?: Scalars['String'][] | null
   oraclePriceFM_id?: Scalars['String'] | null
   token_id?: Scalars['String'] | null
+}
+
+/** columns and relationships of "BlacklistManager" */
+export interface BlacklistManagerGenqlSelection {
+  db_write_timestamp?: boolean | number
+  id?: boolean | number
+  initiator?: boolean | number
+  recipient?: boolean | number
+  status?: boolean | number
+  timestamp?: boolean | number
+  /** An object relationship */
+  token?: BlacklistIssuanceTokenGenqlSelection
+  token_id?: boolean | number
+  txHash?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** order by aggregate values of table "BlacklistManager" */
+export interface BlacklistManager_aggregate_order_by {
+  avg?: BlacklistManager_avg_order_by | null
+  count?: order_by | null
+  max?: BlacklistManager_max_order_by | null
+  min?: BlacklistManager_min_order_by | null
+  stddev?: BlacklistManager_stddev_order_by | null
+  stddev_pop?: BlacklistManager_stddev_pop_order_by | null
+  stddev_samp?: BlacklistManager_stddev_samp_order_by | null
+  sum?: BlacklistManager_sum_order_by | null
+  var_pop?: BlacklistManager_var_pop_order_by | null
+  var_samp?: BlacklistManager_var_samp_order_by | null
+  variance?: BlacklistManager_variance_order_by | null
+}
+
+/** order by avg() on columns of table "BlacklistManager" */
+export interface BlacklistManager_avg_order_by {
+  timestamp?: order_by | null
+}
+
+/** Boolean expression to filter rows from the table "BlacklistManager". All fields are combined with a logical 'AND'. */
+export interface BlacklistManager_bool_exp {
+  _and?: BlacklistManager_bool_exp[] | null
+  _not?: BlacklistManager_bool_exp | null
+  _or?: BlacklistManager_bool_exp[] | null
+  db_write_timestamp?: timestamp_comparison_exp | null
+  id?: String_comparison_exp | null
+  initiator?: String_comparison_exp | null
+  recipient?: String_comparison_exp | null
+  status?: rolestatus_comparison_exp | null
+  timestamp?: Int_comparison_exp | null
+  token?: BlacklistIssuanceToken_bool_exp | null
+  token_id?: String_comparison_exp | null
+  txHash?: String_comparison_exp | null
+}
+
+/** order by max() on columns of table "BlacklistManager" */
+export interface BlacklistManager_max_order_by {
+  db_write_timestamp?: order_by | null
+  id?: order_by | null
+  initiator?: order_by | null
+  recipient?: order_by | null
+  status?: order_by | null
+  timestamp?: order_by | null
+  token_id?: order_by | null
+  txHash?: order_by | null
+}
+
+/** order by min() on columns of table "BlacklistManager" */
+export interface BlacklistManager_min_order_by {
+  db_write_timestamp?: order_by | null
+  id?: order_by | null
+  initiator?: order_by | null
+  recipient?: order_by | null
+  status?: order_by | null
+  timestamp?: order_by | null
+  token_id?: order_by | null
+  txHash?: order_by | null
+}
+
+/** Ordering options when selecting data from "BlacklistManager". */
+export interface BlacklistManager_order_by {
+  db_write_timestamp?: order_by | null
+  id?: order_by | null
+  initiator?: order_by | null
+  recipient?: order_by | null
+  status?: order_by | null
+  timestamp?: order_by | null
+  token?: BlacklistIssuanceToken_order_by | null
+  token_id?: order_by | null
+  txHash?: order_by | null
+}
+
+/** order by stddev() on columns of table "BlacklistManager" */
+export interface BlacklistManager_stddev_order_by {
+  timestamp?: order_by | null
+}
+
+/** order by stddev_pop() on columns of table "BlacklistManager" */
+export interface BlacklistManager_stddev_pop_order_by {
+  timestamp?: order_by | null
+}
+
+/** order by stddev_samp() on columns of table "BlacklistManager" */
+export interface BlacklistManager_stddev_samp_order_by {
+  timestamp?: order_by | null
+}
+
+/** Streaming cursor of the table "BlacklistManager" */
+export interface BlacklistManager_stream_cursor_input {
+  /** Stream column input with initial value */
+  initial_value: BlacklistManager_stream_cursor_value_input
+  /** cursor ordering */
+  ordering?: cursor_ordering | null
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface BlacklistManager_stream_cursor_value_input {
+  db_write_timestamp?: Scalars['timestamp'] | null
+  id?: Scalars['String'] | null
+  initiator?: Scalars['String'] | null
+  recipient?: Scalars['String'] | null
+  status?: Scalars['rolestatus'] | null
+  timestamp?: Scalars['Int'] | null
+  token_id?: Scalars['String'] | null
+  txHash?: Scalars['String'] | null
+}
+
+/** order by sum() on columns of table "BlacklistManager" */
+export interface BlacklistManager_sum_order_by {
+  timestamp?: order_by | null
+}
+
+/** order by var_pop() on columns of table "BlacklistManager" */
+export interface BlacklistManager_var_pop_order_by {
+  timestamp?: order_by | null
+}
+
+/** order by var_samp() on columns of table "BlacklistManager" */
+export interface BlacklistManager_var_samp_order_by {
+  timestamp?: order_by | null
+}
+
+/** order by variance() on columns of table "BlacklistManager" */
+export interface BlacklistManager_variance_order_by {
+  timestamp?: order_by | null
 }
 
 /** columns and relationships of "BlacklistRole" */
@@ -12839,6 +13032,25 @@ export interface query_rootGenqlSelection {
   BlacklistIssuanceToken_by_pk?: BlacklistIssuanceTokenGenqlSelection & {
     __args: { id: Scalars['String'] }
   }
+  /** fetch data from the table: "BlacklistManager" */
+  BlacklistManager?: BlacklistManagerGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: BlacklistManager_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: BlacklistManager_order_by[] | null
+      /** filter the rows returned */
+      where?: BlacklistManager_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "BlacklistManager" using primary key columns */
+  BlacklistManager_by_pk?: BlacklistManagerGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
   /** fetch data from the table: "BlacklistRole" */
   BlacklistRole?: BlacklistRoleGenqlSelection & {
     __args?: {
@@ -13934,6 +14146,36 @@ export interface subscription_rootGenqlSelection {
       cursor: (BlacklistIssuanceToken_stream_cursor_input | null)[]
       /** filter the rows returned */
       where?: BlacklistIssuanceToken_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "BlacklistManager" */
+  BlacklistManager?: BlacklistManagerGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: BlacklistManager_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: BlacklistManager_order_by[] | null
+      /** filter the rows returned */
+      where?: BlacklistManager_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "BlacklistManager" using primary key columns */
+  BlacklistManager_by_pk?: BlacklistManagerGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table in a streaming manner: "BlacklistManager" */
+  BlacklistManager_stream?: BlacklistManagerGenqlSelection & {
+    __args: {
+      /** maximum number of rows returned in a single batch */
+      batch_size: Scalars['Int']
+      /** cursor to stream the results returned by the query */
+      cursor: (BlacklistManager_stream_cursor_input | null)[]
+      /** filter the rows returned */
+      where?: BlacklistManager_bool_exp | null
     }
   }
   /** fetch data from the table: "BlacklistRole" */
@@ -15292,6 +15534,15 @@ export const isBlacklistIssuanceToken = (
   if (!obj?.__typename)
     throw new Error('__typename is missing in "isBlacklistIssuanceToken"')
   return BlacklistIssuanceToken_possibleTypes.includes(obj.__typename)
+}
+
+const BlacklistManager_possibleTypes: string[] = ['BlacklistManager']
+export const isBlacklistManager = (
+  obj?: { __typename?: any } | null
+): obj is BlacklistManager => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isBlacklistManager"')
+  return BlacklistManager_possibleTypes.includes(obj.__typename)
 }
 
 const BlacklistRole_possibleTypes: string[] = ['BlacklistRole']
@@ -17454,10 +17705,20 @@ export const enumBlacklistIssuanceTokenSelectColumn = {
   chainId: 'chainId' as const,
   db_write_timestamp: 'db_write_timestamp' as const,
   id: 'id' as const,
-  manager: 'manager' as const,
   minter: 'minter' as const,
   oraclePriceFM_id: 'oraclePriceFM_id' as const,
   token_id: 'token_id' as const,
+}
+
+export const enumBlacklistManagerSelectColumn = {
+  db_write_timestamp: 'db_write_timestamp' as const,
+  id: 'id' as const,
+  initiator: 'initiator' as const,
+  recipient: 'recipient' as const,
+  status: 'status' as const,
+  timestamp: 'timestamp' as const,
+  token_id: 'token_id' as const,
+  txHash: 'txHash' as const,
 }
 
 export const enumBlacklistRoleSelectColumn = {
