@@ -35,6 +35,59 @@ enum PaymentOrderType {
 }
 
 ## =============================================================================
+## BASE ENTITIES
+## =============================================================================
+
+interface FeeBase {
+  chainId: Int!
+  txHash: String!
+  module_id: ID! @index
+
+  timestamp: Int!
+  token: Token!
+
+  amount: BigDecimal!
+  amountUSD: BigDecimal!
+}
+
+interface IntervalDataBase {
+  chainId: Int!
+  address: String!
+
+  volumeUSD: BigDecimal!
+  volumeISS: BigDecimal!
+
+  projectFeeUSD: BigDecimal!
+  protocolFeeUSD: BigDecimal!
+  protocolFeeISS: BigDecimal!
+
+  marketCapUSD: BigDecimal!
+
+  priceUSD: BigDecimal!
+
+  openUSD: BigDecimal!
+  highUSD: BigDecimal!
+  lowUSD: BigDecimal!
+  closeUSD: BigDecimal!
+}
+
+interface IntervalCurveDataBase {
+  volumeCOL: BigDecimal!
+  projectFeeCOL: BigDecimal!
+  protocolFeeCOL: BigDecimal!
+  marketCapCOL: BigDecimal!
+  priceCOL: BigDecimal!
+  openCOL: BigDecimal!
+  highCOL: BigDecimal!
+  lowCOL: BigDecimal!
+  closeCOL: BigDecimal!
+
+  collateralToken: Token!
+  issuanceToken: Token!
+  ...IntervalDataBase
+}
+
+## =============================================================================
 ## CORE ENTITIES
 ## =============================================================================
 
@@ -56,35 +109,19 @@ type Token @entity {
 
 type ProtocolFee {
   id: ID! # `${chainId}-${event.transaction.hash}-protocolFee-${source}`
-  chainId: Int!
-  txHash: String!
-  module_id: ID! @index
 
   source: SourceTokenType!
-  timestamp: Int!
-
-  token: Token!
-
   treasury: String!
 
-  amount: BigDecimal!
-  amountUSD: BigDecimal!
+  ...FeeBase
 }
 
-type ProjectFee {
+type ProjectFee implements FeeBase {
   id: ID! # `${chainId}-${event.transaction.hash}-projectFee`
-  chainId: Int!
-  txHash: String!
-  module_id: ID! @index
-
-  timestamp: Int!
-
-  token: Token!
 
   recipient: String!
 
-  amount: BigDecimal!
-  amountUSD: BigDecimal!
+  ...FeeBase
 }
 
 ## =============================================================================
@@ -457,43 +494,6 @@ type LinearVesting {
 ## =============================================================================
 ## MARKET DATA
 ## =============================================================================
-
-interface IntervalDataBase {
-  chainId: Int!
-  address: String!
-
-  volumeUSD: BigDecimal!
-  volumeISS: BigDecimal!
-
-  projectFeeUSD: BigDecimal!
-  protocolFeeUSD: BigDecimal!
-  protocolFeeISS: BigDecimal!
-
-  marketCapUSD: BigDecimal!
-
-  priceUSD: BigDecimal!
-
-  openUSD: BigDecimal!
-  highUSD: BigDecimal!
-  lowUSD: BigDecimal!
-  closeUSD: BigDecimal!
-}
-
-interface IntervalCurveDataBase {
-  volumeCOL: BigDecimal!
-  projectFeeCOL: BigDecimal!
-  protocolFeeCOL: BigDecimal!
-  marketCapCOL: BigDecimal!
-  priceCOL: BigDecimal!
-  openCOL: BigDecimal!
-  highCOL: BigDecimal!
-  lowCOL: BigDecimal!
-  closeCOL: BigDecimal!
-
-  collateralToken: Token!
-  issuanceToken: Token!
-  ...IntervalDataBase
-}
 
 # Issuance Token Market Data
 type IssuanceTokenDayData @entity {
