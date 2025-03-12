@@ -458,22 +458,14 @@ type LinearVesting {
 ## MARKET DATA
 ## =============================================================================
 
-# Issuance Token Market Data
-type IssuanceTokenDayData @entity {
-  id: ID! # `${token_id}-${dayID}`
-  date: Int! # timestamp rounded to current day by dividing by 86400
+interface IntervalDataBase {
   chainId: Int!
   address: String!
-
-  module_id: ID! @index
-
-  token: Token!
 
   volumeUSD: BigDecimal!
   volumeISS: BigDecimal!
 
   projectFeeUSD: BigDecimal!
-
   protocolFeeUSD: BigDecimal!
   protocolFeeISS: BigDecimal!
 
@@ -487,32 +479,41 @@ type IssuanceTokenDayData @entity {
   closeUSD: BigDecimal!
 }
 
+interface IntervalCurveDataBase {
+  volumeCOL: BigDecimal!
+  projectFeeCOL: BigDecimal!
+  protocolFeeCOL: BigDecimal!
+  marketCapCOL: BigDecimal!
+  priceCOL: BigDecimal!
+  openCOL: BigDecimal!
+  highCOL: BigDecimal!
+  lowCOL: BigDecimal!
+  closeCOL: BigDecimal!
+
+  collateralToken: Token!
+  issuanceToken: Token!
+  ...IntervalDataBase
+}
+
+# Issuance Token Market Data
+type IssuanceTokenDayData @entity {
+  id: ID! # `${token_id}-${dayID}`
+  date: Int! # timestamp rounded to current day by dividing by 86400
+  module_id: ID! @index
+  
+  token: Token!
+
+  ...IntervalDataBase
+}
+
 type IssuanceTokenHourData @entity {
   id: ID! # `${token_id}-${hourID}`
   periodStartUnix: Int! # unix timestamp for start of hour
-  chainId: Int!
-  address: String!
-
   module_id: ID! @index
-
+  
   token: Token!
 
-  volumeUSD: BigDecimal!
-  volumeISS: BigDecimal!
-
-  projectFeeUSD: BigDecimal!
-
-  protocolFeeUSD: BigDecimal!
-  protocolFeeISS: BigDecimal!
-
-  marketCapUSD: BigDecimal!
-
-  priceUSD: BigDecimal!
-
-  openUSD: BigDecimal!
-  highUSD: BigDecimal!
-  lowUSD: BigDecimal!
-  closeUSD: BigDecimal!
+  ...IntervalDataBase
 }
 
 # Funding Manager Market Data
@@ -521,38 +522,8 @@ type CurveDayData @entity {
   fundingManager_id: ID! @index
 
   date: Int! # timestamp rounded to current day by dividing by 86400
-  chainId: Int!
-  address: String!
-
-  collateralToken: Token!
-  issuanceToken: Token!
-
-  volumeUSD: BigDecimal!
-  volumeCOL: BigDecimal!
-  volumeISS: BigDecimal!
-
-  projectFeeUSD: BigDecimal!
-  projectFeeCOL: BigDecimal!
-
-  protocolFeeUSD: BigDecimal!
-  protocolFeeCOL: BigDecimal!
-  protocolFeeISS: BigDecimal!
-
-  marketCapUSD: BigDecimal!
-  marketCapCOL: BigDecimal!
-
-  priceUSD: BigDecimal!
-  priceCOL: BigDecimal!
-
-  openCOL: BigDecimal!
-  highCOL: BigDecimal!
-  lowCOL: BigDecimal!
-  closeCOL: BigDecimal!
-
-  openUSD: BigDecimal!
-  highUSD: BigDecimal!
-  lowUSD: BigDecimal!
-  closeUSD: BigDecimal!
+  
+  ...IntervalCurveDataBase
 }
 
 type CurveHourData @entity {
@@ -560,38 +531,8 @@ type CurveHourData @entity {
   fundingManager_id: ID! @index
 
   periodStartUnix: Int! # unix timestamp for start of hour
-  chainId: Int!
-  address: String!
-
-  collateralToken: Token!
-  issuanceToken: Token!
-
-  volumeUSD: BigDecimal!
-  volumeCOL: BigDecimal!
-  volumeISS: BigDecimal!
-
-  projectFeeUSD: BigDecimal!
-  projectFeeCOL: BigDecimal!
-
-  protocolFeeUSD: BigDecimal!
-  protocolFeeCOL: BigDecimal!
-  protocolFeeISS: BigDecimal!
-
-  marketCapUSD: BigDecimal!
-  marketCapCOL: BigDecimal!
-
-  priceUSD: BigDecimal!
-  priceCOL: BigDecimal!
-
-  openCOL: BigDecimal!
-  highCOL: BigDecimal!
-  lowCOL: BigDecimal!
-  closeCOL: BigDecimal!
-
-  openUSD: BigDecimal!
-  highUSD: BigDecimal!
-  lowUSD: BigDecimal!
-  closeUSD: BigDecimal!
+  
+  ...IntervalCurveDataBase
 }
 
 # -----------------------------------------------------------------------------
@@ -679,4 +620,3 @@ type BlacklistManager {
   timestamp: Int!
   txHash: String!
 }
-
