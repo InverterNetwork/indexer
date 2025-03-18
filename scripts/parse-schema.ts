@@ -211,21 +211,6 @@ function removeInterfaceDefinitions(schema: string) {
   return cleanedSchema
 }
 
-/**
- * Runs the envio codegen command
- * @returns True if successful, false if failed
- */
-function runCodegen() {
-  try {
-    console.log('Running pnpm x envio codegen')
-    execSync('pnpm exec envio codegen', { stdio: 'inherit' })
-    return true
-  } catch (error) {
-    console.error(error)
-    return false
-  }
-}
-
 //===============================================================================
 // MAIN HANDLERS
 //===============================================================================
@@ -262,15 +247,7 @@ const handlePre = () => {
     // Write the expanded schema
     writeExpandedSchema(expandedSchema)
 
-    // Run codegen if not in dry run mode
-    if (!isDryRun) {
-      const success = runCodegen()
-      if (!success) {
-        // Restore the original schema on failure
-        restoreFromBackup()
-        process.exit(1)
-      }
-    }
+    process.exit(0)
   } catch (error) {
     console.error('Error during schema processing:', error)
     if (!isDryRun) {
