@@ -2,8 +2,7 @@
   "name": "indexer",
   "version": "0.9.27",
   "scripts": {
-    "dev": "pnpm ts-node scripts/parse-schema.ts pre && DEBUG=* env $(cat .env | xargs) envio dev",
-    "postdev": "pnpm ts-node scripts/parse-schema.ts post",
+    "dev": "pnpm ts-node scripts/parse-schema.ts pre && DEBUG=* env $(cat .env | xargs) envio dev | pnpm ts-node scripts/parse-schema.ts post",
     "watch": "tsc --watch --noEmit -p tsconfig.json",
     "start": "TUI_OFF=true pnpm ts-node generated/src/Index.bs.js",
     "start:pm2": "pm2 restart envio || pm2 start 'pnpm start' --name envio",
