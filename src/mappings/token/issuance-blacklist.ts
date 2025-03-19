@@ -26,7 +26,7 @@ ERC20Issuance_Blacklist_v1.AddedToBlacklist.handler(
     const historicalId = `${blacklistedTokenIdId}-${event.transaction.hash}`
     context.HistoricalRole.set({
       id: historicalId,
-      historyType: 'ROLE',
+      historyType: 'BLACKLIST',
       relatedId: blacklistedTokenIdId,
       initiator: event.params.blacklistManager_,
       recipient: event.params.account_,
@@ -59,7 +59,7 @@ ERC20Issuance_Blacklist_v1.RemovedFromBlacklist.handler(
     const historicalId = `${blacklistedTokenIdId}-${event.transaction.hash}`
     context.HistoricalRole.set({
       id: historicalId,
-      historyType: 'ROLE',
+      historyType: 'BLACKLIST',
       relatedId: blacklistedTokenIdId,
       initiator: event.params.blacklistManager_,
       recipient: event.params.account_,
@@ -92,7 +92,7 @@ ERC20Issuance_Blacklist_v1.BlacklistManagerUpdated.handler(
     const historicalId = `${blacklistedTokenIdId}-${event.transaction.hash}`
     context.HistoricalRole.set({
       id: historicalId,
-      historyType: 'ROLE',
+      historyType: 'BLACKLIST',
       relatedId: blacklistedTokenIdId,
       initiator: event.params.tokenOwner_,
       recipient: event.params.account_,
