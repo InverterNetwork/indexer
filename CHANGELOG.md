@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.28](https://github.com/InverterNetwork/indexer/compare/v0.9.27...v0.9.28) (2025-03-19)
+
+
+### Features
+
+* historical role has been added ([0f2d7bd](https://github.com/InverterNetwork/indexer/commit/0f2d7bd4360fa16992c1d0acc25cec310d8cc5b4))
+* **schema:** add base interfaces for fees and interval data ([2835dce](https://github.com/InverterNetwork/indexer/commit/2835dcef7c2f87d49facbf1732c5613e73f95687))
+* **schema:** refactor schema types and add parse-schema script ([d962bef](https://github.com/InverterNetwork/indexer/commit/d962bef9e91230354b0a876cef3e573f164b9cc5))
+
+
+### Bug Fixes
+
+* enhance dev script for better process management ([ec18665](https://github.com/InverterNetwork/indexer/commit/ec186653a722e2656757fa3d3f23e0f3fb233eda))
+* streamline dev script in package.json ([0fd7009](https://github.com/InverterNetwork/indexer/commit/0fd700925d45e5947b2432daba58a488f0194e93))
+* update scripts and package.json for codegen process ([33a49e3](https://github.com/InverterNetwork/indexer/commit/33a49e3d941b720aa31e97b4c833cd1b986a68e9))
+
 ### [0.9.27](https://github.com/InverterNetwork/indexer/compare/v0.9.26...v0.9.27) (2025-03-12)
 
 ### [0.9.26](https://github.com/InverterNetwork/indexer/compare/v0.9.25...v0.9.26) (2025-03-11)

@@ -1764,6 +1764,34 @@ export type Graduation_select_column =
   | 'timestamp'
   | 'txHash'
 
+/** columns and relationships of "HistoricalRole" */
+export interface HistoricalRole {
+  db_write_timestamp: Scalars['timestamp'] | null
+  historyType: Scalars['String']
+  id: Scalars['String']
+  initiator: Scalars['String']
+  recipient: Scalars['String']
+  relatedId: Scalars['String']
+  role: Scalars['String']
+  status: Scalars['rolestatus']
+  timestamp: Scalars['Int']
+  txHash: Scalars['String']
+  __typename: 'HistoricalRole'
+}
+
+/** select columns of table "HistoricalRole" */
+export type HistoricalRole_select_column =
+  | 'db_write_timestamp'
+  | 'historyType'
+  | 'id'
+  | 'initiator'
+  | 'recipient'
+  | 'relatedId'
+  | 'role'
+  | 'status'
+  | 'timestamp'
+  | 'txHash'
+
 /** columns and relationships of "IssuanceTokenDayData" */
 export interface IssuanceTokenDayData {
   address: Scalars['String']
@@ -3706,6 +3734,10 @@ export interface query_root {
   Graduation: Graduation[]
   /** fetch data from the table: "Graduation" using primary key columns */
   Graduation_by_pk: Graduation | null
+  /** fetch data from the table: "HistoricalRole" */
+  HistoricalRole: HistoricalRole[]
+  /** fetch data from the table: "HistoricalRole" using primary key columns */
+  HistoricalRole_by_pk: HistoricalRole | null
   /** fetch data from the table: "IssuanceTokenDayData" */
   IssuanceTokenDayData: IssuanceTokenDayData[]
   /** fetch aggregated fields from the table: "IssuanceTokenDayData" */
@@ -3962,6 +3994,12 @@ export interface subscription_root {
   Graduation_by_pk: Graduation | null
   /** fetch data from the table in a streaming manner: "Graduation" */
   Graduation_stream: Graduation[]
+  /** fetch data from the table: "HistoricalRole" */
+  HistoricalRole: HistoricalRole[]
+  /** fetch data from the table: "HistoricalRole" using primary key columns */
+  HistoricalRole_by_pk: HistoricalRole | null
+  /** fetch data from the table in a streaming manner: "HistoricalRole" */
+  HistoricalRole_stream: HistoricalRole[]
   /** fetch data from the table: "IssuanceTokenDayData" */
   IssuanceTokenDayData: IssuanceTokenDayData[]
   /** fetch aggregated fields from the table: "IssuanceTokenDayData" */
@@ -8304,6 +8342,75 @@ export interface Graduation_stream_cursor_value_input {
   id?: Scalars['String'] | null
   issuanceTokenAmount?: Scalars['numeric'] | null
   pool?: Scalars['String'] | null
+  timestamp?: Scalars['Int'] | null
+  txHash?: Scalars['String'] | null
+}
+
+/** columns and relationships of "HistoricalRole" */
+export interface HistoricalRoleGenqlSelection {
+  db_write_timestamp?: boolean | number
+  historyType?: boolean | number
+  id?: boolean | number
+  initiator?: boolean | number
+  recipient?: boolean | number
+  relatedId?: boolean | number
+  role?: boolean | number
+  status?: boolean | number
+  timestamp?: boolean | number
+  txHash?: boolean | number
+  __typename?: boolean | number
+  __scalar?: boolean | number
+}
+
+/** Boolean expression to filter rows from the table "HistoricalRole". All fields are combined with a logical 'AND'. */
+export interface HistoricalRole_bool_exp {
+  _and?: HistoricalRole_bool_exp[] | null
+  _not?: HistoricalRole_bool_exp | null
+  _or?: HistoricalRole_bool_exp[] | null
+  db_write_timestamp?: timestamp_comparison_exp | null
+  historyType?: String_comparison_exp | null
+  id?: String_comparison_exp | null
+  initiator?: String_comparison_exp | null
+  recipient?: String_comparison_exp | null
+  relatedId?: String_comparison_exp | null
+  role?: String_comparison_exp | null
+  status?: rolestatus_comparison_exp | null
+  timestamp?: Int_comparison_exp | null
+  txHash?: String_comparison_exp | null
+}
+
+/** Ordering options when selecting data from "HistoricalRole". */
+export interface HistoricalRole_order_by {
+  db_write_timestamp?: order_by | null
+  historyType?: order_by | null
+  id?: order_by | null
+  initiator?: order_by | null
+  recipient?: order_by | null
+  relatedId?: order_by | null
+  role?: order_by | null
+  status?: order_by | null
+  timestamp?: order_by | null
+  txHash?: order_by | null
+}
+
+/** Streaming cursor of the table "HistoricalRole" */
+export interface HistoricalRole_stream_cursor_input {
+  /** Stream column input with initial value */
+  initial_value: HistoricalRole_stream_cursor_value_input
+  /** cursor ordering */
+  ordering?: cursor_ordering | null
+}
+
+/** Initial value of the column from where the streaming should start */
+export interface HistoricalRole_stream_cursor_value_input {
+  db_write_timestamp?: Scalars['timestamp'] | null
+  historyType?: Scalars['String'] | null
+  id?: Scalars['String'] | null
+  initiator?: Scalars['String'] | null
+  recipient?: Scalars['String'] | null
+  relatedId?: Scalars['String'] | null
+  role?: Scalars['String'] | null
+  status?: Scalars['rolestatus'] | null
   timestamp?: Scalars['Int'] | null
   txHash?: Scalars['String'] | null
 }
@@ -13399,6 +13506,25 @@ export interface query_rootGenqlSelection {
   Graduation_by_pk?: GraduationGenqlSelection & {
     __args: { id: Scalars['String'] }
   }
+  /** fetch data from the table: "HistoricalRole" */
+  HistoricalRole?: HistoricalRoleGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: HistoricalRole_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: HistoricalRole_order_by[] | null
+      /** filter the rows returned */
+      where?: HistoricalRole_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "HistoricalRole" using primary key columns */
+  HistoricalRole_by_pk?: HistoricalRoleGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
   /** fetch data from the table: "IssuanceTokenDayData" */
   IssuanceTokenDayData?: IssuanceTokenDayDataGenqlSelection & {
     __args?: {
@@ -14667,6 +14793,36 @@ export interface subscription_rootGenqlSelection {
       cursor: (Graduation_stream_cursor_input | null)[]
       /** filter the rows returned */
       where?: Graduation_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "HistoricalRole" */
+  HistoricalRole?: HistoricalRoleGenqlSelection & {
+    __args?: {
+      /** distinct select on columns */
+      distinct_on?: HistoricalRole_select_column[] | null
+      /** limit the number of rows returned */
+      limit?: Scalars['Int'] | null
+      /** skip the first n rows. Use only with order_by */
+      offset?: Scalars['Int'] | null
+      /** sort the rows by one or more columns */
+      order_by?: HistoricalRole_order_by[] | null
+      /** filter the rows returned */
+      where?: HistoricalRole_bool_exp | null
+    }
+  }
+  /** fetch data from the table: "HistoricalRole" using primary key columns */
+  HistoricalRole_by_pk?: HistoricalRoleGenqlSelection & {
+    __args: { id: Scalars['String'] }
+  }
+  /** fetch data from the table in a streaming manner: "HistoricalRole" */
+  HistoricalRole_stream?: HistoricalRoleGenqlSelection & {
+    __args: {
+      /** maximum number of rows returned in a single batch */
+      batch_size: Scalars['Int']
+      /** cursor to stream the results returned by the query */
+      cursor: (HistoricalRole_stream_cursor_input | null)[]
+      /** filter the rows returned */
+      where?: HistoricalRole_bool_exp | null
     }
   }
   /** fetch data from the table: "IssuanceTokenDayData" */
@@ -16494,6 +16650,15 @@ export const isGraduation = (
   return Graduation_possibleTypes.includes(obj.__typename)
 }
 
+const HistoricalRole_possibleTypes: string[] = ['HistoricalRole']
+export const isHistoricalRole = (
+  obj?: { __typename?: any } | null
+): obj is HistoricalRole => {
+  if (!obj?.__typename)
+    throw new Error('__typename is missing in "isHistoricalRole"')
+  return HistoricalRole_possibleTypes.includes(obj.__typename)
+}
+
 const IssuanceTokenDayData_possibleTypes: string[] = ['IssuanceTokenDayData']
 export const isIssuanceTokenDayData = (
   obj?: { __typename?: any } | null
@@ -17923,6 +18088,19 @@ export const enumGraduationSelectColumn = {
   id: 'id' as const,
   issuanceTokenAmount: 'issuanceTokenAmount' as const,
   pool: 'pool' as const,
+  timestamp: 'timestamp' as const,
+  txHash: 'txHash' as const,
+}
+
+export const enumHistoricalRoleSelectColumn = {
+  db_write_timestamp: 'db_write_timestamp' as const,
+  historyType: 'historyType' as const,
+  id: 'id' as const,
+  initiator: 'initiator' as const,
+  recipient: 'recipient' as const,
+  relatedId: 'relatedId' as const,
+  role: 'role' as const,
+  status: 'status' as const,
   timestamp: 'timestamp' as const,
   txHash: 'txHash' as const,
 }
