@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.29](https://github.com/InverterNetwork/indexer/compare/v0.9.28...v0.9.29) (2025-03-19)
+
+
+### Bug Fixes
+
+* historical role type for blacklist ([505d791](https://github.com/InverterNetwork/indexer/commit/505d791f7ddb5ec0add104158fde018da8e26f20))
+
 ### [0.9.28](https://github.com/InverterNetwork/indexer/compare/v0.9.27...v0.9.28) (2025-03-19)
 
 
