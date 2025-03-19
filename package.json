@@ -1,6 +1,6 @@
 {
   "name": "indexer",
-  "version": "0.9.29",
+  "version": "0.9.30",
   "scripts": {
     "dev": "pnpm ts-node scripts/parse-schema.ts pre && (DEBUG=* env $(cat .env | xargs) envio dev & pid=$!; trap 'kill $pid; exit' SIGINT; pnpm ts-node scripts/parse-schema.ts post & wait $pid)",
     "watch": "tsc --watch --noEmit -p tsconfig.json",
