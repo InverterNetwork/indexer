@@ -27,6 +27,8 @@ AUT_Roles_v1.RoleGranted.handler(async ({ event, context }) => {
   const recipient = event.params.account
   const initiator = event.params.sender
 
+  const id = `${module_id}-${roleGen}-${recipient}`
+
   await updateRole({
     event,
     context,
@@ -39,6 +41,22 @@ AUT_Roles_v1.RoleGranted.handler(async ({ event, context }) => {
       timestamp: event.block.timestamp,
       txHash: event.transaction.hash,
     },
+  })
+
+  const authRole = await context.AutRoles.get(module_id)!
+  const role = (await context.Role.get(id))!
+
+  const historicalId = `${module_id}-${event.transaction.hash}`
+  context.HistoricalRole.set({
+    id: historicalId,
+    historyType: 'ROLE',
+    relatedId: authRole?.workflow_id!,
+    initiator,
+    recipient,
+    role: role?.roleName! || roleGen,
+    status: 'GRANTED',
+    timestamp: event.block.timestamp,
+    txHash: event.block.hash,
   })
 })
 
@@ -61,5 +79,22 @@ AUT_Roles_v1.RoleRevoked.handler(async ({ event, context }) => {
       timestamp: event.block.timestamp,
       txHash: event.transaction.hash,
     },
+  })
+
+  const id = `${module_id}-${roleGen}-${recipient}`
+  const authRole = await context.AutRoles.get(module_id)!
+  const role = (await context.Role.get(id))!
+
+  const historicalId = `${module_id}-${event.transaction.hash}`
+  context.HistoricalRole.set({
+    id: historicalId,
+    historyType: 'ROLE',
+    relatedId: authRole?.workflow_id!,
+    initiator,
+    recipient,
+    role: role?.roleName! || roleGen,
+    status: 'REVOKED',
+    timestamp: event.block.timestamp,
+    txHash: event.block.hash,
   })
 })

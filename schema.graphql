@@ -620,3 +620,15 @@ type BlacklistManager {
   timestamp: Int!
   txHash: String!
 }
+
+type HistoricalRole {
+  id: ID!
+  historyType: String!
+  relatedId: String!
+  initiator: String!
+  recipient: String!
+  role: String!
+  status: RoleStatus!
+  timestamp: Int!
+  txHash: String!
+}

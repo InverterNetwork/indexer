@@ -22,6 +22,19 @@ ERC20Issuance_Blacklist_v1.AddedToBlacklist.handler(
         status: 'GRANTED',
       },
     })
+
+    const historicalId = `${blacklistedTokenIdId}-${event.transaction.hash}`
+    context.HistoricalRole.set({
+      id: historicalId,
+      historyType: 'ROLE',
+      relatedId: blacklistedTokenIdId,
+      initiator: event.params.blacklistManager_,
+      recipient: event.params.account_,
+      role: 'BLACKLIST',
+      status: 'GRANTED',
+      timestamp: event.block.timestamp,
+      txHash: event.block.hash,
+    })
   }
 )
 
@@ -42,6 +55,19 @@ ERC20Issuance_Blacklist_v1.RemovedFromBlacklist.handler(
         status: 'REVOKED',
       },
     })
+
+    const historicalId = `${blacklistedTokenIdId}-${event.transaction.hash}`
+    context.HistoricalRole.set({
+      id: historicalId,
+      historyType: 'ROLE',
+      relatedId: blacklistedTokenIdId,
+      initiator: event.params.blacklistManager_,
+      recipient: event.params.account_,
+      role: 'BLACKLIST',
+      status: 'REVOKED',
+      timestamp: event.block.timestamp,
+      txHash: event.block.hash,
+    })
   }
 )
 
@@ -61,6 +87,19 @@ ERC20Issuance_Blacklist_v1.BlacklistManagerUpdated.handler(
         initiator: event.params.tokenOwner_,
         status: event.params.allowed_ ? 'GRANTED' : 'REVOKED',
       },
+    })
+
+    const historicalId = `${blacklistedTokenIdId}-${event.transaction.hash}`
+    context.HistoricalRole.set({
+      id: historicalId,
+      historyType: 'ROLE',
+      relatedId: blacklistedTokenIdId,
+      initiator: event.params.tokenOwner_,
+      recipient: event.params.account_,
+      role: 'BLACKLIST',
+      status: event.params.allowed_ ? 'GRANTED' : 'REVOKED',
+      timestamp: event.block.timestamp,
+      txHash: event.block.hash,
     })
   }
 )
