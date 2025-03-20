@@ -160,6 +160,7 @@ type BlacklistIssuanceToken {
   """An object relationship"""
   oraclePriceFM: OraclePriceFM
   oraclePriceFM_id: String!
+  owner: String!
 
   """An object relationship"""
   token: Token
@@ -182,6 +183,7 @@ input BlacklistIssuanceToken_bool_exp {
   minter: String_array_comparison_exp
   oraclePriceFM: OraclePriceFM_bool_exp
   oraclePriceFM_id: String_comparison_exp
+  owner: String_comparison_exp
   token: Token_bool_exp
   token_id: String_comparison_exp
 }
@@ -197,6 +199,7 @@ input BlacklistIssuanceToken_order_by {
   minter: order_by
   oraclePriceFM: OraclePriceFM_order_by
   oraclePriceFM_id: order_by
+  owner: order_by
   token: Token_order_by
   token_id: order_by
 }
@@ -224,6 +227,9 @@ enum BlacklistIssuanceToken_select_column {
   oraclePriceFM_id
 
   """column name"""
+  owner
+
+  """column name"""
   token_id
 }
 
@@ -246,6 +252,7 @@ input BlacklistIssuanceToken_stream_cursor_value_input {
   id: String
   minter: [String!]
   oraclePriceFM_id: String
+  owner: String
   token_id: String
 }
 
@@ -4992,6 +4999,115 @@ input Graduation_stream_cursor_value_input {
   id: String
   issuanceTokenAmount: numeric
   pool: String
+  timestamp: Int
+  txHash: String
+}
+
+"""
+columns and relationships of "HistoricalRole"
+"""
+type HistoricalRole {
+  db_write_timestamp: timestamp
+  historyType: String!
+  id: String!
+  initiator: String!
+  recipient: String!
+  relatedId: String!
+  role: String!
+  status: rolestatus!
+  timestamp: Int!
+  txHash: String!
+}
+
+"""
+Boolean expression to filter rows from the table "HistoricalRole". All fields are combined with a logical 'AND'.
+"""
+input HistoricalRole_bool_exp {
+  _and: [HistoricalRole_bool_exp!]
+  _not: HistoricalRole_bool_exp
+  _or: [HistoricalRole_bool_exp!]
+  db_write_timestamp: timestamp_comparison_exp
+  historyType: String_comparison_exp
+  id: String_comparison_exp
+  initiator: String_comparison_exp
+  recipient: String_comparison_exp
+  relatedId: String_comparison_exp
+  role: String_comparison_exp
+  status: rolestatus_comparison_exp
+  timestamp: Int_comparison_exp
+  txHash: String_comparison_exp
+}
+
+"""Ordering options when selecting data from "HistoricalRole"."""
+input HistoricalRole_order_by {
+  db_write_timestamp: order_by
+  historyType: order_by
+  id: order_by
+  initiator: order_by
+  recipient: order_by
+  relatedId: order_by
+  role: order_by
+  status: order_by
+  timestamp: order_by
+  txHash: order_by
+}
+
+"""
+select columns of table "HistoricalRole"
+"""
+enum HistoricalRole_select_column {
+  """column name"""
+  db_write_timestamp
+
+  """column name"""
+  historyType
+
+  """column name"""
+  id
+
+  """column name"""
+  initiator
+
+  """column name"""
+  recipient
+
+  """column name"""
+  relatedId
+
+  """column name"""
+  role
+
+  """column name"""
+  status
+
+  """column name"""
+  timestamp
+
+  """column name"""
+  txHash
+}
+
+"""
+Streaming cursor of the table "HistoricalRole"
+"""
+input HistoricalRole_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: HistoricalRole_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input HistoricalRole_stream_cursor_value_input {
+  db_write_timestamp: timestamp
+  historyType: String
+  id: String
+  initiator: String
+  recipient: String
+  relatedId: String
+  role: String
+  status: rolestatus
   timestamp: Int
   txHash: String
 }
@@ -11299,6 +11415,29 @@ type query_root {
   Graduation_by_pk(id: String!): Graduation
 
   """
+  fetch data from the table: "HistoricalRole"
+  """
+  HistoricalRole(
+    """distinct select on columns"""
+    distinct_on: [HistoricalRole_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [HistoricalRole_order_by!]
+
+    """filter the rows returned"""
+    where: HistoricalRole_bool_exp
+  ): [HistoricalRole!]!
+
+  """fetch data from the table: "HistoricalRole" using primary key columns"""
+  HistoricalRole_by_pk(id: String!): HistoricalRole
+
+  """
   fetch data from the table: "IssuanceTokenDayData"
   """
   IssuanceTokenDayData(
@@ -12921,6 +13060,43 @@ type subscription_root {
     """filter the rows returned"""
     where: Graduation_bool_exp
   ): [Graduation!]!
+
+  """
+  fetch data from the table: "HistoricalRole"
+  """
+  HistoricalRole(
+    """distinct select on columns"""
+    distinct_on: [HistoricalRole_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [HistoricalRole_order_by!]
+
+    """filter the rows returned"""
+    where: HistoricalRole_bool_exp
+  ): [HistoricalRole!]!
+
+  """fetch data from the table: "HistoricalRole" using primary key columns"""
+  HistoricalRole_by_pk(id: String!): HistoricalRole
+
+  """
+  fetch data from the table in a streaming manner: "HistoricalRole"
+  """
+  HistoricalRole_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [HistoricalRole_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: HistoricalRole_bool_exp
+  ): [HistoricalRole!]!
 
   """
   fetch data from the table: "IssuanceTokenDayData"

@@ -57,6 +57,7 @@ export interface BlacklistIssuanceToken {
   /** An object relationship */
   oraclePriceFM: OraclePriceFM | null
   oraclePriceFM_id: Scalars['String']
+  owner: Scalars['String']
   /** An object relationship */
   token: Token | null
   token_id: Scalars['String']
@@ -71,6 +72,7 @@ export type BlacklistIssuanceToken_select_column =
   | 'id'
   | 'minter'
   | 'oraclePriceFM_id'
+  | 'owner'
   | 'token_id'
 
 /** columns and relationships of "BlacklistManager" */
@@ -4268,6 +4270,7 @@ export interface BlacklistIssuanceTokenGenqlSelection {
   /** An object relationship */
   oraclePriceFM?: OraclePriceFMGenqlSelection
   oraclePriceFM_id?: boolean | number
+  owner?: boolean | number
   /** An object relationship */
   token?: TokenGenqlSelection
   token_id?: boolean | number
@@ -4289,6 +4292,7 @@ export interface BlacklistIssuanceToken_bool_exp {
   minter?: String_array_comparison_exp | null
   oraclePriceFM?: OraclePriceFM_bool_exp | null
   oraclePriceFM_id?: String_comparison_exp | null
+  owner?: String_comparison_exp | null
   token?: Token_bool_exp | null
   token_id?: String_comparison_exp | null
 }
@@ -4304,6 +4308,7 @@ export interface BlacklistIssuanceToken_order_by {
   minter?: order_by | null
   oraclePriceFM?: OraclePriceFM_order_by | null
   oraclePriceFM_id?: order_by | null
+  owner?: order_by | null
   token?: Token_order_by | null
   token_id?: order_by | null
 }
@@ -4324,6 +4329,7 @@ export interface BlacklistIssuanceToken_stream_cursor_value_input {
   id?: Scalars['String'] | null
   minter?: Scalars['String'][] | null
   oraclePriceFM_id?: Scalars['String'] | null
+  owner?: Scalars['String'] | null
   token_id?: Scalars['String'] | null
 }
 
@@ -17872,6 +17878,7 @@ export const enumBlacklistIssuanceTokenSelectColumn = {
   id: 'id' as const,
   minter: 'minter' as const,
   oraclePriceFM_id: 'oraclePriceFM_id' as const,
+  owner: 'owner' as const,
   token_id: 'token_id' as const,
 }
 

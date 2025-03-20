@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.31](https://github.com/InverterNetwork/indexer/compare/v0.9.30...v0.9.31) (2025-03-20)
+
+
+### Features
+
+* owner is indexed for blacklist issuance token ([fceba78](https://github.com/InverterNetwork/indexer/commit/fceba78f00c26ad5f838a82441af84416821f194))
+
 ### [0.9.30](https://github.com/InverterNetwork/indexer/compare/v0.9.29...v0.9.30) (2025-03-19)
 
 ### [0.9.29](https://github.com/InverterNetwork/indexer/compare/v0.9.28...v0.9.29) (2025-03-19)
