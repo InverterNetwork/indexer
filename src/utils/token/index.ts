@@ -10,6 +10,7 @@ export * from './get-price-usd'
 export * from './get-total-supply'
 export * from './get-token-details'
 export * from './get-balance-of'
+export * from './get-owner'
 export * from './blacklist'
 
 /**

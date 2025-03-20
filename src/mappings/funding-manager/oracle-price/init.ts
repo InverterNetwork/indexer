@@ -9,7 +9,9 @@ import {
   getPublicClient,
   getBalanceOf,
   initBlacklistIssuanceToken,
+  getOwner,
 } from '../../../utils'
+
 import { parseAbiItem } from 'viem'
 
 // Module Initialization
@@ -95,6 +97,11 @@ FM_PC_ExternalPrice_Redeeming_v1.ModuleInitialized.handler(
 
     // Initial setup of Blacklist Issuance Token
 
+    const owner = await getOwner({
+      tokenAddress: issuanceTokenAddress,
+      chainId: event.chainId,
+    })
+
     await initBlacklistIssuanceToken({
       event,
       context,
@@ -102,6 +109,7 @@ FM_PC_ExternalPrice_Redeeming_v1.ModuleInitialized.handler(
       properties: {
         token_id: issuanceToken_id,
         oraclePriceFM_id: `${event.chainId}-${event.srcAddress}`,
+        owner,
       },
     })
   }

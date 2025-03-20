@@ -587,6 +587,8 @@ type BlacklistIssuanceToken {
   chainId: Int!
   address: String!
 
+  owner: String!
+
   token: Token!
 
   oraclePriceFM: OraclePriceFM!

@@ -37,6 +37,8 @@ export const initBlacklistIssuanceToken = async ({
       chainId,
       address: blacklistIssuanceTokenAddress,
 
+      owner: properties?.owner!,
+
       // workflow_id: properties?.workflow_id!,
 
       token_id: properties?.token_id!,
@@ -84,6 +86,8 @@ export const updateBlacklistIssuanceToken = async ({
       id,
       chainId,
       address,
+
+      owner: properties?.owner!,
 
       // workflow_id: properties?.workflow_id!,
 

@@ -128,3 +128,18 @@ ERC20Issuance_Blacklist_v1.MinterSet.handler(async ({ event, context }) => {
     },
   })
 })
+
+// OwnershipTransferred
+// ----------------------------------------------------------------------------
+
+ERC20Issuance_Blacklist_v1.OwnershipTransferred.handler(
+  async ({ event, context }) => {
+    await updateBlacklistIssuanceToken({
+      event,
+      context,
+      properties: {
+        owner: event.params.newOwner,
+      },
+    })
+  }
+)
