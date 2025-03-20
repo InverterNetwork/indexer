@@ -92,7 +92,7 @@ ERC20Issuance_Blacklist_v1.BlacklistManagerUpdated.handler(
     const historicalId = `${blacklistedTokenIdId}-${event.transaction.hash}`
     context.HistoricalRole.set({
       id: historicalId,
-      historyType: 'BLACKLIST',
+      historyType: 'ROLE',
       relatedId: blacklistedTokenIdId,
       initiator: event.params.tokenOwner_,
       recipient: event.params.account_,
