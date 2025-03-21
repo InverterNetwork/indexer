@@ -255,6 +255,8 @@ networks:
         address: 0x5Da8231feE106f4A43e07f2EEE95564467A1Ee58
       - name: OrchestratorFactory_v1
         address: 0x6ecA5f791d9635e4a1874cCD95564F914fBCF73d
+      - name: Migrating_PIM_Factory_v1
+        address: 0xABfd5175d1089eEbfde11b88783eEF2c60FC474c
       - name: Orchestrator_v1
         address:
       - name: AUT_Roles_v1
