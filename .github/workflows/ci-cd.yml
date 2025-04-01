@@ -275,45 +275,64 @@ jobs:
             echo "Deployment status: $STATUS. Waiting..."
             sleep 30
           done
-
       - name: Update HTTPS Target Group
         run: |
+          # Define the ECS cluster, service, and region
+
+          # Get ECS service load balancer information
           SERVICE_INFO=$(aws ecs describe-services \
-            --cluster ${{env.PLATFORM}}-services-cluster \
+            --cluster  ${{env.PLATFORM}}-services-cluster \
             --services ${{ env.REPO_NAME }}-${{env.PLATFORM}}-svc \
-            --query 'services[0]')
+            --query 'services[0].loadBalancers' \
+            --region ${{ env.REGION }} \
+            --output json)
 
-          HTTP_TARGET_GROUP_ARN=$(echo $SERVICE_INFO | jq -r '.loadBalancers[] | select(.containerPort == 80) | .targetGroupArn')
+          # Extract the target group ARN used by the service on HTTP port (port 80 or custom port)
+          TARGET_GROUP_ARN=$(echo $SERVICE_INFO | jq -r '.[] | select(.containerPort == 8080) | .targetGroupArn')
 
-          if [ -z "$HTTP_TARGET_GROUP_ARN" ]; then
-            echo "Error: Could not find HTTP target group (port 80)"
+          if [ -z "$TARGET_GROUP_ARN" ]; then
+            echo "Error: Could not find HTTP target group"
             exit 1
           fi
 
-          echo "Found HTTP target group (port 80): $HTTP_TARGET_GROUP_ARN"
+          echo "Found HTTP Target Group ARN: $TARGET_GROUP_ARN"
 
+          # Get Load Balancer ARN associated with the target group
           LB_ARN=$(aws elbv2 describe-target-groups \
-            --target-group-arns $HTTP_TARGET_GROUP_ARN \
+            --target-group-arns "$TARGET_GROUP_ARN" \
             --query 'TargetGroups[0].LoadBalancerArns[0]' \
-            --output text)
+            --output text \
+            --region ${{ env.REGION }})
 
+          if [ -z "$LB_ARN" ]; then
+            echo "Error: Could not find Load Balancer ARN"
+            exit 1
+          fi
+
+          echo "Found Load Balancer ARN: $LB_ARN"
+
+          # Get the HTTPS Listener ARN (port 443) from the Load Balancer
           HTTPS_LISTENER_ARN=$(aws elbv2 describe-listeners \
-            --load-balancer-arn $LB_ARN \
+            --load-balancer-arn "$LB_ARN" \
             --query 'Listeners[?Port==`443`].ListenerArn' \
-            --output text)
+            --output text \
+            --region ${{ env.REGION }})
 
           if [ -z "$HTTPS_LISTENER_ARN" ]; then
             echo "Error: Could not find HTTPS listener (port 443)"
             exit 1
           fi
 
-          echo "Found HTTPS listener (port 443): $HTTPS_LISTENER_ARN"
+          echo "Found HTTPS Listener ARN: $HTTPS_LISTENER_ARN"
 
+          # Modify the HTTPS listener to forward traffic to the HTTP target group
           aws elbv2 modify-listener \
-            --listener-arn $HTTPS_LISTENER_ARN \
-            --default-actions Type=forward,TargetGroupArn=$HTTP_TARGET_GROUP_ARN
+            --listener-arn "$HTTPS_LISTENER_ARN" \
+            --default-actions Type=forward,TargetGroupArn="$TARGET_GROUP_ARN" \
+            --region ${{ env.REGION }}
 
-          echo "Successfully updated HTTPS listener to use HTTP target group"
+          echo "Successfully updated HTTPS listener to forward to HTTP target group"
+     
 
       - name: Slack Notification
         uses: act10ns/slack@v1
