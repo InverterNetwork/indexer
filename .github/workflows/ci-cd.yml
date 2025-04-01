@@ -210,8 +210,8 @@ jobs:
 
       - name: Create CodeDeploy Deployment
         run: |
-          # Create the deployment using the appspec file
-          cat > appspec.json << 'EOF'
+          # Create appspec.json file
+          cat > appspec.json << EOF
           {
             "version": "0.0",
             "Resources": [
@@ -232,20 +232,21 @@ jobs:
           }
           EOF
 
-          # Create a proper revision JSON file
-          cat > revision.json << 'EOF'
+          # Create a temporary file with the appspec content for revision
+          APPSPEC_CONTENT=$(cat appspec.json | jq -c .)
+
+          # Create revision.json with proper escaping
+          cat > revision.json << EOF
           {
             "revisionType": "AppSpecContent",
             "appSpecContent": {
-              "content": $(jq -c '.' appspec.json)
+              "content": ${APPSPEC_CONTENT}
             }
           }
           EOF
 
-          # Check the content of the files
-          echo "AppSpec content:"
-          cat appspec.json
-          echo "Revision content:"
+          # Check content for debugging
+          echo "Revision JSON content:"
           cat revision.json
 
           # Deploy using the revision file
