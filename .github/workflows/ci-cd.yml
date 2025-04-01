@@ -214,7 +214,7 @@ jobs:
           aws deploy create-deployment \
             --application-name ${{ env.REPO_NAME }}-${{ env.PLATFORM }} \
             --deployment-group-name ${{ env.REPO_NAME }}-${{ env.PLATFORM }}-dg \
-            --revision revisionType=AppSpecContent,appSpecContent="{\"version\":\"0.0\",\"Resources\":[{\"TargetService\":{\"Type\":\"AWS::ECS::Service\",\"Properties\":{\"TaskDefinition\":\"${{ env.TASK_DEFINITION_ARN }}\",\"LoadBalancerInfo\":{\"ContainerName\":\"graphql-engine\",\"ContainerPort\":8080},\"PlatformVersion\":\"LATEST\"}}}]}" \
+            --revision "{\"revisionType\":\"AppSpecContent\",\"appSpecContent\":{\"content\":\"{\\\"version\\\":\\\"0.0\\\",\\\"Resources\\\":[{\\\"TargetService\\\":{\\\"Type\\\":\\\"AWS::ECS::Service\\\",\\\"Properties\\\":{\\\"TaskDefinition\\\":\\\"${{ env.TASK_DEFINITION_ARN }}\\\",\\\"LoadBalancerInfo\\\":{\\\"ContainerName\\\":\\\"graphql-engine\\\",\\\"ContainerPort\\\":8080},\\\"PlatformVersion\\\":\\\"LATEST\\\"}}}]}\",\"sha256\":\"$(echo -n \"{\\\"version\\\":\\\"0.0\\\",\\\"Resources\\\":[{\\\"TargetService\\\":{\\\"Type\\\":\\\"AWS::ECS::Service\\\",\\\"Properties\\\":{\\\"TaskDefinition\\\":\\\"${{ env.TASK_DEFINITION_ARN }}\\\",\\\"LoadBalancerInfo\\\":{\\\"ContainerName\\\":\\\"graphql-engine\\\",\\\"ContainerPort\\\":8080},\\\"PlatformVersion\\\":\\\"LATEST\\\"}}}]}\" | sha256sum | cut -d' ' -f1)\"}}" \
             --deployment-config-name CodeDeployDefault.ECSAllAtOnce \
             --region ${{ env.REGION }} \
             --description "Deploying ${{ env.REPO_NAME }}-${{ env.PLATFORM }} with task definition ${{ env.TASK_DEFINITION_ARN }}"
