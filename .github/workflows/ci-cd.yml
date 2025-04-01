@@ -211,10 +211,45 @@ jobs:
       - name: Create CodeDeploy Deployment
         run: |
           # Create the deployment using the appspec file
+          # Create AppSpec file and revision JSON file
+          cat > appspec.json <<EOF
+          {
+            "version": "0.0",
+            "Resources": [
+              {
+                "TargetService": {
+                  "Type": "AWS::ECS::Service",
+                  "Properties": {
+                    "TaskDefinition": "${{ env.TASK_DEFINITION_ARN }}",
+                    "LoadBalancerInfo": {
+                      "ContainerName": "graphql-engine",
+                      "ContainerPort": 8080
+                    },
+                    "PlatformVersion": "LATEST"
+                  }
+                }
+              }
+            ]
+          }
+          EOF
+
+          CONTENT=$(cat appspec.json)
+          HASH=$(echo -n "$CONTENT" | openssl dgst -sha256 -binary | xxd -p -c 256)
+
+          cat > revision.json <<EOF
+          {
+            "revisionType": "AppSpecContent",
+            "appSpecContent": {
+              "content": $CONTENT,
+              "sha256": "$HASH"
+            }
+          }
+          EOF
+
           aws deploy create-deployment \
             --application-name ${{ env.REPO_NAME }}-${{ env.PLATFORM }} \
             --deployment-group-name ${{ env.REPO_NAME }}-${{ env.PLATFORM }}-dg \
-            --revision "{\"revisionType\":\"AppSpecContent\",\"appSpecContent\":{\"content\":\"{\\\"version\\\":\\\"0.0\\\",\\\"Resources\\\":[{\\\"TargetService\\\":{\\\"Type\\\":\\\"AWS::ECS::Service\\\",\\\"Properties\\\":{\\\"TaskDefinition\\\":\\\"${{ env.TASK_DEFINITION_ARN }}\\\",\\\"LoadBalancerInfo\\\":{\\\"ContainerName\\\":\\\"graphql-engine\\\",\\\"ContainerPort\\\":8080},\\\"PlatformVersion\\\":\\\"LATEST\\\"}}}]}\",\"sha256\":\"$(echo -n \"{\\\"version\\\":\\\"0.0\\\",\\\"Resources\\\":[{\\\"TargetService\\\":{\\\"Type\\\":\\\"AWS::ECS::Service\\\",\\\"Properties\\\":{\\\"TaskDefinition\\\":\\\"${{ env.TASK_DEFINITION_ARN }}\\\",\\\"LoadBalancerInfo\\\":{\\\"ContainerName\\\":\\\"graphql-engine\\\",\\\"ContainerPort\\\":8080},\\\"PlatformVersion\\\":\\\"LATEST\\\"}}}]}\" | sha256sum | cut -d' ' -f1)\"}}" \
+            --revision file://revision.json \
             --deployment-config-name CodeDeployDefault.ECSAllAtOnce \
             --region ${{ env.REGION }} \
             --description "Deploying ${{ env.REPO_NAME }}-${{ env.PLATFORM }} with task definition ${{ env.TASK_DEFINITION_ARN }}"
