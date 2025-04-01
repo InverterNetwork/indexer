@@ -233,7 +233,7 @@ jobs:
           EOF
 
           # Create a temporary file with the appspec content for revision
-          APPSPEC_CONTENT=$(cat appspec.json | jq -c .)
+          APPSPEC_CONTENT=$(cat appspec.json | jq -c . | jq -R .)
 
           # Create revision.json with proper escaping
           cat > revision.json << EOF
