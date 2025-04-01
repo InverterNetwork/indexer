@@ -208,21 +208,117 @@ jobs:
           # Store the task definition ARN
           echo "TASK_DEFINITION_ARN=$(aws ecs register-task-definition --cli-input-json file://task-definition.json --query 'taskDefinition.taskDefinitionArn' --output text)" >> $GITHUB_ENV
 
-      - name: Update ECS Service
+      - name: Create CodeDeploy Deployment
         run: |
-          aws ecs update-service \
-            --cluster ${{env.PLATFORM}}-services-cluster \
-            --service ${{ env.REPO_NAME }}-${{env.PLATFORM}} \
-            --task-definition ${{ env.TASK_DEFINITION_ARN }} \
-            --force-new-deployment
+          # Create appspec.yml content with dynamic values
+          cat > appspec.yml <<EOF
+          version: 0.0
+          Resources:
+            - TargetService:
+                Type: AWS::ECS::Service
+                Properties:
+                  TaskDefinition: "${{ env.TASK_DEFINITION_ARN }}"
+                  LoadBalancerInfo:
+                    ContainerName: "graphql-engine"
+                    ContainerPort: 8080
+                  PlatformVersion: "LATEST"
+          EOF
 
-      - name: Wait for service stability
-        timeout-minutes: 15
+          # Create the deployment using the appspec file
+          aws deploy create-deployment \
+            --application-name ${{ env.REPO_NAME }}-${{ env.PLATFORM }} \
+            --deployment-group-name ${{ env.REPO_NAME }}-${{ env.PLATFORM }}-dg \
+            --revision revisionType=AppSpecContent,appSpecContent="$(cat appspec.yml | jq -c -R -s .)" \
+            --deployment-config-name CodeDeployDefault.ECSAllAtOnce \
+            --region ${{ env.REGION }} \
+            --description "Deploying ${{ env.REPO_NAME }}-${{ env.PLATFORM }} with task definition ${{ env.TASK_DEFINITION_ARN }}"
+
+      - name: Wait for deployment completion
         run: |
-          sleep 300 && \
-          aws ecs wait services-stable \
+          DEPLOYMENT_ID=$(aws deploy list-deployments \
+            --application-name ${{ env.REPO_NAME }}-${{ env.PLATFORM }} \
+            --deployment-group-name ${{ env.REPO_NAME }}-${{ env.PLATFORM }}-dg \
+            --query 'deployments[0]' \
+            --output text)
+
+          echo "Waiting for deployment $DEPLOYMENT_ID to complete..."
+
+          timeout=900  # 15 minutes in seconds
+          start_time=$(date +%s)
+
+          while true; do
+            STATUS=$(aws deploy get-deployment \
+              --deployment-id $DEPLOYMENT_ID \
+              --query 'deploymentInfo.status' \
+              --output text)
+              
+            if [[ "$STATUS" == "Succeeded" ]]; then
+              echo "Deployment completed successfully!"
+              break
+            elif [[ "$STATUS" == "Failed" || "$STATUS" == "Stopped" ]]; then
+              echo "Deployment failed with status: $STATUS"
+              aws deploy get-deployment \
+                --deployment-id $DEPLOYMENT_ID \
+                --query 'deploymentInfo.errorInformation' \
+                --output json
+              exit 1
+            fi
+            
+            current_time=$(date +%s)
+            elapsed=$((current_time - start_time))
+            
+            if [[ $elapsed -ge $timeout ]]; then
+              echo "Deployment timed out after $timeout seconds"
+              exit 1
+            fi
+            
+            echo "Deployment status: $STATUS. Waiting..."
+            sleep 30
+          done
+
+      - name: Update HTTPS Target Group
+        run: |
+          # Get the service's load balancer info
+          SERVICE_INFO=$(aws ecs describe-services \
             --cluster ${{env.PLATFORM}}-services-cluster \
-            --services ${{ env.REPO_NAME }}-${{env.PLATFORM}}
+            --services ${{ env.REPO_NAME }}-${{env.PLATFORM}} \
+            --query 'services[0]')
+
+          # Extract HTTP target group ARN (port 80)
+          HTTP_TARGET_GROUP_ARN=$(echo $SERVICE_INFO | jq -r '.loadBalancers[] | select(.containerPort == 80) | .targetGroupArn')
+
+          if [ -z "$HTTP_TARGET_GROUP_ARN" ]; then
+            echo "Error: Could not find HTTP target group (port 80)"
+            exit 1
+          fi
+
+          echo "Found HTTP target group (port 80): $HTTP_TARGET_GROUP_ARN"
+
+          # Get the load balancer ARN
+          LB_ARN=$(aws elbv2 describe-target-groups \
+            --target-group-arns $HTTP_TARGET_GROUP_ARN \
+            --query 'TargetGroups[0].LoadBalancerArns[0]' \
+            --output text)
+
+          # Get HTTPS listener (port 443)
+          HTTPS_LISTENER_ARN=$(aws elbv2 describe-listeners \
+            --load-balancer-arn $LB_ARN \
+            --query 'Listeners[?Port==`443`].ListenerArn' \
+            --output text)
+
+          if [ -z "$HTTPS_LISTENER_ARN" ]; then
+            echo "Error: Could not find HTTPS listener (port 443)"
+            exit 1
+          fi
+
+          echo "Found HTTPS listener (port 443): $HTTPS_LISTENER_ARN"
+
+          # Update HTTPS listener to use the HTTP target group
+          aws elbv2 modify-listener \
+            --listener-arn $HTTPS_LISTENER_ARN \
+            --default-actions Type=forward,TargetGroupArn=$HTTP_TARGET_GROUP_ARN
+
+          echo "Successfully updated HTTPS listener to use HTTP target group"
 
       - name: Slack Notification
         uses: act10ns/slack@v1
