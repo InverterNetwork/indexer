@@ -1,4 +1,5 @@
 name: CI-CD
+
 on:
   workflow_dispatch:
     inputs:
@@ -23,7 +24,7 @@ env:
   AWS_ACCOUNT_ID: ${{ github.ref_name == 'main' && secrets.ACCOUNT_ID_PROD || secrets.ACCOUNT_ID_DEV }}
 
 permissions:
-  id-token: write # This is required for requesting the JWT
+  id-token: write
   contents: read
 
 jobs:
@@ -77,7 +78,6 @@ jobs:
         if: inputs.build == false || env.IMAGE_EXISTS == 'true'
         run: |
           LATEST_TAG=$(aws ecr describe-images --repository-name $ECR_REPOSITORY --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]' --output text)
-          # override image tag with latest tag if it exists
           if [ -n "$LATEST_TAG" ]; then
             echo "IMAGE_TAG=$LATEST_TAG" >> $GITHUB_ENV
           fi
@@ -125,11 +125,9 @@ jobs:
       - name: Get Latest Image ARN
         id: get-image-arn
         run: |
-          # Get full image URI
           IMAGE_URI="$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
           echo "Verifying image: $IMAGE_URI"
 
-          # Verify image exists via ecr and image uri
           if ! aws ecr describe-images --repository-name $ECR_REPOSITORY --image-ids imageTag=$IMAGE_TAG 2>/dev/null; then
             echo "Image verification failed: $IMAGE_URI not found in repository $ECR_REPOSITORY"
             exit 1
@@ -165,12 +163,10 @@ jobs:
               ;;
           esac
 
-          # Get current task definition and remove AWS-specific fields
           aws ecs describe-task-definition --task-definition indexer-${{ env.PLATFORM }} --query 'taskDefinition' > task-definition-full.json
 
           jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' task-definition-full.json > task-definition.json
 
-          # Extract current database name from running tasks, fallback to latest task definition
           RUNNING_TASK_ARN=$(aws ecs list-tasks --cluster ${{env.PLATFORM}}-services-cluster --service-name ${{ env.REPO_NAME }}-${{env.PLATFORM}}-svc --desired-status RUNNING --query 'taskArns[0]' --output text)
 
           if [[ "$RUNNING_TASK_ARN" != "None" && -n "$RUNNING_TASK_ARN" ]]; then
@@ -185,7 +181,6 @@ jobs:
             CURRENT_DB=$(jq -r '.containerDefinitions[] | select(.name == "graphql-engine") | .environment[] | select(.name == "HASURA_GRAPHQL_DATABASE_URL") | .value' task-definition.json | grep -o 'blue\|green')
           fi
 
-          # Only switch DB for SCHEMA_CHANGED and MIGRATE_DOWN_UP if there are healthy tasks
           if [[ "${{ inputs.env }}" == "SCHEMA_CHANGED" || "${{ inputs.env }}" == "MIGRATE_DOWN_UP" ]]; then
             NEW_DB=$([ "$CURRENT_DB" = "blue" ] && echo "green" || echo "blue")
             echo "Switching database to $NEW_DB from $CURRENT_DB"
@@ -194,7 +189,6 @@ jobs:
             echo "Keeping current database $CURRENT_DB as chosen command is not SCHEMA_CHANGED or MIGRATE_DOWN_UP"
           fi
 
-          # Update database names in both container definitions
           jq --arg cmd "$CMD" --arg img "$IMAGE_URI" --arg new_db "$NEW_DB" '
             (.containerDefinitions[] | select(.name == "graphql-engine") | .environment[] | select(.name == "HASURA_GRAPHQL_DATABASE_URL") | .value) |= sub("/(blue|green)\\?"; "/\($new_db)?") |
             (.containerDefinitions[] | select(.name == "indexer-${{ env.PLATFORM }}") | .environment[] | select(.name == "ENVIO_PG_DATABASE") | .value) = $new_db |
@@ -202,15 +196,13 @@ jobs:
             (.containerDefinitions[] | select(.name == "indexer-${{ env.PLATFORM }}") | .image) = $img
           ' task-definition.json > updated-task-definition.json
 
-          # Update the task definition with the new file
           mv updated-task-definition.json task-definition.json
 
-          # Store the task definition ARN
           echo "TASK_DEFINITION_ARN=$(aws ecs register-task-definition --cli-input-json file://task-definition.json --query 'taskDefinition.taskDefinitionArn' --output text)" >> $GITHUB_ENV
 
       - name: Create CodeDeploy Deployment
+        timeout-minutes: 25
         run: |
-          # Create appspec.json file
           cat > appspec.json << EOF
           {
             "version": "0.0",
@@ -232,10 +224,8 @@ jobs:
           }
           EOF
 
-          # Create a temporary file with the appspec content for revision
           APPSPEC_CONTENT=$(cat appspec.json | jq -c . | jq -R .)
 
-          # Create revision.json with proper escaping
           cat > revision.json << EOF
           {
             "revisionType": "AppSpecContent",
@@ -245,11 +235,9 @@ jobs:
           }
           EOF
 
-          # Check content for debugging
           echo "Revision JSON content:"
           cat revision.json
 
-          # Deploy using the revision file
           aws deploy create-deployment \
             --application-name ${{ env.REPO_NAME }}-${{ env.PLATFORM }} \
             --deployment-group-name ${{ env.REPO_NAME }}-${{ env.PLATFORM }}-dg \
@@ -258,58 +246,43 @@ jobs:
             --region ${{ env.REGION }} \
             --description "Deploying ${{ env.REPO_NAME }}-${{ env.PLATFORM }} with task definition ${{ env.TASK_DEFINITION_ARN }}"
 
-      - name: Wait for deployment completion
-        run: |
           DEPLOYMENT_ID=$(aws deploy list-deployments \
-            --application-name ${{ env.REPO_NAME }}-${{ env.PLATFORM }} \
-            --deployment-group-name ${{ env.REPO_NAME }}-${{ env.PLATFORM }}-dg \
-            --query 'deployments[0]' \
-            --output text)
-
+           --application-name ${{ env.REPO_NAME }}-${{ env.PLATFORM }} \
+           --deployment-group-name ${{ env.REPO_NAME }}-${{ env.PLATFORM }}-dg \
+           --query 'deployments[0]' \
+           --output text)
+          
           echo "Waiting for deployment $DEPLOYMENT_ID to complete..."
-
-          timeout=1200  # 20 minutes in seconds
-          start_time=$(date +%s)
-
+          
           while true; do
             STATUS=$(aws deploy get-deployment \
-              --deployment-id $DEPLOYMENT_ID \
-              --query 'deploymentInfo.status' \
-              --output text)
-              
+            --deployment-id $DEPLOYMENT_ID \
+            --query 'deploymentInfo.status' \
+            --output text)
+          
             if [[ "$STATUS" == "Succeeded" ]]; then
               echo "Deployment completed successfully!"
               break
             elif [[ "$STATUS" == "Failed" || "$STATUS" == "Stopped" ]]; then
               echo "Deployment failed with status: $STATUS"
               aws deploy get-deployment \
-                --deployment-id $DEPLOYMENT_ID \
-                --query 'deploymentInfo.errorInformation' \
-                --output json
+              --deployment-id $DEPLOYMENT_ID \
+              --query 'deploymentInfo.errorInformation' \
+              --output json
               exit 1
             fi
-            
-            current_time=$(date +%s)
-            elapsed=$((current_time - start_time))
-            
-            if [[ $elapsed -ge $timeout ]]; then
-              echo "Deployment timed out after $timeout seconds"
-              exit 1
-            fi
-            
+          
             echo "Deployment status: $STATUS. Waiting..."
             sleep 30
           done
 
       - name: Update HTTPS Target Group
         run: |
-          # Get the service's load balancer info
           SERVICE_INFO=$(aws ecs describe-services \
             --cluster ${{env.PLATFORM}}-services-cluster \
             --services ${{ env.REPO_NAME }}-${{env.PLATFORM}}-svc \
             --query 'services[0]')
 
-          # Extract HTTP target group ARN (port 80)
           HTTP_TARGET_GROUP_ARN=$(echo $SERVICE_INFO | jq -r '.loadBalancers[] | select(.containerPort == 80) | .targetGroupArn')
 
           if [ -z "$HTTP_TARGET_GROUP_ARN" ]; then
@@ -319,13 +292,11 @@ jobs:
 
           echo "Found HTTP target group (port 80): $HTTP_TARGET_GROUP_ARN"
 
-          # Get the load balancer ARN
           LB_ARN=$(aws elbv2 describe-target-groups \
             --target-group-arns $HTTP_TARGET_GROUP_ARN \
             --query 'TargetGroups[0].LoadBalancerArns[0]' \
             --output text)
 
-          # Get HTTPS listener (port 443)
           HTTPS_LISTENER_ARN=$(aws elbv2 describe-listeners \
             --load-balancer-arn $LB_ARN \
             --query 'Listeners[?Port==`443`].ListenerArn' \
@@ -338,7 +309,6 @@ jobs:
 
           echo "Found HTTPS listener (port 443): $HTTPS_LISTENER_ARN"
 
-          # Update HTTPS listener to use the HTTP target group
           aws elbv2 modify-listener \
             --listener-arn $HTTPS_LISTENER_ARN \
             --default-actions Type=forward,TargetGroupArn=$HTTP_TARGET_GROUP_ARN
