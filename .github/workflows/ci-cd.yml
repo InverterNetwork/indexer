@@ -171,7 +171,7 @@ jobs:
           jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' task-definition-full.json > task-definition.json
 
           # Extract current database name from running tasks, fallback to latest task definition
-          RUNNING_TASK_ARN=$(aws ecs list-tasks --cluster ${{env.PLATFORM}}-services-cluster --service-name ${{ env.REPO_NAME }}-${{env.PLATFORM}} --desired-status RUNNING --query 'taskArns[0]' --output text)
+          RUNNING_TASK_ARN=$(aws ecs list-tasks --cluster ${{env.PLATFORM}}-services-cluster --service-name ${{ env.REPO_NAME }}-${{env.PLATFORM}}-svc --desired-status RUNNING --query 'taskArns[0]' --output text)
 
           if [[ "$RUNNING_TASK_ARN" != "None" && -n "$RUNNING_TASK_ARN" ]]; then
             RUNNING_TASK_DEF_ARN=$(aws ecs describe-tasks --cluster ${{env.PLATFORM}}-services-cluster --tasks $RUNNING_TASK_ARN --query 'tasks[0].taskDefinitionArn' --output text)
@@ -268,7 +268,7 @@ jobs:
 
           echo "Waiting for deployment $DEPLOYMENT_ID to complete..."
 
-          timeout=900  # 15 minutes in seconds
+          timeout=1200  # 20 minutes in seconds
           start_time=$(date +%s)
 
           while true; do
@@ -306,7 +306,7 @@ jobs:
           # Get the service's load balancer info
           SERVICE_INFO=$(aws ecs describe-services \
             --cluster ${{env.PLATFORM}}-services-cluster \
-            --services ${{ env.REPO_NAME }}-${{env.PLATFORM}} \
+            --services ${{ env.REPO_NAME }}-${{env.PLATFORM}}-svc \
             --query 'services[0]')
 
           # Extract HTTP target group ARN (port 80)
