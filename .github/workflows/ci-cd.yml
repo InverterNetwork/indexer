@@ -211,43 +211,43 @@ jobs:
       - name: Create CodeDeploy Deployment
         run: |
           # Create the deployment using the appspec file
-          cat > appspec.json << EOF
-{
-  "version": "0.0",
-  "Resources": [
-    {
-      "TargetService": {
-        "Type": "AWS::ECS::Service",
-        "Properties": {
-          "TaskDefinition": "${{ env.TASK_DEFINITION_ARN }}",
-          "LoadBalancerInfo": {
-            "ContainerName": "graphql-engine",
-            "ContainerPort": 8080
-          },
-          "PlatformVersion": "LATEST"
-        }
-      }
-    }
-  ]
-}
-EOF
+          cat > appspec.json << 'EOF'
+          {
+            "version": "0.0",
+            "Resources": [
+              {
+                "TargetService": {
+                  "Type": "AWS::ECS::Service",
+                  "Properties": {
+                    "TaskDefinition": "${{ env.TASK_DEFINITION_ARN }}",
+                    "LoadBalancerInfo": {
+                      "ContainerName": "graphql-engine",
+                      "ContainerPort": 8080
+                    },
+                    "PlatformVersion": "LATEST"
+                  }
+                }
+              }
+            ]
+          }
+          EOF
 
           # Create a proper revision JSON file
-          cat > revision.json << EOF
-{
-  "revisionType": "AppSpecContent",
-  "appSpecContent": {
-    "content": $(jq -c '.' appspec.json)
-  }
-}
-EOF
+          cat > revision.json << 'EOF'
+          {
+            "revisionType": "AppSpecContent",
+            "appSpecContent": {
+              "content": $(jq -c '.' appspec.json)
+            }
+          }
+          EOF
 
           # Check the content of the files
           echo "AppSpec content:"
           cat appspec.json
           echo "Revision content:"
           cat revision.json
-          
+
           # Deploy using the revision file
           aws deploy create-deployment \
             --application-name ${{ env.REPO_NAME }}-${{ env.PLATFORM }} \
