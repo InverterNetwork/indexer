@@ -240,7 +240,7 @@ jobs:
           {
             "revisionType": "AppSpecContent",
             "appSpecContent": {
-              "content": $CONTENT,
+              "content": $(jq -c -R '.' <<< "$CONTENT"),
               "sha256": "$HASH"
             }
           }
