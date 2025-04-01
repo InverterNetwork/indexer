@@ -210,25 +210,11 @@ jobs:
 
       - name: Create CodeDeploy Deployment
         run: |
-          # Create appspec.yml content with dynamic values
-          cat > appspec.yml <<EOF
-          version: 0.0
-          Resources:
-            - TargetService:
-                Type: AWS::ECS::Service
-                Properties:
-                  TaskDefinition: "${{ env.TASK_DEFINITION_ARN }}"
-                  LoadBalancerInfo:
-                    ContainerName: "graphql-engine"
-                    ContainerPort: 8080
-                  PlatformVersion: "LATEST"
-          EOF
-
           # Create the deployment using the appspec file
           aws deploy create-deployment \
             --application-name ${{ env.REPO_NAME }}-${{ env.PLATFORM }} \
             --deployment-group-name ${{ env.REPO_NAME }}-${{ env.PLATFORM }}-dg \
-            --revision revisionType=AppSpecContent,appSpecContent="$(cat appspec.yml | jq -c -R -s .)" \
+            --revision revisionType=AppSpecContent,appSpecContent="{\"version\":\"0.0\",\"Resources\":[{\"TargetService\":{\"Type\":\"AWS::ECS::Service\",\"Properties\":{\"TaskDefinition\":\"${{ env.TASK_DEFINITION_ARN }}\",\"LoadBalancerInfo\":{\"ContainerName\":\"graphql-engine\",\"ContainerPort\":8080},\"PlatformVersion\":\"LATEST\"}}}]}" \
             --deployment-config-name CodeDeployDefault.ECSAllAtOnce \
             --region ${{ env.REGION }} \
             --description "Deploying ${{ env.REPO_NAME }}-${{ env.PLATFORM }} with task definition ${{ env.TASK_DEFINITION_ARN }}"
