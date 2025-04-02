@@ -9,7 +9,7 @@
     "clean": "rm -rf build",
     "build": "pnpm clean && tsc --build tsconfig.build.json && pnpm ts-add-js-extension --dir=build/src",
     "compile": "node -e \"const readline = require('readline').createInterface({input:process.stdin,output:process.stdout});readline.question('Select environment (dev/prod) [prod]: ', env => {const endpoint = (env||'prod').toLowerCase()==='dev'?'https://dev.indexer.inverter.network/v1/graphql':'https://indexer.inverter.network/v1/graphql';console.log('Using endpoint:',endpoint);require('child_process').execSync('genql --endpoint \\\"' + endpoint + '\\\" --output graphql/src/gen && prettier --write graphql/src/gen/**/*.ts && eslint --fix graphql/src/gen/**/*.ts',{stdio:'inherit'});readline.close()})\"",
-    "codegen": "pnpm ts-node scripts/parse-schema.ts pre && envio codegen && ts-node scripts/parse-schema.ts post",
+    "codegen": "pnpm ts-node scripts/parse-schema.ts pre && (envio codegen & pid=$!; ts-node scripts/parse-schema.ts post; wait $pid)",
     "grant:agg-permissions": "ts-node scripts/grant-aggregate-permissions.ts",
     "prod": "pnpm codegen && docker-compose --file generated/docker-compose.yaml up -d && pnpm migrate:setup && pnpm start:pm2",
     "prod:update": "pnpm codegen && pnpm start:pm2",
