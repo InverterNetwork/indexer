@@ -38,11 +38,54 @@ enum PaymentOrderType {
 ## BASE ENTITIES
 ## =============================================================================
 
+interface FeeBase {
+  chainId: Int!
+  txHash: String!
+  module_id: ID! @index
 
+  timestamp: Int!
+  token: Token!
 
+  amount: BigDecimal!
+  amountUSD: BigDecimal!
+}
 
+interface IntervalDataBase {
+  chainId: Int!
+  address: String!
 
+  volumeUSD: BigDecimal!
+  volumeISS: BigDecimal!
 
+  projectFeeUSD: BigDecimal!
+  protocolFeeUSD: BigDecimal!
+  protocolFeeISS: BigDecimal!
+
+  marketCapUSD: BigDecimal!
+
+  priceUSD: BigDecimal!
+
+  openUSD: BigDecimal!
+  highUSD: BigDecimal!
+  lowUSD: BigDecimal!
+  closeUSD: BigDecimal!
+}
+
+interface IntervalCurveDataBase {
+  volumeCOL: BigDecimal!
+  projectFeeCOL: BigDecimal!
+  protocolFeeCOL: BigDecimal!
+  marketCapCOL: BigDecimal!
+  priceCOL: BigDecimal!
+  openCOL: BigDecimal!
+  highCOL: BigDecimal!
+  lowCOL: BigDecimal!
+  closeCOL: BigDecimal!
+
+  collateralToken: Token!
+  issuanceToken: Token!
+  ...IntervalDataBase
+}
 
 ## =============================================================================
 ## CORE ENTITIES
@@ -70,17 +113,7 @@ type ProtocolFee {
   source: SourceTokenType!
   treasury: String!
 
-  
-  chainId: Int!
-  txHash: String!
-  module_id: ID! @index
-
-  timestamp: Int!
-  token: Token!
-
-  amount: BigDecimal!
-  amountUSD: BigDecimal!
-
+  ...FeeBase
 }
 
 type ProjectFee implements FeeBase {
@@ -88,17 +121,7 @@ type ProjectFee implements FeeBase {
 
   recipient: String!
 
-  
-  chainId: Int!
-  txHash: String!
-  module_id: ID! @index
-
-  timestamp: Int!
-  token: Token!
-
-  amount: BigDecimal!
-  amountUSD: BigDecimal!
-
+  ...FeeBase
 }
 
 ## =============================================================================
@@ -480,26 +503,7 @@ type IssuanceTokenDayData @entity {
   
   token: Token!
 
-  
-  chainId: Int!
-  address: String!
-
-  volumeUSD: BigDecimal!
-  volumeISS: BigDecimal!
-
-  projectFeeUSD: BigDecimal!
-  protocolFeeUSD: BigDecimal!
-  protocolFeeISS: BigDecimal!
-
-  marketCapUSD: BigDecimal!
-
-  priceUSD: BigDecimal!
-
-  openUSD: BigDecimal!
-  highUSD: BigDecimal!
-  lowUSD: BigDecimal!
-  closeUSD: BigDecimal!
-
+  ...IntervalDataBase
 }
 
 type IssuanceTokenHourData @entity {
@@ -509,26 +513,7 @@ type IssuanceTokenHourData @entity {
   
   token: Token!
 
-  
-  chainId: Int!
-  address: String!
-
-  volumeUSD: BigDecimal!
-  volumeISS: BigDecimal!
-
-  projectFeeUSD: BigDecimal!
-  protocolFeeUSD: BigDecimal!
-  protocolFeeISS: BigDecimal!
-
-  marketCapUSD: BigDecimal!
-
-  priceUSD: BigDecimal!
-
-  openUSD: BigDecimal!
-  highUSD: BigDecimal!
-  lowUSD: BigDecimal!
-  closeUSD: BigDecimal!
-
+  ...IntervalDataBase
 }
 
 # Funding Manager Market Data
@@ -538,40 +523,7 @@ type CurveDayData @entity {
 
   date: Int! # timestamp rounded to current day by dividing by 86400
   
-  
-  volumeCOL: BigDecimal!
-  projectFeeCOL: BigDecimal!
-  protocolFeeCOL: BigDecimal!
-  marketCapCOL: BigDecimal!
-  priceCOL: BigDecimal!
-  openCOL: BigDecimal!
-  highCOL: BigDecimal!
-  lowCOL: BigDecimal!
-  closeCOL: BigDecimal!
-
-  collateralToken: Token!
-  issuanceToken: Token!
-  
-  chainId: Int!
-  address: String!
-
-  volumeUSD: BigDecimal!
-  volumeISS: BigDecimal!
-
-  projectFeeUSD: BigDecimal!
-  protocolFeeUSD: BigDecimal!
-  protocolFeeISS: BigDecimal!
-
-  marketCapUSD: BigDecimal!
-
-  priceUSD: BigDecimal!
-
-  openUSD: BigDecimal!
-  highUSD: BigDecimal!
-  lowUSD: BigDecimal!
-  closeUSD: BigDecimal!
-
-
+  ...IntervalCurveDataBase
 }
 
 type CurveHourData @entity {
@@ -580,40 +532,7 @@ type CurveHourData @entity {
 
   periodStartUnix: Int! # unix timestamp for start of hour
   
-  
-  volumeCOL: BigDecimal!
-  projectFeeCOL: BigDecimal!
-  protocolFeeCOL: BigDecimal!
-  marketCapCOL: BigDecimal!
-  priceCOL: BigDecimal!
-  openCOL: BigDecimal!
-  highCOL: BigDecimal!
-  lowCOL: BigDecimal!
-  closeCOL: BigDecimal!
-
-  collateralToken: Token!
-  issuanceToken: Token!
-  
-  chainId: Int!
-  address: String!
-
-  volumeUSD: BigDecimal!
-  volumeISS: BigDecimal!
-
-  projectFeeUSD: BigDecimal!
-  protocolFeeUSD: BigDecimal!
-  protocolFeeISS: BigDecimal!
-
-  marketCapUSD: BigDecimal!
-
-  priceUSD: BigDecimal!
-
-  openUSD: BigDecimal!
-  highUSD: BigDecimal!
-  lowUSD: BigDecimal!
-  closeUSD: BigDecimal!
-
-
+  ...IntervalCurveDataBase
 }
 
 # -----------------------------------------------------------------------------
