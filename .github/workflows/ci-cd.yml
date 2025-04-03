@@ -201,7 +201,7 @@ jobs:
           echo "TASK_DEFINITION_ARN=$(aws ecs register-task-definition --cli-input-json file://task-definition.json --query 'taskDefinition.taskDefinitionArn' --output text)" >> $GITHUB_ENV
 
       - name: Create CodeDeploy Deployment
-        timeout-minutes: 25
+        timeout-minutes: 45
         run: |
           cat > appspec.json << EOF
           {
