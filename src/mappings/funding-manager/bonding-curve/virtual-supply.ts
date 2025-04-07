@@ -9,7 +9,11 @@ import {
   BondingCurve_VirtualCollateralAmountSubtracted_event,
 } from 'generated'
 
-import { formatUnitsToBD, updateBondingCurve } from '../../../utils'
+import {
+  formatUnitsToBD,
+  handlerErrorWrapper,
+  updateBondingCurve,
+} from '../../../utils'
 
 // ============================================================================
 // Virtual Supply Management Handlers
@@ -54,12 +58,22 @@ const handleVirtualIssuanceSupply = async ({
   })
 }
 
-BondingCurve.VirtualIssuanceSupplySet.handler(handleVirtualIssuanceSupply)
+BondingCurve.VirtualIssuanceSupplySet.handler(
+  handlerErrorWrapper(async ({ event, context }) => {
+    handleVirtualIssuanceSupply({ event, context })
+  })
+)
 
-BondingCurve.VirtualIssuanceAmountAdded.handler(handleVirtualIssuanceSupply)
+BondingCurve.VirtualIssuanceAmountAdded.handler(
+  handlerErrorWrapper(async ({ event, context }) => {
+    handleVirtualIssuanceSupply({ event, context })
+  })
+)
 
 BondingCurve.VirtualIssuanceAmountSubtracted.handler(
-  handleVirtualIssuanceSupply
+  handlerErrorWrapper(async ({ event, context }) => {
+    handleVirtualIssuanceSupply({ event, context })
+  })
 )
 
 // COLLATERAL TOKEN
@@ -101,10 +115,20 @@ const handleVirtualCollateralSupply = async ({
   })
 }
 
-BondingCurve.VirtualCollateralSupplySet.handler(handleVirtualCollateralSupply)
+BondingCurve.VirtualCollateralSupplySet.handler(
+  handlerErrorWrapper(async ({ event, context }) => {
+    handleVirtualCollateralSupply({ event, context })
+  })
+)
 
-BondingCurve.VirtualCollateralAmountAdded.handler(handleVirtualCollateralSupply)
+BondingCurve.VirtualCollateralAmountAdded.handler(
+  handlerErrorWrapper(async ({ event, context }) => {
+    handleVirtualCollateralSupply({ event, context })
+  })
+)
 
 BondingCurve.VirtualCollateralAmountSubtracted.handler(
-  handleVirtualCollateralSupply
+  handlerErrorWrapper(async ({ event, context }) => {
+    handleVirtualCollateralSupply({ event, context })
+  })
 )

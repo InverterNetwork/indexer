@@ -4,31 +4,35 @@ import './fee'
 import './virtual-supply'
 
 import { BondingCurve } from 'generated'
-import { updateBondingCurve } from '../../../utils'
+import { handlerErrorWrapper, updateBondingCurve } from '../../../utils'
 
 // ============================================================================
 // Reserve Ratio Configuration Handlers
 // ============================================================================
 
-BondingCurve.BuyReserveRatioSet.handler(async ({ event, context }) => {
-  await updateBondingCurve({
-    context,
-    event,
-    properties: {
-      buyReserveRatio: event.params.newBuyReserveRatio,
-    },
+BondingCurve.BuyReserveRatioSet.handler(
+  handlerErrorWrapper(async ({ event, context }) => {
+    await updateBondingCurve({
+      context,
+      event,
+      properties: {
+        buyReserveRatio: event.params.newBuyReserveRatio,
+      },
+    })
   })
-})
+)
 
-BondingCurve.SellReserveRatioSet.handler(async ({ event, context }) => {
-  await updateBondingCurve({
-    context,
-    event,
-    properties: {
-      sellReserveRatio: event.params.newSellReserveRatio,
-    },
+BondingCurve.SellReserveRatioSet.handler(
+  handlerErrorWrapper(async ({ event, context }) => {
+    await updateBondingCurve({
+      context,
+      event,
+      properties: {
+        sellReserveRatio: event.params.newSellReserveRatio,
+      },
+    })
   })
-})
+)
 
 // ============================================================================
 // Token Configuration Handlers

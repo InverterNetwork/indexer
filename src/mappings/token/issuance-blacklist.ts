@@ -4,12 +4,13 @@ import {
   updateBlacklistedAccount,
   updateBlacklistedManager,
 } from '../../utils/token'
+import { handlerErrorWrapper } from '../../utils'
 
 // AddedToBlacklist
 // ----------------------------------------------------------------------------
 
 ERC20Issuance_Blacklist_v1.AddedToBlacklist.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const blacklistedTokenIdId = `${event.chainId}-${event.srcAddress}`
 
     await updateBlacklistedAccount({
@@ -35,14 +36,14 @@ ERC20Issuance_Blacklist_v1.AddedToBlacklist.handler(
       timestamp: event.block.timestamp,
       txHash: event.block.hash,
     })
-  }
+  })
 )
 
 // RemovedFromBlacklist
 // ----------------------------------------------------------------------------
 
 ERC20Issuance_Blacklist_v1.RemovedFromBlacklist.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const blacklistedTokenIdId = `${event.chainId}-${event.srcAddress}`
 
     await updateBlacklistedAccount({
@@ -68,14 +69,14 @@ ERC20Issuance_Blacklist_v1.RemovedFromBlacklist.handler(
       timestamp: event.block.timestamp,
       txHash: event.block.hash,
     })
-  }
+  })
 )
 
 // BlacklistManagerUpdated
 // ----------------------------------------------------------------------------
 
 ERC20Issuance_Blacklist_v1.BlacklistManagerUpdated.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const blacklistedTokenIdId = `${event.chainId}-${event.srcAddress}`
 
     await updateBlacklistedManager({
@@ -101,39 +102,42 @@ ERC20Issuance_Blacklist_v1.BlacklistManagerUpdated.handler(
       timestamp: event.block.timestamp,
       txHash: event.block.hash,
     })
-  }
+  })
 )
 
 // MinterSet
 // ----------------------------------------------------------------------------
 
-ERC20Issuance_Blacklist_v1.MinterSet.handler(async ({ event, context }) => {
-  const id = `${event.chainId}-${event.srcAddress}`
-  const blacklistIssuanceToken = (await context.BlacklistIssuanceToken.get(id))!
+ERC20Issuance_Blacklist_v1.MinterSet.handler(
+  handlerErrorWrapper(async ({ event, context }) => {
+    const id = `${event.chainId}-${event.srcAddress}`
+    const blacklistIssuanceToken =
+      (await context.BlacklistIssuanceToken.get(id))!
 
-  const minterList = blacklistIssuanceToken.minter
-  const allowed = event.params.allowed
+    const minterList = blacklistIssuanceToken.minter
+    const allowed = event.params.allowed
 
-  if (allowed) {
-    minterList.push(event.params.minter)
-  } else {
-    minterList.splice(minterList.indexOf(event.params.minter), 1)
-  }
+    if (allowed) {
+      minterList.push(event.params.minter)
+    } else {
+      minterList.splice(minterList.indexOf(event.params.minter), 1)
+    }
 
-  await updateBlacklistIssuanceToken({
-    event,
-    context,
-    properties: {
-      minter: minterList,
-    },
+    await updateBlacklistIssuanceToken({
+      event,
+      context,
+      properties: {
+        minter: minterList,
+      },
+    })
   })
-})
+)
 
 // OwnershipTransferred
 // ----------------------------------------------------------------------------
 
 ERC20Issuance_Blacklist_v1.OwnershipTransferred.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     await updateBlacklistIssuanceToken({
       event,
       context,
@@ -141,5 +145,5 @@ ERC20Issuance_Blacklist_v1.OwnershipTransferred.handler(
         owner: event.params.newOwner,
       },
     })
-  }
+  })
 )

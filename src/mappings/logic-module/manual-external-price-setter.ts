@@ -1,8 +1,13 @@
 import { LM_ManualExternalPriceSetter_v1 } from 'generated'
-import { formatUnitsToBD, MARKET_DEBUG, ZERO_BD } from '../../utils'
+import {
+  formatUnitsToBD,
+  handlerErrorWrapper,
+  MARKET_DEBUG,
+  ZERO_BD,
+} from '../../utils'
 
 LM_ManualExternalPriceSetter_v1.ModuleInitialized.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const id = `${event.chainId}-${event.srcAddress}`
     const workflow_id = `${event.chainId}-${event.params.parentOrchestrator}`
     const { token_id: collateralToken_id } =
@@ -21,11 +26,11 @@ LM_ManualExternalPriceSetter_v1.ModuleInitialized.handler(
       priceISS: ZERO_BD,
       priceCOL: ZERO_BD,
     })
-  }
+  })
 )
 
 LM_ManualExternalPriceSetter_v1.RedemptionPriceSet.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const id = `${event.chainId}-${event.srcAddress}`
     const entity = await context.ExternalPriceSetter.get(id)
 
@@ -69,11 +74,11 @@ LM_ManualExternalPriceSetter_v1.RedemptionPriceSet.handler(
       price: priceCOL,
       txHash: event.transaction.hash,
     })
-  }
+  })
 )
 
 LM_ManualExternalPriceSetter_v1.IssuancePriceSet.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const id = `${event.chainId}-${event.srcAddress}`
     const entity = await context.ExternalPriceSetter.get(id)
 
@@ -118,5 +123,5 @@ LM_ManualExternalPriceSetter_v1.IssuancePriceSet.handler(
 
       price: priceISS,
     })
-  }
+  })
 )
