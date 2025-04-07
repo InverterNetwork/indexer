@@ -11,6 +11,7 @@ import {
   updateCurveDayData,
   updateCurveHourData,
   updateOraclePrice,
+  handlerErrorWrapper,
 } from '../../../utils'
 
 // ============================================================================
@@ -18,7 +19,7 @@ import {
 // ============================================================================
 
 FM_PC_ExternalPrice_Redeeming_v1.BuyFeeUpdated.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     await updateOraclePrice({
       context,
       event,
@@ -26,11 +27,11 @@ FM_PC_ExternalPrice_Redeeming_v1.BuyFeeUpdated.handler(
         buyFee: event.params.newBuyFee,
       },
     })
-  }
+  })
 )
 
 FM_PC_ExternalPrice_Redeeming_v1.SellFeeUpdated.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     await updateOraclePrice({
       context,
       event,
@@ -38,7 +39,7 @@ FM_PC_ExternalPrice_Redeeming_v1.SellFeeUpdated.handler(
         sellFee: event.params.newSellFee,
       },
     })
-  }
+  })
 )
 
 // ============================================================================
@@ -49,7 +50,7 @@ FM_PC_ExternalPrice_Redeeming_v1.SellFeeUpdated.handler(
 // ============================================================================
 
 FM_PC_ExternalPrice_Redeeming_v1.ProjectCollateralFeeAdded.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const id = `${event.chainId}-${event.srcAddress}`
     const bc = (await context.OraclePriceFM.get(id))!
 
@@ -75,7 +76,7 @@ FM_PC_ExternalPrice_Redeeming_v1.ProjectCollateralFeeAdded.handler(
         recipient: bc.treasury,
       },
     })
-  }
+  })
 )
 
 // Protocol Fee Generation
@@ -83,7 +84,7 @@ FM_PC_ExternalPrice_Redeeming_v1.ProjectCollateralFeeAdded.handler(
 
 // ISSUANCE FEE
 FM_PC_ExternalPrice_Redeeming_v1.ProtocolFeeMinted.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const id = `${event.chainId}-${event.srcAddress}`
     const bc = (await context.OraclePriceFM.get(id))!
 
@@ -150,12 +151,12 @@ FM_PC_ExternalPrice_Redeeming_v1.ProtocolFeeMinted.handler(
 
     await updateIssuanceTokenHourData(updateTimeDataParams)
     await updateIssuanceTokenDayData(updateTimeDataParams)
-  }
+  })
 )
 
 // COLLATERAL FEE
 FM_PC_ExternalPrice_Redeeming_v1.ProtocolFeeTransferred.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const id = `${event.chainId}-${event.srcAddress}`
     const bc = (await context.OraclePriceFM.get(id))!
 
@@ -206,5 +207,5 @@ FM_PC_ExternalPrice_Redeeming_v1.ProtocolFeeTransferred.handler(
 
     await updateIssuanceTokenHourData(updateTimeDataParams)
     await updateIssuanceTokenDayData(updateTimeDataParams)
-  }
+  })
 )

@@ -5182,5 +5182,149 @@
       "decimals": 18,
       "address": "0xc530B75465Ce3c6286e718110A7B2e2B64Bdc860"
     }
+  },
+  "0xe5948fad93c2b4c132a9cabd3658a9f22277d9b8-11155111": {
+    "meta": {},
+    "content": {
+      "name": "JIM AIGent",
+      "symbol": "JIM",
+      "decimals": 18,
+      "address": "0xE5948fAd93c2B4C132a9CaBd3658A9F22277d9b8"
+    }
+  },
+  "0x8031373441d786d37e936b05be5e4f148028d042-11155111": {
+    "meta": {},
+    "content": {
+      "name": "JIM AIGent",
+      "symbol": "JIM",
+      "decimals": 18,
+      "address": "0x8031373441D786d37E936B05be5e4F148028d042"
+    }
+  },
+  "0x1f53f595e6ac02eac19ebb23e86e896f766f02f0-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Shiba Inu",
+      "symbol": "SHIB",
+      "decimals": 18,
+      "address": "0x1F53f595E6ac02eac19eBb23e86e896F766f02F0"
+    }
+  },
+  "0x457391adeef8803d0016314ed7af6b2662fd3267-11155111": {
+    "meta": {},
+    "content": {
+      "name": "BlubBlob",
+      "symbol": "BLUB",
+      "decimals": 18,
+      "address": "0x457391ADEEf8803D0016314eD7aF6B2662Fd3267"
+    }
+  },
+  "0x360a71d97b7340906954508a208deaf6b2cb235b-11155111": {
+    "meta": {},
+    "content": {
+      "name": "JIM AIGent",
+      "symbol": "JIM",
+      "decimals": 18,
+      "address": "0x360A71d97b7340906954508A208DEaF6b2Cb235B"
+    }
+  },
+  "0xf80da1cb12e7d8c80c0102563c1b9fad34c29d93-84532": {
+    "meta": {},
+    "content": {
+      "name": "ABC TOKEN",
+      "symbol": "ABC",
+      "decimals": 18,
+      "address": "0xF80dA1cB12e7D8C80c0102563C1b9FaD34C29D93"
+    }
+  },
+  "0x42fb8742381d5ce84d91b168de1e916d237d2875-137": {
+    "meta": {},
+    "content": {
+      "name": "FluxPay",
+      "symbol": "FLX",
+      "decimals": 18,
+      "address": "0x42fb8742381D5cE84D91B168De1e916D237D2875"
+    }
+  },
+  "0x421950207ce6fdd3abf1e1a9ca1c5e7bcc2f9941-84532": {
+    "meta": {},
+    "content": {
+      "name": "ABC TOKEN",
+      "symbol": "ABC",
+      "decimals": 18,
+      "address": "0x421950207ce6fDD3AbF1e1A9Ca1C5E7BcC2f9941"
+    }
+  },
+  "0x668f5965c26e5df5e9917f0d7d3367c8d8433682-137": {
+    "meta": {},
+    "content": {
+      "name": "MyToken",
+      "symbol": "MTK",
+      "decimals": 18,
+      "address": "0x668f5965C26e5dF5E9917f0d7D3367c8d8433682"
+    }
+  },
+  "0xff1a6f79de0b5b7fa47bca5ba4ed4892acc9b17e-137": {
+    "meta": {},
+    "content": {
+      "name": "ABC TOKEN",
+      "symbol": "ABC",
+      "decimals": 18,
+      "address": "0xfF1a6f79DE0b5b7fA47bCA5bA4Ed4892aCc9B17e"
+    }
+  },
+  "0xe535660123932cc17342a0391cdfbfd0d4f93ce2-137": {
+    "meta": {},
+    "content": {
+      "name": "ABC TOKEN",
+      "symbol": "ABC",
+      "decimals": 18,
+      "address": "0xe535660123932cC17342A0391cdfBFd0d4F93Ce2"
+    }
+  },
+  "0x7835611bf9475e489b9bef3c9c534eb97f195ec9-137": {
+    "meta": {},
+    "content": {
+      "name": "ABC TOKEN",
+      "symbol": "ABC",
+      "decimals": 18,
+      "address": "0x7835611BF9475E489b9Bef3C9c534Eb97f195Ec9"
+    }
+  },
+  "0xa5f2228980613f5f1d7a310021fbfa9bd165bc32-137": {
+    "meta": {},
+    "content": {
+      "name": "ABC TOKEN",
+      "symbol": "ABC",
+      "decimals": 18,
+      "address": "0xA5f2228980613F5F1D7A310021FbFa9bD165bC32"
+    }
+  },
+  "0x7b3825f8c8157ae4d2d3a45a130867e2fa7a57d3-11155111": {
+    "meta": {},
+    "content": {
+      "name": "JIM AIGent",
+      "symbol": "JIM",
+      "decimals": 18,
+      "address": "0x7B3825f8c8157ae4d2d3A45A130867E2fa7A57D3"
+    }
+  },
+  "0x2c0b3f380494d42bcafd38fa8e3f0b62adf36909-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Shiba Inu",
+      "symbol": "SHIB",
+      "decimals": 18,
+      "address": "0x2c0B3F380494d42bcAfD38FA8E3F0B62ADF36909"
+    }
+  },
+  "0xdb95b45ec7acc082d978a6fcbacccf5a47386db3-11155420": {
+    "meta": {},
+    "content": {
+      "name": "BL4CK1IST3D",
+      "symbol": "BLCKISTD",
+      "decimals": 18,
+      "address": "0xDB95b45Ec7acC082d978a6FcBAcccf5A47386Db3"
+    }
   }
 }

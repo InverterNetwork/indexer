@@ -2,6 +2,72 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.31](https://github.com/InverterNetwork/indexer/compare/v0.9.30...v0.9.31) (2025-03-20)
+
+
+### Features
+
+* owner is indexed for blacklist issuance token ([fceba78](https://github.com/InverterNetwork/indexer/commit/fceba78f00c26ad5f838a82441af84416821f194))
+
+### [0.9.30](https://github.com/InverterNetwork/indexer/compare/v0.9.29...v0.9.30) (2025-03-19)
+
+### [0.9.29](https://github.com/InverterNetwork/indexer/compare/v0.9.28...v0.9.29) (2025-03-19)
+
+
+### Bug Fixes
+
+* historical role type for blacklist ([505d791](https://github.com/InverterNetwork/indexer/commit/505d791f7ddb5ec0add104158fde018da8e26f20))
+
+### [0.9.28](https://github.com/InverterNetwork/indexer/compare/v0.9.27...v0.9.28) (2025-03-19)
+
+
+### Features
+
+* historical role has been added ([0f2d7bd](https://github.com/InverterNetwork/indexer/commit/0f2d7bd4360fa16992c1d0acc25cec310d8cc5b4))
+* **schema:** add base interfaces for fees and interval data ([2835dce](https://github.com/InverterNetwork/indexer/commit/2835dcef7c2f87d49facbf1732c5613e73f95687))
+* **schema:** refactor schema types and add parse-schema script ([d962bef](https://github.com/InverterNetwork/indexer/commit/d962bef9e91230354b0a876cef3e573f164b9cc5))
+
+
+### Bug Fixes
+
+* enhance dev script for better process management ([ec18665](https://github.com/InverterNetwork/indexer/commit/ec186653a722e2656757fa3d3f23e0f3fb233eda))
+* streamline dev script in package.json ([0fd7009](https://github.com/InverterNetwork/indexer/commit/0fd700925d45e5947b2432daba58a488f0194e93))
+* update scripts and package.json for codegen process ([33a49e3](https://github.com/InverterNetwork/indexer/commit/33a49e3d941b720aa31e97b4c833cd1b986a68e9))
+
+### [0.9.27](https://github.com/InverterNetwork/indexer/compare/v0.9.26...v0.9.27) (2025-03-12)
+
+### [0.9.26](https://github.com/InverterNetwork/indexer/compare/v0.9.25...v0.9.26) (2025-03-11)
+
+### [0.9.25](https://github.com/InverterNetwork/indexer/compare/v0.9.24...v0.9.25) (2025-03-11)
+
+### [0.9.24](https://github.com/InverterNetwork/indexer/compare/v0.9.23...v0.9.24) (2025-03-11)
+
+
+### Bug Fixes
+
+* blacklist manager schema updated ([2a05904](https://github.com/InverterNetwork/indexer/commit/2a05904fb17183f7280d5fddc37204b883c3c140))
+
+### [0.9.23](https://github.com/InverterNetwork/indexer/compare/v0.9.22...v0.9.23) (2025-03-10)
+
+
+### Bug Fixes
+
+* updated to latest blacklist issuance token ([a9baaa9](https://github.com/InverterNetwork/indexer/commit/a9baaa93fd25f41ddad09d1646947c860ee8d45e))
+
+### [0.9.22](https://github.com/InverterNetwork/indexer/compare/v0.9.21...v0.9.22) (2025-03-06)
+
+
+### Features
+
+* **factory:** add staking module metadata functions and events ([d1190c0](https://github.com/InverterNetwork/indexer/commit/d1190c0d061d62171cea8642b43d425b2e809bda))
+* **schema:** update MigratingPIM entity with additional data relations ([51bc6e3](https://github.com/InverterNetwork/indexer/commit/51bc6e31491cb7b39c48c5f85abb12c53652c2da))
+
+
+### Bug Fixes
+
+* **ci:** update ( envio changed the cmd ) migration setup command in workflow ([d0ebea0](https://github.com/InverterNetwork/indexer/commit/d0ebea0157a799d9727dc712f7922701541f4262))
+* **factory:** resolve workflow reference in migrating PIM handler ([994c218](https://github.com/InverterNetwork/indexer/commit/994c218636a4818f5884185231eb9ddb6a04e9ef))
+
 ### [0.9.21](https://github.com/InverterNetwork/indexer/compare/v0.9.21-alpha.0...v0.9.21) (2025-03-05)
 
 ### [0.9.20](https://github.com/InverterNetwork/indexer/compare/v0.9.19...v0.9.20) (2025-03-01)

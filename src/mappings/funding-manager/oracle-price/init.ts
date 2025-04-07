@@ -9,14 +9,17 @@ import {
   getPublicClient,
   getBalanceOf,
   initBlacklistIssuanceToken,
+  getOwner,
+  handlerErrorWrapper,
 } from '../../../utils'
+
 import { parseAbiItem } from 'viem'
 
 // Module Initialization
 // ----------------------------------------------------------------------------
 
 FM_PC_ExternalPrice_Redeeming_v1.ModuleInitialized.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const address = event.srcAddress
     const workflow_id = `${event.chainId}-${event.params.parentOrchestrator}`
 
@@ -95,6 +98,11 @@ FM_PC_ExternalPrice_Redeeming_v1.ModuleInitialized.handler(
 
     // Initial setup of Blacklist Issuance Token
 
+    const owner = await getOwner({
+      tokenAddress: issuanceTokenAddress,
+      chainId: event.chainId,
+    })
+
     await initBlacklistIssuanceToken({
       event,
       context,
@@ -102,16 +110,17 @@ FM_PC_ExternalPrice_Redeeming_v1.ModuleInitialized.handler(
       properties: {
         token_id: issuanceToken_id,
         oraclePriceFM_id: `${event.chainId}-${event.srcAddress}`,
+        owner,
       },
     })
-  }
+  })
 )
 
 // Project Treasury Updated
 // ----------------------------------------------------------------------------
 
 FM_PC_ExternalPrice_Redeeming_v1.ProjectTreasuryUpdated.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const id = `${event.chainId}-${event.srcAddress}`
     const bc = (await context.OraclePriceFM.get(id))!
 
@@ -123,14 +132,14 @@ FM_PC_ExternalPrice_Redeeming_v1.ProjectTreasuryUpdated.handler(
       },
       prevData: bc,
     })
-  }
+  })
 )
 
 // Oracle Updated
 // ----------------------------------------------------------------------------
 
 FM_PC_ExternalPrice_Redeeming_v1.OracleUpdated.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const chainId = event.chainId
     const id = `${chainId}-${event.srcAddress}`
     const newPriceSetter = event.params.newOracle_
@@ -165,14 +174,14 @@ FM_PC_ExternalPrice_Redeeming_v1.OracleUpdated.handler(
         externalPriceSetter_id: priceSetterId,
       },
     })
-  }
+  })
 )
 
 // Redemption Amount Updated
 // ----------------------------------------------------------------------------
 
 FM_PC_ExternalPrice_Redeeming_v1.RedemptionAmountUpdated.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const oraclePriceFM_id = `${event.chainId}-${event.srcAddress}`
     const entity = (await context.OraclePriceFM.get(oraclePriceFM_id))!
     const token = (await context.Token.get(entity.collateralToken_id))!
@@ -191,14 +200,14 @@ FM_PC_ExternalPrice_Redeeming_v1.RedemptionAmountUpdated.handler(
         pendingRedemptionUSD,
       },
     })
-  }
+  })
 )
 
 // Reserve Deposited
 // ----------------------------------------------------------------------------
 
 FM_PC_ExternalPrice_Redeeming_v1.ReserveDeposited.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const id = `${event.chainId}-${event.srcAddress}`
     const op = (await context.OraclePriceFM.get(id))!
 
@@ -224,7 +233,7 @@ FM_PC_ExternalPrice_Redeeming_v1.ReserveDeposited.handler(
         reserveUSD,
       },
     })
-  }
+  })
 )
 
 // Issuance Token Set - Register Blacklist Issuance Token to Indexer

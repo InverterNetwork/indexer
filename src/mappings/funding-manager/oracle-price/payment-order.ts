@@ -6,6 +6,7 @@ import {
   getBalanceOf,
   getIssPriceFromCol,
   getQtyAndPrice,
+  handlerErrorWrapper,
   IssuanceTokenIntervalProperties,
   updateCurveDayData,
   updateCurveHourData,
@@ -20,7 +21,7 @@ import {
 // ----------------------------------------------------------------------------
 
 FM_PC_ExternalPrice_Redeeming_v1.TokensBought.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const id = `${event.chainId}-${event.srcAddress}`
     const op = (await context.OraclePriceFM.get(id))!
 
@@ -129,14 +130,14 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensBought.handler(
         reserveUSD,
       },
     })
-  }
+  })
 )
 
 // SELL OPERATIONS
 // ----------------------------------------------------------------------------
 
 FM_PC_ExternalPrice_Redeeming_v1.PaymentOrderAdded.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     if (event.params.data.length == 0) {
       context.log.error(`Invalid payment order data`)
       return
@@ -206,11 +207,11 @@ FM_PC_ExternalPrice_Redeeming_v1.PaymentOrderAdded.handler(
         amountUSD,
       },
     })
-  }
+  })
 )
 
 FM_PC_ExternalPrice_Redeeming_v1.TokensSold.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const id = `${event.chainId}-${event.srcAddress}`
     const op = (await context.OraclePriceFM.get(id))!
 
@@ -290,5 +291,5 @@ FM_PC_ExternalPrice_Redeeming_v1.TokensSold.handler(
         reserveUSD,
       },
     })
-  }
+  })
 )

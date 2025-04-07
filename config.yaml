@@ -99,6 +99,24 @@ contracts:
       - event: OracleUpdated
       - event: ReserveDeposited
       - event: IssuanceTokenSet
+  - name: FM_PC_Oracle_Redeeming_v1
+    abi_file_path: abis/FM_PC_ExternalPrice_Redeeming_v1.json
+    handler: src/mappings/funding-manager/oracle-price/index.ts
+    events:
+      - event: ModuleInitialized
+      - event: ProjectTreasuryUpdated
+      - event: BuyFeeUpdated
+      - event: SellFeeUpdated
+      - event: TokensBought
+      - event: TokensSold
+      - event: ProjectCollateralFeeAdded
+      - event: ProtocolFeeMinted
+      - event: ProtocolFeeTransferred
+      - event: RedemptionAmountUpdated
+      - event: PaymentOrderAdded
+      - event: OracleUpdated
+      - event: ReserveDeposited
+      - event: IssuanceTokenSet
   - name: PP_Queue_v1
     abi_file_path: abis/PP_Queue_v1.json
     handler: src/mappings/payment-processor/queue.ts
@@ -128,6 +146,7 @@ contracts:
       - event: RemovedFromBlacklist
       - event: BlacklistManagerUpdated
       - event: MinterSet
+      - event: OwnershipTransferred
 networks:
   - id: 11155420
     start_block: 16141643
@@ -226,7 +245,7 @@ networks:
       - name: Orchestrator_v1
         address:
       - name: Migrating_PIM_Factory_v1
-        address: 0xA89eaC3Fc5945e465256EBe4639E9dcdcD51B34C
+        address: 0x7642c259c95e50Ca6B1104f22F2B344118c13e74
       - name: AUT_Roles_v1
         address:
       - name: BondingCurve # renamed to solve postgres conflict due to length of name
@@ -254,6 +273,8 @@ networks:
         address: 0x5Da8231feE106f4A43e07f2EEE95564467A1Ee58
       - name: OrchestratorFactory_v1
         address: 0x6ecA5f791d9635e4a1874cCD95564F914fBCF73d
+      - name: Migrating_PIM_Factory_v1
+        address: 0xABfd5175d1089eEbfde11b88783eEF2c60FC474c
       - name: Orchestrator_v1
         address:
       - name: AUT_Roles_v1

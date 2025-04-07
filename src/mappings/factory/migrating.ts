@@ -1,10 +1,17 @@
 import { Migrating_PIM_Factory_v1 } from 'generated'
-import { formatUnitsToBD, updateToken } from '../../utils'
+import { formatUnitsToBD, handlerErrorWrapper, updateToken } from '../../utils'
 
 Migrating_PIM_Factory_v1.PIMWorkflowCreated.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const chainId = event.chainId
-    const id = `${chainId}-${event.params.orchestrator}`
+    const workflow_id = `${chainId}-${event.params.orchestrator}`
+    const workflow = await context.Workflow.get(workflow_id)
+
+    if (!workflow) {
+      throw new Error('Workflow not found')
+    }
+
+    const id = workflow.fundingManager_id
 
     const collateralToken = await updateToken({
       context,
@@ -33,7 +40,7 @@ Migrating_PIM_Factory_v1.PIMWorkflowCreated.handler(
       chainId,
       address: event.srcAddress,
 
-      workflow_id: `${chainId}-${event.params.orchestrator}`,
+      workflow_id,
 
       issuanceToken_id: `${event.chainId}-${event.params.issuanceToken}`,
       collateralToken_id: `${event.chainId}-${event.params.collateralToken}`,
@@ -44,39 +51,48 @@ Migrating_PIM_Factory_v1.PIMWorkflowCreated.handler(
       migrationConfig_id: id,
       graduation_id: id,
     })
-  }
+  })
 )
 
-Migrating_PIM_Factory_v1.Graduation.handler(async ({ event, context }) => {
-  const chainId = event.chainId
-  const id = `${chainId}-${event.params.orchestrator}`
+Migrating_PIM_Factory_v1.Graduation.handler(
+  handlerErrorWrapper(async ({ event, context }) => {
+    const chainId = event.chainId
+    const workflow_id = `${chainId}-${event.params.orchestrator}`
+    const workflow = await context.Workflow.get(workflow_id)
 
-  const migratingPim = (await context.MigratingPIM.get(id))!
-  const issuanceToken = (await context.Token.get(
-    migratingPim.issuanceToken_id
-  ))!
-  const collateralToken = (await context.Token.get(
-    migratingPim.collateralToken_id
-  ))!
+    if (!workflow) {
+      throw new Error('Workflow not found')
+    }
 
-  const issuanceTokenAmount = formatUnitsToBD(
-    event.params.issuanceTokenAmount,
-    issuanceToken.decimals
-  )
+    const id = workflow.fundingManager_id
 
-  const collateralTokenAmount = formatUnitsToBD(
-    event.params.collateralTokenAmount,
-    collateralToken.decimals
-  )
+    const migratingPim = (await context.MigratingPIM.get(id))!
+    const issuanceToken = (await context.Token.get(
+      migratingPim.issuanceToken_id
+    ))!
+    const collateralToken = (await context.Token.get(
+      migratingPim.collateralToken_id
+    ))!
 
-  context.Graduation.set({
-    id,
+    const issuanceTokenAmount = formatUnitsToBD(
+      event.params.issuanceTokenAmount,
+      issuanceToken.decimals
+    )
 
-    issuanceTokenAmount,
-    collateralTokenAmount,
-    pool: event.params.pool,
+    const collateralTokenAmount = formatUnitsToBD(
+      event.params.collateralTokenAmount,
+      collateralToken.decimals
+    )
 
-    timestamp: event.block.timestamp,
-    txHash: event.transaction.hash,
+    context.Graduation.set({
+      id,
+
+      issuanceTokenAmount,
+      collateralTokenAmount,
+      pool: event.params.pool,
+
+      timestamp: event.block.timestamp,
+      txHash: event.transaction.hash,
+    })
   })
-})
+)

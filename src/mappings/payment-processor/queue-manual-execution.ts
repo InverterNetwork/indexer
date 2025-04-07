@@ -4,10 +4,11 @@ import {
   RedemptionState,
   getBalanceOf,
   updateOraclePrice,
+  handlerErrorWrapper,
 } from '../../utils'
 
 PP_Queue_ManualExecution_v1.PaymentOrderStateChanged.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const orderId = event.params.orderId_
     const oraclePriceFM_id = `${event.chainId}-${event.params.client_}`
 
@@ -30,11 +31,11 @@ PP_Queue_ManualExecution_v1.PaymentOrderStateChanged.handler(
         executedTimestamp: isProcessed ? event.block.timestamp : 0,
       },
     })
-  }
+  })
 )
 
 PP_Queue_ManualExecution_v1.PaymentOrderQueued.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const chainId = event.chainId
     const orderId = event.params.orderId_
     const oraclePriceFM_id = `${chainId}-${event.params.client_}`
@@ -53,11 +54,11 @@ PP_Queue_ManualExecution_v1.PaymentOrderQueued.handler(
         recipient: event.params.recipient_,
       },
     })
-  }
+  })
 )
 
 PP_Queue_ManualExecution_v1.PaymentQueueExecuted.handler(
-  async ({ event, context }) => {
+  handlerErrorWrapper(async ({ event, context }) => {
     const oraclePriceFM_id = `${event.chainId}-${event.params.client_}`
     const op = (await context.OraclePriceFM.get(oraclePriceFM_id))!
     const collateralToken_id = op.collateralToken_id
@@ -81,5 +82,5 @@ PP_Queue_ManualExecution_v1.PaymentQueueExecuted.handler(
         reserveUSD,
       },
     })
-  }
+  })
 )

@@ -1,5 +1,6 @@
 import {
   BlacklistIssuanceToken_t,
+  BlacklistManager_t,
   BlacklistRole_t,
 } from 'generated/src/db/Entities.gen'
 import { eventLog, handlerContext } from 'generated'
@@ -36,12 +37,13 @@ export const initBlacklistIssuanceToken = async ({
       chainId,
       address: blacklistIssuanceTokenAddress,
 
+      owner: properties?.owner!,
+
       // workflow_id: properties?.workflow_id!,
 
       token_id: properties?.token_id!,
       oraclePriceFM_id: properties?.oraclePriceFM_id!,
 
-      manager: properties?.manager || [],
       minter: properties?.minter || [],
 
       ...properties,
@@ -85,12 +87,13 @@ export const updateBlacklistIssuanceToken = async ({
       chainId,
       address,
 
+      owner: properties?.owner!,
+
       // workflow_id: properties?.workflow_id!,
 
       token_id: properties?.token_id!,
       oraclePriceFM_id: properties?.oraclePriceFM_id!,
-      manager: properties?.manager!,
-      minter: properties?.minter!,
+      minter: properties?.minter || [],
 
       ...properties,
     } satisfies BlacklistIssuanceToken_t)
@@ -130,7 +133,7 @@ export const updateBlacklistedAccount = async ({
       id,
       token_id: properties?.token_id!,
       recipient: properties?.recipient!,
-      // blacklistedBy: event.params.blacklistManager_,
+      initiator: properties?.initiator!,
       status: 'REVOKED',
       timestamp: event.block.timestamp,
       txHash: event.block.hash,
@@ -141,6 +144,51 @@ export const updateBlacklistedAccount = async ({
   // If required fields are present, update the blacklisted account
   if (data.recipient && data.token_id) {
     context.BlacklistRole.set({
+      ...data,
+      ...properties,
+    })
+  }
+}
+
+export const updateBlacklistedManager = async ({
+  event,
+  context,
+  properties,
+  prevData,
+}: {
+  event: eventLog<any>
+  context: handlerContext
+  properties: Partial<Omit<BlacklistManager_t, 'id'>>
+  prevData?: BlacklistManager_t
+}) => {
+  const { chainId, srcAddress: address } = event
+
+  const id = `${chainId}-${address}-${event.params.account_}`
+
+  const data =
+    // PREVIOUS DATA
+    // --------------------------------------------------------------------------
+    prevData ||
+    ((await context.BlacklistManager.get(
+      id
+    )) as Writable<BlacklistManager_t>) ||
+    // DEFAULT STATE
+    // --------------------------------------------------------------------------
+    ({
+      id,
+      token_id: properties?.token_id!,
+      recipient: properties?.recipient!,
+      initiator: properties?.initiator!,
+      status: 'REVOKED',
+      timestamp: event.block.timestamp,
+      txHash: event.block.hash,
+
+      ...properties,
+    } satisfies BlacklistManager_t)
+
+  // If required fields are present, update the blacklisted manager
+  if (data.recipient && data.token_id) {
+    context.BlacklistManager.set({
       ...data,
       ...properties,
     })

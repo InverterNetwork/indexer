@@ -35,3 +35,4 @@ ref
 .DS_Store
 .env
 *.idea/
+!schema.graphql.bak
