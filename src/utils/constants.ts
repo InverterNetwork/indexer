@@ -15,7 +15,10 @@ export const moduleGroups = {
       entity: 'FM_DepositVault_v1',
     },
     externalPriceRedeeming: {
-      members: ['FM_PC_ExternalPrice_Redeeming_v1'],
+      members: [
+        'FM_PC_ExternalPrice_Redeeming_v1',
+        'FM_PC_Oracle_Redeeming_v1',
+      ],
       entity: 'ExternalPriceFundingManager',
     },
   },
