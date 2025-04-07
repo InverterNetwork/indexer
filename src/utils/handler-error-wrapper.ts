@@ -1,6 +1,5 @@
 import { eventLog, handlerContext } from 'generated'
 import { logger } from './logger'
-import chalk from 'chalk'
 
 export const handlerErrorWrapper =
   <T>(
@@ -22,14 +21,7 @@ export const handlerErrorWrapper =
     try {
       return await handler({ event, context })
     } catch (error) {
-      logger.error(
-        `Error in handler: ${JSON.stringify({
-          transaction: chalk.bold(event.transaction.hash),
-          logIndex: chalk.bold(event.logIndex),
-          srcAddress: chalk.bold(event.srcAddress),
-          chainId: chalk.bold(event.chainId),
-        })}`,
-        error
-      )
+      logger.error(`Error in handler`, event, error)
+      return
     }
   }
