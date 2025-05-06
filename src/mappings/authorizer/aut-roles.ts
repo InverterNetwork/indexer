@@ -60,7 +60,7 @@ AUT_Roles_v1.RoleGranted.handler(
       role: role?.roleName! || roleGen,
       status: 'GRANTED',
       timestamp: event.block.timestamp,
-      txHash: event.block.hash,
+      txHash: event.transaction.hash,
     })
   })
 )
@@ -101,7 +101,7 @@ AUT_Roles_v1.RoleRevoked.handler(
       role: role?.roleName! || roleGen,
       status: 'REVOKED',
       timestamp: event.block.timestamp,
-      txHash: event.block.hash,
+      txHash: event.transaction.hash,
     })
   })
 )

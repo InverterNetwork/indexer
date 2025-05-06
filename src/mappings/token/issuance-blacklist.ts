@@ -34,7 +34,7 @@ ERC20Issuance_Blacklist_v1.AddedToBlacklist.handler(
       role: 'BLACKLIST',
       status: 'GRANTED',
       timestamp: event.block.timestamp,
-      txHash: event.block.hash,
+      txHash: event.transaction.hash,
     })
   })
 )
@@ -67,7 +67,7 @@ ERC20Issuance_Blacklist_v1.RemovedFromBlacklist.handler(
       role: 'BLACKLIST',
       status: 'REVOKED',
       timestamp: event.block.timestamp,
-      txHash: event.block.hash,
+      txHash: event.transaction.hash,
     })
   })
 )
@@ -100,7 +100,7 @@ ERC20Issuance_Blacklist_v1.BlacklistManagerUpdated.handler(
       role: 'BLACKLIST',
       status: event.params.allowed_ ? 'GRANTED' : 'REVOKED',
       timestamp: event.block.timestamp,
-      txHash: event.block.hash,
+      txHash: event.transaction.hash,
     })
   })
 )
