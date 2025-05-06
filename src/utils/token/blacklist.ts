@@ -136,7 +136,7 @@ export const updateBlacklistedAccount = async ({
       initiator: properties?.initiator!,
       status: 'REVOKED',
       timestamp: event.block.timestamp,
-      txHash: event.block.hash,
+      txHash: event.transaction.hash,
 
       ...properties,
     } satisfies BlacklistRole_t)
@@ -181,7 +181,7 @@ export const updateBlacklistedManager = async ({
       initiator: properties?.initiator!,
       status: 'REVOKED',
       timestamp: event.block.timestamp,
-      txHash: event.block.hash,
+      txHash: event.transaction.hash,
 
       ...properties,
     } satisfies BlacklistManager_t)
