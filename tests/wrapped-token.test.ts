@@ -1,21 +1,14 @@
-import { expect } from 'chai'
-import { describe, it } from 'mocha'
+import { expect, describe, it } from 'bun:test'
 
-import { createPublicClient, http, parseAbiItem } from 'viem'
-import { sepolia } from 'viem/chains'
-import { deriveTokenAddress } from '../src/utils'
+import { deriveTokenAddress, getPublicClient } from '../src/utils'
+import { parseAbiItem } from 'viem'
 
 const address =
   '0x7E273aCbDF4b6Acb99dc1a3d3801E796E485a291'.toLowerCase() as `0x${string}`
 
 const chainId = 11155111
 
-const opPublicClient = createPublicClient({
-  chain: sepolia,
-  transport: http(`https://inverter.web3no.de/main/evm/${chainId}`),
-  batch: { multicall: true },
-  cacheTime: 60 * 1000, // 1 minute
-})
+const opPublicClient = getPublicClient(chainId)
 
 describe('#DERIVE_TOKEN_ADDRESS', () => {
   it('1. Should derive a token address by running steps', async () => {
@@ -122,7 +115,7 @@ describe('#DERIVE_TOKEN_ADDRESS', () => {
       console.error(error?.message ?? error?.cause ?? error)
     }
 
-    expect(success).to.be.true
+    expect(success).toBe(true)
   })
 
   it('2. Should derive a token address by using the derived token util', async () => {
@@ -136,6 +129,6 @@ describe('#DERIVE_TOKEN_ADDRESS', () => {
     console.info('DERIVED ADDRESS: ', derivedAddress)
     console.info('DERIVED TYPE: ', derivedType)
 
-    expect(derivedAddress.toLowerCase()).to.not.be.equal(address)
+    expect(derivedAddress.toLowerCase()).not.toBe(address)
   })
 })
