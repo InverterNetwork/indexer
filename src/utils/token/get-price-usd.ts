@@ -1,3 +1,4 @@
+import dotenv from 'dotenv'
 import {
   getSimpleNetworksByNetworkTokenPriceByAddresses,
   setGeckotermAPIConfig,
@@ -11,6 +12,9 @@ import { CacheContainer } from 'node-ts-cache'
 import { NodeFsStorage } from 'node-ts-cache-storage-node-fs'
 import { ZERO_BD } from '..'
 import { createDirIfNotExists } from '../base'
+
+dotenv.config()
+
 const longTermCacheDir = createDirIfNotExists('.cache')
 
 const midTermUsdPriceCache = new CacheContainer(
