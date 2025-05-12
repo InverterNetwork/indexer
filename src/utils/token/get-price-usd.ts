@@ -17,11 +17,11 @@ const midTermUsdPriceCache = new CacheContainer(
   new NodeFsStorage(`${longTermCacheDir}/usd-price.json`)
 )
 
+// Make sure we're using an absolute URL with protocol
 setGeckotermAPIConfig({
   baseUrl: 'https://api.geckoterminal.com/api/v2',
-  // Replace with your API key / if you have one
   headers: {
-    Authorization: `Bearer ${process.env.GECKOTERM_API_KEY}`,
+    Authorization: `Bearer ${process.env.GECKOTERM_API_KEY || ''}`,
   },
 })
 
@@ -51,7 +51,7 @@ export async function getPriceUSD({
   try {
     const result = await getSimpleNetworksByNetworkTokenPriceByAddresses({
       path: {
-        addresses: address,
+        addresses: address.toLowerCase(), // Ensure address is lowercase
         network: chainLabel,
       },
     })

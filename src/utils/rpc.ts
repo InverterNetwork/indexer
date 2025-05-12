@@ -35,7 +35,7 @@ export const chains = [
 export const publicClients = chains.map((chain) =>
   createPublicClient({
     chain: chain as Chain,
-    transport: http(`https://inverter.web3no.de/main/evm/${chain.id}`),
+    transport: http(`https://rpc.inverter.network/main/evm/${chain.id}`),
     batch: { multicall: true },
     cacheTime: 60 * 1000, // 1 minute
   })
