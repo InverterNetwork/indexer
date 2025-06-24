@@ -27,6 +27,10 @@ export const moduleGroups = {
       members: ['LM_PC_Bounties_v1'],
       entity: 'LM_PC_Bounties_v1',
     },
+    externalPriceSetter: {
+      members: ['LM_ManualExternalPriceSetter_v1', 'LM_Oracle_Permissioned_v1'],
+      entity: 'ExternalPriceSetter',
+    },
   },
 }
 
@@ -34,6 +38,7 @@ export const moduleTitles = [
   ...moduleGroups.fundingManager.bondingCurves.members,
   ...moduleGroups.fundingManager.depositVaults.members,
   ...moduleGroups.logicModules.bounties.members,
+  ...moduleGroups.logicModules.externalPriceSetter.members,
 ]
 
 export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000'
