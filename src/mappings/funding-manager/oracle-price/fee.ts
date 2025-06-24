@@ -123,15 +123,6 @@ FM_PC_ExternalPrice_Redeeming_v1.ProtocolFeeMinted.handler(
       },
     })
 
-    // await updateBondingCurve({
-    //   context,
-    //   event,
-    //   prevData: bc,
-    //   properties: {
-    //     // virtualISS,
-    //   },
-    // })
-
     const updateTimeDataParams = {
       context,
       event,

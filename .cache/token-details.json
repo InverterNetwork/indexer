@@ -6019,5 +6019,86 @@
       "decimals": 18,
       "address": "0xfB17f2E7F1f754B8C7613fFe6D44F744F2F6666f"
     }
+  },
+  "0x0fee94f3762a0cbc1b9eb1227fc8b9916d0a5283-11155420": {
+    "meta": {},
+    "content": {
+      "name": "MG 13 May 25",
+      "symbol": "MG130525",
+      "decimals": 18,
+      "address": "0x0Fee94f3762A0cbc1b9eB1227Fc8b9916D0A5283"
+    }
+  },
+  "0x29c3c4583b05c9e7d6b8c721bd704cc0d9da912a-11155420": {
+    "meta": {},
+    "content": {
+      "name": "MG 13 May 25",
+      "symbol": "MG130525",
+      "decimals": 18,
+      "address": "0x29C3c4583b05C9E7D6b8C721bD704cc0d9DA912A"
+    }
+  },
+  "0x96553a19ac73afe108f8b2fed8bb399477d66b76-11155420": {
+    "meta": {},
+    "content": {
+      "name": "MG 13 May 25 - 2",
+      "symbol": "MG130525",
+      "decimals": 18,
+      "address": "0x96553A19AC73Afe108f8b2feD8Bb399477d66B76"
+    }
+  },
+  "0x4b22b236b182b63ae9374797707af998afe59841-11155420": {
+    "meta": {},
+    "content": {
+      "name": "usdm protocol",
+      "symbol": "ML",
+      "decimals": 18,
+      "address": "0x4B22b236B182B63ae9374797707AF998AfE59841"
+    }
+  },
+  "0x0b2f13689a05bd0f8a05a5d786d55e7228ad466d-11155420": {
+    "meta": {},
+    "content": {
+      "name": "M Protocol USD",
+      "symbol": "ML",
+      "decimals": 18,
+      "address": "0x0B2F13689A05bd0f8A05a5d786D55E7228Ad466D"
+    }
+  },
+  "0x3c499c542cef5e3811e1192ce70d8cc03d5c3359-137": {
+    "meta": {},
+    "content": {
+      "name": "USD Coin",
+      "symbol": "USDC",
+      "decimals": 6,
+      "address": "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359"
+    }
+  },
+  "0x3c042431c55afa630e5af2c25cb7baad8d992a9e-137": {
+    "meta": {},
+    "content": {
+      "name": "33Audits",
+      "symbol": "33ADT",
+      "decimals": 18,
+      "address": "0x3c042431c55afA630e5af2C25CB7BAad8d992a9E"
+    }
+  },
+  "0xe02e052c2a5f25fc229e914ccb132190c8b25d19-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Test USP Yield Optimized Stablecoin",
+      "symbol": "USP-T",
+      "decimals": 18,
+      "address": "0xE02E052c2A5f25FC229e914CcB132190c8B25D19"
+    }
+  },
+  "0x69e87ff2a5bc3553275e86b3b84088a6cc00e96b-11155111": {
+    "meta": {},
+    "content": {
+      "name": "Test USP Yield Optimized Stablecoin",
+      "symbol": "T-USP",
+      "decimals": 18,
+      "address": "0x69E87FF2a5bc3553275e86B3b84088a6cc00E96B"
+    }
   }
 }

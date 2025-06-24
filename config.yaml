@@ -132,6 +132,13 @@ contracts:
       - event: ModuleInitialized
       - event: IssuancePriceSet
       - event: RedemptionPriceSet
+  - name: LM_Oracle_Permissioned_v1
+    abi_file_path: abis/LM_ManualExternalPriceSetter_v1.json
+    handler: src/mappings/logic-module/manual-external-price-setter.ts
+    events:
+      - event: ModuleInitialized
+      - event: IssuancePriceSet
+      - event: RedemptionPriceSet
   - name: ERC20Issuance_Blacklist_v1
     abi_file_path: abis/ERC20Issuance_Blacklist_v1.json
     handler: src/mappings/token/issuance-blacklist.ts
