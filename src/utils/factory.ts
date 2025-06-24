@@ -44,6 +44,10 @@ export const registerModule = (
     return context.addFM_PC_ExternalPrice_Redeeming_v1(event.params.m)
   }
 
+  if (moduleGroups.logicModules.externalPriceSetter.members.includes(name)) {
+    return context.addLM_ManualExternalPriceSetter_v1(event.params.m)
+  }
+
   // default: try to register module based on its distinct ABI
   try {
     // @ts-ignore indexing will be rolled out gradually for various modules
