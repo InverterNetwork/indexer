@@ -139,11 +139,11 @@ jobs:
       - name: Create Task Definition
         id: task-def
         run: |
-          MIGRATE_SETUP='node -e "require('\''./generated/src/db/Migrations.bs.js'\'').runUpMigrations(true, true)"'
-          MIGRATE_UP='node -e "require('\''./generated/src/db/Migrations.bs.js'\'').runUpMigrations(true)"'
-          MIGRATE_DOWN='node -e "require('\''./generated/src/db/Migrations.bs.js'\'').runDownMigrations(true)"'
+          MIGRATE_SETUP='node -e "require('\''./generated/src/db/Migrations.res.js'\'').runUpMigrations(true, true)"'
+          MIGRATE_UP='node -e "require('\''./generated/src/db/Migrations.res.js'\'').runUpMigrations(true)"'
+          MIGRATE_DOWN='node -e "require('\''./generated/src/db/Migrations.res.js'\'').runDownMigrations(true)"'
           GRANT_PERMISSIONS='pnpm ts-node scripts/grant-aggregate-permissions.ts'
-          RUN_INDEXER='TUI_OFF=true pnpm ts-node generated/src/Index.bs.js'
+          RUN_INDEXER='TUI_OFF=true pnpm ts-node generated/src/Index.res.js'
 
           case "${{ inputs.env }}" in
             "SCHEMA_CHANGED")
@@ -251,15 +251,15 @@ jobs:
            --deployment-group-name ${{ env.REPO_NAME }}-${{ env.PLATFORM }}-dg \
            --query 'deployments[0]' \
            --output text)
-          
+
           echo "Waiting for deployment $DEPLOYMENT_ID to complete..."
-          
+
           while true; do
             STATUS=$(aws deploy get-deployment \
             --deployment-id $DEPLOYMENT_ID \
             --query 'deploymentInfo.status' \
             --output text)
-          
+
             if [[ "$STATUS" == "Succeeded" ]]; then
               echo "Deployment completed successfully!"
               break
@@ -271,7 +271,7 @@ jobs:
               --output json
               exit 1
             fi
-          
+
             echo "Deployment status: $STATUS. Waiting..."
             sleep 30
           done
@@ -332,7 +332,6 @@ jobs:
             --region ${{ env.REGION }}
 
           echo "Successfully updated HTTPS listener to forward to HTTP target group"
-     
 
       - name: Slack Notification
         uses: act10ns/slack@v1
