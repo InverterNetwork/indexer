@@ -6426,5 +6426,29 @@
   "0x412675f102a39217dd04a118bbd98688298efb56-11155111-issuance": {
     "meta": {},
     "content": "0x69E87FF2a5bc3553275e86B3b84088a6cc00E96B"
+  },
+  "0x773b24ecfc134d3d0cc213eca0f8cdf0e17f94fa-11155111-token": {
+    "meta": {},
+    "content": "0x065775C7aB4E60ad1776A30DCfB15325d231Ce4F"
+  },
+  "0x773b24ecfc134d3d0cc213eca0f8cdf0e17f94fa-11155111-issuance": {
+    "meta": {},
+    "content": "0xf356a47b1C5107680DaA77812caceA616B67d914"
+  },
+  "0x0f631d41b436883396b322961b1889a556d20b39-11155111-token": {
+    "meta": {},
+    "content": "0x065775C7aB4E60ad1776A30DCfB15325d231Ce4F"
+  },
+  "0x0f631d41b436883396b322961b1889a556d20b39-11155111-issuance": {
+    "meta": {},
+    "content": "0x914C50e86C389d3E8132cD2Cc096dd50aCeF4c36"
+  },
+  "0x00fa96aa2ca129f2786fe8a7bb16e55c2b114b19-11155111-token": {
+    "meta": {},
+    "content": "0x065775C7aB4E60ad1776A30DCfB15325d231Ce4F"
+  },
+  "0x00fa96aa2ca129f2786fe8a7bb16e55c2b114b19-11155111-issuance": {
+    "meta": {},
+    "content": "0xa2A8258225CdD051267Be5CdBe7BE3d10d0dcF79"
   }
 }
