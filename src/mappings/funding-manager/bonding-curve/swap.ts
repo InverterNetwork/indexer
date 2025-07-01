@@ -24,6 +24,7 @@ import {
 BondingCurve.TokensBought.handler(
   handlerErrorWrapper(async ({ event, context }) => {
     const id = `${event.chainId}-${event.srcAddress}`
+
     const bc = await context.BondingCurve.get(id)
 
     const issuanceToken_id = bc!.issuanceToken_id!
@@ -132,6 +133,7 @@ BondingCurve.TokensBought.handler(
 BondingCurve.TokensSold.handler(
   handlerErrorWrapper(async ({ event, context }) => {
     const id = `${event.chainId}-${event.srcAddress}`
+
     const bc = (await context.BondingCurve.get(id))!
 
     const issuanceToken_id = bc.issuanceToken_id

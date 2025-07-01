@@ -6,7 +6,10 @@ import { SourceTokenType_t } from 'generated/src/db/Enums.gen'
 
 import { eventLog, handlerContext } from 'generated'
 import { Writable, SetOptional } from 'type-fest'
-import { ZERO_BD, UTIL_DEBUG } from '..'
+import { ZERO_BD } from '..'
+import d from 'debug'
+
+const debug = d('utils:funding-manager:oracle-price')
 
 export const updateOraclePrice = async ({
   event,
@@ -133,7 +136,7 @@ export const updateOraclePriceOrder = async ({
     (await context.OraclePriceOrder.get(id)) as Writable<OraclePriceOrder_t>
 
   if (!data?.id) {
-    UTIL_DEBUG()(
+    debug(
       `updateOraclePriceOrder: was called before createOraclePriceOrder ID: ${id} }`,
       { data, properties }
     )

@@ -139,7 +139,7 @@ export async function getPriceUSD({
   }
 
   await midTermUsdPriceCache.setItem(cacheKey, usdPrice.toString(), {
-    ttl: 10 * 60 * 1000, // 10 minutes
+    ttl: 10 * 60, // 10 minutes
   })
 
   return usdPrice
