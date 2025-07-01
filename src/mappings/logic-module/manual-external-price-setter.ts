@@ -1,10 +1,9 @@
 import { LM_ManualExternalPriceSetter_v1 } from 'generated'
-import {
-  formatUnitsToBD,
-  handlerErrorWrapper,
-  MARKET_DEBUG,
-  ZERO_BD,
-} from '../../utils'
+import { formatUnitsToBD, handlerErrorWrapper, ZERO_BD } from '../../utils'
+
+import d from 'debug'
+
+const debug = d('logic-module:manual-external-price-setter')
 
 LM_ManualExternalPriceSetter_v1.ModuleInitialized.handler(
   handlerErrorWrapper(async ({ event, context }) => {
@@ -49,7 +48,7 @@ LM_ManualExternalPriceSetter_v1.RedemptionPriceSet.handler(
     )
 
     if (priceCOL.isZero()) {
-      MARKET_DEBUG()(`PriceCOL is Zero. ID: ${id} @ RedemptionPriceSet`, {
+      debug(`PriceCOL is Zero. ID: ${id} @ RedemptionPriceSet`, {
         eventParamsPrice_: event.params.price_,
         collateralTokenDecimals: collateralToken?.decimals,
       })
@@ -97,7 +96,7 @@ LM_ManualExternalPriceSetter_v1.IssuancePriceSet.handler(
     )
 
     if (priceISS.isZero()) {
-      MARKET_DEBUG()(`PriceISS is Zero. ID: ${id} @ IssuancePriceSet`, {
+      debug(`PriceISS is Zero. ID: ${id} @ IssuancePriceSet`, {
         eventParamsPrice_: event.params.price_,
         collateralTokenDecimals: collateralToken?.decimals,
       })

@@ -2,7 +2,9 @@ import { Swap_t, Token_t } from 'generated/src/db/Entities.gen'
 import { eventLog, handlerContext } from 'generated'
 import { ZERO_BD } from '../constants'
 import { formatUnitsToBD } from '../base'
-import { MARKET_DEBUG } from '../debug'
+import d from 'debug'
+
+const debug = d('utils:funding-manager')
 
 export * from './bonding-curve'
 export * from './oracle-price'
@@ -25,7 +27,7 @@ export const getQtyAndPrice = (
   if (priceCOL.isNaN()) priceCOL = ZERO_BD
 
   if (amountCOL.isNaN() || amountISS.isNaN() || priceCOL.isNaN()) {
-    MARKET_DEBUG()(
+    debug(
       `getQtyAndPrice has NaN -> amountCOL: ${amountCOL.toString()}, amountISS: ${amountISS.toString()}, priceCOL: ${priceCOL.toString()}`
     )
   }

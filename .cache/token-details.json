@@ -6100,5 +6100,32 @@
       "decimals": 18,
       "address": "0x69E87FF2a5bc3553275e86B3b84088a6cc00E96B"
     }
+  },
+  "0xf356a47b1c5107680daa77812cacea616b67d914-11155111": {
+    "meta": {},
+    "content": {
+      "name": "USP",
+      "symbol": "V2USP",
+      "decimals": 18,
+      "address": "0xf356a47b1C5107680DaA77812caceA616B67d914"
+    }
+  },
+  "0x914c50e86c389d3e8132cd2cc096dd50acef4c36-11155111": {
+    "meta": {},
+    "content": {
+      "name": "ayn25",
+      "symbol": "AYN25",
+      "decimals": 18,
+      "address": "0x914C50e86C389d3E8132cD2Cc096dd50aCeF4c36"
+    }
+  },
+  "0xa2a8258225cdd051267be5cdbe7be3d10d0dcf79-11155111": {
+    "meta": {},
+    "content": {
+      "name": "test lts",
+      "symbol": "TST",
+      "decimals": 18,
+      "address": "0xa2A8258225CdD051267Be5CdBe7BE3d10d0dcF79"
+    }
   }
 }

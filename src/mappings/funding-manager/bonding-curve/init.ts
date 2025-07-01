@@ -2,6 +2,8 @@ import { BondingCurve } from 'generated'
 
 import {
   deriveTokenAddress,
+  getIssPriceFromCol,
+  getStaticPriceCOL,
   handlerErrorWrapper,
   updateBondingCurve,
   updateToken,
@@ -24,15 +26,16 @@ BondingCurve.ModuleInitialized.handler(
       }
     )
 
-    const { id: collateralToken_id } = await updateToken({
-      event,
-      context,
-      derivedType: 'token',
-      properties: {
-        address: collateralTokenAddress,
-      },
-      triggerTotalSupply: true,
-    })
+    const { id: collateralToken_id, priceUSD: collateralTokenPriceUSD } =
+      await updateToken({
+        event,
+        context,
+        derivedType: 'token',
+        properties: {
+          address: collateralTokenAddress,
+        },
+        triggerTotalSupply: true,
+      })
 
     const { derivedAddress: issuanceTokenAddress } = await deriveTokenAddress({
       address,
@@ -40,12 +43,22 @@ BondingCurve.ModuleInitialized.handler(
       derivesTo: 'issuance',
     })
 
+    const priceCOL = await getStaticPriceCOL({
+      event,
+    })
+
+    const issuanceTokenPriceUSD = getIssPriceFromCol(
+      priceCOL,
+      collateralTokenPriceUSD
+    )
+
     const { id: issuanceToken_id } = await updateToken({
       event,
       context,
       derivedType: 'issuance',
       properties: {
         address: issuanceTokenAddress,
+        priceUSD: issuanceTokenPriceUSD,
       },
       triggerTotalSupply: true,
     })

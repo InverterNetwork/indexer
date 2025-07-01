@@ -3,8 +3,10 @@ import { getPublicClient } from '../rpc'
 import { CacheContainer } from 'node-ts-cache'
 import { NodeFsStorage } from 'node-ts-cache-storage-node-fs'
 import { createDirIfNotExists } from '../base'
-import { TOKEN_DEBUG } from '../debug'
 import { SourceTokenType_t } from 'generated/src/db/Enums.gen'
+import d from 'debug'
+
+const debug = d('utils:token:derive-token-address')
 
 const longTermCacheDir = createDirIfNotExists('.cache')
 
@@ -97,7 +99,7 @@ export async function deriveTokenAddress({
           functionName: 'issuanceToken',
         })
       } catch (error) {
-        TOKEN_DEBUG()(`Try unwrapping issuance token failed`)
+        debug(`Try unwrapping issuance token failed`)
       }
 
       // Return the fmIssuanceToken if it exists, else return the address
@@ -125,7 +127,7 @@ export async function deriveTokenAddress({
           break
       }
     } catch (error: any) {
-      TOKEN_DEBUG()(
+      debug(
         `Failed to derive @ derivesTo: ${derivesTo}, chainId: ${chainId}, address: ${address}`,
         error?.message ?? error?.cause ?? error
       )
@@ -137,12 +139,12 @@ export async function deriveTokenAddress({
       tokenAddress = await handleToken()
       derivedType = 'token'
     } catch (error) {
-      TOKEN_DEBUG()(`@ auto-derive collateral token address failed`, error)
+      debug(`@ auto-derive collateral token address failed`, error)
       try {
         tokenAddress = await handleIssuance()
         derivedType = 'issuance'
       } catch (error) {
-        TOKEN_DEBUG()(
+        debug(
           `Failed to derive @ auto-derive collateral & issuance token address: chainId: ${chainId}, address: ${address}`,
           error
         )
