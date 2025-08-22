@@ -7,33 +7,21 @@ import path from 'path'
 //===============================================================================
 
 // Parse command line arguments
-const isPre = process.argv[2] === 'pre'
-const isDryRun = process.argv[3] === '--dry-run'
+const isDryRun = process.argv[2] === '--dry-run'
 
 // File paths
+const CONFIG_SCHEMA_PATH = path.join(__dirname, '../config.schema.graphql')
 const SCHEMA_PATH = path.join(__dirname, '../schema.graphql')
-const BACKUP_PATH = path.join(__dirname, '../schema.graphql.bak')
 
 //===============================================================================
 // FILE OPERATIONS
 //===============================================================================
 
 /**
- * Reads the schema file from disk
+ * Reads the source schema file from config directory
  */
-function readSchemaFile() {
-  return fs.readFileSync(SCHEMA_PATH, 'utf8')
-}
-
-/**
- * Creates a backup of the original schema
- * @param schemaContent The schema content to backup
- */
-function createBackup(schemaContent: string) {
-  if (!isDryRun) {
-    fs.writeFileSync(BACKUP_PATH, schemaContent, 'utf8')
-    console.log('Backup created successfully')
-  }
+function readSourceSchemaFile() {
+  return fs.readFileSync(CONFIG_SCHEMA_PATH, 'utf8')
 }
 
 /**
@@ -47,24 +35,6 @@ function writeExpandedSchema(expandedSchema: string) {
   } else {
     fs.writeFileSync(SCHEMA_PATH, expandedSchema, 'utf8')
     console.log('Schema expanded successfully')
-  }
-}
-
-/**
- * Restores the original schema from backup
- */
-function restoreFromBackup() {
-  fs.writeFileSync(SCHEMA_PATH, fs.readFileSync(BACKUP_PATH, 'utf8'), 'utf8')
-  console.log('Original schema restored from backup')
-}
-
-/**
- * Removes the backup file
- */
-function removeBackup() {
-  if (!isDryRun) {
-    fs.unlinkSync(BACKUP_PATH)
-    console.log('Backup removed')
   }
 }
 
@@ -212,22 +182,19 @@ function removeInterfaceDefinitions(schema: string) {
 }
 
 //===============================================================================
-// MAIN HANDLERS
+// MAIN HANDLER
 //===============================================================================
 
 /**
- * Handles pre-codegen schema processing
+ * Processes the schema by expanding interface spreads
  */
-const handlePre = () => {
-  // Read the original schema
-  const orgSchema = readSchemaFile()
-
-  // Create backup of original schema
-  createBackup(orgSchema)
-
+const processSchema = () => {
   try {
+    // Read the source schema from config directory
+    const sourceSchema = readSourceSchemaFile()
+
     // Extract all type and interface definitions
-    const typeDefinitions = extractTypeDefinitions(orgSchema)
+    const typeDefinitions = extractTypeDefinitions(sourceSchema)
 
     // Resolve interface spreads within definitions
     const resolvedTypeDefinitions = resolveInterfaceSpreads(typeDefinitions)
@@ -237,7 +204,7 @@ const handlePre = () => {
 
     // Apply spread replacements until no more changes are made
     let expandedSchema = replaceAllSpreadsUntilStable(
-      orgSchema,
+      sourceSchema,
       replaceAllSpreads
     )
 
@@ -250,28 +217,12 @@ const handlePre = () => {
     process.exit(0)
   } catch (error) {
     console.error('Error during schema processing:', error)
-    if (!isDryRun) {
-      restoreFromBackup()
-    }
     process.exit(1)
   }
-}
-
-/**
- * Handles post-codegen cleanup
- */
-const handlePost = () => {
-  // Restore original schema and clean up
-  restoreFromBackup()
-  removeBackup()
 }
 
 //===============================================================================
 // MAIN EXECUTION
 //===============================================================================
 
-if (isPre) {
-  handlePre()
-} else {
-  handlePost()
-}
+processSchema()

@@ -1,1 +1,2 @@
+pnpm ts-node scripts/parse-schema.ts
 pnpm lint-staged --verbose
