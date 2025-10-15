@@ -12,6 +12,7 @@ import {
   polygon,
   optimism,
   mainnet,
+  linea,
 } from 'viem/chains'
 
 export const getERC20Contract = (address: Address) => ({
@@ -34,6 +35,7 @@ export const chains = [
   polygon,
   mainnet,
   optimism,
+  linea,
 ]
 
 export const publicClients = chains.map((chain) =>
