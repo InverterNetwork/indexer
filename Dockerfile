@@ -1,5 +1,5 @@
 # Stage 1: Build Stage
-FROM node:23.3.0-slim AS base
+FROM node:22-slim AS base
 
 # Install pnpm globally and install necessary build tools
 RUN npm install -g pnpm@9.4.0 && \
