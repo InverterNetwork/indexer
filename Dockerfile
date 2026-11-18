@@ -1,48 +1,44 @@
-# Stage 1: Build Stage
-FROM node:22-slim AS base
+FROM node:22.23.5-trixie-slim AS builder
 
-# Install pnpm globally and install necessary build tools
-RUN npm install -g pnpm@9.4.0 && \
+RUN npm install --global pnpm@10.34.9 && \
     apt-get update && \
-    apt-get install -y curl git python3 make g++ && \
-    apt-get clean && \
+    apt-get install -y --no-install-recommends git python3 make g++ && \
     rm -rf /var/lib/apt/lists/*
 
-FROM base AS builder
-
-# Set working directory
 WORKDIR /app
+ENV CI=true
+ENV npm_config_store_dir=/pnpm/store
 
-# Copy all files except node_modules
 COPY . .
-# Remove node_modules if they were copied
-RUN rm -rf node_modules ref tests graphql .github .env Dockerfile build
-
-# Install dependencies using BuildKit cache for pnpm store
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
-    pnpm install --frozen-lockfile
+    pnpm install --frozen-lockfile && \
+    pnpm codegen
 
-# Generate the schema ( codegen )
-RUN pnpm codegen
+# Install the production workspace from the checked-in lockfile after codegen
+# has created the generated workspace package.
+COPY pnpm-lock.yaml ./
+RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
+    pnpm install --prod --frozen-lockfile
 
-# Stage 2: Final Production Image
-FROM base
+FROM debian:trixie-slim
 
-# Set working directory
+# The ECS health check uses bash and curl.
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends bash ca-certificates curl libstdc++6 && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /usr/local/bin/node /usr/local/bin/node
+COPY --from=builder /usr/local/lib/node_modules/pnpm /usr/local/lib/node_modules/pnpm
+RUN ln -s ../lib/node_modules/pnpm/bin/pnpm.cjs /usr/local/bin/pnpm
+
 WORKDIR /app
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/generated ./generated
+COPY --from=builder /app/src ./src
+COPY --from=builder /app/scripts/grant-aggregate-permissions.ts ./scripts/
+COPY --from=builder /app/config.ts /app/package.json /app/tsconfig.json ./
 
-# Set up PNPM global directory
-ENV SHELL=/bin/sh
-ENV PNPM_HOME="/root/.local/share/pnpm"
-ENV PATH="${PNPM_HOME}:${PATH}"
-
-# Copy only necessary files and production dependencies
-COPY --from=builder /app .
-
-# Define default values for arguments
 ARG COMMAND_TYPE=SETUP
-# Transfer build arg to env var so it's available at runtime
 ENV COMMAND_TYPE=${COMMAND_TYPE}
 
-# The CMD will be overridden by the task definition
 CMD ["sh", "-c", "echo 'Waiting for command from task definition...' && sleep infinity"]

@@ -1,0 +1,11 @@
+.git
+.github
+.husky
+**/node_modules
+.env
+.env.*
+build
+generated
+graphql
+ref
+tests
