@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- you have **pnpm** installed
+- **Node.js 22** and **pnpm 10.34.9**, matching the container toolchain
 - you have **docker** installed
 - you have **envio** installed
 
