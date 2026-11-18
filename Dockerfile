@@ -18,6 +18,7 @@ RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
 # has created the generated workspace package.
 COPY pnpm-lock.yaml ./
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
+    rm -rf node_modules generated/node_modules && \
     pnpm install --prod --frozen-lockfile
 
 FROM debian:trixie-slim
