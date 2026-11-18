@@ -15,11 +15,13 @@ RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
     pnpm codegen
 
 # Install the production workspace from the checked-in lockfile after codegen
-# has created the generated workspace package.
+# has created the generated workspace package. Rebuild ReScript modules
+# in this tree so their compiled JavaScript ships with the indexer.
 COPY pnpm-lock.yaml ./
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
-    rm -rf node_modules generated/node_modules && \
-    pnpm install --prod --frozen-lockfile
+    rm -rf node_modules generated/node_modules generated/lib && \
+    pnpm install --prod --frozen-lockfile && \
+    pnpm --dir generated build
 
 FROM debian:trixie-slim
 
