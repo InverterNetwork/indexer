@@ -39,12 +39,21 @@
     "viem": "^2.21.0"
   },
   "dependencies": {
+    "@types/debug": "^4.1.12",
+    "@types/node": "20.8.8",
+    "@types/node-fetch": "^2.6.12",
+    "chalk": "4.1.2",
+    "debug": "^4.4.0",
+    "dotenv": "16.4.5",
     "envio": "^2.24.0",
     "geckoterm": "^0.2.4",
     "node-fetch": "^3.3.2",
     "node-ts-cache": "^4.4.0",
     "node-ts-cache-storage-memory": "^4.4.0",
-    "node-ts-cache-storage-node-fs": "^4.4.0"
+    "node-ts-cache-storage-node-fs": "^4.4.0",
+    "ts-node": "10.9.1",
+    "type-fest": "^4.37.0",
+    "typescript": "5.8.3"
   },
   "optionalDependencies": {
     "generated": "./generated"
@@ -54,20 +63,45 @@
     "@commitlint/config-conventional": "^19.7.1",
     "@genql/cli": "^6.3.3",
     "@types/bun": "^1.2.13",
-    "@types/debug": "^4.1.12",
     "@types/lodash": "^4.17.16",
-    "@types/node": "20.8.8",
-    "@types/node-fetch": "^2.6.12",
-    "debug": "^4.4.0",
     "eslint-plugin-import-x": "4.6.1",
     "eslint-plugin-prettier": "^5.2.3",
     "husky": "^9.1.7",
     "lint-staged": "^15.4.3",
     "prettier": "^3.5.3",
     "standard-version": "^9.5.0",
-    "ts-node": "10.9.1",
     "tsc-files": "^1.1.4",
-    "type-fest": "^4.37.0",
     "typescript-eslint": "^8.26.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "rescript"
+    ],
+    "overrides": {
+      "ajv@6": "6.14.0",
+      "ajv@8": "8.18.0",
+      "body-parser@1": "1.20.9",
+      "brace-expansion@1": "1.1.20",
+      "brace-expansion@2": "2.1.6",
+      "diff@4": "4.0.4",
+      "ethers>ws": "8.21.0",
+      "fast-uri@3": "3.1.7",
+      "flatted@3": "3.4.2",
+      "form-data@4": "4.0.6",
+      "handlebars@4": "4.7.10",
+      "ink>ws": "7.5.11",
+      "js-yaml@4": "4.3.2",
+      "lodash@4": "4.18.1",
+      "minimatch@3": "3.1.4",
+      "minimatch@5": "5.1.8",
+      "minimatch@9": "9.0.7",
+      "path-to-regexp@0.1": "0.1.13",
+      "picomatch@2": "2.3.2",
+      "proxy-addr@2": "2.0.8",
+      "qs@6": "6.14.2",
+      "react-devtools-core>ws": "7.5.11",
+      "shell-quote@1": "1.11.0",
+      "viem>ws": "8.21.0"
+    }
   }
 }
